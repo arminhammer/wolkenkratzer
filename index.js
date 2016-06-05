@@ -19,7 +19,7 @@ const AWS_STACK_NAME = 'AWS::StackName'
 
 class BaseAWSObject {
   constructor(name, resource_type, properties, propertiesObject) {
-    this.name = name
+    this.Name = name
     this.resource_type = resource_type
     this.properties = properties
     Object.keys(this.properties).forEach((prop) => {
@@ -40,19 +40,19 @@ class BaseAWSObject {
   }
   to_json() {
     debug('Generating Resource json')
-    let properties = this.properties
-    Object.keys(this.properties).forEach((prop) => {
+    let newProperties = JSON.parse(JSON.stringify(this.properties))
+    Object.keys(newProperties).forEach((prop) => {
       try {
-        properties[prop] = properties[prop].to_json()
+        newProperties[prop] = this.properties[prop].to_json()
       } catch(e) {
         if(e instanceof RequiredPropertyException) {
-          throw new RequiredPropertyException(this.name + '.' + prop + ' is required but not defined.')
+          throw new RequiredPropertyException(this.Name + '.' + prop + ' is required but not defined.')
         }
       }
     })
     return {
       Type: this.resource_type,
-      Properties: properties
+      Properties: newProperties
     }
   }
 }
@@ -84,16 +84,16 @@ class Template {
   _update(d, values) {
     if (Array.isArray(values)) {
       values.forEach((v) => {
-        if (v.name in d) {
-          this.handle_duplicate_key(v.name)
+        if (v.Name in d) {
+          this.handle_duplicate_key(v.Name)
         }
-        d[v.name] = v
+        d[v.Name] = v
       })
     } else {
-      if (values.name in d) {
-        this.handle_duplicate_key(values.name)
+      if (values.Name in d) {
+        this.handle_duplicate_key(values.Name)
       }
-      d[values.name] = values
+      d[values.Name] = values
     }
     return values
   }
@@ -114,8 +114,13 @@ class Template {
       this.Version = version
   }
   to_json() {
-    const j = this
-    Object.keys(j.Resources).forEach((resource) => { j.Resources[resource] = j.Resources[resource].to_json() })
+    let j = JSON.parse(JSON.stringify(this))
+    Object.keys(this.Resources).forEach((resource) => {
+      //console.log('resource:')
+      //console.log(resource)
+      j.Resources[resource] = this.Resources[resource].to_json()
+      //j.Resources[resource] = j.Resources[resource].to_json()
+    })
     return JSON.stringify(j, null, 2)
   }
 }
@@ -139,17 +144,18 @@ function TypeException(message) {
 }
 
 class ResourceProperty {
-  constructor(type, required, value) {
-    this.type = type
+  constructor(Type, required, value) {
+    this.Type = Type
     this.required = required
     this.val = value
   }
   set(value) {
-    if(typeof value === 'string') { value = new String(value) }
-    if(value instanceof this.type) {
+    let valueType = value
+    if(typeof value === 'string') { valueType = new String(value) }
+    if(valueType instanceof this.Type) {
       this.val = value
     } else {
-      throw new TypeException(value + ' is the wrong type, was expecting ' + this.type)
+      throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
     }
   }
   get() { return this.val }

@@ -1,6 +1,8 @@
 /**
  * Created by arming on 6/3/16.
  */
+'use strict'
+
 const cloudpotato = require('./../index')
 
 class Instance extends cloudpotato.BaseAWSObject {

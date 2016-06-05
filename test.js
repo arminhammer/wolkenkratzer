@@ -25,7 +25,6 @@ instance2.ImageId = 'ami-951945d0'
 instance2.AvailabilityZone = 'us-east-1a'
 t.add_resource(instance2)
 
-
 //let instance3 = new ec2.Instance("myinstance3")
 //instance3.InstanceType = 't2.micro'
 //t.add_resource(instance3)
@@ -33,4 +32,9 @@ t.add_resource(instance2)
 //console.log(JSON.stringify(t, null, 2))
 //console.log('Final:')
 
+console.log('Before:')
+console.log(JSON.stringify(t, null, 2))
+console.log(t.to_json())
+console.log('After:')
+console.log(JSON.stringify(t, null, 2))
 console.log(t.to_json())
