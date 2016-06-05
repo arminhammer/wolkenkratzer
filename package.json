@@ -4,7 +4,7 @@
   "description": "Library for building CloudFormation templates",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,10 @@
   "homepage": "https://bitbucket.org/arminhammer/cloudpotato#readme",
   "dependencies": {
     "debug": "^2.2.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.5.3"
   }
 }

@@ -4,23 +4,15 @@
 const cloudpotato = require('./../index')
 
 class Instance extends cloudpotato.BaseAWSObject {
-  constructor(name, properties) {
-    super(name)
-    this.resource_type = "AWS::EC2::Instance"
-    this.properties = {
+  constructor (name, propertiesObject) {
+    let resource_type = "AWS::EC2::Instance"
+    let properties = {
+      AvailabilityZone: new cloudpotato.ResourceProperty(String, false, null),
       InstanceType: new cloudpotato.ResourceProperty(String, false, null),
       ImageId: new cloudpotato.ResourceProperty(String, true, null)
     }
-    if(properties) {
-      Object.keys(properties).forEach((prop) => {
-        this.properties[prop] = properties[prop]
-      })
-    }
+    super(name, resource_type, properties, propertiesObject)
   }
-  set ImageId (value) { this.properties.ImageId.set(value) }
-  get ImageId () { return this.properties.ImageId }
-  set InstanceType (value) { this.properties.InstanceType.set(value) }
-  get InstanceType () { return this.properties.InstanceType }
 }
 
 /*

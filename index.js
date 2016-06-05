@@ -18,10 +18,25 @@ const AWS_STACK_ID = 'AWS::StackId'
 const AWS_STACK_NAME = 'AWS::StackName'
 
 class BaseAWSObject {
-  constructor(title) {
-    this.title = title
-    this.resource_type = "base"
-    this.properties = {}
+  constructor(name, resource_type, properties, propertiesObject) {
+    this.name = name
+    this.resource_type = resource_type
+    this.properties = properties
+    Object.keys(this.properties).forEach((prop) => {
+      Object.defineProperty(this, prop, {
+        set: function(value) {
+          this.properties[prop].set(value)
+        },
+        get: function() {
+          return this.properties[prop]
+        }
+      })
+    })
+    if (propertiesObject) {
+      Object.keys(propertiesObject).forEach((prop) => {
+        this.properties[prop] = propertiesObject[prop]
+      })
+    }
   }
   to_json() {
     debug('Generating Resource json')
@@ -31,7 +46,7 @@ class BaseAWSObject {
         properties[prop] = properties[prop].to_json()
       } catch(e) {
         if(e instanceof RequiredPropertyException) {
-          throw new RequiredPropertyException(this.title + '.' + prop + ' is required but not defined.')
+          throw new RequiredPropertyException(this.name + '.' + prop + ' is required but not defined.')
         }
       }
     })
@@ -51,7 +66,7 @@ class Template {
     this.Outputs = {}
     this.Parameters = {}
     this.Resources = {}
-    this.Version = "2010-09-09"
+    this.Version = '2010-09-09'
   }
   add_description(description) {
     this.Description = description
@@ -69,16 +84,16 @@ class Template {
   _update(d, values) {
     if (Array.isArray(values)) {
       values.forEach((v) => {
-        if (v.title in d) {
-          this.handle_duplicate_key(v.title)
+        if (v.name in d) {
+          this.handle_duplicate_key(v.name)
         }
-        d[v.title] = v
+        d[v.name] = v
       })
     } else {
-      if (values.title in d) {
-        this.handle_duplicate_key(values.title)
+      if (values.name in d) {
+        this.handle_duplicate_key(values.name)
       }
-      d[values.title] = values
+      d[values.name] = values
     }
     return values
   }
@@ -92,7 +107,7 @@ class Template {
     return this._update(this.Parameters, parameter)
   }
   add_resource(resource) {
-    debug('adding resource ' + JSON.stringify(resource))
+    debug('adding resource ' + JSON.stringify(resource, null, 2))
     this._update(this.Resources, resource)
   }
   add_version(version) {
@@ -130,8 +145,6 @@ class ResourceProperty {
     this.val = value
   }
   set(value) {
-    console.log('TYPE')
-    console.log(this.type)
     if(typeof value === 'string') { value = new String(value) }
     if(value instanceof this.type) {
       this.val = value
