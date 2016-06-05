@@ -12,5 +12,8 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/arminhammer/cloudpotato#readme"
+  "homepage": "https://bitbucket.org/arminhammer/cloudpotato#readme",
+  "dependencies": {
+    "debug": "^2.2.0"
+  }
 }
