@@ -6,7 +6,7 @@
 const cloudpotato = require('./../index')
 
 class Bucket extends cloudpotato.BaseAWSObject {
-  constructor (propertiesObject) {
+  constructor (name, propertiesObject) {
     let resource_type = 'AWS::S3::Bucket'
     let properties = {
       AccessControl : new cloudpotato.ResourceProperty(String, false, null),
@@ -20,7 +20,7 @@ class Bucket extends cloudpotato.BaseAWSObject {
       VersioningConfiguration : Versioning Configuration,
       WebsiteConfiguration : Website Configuration Type*/
     }
-    super(resource_type, properties, propertiesObject)
+    super(name, resource_type, properties, propertiesObject)
   }
 }
 

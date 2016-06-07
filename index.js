@@ -143,6 +143,12 @@ function TypeException(message) {
   }
 }
 
+class Ref {
+  constructor(resource) {
+    this.ref = resource
+  }
+}
+
 class ResourceProperty {
   constructor(Type, required, value) {
     this.Type = Type
@@ -159,8 +165,15 @@ class ResourceProperty {
     }
   }
   get() { return this.val }
+  ref(resource) {
+    //this.val = { "Ref": resource.Name }
+    this.val = new Ref(resource)
+  }
   to_json() {
     if(this.val) {
+      if(this.val instanceof Ref) {
+        return { "Ref": this.val.ref.Name }
+      }
       return this.val
     } else {
       if(this.required) { throw new RequiredPropertyException() }
