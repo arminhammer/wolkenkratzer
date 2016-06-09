@@ -111,7 +111,7 @@ class Template {
     this._update(this.Resources, resource)
   }
   addVersion(version) {
-      this.Version = version
+    this.Version = version
   }
   toJson() {
     let j = JSON.parse(JSON.stringify(this))
@@ -143,16 +143,135 @@ function TypeException(message) {
   }
 }
 
-class Ref {
+class Intrinsic {
+  constructor() {}
+  toString() {}
+}
+
+class Ref extends Intrinsic {
   constructor(resource) {
+    super()
     this.ref = resource
+  }
+  toString() {
+    return { "Ref": this.ref.Name }
   }
 }
 
-class FnGetAtt {
+class FnGetAtt extends Intrinsic {
   constructor(resource, attribute) {
+    super()
     this.resource = resource
     this.attribute = attribute
+  }
+  toString() {}
+}
+
+class FnBase64 extends Intrinsic {
+  constructor(string) {
+    super()
+    this.base64 = new Buffer(string).toString('base64')
+  }
+  toString() {}
+}
+
+class FnFindInMap extends Intrinsic {
+  constructor(mapName, topLevelKey, secondLevelKey) {
+    super()
+    this.mapName = mapName
+    this.topLevelKey = topLevelKey
+    this.secondLevelKey = secondLevelKey
+  }
+  toString() {}
+}
+
+class FnGetAZs extends Intrinsic {
+  constructor(region) {
+    super()
+    this.region = region
+  }
+  toString() {}
+}
+
+class FnJoin extends Intrinsic {
+  constructor(delimiter, values) {
+    super()
+    this.delimiter = delimiter
+    this.values = values
+  }
+  toString() {}
+}
+
+class FnSelect extends Intrinsic {
+  constructor(index, list) {
+    super()
+    this.index = index
+    this.list = list
+  }
+  toString() {}
+}
+
+class Conditional extends Intrinsic {
+  constructor() {
+    super()
+  }
+  toString() {}
+}
+
+class FnIf extends Conditional {
+  constructor() {
+    super()
+  }
+  toString() {}
+}
+
+class FnEquals extends Conditional {
+  constructor() {
+    super()
+  }
+  toString() {}
+}
+
+class FnNot extends Conditional {
+  constructor() {
+    super()
+  }
+  toString() {}
+}
+
+class FnOr extends Conditional {
+  constructor() {
+    super()
+  }
+  toString() {}
+}
+
+class Tag {
+  constructor(key, value) {
+    this.key = key
+    this.value = value
+  }
+}
+
+class TagSet {
+  constructor() {
+    this.tags = {}
+  }
+  add(tag) {
+    if(!(tag instanceof Tag)) {
+      throw new TypeException(tag, 'is not a valid tag')
+    } else {
+      this.tags[tag.key] = tag
+    }
+  }
+  remove(tag) {
+    delete this.tags(tag)
+  }
+  toJson() {
+    if(Object.keys(this.tags).length > 1) {
+      //TODO: populate with tags
+      return []
+    }
   }
 }
 
@@ -165,6 +284,7 @@ class ResourceProperty {
   set(value) {
     let valueType = value
     if(typeof value === 'string') { valueType = new String(value) }
+    else if(typeof value === 'boolean') { valueType = new Boolean(value) }
     if(valueType instanceof this.Type) {
       this.val = value
     } else {
@@ -173,7 +293,6 @@ class ResourceProperty {
   }
   get() { return this.val }
   ref(resource) {
-    //this.val = { "Ref": resource.Name }
     this.val = new Ref(resource)
   }
   getAtt(resource, attribute) {
@@ -181,8 +300,8 @@ class ResourceProperty {
   }
   toJson() {
     if(this.val) {
-      if(this.val instanceof Ref) {
-        return { "Ref": this.val.ref.Name }
+      if(this.val instanceof Intrinsic) {
+        return this.val.toString()
       }
       return this.val
     } else {
@@ -194,5 +313,6 @@ class ResourceProperty {
 module.exports = {
   Template: Template,
   BaseAWSObject: BaseAWSObject,
-  ResourceProperty: ResourceProperty
+  ResourceProperty: ResourceProperty,
+  TagSet: TagSet
 }

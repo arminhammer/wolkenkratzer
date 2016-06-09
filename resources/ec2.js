@@ -46,8 +46,23 @@ props = {
   'UserData': (basestring, False),
   'Volumes': (list, False),
 }
-  */
+*/
+
+class VPC extends cloudpotato.BaseAWSObject {
+  constructor (name, propertiesObject) {
+    let resource_type = "AWS::EC2::VPC"
+    let properties = {
+      CidrBlock: new cloudpotato.ResourceProperty(String, true, null),
+      EnableDnsSupport: new cloudpotato.ResourceProperty(Boolean, false, null),
+      EnableDnsHostnames: new cloudpotato.ResourceProperty(Boolean, false, null),
+      InstanceTenancy: new cloudpotato.ResourceProperty(String, false, null),
+      Tags: new cloudpotato.TagSet()
+    }
+    super(name, resource_type, properties, propertiesObject)
+  }
+}
 
 module.exports = {
-  Instance: Instance
+  Instance: Instance,
+  VPC: VPC
 }

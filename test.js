@@ -9,7 +9,7 @@ let t = new cloudpotato.Template()
 let bucket = new s3.Bucket('newBucket')
 bucket.BucketName = 'newBucket'
 
-t.add_resource(bucket)
+t.addResource(bucket)
 
 let bucketPolicy = new s3.BucketPolicy('newBucketPolicy')
 bucketPolicy.PolicyDocument = {
@@ -23,7 +23,7 @@ bucketPolicy.PolicyDocument = {
 
 bucketPolicy.Bucket.ref(bucket)
 
-t.add_resource(bucketPolicy)
+t.addResource(bucketPolicy)
 
 console.log('bucketPolicy')
 console.log(bucketPolicy)
@@ -33,7 +33,7 @@ console.log(bucketPolicy)
 console.log('Before:')
 console.log(JSON.stringify(t, null, 2))
 
-console.log(t.to_json())
+console.log(t.toJson())
 console.log('After:')
 console.log(JSON.stringify(t, null, 2))
-console.log(t.to_json())
+console.log(t.toJson())
