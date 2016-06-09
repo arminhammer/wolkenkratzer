@@ -21,7 +21,7 @@ describe('EC2', () => {
   let instance = new ec2.Instance("myinstance")
   instance.ImageId = 'ami-951945d0'
   instance.InstanceType = 't2.micro'
-  t.add_resource(instance)
+  t.addResource(instance)
   //console.log(JSON.stringify(t.Resources['myinstance'], null, 2))
 
   it('Should be able to add an instance to the template', () => {
@@ -29,7 +29,7 @@ describe('EC2', () => {
   })
 
   it('Should generate the expected JSON template', () => {
-    let jsonString = t.to_json()
+    let jsonString = t.toJson()
     jsonString.should.equal(JSON.stringify({
         "Description": null,
         "Metadata": {},
@@ -52,7 +52,7 @@ describe('EC2', () => {
   })
 
   it('CloudFormation should validate the template', () => {
-    let jsonString = t.to_json()
+    let jsonString = t.toJson()
     console.log(jsonString)
     CloudFormation.validateTemplate({
       TemplateBody: jsonString

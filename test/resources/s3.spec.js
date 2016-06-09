@@ -25,7 +25,7 @@ describe('S3', () => {
   let bucket = new s3.Bucket('newBucket')
   bucket.BucketName = 'newBucket'
 
-  t.add_resource(bucket)
+  t.addResource(bucket)
 
   let bucketPolicy = new s3.BucketPolicy('newBucketPolicy')
   bucketPolicy.PolicyDocument = {
@@ -38,14 +38,14 @@ describe('S3', () => {
   }
   bucketPolicy.Bucket.ref(bucket)
 
-  t.add_resource(bucketPolicy)
+  t.addResource(bucketPolicy)
 
   it('Should be able to add a bucket to the template', () => {
     t.Resources['newBucket'].resource_type.should.equal('AWS::S3::Bucket')
   })
 
   it('Should generate the expected JSON template', () => {
-    let jsonString = t.to_json()
+    let jsonString = t.toJson()
     jsonString.should.equal(JSON.stringify({
         "Description": null,
         "Metadata": {},
@@ -87,7 +87,7 @@ describe('S3', () => {
   })
 
   it('CloudFormation should validate the template', () => {
-    let jsonString = t.to_json()
+    let jsonString = t.toJson()
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {

@@ -38,12 +38,12 @@ class BaseAWSObject {
       })
     }
   }
-  to_json() {
+  toJson() {
     debug('Generating Resource json')
     let newProperties = JSON.parse(JSON.stringify(this.properties))
     Object.keys(newProperties).forEach((prop) => {
       try {
-        newProperties[prop] = this.properties[prop].to_json()
+        newProperties[prop] = this.properties[prop].toJson()
       } catch(e) {
         if(e instanceof RequiredPropertyException) {
           throw new RequiredPropertyException(this.Name + '.' + prop + ' is required but not defined.')
@@ -68,16 +68,16 @@ class Template {
     this.Resources = {}
     this.Version = '2010-09-09'
   }
-  add_description(description) {
+  addDescription(description) {
     this.Description = description
   }
-  add_metadata(metadata) {
+  addMetadata(metadata) {
     this.Metadata = metadata
   }
-  add_condition(name, condition) {
+  addCondition(name, condition) {
     this.Conditions[name] = condition
   }
-  handle_duplicate_key(key) {
+  handleDuplicateKey(key) {
     console.log('Duplicate key ' + key)
     throw new ValueError('duplicate key "%s" detected' % key)
   }
@@ -97,29 +97,29 @@ class Template {
     }
     return values
   }
-  add_output(output) {
+  addOutput(output) {
     return this._update(this.Outputs, output)
   }
-  add_mapping(name, mapping) {
+  addMapping(name, mapping) {
     this.Mappings[name] = mapping
   }
-  add_parameter(parameter) {
+  addParameter(parameter) {
     return this._update(this.Parameters, parameter)
   }
-  add_resource(resource) {
+  addResource(resource) {
     debug('adding resource ' + JSON.stringify(resource, null, 2))
     this._update(this.Resources, resource)
   }
-  add_version(version) {
+  addVersion(version) {
       this.Version = version
   }
-  to_json() {
+  toJson() {
     let j = JSON.parse(JSON.stringify(this))
     Object.keys(this.Resources).forEach((resource) => {
       //console.log('resource:')
       //console.log(resource)
-      j.Resources[resource] = this.Resources[resource].to_json()
-      //j.Resources[resource] = j.Resources[resource].to_json()
+      j.Resources[resource] = this.Resources[resource].toJson()
+      //j.Resources[resource] = j.Resources[resource].toJson()
     })
     return JSON.stringify(j, null, 2)
   }
@@ -149,6 +149,13 @@ class Ref {
   }
 }
 
+class FnGetAtt {
+  constructor(resource, attribute) {
+    this.resource = resource
+    this.attribute = attribute
+  }
+}
+
 class ResourceProperty {
   constructor(Type, required, value) {
     this.Type = Type
@@ -169,7 +176,10 @@ class ResourceProperty {
     //this.val = { "Ref": resource.Name }
     this.val = new Ref(resource)
   }
-  to_json() {
+  getAtt(resource, attribute) {
+    this.val = new FnGetAtt(resource, attribute)
+  }
+  toJson() {
     if(this.val) {
       if(this.val instanceof Ref) {
         return { "Ref": this.val.ref.Name }
