@@ -28,12 +28,8 @@ t.addResource(bucketPolicy)
 console.log('bucketPolicy')
 console.log(bucketPolicy)
 
+let vpcCiderParam = new cloudpotato.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
+t.addParameter(vpcCiderParam)
 
-
-console.log('Before:')
-console.log(JSON.stringify(t, null, 2))
-
-console.log(t.toJson())
-console.log('After:')
 console.log(JSON.stringify(t, null, 2))
 console.log(t.toJson())

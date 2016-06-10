@@ -57,6 +57,31 @@ class BaseAWSObject {
   }
 }
 
+class Parameter {
+  constructor(name, parameter) {
+    this.Name = name
+    //this.Type = (parameter.Type === undefined) ? null : parameter.Type
+    //console.log('parameter:')
+    //console.log(parameter)
+    this.Type = parameter.Type
+    this.AllowedPattern = parameter.AllowedPattern
+    this.AllowedValues = parameter.AllowedValues
+    this.ConstraintDescription = parameter.ConstraintDescription
+    this.Default = parameter.Default
+    this.Description = parameter.Description
+    this.MaxLength = parameter.MaxLength
+    this.MaxValue = parameter.MaxValue
+    this.MinLength = parameter.MinLength
+    this.MinValue = parameter.MinValue
+    this.NoEcho = parameter.NoEcho
+  }
+  toJson() {
+    let p = JSON.parse(JSON.stringify(this))
+    delete p.Name
+    return p
+  }
+}
+
 class Template {
   constructor() {
     this.Description = null
@@ -115,11 +140,11 @@ class Template {
   }
   toJson() {
     let j = JSON.parse(JSON.stringify(this))
+    Object.keys(this.Parameters).forEach((param) => {
+      j.Parameters[param] = this.Parameters[param].toJson()
+    })
     Object.keys(this.Resources).forEach((resource) => {
-      //console.log('resource:')
-      //console.log(resource)
       j.Resources[resource] = this.Resources[resource].toJson()
-      //j.Resources[resource] = j.Resources[resource].toJson()
     })
     return JSON.stringify(j, null, 2)
   }
@@ -313,6 +338,7 @@ class ResourceProperty {
 module.exports = {
   Template: Template,
   BaseAWSObject: BaseAWSObject,
+  Parameter: Parameter,
   ResourceProperty: ResourceProperty,
   TagSet: TagSet
 }
