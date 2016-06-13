@@ -175,21 +175,34 @@ describe('EC2', () => {
     publicSubnetPubB.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
     t.addResource(publicSubnetPubB)
 
-    let PrivateSubnetPrivC = new ec2.Subnet('PrivateSubnetPrivC')
-    PrivateSubnetPrivC.CidrBlock.ref(privateSubnetPrivCCIDRParam)
-    PrivateSubnetPrivC.VpcId.ref(vpc)
-    PrivateSubnetPrivC.MapPublicIpOnLaunch = false
-    PrivateSubnetPrivC.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivC' })
-    PrivateSubnetPrivC.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
-    t.addResource(PrivateSubnetPrivC)
+    let eipPubA = new ec2.EIP('EIPPubA')
+    eipPubA.Domain = 'vpc'
+    t.addResource(eipPubA)
 
-    let PrivateSubnetPrivD = new ec2.Subnet('PrivateSubnetPrivD')
-    PrivateSubnetPrivD.CidrBlock.ref(privateSubnetPrivDCIDRParam)
-    PrivateSubnetPrivD.VpcId.ref(vpc)
-    PrivateSubnetPrivD.MapPublicIpOnLaunch = false
-    PrivateSubnetPrivD.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivD' })
-    PrivateSubnetPrivD.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
-    t.addResource(PrivateSubnetPrivD)
+    let natPubA = new ec2.NatGateway('NATPubA')
+    natPubA.SubnetId.ref(publicSubnetPubA)
+    natPubA.AllocationId.getAtt(eipPubA, 'AllocationId')
+    t.addResource(natPubA)
+
+    let eipPubB = new ec2.EIP('EIPPubB')
+    eipPubB.Domain = 'vpc'
+    t.addResource(eipPubB)
+
+    let privateSubnetPrivC = new ec2.Subnet('PrivateSubnetPrivC')
+    privateSubnetPrivC.CidrBlock.ref(privateSubnetPrivCCIDRParam)
+    privateSubnetPrivC.VpcId.ref(vpc)
+    privateSubnetPrivC.MapPublicIpOnLaunch = false
+    privateSubnetPrivC.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivC' })
+    privateSubnetPrivC.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+    t.addResource(privateSubnetPrivC)
+
+    let privateSubnetPrivD = new ec2.Subnet('PrivateSubnetPrivD')
+    privateSubnetPrivD.CidrBlock.ref(privateSubnetPrivDCIDRParam)
+    privateSubnetPrivD.VpcId.ref(vpc)
+    privateSubnetPrivD.MapPublicIpOnLaunch = false
+    privateSubnetPrivD.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivD' })
+    privateSubnetPrivD.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+    t.addResource(privateSubnetPrivD)
 
     it ('Should generate the expected JSON template', () => {
       t.toJson()

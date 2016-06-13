@@ -185,7 +185,9 @@ class FnGetAtt extends Intrinsic {
     this.resource = resource
     this.attribute = attribute
   }
-  toJson () {}
+  toJson () {
+    return { 'Fn::GetAtt': [this.resource.Name, this.attribute] }
+  }
 }
 
 /* class FnBase64 extends Intrinsic {
@@ -335,6 +337,9 @@ class ResourceProperty {
   }
   getAtt (resource, attribute) {
     this.val = new FnGetAtt(resource, attribute)
+  }
+  dependsOn (resource) {
+    this.dependsOn = resource
   }
   toJson () {
     if (this.val) {

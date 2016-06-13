@@ -8,8 +8,20 @@ const cloudpotato = require('./../index')
 /*
  AWS::EC2::CustomerGateway
  AWS::EC2::DHCPOptions
- AWS::EC2::EIP
- AWS::EC2::EIPAssociation
+ */
+
+class EIP extends cloudpotato.BaseAWSObject {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::EC2::EIP'
+    let properties = {
+      InstanceId: new cloudpotato.ResourceProperty(String, false, null),
+      Domain: new cloudpotato.ResourceProperty(String, false, null)
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/* AWS::EC2::EIPAssociation
  AWS::EC2::Host
  */
 
@@ -59,8 +71,18 @@ class InternetGateway extends cloudpotato.BaseAWSObject {
   }
 }
 
+class NatGateway extends cloudpotato.BaseAWSObject {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::EC2::NatGateway'
+    let properties = {
+      AllocationId: new cloudpotato.ResourceProperty(String, true, null),
+      SubnetId: new cloudpotato.ResourceProperty(String, true, null)
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
 /*
- AWS::EC2::NatGateway
  AWS::EC2::NetworkAcl
  AWS::EC2::NetworkAclEntry
  AWS::EC2::NetworkInterface
@@ -135,8 +157,10 @@ class VPCGatewayAttachment extends cloudpotato.BaseAWSObject {
  */
 
 module.exports = {
+  EIP: EIP,
   Instance: Instance,
   InternetGateway: InternetGateway,
+  NatGateway: NatGateway,
   Subnet: Subnet,
   VPC: VPC,
   VPCGatewayAttachment: VPCGatewayAttachment
