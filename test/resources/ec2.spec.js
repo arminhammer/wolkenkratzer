@@ -71,7 +71,7 @@ describe('EC2', () => {
 
     let vpc = new ec2.VPC("myvpc")
     vpc.CidrBlock = '10.0.0.0/16'
-    vpc.InstanceTenancy = 'Default'
+    vpc.InstanceTenancy = 'default'
     vpc.EnableDnsSupport = true
     vpc.EnableDnsHostnames = true
 
@@ -97,7 +97,7 @@ describe('EC2', () => {
                 "CidrBlock": "10.0.0.0/16",
                 "EnableDnsSupport": true,
                 "EnableDnsHostnames": true,
-                "InstanceTenancy": "Default"
+                "InstanceTenancy": "default"
               }
             }
           },
@@ -125,7 +125,6 @@ describe('EC2', () => {
     let t = new cloudpotato.Template()
     let vpcCiderParam = new cloudpotato.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
     t.addParameter(vpcCiderParam)
-
     let publicSubnetPubACIDRParam = new cloudpotato.Parameter('PublicSubnetPubACIDR', { Type: 'String', Default: '10.0.0.0/24' })
     t.addParameter(publicSubnetPubACIDRParam)
     let publicSubnetPubBCIDRParam = new cloudpotato.Parameter('PublicSubnetPubBCIDR', { Type: 'String', Default: '10.0.1.0/24' })
@@ -137,14 +136,17 @@ describe('EC2', () => {
     let vPCTagParam = new cloudpotato.Parameter('VPCTag', { Type: 'String', Default: 'BaseVPC' })
     t.addParameter(vPCTagParam)
 
-    console.log(t.toJson())
-    /*let vpc = new ec2.VPC("VPC")
+    let vpc = new ec2.VPC("VPC")
     vpc.CidrBlock.ref()
-    vpc.InstanceTenancy = 'Default'
+    vpc.InstanceTenancy = 'default'
     vpc.EnableDnsSupport = true
     vpc.EnableDnsHostnames = true
+    vpc.Tags.add({ Key: 'Name', Value: 'BaseVPC' })
+    vpc.Tags.add({ Key: "Group", Value: new cloudpotato.Ref(vPCTagParam) })
 
-    t.addResource(vpc)*/
+    t.addResource(vpc)
+
+    console.log(t.toJson())
 
     it('Should generate the expected JSON template', () => {
       t.toJson()

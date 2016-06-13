@@ -60,9 +60,6 @@ class BaseAWSObject {
 class Parameter {
   constructor(name, parameter) {
     this.Name = name
-    //this.Type = (parameter.Type === undefined) ? null : parameter.Type
-    //console.log('parameter:')
-    //console.log(parameter)
     this.Type = parameter.Type
     this.AllowedPattern = parameter.AllowedPattern
     this.AllowedValues = parameter.AllowedValues
@@ -151,26 +148,26 @@ class Template {
 }
 
 function ValueError(message) {
-  this.toString = () => {
+  this.toJson = () => {
     return message
   }
 }
 
 function RequiredPropertyException(message) {
-  this.toString = function() {
+  this.toJson = function() {
     return message
   }
 }
 
 function TypeException(message) {
-  this.toString = function() {
+  this.toJson = function() {
     return message
   }
 }
 
 class Intrinsic {
   constructor() {}
-  toString() {}
+  toJson() {}
 }
 
 class Ref extends Intrinsic {
@@ -178,7 +175,7 @@ class Ref extends Intrinsic {
     super()
     this.ref = resource
   }
-  toString() {
+  toJson() {
     return { "Ref": this.ref.Name }
   }
 }
@@ -189,15 +186,15 @@ class FnGetAtt extends Intrinsic {
     this.resource = resource
     this.attribute = attribute
   }
-  toString() {}
+  toJson() {}
 }
 
 class FnBase64 extends Intrinsic {
   constructor(string) {
     super()
-    this.base64 = new Buffer(string).toString('base64')
+    this.base64 = new Buffer(string).toJson('base64')
   }
-  toString() {}
+  toJson() {}
 }
 
 class FnFindInMap extends Intrinsic {
@@ -207,7 +204,7 @@ class FnFindInMap extends Intrinsic {
     this.topLevelKey = topLevelKey
     this.secondLevelKey = secondLevelKey
   }
-  toString() {}
+  toJson() {}
 }
 
 class FnGetAZs extends Intrinsic {
@@ -215,7 +212,7 @@ class FnGetAZs extends Intrinsic {
     super()
     this.region = region
   }
-  toString() {}
+  toJson() {}
 }
 
 class FnJoin extends Intrinsic {
@@ -224,7 +221,7 @@ class FnJoin extends Intrinsic {
     this.delimiter = delimiter
     this.values = values
   }
-  toString() {}
+  toJson() {}
 }
 
 class FnSelect extends Intrinsic {
@@ -233,48 +230,55 @@ class FnSelect extends Intrinsic {
     this.index = index
     this.list = list
   }
-  toString() {}
+  toJson() {}
 }
 
 class Conditional extends Intrinsic {
   constructor() {
     super()
   }
-  toString() {}
+  toJson() {}
 }
 
 class FnIf extends Conditional {
   constructor() {
     super()
   }
-  toString() {}
+  toJson() {}
 }
 
 class FnEquals extends Conditional {
   constructor() {
     super()
   }
-  toString() {}
+  toJson() {}
 }
 
 class FnNot extends Conditional {
   constructor() {
     super()
   }
-  toString() {}
+  toJson() {}
 }
 
 class FnOr extends Conditional {
   constructor() {
     super()
   }
-  toString() {}
+  toJson() {}
 }
 
 class Tag {
   constructor(key, value) {
-    this.key = key
-    this.value = value
+    this.Key = key
+    this.Value = value
+  }
+  toJson() {
+    let value = this.Value
+    if(value instanceof Intrinsic) {
+      value = value.toJson()
+    }
+    return { Key: this.Key, Value: value }
   }
 }
 
@@ -284,18 +288,39 @@ class TagSet {
   }
   add(tag) {
     if(!(tag instanceof Tag)) {
-      throw new TypeException(tag, 'is not a valid tag')
+      console.log('new ' + tag + ' is not a Tag')
+      if(tag.Key && tag.Value) {
+        tag = new Tag(tag.Key, tag.Value)
+      } else {
+        throw new TypeException(tag, 'is not a valid tag')
+      }
     } else {
-      this.tags[tag.key] = tag
+      console.log('new ' + tag + ' is a Tag')
     }
+    this.tags[tag.Key] = tag
   }
   remove(tag) {
     delete this.tags(tag)
   }
   toJson() {
-    if(Object.keys(this.tags).length > 1) {
-      //TODO: populate with tags
-      return []
+    console.log('tagbuild')
+    console.log(Object.keys(this.tags).length > 0)
+    if(Object.keys(this.tags).length > 0) {
+      console.log('more build')
+      let tagArray = []
+      console.log(this.tags)
+      for (let tag in this.tags) {
+        console.log('tag')
+        console.log(tag)
+        console.log(this.tags[tag])
+        let tagJson = this.tags[tag].toJson()
+        console.log('tagJson')
+        console.log(tagJson)
+        tagArray.push(tagJson)
+      }
+      console.log('tagArray')
+      console.log(tagArray)
+      return tagArray
     }
   }
 }
@@ -326,7 +351,7 @@ class ResourceProperty {
   toJson() {
     if(this.val) {
       if(this.val instanceof Intrinsic) {
-        return this.val.toString()
+        return this.val.toJson()
       }
       return this.val
     } else {
@@ -340,5 +365,7 @@ module.exports = {
   BaseAWSObject: BaseAWSObject,
   Parameter: Parameter,
   ResourceProperty: ResourceProperty,
-  TagSet: TagSet
+  TagSet: TagSet,
+  Tag: Tag,
+  Ref: Ref
 }
