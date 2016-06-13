@@ -14,11 +14,11 @@ t.addResource(bucket)
 
 let bucketPolicy = new s3.BucketPolicy('newBucketPolicy')
 bucketPolicy.PolicyDocument = {
-  "Statement":[{
-    "Action":["s3:GetObject"],
-    "Effect":"Allow",
-    "Resource": "*",
-    "Principal":"*"
+  'Statement': [{
+    'Action': ['s3:GetObject'],
+    'Effect': 'Allow',
+    'Resource': '*',
+    'Principal': '*'
   }]
 }
 
@@ -26,8 +26,8 @@ bucketPolicy.Bucket.ref(bucket)
 
 t.addResource(bucketPolicy)
 
-//console.log('bucketPolicy')
-//console.log(bucketPolicy)
+// console.log('bucketPolicy')
+// console.log(bucketPolicy)
 
 let vpcCiderParam = new cloudpotato.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
 t.addParameter(vpcCiderParam)
@@ -42,8 +42,8 @@ t.addParameter(privateSubnetPrivDCIDRParam)
 let vPCTagParam = new cloudpotato.Parameter('VPCTag', { Type: 'String', Default: 'BaseVPC' })
 t.addParameter(vPCTagParam)
 
-let vpc = new ec2.VPC("VPC")
-vpc.CidrBlock.ref()
+let vpc = new ec2.VPC('VPC')
+vpc.CidrBlock.ref(vpcCiderParam)
 vpc.InstanceTenancy = 'default'
 vpc.EnableDnsSupport = true
 vpc.EnableDnsHostnames = true
@@ -51,10 +51,10 @@ vpc.Tags.add({ Key: 'Name', Value: 'BaseVPC' })
 vpc.Tags.add({ Key: 'Name0', Value: { 'Ref': 'VPCTag' } })
 vpc.Tags.add(new cloudpotato.Tag('Name1', { 'Ref': 'VPCTag' }))
 vpc.Tags.add(new cloudpotato.Tag('Name2', new cloudpotato.Ref(vPCTagParam)))
-vpc.Tags.add({ Key: "Group", Value: new cloudpotato.Ref(vPCTagParam) })
+vpc.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
 
 t.addResource(vpc)
 
 console.log(JSON.stringify(t, null, 2))
 console.log(t.toJson())
-//console.log(t.toJson())
+// console.log(t.toJson())

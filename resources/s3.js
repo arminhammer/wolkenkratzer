@@ -7,11 +7,11 @@ const cloudpotato = require('./../index')
 
 class Bucket extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
-    let resource_type = 'AWS::S3::Bucket'
+    let resourceType = 'AWS::S3::Bucket'
     let properties = {
-      AccessControl : new cloudpotato.ResourceProperty(String, false, null),
-      BucketName : new cloudpotato.ResourceProperty(String, false, null)
-      /*CorsConfiguration : CORS Configuration,
+      AccessControl: new cloudpotato.ResourceProperty(String, false, null),
+      BucketName: new cloudpotato.ResourceProperty(String, false, null)
+      /* CorsConfiguration : CORS Configuration,
       LifecycleConfiguration : Lifecycle Configuration,
       LoggingConfiguration : Logging Configuration,
       NotificationConfiguration : Notification Configuration,
@@ -20,18 +20,18 @@ class Bucket extends cloudpotato.BaseAWSObject {
       VersioningConfiguration : Versioning Configuration,
       WebsiteConfiguration : Website Configuration Type*/
     }
-    super(name, resource_type, properties, propertiesObject)
+    super(name, resourceType, properties, propertiesObject)
   }
 }
 
 class BucketPolicy extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
-    let resource_type = 'AWS::S3::BucketPolicy'
+    let resourceType = 'AWS::S3::BucketPolicy'
     let properties = {
-      Bucket : new cloudpotato.ResourceProperty(String, true, null),
-      PolicyDocument : new cloudpotato.ResourceProperty(Object, true, null)
+      Bucket: new cloudpotato.ResourceProperty(String, true, null),
+      PolicyDocument: new cloudpotato.ResourceProperty(Object, true, null)
     }
-    super(name, resource_type, properties, propertiesObject)
+    super(name, resourceType, properties, propertiesObject)
   }
 }
 

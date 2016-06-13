@@ -15,11 +15,11 @@ const cloudpotato = require('./../index')
 
 class Instance extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
-    let resource_type = "AWS::EC2::Instance"
+    let resourceType = 'AWS::EC2::Instance'
     let properties = {
       Affinity: new cloudpotato.ResourceProperty(String, false, null),
       AvailabilityZone: new cloudpotato.ResourceProperty(String, false, null),
-      //BlockDeviceMappings: new cloudpotato.ResourceProperty(String, false, null),[ EC2 Block Device Mapping, ... ],
+      // BlockDeviceMappings: new cloudpotato.ResourceProperty(String, false, null),[ EC2 Block Device Mapping, ... ],
       DisableApiTermination: new cloudpotato.ResourceProperty(Boolean, false, null),
       EbsOptimized: new cloudpotato.ResourceProperty(Boolean, false, null),
       HostId: new cloudpotato.ResourceProperty(String, false, null),
@@ -28,29 +28,38 @@ class Instance extends cloudpotato.BaseAWSObject {
       InstanceInitiatedShutdownBehavior: new cloudpotato.ResourceProperty(String, false, null),
       InstanceType: new cloudpotato.ResourceProperty(String, false, null),
       KernelId: new cloudpotato.ResourceProperty(String, false, null),
-      KeyName:  new cloudpotato.ResourceProperty(String, false, null),
+      KeyName: new cloudpotato.ResourceProperty(String, false, null),
       Monitoring: new cloudpotato.ResourceProperty(Boolean, false, null),
-      //NetworkInterfaces: new cloudpotato.ResourceProperty(String, false, null),[ EC2 Network Interface, ... ],
+      // NetworkInterfaces: new cloudpotato.ResourceProperty(String, false, null),[ EC2 Network Interface, ... ],
       PlacementGroupName: new cloudpotato.ResourceProperty(String, false, null),
       PrivateIpAddress: new cloudpotato.ResourceProperty(String, false, null),
       RamdiskId: new cloudpotato.ResourceProperty(String, false, null),
-      //SecurityGroupIds: new cloudpotato.ResourceProperty(String, false, null),[ String, ... ],
-      //SecurityGroups: new cloudpotato.ResourceProperty(String, false, null),[ String, ... ],
+      // SecurityGroupIds: new cloudpotato.ResourceProperty(String, false, null),[ String, ... ],
+      // SecurityGroups: new cloudpotato.ResourceProperty(String, false, null),[ String, ... ],
       SourceDestCheck: new cloudpotato.ResourceProperty(Boolean, false, null),
-      //SsmAssociations: new cloudpotato.ResourceProperty(String, false, null),[ SSMAssociation, ... ]
+      // SsmAssociations: new cloudpotato.ResourceProperty(String, false, null),[ SSMAssociation, ... ]
       SubnetId: new cloudpotato.ResourceProperty(String, false, null),
       Tags: new cloudpotato.TagSet(),
       Tenancy: new cloudpotato.ResourceProperty(String, false, null),
       UserData: new cloudpotato.ResourceProperty(String, false, null),
-      //Volumes: new cloudpotato.ResourceProperty(String, false, null),[ EC2 MountPoint, ... ],
+      // Volumes: new cloudpotato.ResourceProperty(String, false, null),[ EC2 MountPoint, ... ],
       AdditionalInfo: new cloudpotato.ResourceProperty(String, false, null)
     }
-    super(name, resource_type, properties, propertiesObject)
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+class InternetGateway extends cloudpotato.BaseAWSObject {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::EC2::InternetGateway'
+    let properties = {
+      Tags: new cloudpotato.TagSet()
+    }
+    super(name, resourceType, properties, propertiesObject)
   }
 }
 
 /*
- AWS::EC2::InternetGateway
  AWS::EC2::NatGateway
  AWS::EC2::NetworkAcl
  AWS::EC2::NetworkAclEntry
@@ -72,7 +81,7 @@ class Instance extends cloudpotato.BaseAWSObject {
 
 class VPC extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
-    let resource_type = "AWS::EC2::VPC"
+    let resourceType = 'AWS::EC2::VPC'
     let properties = {
       CidrBlock: new cloudpotato.ResourceProperty(String, true, null),
       EnableDnsSupport: new cloudpotato.ResourceProperty(Boolean, false, null),
@@ -80,15 +89,28 @@ class VPC extends cloudpotato.BaseAWSObject {
       InstanceTenancy: new cloudpotato.ResourceProperty(String, false, null),
       Tags: new cloudpotato.TagSet()
     }
-    super(name, resource_type, properties, propertiesObject)
+    super(name, resourceType, properties, propertiesObject)
   }
 }
 
 /*
  AWS::EC2::VPCDHCPOptionsAssociation
  AWS::EC2::VPCEndpoint
- AWS::EC2::VPCGatewayAttachment
- AWS::EC2::VPCPeeringConnection
+ */
+
+class VPCGatewayAttachment extends cloudpotato.BaseAWSObject {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::EC2::VPCGatewayAttachment'
+    let properties = {
+      'InternetGatewayId': new cloudpotato.ResourceProperty(String, false, null),
+      'VpcId': new cloudpotato.ResourceProperty(String, true, null),
+      'VpnGatewayId': new cloudpotato.ResourceProperty(String, false, null)
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/* AWS::EC2::VPCPeeringConnection
  AWS::EC2::VPNConnection
  AWS::EC2::VPNConnectionRoute
  AWS::EC2::VPNGateway
@@ -97,7 +119,9 @@ class VPC extends cloudpotato.BaseAWSObject {
 
 module.exports = {
   Instance: Instance,
-  VPC: VPC
+  InternetGateway: InternetGateway,
+  VPC: VPC,
+  VPCGatewayAttachment: VPCGatewayAttachment
 }
 
 /*
@@ -139,8 +163,6 @@ module.exports = {
  AWS::DirectoryService::MicrosoftAD
  AWS::DirectoryService::SimpleAD
  AWS::DynamoDB::Table
-
-
  AWS::ECR::Repository
  AWS::ECS::Cluster
  AWS::ECS::Service
