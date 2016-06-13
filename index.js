@@ -22,7 +22,7 @@ class BaseAWSObject {
     this.Name = name
     this.resource_type = resource_type
     this.properties = properties
-    Object.keys(this.properties).forEach((prop) => {
+    for(let prop in this.properties) {
       Object.defineProperty(this, prop, {
         set: function(value) {
           this.properties[prop].set(value)
@@ -31,17 +31,17 @@ class BaseAWSObject {
           return this.properties[prop]
         }
       })
-    })
+    }
     if (propertiesObject) {
-      Object.keys(propertiesObject).forEach((prop) => {
+      for(let prop in propertiesObject) {
         this.properties[prop] = propertiesObject[prop]
-      })
+      }
     }
   }
   toJson() {
     debug('Generating Resource json')
     let newProperties = JSON.parse(JSON.stringify(this.properties))
-    Object.keys(newProperties).forEach((prop) => {
+    for(let prop in newProperties) {
       try {
         newProperties[prop] = this.properties[prop].toJson()
       } catch(e) {
@@ -49,7 +49,7 @@ class BaseAWSObject {
           throw new RequiredPropertyException(this.Name + '.' + prop + ' is required but not defined.')
         }
       }
-    })
+    }
     return {
       Type: this.resource_type,
       Properties: newProperties
@@ -137,12 +137,12 @@ class Template {
   }
   toJson() {
     let j = JSON.parse(JSON.stringify(this))
-    Object.keys(this.Parameters).forEach((param) => {
+    for(let param in this.Parameters) {
       j.Parameters[param] = this.Parameters[param].toJson()
-    })
-    Object.keys(this.Resources).forEach((resource) => {
+    }
+    for(let resource in this.Resources) {
       j.Resources[resource] = this.Resources[resource].toJson()
-    })
+    }
     return JSON.stringify(j, null, 2)
   }
 }

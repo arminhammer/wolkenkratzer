@@ -366,7 +366,8 @@ describe('EC2', () => {
                 "RouteTableId" : { "Ref" : "RouteTablePrivD" }
               }
             }
-          }
+          },
+          "Version": "2010-09-09"
         }, null, 2)
       )
     })
