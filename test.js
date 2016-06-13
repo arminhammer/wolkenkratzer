@@ -55,6 +55,43 @@ vpc.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
 
 t.addResource(vpc)
 
-console.log(JSON.stringify(t, null, 2))
+let igw = new ec2.InternetGateway('InternetGateway')
+igw.Tags.add({ Key: 'Name', Value: 'InternetGateway' })
+igw.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+t.addResource(igw)
+
+let vpcgatewayatt = new ec2.VPCGatewayAttachment('AttachInternetGateway')
+vpcgatewayatt.InternetGatewayId.ref(igw)
+vpcgatewayatt.VpcId.ref(vpc)
+
+console.log('vpcgatewayatt')
+console.log(vpcgatewayatt)
+t.addResource(vpcgatewayatt)
+
+let publicSubnetPubA = new ec2.Subnet('PublicSubnetPubA')
+publicSubnetPubA.CidrBlock.ref(publicSubnetPubACIDRParam)
+publicSubnetPubA.VpcId.ref(vpc)
+publicSubnetPubA.MapPublicIpOnLaunch = true
+igw.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubA' })
+igw.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+t.addResource(publicSubnetPubA)
+
+let PrivateSubnetPrivC = new ec2.Subnet('PrivateSubnetPrivC')
+PrivateSubnetPrivC.CidrBlock.ref(publicSubnetPubACIDRParam)
+PrivateSubnetPrivC.VpcId.ref(vpc)
+PrivateSubnetPrivC.MapPublicIpOnLaunch = true
+PrivateSubnetPrivC.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivC' })
+PrivateSubnetPrivC.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+t.addResource(PrivateSubnetPrivC)
+
+let PrivateSubnetPrivD = new ec2.Subnet('PrivateSubnetPrivD')
+PrivateSubnetPrivD.CidrBlock.ref(publicSubnetPubACIDRParam)
+PrivateSubnetPrivD.VpcId.ref(vpc)
+PrivateSubnetPrivD.MapPublicIpOnLaunch = true
+PrivateSubnetPrivD.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivD' })
+PrivateSubnetPrivD.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+t.addResource(PrivateSubnetPrivD)
+
+// console.log(JSON.stringify(t, null, 2))
 console.log(t.toJson())
 // console.log(t.toJson())

@@ -152,9 +152,46 @@ describe('EC2', () => {
     console.log(t.toJson())
 
     let vpcgatewayatt = new ec2.VPCGatewayAttachment('AttachInternetGateway')
+    vpcgatewayatt.VpcId.ref(vpc)
     vpcgatewayatt.InternetGatewayId.ref(igw)
 
-    it('Should generate the expected JSON template', () => {
+    console.log('vpcgatewayatt')
+    console.log(vpcgatewayatt)
+    t.addResource(vpcgatewayatt)
+
+    let publicSubnetPubA = new ec2.Subnet('PublicSubnetPubA')
+    publicSubnetPubA.CidrBlock.ref(publicSubnetPubACIDRParam)
+    publicSubnetPubA.VpcId.ref(vpc)
+    publicSubnetPubA.MapPublicIpOnLaunch = true
+    publicSubnetPubA.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubA' })
+    publicSubnetPubA.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+    t.addResource(publicSubnetPubA)
+
+    let publicSubnetPubB = new ec2.Subnet('PublicSubnetPubB')
+    publicSubnetPubB.CidrBlock.ref(publicSubnetPubBCIDRParam)
+    publicSubnetPubB.VpcId.ref(vpc)
+    publicSubnetPubB.MapPublicIpOnLaunch = true
+    publicSubnetPubB.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubB' })
+    publicSubnetPubB.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+    t.addResource(publicSubnetPubB)
+
+    let PrivateSubnetPrivC = new ec2.Subnet('PrivateSubnetPrivC')
+    PrivateSubnetPrivC.CidrBlock.ref(privateSubnetPrivCCIDRParam)
+    PrivateSubnetPrivC.VpcId.ref(vpc)
+    PrivateSubnetPrivC.MapPublicIpOnLaunch = false
+    PrivateSubnetPrivC.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivC' })
+    PrivateSubnetPrivC.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+    t.addResource(PrivateSubnetPrivC)
+
+    let PrivateSubnetPrivD = new ec2.Subnet('PrivateSubnetPrivD')
+    PrivateSubnetPrivD.CidrBlock.ref(privateSubnetPrivDCIDRParam)
+    PrivateSubnetPrivD.VpcId.ref(vpc)
+    PrivateSubnetPrivD.MapPublicIpOnLaunch = false
+    PrivateSubnetPrivD.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivD' })
+    PrivateSubnetPrivD.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+    t.addResource(PrivateSubnetPrivD)
+
+    it ('Should generate the expected JSON template', () => {
       t.toJson()
       let jsonString = t.toJson()
       jsonString.should.equal(JSON.stringify({
@@ -215,8 +252,8 @@ describe('EC2', () => {
             'AttachInternetGateway': {
               'Type': 'AWS::EC2::VPCGatewayAttachment',
               'Properties': {
-                'VpcId': { 'Ref': 'VPC' },
-                'InternetGatewayId': { 'Ref': 'InternetGateway' }
+                'InternetGatewayId': { 'Ref': 'InternetGateway' },
+                'VpcId': { 'Ref': 'VPC' }
               }
             },
             'PublicSubnetPubA': {
@@ -224,11 +261,11 @@ describe('EC2', () => {
               'Properties': {
                 'CidrBlock': { 'Ref': 'PublicSubnetPubACIDR' },
                 'MapPublicIpOnLaunch': true,
-                'VpcId': { 'Ref': 'VPC' },
                 'Tags': [
                   { 'Key': 'Name', 'Value': 'PublicSubnetPubA' },
                   { 'Key': 'Group', 'Value': { 'Ref': 'VPCTag' } }
-                ]
+                ],
+                'VpcId': { 'Ref': 'VPC' }
               }
             },
             'PublicSubnetPubB': {
@@ -236,11 +273,11 @@ describe('EC2', () => {
               'Properties': {
                 'CidrBlock': { 'Ref': 'PublicSubnetPubBCIDR' },
                 'MapPublicIpOnLaunch': true,
-                'VpcId': { 'Ref': 'VPC' },
                 'Tags': [
                   { 'Key': 'Name', 'Value': 'PublicSubnetPubB' },
                   { 'Key': 'Group', 'Value': { 'Ref': 'VPCTag' } }
-                ]
+                ],
+                'VpcId': { 'Ref': 'VPC' }
               }
             },
             'NATPubA': {
@@ -307,24 +344,24 @@ describe('EC2', () => {
               'Type': 'AWS::EC2::Subnet',
               'Properties': {
                 'CidrBlock': { 'Ref': 'PrivateSubnetPrivCCIDR' },
-                'MapPublicIpOnLaunch': true,
-                'VpcId': { 'Ref': 'VPC' },
+                'MapPublicIpOnLaunch': false,
                 'Tags': [
                   { 'Key': 'Name', 'Value': 'PrivateSubnetPrivC' },
                   { 'Key': 'Group', 'Value': { 'Ref': 'VPCTag' } }
-                ]
+                ],
+                'VpcId': { 'Ref': 'VPC' }
               }
             },
             'PrivateSubnetPrivD': {
               'Type': 'AWS::EC2::Subnet',
               'Properties': {
                 'CidrBlock': { 'Ref': 'PrivateSubnetPrivDCIDR' },
-                'MapPublicIpOnLaunch': true,
-                'VpcId': { 'Ref': 'VPC' },
+                'MapPublicIpOnLaunch': false,
                 'Tags': [
                   { 'Key': 'Name', 'Value': 'PrivateSubnetPrivD' },
                   { 'Key': 'Group', 'Value': { 'Ref': 'VPCTag' } }
-                ]
+                ],
+                'VpcId': { 'Ref': 'VPC' }
               }
             },
             'RouteTablePrivC': {

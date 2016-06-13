@@ -72,6 +72,23 @@ class InternetGateway extends cloudpotato.BaseAWSObject {
  AWS::EC2::SecurityGroupEgress
  AWS::EC2::SecurityGroupIngress
  AWS::EC2::SpotFleet
+*/
+
+class Subnet extends cloudpotato.BaseAWSObject {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::EC2::Subnet'
+    let properties = {
+        AvailabilityZone: new cloudpotato.ResourceProperty(String, false, null),
+        CidrBlock: new cloudpotato.ResourceProperty(String, true, null),
+        MapPublicIpOnLaunch: new cloudpotato.ResourceProperty(Boolean, false, null),
+        Tags: new cloudpotato.TagSet(),
+        VpcId: new cloudpotato.ResourceProperty(String, true, null)
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+ /*
  AWS::EC2::Subnet
  AWS::EC2::SubnetNetworkAclAssociation
  AWS::EC2::SubnetRouteTableAssociation
@@ -120,6 +137,7 @@ class VPCGatewayAttachment extends cloudpotato.BaseAWSObject {
 module.exports = {
   Instance: Instance,
   InternetGateway: InternetGateway,
+  Subnet: Subnet,
   VPC: VPC,
   VPCGatewayAttachment: VPCGatewayAttachment
 }

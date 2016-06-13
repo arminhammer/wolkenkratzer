@@ -287,14 +287,11 @@ class TagSet {
   }
   add (tag) {
     if (!(tag instanceof Tag)) {
-      console.log('new ' + tag + ' is not a Tag')
       if (tag.Key && tag.Value) {
         tag = new Tag(tag.Key, tag.Value)
       } else {
         throw new TypeException(tag, 'is not a valid tag')
       }
-    } else {
-      console.log('new ' + tag + ' is a Tag')
     }
     this.tags[tag.Key] = tag
   }
@@ -302,23 +299,12 @@ class TagSet {
     delete this.tags(tag)
   }
   toJson () {
-    console.log('tagbuild')
-    console.log(Object.keys(this.tags).length > 0)
     if (Object.keys(this.tags).length > 0) {
-      console.log('more build')
       let tagArray = []
-      console.log(this.tags)
       for (let tag in this.tags) {
-        console.log('tag')
-        console.log(tag)
-        console.log(this.tags[tag])
         let tagJson = this.tags[tag].toJson()
-        console.log('tagJson')
-        console.log(tagJson)
         tagArray.push(tagJson)
       }
-      console.log('tagArray')
-      console.log(tagArray)
       return tagArray
     }
   }
