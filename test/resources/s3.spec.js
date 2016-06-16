@@ -45,9 +45,9 @@ describe('S3', () => {
   })
 
   it ('Should generate the expected JSON template', () => {
-    let jsonString = t.toJson()
-    jsonString.should.equal(JSON.stringify({
-      'Description': null,
+    let jsonString = JSON.parse(t.toJson())
+    jsonString.should.deep.equal({
+      'Description': '',
       'Metadata': {},
       'Conditions': {},
       'Mappings': {},
@@ -81,9 +81,8 @@ describe('S3', () => {
           }
         }
       },
-      'Version': '2010-09-09'
-    }, null, 2)
-    )
+      'AWSTemplateFormatVersion': '2010-09-09'
+    })
   })
 
   it ('CloudFormation should validate the template', () => {

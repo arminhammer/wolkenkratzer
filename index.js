@@ -38,6 +38,9 @@ class BaseAWSObject {
       }
     }
   }
+  dependsOn (resource) {
+    this.dependsOn = resource
+  }
   toJson () {
     debug('Generating Resource json')
     let newProperties = JSON.parse(JSON.stringify(this.properties))
@@ -50,10 +53,14 @@ class BaseAWSObject {
         }
       }
     }
-    return {
+    let returnObject = {
       Type: this.resourceType,
       Properties: newProperties
     }
+    if (this.dependsOn) {
+      returnObject.DependsOn = this.dependsOn.Name
+    }
+    return returnObject
   }
 }
 
@@ -81,14 +88,14 @@ class Parameter {
 
 class Template {
   constructor () {
-    this.Description = null
+    this.Description = ""
     this.Metadata = {}
     this.Conditions = {}
     this.Mappings = {}
     this.Outputs = {}
     this.Parameters = {}
     this.Resources = {}
-    this.Version = '2010-09-09'
+    this.AWSTemplateFormatVersion = '2010-09-09'
   }
   addDescription (description) {
     this.Description = description
@@ -140,8 +147,14 @@ class Template {
     for (let param in this.Parameters) {
       j.Parameters[param] = this.Parameters[param].toJson()
     }
-    for (let resource in this.Resources) {
-      j.Resources[resource] = this.Resources[resource].toJson()
+    try {
+      for (let resource in this.Resources) {
+        j.Resources[resource] = this.Resources[resource].toJson()
+      }
+    } catch (e) {
+      console.log('EXCEPTION:')
+      console.log(e.message)
+      process.exit()
     }
     return JSON.stringify(j, null, 2)
   }
@@ -154,9 +167,8 @@ function ValueError (message) {
 }
 
 function RequiredPropertyException (message) {
-  this.toJson = () => {
-    return message
-  }
+  this.message = message
+  this.name = 'RequiredPropertyException'
 }
 
 function TypeException (message) {
@@ -338,11 +350,8 @@ class ResourceProperty {
   getAtt (resource, attribute) {
     this.val = new FnGetAtt(resource, attribute)
   }
-  dependsOn (resource) {
-    this.dependsOn = resource
-  }
   toJson () {
-    if (this.val) {
+    if (this.val !== null) {
       if (this.val instanceof Intrinsic) {
         return this.val.toJson()
       }

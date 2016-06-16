@@ -5,30 +5,10 @@ const cloudpotato = require('./index')
 const s3 = require('./resources/s3')
 const ec2 = require('./resources/ec2')
 
-let t = new cloudpotato.Template()
-
-let bucket = new s3.Bucket('newBucket')
-bucket.BucketName = 'newBucket'
-
-t.addResource(bucket)
-
-let bucketPolicy = new s3.BucketPolicy('newBucketPolicy')
-bucketPolicy.PolicyDocument = {
-  'Statement': [{
-    'Action': ['s3:GetObject'],
-    'Effect': 'Allow',
-    'Resource': '*',
-    'Principal': '*'
-  }]
-}
-
-bucketPolicy.Bucket.ref(bucket)
-
-t.addResource(bucketPolicy)
-
 // console.log('bucketPolicy')
 // console.log(bucketPolicy)
 
+let t = new cloudpotato.Template()
 let vpcCiderParam = new cloudpotato.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
 t.addParameter(vpcCiderParam)
 let publicSubnetPubACIDRParam = new cloudpotato.Parameter('PublicSubnetPubACIDR', { Type: 'String', Default: '10.0.0.0/24' })
@@ -48,11 +28,7 @@ vpc.InstanceTenancy = 'default'
 vpc.EnableDnsSupport = true
 vpc.EnableDnsHostnames = true
 vpc.Tags.add({ Key: 'Name', Value: 'BaseVPC' })
-vpc.Tags.add({ Key: 'Name0', Value: { 'Ref': 'VPCTag' } })
-vpc.Tags.add(new cloudpotato.Tag('Name1', { 'Ref': 'VPCTag' }))
-vpc.Tags.add(new cloudpotato.Tag('Name2', new cloudpotato.Ref(vPCTagParam)))
 vpc.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
-
 t.addResource(vpc)
 
 let igw = new ec2.InternetGateway('InternetGateway')
@@ -60,26 +36,51 @@ igw.Tags.add({ Key: 'Name', Value: 'InternetGateway' })
 igw.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
 t.addResource(igw)
 
+console.log(t.toJson())
+
 let vpcgatewayatt = new ec2.VPCGatewayAttachment('AttachInternetGateway')
-vpcgatewayatt.InternetGatewayId.ref(igw)
 vpcgatewayatt.VpcId.ref(vpc)
+vpcgatewayatt.InternetGatewayId.ref(igw)
+
+console.log('vpcgatewayatt')
+console.log(vpcgatewayatt)
 t.addResource(vpcgatewayatt)
 
 let publicSubnetPubA = new ec2.Subnet('PublicSubnetPubA')
 publicSubnetPubA.CidrBlock.ref(publicSubnetPubACIDRParam)
 publicSubnetPubA.VpcId.ref(vpc)
 publicSubnetPubA.MapPublicIpOnLaunch = true
-igw.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubA' })
-igw.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+publicSubnetPubA.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubA' })
+publicSubnetPubA.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
 t.addResource(publicSubnetPubA)
+
+let publicSubnetPubB = new ec2.Subnet('PublicSubnetPubB')
+publicSubnetPubB.CidrBlock.ref(publicSubnetPubBCIDRParam)
+publicSubnetPubB.VpcId.ref(vpc)
+publicSubnetPubB.MapPublicIpOnLaunch = true
+publicSubnetPubB.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubB' })
+publicSubnetPubB.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+t.addResource(publicSubnetPubB)
 
 let eipPubA = new ec2.EIP('EIPPubA')
 eipPubA.Domain = 'vpc'
 t.addResource(eipPubA)
 
+let natPubA = new ec2.NatGateway('NATPubA')
+natPubA.SubnetId.ref(publicSubnetPubA)
+natPubA.AllocationId.getAtt(eipPubA, 'AllocationId')
+natPubA.dependsOn(igw)
+t.addResource(natPubA)
+
 let eipPubB = new ec2.EIP('EIPPubB')
 eipPubB.Domain = 'vpc'
 t.addResource(eipPubB)
+
+let natPubB = new ec2.NatGateway('NATPubB')
+natPubB.SubnetId.ref(publicSubnetPubB)
+natPubB.AllocationId.getAtt(eipPubB, 'AllocationId')
+natPubB.dependsOn(igw)
+t.addResource(natPubB)
 
 let privateSubnetPrivC = new ec2.Subnet('PrivateSubnetPrivC')
 privateSubnetPrivC.CidrBlock.ref(privateSubnetPrivCCIDRParam)
@@ -97,10 +98,61 @@ privateSubnetPrivD.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivD' })
 privateSubnetPrivD.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
 t.addResource(privateSubnetPrivD)
 
-let natPubA = new ec2.NatGateway('NATPubA')
-natPubA.SubnetId.ref(publicSubnetPubA)
-natPubA.AllocationId.getAtt(eipPubA, 'AllocationId')
-t.addResource(natPubA)
+let publicRouteTable = new ec2.RouteTable('PublicRouteTable')
+publicRouteTable.VpcId.ref(vpc)
+publicRouteTable.Tags.add({ Key: 'Name', Value: 'PublicRouteTable' })
+publicRouteTable.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+t.addResource(publicRouteTable)
+
+let routeTablePrivC = new ec2.RouteTable('RouteTablePrivC')
+routeTablePrivC.VpcId.ref(vpc)
+routeTablePrivC.Tags.add({ Key: 'Name', Value: 'RouteTablePrivC' })
+routeTablePrivC.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+t.addResource(routeTablePrivC)
+
+let routeTablePrivD = new ec2.RouteTable('RouteTablePrivD')
+routeTablePrivD.VpcId.ref(vpc)
+routeTablePrivD.Tags.add({ Key: 'Name', Value: 'RouteTablePrivD' })
+routeTablePrivD.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+t.addResource(routeTablePrivD)
+
+let publicIGWRoute = new ec2.Route('PublicIGWRoute')
+publicIGWRoute.RouteTableId.ref(publicRouteTable)
+publicIGWRoute.DestinationCidrBlock = '0.0.0.0/0'
+publicIGWRoute.GatewayId.ref(igw)
+t.addResource(publicIGWRoute)
+
+let nATRoutePrivC = new ec2.Route('NATRoutePrivC')
+nATRoutePrivC.RouteTableId.ref(routeTablePrivC)
+nATRoutePrivC.DestinationCidrBlock = '0.0.0.0/0'
+nATRoutePrivC.NatGatewayId.ref(natPubA)
+t.addResource(nATRoutePrivC)
+
+let nATRoutePrivD = new ec2.Route('NATRoutePrivD')
+nATRoutePrivD.RouteTableId.ref(routeTablePrivD)
+nATRoutePrivD.DestinationCidrBlock = '0.0.0.0/0'
+nATRoutePrivD.NatGatewayId.ref(natPubB)
+t.addResource(nATRoutePrivD)
+
+let publicSubnetRouteTableAssociationA = new ec2.SubnetRouteTableAssociation('PublicSubnetRouteTableAssociationA')
+publicSubnetRouteTableAssociationA.SubnetId.ref(publicSubnetPubA)
+publicSubnetRouteTableAssociationA.RouteTableId.ref(publicRouteTable)
+t.addResource(publicSubnetRouteTableAssociationA)
+
+let publicSubnetRouteTableAssociationB = new ec2.SubnetRouteTableAssociation('PublicSubnetRouteTableAssociationB')
+publicSubnetRouteTableAssociationB.SubnetId.ref(publicSubnetPubB)
+publicSubnetRouteTableAssociationB.RouteTableId.ref(publicRouteTable)
+t.addResource(publicSubnetRouteTableAssociationB)
+
+let privateSubnetRouteTableAssociationPrivC = new ec2.SubnetRouteTableAssociation('PrivateSubnetRouteTableAssociationPrivC')
+privateSubnetRouteTableAssociationPrivC.SubnetId.ref(privateSubnetPrivC)
+privateSubnetRouteTableAssociationPrivC.RouteTableId.ref(routeTablePrivC)
+t.addResource(privateSubnetRouteTableAssociationPrivC)
+
+let privateSubnetRouteTableAssociationPrivD = new ec2.SubnetRouteTableAssociation('PrivateSubnetRouteTableAssociationPrivD')
+privateSubnetRouteTableAssociationPrivD.SubnetId.ref(privateSubnetPrivD)
+privateSubnetRouteTableAssociationPrivD.RouteTableId.ref(routeTablePrivD)
+t.addResource(privateSubnetRouteTableAssociationPrivD)
 
 console.log(JSON.stringify(t, null, 2))
 console.log('toJson():')

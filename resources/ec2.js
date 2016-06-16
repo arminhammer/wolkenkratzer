@@ -88,33 +88,73 @@ class NatGateway extends cloudpotato.BaseAWSObject {
  AWS::EC2::NetworkInterface
  AWS::EC2::NetworkInterfaceAttachment
  AWS::EC2::PlacementGroup
- AWS::EC2::Route
- AWS::EC2::RouteTable
- AWS::EC2::SecurityGroup
- AWS::EC2::SecurityGroupEgress
- AWS::EC2::SecurityGroupIngress
- AWS::EC2::SpotFleet
-*/
+ */
 
-class Subnet extends cloudpotato.BaseAWSObject {
+class Route extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
-    let resourceType = 'AWS::EC2::Subnet'
+    let resourceType = 'AWS::EC2::Route'
     let properties = {
-        AvailabilityZone: new cloudpotato.ResourceProperty(String, false, null),
-        CidrBlock: new cloudpotato.ResourceProperty(String, true, null),
-        MapPublicIpOnLaunch: new cloudpotato.ResourceProperty(Boolean, false, null),
-        Tags: new cloudpotato.TagSet(),
-        VpcId: new cloudpotato.ResourceProperty(String, true, null)
+      DestinationCidrBlock: new cloudpotato.ResourceProperty(String, true, null),
+      GatewayId: new cloudpotato.ResourceProperty(String, false, null),
+      InstanceId: new cloudpotato.ResourceProperty(String, false, null),
+      NatGatewayId: new cloudpotato.ResourceProperty(String, false, null),
+      NetworkInterfaceId: new cloudpotato.ResourceProperty(String, false, null),
+      RouteTableId: new cloudpotato.ResourceProperty(String, true, null),
+      VpcPeeringConnectionId: new cloudpotato.ResourceProperty(String, false, null),
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
- /*
+class RouteTable extends cloudpotato.BaseAWSObject {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::EC2::RouteTable'
+    let properties = {
+      VpcId: new cloudpotato.ResourceProperty(String, true, null),
+      Tags: new cloudpotato.TagSet()
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/*
+ AWS::EC2::SecurityGroup
+ AWS::EC2::SecurityGroupEgress
+ AWS::EC2::SecurityGroupIngress
+ AWS::EC2::SpotFleet
+ */
+
+class Subnet extends cloudpotato.BaseAWSObject {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::EC2::Subnet'
+    let properties = {
+      AvailabilityZone: new cloudpotato.ResourceProperty(String, false, null),
+      CidrBlock: new cloudpotato.ResourceProperty(String, true, null),
+      MapPublicIpOnLaunch: new cloudpotato.ResourceProperty(Boolean, false, null),
+      Tags: new cloudpotato.TagSet(),
+      VpcId: new cloudpotato.ResourceProperty(String, true, null)
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/*
  AWS::EC2::Subnet
  AWS::EC2::SubnetNetworkAclAssociation
- AWS::EC2::SubnetRouteTableAssociation
- AWS::EC2::Volume
+ */
+
+class SubnetRouteTableAssociation extends cloudpotato.BaseAWSObject {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::EC2::SubnetRouteTableAssociation'
+    let properties = {
+      RouteTableId: new cloudpotato.ResourceProperty(String, true, null),
+      SubnetId: new cloudpotato.ResourceProperty(String, true, null)
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/* AWS::EC2::Volume
  AWS::EC2::VolumeAttachment
  */
 
@@ -161,7 +201,10 @@ module.exports = {
   Instance: Instance,
   InternetGateway: InternetGateway,
   NatGateway: NatGateway,
+  Route: Route,
+  RouteTable: RouteTable,
   Subnet: Subnet,
+  SubnetRouteTableAssociation: SubnetRouteTableAssociation,
   VPC: VPC,
   VPCGatewayAttachment: VPCGatewayAttachment
 }

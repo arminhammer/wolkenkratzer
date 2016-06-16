@@ -14,6 +14,6 @@ describe ('Template', () => {
   let template = new cloudpotato.Template()
 
   it ('Version should be 2010-09-09', () => {
-    template.Version.should.equal('2010-09-09')
+    template.AWSTemplateFormatVersion.should.equal('2010-09-09')
   })
 })
