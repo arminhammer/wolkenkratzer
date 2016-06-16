@@ -5,9 +5,6 @@ const cloudpotato = require('./index')
 const s3 = require('./resources/s3')
 const ec2 = require('./resources/ec2')
 
-// console.log('bucketPolicy')
-// console.log(bucketPolicy)
-
 let t = new cloudpotato.Template()
 let vpcCiderParam = new cloudpotato.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
 t.addParameter(vpcCiderParam)
@@ -36,14 +33,10 @@ igw.Tags.add({ Key: 'Name', Value: 'InternetGateway' })
 igw.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
 t.addResource(igw)
 
-console.log(t.toJson())
-
 let vpcgatewayatt = new ec2.VPCGatewayAttachment('AttachInternetGateway')
 vpcgatewayatt.VpcId.ref(vpc)
 vpcgatewayatt.InternetGatewayId.ref(igw)
 
-console.log('vpcgatewayatt')
-console.log(vpcgatewayatt)
 t.addResource(vpcgatewayatt)
 
 let publicSubnetPubA = new ec2.Subnet('PublicSubnetPubA')
@@ -154,7 +147,7 @@ privateSubnetRouteTableAssociationPrivD.SubnetId.ref(privateSubnetPrivD)
 privateSubnetRouteTableAssociationPrivD.RouteTableId.ref(routeTablePrivD)
 t.addResource(privateSubnetRouteTableAssociationPrivD)
 
-console.log(JSON.stringify(t, null, 2))
+// console.log(JSON.stringify(t, null, 2))
 console.log('toJson():')
-console.log(t.toJson())
 // console.log(t.toJson())
+console.log(t.toJson())
