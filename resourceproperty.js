@@ -6,14 +6,16 @@
 const Ref = require('./intrinsic').Ref
 const Intrinsic = require('./intrinsic').Intrinsic
 const FnGetAtt = require('./intrinsic').FnGetAtt
-const RequiredPropertyException = require('./index').RequiredPropertyException
-const TypeException = require('./index').TypeException
+const RequiredPropertyException = require('./exceptions').RequiredPropertyException
+const TypeException = require('./exceptions').TypeException
+const ConditionNotMetException = require('./exceptions').ConditionNotMetException
 
 class ResourceProperty {
-  constructor (Type, required, value) {
+  constructor (Type, required, value, conditional) {
     this.Type = Type
     this.required = required
     this.val = value
+    this.conditional = conditional
   }
   set (value) {
     let valueType = value
@@ -37,12 +39,15 @@ class ResourceProperty {
   }
   toJson () {
     if (this.val !== null) {
+      if(this.conditional) {
+        this.conditional(this.val)
+      }
       if (this.val instanceof Intrinsic) {
         return this.val.toJson()
       }
       return this.val
     } else {
-      if (this.required) { throw new RequiredPropertyException() }
+      if (this.required) { throw new RequiredPropertyException('this value is required') }
     }
   }
 }

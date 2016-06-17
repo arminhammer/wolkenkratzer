@@ -3,38 +3,51 @@
  */
 'use strict'
 
-class ValueException {
+class Exception {
   constructor(message) {
     this.message = message
+  }
+  toJson() {
+    return message
+  }
+}
+
+class ValueException extends Exception {
+  constructor(message) {
+    super(message)
     this.name = 'ValueError'
   }
-  toJson () {
-    return message
-  }
 }
 
-class RequiredPropertyException {
+function RequiredPropertyException(message) {
+  this.message = message
+  this.name = 'RequiredPropertyException'
+}
+
+/* class RequiredPropertyException extends Exception {
   constructor(message) {
-    this.message = message
+    super(message)
     this.name = 'RequiredPropertyException'
   }
-  toJson () {
-    return message
+}*/
+
+class TypeException extends Exception {
+  constructor(message) {
+    super(message)
+    this.name = 'TypeException'
   }
 }
 
-class TypeException {
+class ConditionNotMetException extends Exception {
   constructor(message) {
-    this.message = message
-    this.name = 'TypeException'
-  }
-  toJson () {
-    return message
+    super(message)
+    this.name = 'ConditionNotMetException'
   }
 }
 
 module.exports = {
   TypeException: TypeException,
   RequiredPropertyException: RequiredPropertyException,
-  ValueException: ValueException
+  ValueException: ValueException,
+  ConditionNotMetException: ConditionNotMetException
 }

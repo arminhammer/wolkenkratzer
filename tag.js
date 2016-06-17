@@ -3,8 +3,8 @@
  */
 'use strict'
 // const debug = require('debug')('tag')
-const Intrinsic = require('./index').Intrinsic
-const TypeException = require('./index').TypeException
+const Intrinsic = require('./intrinsic').Intrinsic
+const TypeException = require('./exceptions').TypeException
 
 class Tag {
   constructor (key, value) {

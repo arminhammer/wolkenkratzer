@@ -4,6 +4,7 @@
 'use strict'
 
 const cloudpotato = require('./../index')
+const ConditionNotMetException = require('../exceptions').ConditionNotMetException
 
 /*
  AWS::EC2::CustomerGateway
@@ -186,14 +187,34 @@ class VPCGatewayAttachment extends cloudpotato.BaseAWSObject {
       'VpnGatewayId': new cloudpotato.ResourceProperty(String, false, null)
     }
     super(name, resourceType, properties, propertiesObject)
+    this.conditional = () => {
+      if(this.properties.InternetGatewayId.val && this.properties.VpnGatewayId.val) {
+        throw ConditionNotMetException('You must specify either InternetGatewayId or VpnGatewayId, but not both.')
+      }
+    }
   }
 }
 
 /* AWS::EC2::VPCPeeringConnection
  AWS::EC2::VPNConnection
  AWS::EC2::VPNConnectionRoute
- AWS::EC2::VPNGateway
- AWS::EC2::VPNGatewayRoutePropagation
+ */
+
+class VPNGateway extends cloudpotato.BaseAWSObject {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::EC2::VPNGateway'
+    let properties = {
+      Type: new cloudpotato.ResourceProperty(String, true, null, (value) => {
+        if(value !== 'ipsec.1') { throw new ConditionNotMetException('The only valid value is "ipsec.1"') }
+      }),
+      Tags: new cloudpotato.TagSet()
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+
+/*AWS::EC2::VPNGatewayRoutePropagation
  */
 
 module.exports = {
@@ -206,7 +227,8 @@ module.exports = {
   Subnet: Subnet,
   SubnetRouteTableAssociation: SubnetRouteTableAssociation,
   VPC: VPC,
-  VPCGatewayAttachment: VPCGatewayAttachment
+  VPCGatewayAttachment: VPCGatewayAttachment,
+  VPNGateway: VPNGateway
 }
 
 /*

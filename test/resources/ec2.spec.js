@@ -76,11 +76,11 @@ describe('EC2', () => {
 
     t.addResource(vpc)
 
-    it ('Should be able to add an instance to the template', () => {
-      t.Resources['myvpc'].resourceType.should.equal('AWS::EC2::VPC')
+    it('Should be able to add an instance to the template', () => {
+      t.Resources[ 'myvpc' ].resourceType.should.equal('AWS::EC2::VPC')
     })
 
-    it ('Should generate the expected JSON template', () => {
+    it('Should generate the expected JSON template', () => {
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
         'Description': '',
@@ -103,6 +103,51 @@ describe('EC2', () => {
         'AWSTemplateFormatVersion': '2010-09-09'
       })
     })
+  })
+
+  describe('VPNGatewayAttachment', () => {
+
+    let t = new cloudpotato.Template()
+
+    let vpnGateway = new ec2.VPNGateway('VPNGateway')
+    vpnGateway.Type = 'ipsec.1'
+    t.addResource(vpnGateway)
+
+    it ('Should be able to add a VPN Gateway to the template', () => {
+      t.Resources['VPNGateway'].resourceType.should.equal('AWS::EC2::VPNGateway')
+    })
+
+    it('Conditional should be tested, only ipsec.1 can be allowed as the type', () => {
+      vpnGateway.Type = 'ipsec.2'
+      try {
+        t.toJson()
+      } catch(e) {
+        e.message.should.equal('VPNGateway.Type did not meet a condition: The only valid value is "ipsec.1"')
+      }
+    })
+
+    it ('Should generate the expected JSON template', () => {
+      vpnGateway.Type = 'ipsec.1'
+      console.log(t.toJson())
+      let jsonString = JSON.parse(t.toJson())
+      jsonString.should.deep.equal({
+        'Description': '',
+        'Metadata': {},
+        'Conditions': {},
+        'Mappings': {},
+        'Outputs': {},
+        'Parameters': {},
+        'Resources': {
+          'VPNGateway': {
+            'Type': 'AWS::EC2::VPNGateway',
+            'Properties': {
+              'Type': 'ipsec.1'
+            }
+          }
+        },
+        'AWSTemplateFormatVersion': '2010-09-09'
+      })
+    })
 
     it ('CloudFormation should validate the template', () => {
       let jsonString = t.toJson()
@@ -115,6 +160,7 @@ describe('EC2', () => {
         should.exist(data)
       })
     })
+
   })
 
   describe ('Combined Networking', () => {
@@ -147,14 +193,10 @@ describe('EC2', () => {
     igw.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
     t.addResource(igw)
 
-    console.log(t.toJson())
-
     let vpcgatewayatt = new ec2.VPCGatewayAttachment('AttachInternetGateway')
     vpcgatewayatt.VpcId.ref(vpc)
     vpcgatewayatt.InternetGatewayId.ref(igw)
 
-    console.log('vpcgatewayatt')
-    console.log(vpcgatewayatt)
     t.addResource(vpcgatewayatt)
 
     let publicSubnetPubA = new ec2.Subnet('PublicSubnetPubA')

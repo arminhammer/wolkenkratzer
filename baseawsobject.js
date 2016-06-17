@@ -3,7 +3,8 @@
  */
 'use strict'
 const debug = require('debug')('baseawsobject')
-const RequiredPropertyException = require('./index').RequiredPropertyException
+const RequiredPropertyException = require('./exceptions').RequiredPropertyException
+const ConditionNotMetException = require('./exceptions').ConditionNotMetException
 
 class BaseAWSObject {
   constructor (name, resourceType, properties, propertiesObject) {
@@ -38,6 +39,21 @@ class BaseAWSObject {
       } catch (e) {
         if (e instanceof RequiredPropertyException) {
           throw new RequiredPropertyException(this.Name + '.' + prop + ' is required but not defined.')
+        } else if (e instanceof ConditionNotMetException) {
+          throw new ConditionNotMetException(this.Name + '.' + prop + ' did not meet a condition: ' + e.message)
+        } else {
+          console.log(e)
+        }
+      }
+    }
+    if(this.conditional) {
+      //console.log('conditional')
+      try {
+        this.conditional()
+      } catch (e) {
+        //console.log('Condition caught!')
+        if (e instanceof ConditionNotMetException) {
+          throw new ConditionNotMetException(this.Name + ' has a condition that was not met: ' + e.message)
         }
       }
     }
