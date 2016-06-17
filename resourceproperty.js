@@ -11,11 +11,10 @@ const TypeException = require('./exceptions').TypeException
 const ConditionNotMetException = require('./exceptions').ConditionNotMetException
 
 class ResourceProperty {
-  constructor (Type, required, value, conditional) {
+  constructor (Type, required, value) {
     this.Type = Type
     this.required = required
     this.val = value
-    this.conditional = conditional
   }
   set (value) {
     let valueType = value
@@ -39,9 +38,6 @@ class ResourceProperty {
   }
   toJson () {
     if (this.val !== null) {
-      if(this.conditional) {
-        this.conditional(this.val)
-      }
       if (this.val instanceof Intrinsic) {
         return this.val.toJson()
       }

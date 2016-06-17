@@ -179,19 +179,19 @@ class VPC extends cloudpotato.BaseAWSObject {
  */
 
 class VPCGatewayAttachment extends cloudpotato.BaseAWSObject {
-  constructor (name, propertiesObject) {
+  constructor (name, propertiesObject, vpcGatewayAttachmentConditional) {
     let resourceType = 'AWS::EC2::VPCGatewayAttachment'
     let properties = {
       'InternetGatewayId': new cloudpotato.ResourceProperty(String, false, null),
       'VpcId': new cloudpotato.ResourceProperty(String, true, null),
       'VpnGatewayId': new cloudpotato.ResourceProperty(String, false, null)
     }
-    super(name, resourceType, properties, propertiesObject)
-    this.conditional = () => {
-      if(this.properties.InternetGatewayId.val && this.properties.VpnGatewayId.val) {
-        throw ConditionNotMetException('You must specify either InternetGatewayId or VpnGatewayId, but not both.')
+    let conditional = (properties) => {
+      if((properties.InternetGatewayId.val !== null) && (properties.VpnGatewayId.val !== null)) {
+        throw new ConditionNotMetException('You must specify either InternetGatewayId or VpnGatewayId, but not both.')
       }
     }
+    super(name, resourceType, properties, propertiesObject, conditional)
   }
 }
 
@@ -204,12 +204,15 @@ class VPNGateway extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNGateway'
     let properties = {
-      Type: new cloudpotato.ResourceProperty(String, true, null, (value) => {
-        if(value !== 'ipsec.1') { throw new ConditionNotMetException('The only valid value is "ipsec.1"') }
-      }),
+      Type: new cloudpotato.ResourceProperty(String, true, null),
       Tags: new cloudpotato.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
+    let conditional = (properties) => {
+      if(properties.Type.val !== 'ipsec.1') {
+        throw new ConditionNotMetException('The only valid value for Type is "ipsec.1"')
+      }
+    }
+    super(name, resourceType, properties, propertiesObject, conditional)
   }
 }
 

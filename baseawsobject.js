@@ -7,10 +7,11 @@ const RequiredPropertyException = require('./exceptions').RequiredPropertyExcept
 const ConditionNotMetException = require('./exceptions').ConditionNotMetException
 
 class BaseAWSObject {
-  constructor (name, resourceType, properties, propertiesObject) {
+  constructor (name, resourceType, properties, propertiesObject, conditional) {
     this.Name = name
     this.resourceType = resourceType
     this.properties = properties
+    this.conditional = conditional
     for (let prop in this.properties) {
       Object.defineProperty(this, prop, {
         set: (value) => {
@@ -39,19 +40,13 @@ class BaseAWSObject {
       } catch (e) {
         if (e instanceof RequiredPropertyException) {
           throw new RequiredPropertyException(this.Name + '.' + prop + ' is required but not defined.')
-        } else if (e instanceof ConditionNotMetException) {
-          throw new ConditionNotMetException(this.Name + '.' + prop + ' did not meet a condition: ' + e.message)
-        } else {
-          console.log(e)
         }
       }
     }
     if(this.conditional) {
-      //console.log('conditional')
       try {
-        this.conditional()
+        this.conditional(this.properties)
       } catch (e) {
-        //console.log('Condition caught!')
         if (e instanceof ConditionNotMetException) {
           throw new ConditionNotMetException(this.Name + ' has a condition that was not met: ' + e.message)
         }

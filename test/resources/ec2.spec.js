@@ -122,13 +122,12 @@ describe('EC2', () => {
       try {
         t.toJson()
       } catch(e) {
-        e.message.should.equal('VPNGateway.Type did not meet a condition: The only valid value is "ipsec.1"')
+        e.message.should.equal('VPNGateway has a condition that was not met: The only valid value for Type is "ipsec.1"')
       }
     })
 
     it ('Should generate the expected JSON template', () => {
       vpnGateway.Type = 'ipsec.1'
-      console.log(t.toJson())
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
         'Description': '',
