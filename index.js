@@ -11,6 +11,7 @@ const Ref = require('./intrinsic').Ref
 const FnGetAtt = require('./intrinsic').FnGetAtt
 const Parameter = require('./parameter').Parameter
 const BaseAWSObject = require('./baseawsobject').BaseAWSObject
+const SubPropertyObject = require('./baseawsobject').SubPropertyObject
 const ResourceProperty = require('./resourceproperty').ResourceProperty
 const ResourceArray = require('./resourceproperty').ResourceArray
 const TypeException = require('./exceptions').TypeException
@@ -33,6 +34,7 @@ const AWS_STACK_NAME = 'AWS::StackName'*/
 module.exports = {
   Template: Template,
   BaseAWSObject: BaseAWSObject,
+  SubPropertyObject: SubPropertyObject,
   Parameter: Parameter,
   ResourceProperty: ResourceProperty,
   ResourceArray: ResourceArray,

@@ -26,13 +26,39 @@ class EIP extends cloudpotato.BaseAWSObject {
  AWS::EC2::Host
  */
 
+class AmazonElasticBlockStoreBlockDeviceProperty extends cloudpotato.SubPropertyObject {
+  constructor(propertiesObject) {
+    let properties = {
+      DeleteOnTermination: new cloudpotato.ResourceProperty(Boolean, false, null),
+      Encrypted: new cloudpotato.ResourceProperty(Boolean, false, null),
+      Iops: new cloudpotato.ResourceProperty(Number, false, null),
+      SnapshotId: new cloudpotato.ResourceProperty(String, false, null),
+      VolumeSize: new cloudpotato.ResourceProperty(String, false, null),
+      VolumeType: new cloudpotato.ResourceProperty(String, false, null),
+    }
+    super(properties, propertiesObject)
+  }
+}
+
+class AmazonEC2BlockDeviceMappingProperty extends cloudpotato.SubPropertyObject {
+  constructor(propertiesObject) {
+    let properties = {
+      DeviceName: new cloudpotato.ResourceProperty(String, true, null),
+      Ebs: new cloudpotato.ResourceProperty(AmazonElasticBlockStoreBlockDeviceProperty, false, null),
+      NoDevice: new cloudpotato.ResourceProperty(Object, false, null),
+      VirtualName: new cloudpotato.ResourceProperty(String, false, null),
+    }
+    super(properties, propertiesObject)
+  }
+}
+
 class Instance extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Instance'
     let properties = {
       Affinity: new cloudpotato.ResourceProperty(String, false, null),
       AvailabilityZone: new cloudpotato.ResourceProperty(String, false, null),
-      // BlockDeviceMappings: new cloudpotato.ResourceProperty(String, false, null),[ EC2 Block Device Mapping, ... ],
+      BlockDeviceMappings: new cloudpotato.ResourceArray(AmazonEC2BlockDeviceMappingProperty, false, null),
       DisableApiTermination: new cloudpotato.ResourceProperty(Boolean, false, null),
       EbsOptimized: new cloudpotato.ResourceProperty(Boolean, false, null),
       HostId: new cloudpotato.ResourceProperty(String, false, null),
@@ -221,6 +247,8 @@ class VPNGateway extends cloudpotato.BaseAWSObject {
  */
 
 module.exports = {
+  AmazonElasticBlockStoreBlockDeviceProperty: AmazonElasticBlockStoreBlockDeviceProperty,
+  AmazonEC2BlockDeviceMappingProperty: AmazonEC2BlockDeviceMappingProperty,
   EIP: EIP,
   Instance: Instance,
   InternetGateway: InternetGateway,

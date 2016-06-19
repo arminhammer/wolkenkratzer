@@ -87,6 +87,51 @@ describe('EC2', () => {
       })
     })
 
+    it('should handle arrays of sub objects like Amazon EC2 Block Device Mapping Property', () => {
+      let device = new ec2.AmazonElasticBlockStoreBlockDeviceProperty()
+      device.SnapshotId = 'snap-xxxxxx'
+      device.VolumeSize = '50'
+      device.VolumeType = 'io1'
+      device.Iops = 1000
+      device.DeleteOnTermination = false
+      let mapping = new ec2.AmazonEC2BlockDeviceMappingProperty()
+      mapping.DeviceName = '/dev/sdc'
+      mapping.Ebs = device
+      instance.BlockDeviceMappings.push(mapping)
+      let jsonString = JSON.parse(t.toJson())
+      jsonString.should.deep.equal({
+        'Description': '',
+        'Metadata': {},
+        'Conditions': {},
+        'Mappings': {},
+        'Outputs': {},
+        'Parameters': {},
+        'Resources': {
+          'myinstance': {
+            'Type': 'AWS::EC2::Instance',
+            'Properties': {
+              'ImageId': 'ami-951945d0',
+              'InstanceType': 't2.micro',
+              'SecurityGroupIds': ['sg-12345', 'sg-4567'],
+              'BlockDeviceMappings': [
+                {
+                  'DeviceName':'/dev/sdc',
+                  'Ebs':{
+                    'SnapshotId':'snap-xxxxxx',
+                    'VolumeSize':'50',
+                    'VolumeType':'io1',
+                    'Iops': 1000,
+                    'DeleteOnTermination': false
+                  }
+                }
+              ]
+            }
+          }
+        },
+        'AWSTemplateFormatVersion': '2010-09-09'
+      })
+    })
+
   })
 
   describe('VPC', () => {
