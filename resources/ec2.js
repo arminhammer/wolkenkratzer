@@ -52,6 +52,64 @@ class AmazonEC2BlockDeviceMappingProperty extends cloudpotato.SubPropertyObject 
   }
 }
 
+class EC2NetworkInterfacePrivateIPSpecification extends cloudpotato.SubPropertyObject {
+  constructor(propertiesObject) {
+    let properties = {
+      PrivateIpAddress: new cloudpotato.ResourceProperty(String, true, null),
+      Primary: new cloudpotato.ResourceProperty(Boolean, true, null),
+    }
+    super(properties, propertiesObject)
+  }
+}
+
+class EC2NetworkInterfaceEmbeddedPropertyType extends cloudpotato.SubPropertyObject {
+  constructor(propertiesObject) {
+    let properties = {
+      AssociatePublicIpAddress: new cloudpotato.ResourceProperty(Boolean, false, null),
+      DeleteOnTermination: new cloudpotato.ResourceProperty(Boolean, false, null),
+      Description: new cloudpotato.ResourceProperty(String, false, null),
+      DeviceIndex: new cloudpotato.ResourceProperty(String, true, null),
+      GroupSet: new cloudpotato.ResourceArray(String, false, null),
+      NetworkInterfaceId: new cloudpotato.ResourceProperty(String, false, null),
+      PrivateIpAddress: new cloudpotato.ResourceProperty(String, false, null),
+      PrivateIpAddresses: new cloudpotato.ResourceArray(EC2NetworkInterfacePrivateIPSpecification, false, null),
+      SecondaryPrivateIpAddressCount: new cloudpotato.ResourceProperty(Number, false, null),
+      SubnetId: new cloudpotato.ResourceProperty(String, false, null)
+    }
+    super(properties, propertiesObject)
+  }
+}
+
+class AmazonEC2InstanceSsmAssociationsAssociationParameters extends cloudpotato.SubPropertyObject {
+  constructor(propertiesObject) {
+    let properties = {
+      Key: new cloudpotato.ResourceProperty(String, true, null),
+      Value: new cloudpotato.ResourceArray(String, true, null)
+    }
+    super(properties, propertiesObject)
+  }
+}
+
+class AmazonEC2InstanceSsmAssociations extends cloudpotato.SubPropertyObject {
+  constructor(propertiesObject) {
+    let properties = {
+      AssociationParameters: new cloudpotato.ResourceArray(AmazonEC2InstanceSsmAssociationsAssociationParameters, false, null),
+      DocumentName: new cloudpotato.ResourceProperty(String, true, null)
+      }
+    super(properties, propertiesObject)
+  }
+}
+
+class EC2MountPointPropertyType extends cloudpotato.SubPropertyObject {
+  constructor(propertiesObject) {
+    let properties = {
+      Device: new cloudpotato.ResourceProperty(String, true, null),
+      VolumeId: new cloudpotato.ResourceProperty(String, true, null)
+    }
+    super(properties, propertiesObject)
+  }
+}
+
 class Instance extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Instance'
@@ -69,19 +127,19 @@ class Instance extends cloudpotato.BaseAWSObject {
       KernelId: new cloudpotato.ResourceProperty(String, false, null),
       KeyName: new cloudpotato.ResourceProperty(String, false, null),
       Monitoring: new cloudpotato.ResourceProperty(Boolean, false, null),
-      // NetworkInterfaces: new cloudpotato.ResourceProperty(String, false, null),[ EC2 Network Interface, ... ],
+      NetworkInterfaces: new cloudpotato.ResourceArray(EC2NetworkInterfaceEmbeddedPropertyType, false, null),
       PlacementGroupName: new cloudpotato.ResourceProperty(String, false, null),
       PrivateIpAddress: new cloudpotato.ResourceProperty(String, false, null),
       RamdiskId: new cloudpotato.ResourceProperty(String, false, null),
       SecurityGroupIds: new cloudpotato.ResourceArray(String, false, null),
       SecurityGroups: new cloudpotato.ResourceArray(String, false, null),
       SourceDestCheck: new cloudpotato.ResourceProperty(Boolean, false, null),
-      // SsmAssociations: new cloudpotato.ResourceProperty(String, false, null),[ SSMAssociation, ... ]
+      SsmAssociations: new cloudpotato.ResourceArray(AmazonEC2InstanceSsmAssociations, false, null),
       SubnetId: new cloudpotato.ResourceProperty(String, false, null),
       Tags: new cloudpotato.TagSet(),
       Tenancy: new cloudpotato.ResourceProperty(String, false, null),
       UserData: new cloudpotato.ResourceProperty(String, false, null),
-      // Volumes: new cloudpotato.ResourceProperty(String, false, null),[ EC2 MountPoint, ... ],
+      Volumes: new cloudpotato.ResourceArray(EC2MountPointPropertyType, false, null),
       AdditionalInfo: new cloudpotato.ResourceProperty(String, false, null)
     }
     super(name, resourceType, properties, propertiesObject)
@@ -249,6 +307,11 @@ class VPNGateway extends cloudpotato.BaseAWSObject {
 module.exports = {
   AmazonElasticBlockStoreBlockDeviceProperty: AmazonElasticBlockStoreBlockDeviceProperty,
   AmazonEC2BlockDeviceMappingProperty: AmazonEC2BlockDeviceMappingProperty,
+  EC2NetworkInterfacePrivateIPSpecification: EC2NetworkInterfacePrivateIPSpecification,
+  EC2NetworkInterfaceEmbeddedPropertyType: EC2NetworkInterfaceEmbeddedPropertyType,
+  AmazonEC2InstanceSsmAssociationsAssociationParameters: AmazonEC2InstanceSsmAssociationsAssociationParameters,
+  AmazonEC2InstanceSsmAssociations: AmazonEC2InstanceSsmAssociations,
+  EC2MountPointPropertyType: EC2MountPointPropertyType,
   EIP: EIP,
   Instance: Instance,
   InternetGateway: InternetGateway,
