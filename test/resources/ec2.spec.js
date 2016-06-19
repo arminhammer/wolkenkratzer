@@ -62,6 +62,31 @@ describe('EC2', () => {
         should.exist(data)
       })
     })
+
+    it ('should handle property arrays for things like SecurityGroupIds', () => {
+      instance.SecurityGroupIds = ['sg-12345', 'sg-4567']
+      let jsonString = JSON.parse(t.toJson())
+      jsonString.should.deep.equal({
+        'Description': '',
+        'Metadata': {},
+        'Conditions': {},
+        'Mappings': {},
+        'Outputs': {},
+        'Parameters': {},
+        'Resources': {
+          'myinstance': {
+            'Type': 'AWS::EC2::Instance',
+            'Properties': {
+              'ImageId': 'ami-951945d0',
+              'InstanceType': 't2.micro',
+              'SecurityGroupIds': ['sg-12345', 'sg-4567']
+            }
+          }
+        },
+        'AWSTemplateFormatVersion': '2010-09-09'
+      })
+    })
+
   })
 
   describe('VPC', () => {

@@ -12,6 +12,7 @@ const FnGetAtt = require('./intrinsic').FnGetAtt
 const Parameter = require('./parameter').Parameter
 const BaseAWSObject = require('./baseawsobject').BaseAWSObject
 const ResourceProperty = require('./resourceproperty').ResourceProperty
+const ResourceArray = require('./resourceproperty').ResourceArray
 const TypeException = require('./exceptions').TypeException
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const ValueException = require('./exceptions').ValueException
@@ -34,6 +35,7 @@ module.exports = {
   BaseAWSObject: BaseAWSObject,
   Parameter: Parameter,
   ResourceProperty: ResourceProperty,
+  ResourceArray: ResourceArray,
   TagSet: TagSet,
   Tag: Tag,
   Ref: Ref,

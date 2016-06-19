@@ -8,7 +8,6 @@ const Intrinsic = require('./intrinsic').Intrinsic
 const FnGetAtt = require('./intrinsic').FnGetAtt
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const TypeException = require('./exceptions').TypeException
-const ConditionNotMetException = require('./exceptions').ConditionNotMetException
 
 class ResourceProperty {
   constructor (Type, required, value) {
@@ -48,6 +47,44 @@ class ResourceProperty {
   }
 }
 
+class ResourceArray extends ResourceProperty {
+  constructor(Type, required, value) {
+    super(Type, required, value)
+  }
+  set (value) {
+    if (!Array.isArray(value)) {
+      throw new TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type)
+    }
+    for (let val in value) {
+      console.log('looking at each')
+      let valueType = val
+      if (typeof val === 'string') {
+        valueType = new String(val)
+      } else if (typeof val === 'boolean') {
+        valueType = new Boolean(val)
+      }
+      if (!(valueType instanceof this.Type)) {
+        throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
+      }
+      this.val = value
+    }
+  }
+  push (value) {
+    let valueType = value
+    if (typeof value === 'string') {
+      valueType = new String(value)
+    } else if (typeof value === 'boolean') {
+      valueType = new Boolean(value)
+    }
+    if (valueType instanceof this.Type) {
+      this.val.push(value)
+    } else {
+      throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
+    }
+  }
+}
+
 module.exports = {
-  ResourceProperty: ResourceProperty
+  ResourceProperty: ResourceProperty,
+  ResourceArray: ResourceArray
 }

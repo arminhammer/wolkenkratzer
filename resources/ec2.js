@@ -47,8 +47,8 @@ class Instance extends cloudpotato.BaseAWSObject {
       PlacementGroupName: new cloudpotato.ResourceProperty(String, false, null),
       PrivateIpAddress: new cloudpotato.ResourceProperty(String, false, null),
       RamdiskId: new cloudpotato.ResourceProperty(String, false, null),
-      // SecurityGroupIds: new cloudpotato.ResourceProperty(String, false, null),[ String, ... ],
-      // SecurityGroups: new cloudpotato.ResourceProperty(String, false, null),[ String, ... ],
+      SecurityGroupIds: new cloudpotato.ResourceArray(String, false, null),
+      SecurityGroups: new cloudpotato.ResourceArray(String, false, null),
       SourceDestCheck: new cloudpotato.ResourceProperty(Boolean, false, null),
       // SsmAssociations: new cloudpotato.ResourceProperty(String, false, null),[ SSMAssociation, ... ]
       SubnetId: new cloudpotato.ResourceProperty(String, false, null),
