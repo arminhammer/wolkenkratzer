@@ -23,16 +23,16 @@ class Alarm extends cloudpotato.BaseAWSObject {
       AlarmActions: new cloudpotato.ResourceArray(String, false, null),
       AlarmDescription: new cloudpotato.ResourceProperty(String, false, null),
       AlarmName: new cloudpotato.ResourceProperty(String, false, null),
-      ComparisonOperator: new cloudpotato.ResourceProperty(String, false, null),
+      ComparisonOperator: new cloudpotato.ResourceProperty(String, true, null),
       Dimensions: new cloudpotato.ResourceProperty(CloudWatchMetricDimensionPropertyType, false, null),
-      EvaluationPeriods: new cloudpotato.ResourceProperty(String, false, null),
+      EvaluationPeriods: new cloudpotato.ResourceProperty(String, true, null),
       InsufficientDataActions: new cloudpotato.ResourceArray(String, false, null),
-      MetricName: new cloudpotato.ResourceProperty(String, false, null),
-      Namespace: new cloudpotato.ResourceProperty(String, false, null),
+      MetricName: new cloudpotato.ResourceProperty(String, true, null),
+      Namespace: new cloudpotato.ResourceProperty(String, true, null),
       OKActions: new cloudpotato.ResourceArray(String, false, null),
-      Period: new cloudpotato.ResourceProperty(String, false, null),
-      Statistic: new cloudpotato.ResourceProperty(String, false, null),
-      Threshold: new cloudpotato.ResourceProperty(String, false, null),
+      Period: new cloudpotato.ResourceProperty(String, true, null),
+      Statistic: new cloudpotato.ResourceProperty(String, true, null),
+      Threshold: new cloudpotato.ResourceProperty(String, true, null),
       Unit: new cloudpotato.ResourceProperty(String, false, null)
     }
     super(name, resourceType, properties, propertiesObject)
