@@ -9,11 +9,21 @@ class AccessKey extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::AccessKey'
     let properties = {
-      "Serial": Integer,
-      "Status": String,
-      "UserName": String
+      Serial: new cloudpotato.ResourceProperty(Number, false, null),
+      Status: new cloudpotato.ResourceProperty(String, false, null),
+      UserName: new cloudpotato.ResourceProperty(String, true, null)
     }
-    super(name, resourceType, properties, propertiesObject, conditional)
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+class IAMPolicies extends cloudpotato.SubPropertyObject {
+  constructor(propertiesObject) {
+    let properties = {
+      PolicyDocument: new cloudpotato.ResourceProperty(Object, true, null),
+      PolicyName: new cloudpotato.ResourceProperty(String, true, null)
+    }
+    super(properties, propertiesObject)
   }
 }
 
@@ -21,11 +31,11 @@ class Group extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Group'
     let properties = {
-      "ManagedPolicyArns": [ String, ... ],
-      "Path": String,
-      "Policies": [ Policies, ... ]
+      ManagedPolicyArns: new cloudpotato.ResourceArray(String, false, null),
+      Path: new cloudpotato.ResourceProperty(String, false, null),
+      Policies: new cloudpotato.ResourceArray(IAMPolicies, false, null)
     }
-    super(name, resourceType, properties, propertiesObject, conditional)
+    super(name, resourceType, properties, propertiesObject)
   }
 }
 
@@ -33,10 +43,10 @@ class InstanceProfile extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::InstanceProfile'
     let properties = {
-      "Path": String,
-      "Roles": [ IAM Roles ]
+      Path: new cloudpotato.ResourceProperty(String, true, null),
+      Roles: new cloudpotato.ResourceArray(Role, true, null)
     }
-    super(name, resourceType, properties, propertiesObject, conditional)
+    super(name, resourceType, properties, propertiesObject)
   }
 }
 
@@ -44,14 +54,14 @@ class ManagedPolicy extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::ManagedPolicy'
     let properties = {
-      "Description" : String,
-      "Groups" : [ String, ... ],
-      "Path" : String,
-      "PolicyDocument" : JSON object,
-      "Roles" : [ String, ... ],
-      "Users" : [ String, ... ]
+      Description: new cloudpotato.ResourceProperty(String, false, null),
+      Groups: new cloudpotato.ResourceArray(String, false, null),
+      Path: new cloudpotato.ResourceProperty(String, false, null),
+      PolicyDocument: new cloudpotato.ResourceProperty(Object, true, null),
+      Roles: new cloudpotato.ResourceArray(String, false, null),
+      Users: new cloudpotato.ResourceArray(String, false, null)
     }
-    super(name, resourceType, properties, propertiesObject, conditional)
+    super(name, resourceType, properties, propertiesObject)
   }
 }
 
@@ -59,13 +69,13 @@ class Policy extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Policy'
     let properties = {
-      "Groups" : [ String, ... ],
-      "PolicyDocument" : JSON object,
-      "PolicyName" : String,
-      "Roles" : [ String, ... ],
-      "Users" : [ String, ... ]
+      Groups: new cloudpotato.ResourceArray(String, false, null),
+      PolicyDocument: new cloudpotato.ResourceProperty(Object, true, null),
+      PolicyName: new cloudpotato.ResourceProperty(String, true, null),
+      Roles: new cloudpotato.ResourceArray(String, false, null),
+      Users: new cloudpotato.ResourceArray(String, false, null)
     }
-    super(name, resourceType, properties, propertiesObject, conditional)
+    super(name, resourceType, properties, propertiesObject)
   }
 }
 
@@ -73,12 +83,22 @@ class Role extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Role'
     let properties = {
-      "AssumeRolePolicyDocument": { JSON },
-      "ManagedPolicyArns": [ String, ... ],
-      "Path": String,
-      "Policies": [ Policies, ... ]
+      AssumeRolePolicyDocument: new cloudpotato.ResourceProperty(Object, true, null),
+      ManagedPolicyArns: new cloudpotato.ResourceArray(String, false, null),
+      Path: new cloudpotato.ResourceProperty(String, false, null),
+      Policies: new cloudpotato.ResourceArray(IAMPolicies, false, null)
     }
-    super(name, resourceType, properties, propertiesObject, conditional)
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+class IAMUserLoginProfile extends cloudpotato.SubPropertyObject {
+  constructor(propertiesObject) {
+    let properties = {
+      Password: new cloudpotato.ResourceProperty(String, true, null),
+      PasswordResetRequired: new cloudpotato.ResourceProperty(Boolean, false, null)
+    }
+    super(properties, propertiesObject)
   }
 }
 
@@ -86,13 +106,13 @@ class User extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::User'
     let properties = {
-      "Groups": [ String, ... ],
-      "LoginProfile": LoginProfile Type,
-      "ManagedPolicyArns": [ String, ... ],
-      "Path": String,
-      "Policies": [ Policies, ... ]
+      Groups: new cloudpotato.ResourceArray(String, false, null),
+      LoginProfile: new cloudpotato.ResourceProperty(IAMUserLoginProfile, false, null),
+      ManagedPolicyArns: new cloudpotato.ResourceArray(String, false, null),
+      Path: new cloudpotato.ResourceProperty(String, false, null),
+      Policies: new cloudpotato.ResourceArray(IAMPolicies, false, null)
     }
-    super(name, resourceType, properties, propertiesObject, conditional)
+    super(name, resourceType, properties, propertiesObject)
   }
 }
 
@@ -100,10 +120,10 @@ class UserToGroupAddition extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::UserToGroupAddition'
     let properties = {
-      "GroupName": String,
-      "Users": [ User1, ... ]
+      GroupName: new cloudpotato.ResourceProperty(String, true, null),
+      Users: new cloudpotato.ResourceArray(User, true, null)
     }
-    super(name, resourceType, properties, propertiesObject, conditional)
+    super(name, resourceType, properties, propertiesObject)
   }
 }
 
@@ -111,9 +131,11 @@ module.exports = {
   AccessKey: AccessKey,
   Group: Group,
   InstanceProfile: InstanceProfile,
+  IAMPolicies: IAMPolicies,
   ManagedPolicy: ManagedPolicy,
   Policy: Policy,
   Role: Role,
+  IAMUserLoginProfile: IAMUserLoginProfile,
   User: User,
   UserToGroupAddition: UserToGroupAddition
 }

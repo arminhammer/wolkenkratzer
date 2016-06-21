@@ -9,7 +9,7 @@ class Key extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::KMS::Key'
     let properties = {
-      Description: String,new cloudpotato.ResourceProperty(String, false, null),
+      Description: new cloudpotato.ResourceProperty(String, false, null),
       Enabled: new cloudpotato.ResourceProperty(Boolean, false, null),
       EnableKeyRotation: new cloudpotato.ResourceProperty(Boolean, false, null),
       KeyPolicy: new cloudpotato.ResourceProperty(Object, true, null)
