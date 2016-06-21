@@ -300,7 +300,6 @@ class VPNGateway extends cloudpotato.BaseAWSObject {
   }
 }
 
-
 /*AWS::EC2::VPNGatewayRoutePropagation
  */
 
