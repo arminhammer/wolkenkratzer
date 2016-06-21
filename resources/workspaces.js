@@ -6,5 +6,5 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::WorkSpaces::Workspace
+  /* AWS::WorkSpaces::Workspace*/
 }

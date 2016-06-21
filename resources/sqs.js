@@ -6,6 +6,6 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::SQS::Queue
-  AWS::SQS::QueuePolicy
+  /* AWS::SQS::Queue
+  AWS::SQS::QueuePolicy*/ 
 }

@@ -6,9 +6,9 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::AutoScaling::AutoScalingGroup
+  /* AWS::AutoScaling::AutoScalingGroup
   AWS::AutoScaling::LaunchConfiguration
   AWS::AutoScaling::LifecycleHook
   AWS::AutoScaling::ScalingPolicy
-  AWS::AutoScaling::ScheduledAction
+  AWS::AutoScaling::ScheduledAction*/
 }

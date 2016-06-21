@@ -6,5 +6,5 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::DynamoDB::Table
+  /*AWS::DynamoDB::Table*/
 }

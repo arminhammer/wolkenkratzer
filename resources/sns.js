@@ -6,6 +6,6 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::SNS::Topic
-  AWS::SNS::TopicPolicy
+  /* AWS::SNS::Topic
+  AWS::SNS::TopicPolicy*/
 }

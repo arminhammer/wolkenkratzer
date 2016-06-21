@@ -6,7 +6,7 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::GameLift::Alias
+  /* AWS::GameLift::Alias
   AWS::GameLift::Build
-  AWS::GameLift::Fleet
+  AWS::GameLift::Fleet*/
 }

@@ -6,7 +6,7 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::Config::ConfigRule
+  /* AWS::Config::ConfigRule
   AWS::Config::ConfigurationRecorder
-  AWS::Config::DeliveryChannel
+  AWS::Config::DeliveryChannel*/
 }

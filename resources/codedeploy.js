@@ -6,7 +6,7 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::CodeDeploy::Application
+  /*AWS::CodeDeploy::Application
   AWS::CodeDeploy::DeploymentConfig
-  AWS::CodeDeploy::DeploymentGroup
+  AWS::CodeDeploy::DeploymentGroup*/
 }

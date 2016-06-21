@@ -6,5 +6,5 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::DataPipeline::Pipeline
+  /* AWS::DataPipeline::Pipeline*/
 }

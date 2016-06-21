@@ -6,7 +6,7 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::ApiGateway::Account
+  /* AWS::ApiGateway::Account
   AWS::ApiGateway::ApiKey
   AWS::ApiGateway::Authorizer
   AWS::ApiGateway::BasePathMapping
@@ -16,5 +16,5 @@ module.exports = {
   AWS::ApiGateway::Model
   AWS::ApiGateway::Resource
   AWS::ApiGateway::RestApi
-  AWS::ApiGateway::Stage
+  AWS::ApiGateway::Stage*/
 }

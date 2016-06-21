@@ -6,7 +6,7 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::EMR::Cluster
+  /* AWS::EMR::Cluster
   AWS::EMR::InstanceGroupConfig
-  AWS::EMR::Step
+  AWS::EMR::Step*/
 }

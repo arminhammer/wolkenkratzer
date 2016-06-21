@@ -6,6 +6,6 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::EFS::FileSystem
-  AWS::EFS::MountTarget
+  /* AWS::EFS::FileSystem
+  AWS::EFS::MountTarget*/
 }

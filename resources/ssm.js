@@ -6,5 +6,5 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::SSM::Document
+  /* AWS::SSM::Document*/
 }

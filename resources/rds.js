@@ -6,7 +6,7 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::RDS::DBCluster
+  /* AWS::RDS::DBCluster
   AWS::RDS::DBClusterParameterGroup
   AWS::RDS::DBInstance
   AWS::RDS::DBParameterGroup
@@ -14,5 +14,5 @@ module.exports = {
   AWS::RDS::DBSecurityGroupIngress
   AWS::RDS::DBSubnetGroup
   AWS::RDS::EventSubscription
-  AWS::RDS::OptionGroup
+  AWS::RDS::OptionGroup*/
 }

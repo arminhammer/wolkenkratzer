@@ -6,5 +6,5 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::ElasticLoadBalancing::LoadBalancer
+  /* AWS::ElasticLoadBalancing::LoadBalancer*/
 }

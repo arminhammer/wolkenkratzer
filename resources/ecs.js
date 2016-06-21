@@ -6,7 +6,7 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::ECS::Cluster
+  /* AWS::ECS::Cluster
   AWS::ECS::Service
-  AWS::ECS::TaskDefinition
+  AWS::ECS::TaskDefinition*/
 }

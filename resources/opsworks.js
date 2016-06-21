@@ -6,9 +6,9 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::OpsWorks::App
+  /* AWS::OpsWorks::App
   AWS::OpsWorks::ElasticLoadBalancerAttachment
   AWS::OpsWorks::Instance
   AWS::OpsWorks::Layer
-  AWS::OpsWorks::Stack
+  AWS::OpsWorks::Stack*/
 }

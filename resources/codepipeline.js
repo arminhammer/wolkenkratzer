@@ -6,6 +6,6 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::CodePipeline::CustomActionType
-  AWS::CodePipeline::Pipeline
+  /*AWS::CodePipeline::CustomActionType
+  AWS::CodePipeline::Pipeline*/
 }

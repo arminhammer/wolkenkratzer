@@ -6,6 +6,6 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::DirectoryService::MicrosoftAD
-  AWS::DirectoryService::SimpleAD
+  /*AWS::DirectoryService::MicrosoftAD
+  AWS::DirectoryService::SimpleAD*/
 }

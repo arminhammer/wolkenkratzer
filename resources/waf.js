@@ -6,11 +6,11 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::WAF::ByteMatchSet
+  /* AWS::WAF::ByteMatchSet
   AWS::WAF::IPSet
   AWS::WAF::Rule
   AWS::WAF::SizeConstraintSet
   AWS::WAF::SqlInjectionMatchSet
   AWS::WAF::WebACL
-  AWS::WAF::XssMatchSet
+  AWS::WAF::XssMatchSet*/
 }

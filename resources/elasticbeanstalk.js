@@ -6,8 +6,8 @@
 const cloudpotato = require('./../index')
 
 module.exports = {
-  AWS::ElasticBeanstalk::Application
+  /* AWS::ElasticBeanstalk::Application
   AWS::ElasticBeanstalk::ApplicationVersion
   AWS::ElasticBeanstalk::ConfigurationTemplate
-  AWS::ElasticBeanstalk::Environment
+  AWS::ElasticBeanstalk::Environment */
 }
