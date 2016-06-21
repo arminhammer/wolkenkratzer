@@ -15,7 +15,7 @@ class Rule extends cloudpotato.BaseAWSObject {
       RoleArn: new cloudpotato.ResourceProperty(String, false, null),
       ScheduleExpression: new cloudpotato.ResourceProperty(String, false, null),
       State: new cloudpotato.ResourceProperty(String, false, null),
-      Targets: new cloudpotato.ResourceArray(String, false, null),
+      Targets: new cloudpotato.ResourceArray(String, false, null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
