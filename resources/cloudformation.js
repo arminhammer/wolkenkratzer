@@ -5,7 +5,7 @@
 
 const cloudpotato = require('./../index')
 
-class Authentication extends cloudpotato.BaseAWSObject {
+/* class Authentication extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Authentication'
     let properties = {
@@ -13,7 +13,7 @@ class Authentication extends cloudpotato.BaseAWSObject {
     }
     super(name, resourceType, properties, propertiesObject)
   }
-}
+}*/
 
 class CustomResource extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
@@ -25,15 +25,65 @@ class CustomResource extends cloudpotato.BaseAWSObject {
   }
 }
 
+class InitPackage {
+  constructor() {}
+}
+
+class InitGroup {
+  constructor() {}
+}
+
+class InitUser {
+  constructor() {}
+}
+
+class InitSource {
+  constructor() {}
+}
+
+class InitFile {
+  constructor() {}
+}
+
+class InitCommand {
+  constructor() {}
+}
+
+class InitService {
+  constructor() {}
+}
+
+class InitConfig {
+  constructor(name) {
+    this.Name = name
+    this.packages = {}
+    this.groups = {}
+    this.users = {}
+    this.sources = {}
+    this.files = {}
+    this.commands = {}
+    this.services = {}
+  }
+  addPackage(pack) {}
+  addGroup(group) {}
+  addUser(user) {}
+  addSource(source) {}
+  addFiles(file) {}
+  addCommand(command) {}
+  addService(service) {}
+}
+
 class Init extends cloudpotato.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Init'
     let properties = {
-
-      RepositoryName: new cloudpotato.ResourceProperty(String, false, null),
-      RepositoryPolicyText: new cloudpotato.ResourceProperty(Object, false, null),
+      configSets: new cloudpotato.ResourceArray(InitConfig, false, null)
     }
     super(name, resourceType, properties, propertiesObject)
+    this.configs = {}
+  }
+  addConfig(config) {
+    this.configs[config.Name] = config
   }
 }
 
@@ -136,7 +186,7 @@ class WaitConditionHandle extends cloudpotato.BaseAWSObject {
 }
 
 module.exports = {
-  Authentication: Authentication,
+  //Authentication: Authentication,
   CustomResource: CustomResource,
   Init: Init,
   Interface: Interface,
