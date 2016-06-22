@@ -69,16 +69,6 @@ class Template {
     for (let resource in this.Resources) {
       j.Resources[resource] = this.Resources[resource].toJson()
     }
-    /*try {
-      for (let resource in this.Resources) {
-        j.Resources[resource] = this.Resources[resource].toJson()
-      }
-    } catch (e) {
-      console.log('EXCEPTION:')
-      console.log(e.message)
-      console.log(e)
-      process.exit()
-    }*/
     return JSON.stringify(j, null, 2)
   }
 }
