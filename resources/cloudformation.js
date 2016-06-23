@@ -3,9 +3,9 @@
  */
 'use strict'
 
-const cloudpotato = require('./../index')
+const wolkenkratzer = require('./../index')
 
-/* class Authentication extends cloudpotato.BaseAWSObject {
+/* class Authentication extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Authentication'
     let properties = {
@@ -15,11 +15,11 @@ const cloudpotato = require('./../index')
   }
 }*/
 
-class CustomResource extends cloudpotato.BaseAWSObject {
+class CustomResource extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::CustomResource'
     let properties = {
-      ServiceToken: new cloudpotato.ResourceProperty(String, true, null)
+      ServiceToken: new wolkenkratzer.ResourceProperty(String, true, null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -73,11 +73,11 @@ class InitConfig {
   addService(service) {}
 }
 
-class Init extends cloudpotato.BaseAWSObject {
+class Init extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Init'
     let properties = {
-      configSets: new cloudpotato.ResourceArray(InitConfig, false, null)
+      configSets: new wolkenkratzer.ResourceArray(InitConfig, false, null)
     }
     super(name, resourceType, properties, propertiesObject)
     this.configs = {}
@@ -87,54 +87,54 @@ class Init extends cloudpotato.BaseAWSObject {
   }
 }
 
-class AWSCloudFormationInterfaceLabel extends cloudpotato.SubPropertyObject {
+class AWSCloudFormationInterfaceLabel extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      default: new cloudpotato.ResourceProperty(String, false, null)
+      default: new wolkenkratzer.ResourceProperty(String, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCloudFormationInterfaceParameterLabel extends cloudpotato.SubPropertyObject {
+class AWSCloudFormationInterfaceParameterLabel extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ParameterLogicalID: new cloudpotato.ResourceProperty(AWSCloudFormationInterfaceLabel, false, null)
+      ParameterLogicalID: new wolkenkratzer.ResourceProperty(AWSCloudFormationInterfaceLabel, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCloudFormationInterfaceParameterGroup extends cloudpotato.SubPropertyObject {
+class AWSCloudFormationInterfaceParameterGroup extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Label: new cloudpotato.ResourceProperty(String, false, null),
-      Parameters: new cloudpotato.ResourceArray(String, false, null)
+      Label: new wolkenkratzer.ResourceProperty(String, false, null),
+      Parameters: new wolkenkratzer.ResourceArray(String, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class Interface extends cloudpotato.BaseAWSObject {
+class Interface extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Interface'
     let properties = {
-      ParameterGroups: new cloudpotato.ResourceArray(AWSCloudFormationInterfaceParameterGroup, false, null),
+      ParameterGroups: new wolkenkratzer.ResourceArray(AWSCloudFormationInterfaceParameterGroup, false, null),
       ParameterLabels: AWSCloudFormationInterfaceParameterLabel
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Stack extends cloudpotato.BaseAWSObject {
+class Stack extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Stack'
     let properties = {
-      NotificationARNs: new cloudpotato.ResourceArray(String, false, null),
-      //Parameters: new cloudpotato.ResourceProperty(String, false, null),
-      Tags: new cloudpotato.TagSet(),
-      TemplateURL: new cloudpotato.ResourceProperty(String, true, null),
-      TimeoutInMinutes: new cloudpotato.ResourceProperty(String, false, null)
+      NotificationARNs: new wolkenkratzer.ResourceArray(String, false, null),
+      //Parameters: new wolkenkratzer.ResourceProperty(String, false, null),
+      Tags: new wolkenkratzer.TagSet(),
+      TemplateURL: new wolkenkratzer.ResourceProperty(String, true, null),
+      TimeoutInMinutes: new wolkenkratzer.ResourceProperty(String, false, null)
     }
     super(name, resourceType, properties, propertiesObject)
     this.Parameters = {}
@@ -164,19 +164,19 @@ class Stack extends cloudpotato.BaseAWSObject {
   }
 }
 
-class WaitCondition extends cloudpotato.BaseAWSObject {
+class WaitCondition extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitCondition'
     let properties = {
-      Count: new cloudpotato.ResourceProperty(String, false, null),
-      Handle: new cloudpotato.ResourceProperty(String, true, null),
-      Timeout: new cloudpotato.ResourceProperty(String, true, null)
+      Count: new wolkenkratzer.ResourceProperty(String, false, null),
+      Handle: new wolkenkratzer.ResourceProperty(String, true, null),
+      Timeout: new wolkenkratzer.ResourceProperty(String, true, null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class WaitConditionHandle extends cloudpotato.BaseAWSObject {
+class WaitConditionHandle extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitConditionHandle'
     let properties = {

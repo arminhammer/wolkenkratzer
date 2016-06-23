@@ -3,23 +3,23 @@
  */
 'use strict'
 
-const cloudpotato = require('./../index')
+const wolkenkratzer = require('./../index')
 
-class Trail extends cloudpotato.BaseAWSObject {
+class Trail extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudTrail::Trail'
     let properties = {
-      CloudWatchLogsLogGroupArn: new cloudpotato.ResourceProperty(String, false, null),
-      CloudWatchLogsRoleArn: new cloudpotato.ResourceProperty(String, false, null),
-      EnableLogFileValidation: new cloudpotato.ResourceProperty(Boolean, false, null),
-      IncludeGlobalServiceEvents: new cloudpotato.ResourceProperty(Boolean, false, null),
-      IsLogging: new cloudpotato.ResourceProperty(Boolean, true, null),
-      IsMultiRegionTrail: new cloudpotato.ResourceProperty(Boolean, false, null),
-      KMSKeyId: new cloudpotato.ResourceProperty(String, false, null),
-      S3BucketName: new cloudpotato.ResourceProperty(String, true, null),
-      S3KeyPrefix: new cloudpotato.ResourceProperty(String, false, null),
-      SnsTopicName: new cloudpotato.ResourceProperty(String, false, null),
-      Tags:  new cloudpotato.TagSet()
+      CloudWatchLogsLogGroupArn: new wolkenkratzer.ResourceProperty(String, false, null),
+      CloudWatchLogsRoleArn: new wolkenkratzer.ResourceProperty(String, false, null),
+      EnableLogFileValidation: new wolkenkratzer.ResourceProperty(Boolean, false, null),
+      IncludeGlobalServiceEvents: new wolkenkratzer.ResourceProperty(Boolean, false, null),
+      IsLogging: new wolkenkratzer.ResourceProperty(Boolean, true, null),
+      IsMultiRegionTrail: new wolkenkratzer.ResourceProperty(Boolean, false, null),
+      KMSKeyId: new wolkenkratzer.ResourceProperty(String, false, null),
+      S3BucketName: new wolkenkratzer.ResourceProperty(String, true, null),
+      S3KeyPrefix: new wolkenkratzer.ResourceProperty(String, false, null),
+      SnsTopicName: new wolkenkratzer.ResourceProperty(String, false, null),
+      Tags:  new wolkenkratzer.TagSet()
     }
     super(name, resourceType, properties, propertiesObject)
   }

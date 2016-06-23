@@ -3,19 +3,19 @@
  */
 'use strict'
 
-const cloudpotato = require('./../index')
+const wolkenkratzer = require('./../index')
 
-class Rule extends cloudpotato.BaseAWSObject {
+class Rule extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Events::Rule'
     let properties = {
-      Description: new cloudpotato.ResourceProperty(String, false, null),
-      EventPattern: new cloudpotato.ResourceProperty(Object, false, null),
-      Name: new cloudpotato.ResourceProperty(String, false, null),
-      RoleArn: new cloudpotato.ResourceProperty(String, false, null),
-      ScheduleExpression: new cloudpotato.ResourceProperty(String, false, null),
-      State: new cloudpotato.ResourceProperty(String, false, null),
-      Targets: new cloudpotato.ResourceArray(String, false, null)
+      Description: new wolkenkratzer.ResourceProperty(String, false, null),
+      EventPattern: new wolkenkratzer.ResourceProperty(Object, false, null),
+      Name: new wolkenkratzer.ResourceProperty(String, false, null),
+      RoleArn: new wolkenkratzer.ResourceProperty(String, false, null),
+      ScheduleExpression: new wolkenkratzer.ResourceProperty(String, false, null),
+      State: new wolkenkratzer.ResourceProperty(String, false, null),
+      Targets: new wolkenkratzer.ResourceArray(String, false, null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

@@ -14,13 +14,13 @@ chai.should()
 var should = require('chai').should()
 
 // const _ = require('lodash')
-const cloudpotato = require(path.join(__dirname, '..', '..', 'index'))
+const wolkenkratzer = require(path.join(__dirname, '..', '..', 'index'))
 const s3 = require(path.join(__dirname, '..', '..', 'resources/s3'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
 describe('S3', () => {
-  let t = new cloudpotato.Template()
+  let t = new wolkenkratzer.Template()
 
   let bucket = new s3.Bucket('newBucket')
   bucket.BucketName = 'newBucket'

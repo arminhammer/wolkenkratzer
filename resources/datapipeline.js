@@ -3,7 +3,7 @@
  */
 'use strict'
 
-const cloudpotato = require('./../index')
+const wolkenkratzer = require('./../index')
 
 module.exports = {
   /* AWS::DataPipeline::Pipeline*/

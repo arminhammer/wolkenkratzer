@@ -3,14 +3,14 @@
  */
 'use strict'
 
-const cloudpotato = require('./../index')
+const wolkenkratzer = require('./../index')
 
-class Repository extends cloudpotato.BaseAWSObject {
+class Repository extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECR::Repository'
     let properties = {
-      RepositoryName: new cloudpotato.ResourceProperty(String, false, null),
-      RepositoryPolicyText: new cloudpotato.ResourceProperty(Object, false, null),
+      RepositoryName: new wolkenkratzer.ResourceProperty(String, false, null),
+      RepositoryPolicyText: new wolkenkratzer.ResourceProperty(Object, false, null),
     }
     super(name, resourceType, properties, propertiesObject)
   }

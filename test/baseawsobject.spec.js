@@ -8,16 +8,16 @@ const chai = require('chai')
 
 chai.should()
 
-const cloudpotato = require(path.join(__dirname, '..', 'index'))
+const wolkenkratzer = require(path.join(__dirname, '..', 'index'))
 const ec2 = require(path.join(__dirname, '..', 'resources/ec2'))
 
 describe ('BaseAWSObject', () => {
 
   describe ('Test conditional logic', () => {
 
-    let t = new cloudpotato.Template()
+    let t = new wolkenkratzer.Template()
 
-    let vpcCiderParam = new cloudpotato.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
+    let vpcCiderParam = new wolkenkratzer.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
     t.addParameter(vpcCiderParam)
 
     let vpc = new ec2.VPC('VPC')

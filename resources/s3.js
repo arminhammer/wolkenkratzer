@@ -3,261 +3,261 @@
  */
 'use strict'
 
-const cloudpotato = require('./../index')
+const wolkenkratzer = require('./../index')
 
-class AmazonS3CorsConfigurationRule extends cloudpotato.SubPropertyObject {
+class AmazonS3CorsConfigurationRule extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AllowedHeaders: new cloudpotato.ResourceArray(String, false, null),
-      AllowedMethods: new cloudpotato.ResourceArray(String, true, null),
-      AllowedOrigins: new cloudpotato.ResourceArray(String, true, null),
-      ExposedHeaders: new cloudpotato.ResourceArray(String, false, null),
-      Id: new cloudpotato.ResourceProperty(String, false, null),
-      MaxAge: new cloudpotato.ResourceProperty(Number, false, null)
+      AllowedHeaders: new wolkenkratzer.ResourceArray(String, false, null),
+      AllowedMethods: new wolkenkratzer.ResourceArray(String, true, null),
+      AllowedOrigins: new wolkenkratzer.ResourceArray(String, true, null),
+      ExposedHeaders: new wolkenkratzer.ResourceArray(String, false, null),
+      Id: new wolkenkratzer.ResourceProperty(String, false, null),
+      MaxAge: new wolkenkratzer.ResourceProperty(Number, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3CorsConfiguration extends cloudpotato.SubPropertyObject {
+class AmazonS3CorsConfiguration extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CorsRules: new cloudpotato.ResourceArray(AmazonS3CorsConfigurationRule, false, null)
+      CorsRules: new wolkenkratzer.ResourceArray(AmazonS3CorsConfigurationRule, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3LifecycleRuleNoncurrentVersionTransition extends cloudpotato.SubPropertyObject {
+class AmazonS3LifecycleRuleNoncurrentVersionTransition extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      StorageClass: new cloudpotato.ResourceProperty(String, true, null),
-      TransitionInDays: new cloudpotato.ResourceProperty(Number, true, null)
+      StorageClass: new wolkenkratzer.ResourceProperty(String, true, null),
+      TransitionInDays: new wolkenkratzer.ResourceProperty(Number, true, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3LifecycleRuleTransition extends cloudpotato.SubPropertyObject {
+class AmazonS3LifecycleRuleTransition extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      StorageClass: new cloudpotato.ResourceProperty(String, true, null),
-      TransitionDate: new cloudpotato.ResourceProperty(String, false, null),
-      TransitionInDays: new cloudpotato.ResourceProperty(Number, false, null)
+      StorageClass: new wolkenkratzer.ResourceProperty(String, true, null),
+      TransitionDate: new wolkenkratzer.ResourceProperty(String, false, null),
+      TransitionInDays: new wolkenkratzer.ResourceProperty(Number, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3LifecycleRule extends cloudpotato.SubPropertyObject {
+class AmazonS3LifecycleRule extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ExpirationDate: new cloudpotato.ResourceProperty(String, false, null),
-      ExpirationInDays: new cloudpotato.ResourceProperty(Number, false, null),
-      Id: new cloudpotato.ResourceProperty(String, false, null),
-      NoncurrentVersionExpirationInDays: new cloudpotato.ResourceProperty(Number, false, null),
-      NoncurrentVersionTransitions: new cloudpotato.ResourceArray(AmazonS3LifecycleRuleNoncurrentVersionTransition, false, null),
-      Prefix: new cloudpotato.ResourceProperty(String, false, null),
-      Status: new cloudpotato.ResourceProperty(String, false, null),
-      Transitions: new cloudpotato.ResourceArray(AmazonS3LifecycleRuleTransition, false, null)
+      ExpirationDate: new wolkenkratzer.ResourceProperty(String, false, null),
+      ExpirationInDays: new wolkenkratzer.ResourceProperty(Number, false, null),
+      Id: new wolkenkratzer.ResourceProperty(String, false, null),
+      NoncurrentVersionExpirationInDays: new wolkenkratzer.ResourceProperty(Number, false, null),
+      NoncurrentVersionTransitions: new wolkenkratzer.ResourceArray(AmazonS3LifecycleRuleNoncurrentVersionTransition, false, null),
+      Prefix: new wolkenkratzer.ResourceProperty(String, false, null),
+      Status: new wolkenkratzer.ResourceProperty(String, false, null),
+      Transitions: new wolkenkratzer.ResourceArray(AmazonS3LifecycleRuleTransition, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3LoggingConfiguration extends cloudpotato.SubPropertyObject {
+class AmazonS3LoggingConfiguration extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DestinationBucketName: new cloudpotato.ResourceProperty(String, false, null),
-      LogFilePrefix: new cloudpotato.ResourceProperty(String, false, null)
+      DestinationBucketName: new wolkenkratzer.ResourceProperty(String, false, null),
+      LogFilePrefix: new wolkenkratzer.ResourceProperty(String, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3NotificationConfigurationConfigFilterS3KeyRules extends cloudpotato.SubPropertyObject {
+class AmazonS3NotificationConfigurationConfigFilterS3KeyRules extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new cloudpotato.ResourceProperty(String, true, null),
-      Value: new cloudpotato.ResourceProperty(String, true, null),
+      Name: new wolkenkratzer.ResourceProperty(String, true, null),
+      Value: new wolkenkratzer.ResourceProperty(String, true, null),
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3NotificationConfigurationConfigFilterS3Key extends cloudpotato.SubPropertyObject {
+class AmazonS3NotificationConfigurationConfigFilterS3Key extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Rules: new cloudpotato.ResourceArray(AmazonS3NotificationConfigurationConfigFilterS3KeyRules, true, null)
+      Rules: new wolkenkratzer.ResourceArray(AmazonS3NotificationConfigurationConfigFilterS3KeyRules, true, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3NotificationConfigurationConfigFilter extends cloudpotato.SubPropertyObject {
+class AmazonS3NotificationConfigurationConfigFilter extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      S3Key: new cloudpotato.ResourceProperty(AmazonS3NotificationConfigurationConfigFilterS3Key, true, null)
+      S3Key: new wolkenkratzer.ResourceProperty(AmazonS3NotificationConfigurationConfigFilterS3Key, true, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations extends cloudpotato.SubPropertyObject {
+class AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Event: new cloudpotato.ResourceProperty(String, true, null),
-      Filter: new cloudpotato.ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, true, null),
-      Function: new cloudpotato.ResourceProperty(String, true, null)
+      Event: new wolkenkratzer.ResourceProperty(String, true, null),
+      Filter: new wolkenkratzer.ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, true, null),
+      Function: new wolkenkratzer.ResourceProperty(String, true, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3NotificationConfigurationTopicConfigurations extends cloudpotato.SubPropertyObject {
+class AmazonS3NotificationConfigurationTopicConfigurations extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Event: new cloudpotato.ResourceProperty(String, true, null),
-      Filter: new cloudpotato.ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, false, null),
-      Queue: new cloudpotato.ResourceProperty(String, true, null)
+      Event: new wolkenkratzer.ResourceProperty(String, true, null),
+      Filter: new wolkenkratzer.ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, false, null),
+      Queue: new wolkenkratzer.ResourceProperty(String, true, null)
   }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations extends cloudpotato.SubPropertyObject {
+class AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Event: new cloudpotato.ResourceProperty(String, true, null),
-      Filter: new cloudpotato.ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, false, null),
-      Queue: new cloudpotato.ResourceProperty(String, true, null)
+      Event: new wolkenkratzer.ResourceProperty(String, true, null),
+      Filter: new wolkenkratzer.ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, false, null),
+      Queue: new wolkenkratzer.ResourceProperty(String, true, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3NotificationConfiguration extends cloudpotato.SubPropertyObject {
+class AmazonS3NotificationConfiguration extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      LambdaConfigurations: new cloudpotato.ResourceArray(AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations, false, null),
-      QueueConfigurations: new cloudpotato.ResourceArray(AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations, false, null),
-      TopicConfigurations: new cloudpotato.ResourceArray(AmazonS3NotificationConfigurationTopicConfigurations, false, null)
+      LambdaConfigurations: new wolkenkratzer.ResourceArray(AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations, false, null),
+      QueueConfigurations: new wolkenkratzer.ResourceArray(AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations, false, null),
+      TopicConfigurations: new wolkenkratzer.ResourceArray(AmazonS3NotificationConfigurationTopicConfigurations, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3ReplicationConfigurationRules extends cloudpotato.SubPropertyObject {
+class AmazonS3ReplicationConfigurationRules extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Destination: new cloudpotato.ResourceProperty(String, true, null),
-      Id: new cloudpotato.ResourceProperty(String, false, null),
-      Prefix: new cloudpotato.ResourceProperty(String, true, null),
-      Status: new cloudpotato.ResourceProperty(String, true, null)
+      Destination: new wolkenkratzer.ResourceProperty(String, true, null),
+      Id: new wolkenkratzer.ResourceProperty(String, false, null),
+      Prefix: new wolkenkratzer.ResourceProperty(String, true, null),
+      Status: new wolkenkratzer.ResourceProperty(String, true, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3ReplicationConfiguration extends cloudpotato.SubPropertyObject {
+class AmazonS3ReplicationConfiguration extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Role: new cloudpotato.ResourceProperty(String, true, null),
-      Rules: new cloudpotato.ResourceArray(AmazonS3ReplicationConfigurationRules, true, null)
+      Role: new wolkenkratzer.ResourceProperty(String, true, null),
+      Rules: new wolkenkratzer.ResourceArray(AmazonS3ReplicationConfigurationRules, true, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3VersioningConfiguration extends cloudpotato.SubPropertyObject {
+class AmazonS3VersioningConfiguration extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Status: new cloudpotato.ResourceProperty(String, true, null),
+      Status: new wolkenkratzer.ResourceProperty(String, true, null),
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty extends cloudpotato.SubPropertyObject {
+class AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      HostName: new cloudpotato.ResourceProperty(String, true, null),
-      Protocol: new cloudpotato.ResourceProperty(String, false, null)
+      HostName: new wolkenkratzer.ResourceProperty(String, true, null),
+      Protocol: new wolkenkratzer.ResourceProperty(String, false, null)
   }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty extends cloudpotato.SubPropertyObject {
+class AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      HostName: new cloudpotato.ResourceProperty(String, false, null),
-      HttpRedirectCode:new cloudpotato.ResourceProperty(String, false, null),
-      Protocol: new cloudpotato.ResourceProperty(String, false, null),
-      ReplaceKeyPrefixWith: new cloudpotato.ResourceProperty(String, false, null),
-      ReplaceKeyWith: new cloudpotato.ResourceProperty(String, false, null)
+      HostName: new wolkenkratzer.ResourceProperty(String, false, null),
+      HttpRedirectCode:new wolkenkratzer.ResourceProperty(String, false, null),
+      Protocol: new wolkenkratzer.ResourceProperty(String, false, null),
+      ReplaceKeyPrefixWith: new wolkenkratzer.ResourceProperty(String, false, null),
+      ReplaceKeyWith: new wolkenkratzer.ResourceProperty(String, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty extends cloudpotato.SubPropertyObject {
+class AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      HttpErrorCodeReturnedEquals: new cloudpotato.ResourceProperty(String, false, null),
-      KeyPrefixEquals: new cloudpotato.ResourceProperty(String, false, null)
+      HttpErrorCodeReturnedEquals: new wolkenkratzer.ResourceProperty(String, false, null),
+      KeyPrefixEquals: new wolkenkratzer.ResourceProperty(String, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3WebsiteConfigurationRoutingRulesProperty extends cloudpotato.SubPropertyObject {
+class AmazonS3WebsiteConfigurationRoutingRulesProperty extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      RedirectRule: new cloudpotato.ResourceProperty(AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty, true, null),
-      RoutingRuleCondition: new cloudpotato.ResourceProperty(AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty, false, null)
+      RedirectRule: new wolkenkratzer.ResourceProperty(AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty, true, null),
+      RoutingRuleCondition: new wolkenkratzer.ResourceProperty(AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty, false, null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3WebsiteConfigurationProperty extends cloudpotato.SubPropertyObject {
+class AmazonS3WebsiteConfigurationProperty extends wolkenkratzer.SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ErrorDocument: new cloudpotato.ResourceProperty(String, false, null),
-      IndexDocument: new cloudpotato.ResourceProperty(String, true, null),
-      RedirectAllRequestsTo: new cloudpotato.ResourceProperty(AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty, false, null),
-      RoutingRules: new cloudpotato.ResourceArray(AmazonS3WebsiteConfigurationRoutingRulesProperty, false, null),
+      ErrorDocument: new wolkenkratzer.ResourceProperty(String, false, null),
+      IndexDocument: new wolkenkratzer.ResourceProperty(String, true, null),
+      RedirectAllRequestsTo: new wolkenkratzer.ResourceProperty(AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty, false, null),
+      RoutingRules: new wolkenkratzer.ResourceArray(AmazonS3WebsiteConfigurationRoutingRulesProperty, false, null),
     }
     super(properties, propertiesObject)
   }
 }
 
-class Bucket extends cloudpotato.BaseAWSObject {
+class Bucket extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::S3::Bucket'
     let properties = {
-      AccessControl: new cloudpotato.ResourceProperty(String, false, null),
-      BucketName: new cloudpotato.ResourceProperty(String, false, null),
-      CorsConfiguration: new cloudpotato.ResourceProperty(AmazonS3CorsConfiguration, false, null),
-      LifecycleConfiguration: new cloudpotato.ResourceProperty(AmazonS3LifecycleRule, false, null),
-      LoggingConfiguration: new cloudpotato.ResourceProperty(AmazonS3LoggingConfiguration, false, null),
-      NotificationConfiguration: new cloudpotato.ResourceProperty(AmazonS3NotificationConfiguration, false, null),
-      ReplicationConfiguration: new cloudpotato.ResourceProperty(AmazonS3ReplicationConfiguration, false, null),
-      Tags: new cloudpotato.TagSet(),
-      VersioningConfiguration: new cloudpotato.ResourceProperty(AmazonS3VersioningConfiguration, false, null),
-      WebsiteConfiguration: new cloudpotato.ResourceProperty(AmazonS3WebsiteConfigurationProperty, false, null)
+      AccessControl: new wolkenkratzer.ResourceProperty(String, false, null),
+      BucketName: new wolkenkratzer.ResourceProperty(String, false, null),
+      CorsConfiguration: new wolkenkratzer.ResourceProperty(AmazonS3CorsConfiguration, false, null),
+      LifecycleConfiguration: new wolkenkratzer.ResourceProperty(AmazonS3LifecycleRule, false, null),
+      LoggingConfiguration: new wolkenkratzer.ResourceProperty(AmazonS3LoggingConfiguration, false, null),
+      NotificationConfiguration: new wolkenkratzer.ResourceProperty(AmazonS3NotificationConfiguration, false, null),
+      ReplicationConfiguration: new wolkenkratzer.ResourceProperty(AmazonS3ReplicationConfiguration, false, null),
+      Tags: new wolkenkratzer.TagSet(),
+      VersioningConfiguration: new wolkenkratzer.ResourceProperty(AmazonS3VersioningConfiguration, false, null),
+      WebsiteConfiguration: new wolkenkratzer.ResourceProperty(AmazonS3WebsiteConfigurationProperty, false, null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class BucketPolicy extends cloudpotato.BaseAWSObject {
+class BucketPolicy extends wolkenkratzer.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::S3::BucketPolicy'
     let properties = {
-      Bucket: new cloudpotato.ResourceProperty(String, true, null),
-      PolicyDocument: new cloudpotato.ResourceProperty(Object, true, null)
+      Bucket: new wolkenkratzer.ResourceProperty(String, true, null),
+      PolicyDocument: new wolkenkratzer.ResourceProperty(Object, true, null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

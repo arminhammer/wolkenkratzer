@@ -1,13 +1,13 @@
 /**
  * Created by arming on 6/2/16.
  */
-const cloudpotato = require('./index')
-const s3 = require('./resources/s3')
-const ec2 = require('./resources/ec2')
+const wolkenkratzer = require('./../index')
+const s3 = require('./../resources/s3')
+const ec2 = require('./../resources/ec2')
 
-let t = new cloudpotato.Template()
+let t = new wolkenkratzer.Template()
 
-let vpcCiderParam = new cloudpotato.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
+let vpcCiderParam = new wolkenkratzer.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
 t.addParameter(vpcCiderParam)
 
 /*let vpc = new ec2.VPC('VPC')

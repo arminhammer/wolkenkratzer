@@ -2,21 +2,21 @@
  * Created by arming on 6/21/16.
  */
 
-const cloudpotato = require('../index')
+const wolkenkratzer = require('../index')
 const ec2 = require('../resources/ec2')
 
-let t = new cloudpotato.Template()
-let vpcCiderParam = new cloudpotato.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
+let t = new wolkenkratzer.Template()
+let vpcCiderParam = new wolkenkratzer.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
 t.addParameter(vpcCiderParam)
-let publicSubnetPubACIDRParam = new cloudpotato.Parameter('PublicSubnetPubACIDR', { Type: 'String', Default: '10.0.0.0/24' })
+let publicSubnetPubACIDRParam = new wolkenkratzer.Parameter('PublicSubnetPubACIDR', { Type: 'String', Default: '10.0.0.0/24' })
 t.addParameter(publicSubnetPubACIDRParam)
-let publicSubnetPubBCIDRParam = new cloudpotato.Parameter('PublicSubnetPubBCIDR', { Type: 'String', Default: '10.0.1.0/24' })
+let publicSubnetPubBCIDRParam = new wolkenkratzer.Parameter('PublicSubnetPubBCIDR', { Type: 'String', Default: '10.0.1.0/24' })
 t.addParameter(publicSubnetPubBCIDRParam)
-let privateSubnetPrivCCIDRParam = new cloudpotato.Parameter('PrivateSubnetPrivCCIDR', { Type: 'String', Default: '10.0.2.0/24' })
+let privateSubnetPrivCCIDRParam = new wolkenkratzer.Parameter('PrivateSubnetPrivCCIDR', { Type: 'String', Default: '10.0.2.0/24' })
 t.addParameter(privateSubnetPrivCCIDRParam)
-let privateSubnetPrivDCIDRParam = new cloudpotato.Parameter('PrivateSubnetPrivDCIDR', { Type: 'String', Default: '10.0.3.0/24' })
+let privateSubnetPrivDCIDRParam = new wolkenkratzer.Parameter('PrivateSubnetPrivDCIDR', { Type: 'String', Default: '10.0.3.0/24' })
 t.addParameter(privateSubnetPrivDCIDRParam)
-let vPCTagParam = new cloudpotato.Parameter('VPCTag', { Type: 'String', Default: 'BaseVPC' })
+let vPCTagParam = new wolkenkratzer.Parameter('VPCTag', { Type: 'String', Default: 'BaseVPC' })
 t.addParameter(vPCTagParam)
 
 let vpc = new ec2.VPC('VPC')
@@ -25,12 +25,12 @@ vpc.InstanceTenancy = 'default'
 vpc.EnableDnsSupport = true
 vpc.EnableDnsHostnames = true
 vpc.Tags.add({ Key: 'Name', Value: 'BaseVPC' })
-vpc.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+vpc.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
 t.addResource(vpc)
 
 let igw = new ec2.InternetGateway('InternetGateway')
 igw.Tags.add({ Key: 'Name', Value: 'InternetGateway' })
-igw.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+igw.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
 t.addResource(igw)
 
 let vpcgatewayatt = new ec2.VPCGatewayAttachment('AttachInternetGateway')
@@ -44,7 +44,7 @@ publicSubnetPubA.CidrBlock.ref(publicSubnetPubACIDRParam)
 publicSubnetPubA.VpcId.ref(vpc)
 publicSubnetPubA.MapPublicIpOnLaunch = true
 publicSubnetPubA.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubA' })
-publicSubnetPubA.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+publicSubnetPubA.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
 t.addResource(publicSubnetPubA)
 
 let publicSubnetPubB = new ec2.Subnet('PublicSubnetPubB')
@@ -52,7 +52,7 @@ publicSubnetPubB.CidrBlock.ref(publicSubnetPubBCIDRParam)
 publicSubnetPubB.VpcId.ref(vpc)
 publicSubnetPubB.MapPublicIpOnLaunch = true
 publicSubnetPubB.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubB' })
-publicSubnetPubB.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+publicSubnetPubB.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
 t.addResource(publicSubnetPubB)
 
 let eipPubA = new ec2.EIP('EIPPubA')
@@ -80,7 +80,7 @@ privateSubnetPrivC.CidrBlock.ref(privateSubnetPrivCCIDRParam)
 privateSubnetPrivC.VpcId.ref(vpc)
 privateSubnetPrivC.MapPublicIpOnLaunch = false
 privateSubnetPrivC.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivC' })
-privateSubnetPrivC.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+privateSubnetPrivC.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
 t.addResource(privateSubnetPrivC)
 
 let privateSubnetPrivD = new ec2.Subnet('PrivateSubnetPrivD')
@@ -88,25 +88,25 @@ privateSubnetPrivD.CidrBlock.ref(privateSubnetPrivDCIDRParam)
 privateSubnetPrivD.VpcId.ref(vpc)
 privateSubnetPrivD.MapPublicIpOnLaunch = false
 privateSubnetPrivD.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivD' })
-privateSubnetPrivD.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+privateSubnetPrivD.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
 t.addResource(privateSubnetPrivD)
 
 let publicRouteTable = new ec2.RouteTable('PublicRouteTable')
 publicRouteTable.VpcId.ref(vpc)
 publicRouteTable.Tags.add({ Key: 'Name', Value: 'PublicRouteTable' })
-publicRouteTable.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+publicRouteTable.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
 t.addResource(publicRouteTable)
 
 let routeTablePrivC = new ec2.RouteTable('RouteTablePrivC')
 routeTablePrivC.VpcId.ref(vpc)
 routeTablePrivC.Tags.add({ Key: 'Name', Value: 'RouteTablePrivC' })
-routeTablePrivC.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+routeTablePrivC.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
 t.addResource(routeTablePrivC)
 
 let routeTablePrivD = new ec2.RouteTable('RouteTablePrivD')
 routeTablePrivD.VpcId.ref(vpc)
 routeTablePrivD.Tags.add({ Key: 'Name', Value: 'RouteTablePrivD' })
-routeTablePrivD.Tags.add({ Key: 'Group', Value: new cloudpotato.Ref(vPCTagParam) })
+routeTablePrivD.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
 t.addResource(routeTablePrivD)
 
 let publicIGWRoute = new ec2.Route('PublicIGWRoute')

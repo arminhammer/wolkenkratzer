@@ -1,5 +1,5 @@
 {
-  "name": "cloudpotato",
+  "name": "wolkenkratzer",
   "version": "0.0.1",
   "description": "Library for building CloudFormation templates",
   "main": "index.js",
@@ -8,11 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://arminhammer@bitbucket.org/arminhammer/cloudpotato.git"
+    "url": "git+https://arminhammer@bitbucket.org/arminhammer/wolkenkratzer.git"
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/arminhammer/cloudpotato#readme",
+  "homepage": "https://bitbucket.org/arminhammer/wolkenkratzer#readme",
   "dependencies": {
     "debug": "^2.2.0"
   },
