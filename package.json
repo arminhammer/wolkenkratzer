@@ -14,7 +14,10 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/arminhammer/wolkenkratzer#readme",
   "dependencies": {
-    "debug": "^2.2.0"
+    "bluebird": "^3.4.1",
+    "debug": "^2.2.0",
+    "fs-extra": "^0.30.0",
+    "x-ray": "^2.3.0"
   },
   "devDependencies": {
     "aws-sdk": "^2.3.17",
