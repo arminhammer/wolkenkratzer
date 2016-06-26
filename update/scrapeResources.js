@@ -50,15 +50,15 @@ links()
             if(attributes.Type === 'Mappingofkey-valuepairs') {
               attributes.Type = 'Map'
             }
-            else if(attributes.Type.startsWith('Listof') || attributes.Type.startsWith('listof')) {
-              let val = attributes.Type.replace(/^Listof/,'').replace(/^listof/,'').replace(/\./g, '')
+            else if(attributes.Type.startsWith('Listof') || attributes.Type.startsWith('listof') || attributes.Type.startsWith('Alistof')) {
+              let val = attributes.Type.replace(/^Listof/,'').replace(/^listof/,'').replace(/^Alistof/,'').replace(/\./g, '')
               if(val === 'strings') {
                 val = 'String'
               }
               attributes.Type = [val]
             }
+            result.properties[obj.titles[i]] = attributes
           }
-          result.properties[obj.titles[i]] = attributes
         }
         properties[result.name] = result
       })

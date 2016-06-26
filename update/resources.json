@@ -287,9 +287,6 @@
         "Type": [
           "String"
         ]
-      },
-      "RootResourceId": {
-        "Description": "The root resource ID for a RestApi resource, such as a0bc123d4e."
       }
     }
   },
@@ -398,7 +395,9 @@
       "MetricsCollection": {
         "Description": "Enables the monitoring of group metrics of an Auto Scaling group.Update requires: No interruption",
         "Required": "No",
-        "Type": "AlistofAutoScalingMetricsCollection"
+        "Type": [
+          "AutoScalingMetricsCollection"
+        ]
       },
       "MinSize": {
         "Description": "The minimum size of the Auto Scaling group.Update requires: No interruption",
@@ -451,7 +450,9 @@
       "BlockDeviceMappings": {
         "Description": "Specifies how block devices are exposed to the instance. You can specify\n                  virtual devices and EBS volumes.Update requires: Replacement",
         "Required": "No",
-        "Type": "AlistofBlockDeviceMappings."
+        "Type": [
+          "BlockDeviceMappings"
+        ]
       },
       "ClassicLinkVPCId": {
         "Description": "The ID of a ClassicLink-enabled VPC to link your EC2-Classic instances to. You\n                  can specify this property only for EC2-Classic instances. For more information,\n                  see ClassicLink in the\n                     Amazon Elastic Compute Cloud User\n                  Guide.Update requires: Replacement",
@@ -518,7 +519,9 @@
       "SecurityGroups": {
         "Description": "A list that contains the EC2 security groups to assign to the Amazon EC2\n                  instances in the Auto Scaling group. The list can contain the name of existing EC2\n                  security groups or references to AWS::EC2::SecurityGroup resources\n                  created in the template. If your instances are launched within VPC, specify Amazon VPC\n                  security group IDs.Update requires: Replacement",
         "Required": "No",
-        "Type": "AlistofEC2securitygroups."
+        "Type": [
+          "EC2securitygroups"
+        ]
       },
       "SpotPrice": {
         "Description": "The spot price for this autoscaling group. If a spot price is set, then the\n                  autoscaling group will launch when the current spot price is less than the amount\n                  specified in the template.When you have specified a spot price for an auto scaling group, the group will\n                  only launch when the spot price has been met, regardless of the setting in the\n                  autoscaling group's DesiredCapacity.For more information about configuring a spot price for an autoscaling group,\n                  see Using Auto Scaling to Launch Spot Instances in the\n                     AutoScaling Developer Guide.Update requires: ReplacementNoteWhen you change your bid price by creating a new launch configuration,\n                     running instances will continue to run as long as the bid price for those\n                     running instances is higher than the current Spot price.",
@@ -771,9 +774,6 @@
         "Description": "The length of time, in minutes, that AWS CloudFormation waits for the nested stack to reach\n                  the CREATE_COMPLETE state. The default is no timeout. When AWS CloudFormation detects that the\n                  nested stack has reached the CREATE_COMPLETE state, it marks the nested stack\n                  resource as CREATE_COMPLETE in the parent stack and resumes creating the parent\n                  stack. If the timeout period expires before the nested stack reaches\n                  CREATE_COMPLETE, AWS CloudFormation marks the nested stack as failed and rolls back both the\n                  nested stack and parent stack.Update requires: Updates are not supported.",
         "Required": "No",
         "Type": "String"
-      },
-      "Outputs.NestedStackOutputName": {
-        "Description": "Returns: The output value from the specified nested\n                     stack where NestedStackOutputName is the name of the\n                     output value."
       }
     }
   },
@@ -794,9 +794,6 @@
         "Description": "The length of time (in seconds) to wait for the number of signals that the\n                            Count property specifies. Timeout is a\n                        minimum-bound property, meaning the timeout occurs no sooner than the time\n                        you specify, but can occur shortly thereafter. The maximum time that can be\n                        specified for this property is 12 hours (43200 seconds).Update requires: Updates are not supported.",
         "Required": "Yes",
         "Type": "String"
-      },
-      "Data": {
-        "Description": "Returns: A JSON object that contains the\n                                UniqueId and Data\n                            values from the wait condition signal(s) for the specified wait\n                            condition. For more information about wait condition signals, see Wait Condition Signal JSON\n                    Format.Example return value for a wait condition with 2 signals:"
       }
     }
   },
@@ -811,9 +808,6 @@
         "Description": "The distribution's configuration information.Update requires: No interruption",
         "Required": "Yes",
         "Type": "DistributionConfigtype"
-      },
-      "DomainName": {
-        "Description": "Returns: The domain name of the resource. For example:\n                     d2fadu0nynjpfn.cloudfront.net."
       }
     }
   },
@@ -1148,15 +1142,6 @@
         "Description": "Specifies the rule owner, the rule identifier, and the events that cause the\n            function to evaluate your AWS resources.Update requires: No interruption",
         "Required": "Yes",
         "Type": "AWSConfigConfigRuleSource"
-      },
-      "Arn": {
-        "Description": "The Amazon Resource Name (ARN) of the AWS Config rule, such as\n                arn:aws:config:us-east-1:123456789012:config-rule/config-rule-a1bzhi."
-      },
-      "ConfigRuleId": {
-        "Description": "The ID of the AWS Config rule, such as config-rule-a1bzhi."
-      },
-      "Compliance.Type": {
-        "Description": "The compliance status of  an AWS Config rule, such as COMPLIANT or\n                NON_COMPLIANT."
       }
     }
   },
@@ -1241,7 +1226,9 @@
       "PipelineObjects": {
         "Description": "A list of pipeline objects that make up the pipeline. For more information about\n            pipeline objects and a description of each object, see Pipeline Object Reference in the\n              AWS Data Pipeline Developer Guide.Update requires: Some interruptions. Not all objects, fields, and values can be updated.\n                        Restrictions on what can be updated are documented in Editing Your\n                            Pipelines in the AWS Data Pipeline Developer Guide.",
         "Required": "Yes",
-        "Type": "AlistofAWSDataPipelinePipelineObjects"
+        "Type": [
+          "AWSDataPipelinePipelineObjects"
+        ]
       },
       "PipelineTags": {
         "Description": "A list of arbitrary tags (key-value pairs) to associate with the pipeline, which you\n                        can use to control permissions. For more information, see Controlling Access to\n                            Pipelines and Resources in the\n                            AWS Data Pipeline Developer Guide.Update requires: No interruption",
@@ -1282,12 +1269,6 @@
         "Description": "Specifies the VPC settings of the Microsoft Active Directory server in\n                  AWS.Update requires: Replacement",
         "Required": "Yes",
         "Type": "AWSDirectoryServiceMicrosoftADVpcSettings"
-      },
-      "Alias": {
-        "Description": "The alias for a directory. For example: d-12373a053a or\n                        alias4-mydirectory-12345abcgmzsk (if you have the\n                        CreateAlias property set to true)."
-      },
-      "DnsIpAddresses": {
-        "Description": "The IP addresses of the DNS servers for the directory, such as [\n                        \"192.0.2.1\", \"192.0.2.2\" ]."
       }
     }
   },
@@ -1333,12 +1314,6 @@
         "Description": "Specifies the VPC settings of the directory server.Update requires: Replacement",
         "Required": "Yes",
         "Type": "AWSDirectoryServiceSimpleADVpcSettings"
-      },
-      "Alias": {
-        "Description": "The alias for a directory. For example: d-12373a053a or\n                        alias4-mydirectory-12345abcgmzsk (if you have the\n                        CreateAlias property set to true)."
-      },
-      "DnsIpAddresses": {
-        "Description": "The IP addresses of the DNS servers for the directory, such as [\n                        \"172.31.3.154\", \"172.31.63.203\" ]."
       }
     }
   },
@@ -1387,9 +1362,6 @@
         "Description": "A name for the table. If you don't specify a name, AWS CloudFormation generates a unique\n            physical ID and uses that ID for the table name. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
-      },
-      "StreamArn": {
-        "Description": "The Amazon Resource Name (ARN) of the DynamoDB stream, such as\n                arn:aws:dynamodb:us-east-1:123456789012:table/testddbstack-myDynamoDBTable-012A1SL7SMP5Q/stream/2015-11-30T20:10:00.000."
       }
     }
   },
@@ -1473,9 +1445,6 @@
         "Description": "Set to vpc to allocate the address to your Virtual Private Cloud\n                  (VPC). No other values are supported.NoteIf you define an Elastic IP address and associate it with a VPC that is\n                     defined in the same template, you must declare a dependency on the VPC-gateway\n                     attachment by using the DependsOn attribute on this resource. For\n                     more information, see DependsOn Attribute.For more information, see AllocateAddress in the Amazon EC2 API Reference. For more\n                  information about Elastic IP Addresses in VPC, go to IP Addressing in Your VPC in the Amazon VPC User\n                     Guide.Update requires: Replacement",
         "Required": "Conditional",
         "Type": "String"
-      },
-      "AllocationId": {
-        "Description": "The ID that AWS assigns to represent the allocation of the address for use\n                     with Amazon VPC. This is returned only for VPC elastic IP addresses. Example\n                     return value: eipalloc-5723d13e"
       }
     }
   },
@@ -1568,12 +1537,16 @@
         "Type": "String"
       },
       "AvailabilityZone": {
-        "Description": "The Availability Zone where the specified instance is launched. For example:\n                        us-east-1b.You can retrieve a list of all Availability Zones for a region by using the\n                        Fn::GetAZs\n                     intrinsic function."
+        "Description": "Specifies the name of the Availability Zone in which the instance is\n                  located.For more information about AWS regions and Availability Zones, see Regions and Availability Zones in the Amazon EC2 User\n                     Guide.Update requires: Replacement",
+        "Required": "Conditional",
+        "Type": "String"
       },
       "BlockDeviceMappings": {
         "Description": "Defines a set of Amazon Elastic Block Store block device mappings, ephemeral instance store\n                  block device mappings, or both. For more information, see Amazon Elastic Block Store or Amazon EC2 Instance Store in the\n                  Amazon EC2 User Guide for Linux Instances.Update requires: Replacement. If you change only the DeleteOnTermination\n                  property for one or more block devices, update requires No interruption.",
         "Required": "No",
-        "Type": "AlistofAmazonEC2BlockDeviceMappingProperty."
+        "Type": [
+          "AmazonEC2BlockDeviceMappingProperty"
+        ]
       },
       "DisableApiTermination": {
         "Description": "Specifies whether the instance can be terminated through the API.Update requires: No interruption",
@@ -1628,7 +1601,9 @@
       "NetworkInterfaces": {
         "Description": "A list of embedded objects that describe the network interfaces to associate\n                  with this instance.NoteIf this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the\nDependsOn attribute to declare a dependency on the VPC-gateway attachment. For more information,\nsee DependsOn Attribute.Update requires: Replacement",
         "Required": "No",
-        "Type": "AlistofEC2NetworkInterfaceEmbeddedPropertyType"
+        "Type": [
+          "EC2NetworkInterfaceEmbeddedPropertyType"
+        ]
       },
       "PlacementGroupName": {
         "Description": "The name of an existing placement group that you want to launch the instance\n                  into (for cluster instances).Update requires: Replacement",
@@ -1694,24 +1669,14 @@
       "Volumes": {
         "Description": "The Amazon EBS volumes to attach to the instance.NoteBefore detaching a volume, unmount any file systems on the device within\n                        your operating system. If you don't unmount the file system, a volume might\n                        get stuck in a busy state while detaching.Update requires: No interruption",
         "Required": "No",
-        "Type": "AlistofEC2MountPoints."
+        "Type": [
+          "EC2MountPoints"
+        ]
       },
       "AdditionalInfo": {
         "Description": "Reserved.Update requires:\n    Update requires: Some interruptions for Amazon EBS-backed instancesUpdate requires: Replacement for instance store-backed instances",
         "Required": "No",
         "Type": "String"
-      },
-      "PrivateDnsName": {
-        "Description": "The private DNS name of the specified instance. For example:\n                        ip-10-24-34-0.ec2.internal."
-      },
-      "PublicDnsName": {
-        "Description": "The public DNS name of the specified instance. For example:\n                     ec2-107-20-50-45.compute-1.amazonaws.com."
-      },
-      "PrivateIp": {
-        "Description": "The private IP address of the specified instance. For example:\n                        10.24.34.0."
-      },
-      "PublicIp": {
-        "Description": "The public IP address of the specified instance. For example:\n                        192.0.2.0."
       }
     }
   },
@@ -1846,12 +1811,6 @@
         "Description": "An arbitrary set of tags (key–value pairs) for this network\n                  interface.Update requires: No interruption.",
         "Required": "No",
         "Type": "AWSCloudFormationResourceTags"
-      },
-      "PrimaryPrivateIpAddress": {
-        "Description": "Returns the primary private IP address of the network interface. For\n                     example, 10.0.0.192."
-      },
-      "SecondaryPrivateIpAddresses": {
-        "Description": "Returns the secondary private IP addresses of the network interface. For\n                     example, [\"10.0.0.161\", \"10.0.0.162\", \"10.0.0.163\"]."
       }
     }
   },
@@ -1976,9 +1935,6 @@
         "Description": "The physical ID of the VPC. Can be obtained by using a reference to an AWS::EC2::VPC, such as: { \"Ref\" : \"myVPC\" }.For more information about using the Ref function, see Ref.Update requires: ReplacementNoteFor more information about VPC security groups, go to Security Groups in the Amazon VPC User Guide.",
         "Required": "Conditional",
         "Type": "String"
-      },
-      "GroupId": {
-        "Description": "The group ID of the specified security group, such as\n                        sg-94b3a1f6."
       }
     }
   },
@@ -2081,7 +2037,9 @@
     "name": "AWS::EC2::Subnet",
     "properties": {
       "AvailabilityZone": {
-        "Description": "Returns the availability zone (for example, \"us-east-1a\") of\n                     this subnet.Example:"
+        "Description": "The availability zone in which you want the subnet. Default: AWS selects a zone\n                  for you (recommended).\n                  Update requires: Replacement\n                  NoteIf you update this property, you must also update the\n                           CidrBlock property.\n               ",
+        "Required": "No",
+        "Type": "String"
       },
       "CidrBlock": {
         "Description": "The CIDR block that you want the subnet to cover (for example,\n                     \"10.0.0.0/24\").\n                  Update requires: Replacement\n                  NoteIf you update this property, you must also update the\n                           AvailabilityZone property.\n               ",
@@ -2117,9 +2075,6 @@
         "Description": "The ID of the new ACL to associate with the subnet.Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
-      },
-      "AssociationId": {
-        "Description": "Returns the value of this object's SubnetId property."
       }
     }
   },
@@ -2212,7 +2167,9 @@
     "name": "AWS::EC2::VPC",
     "properties": {
       "CidrBlock": {
-        "Description": "The set of IP addresses for the VPC. For example,\n                     10.0.0.0/16."
+        "Description": "The CIDR block you want the VPC to cover. For example: \"10.0.0.0/16\".Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
       },
       "EnableDnsSupport": {
         "Description": "Specifies whether DNS resolution is supported for the VPC. If this attribute is\n                     true, the Amazon DNS server resolves DNS hostnames for your\n                  instances to their corresponding IP addresses; otherwise, it does not. By default\n                  the value is set to true.Update requires: No interruption",
@@ -2233,12 +2190,6 @@
         "Description": "An arbitrary set of tags (key–value pairs) for this VPC. To name a VPC resource, specify a value for the Name key.Update requires: No interruption.",
         "Required": "No",
         "Type": "AWSCloudFormationResourceTags"
-      },
-      "DefaultNetworkAcl": {
-        "Description": "The default network ACL ID that is associated with the VPC. For example,\n                        acl-814dafe3."
-      },
-      "DefaultSecurityGroup": {
-        "Description": "The default security group ID that is associated with the VPC. For example,\n                        sg-b178e0d3."
       }
     }
   },
@@ -2628,18 +2579,6 @@
         "Type": [
           "String"
         ]
-      },
-      "ConfigurationEndpoint.Address": {
-        "Description": "The DNS address of the configuration endpoint for the Memcached cache\n                     cluster."
-      },
-      "ConfigurationEndpoint.Port": {
-        "Description": "The port number of the configuration endpoint for the Memcached cache\n                     cluster."
-      },
-      "RedisEndpoint.Address": {
-        "Description": "The DNS address of the configuration endpoint for the Redis cache cluster."
-      },
-      "RedisEndpoint.Port": {
-        "Description": "The port number of the configuration endpoint for the Redis cache cluster."
       }
     }
   },
@@ -2763,24 +2702,6 @@
         "Description": "The time range (in UTC) when ElastiCache takes a daily snapshot of your node group.\n                  For example, you can specify 05:00-09:00.Update requires: No interruption",
         "Required": "No",
         "Type": "String"
-      },
-      "PrimaryEndPoint.Address": {
-        "Description": "The DNS address of the primary read-write cache node."
-      },
-      "PrimaryEndPoint.Port": {
-        "Description": "The number of the port that the primary read-write cache engine is listening\n                     on."
-      },
-      "ReadEndPoint.Addresses": {
-        "Description": "A string with a list of endpoints for the read-only replicas. The order of\n                     the addresses map to the order of the ports from the\n                        ReadEndPoint.Ports attribute."
-      },
-      "ReadEndPoint.Ports": {
-        "Description": "A string with a list of ports for the read-only replicas. The order of the\n                     ports map to the order of the addresses from the\n                        ReadEndPoint.Addresses attribute."
-      },
-      "ReadEndPoint.Addresses.List": {
-        "Description": "A list of endpoints for the read-only replicas. The order of the addresses\n                     map to the order of the ports from the ReadEndPoint.Ports.List\n                     attribute."
-      },
-      "ReadEndPoint.Ports.List": {
-        "Description": "A list of ports for the read-only replicas. The order of the ports map to\n                     the order of the addresses from the ReadEndPoint.Addresses.List\n                     attribute."
       }
     }
   },
@@ -2884,7 +2805,9 @@
       },
       "OptionSettings": {
         "Description": "A list of \n                     OptionSettings for this Elastic Beanstalk configuration. For a complete\n                  list of Elastic Beanstalk configuration options, see  Option\n                     Values, in the AWS Elastic Beanstalk Developer\n                     Guide.Update requires: Some interruptions",
-        "Type": "AlistofOptionSettings.",
+        "Type": [
+          "OptionSettings"
+        ],
         "Required": "No"
       },
       "SolutionStackName": {
@@ -2925,7 +2848,9 @@
       "OptionSettings": {
         "Description": "Key-value pairs defining configuration options for this environment. These\n                  options override the values that are defined in the solution stack or the\n                  configuration template. If you remove any options during a stack update, the\n                  removed options revert to default values.Update requires: Some interruptions",
         "Required": "No",
-        "Type": "AlistofOptionSettings."
+        "Type": [
+          "OptionSettings"
+        ]
       },
       "SolutionStackName": {
         "Description": "The name of an Elastic Beanstalk solution stack that this configuration will use. For more\n                  information, see Supported\n                     Platforms in the AWS Elastic Beanstalk Developer Guide. You must\n                  specify either this parameter or an Elastic Beanstalk configuration template name.Update requires: Replacement",
@@ -2951,9 +2876,6 @@
         "Description": "The version to associate with the environment.Update requires: Some interruptions",
         "Required": "No",
         "Type": "String"
-      },
-      "EndpointURL": {
-        "Description": "The URL to the load balancer for this environment.Example:awseb-myst-myen-132MQC4KRLAMD-1371280482.us-east-1.elb.amazonaws.com"
       }
     }
   },
@@ -2968,7 +2890,9 @@
       "AppCookieStickinessPolicy": {
         "Description": "Generates one or more stickiness policies with sticky session lifetimes that\n                  follow that of an application-generated cookie. These policies can be associated\n                  only with HTTP/HTTPS listeners.Update requires: No interruption",
         "Required": "No",
-        "Type": "AlistofAppCookieStickinessPolicyobjects."
+        "Type": [
+          "AppCookieStickinessPolicyobjects"
+        ]
       },
       "AvailabilityZones": {
         "Description": "The Availability Zones in which to create the load balancer. You can specify\n                  the AvailabilityZones or Subnets property, but not\n                  both.NoteFor load balancers that are in a VPC, specify the Subnets\n                     property.Update requires: Replacement if you did not have an Availability Zone specified and you\n                  are adding one or if you are removing all Availability Zones. Otherwise, update\n                  requires no interruption.",
@@ -3007,7 +2931,9 @@
       "LBCookieStickinessPolicy": {
         "Description": "Generates a stickiness policy with sticky session lifetimes controlled by the\n                  lifetime of the browser (user-agent), or by a specified expiration period. This\n                  policy can be associated only with HTTP/HTTPS listeners.Update requires: No interruption",
         "Required": "No",
-        "Type": "AlistofLBCookieStickinessPolicyobjects."
+        "Type": [
+          "LBCookieStickinessPolicyobjects"
+        ]
       },
       "LoadBalancerName": {
         "Description": "A name for the load balancer. For valid values, see the LoadBalancerName parameter for the CreateLoadBalancer action in the Elastic Load Balancing API Reference.If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the load balancer. The name must be unique within your set of load balancers. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement",
@@ -3017,12 +2943,16 @@
       "Listeners": {
         "Description": "One or more listeners for this load balancer. Each listener must be registered\n                  for a specific port, and you cannot have more than one listener for a given\n                  port.ImportantIf you update the property values for a listener specified by the\n                        Listeners property, AWS CloudFormation will delete the existing listener and\n                     create a new one with the updated properties. During the time that AWS CloudFormation is\n                     performing this action, clients will not be able to connect to the load\n                     balancer.Update requires: No interruption",
         "Required": "Yes",
-        "Type": "AlistofElasticLoadBalancingListenerPropertyTypeobjects."
+        "Type": [
+          "ElasticLoadBalancingListenerPropertyTypeobjects"
+        ]
       },
       "Policies": {
         "Description": "A list of elastic load balancing policies to apply to this elastic load balancer. Specify only back-end server policies. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference.Update requires: No interruption",
         "Required": "No",
-        "Type": "AlistofElasticLoadBalancingpolicyobjects."
+        "Type": [
+          "ElasticLoadBalancingpolicyobjects"
+        ]
       },
       "Scheme": {
         "Description": "For load balancers attached to an Amazon VPC, this parameter can be used to\n                  specify the type of load balancer to use. Specify internal to create\n                  an internal load balancer with a DNS name that resolves to private IP addresses or\n                     internet-facing to create a load balancer with a publicly\n                  resolvable DNS name, which resolves to public IP addresses.\n                  NoteIf you specify internal, you must specify subnets to\n                        associate with the load balancer, not Availability Zones.\n               Update requires: Replacement",
@@ -3032,7 +2962,9 @@
       "SecurityGroups": {
         "Description": "Update requires: No interruption",
         "Required": "No",
-        "Type": "Alistofsecuritygroupsassignedtoyourloadbalancerwithinyourvirtualprivatecloud(VPC)."
+        "Type": [
+          "securitygroupsassignedtoyourloadbalancerwithinyourvirtualprivatecloud(VPC)"
+        ]
       },
       "Subnets": {
         "Description": "A list of subnet IDs in your virtual private cloud (VPC) to attach to your load\n                  balancer. Do not specify multiple subnets that are in the same Availability Zone.\n                  You can specify the AvailabilityZones or Subnets\n                  property, but not both.For more information about using Elastic Load Balancing in a VPC, see How Do I Use Elastic Load Balancing in Amazon VPC in the\n                     Elastic Load Balancing Developer Guide.Update requires: Replacement if you did not have an subnet specified and you are adding\n                  one or if you are removing all subnets. Otherwise, update requires no interruption. To update the load\n                  balancer to another subnet that is in the same Availability Zone, you must do two\n                  updates. You must first update the load balancer to use a subnet in different\n                  Availability Zone. After the update is complete, update the load balancer to use\n                  the new subnet that is in the original Availability Zone.",
@@ -3045,21 +2977,6 @@
         "Description": "An arbitrary set of tags (key-value pairs) for this load balancer.Update requires: No interruption",
         "Required": "No",
         "Type": "AWSCloudFormationResourceTags"
-      },
-      "CanonicalHostedZoneName": {
-        "Description": "The name of the Amazon Route 53 hosted zone that is associated with the load balancer.ImportantIf you specify internal for the Elastic Load Balancing scheme, use\n                              DNSName instead. For an internal scheme, the\n                           load balancer doesn't have a CanonicalHostedZoneName\n                           value.Example: mystack-myelb-15HMABG9ZCN57-1013119603.us-east-1.elb.amazonaws.com"
-      },
-      "CanonicalHostedZoneNameID": {
-        "Description": "The ID of the Amazon Route 53 hosted zone name that is associated with the load balancer.Example: Z3DZXE0Q79N41H"
-      },
-      "DNSName": {
-        "Description": "The DNS name for the load balancer.Example: mystack-myelb-15HMABG9ZCN57-1013119603.us-east-1.elb.amazonaws.com"
-      },
-      "SourceSecurityGroup.GroupName": {
-        "Description": "The security group that you can use as part of your inbound rules for your load balancer's\n                     back-end Amazon EC2 application instances.Example: amazon-elb"
-      },
-      "SourceSecurityGroup.OwnerAlias": {
-        "Description": "The owner of the source security group.Example: amazon-elb-sg"
       }
     }
   },
@@ -3100,12 +3017,6 @@
         "Description": "An arbitrary set of tags (key–value pairs) to associate with the Amazon ES\n            domain.Update requires: No interruption",
         "Required": "No",
         "Type": "AWSCloudFormationResourceTags"
-      },
-      "DomainArn": {
-        "Description": "The Amazon Resource Name (ARN) of the domain, such as\n              arn:aws:es:us-west-2:123456789012:domain/mystack-elasti-1ab2cdefghij."
-      },
-      "DomainEndpoint": {
-        "Description": "The domain-specific endpoint that is used to submit index, search, and data upload\n            requests to an Amazon ES domain, such as\n              search-mystack-elasti-1ab2cdefghij-ab1c2deckoyb3hofw7wpqa3cm.us-west-2.es.amazonaws.com."
       }
     }
   },
@@ -3177,9 +3088,6 @@
         "Description": "Indicates whether the instances in the cluster are visible to all IAM users in the\n            AWS account. If you specify true, all IAM users can view and (if they\n            have permissions) manage the instances. If you specify false, only the\n            IAM user that created the cluster can view and manage it. By default, AWS CloudFormation sets this\n            property to false.Update requires: No interruption",
         "Required": "No",
         "Type": "Boolean"
-      },
-      "MasterPublicDNS": {
-        "Description": "The public DNS name of the master node (instance), such as\n                ec2-12-123-123-123.us-west-2.compute.amazonaws.com."
       }
     }
   },
@@ -3283,10 +3191,6 @@
         "Required": "No",
         "Type": "String"
       },
-      "ScheduleExpression": {
-        "Description": "The schedule or rate (frequency) that determines when CloudWatch Events runs the rule. For more information, see Schedule Expression Syntax for Rules in the Amazon CloudWatch Developer Guide.Update requires: No interruption",
-        "Required": "Conditional"
-      },
       "State": {
         "Description": "Indicates whether the rule is enabled. For valid values, see the State parameter for the PutRule action in the Amazon CloudWatch Events API Reference.Update requires: No interruption",
         "Required": "No",
@@ -3298,9 +3202,6 @@
         "Type": [
           "AmazonCloudWatchEventsRuleTarget"
         ]
-      },
-      "Arn": {
-        "Description": "The event rule Amazon Resource Name (ARN), such as arn:aws:events:us-east-1:123456789012:rule/example."
       }
     }
   },
@@ -3425,9 +3326,6 @@
         "Description": "The name of the user that the new key will belong to.Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
-      },
-      "SecretAccessKey": {
-        "Description": "Returns the secret access key for the specified AWS::IAM::AccessKey resource. For\n                     example: wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY."
       }
     }
   },
@@ -3452,9 +3350,6 @@
         "Type": [
           "IAMPolicies"
         ]
-      },
-      "Arn": {
-        "Description": "Returns the Amazon Resource Name (ARN) for the AWS::IAM::Group resource. For\n                     example: arn:aws:iam::123456789012:group/mystack-mygroup-1DZETITOWEKVO."
       }
     }
   },
@@ -3472,9 +3367,6 @@
         "Type": [
           "referencestoAWS::IAM::RolesCurrently,amaximumofonerolecanbeassignedtoaninstanceprofile"
         ]
-      },
-      "Arn": {
-        "Description": "Returns the Amazon Resource Name (ARN) for the instance profile. For example:This will return a value such as\n                  “arn:aws:iam::1234567890:instance-profile/MyProfile-ASDNSDLKJ”."
       }
     }
   },
@@ -3581,9 +3473,6 @@
         "Type": [
           "IAMPolicies"
         ]
-      },
-      "Arn": {
-        "Description": "Returns the Amazon Resource Name (ARN) for the instance profile. For example:This will return a value such as “arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF”."
       }
     }
   },
@@ -3620,9 +3509,6 @@
         "Type": [
           "IAMPolicies"
         ]
-      },
-      "Arn": {
-        "Description": "Returns the Amazon Resource Name (ARN) for the specified AWS::IAM::User resource. For example:\n                     arn:aws:iam::123456789012:user/mystack-myuser-1CCXAFG2H2U4D."
       }
     }
   },
@@ -3660,9 +3546,6 @@
         "Description": "An arbitrary set of tags (key–value pairs) to associate with the Amazon Kinesis\n                  stream.Update requires: No interruption",
         "Required": "No",
         "Type": "AWSCloudFormationResourceTags"
-      },
-      "Arn": {
-        "Description": "The Amazon resource name (ARN) of the Amazon Kinesis stream, such as\n                     arn:aws:kinesis:us-east-1:123456789012:stream/mystream."
       }
     }
   },
@@ -3818,9 +3701,6 @@
         "Description": "If the Lambda function requires access to resources in a VPC, specify a VPC configuration that Lambda uses to set up an elastic network interface (ENI). The ENI enables your function to connect to other resources in your VPC, but it doesn't provide public Internet access. If your function requires Internet access (for example, to access AWS services that don't have VPC endpoints), configure a Network Address Translation (NAT) instance inside your VPC or use an Amazon Virtual Private Cloud\n                  (Amazon VPC) NAT gateway. For more information, see NAT Gateways in the Amazon VPC User Guide.Update requires: No interruption",
         "Required": "No",
         "Type": "AWSLambdaFunctionVPCConfig"
-      },
-      "Arn": {
-        "Description": "The ARN of the Lambda function, such as\n                        arn:aws:lambda:us-west-2:123456789012:MyStack-AMILookUp-NT5EUXTNTXXD."
       }
     }
   },
@@ -3871,9 +3751,6 @@
         "Description": "The Lambda function for which you want to publish a version. You can specify the function's name or its Amazon Resource Name (ARN).Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
-      },
-      "Version": {
-        "Description": "The published version of a Lambda version, such as 1."
       }
     }
   },
@@ -3909,9 +3786,6 @@
         "Description": "The number of days log events are kept in CloudWatch Logs. When a log event expires,\n                  CloudWatch Logs automatically deletes it. For valid values, see PutRetentionPolicy in\n                  the Amazon CloudWatch Logs API Reference.Update requires: No interruption",
         "Required": "No",
         "Type": "Integer"
-      },
-      "Arn": {
-        "Description": "The Amazon resource name (ARN) of the CloudWatch Logs log group, such as\n                        arn:aws:logs:us-east-1:123456789012:log-group:/mystack-testgroup-12ABC1AB12A1:*."
       }
     }
   },
@@ -3948,7 +3822,9 @@
       "MetricTransformations": {
         "Description": "Describes how to transform data from a log into a CloudWatch metric.ImportantCurrently, you can specify only one metric transformation for each metric\n                        filter. If you want to specify multiple metric transformations, you must\n                        specify multiple metric filters.Update requires: No interruption",
         "Required": "Yes",
-        "Type": "AlistofCloudWatchLogsMetricFilterMetricTransformationProperty"
+        "Type": [
+          "CloudWatchLogsMetricFilterMetricTransformationProperty"
+        ]
       }
     }
   },
@@ -3988,7 +3864,9 @@
       "Attributes": {
         "Description": "One or more user-defined key-value pairs to be added to the stack attributes\n                  bag.Update requires: No interruption",
         "Required": "No",
-        "Type": "Alistofkey-valuepairs"
+        "Type": [
+          "key-valuepairs"
+        ]
       },
       "Description": {
         "Description": "A description of the app.Update requires: No interruption",
@@ -4139,7 +4017,9 @@
       "Attributes": {
         "Description": "One or more user-defined key-value pairs to be added to the stack attributes\n                  bag.Update requires: No interruption",
         "Required": "No",
-        "Type": "Alistofkey-valuepairs"
+        "Type": [
+          "key-valuepairs"
+        ]
       },
       "AutoAssignElasticIps": {
         "Description": "Whether to automatically assign an Elastic IP address to Amazon EC2 instances in\n                  this layer.Update requires: No interruption",
@@ -4218,7 +4098,9 @@
       "VolumeConfigurations": {
         "Description": "Describes the Amazon EBS volumes for this layer.Update requires: Replacement",
         "Required": "No",
-        "Type": "AlistofAWSOpsWorksVolumeConfigurationType"
+        "Type": [
+          "AWSOpsWorksVolumeConfigurationType"
+        ]
       }
     }
   },
@@ -4233,7 +4115,9 @@
       "Attributes": {
         "Description": "One or more user-defined key-value pairs to be added to the stack attributes\n                  bag.Update requires: No interruption",
         "Required": "No",
-        "Type": "Alistofkey-valuepairs"
+        "Type": [
+          "key-valuepairs"
+        ]
       },
       "ChefConfiguration": {
         "Description": "Describes the Chef configuration. For more information, see the CreateStack ChefConfiguration parameter in the\n                     AWS OpsWorks API Reference.NoteTo enable Berkshelf, you must select a Chef version in the\n                        ConfigurationManager property that supports Berkshelf.Update requires: No interruption",
@@ -4398,7 +4282,9 @@
       "Tags": {
         "Description": "The tags that you want to attach to this DB cluster.Update requires: Updates are not supported.",
         "Required": "No",
-        "Type": "Alistofresourcetags"
+        "Type": [
+          "resourcetags"
+        ]
       },
       "VpcSecurityGroupIds": {
         "Description": "A list of VPC security groups to associate with this DB cluster.Update requires: No interruption",
@@ -4430,7 +4316,9 @@
       "Tags": {
         "Description": "The tags that you want to attach to this parameter group.Update requires: Updates are not supported.",
         "Required": "No",
-        "Type": "Alistofresourcetags"
+        "Type": [
+          "resourcetags"
+        ]
       }
     }
   },
@@ -4624,7 +4512,9 @@
       "Tags": {
         "Description": "The tags that you want to attach to the RDS parameter group.Update requires: No interruption",
         "Required": "No",
-        "Type": "Alistofresourcetags."
+        "Type": [
+          "resourcetags"
+        ]
       }
     }
   },
@@ -4651,7 +4541,9 @@
       "Tags": {
         "Description": "The tags that you want to attach to the Amazon RDS DB security group.Update requires: No interruption",
         "Required": "No",
-        "Type": "Alistofresourcetags."
+        "Type": [
+          "resourcetags"
+        ]
       }
     }
   },
@@ -4702,7 +4594,9 @@
       "Tags": {
         "Description": "The tags that you want to attach to the RDS database subnet group.Update requires: No interruption",
         "Required": "No",
-        "Type": "Alistofresourcetags."
+        "Type": [
+          "resourcetags"
+        ]
       }
     }
   },
@@ -4885,10 +4779,6 @@
         "Required": "No",
         "Type": "Boolean"
       },
-      "SnapshotClusterIdentifier": {
-        "Description": "The name of the cluster the source snapshot was created from.Update requires: Replacement",
-        "Required": "Conditional"
-      },
       "SnapshotIdentifier": {
         "Description": "The name of the snapshot from which to create a new cluster.Update requires: Replacement",
         "Required": "Conditional",
@@ -4900,12 +4790,6 @@
         "Type": [
           "String"
         ]
-      },
-      "Endpoint.Address": {
-        "Description": "The connection endpoint for the Amazon Redshift cluster. For example:\n                     examplecluster.cg034hpkmmjt.us-east-1.redshift.amazonaws.com\n                  ."
-      },
-      "Endpoint.Port": {
-        "Description": "The port number on which the Amazon Redshift cluster accepts connections. For example:\n                     5439."
       }
     }
   },
@@ -5070,9 +4954,6 @@
         "Required": "Yes",
         "Type": "String"
       },
-      "Region": {
-        "Description": "Latency resource record sets only: The Amazon EC2 region where the resource that is\n                  specified in this resource record set resides. The resource typically is an AWS\n                  resource, for example, Amazon EC2 instance or an Elastic Load Balancing load balancer, and is referred\n                  to by an IP address or a DNS domain name, depending on the record type.When Amazon Route 53 receives a DNS query for a domain name and type for which you have\n                  created latency resource record sets, Amazon Route 53 selects the latency resource record\n                  set that has the lowest latency between the end user and the associated Amazon EC2\n                  region. Amazon Route 53 then returns the value that is associated with the selected resource\n                  record set.The following restrictions must be followed:You can only specify one resource record per latency resource record\n                        set.You can only create one latency resource record set for each Amazon EC2\n                        region.You are not required to create latency resource record sets for all Amazon EC2\n                        regions. Amazon Route 53 will choose the region with the best latency from among the\n                        regions for which you create latency resource record sets.You cannot create both weighted and latency resource record sets that\n                        have the same values for the Name and Type elements.To see a list of regions by service, see Regions and Endpoints in the\n                  AWS General Reference."
-      },
       "ResourceRecords": {
         "Description": "List of resource records to add. Each record should be in the format\n                  appropriate for the record type specified by the Type\n                  property. For information about different record types and their record formats,\n                  see Appendix: Domain Name Format in the Amazon Route 53 Developer\n                     Guide. Required: Conditional. If you don't specify the AliasTarget\n                  property, you must specify this property. If you are creating an alias resource\n                  record set, do not specify this property.Update requires: No interruption",
         "Type": [
@@ -5178,12 +5059,6 @@
         "Description": "Information used to configure the bucket as a static website. For more information, see Hosting Websites on Amazon\n                  S3.Update requires: No interruption",
         "Required": "No",
         "Type": "WebsiteConfigurationType"
-      },
-      "DomainName": {
-        "Description": "Returns the DNS name of the specified bucket.Example: mystack-mybucket-kdwwxmddtr2g.s3.amazonaws.com"
-      },
-      "WebsiteURL": {
-        "Description": "Amazon S3 website endpoint for the specified bucket.Example: http://mystack-mybucket-kdwwxmddtr2g.s3-website-us-east-1.amazonaws.com/"
       }
     }
   },
@@ -5222,7 +5097,9 @@
         ]
       },
       "TopicName": {
-        "Description": "Returns the name for an Amazon SNS topic."
+        "Description": "A name for the topic. If you don't specify a name, AWS CloudFormation generates a unique\n                  physical ID and uses that ID for the topic name. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
       }
     }
   },
@@ -5237,7 +5114,9 @@
       "Topics": {
         "Description": "The Amazon Resource Names (ARN) of the topics to which you want to add the policy.\n            You can use the Ref function to\n            specify an AWS::SNS::Topic\n            resource.Update requires: No interruption",
         "Required": "Yes",
-        "Type": "AlistofAmazonSNStopicsARNs"
+        "Type": [
+          "AmazonSNStopicsARNs"
+        ]
       }
     }
   },
@@ -5260,7 +5139,9 @@
         "Type": "Integer"
       },
       "QueueName": {
-        "Description": "Returns the queue name. For example:mystack-myqueue-1VF9BKQH5BJVI"
+        "Description": "A name for the queue. If you don't specify a name, AWS CloudFormation generates a unique physical\n            ID and uses that ID for the queue name. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
       },
       "ReceiveMessageWaitTimeSeconds": {
         "Description": "Specifies the duration, in seconds, that the ReceiveMessage action call\n            waits until a message is in the queue in order to include it in the response, as opposed\n            to returning an empty response if a message is not yet available. You can specify an\n            integer from 1 to 20. The short polling is used as the default\n            or when you specify 0 for this property. For more information, see Amazon SQS Long Poll.Update requires: No interruption",
@@ -5276,9 +5157,6 @@
         "Description": "The length of time during which the queue will be unavailable once a message is delivered from the\n                  queue. This blocks other components from receiving the same message and gives the initial component\n                  time to process and delete the message from the queue.Values must be from 0 to 43200 seconds (12 hours). If no value is specified, the default value of\n                  30 seconds will be used.For more information about SQS Queue visibility timeouts, see Visibility Timeout in the Amazon Simple Queue Service Developer\n                     Guide.Update requires: No interruption",
         "Required": "No",
         "Type": "Integer"
-      },
-      "Arn": {
-        "Description": "Returns the Amazon Resource Name (ARN) of the queue. For example:\n                     arn:aws:sqs:us-east-1:123456789012:mystack-myqueue-15PG5C2FC1CW8"
       }
     }
   },
@@ -5335,12 +5213,6 @@
         "Type": [
           "AWSWAFIPSetIPSetDescriptors"
         ]
-      },
-      "c-ip": {
-        "Description": "If the viewer did not use an HTTP proxy or a load balancer to send the\n                    request"
-      },
-      "x-forwarded-for": {
-        "Description": "If the viewer did use an HTTP proxy or a load balancer to send the\n                    request"
       },
       "Name": {
         "Description": "A friendly name or description of the IPSet.Update requires: Replacement",
