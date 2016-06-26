@@ -49,7 +49,7 @@ class ResourceProperty {
       }
       return this.val
     } else {
-      if (this.required) { throw new RequiredPropertyException('this value is required') }
+      if (this.required === 'Yes') { throw new RequiredPropertyException('this value is required') }
     }
   }
 }
@@ -109,7 +109,7 @@ class ResourceArray extends ResourceProperty {
         return this.val
       }
     } else {
-      if (this.required) { throw new RequiredPropertyException('this value is required') }
+      if (this.required === 'Yes') { throw new RequiredPropertyException('this value is required') }
     }
   }
 }

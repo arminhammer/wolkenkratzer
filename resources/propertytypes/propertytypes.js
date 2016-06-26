@@ -1,197 +1,199 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
+const SubPropertyObject = require('./../../baseawsobject').SubPropertyObject
+const ResourceArray = require('./../../resourceproperty').ResourceArray
+const ResourceProperty = require('./../../resourceproperty').ResourceProperty
 
-class AmazonAPIGatewayApiKeyStageKey extends wolkenkratzer.SubPropertyObject {
+class AmazonAPIGatewayApiKeyStageKey extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      RestApiId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      StageName: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      RestApiId: new ResourceProperty(String, 'No', null),
+      StageName: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonAPIGatewayDeploymentStageDescription extends wolkenkratzer.SubPropertyObject {
+class AmazonAPIGatewayDeploymentStageDescription extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CacheClusterEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      CacheClusterSize: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      CacheDataEncrypted: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      CacheTtlInSeconds: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      CachingEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      ClientCertificateId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      DataTraceEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      LoggingLevel: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MethodSettings: new wolkenkratzer.ResourceProperty(AmazonAPIGatewayDeploymentStageDescriptionMethodSetting, 'No', null),
-      MetricsEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      StageName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ThrottlingBurstLimit: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      ThrottlingRateLimit: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      Variables: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      CacheClusterEnabled: new ResourceProperty(Boolean, 'No', null),
+      CacheClusterSize: new ResourceProperty(String, 'No', null),
+      CacheDataEncrypted: new ResourceProperty(Boolean, 'No', null),
+      CacheTtlInSeconds: new ResourceProperty(Map, 'No', null),
+      CachingEnabled: new ResourceProperty(Boolean, 'No', null),
+      ClientCertificateId: new ResourceProperty(String, 'No', null),
+      DataTraceEnabled: new ResourceProperty(Boolean, 'No', null),
+      Description: new ResourceProperty(String, 'No', null),
+      LoggingLevel: new ResourceProperty(String, 'No', null),
+      MethodSettings: new ResourceProperty(AmazonAPIGatewayDeploymentStageDescriptionMethodSetting, 'No', null),
+      MetricsEnabled: new ResourceProperty(Boolean, 'No', null),
+      StageName: new ResourceProperty(String, 'No', null),
+      ThrottlingBurstLimit: new ResourceProperty(Map, 'No', null),
+      ThrottlingRateLimit: new ResourceProperty(Number, 'No', null),
+      Variables: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonAPIGatewayDeploymentStageDescriptionMethodSetting extends wolkenkratzer.SubPropertyObject {
+class AmazonAPIGatewayDeploymentStageDescriptionMethodSetting extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CacheDataEncrypted: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      CacheTtlInSeconds: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      CachingEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      DataTraceEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      HttpMethod: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      LoggingLevel: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MetricsEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      ResourcePath: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ThrottlingBurstLimit: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      ThrottlingRateLimit: new wolkenkratzer.ResourceProperty(Number, 'No', null)
+      CacheDataEncrypted: new ResourceProperty(Boolean, 'No', null),
+      CacheTtlInSeconds: new ResourceProperty(Map, 'No', null),
+      CachingEnabled: new ResourceProperty(Boolean, 'No', null),
+      DataTraceEnabled: new ResourceProperty(Boolean, 'No', null),
+      HttpMethod: new ResourceProperty(String, 'No', null),
+      LoggingLevel: new ResourceProperty(String, 'No', null),
+      MetricsEnabled: new ResourceProperty(Boolean, 'No', null),
+      ResourcePath: new ResourceProperty(String, 'No', null),
+      ThrottlingBurstLimit: new ResourceProperty(Map, 'No', null),
+      ThrottlingRateLimit: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonAPIGatewayMethodIntegration extends wolkenkratzer.SubPropertyObject {
+class AmazonAPIGatewayMethodIntegration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CacheKeyParameters: new wolkenkratzer.ResourceArray(String, 'No', null),
-      CacheNamespace: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Credentials: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      IntegrationHttpMethod: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      IntegrationResponses: new wolkenkratzer.ResourceArray(AmazonAPIGatewayMethodIntegrationIntegrationResponse, 'No', null),
-      RequestParameters: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      RequestTemplates: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Uri: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      CacheKeyParameters: new ResourceArray(String, 'No', null),
+      CacheNamespace: new ResourceProperty(String, 'No', null),
+      Credentials: new ResourceProperty(String, 'No', null),
+      IntegrationHttpMethod: new ResourceProperty(String, 'Conditional', null),
+      IntegrationResponses: new ResourceArray(AmazonAPIGatewayMethodIntegrationIntegrationResponse, 'No', null),
+      RequestParameters: new ResourceProperty(Map, 'No', null),
+      RequestTemplates: new ResourceProperty(Map, 'No', null),
+      Type: new ResourceProperty(String, 'Yes', null),
+      Uri: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonAPIGatewayMethodIntegrationIntegrationResponse extends wolkenkratzer.SubPropertyObject {
+class AmazonAPIGatewayMethodIntegrationIntegrationResponse extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ResponseParameters: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      ResponseTemplates: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      SelectionPattern: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      StatusCode: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      ResponseParameters: new ResourceProperty(Map, 'No', null),
+      ResponseTemplates: new ResourceProperty(Map, 'No', null),
+      SelectionPattern: new ResourceProperty(String, 'No', null),
+      StatusCode: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonAPIGatewayMethodMethodResponse extends wolkenkratzer.SubPropertyObject {
+class AmazonAPIGatewayMethodMethodResponse extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ResponseModels: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      ResponseParameters: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      StatusCode: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      ResponseModels: new ResourceProperty(Map, 'No', null),
+      ResponseParameters: new ResourceProperty(Map, 'No', null),
+      StatusCode: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonAPIGatewayRestApiS3Location extends wolkenkratzer.SubPropertyObject {
+class AmazonAPIGatewayRestApiS3Location extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Bucket: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ETag: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Key: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Version: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Bucket: new ResourceProperty(String, 'No', null),
+      ETag: new ResourceProperty(String, 'No', null),
+      Key: new ResourceProperty(String, 'No', null),
+      Version: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonAPIGatewayStageMethodSetting extends wolkenkratzer.SubPropertyObject {
+class AmazonAPIGatewayStageMethodSetting extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CacheDataEncrypted: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      CacheTtlInSeconds: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      CachingEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      DataTraceEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      HttpMethod: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      LoggingLevel: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MetricsEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      ResourcePath: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      ThrottlingBurstLimit: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      ThrottlingRateLimit: new wolkenkratzer.ResourceProperty(Number, 'No', null)
+      CacheDataEncrypted: new ResourceProperty(Boolean, 'No', null),
+      CacheTtlInSeconds: new ResourceProperty(Map, 'No', null),
+      CachingEnabled: new ResourceProperty(Boolean, 'No', null),
+      DataTraceEnabled: new ResourceProperty(Boolean, 'No', null),
+      HttpMethod: new ResourceProperty(String, 'Yes', null),
+      LoggingLevel: new ResourceProperty(String, 'No', null),
+      MetricsEnabled: new ResourceProperty(Boolean, 'No', null),
+      ResourcePath: new ResourceProperty(String, 'Yes', null),
+      ThrottlingBurstLimit: new ResourceProperty(Map, 'No', null),
+      ThrottlingRateLimit: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType extends wolkenkratzer.SubPropertyObject {
+class AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DeviceName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Ebs: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null),
-      NoDevice: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      VirtualName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      DeviceName: new ResourceProperty(String, 'Yes', null),
+      Ebs: new ResourceProperty(Map, 'Conditional', null),
+      NoDevice: new ResourceProperty(Boolean, 'No', null),
+      VirtualName: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCloudFormationAutoScalingEBSBlockDevicePropertyType extends wolkenkratzer.SubPropertyObject {
+class AWSCloudFormationAutoScalingEBSBlockDevicePropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DeleteOnTermination: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Encrypted: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Iops: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      SnapshotId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      VolumeSize: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null),
-      VolumeType: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      DeleteOnTermination: new ResourceProperty(Boolean, 'No', null),
+      Encrypted: new ResourceProperty(Boolean, 'No', null),
+      Iops: new ResourceProperty(Map, 'No', null),
+      SnapshotId: new ResourceProperty(String, 'Conditional', null),
+      VolumeSize: new ResourceProperty(Map, 'Conditional', null),
+      VolumeType: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AutoScalingMetricsCollection extends wolkenkratzer.SubPropertyObject {
+class AutoScalingMetricsCollection extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Granularity: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Metrics: new wolkenkratzer.ResourceArray(String, 'No', null)
+      Granularity: new ResourceProperty(String, 'Yes', null),
+      Metrics: new ResourceArray(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AutoScalingNotificationConfigurations extends wolkenkratzer.SubPropertyObject {
+class AutoScalingNotificationConfigurations extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      NotificationTypes: new wolkenkratzer.ResourceArray(String, 'Yes', null),
-      TopicARN: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      NotificationTypes: new ResourceArray(String, 'Yes', null),
+      TopicARN: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AutoScalingScalingPolicyStepAdjustments extends wolkenkratzer.SubPropertyObject {
+class AutoScalingScalingPolicyStepAdjustments extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      MetricIntervalLowerBound: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      MetricIntervalUpperBound: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      ScalingAdjustment: new wolkenkratzer.ResourceProperty(Map, 'Yes', null)
+      MetricIntervalLowerBound: new ResourceProperty(Number, 'No', null),
+      MetricIntervalUpperBound: new ResourceProperty(Number, 'No', null),
+      ScalingAdjustment: new ResourceProperty(Map, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AutoScalingTagsPropertyType extends wolkenkratzer.SubPropertyObject {
+class AutoScalingTagsPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      PropagateAtLaunch: new wolkenkratzer.ResourceProperty(Boolean, 'Yes', null)
+      Key: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null),
+      PropagateAtLaunch: new ResourceProperty(Boolean, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFormationStackParametersPropertyType extends wolkenkratzer.SubPropertyObject {
+class CloudFormationStackParametersPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
     }
@@ -199,686 +201,686 @@ class CloudFormationStackParametersPropertyType extends wolkenkratzer.SubPropert
   }
 }
 
-class AWSCloudFormationInterfaceLabel extends wolkenkratzer.SubPropertyObject {
+class AWSCloudFormationInterfaceLabel extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      default: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      default: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCloudFormationInterfaceParameterGroup extends wolkenkratzer.SubPropertyObject {
+class AWSCloudFormationInterfaceParameterGroup extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Label: new wolkenkratzer.ResourceProperty(AWSCloudFormationInterfaceLabel, 'No', null),
-      Parameters: new wolkenkratzer.ResourceArray(String, 'No', null)
+      Label: new ResourceProperty(AWSCloudFormationInterfaceLabel, 'No', null),
+      Parameters: new ResourceArray(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCloudFormationInterfaceParameterLabel extends wolkenkratzer.SubPropertyObject {
+class AWSCloudFormationInterfaceParameterLabel extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ParameterLogicalID: new wolkenkratzer.ResourceProperty(AWSCloudFormationInterfaceLabel, 'No', null)
+      ParameterLogicalID: new ResourceProperty(AWSCloudFormationInterfaceLabel, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontDistributionConfig extends wolkenkratzer.SubPropertyObject {
+class CloudFrontDistributionConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Aliases: new wolkenkratzer.ResourceArray(String, 'No', null),
-      CacheBehaviors: new wolkenkratzer.ResourceArray(Map, 'No', null),
-      Comment: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      CustomErrorResponses: new wolkenkratzer.ResourceProperty(undefined, 'No', null),
-      DefaultCacheBehavior: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      DefaultRootObject: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Enabled: new wolkenkratzer.ResourceProperty(Boolean, 'Yes', null),
-      Logging: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Origins: new wolkenkratzer.ResourceArray(Map, 'Yes', null),
-      PriceClass: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Restrictions: new wolkenkratzer.ResourceProperty(CloudFrontDistributionConfigurationRestrictions, 'No', null),
-      ViewerCertificate: new wolkenkratzer.ResourceProperty(CloudFrontDistributionConfigurationViewerCertificate, 'No', null),
-      WebACLId: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Aliases: new ResourceArray(String, 'No', null),
+      CacheBehaviors: new ResourceArray(Map, 'No', null),
+      Comment: new ResourceProperty(String, 'No', null),
+      CustomErrorResponses: new ResourceProperty(undefined, 'No', null),
+      DefaultCacheBehavior: new ResourceProperty(Map, 'Yes', null),
+      DefaultRootObject: new ResourceProperty(String, 'No', null),
+      Enabled: new ResourceProperty(Boolean, 'Yes', null),
+      Logging: new ResourceProperty(Map, 'No', null),
+      Origins: new ResourceArray(Map, 'Yes', null),
+      PriceClass: new ResourceProperty(String, 'No', null),
+      Restrictions: new ResourceProperty(CloudFrontDistributionConfigurationRestrictions, 'No', null),
+      ViewerCertificate: new ResourceProperty(CloudFrontDistributionConfigurationViewerCertificate, 'No', null),
+      WebACLId: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontDistributionConfigCacheBehavior extends wolkenkratzer.SubPropertyObject {
+class CloudFrontDistributionConfigCacheBehavior extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AllowedMethods: new wolkenkratzer.ResourceArray(String, 'No', null),
-      CachedMethods: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Compress: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      DefaultTTL: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      ForwardedValues: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      MaxTTL: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      MinTTL: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      PathPattern: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      SmoothStreaming: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      TargetOriginId: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      TrustedSigners: new wolkenkratzer.ResourceArray(String, 'No', null),
-      ViewerProtocolPolicy: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      AllowedMethods: new ResourceArray(String, 'No', null),
+      CachedMethods: new ResourceArray(String, 'No', null),
+      Compress: new ResourceProperty(Boolean, 'No', null),
+      DefaultTTL: new ResourceProperty(Number, 'No', null),
+      ForwardedValues: new ResourceProperty(Map, 'Yes', null),
+      MaxTTL: new ResourceProperty(Number, 'No', null),
+      MinTTL: new ResourceProperty(Number, 'No', null),
+      PathPattern: new ResourceProperty(String, 'Yes', null),
+      SmoothStreaming: new ResourceProperty(Boolean, 'No', null),
+      TargetOriginId: new ResourceProperty(String, 'Yes', null),
+      TrustedSigners: new ResourceArray(String, 'No', null),
+      ViewerProtocolPolicy: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontDistributionConfigCustomErrorResponse extends wolkenkratzer.SubPropertyObject {
+class CloudFrontDistributionConfigCustomErrorResponse extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ErrorCachingMinTTL: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      ErrorCode: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      ResponseCode: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null),
-      ResponsePagePath: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      ErrorCachingMinTTL: new ResourceProperty(Map, 'No', null),
+      ErrorCode: new ResourceProperty(Map, 'Yes', null),
+      ResponseCode: new ResourceProperty(Map, 'Conditional', null),
+      ResponsePagePath: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontDefaultCacheBehavior extends wolkenkratzer.SubPropertyObject {
+class CloudFrontDefaultCacheBehavior extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AllowedMethods: new wolkenkratzer.ResourceArray(String, 'No', null),
-      CachedMethods: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Compress: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      DefaultTTL: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      ForwardedValues: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      MaxTTL: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      MinTTL: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SmoothStreaming: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      TargetOriginId: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      TrustedSigners: new wolkenkratzer.ResourceArray(String, 'No', null),
-      ViewerProtocolPolicy: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      AllowedMethods: new ResourceArray(String, 'No', null),
+      CachedMethods: new ResourceArray(String, 'No', null),
+      Compress: new ResourceProperty(Boolean, 'No', null),
+      DefaultTTL: new ResourceProperty(Number, 'No', null),
+      ForwardedValues: new ResourceProperty(Map, 'Yes', null),
+      MaxTTL: new ResourceProperty(Number, 'No', null),
+      MinTTL: new ResourceProperty(String, 'No', null),
+      SmoothStreaming: new ResourceProperty(Boolean, 'No', null),
+      TargetOriginId: new ResourceProperty(String, 'Yes', null),
+      TrustedSigners: new ResourceArray(String, 'No', null),
+      ViewerProtocolPolicy: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontLogging extends wolkenkratzer.SubPropertyObject {
+class CloudFrontLogging extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Bucket: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      IncludeCookies: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Prefix: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Bucket: new ResourceProperty(String, 'Yes', null),
+      IncludeCookies: new ResourceProperty(Boolean, 'No', null),
+      Prefix: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontDistributionConfigOrigin extends wolkenkratzer.SubPropertyObject {
+class CloudFrontDistributionConfigOrigin extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CustomOriginConfig: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null),
-      DomainName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Id: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      OriginPath: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      S3OriginConfig: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null)
+      CustomOriginConfig: new ResourceProperty(Map, 'Conditional', null),
+      DomainName: new ResourceProperty(String, 'Yes', null),
+      Id: new ResourceProperty(String, 'Yes', null),
+      OriginPath: new ResourceProperty(String, 'No', null),
+      S3OriginConfig: new ResourceProperty(Map, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontDistributionConfigOriginCustomOrigin extends wolkenkratzer.SubPropertyObject {
+class CloudFrontDistributionConfigOriginCustomOrigin extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      HTTPPort: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      HTTPSPort: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      OriginProtocolPolicy: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      HTTPPort: new ResourceProperty(String, 'No', null),
+      HTTPSPort: new ResourceProperty(String, 'No', null),
+      OriginProtocolPolicy: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontDistributionConfigOriginS3Origin extends wolkenkratzer.SubPropertyObject {
+class CloudFrontDistributionConfigOriginS3Origin extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      OriginAccessIdentity: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      OriginAccessIdentity: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontDistributionConfigurationRestrictions extends wolkenkratzer.SubPropertyObject {
+class CloudFrontDistributionConfigurationRestrictions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      GeoRestriction: new wolkenkratzer.ResourceProperty(CloudFrontDistributionConfigRestrictionsGeoRestriction, 'Yes', null)
+      GeoRestriction: new ResourceProperty(CloudFrontDistributionConfigRestrictionsGeoRestriction, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontDistributionConfigRestrictionsGeoRestriction extends wolkenkratzer.SubPropertyObject {
+class CloudFrontDistributionConfigRestrictionsGeoRestriction extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Locations: new wolkenkratzer.ResourceArray(String, 'Conditional', null),
-      RestrictionType: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      blacklist: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null),
-      whitelist: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null),
-      none: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null)
+      Locations: new ResourceArray(String, 'Conditional', null),
+      RestrictionType: new ResourceProperty(String, 'Yes', null),
+      blacklist: new ResourceProperty(undefined, 'undefined', null),
+      whitelist: new ResourceProperty(undefined, 'undefined', null),
+      none: new ResourceProperty(undefined, 'undefined', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontDistributionConfigurationViewerCertificate extends wolkenkratzer.SubPropertyObject {
+class CloudFrontDistributionConfigurationViewerCertificate extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CloudFrontDefaultCertificate: new wolkenkratzer.ResourceProperty(Boolean, 'Conditional', null),
-      IamCertificateId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      MinimumProtocolVersion: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      SslSupportMethod: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      CloudFrontDefaultCertificate: new ResourceProperty(Boolean, 'Conditional', null),
+      IamCertificateId: new ResourceProperty(String, 'Conditional', null),
+      MinimumProtocolVersion: new ResourceProperty(String, 'Conditional', null),
+      SslSupportMethod: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontForwardedValues extends wolkenkratzer.SubPropertyObject {
+class CloudFrontForwardedValues extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Cookies: new wolkenkratzer.ResourceProperty(CloudFrontForwardedValuesCookies, 'No', null),
-      Headers: new wolkenkratzer.ResourceArray(String, 'No', null),
-      QueryString: new wolkenkratzer.ResourceProperty(Boolean, 'Yes', null)
+      Cookies: new ResourceProperty(CloudFrontForwardedValuesCookies, 'No', null),
+      Headers: new ResourceArray(String, 'No', null),
+      QueryString: new ResourceProperty(Boolean, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudFrontForwardedValuesCookies extends wolkenkratzer.SubPropertyObject {
+class CloudFrontForwardedValuesCookies extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Forward: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      WhitelistedNames: new wolkenkratzer.ResourceArray(String, 'Conditional', null)
+      Forward: new ResourceProperty(String, 'Yes', null),
+      WhitelistedNames: new ResourceArray(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudWatchMetricDimensionPropertyType extends wolkenkratzer.SubPropertyObject {
+class CloudWatchMetricDimensionPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Name: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonCloudWatchEventsRuleTarget extends wolkenkratzer.SubPropertyObject {
+class AmazonCloudWatchEventsRuleTarget extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Arn: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Id: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Input: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      InputPath: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      Arn: new ResourceProperty(String, 'Yes', null),
+      Id: new ResourceProperty(String, 'Yes', null),
+      Input: new ResourceProperty(String, 'Conditional', null),
+      InputPath: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class CloudWatchLogsMetricFilterMetricTransformationProperty extends wolkenkratzer.SubPropertyObject {
+class CloudWatchLogsMetricFilterMetricTransformationProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      MetricName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      MetricNamespace: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      MetricValue: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      MetricName: new ResourceProperty(String, 'Yes', null),
+      MetricNamespace: new ResourceProperty(String, 'Yes', null),
+      MetricValue: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodeDeployDeploymentConfigMinimumHealthyHosts extends wolkenkratzer.SubPropertyObject {
+class AWSCodeDeployDeploymentConfigMinimumHealthyHosts extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Type: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Value: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      Type: new ResourceProperty(String, 'No', null),
+      Value: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodeDeployDeploymentGroupDeployment extends wolkenkratzer.SubPropertyObject {
+class AWSCodeDeployDeploymentGroupDeployment extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      IgnoreApplicationStopFailures: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Revision: new wolkenkratzer.ResourceProperty(AWSCodeDeployDeploymentGroupDeploymentRevision, 'Yes', null)
+      Description: new ResourceProperty(String, 'No', null),
+      IgnoreApplicationStopFailures: new ResourceProperty(Boolean, 'No', null),
+      Revision: new ResourceProperty(AWSCodeDeployDeploymentGroupDeploymentRevision, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodeDeployDeploymentGroupDeploymentRevision extends wolkenkratzer.SubPropertyObject {
+class AWSCodeDeployDeploymentGroupDeploymentRevision extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      GitHubLocation: new wolkenkratzer.ResourceProperty(AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation, 'No', null),
-      RevisionType: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      S3Location: new wolkenkratzer.ResourceProperty(AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location, 'No', null)
+      GitHubLocation: new ResourceProperty(AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation, 'No', null),
+      RevisionType: new ResourceProperty(String, 'No', null),
+      S3Location: new ResourceProperty(AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation extends wolkenkratzer.SubPropertyObject {
+class AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CommitId: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Repository: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      CommitId: new ResourceProperty(String, 'Yes', null),
+      Repository: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location extends wolkenkratzer.SubPropertyObject {
+class AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Bucket: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      BundleType: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      ETag: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Version: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Bucket: new ResourceProperty(String, 'Yes', null),
+      BundleType: new ResourceProperty(String, 'Yes', null),
+      ETag: new ResourceProperty(String, 'No', null),
+      Key: new ResourceProperty(String, 'Yes', null),
+      Version: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodeDeployDeploymentGroupEc2TagFilters extends wolkenkratzer.SubPropertyObject {
+class AWSCodeDeployDeploymentGroupEc2TagFilters extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Key: new ResourceProperty(String, 'No', null),
+      Type: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters extends wolkenkratzer.SubPropertyObject {
+class AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Key: new ResourceProperty(String, 'No', null),
+      Type: new ResourceProperty(String, 'No', null),
+      Value: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelineCustomActionTypeArtifactDetails extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelineCustomActionTypeArtifactDetails extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      MaximumCount: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      MinimumCount: new wolkenkratzer.ResourceProperty(Map, 'Yes', null)
+      MaximumCount: new ResourceProperty(Map, 'Yes', null),
+      MinimumCount: new ResourceProperty(Map, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelineCustomActionTypeConfigurationProperties extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelineCustomActionTypeConfigurationProperties extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Key: new wolkenkratzer.ResourceProperty(Boolean, 'Yes', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Queryable: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Required: new wolkenkratzer.ResourceProperty(Boolean, 'Yes', null),
-      Secret: new wolkenkratzer.ResourceProperty(Boolean, 'Yes', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Description: new ResourceProperty(String, 'No', null),
+      Key: new ResourceProperty(Boolean, 'Yes', null),
+      Name: new ResourceProperty(String, 'Yes', null),
+      Queryable: new ResourceProperty(Boolean, 'No', null),
+      Required: new ResourceProperty(Boolean, 'Yes', null),
+      Secret: new ResourceProperty(Boolean, 'Yes', null),
+      Type: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelineCustomActionTypeSettings extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelineCustomActionTypeSettings extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      EntityUrlTemplate: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ExecutionUrlTemplate: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      RevisionUrlTemplate: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ThirdPartyConfigurationUrl: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      EntityUrlTemplate: new ResourceProperty(String, 'No', null),
+      ExecutionUrlTemplate: new ResourceProperty(String, 'No', null),
+      RevisionUrlTemplate: new ResourceProperty(String, 'No', null),
+      ThirdPartyConfigurationUrl: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelinePipelineArtifactStore extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelinePipelineArtifactStore extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      EncryptionKey: new wolkenkratzer.ResourceProperty(AWSCodePipelinePipelineArtifactStoreEncryptionKey, 'No', null),
-      Location: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      EncryptionKey: new ResourceProperty(AWSCodePipelinePipelineArtifactStoreEncryptionKey, 'No', null),
+      Location: new ResourceProperty(String, 'Yes', null),
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelinePipelineArtifactStoreEncryptionKey extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelinePipelineArtifactStoreEncryptionKey extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Id: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Id: new ResourceProperty(String, 'Yes', null),
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelinePipelineDisableInboundStageTransitions extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelinePipelineDisableInboundStageTransitions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Reason: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      StageName: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Reason: new ResourceProperty(String, 'Yes', null),
+      StageName: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelinePipelineStages extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelinePipelineStages extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Actions: new wolkenkratzer.ResourceArray(AWSCodePipelinePipelineStagesActions, 'Yes', null),
-      Blockers: new wolkenkratzer.ResourceArray(AWSCodePipelinePipelineStagesBlockers, 'No', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Actions: new ResourceArray(AWSCodePipelinePipelineStagesActions, 'Yes', null),
+      Blockers: new ResourceArray(AWSCodePipelinePipelineStagesBlockers, 'No', null),
+      Name: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelinePipelineStagesActions extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelinePipelineStagesActions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ActionTypeId: new wolkenkratzer.ResourceProperty(AWSCodePipelinePipelineStagesActionsActionTypeId, 'Yes', null),
-      Configuration: new wolkenkratzer.ResourceProperty(Object, 'No', null),
-      InputArtifacts: new wolkenkratzer.ResourceArray(AWSCodePipelinePipelineStagesActionsInputArtifacts, 'No', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      OutputArtifacts: new wolkenkratzer.ResourceArray(AWSCodePipelinePipelineStagesActionsOutputArtifacts, 'No', null),
-      RoleArn: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      RunOrder: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      ActionTypeId: new ResourceProperty(AWSCodePipelinePipelineStagesActionsActionTypeId, 'Yes', null),
+      Configuration: new ResourceProperty(Object, 'No', null),
+      InputArtifacts: new ResourceArray(AWSCodePipelinePipelineStagesActionsInputArtifacts, 'No', null),
+      Name: new ResourceProperty(String, 'Yes', null),
+      OutputArtifacts: new ResourceArray(AWSCodePipelinePipelineStagesActionsOutputArtifacts, 'No', null),
+      RoleArn: new ResourceProperty(String, 'No', null),
+      RunOrder: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelinePipelineStagesActionsActionTypeId extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelinePipelineStagesActionsActionTypeId extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Category: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Owner: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Provider: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Version: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Category: new ResourceProperty(String, 'Yes', null),
+      Owner: new ResourceProperty(String, 'Yes', null),
+      Provider: new ResourceProperty(String, 'Yes', null),
+      Version: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelinePipelineStagesActionsInputArtifacts extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelinePipelineStagesActionsInputArtifacts extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Name: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelinePipelineStagesActionsOutputArtifacts extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelinePipelineStagesActionsOutputArtifacts extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Name: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCodePipelinePipelineStagesBlockers extends wolkenkratzer.SubPropertyObject {
+class AWSCodePipelinePipelineStagesBlockers extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Name: new ResourceProperty(String, 'Yes', null),
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSConfigConfigRuleScope extends wolkenkratzer.SubPropertyObject {
+class AWSConfigConfigRuleScope extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ComplianceResourceId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ComplianceResourceTypes: new wolkenkratzer.ResourceArray(String, 'Conditional', null),
-      TagKey: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      TagValue: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      ComplianceResourceId: new ResourceProperty(String, 'No', null),
+      ComplianceResourceTypes: new ResourceArray(String, 'Conditional', null),
+      TagKey: new ResourceProperty(String, 'Conditional', null),
+      TagValue: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSConfigConfigRuleSource extends wolkenkratzer.SubPropertyObject {
+class AWSConfigConfigRuleSource extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Owner: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      SourceDetails: new wolkenkratzer.ResourceArray(AWSConfigConfigRuleSourceSourceDetails, 'No', null),
-      SourceIdentifier: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Owner: new ResourceProperty(String, 'Yes', null),
+      SourceDetails: new ResourceArray(AWSConfigConfigRuleSourceSourceDetails, 'No', null),
+      SourceIdentifier: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSConfigConfigRuleSourceSourceDetails extends wolkenkratzer.SubPropertyObject {
+class AWSConfigConfigRuleSourceSourceDetails extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      EventSource: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      MessageType: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      EventSource: new ResourceProperty(String, 'Yes', null),
+      MessageType: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSConfigConfigurationRecorderRecordingGroup extends wolkenkratzer.SubPropertyObject {
+class AWSConfigConfigurationRecorderRecordingGroup extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AllSupported: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      IncludeGlobalResourceTypes: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      ResourceTypes: new wolkenkratzer.ResourceArray(String, 'No', null)
+      AllSupported: new ResourceProperty(Boolean, 'No', null),
+      IncludeGlobalResourceTypes: new ResourceProperty(Boolean, 'No', null),
+      ResourceTypes: new ResourceArray(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties extends wolkenkratzer.SubPropertyObject {
+class AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DeliveryFrequency: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      DeliveryFrequency: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSDataPipelinePipelineParameterObjects extends wolkenkratzer.SubPropertyObject {
+class AWSDataPipelinePipelineParameterObjects extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Attributes: new wolkenkratzer.ResourceProperty(AWSDataPipelineParameterObjectsAttributes, 'Yes', null),
-      Id: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Attributes: new ResourceProperty(AWSDataPipelineParameterObjectsAttributes, 'Yes', null),
+      Id: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSDataPipelineParameterObjectsAttributes extends wolkenkratzer.SubPropertyObject {
+class AWSDataPipelineParameterObjectsAttributes extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      StringValue: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      Key: new ResourceProperty(String, 'Yes', null),
+      StringValue: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSDataPipelinePipelineParameterValues extends wolkenkratzer.SubPropertyObject {
+class AWSDataPipelinePipelineParameterValues extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Id: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      StringValue: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Id: new ResourceProperty(String, 'Yes', null),
+      StringValue: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSDataPipelinePipelineObjects extends wolkenkratzer.SubPropertyObject {
+class AWSDataPipelinePipelineObjects extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Fields: new wolkenkratzer.ResourceProperty(AWSDataPipelineDataPipelineObjectFields, 'Yes', null),
-      Id: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Fields: new ResourceProperty(AWSDataPipelineDataPipelineObjectFields, 'Yes', null),
+      Id: new ResourceProperty(String, 'Yes', null),
+      Name: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSDataPipelineDataPipelineObjectFields extends wolkenkratzer.SubPropertyObject {
+class AWSDataPipelineDataPipelineObjectFields extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      RefValue: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      StringValue: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      Key: new ResourceProperty(String, 'Yes', null),
+      RefValue: new ResourceProperty(String, 'Conditional', null),
+      StringValue: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSDataPipelinePipelinePipelineTags extends wolkenkratzer.SubPropertyObject {
+class AWSDataPipelinePipelinePipelineTags extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Key: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSDirectoryServiceMicrosoftADVpcSettings extends wolkenkratzer.SubPropertyObject {
+class AWSDirectoryServiceMicrosoftADVpcSettings extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      SubnetIds: new wolkenkratzer.ResourceArray(String, 'Yes', null),
-      VpcId: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      SubnetIds: new ResourceArray(String, 'Yes', null),
+      VpcId: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSDirectoryServiceSimpleADVpcSettings extends wolkenkratzer.SubPropertyObject {
+class AWSDirectoryServiceSimpleADVpcSettings extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      SubnetIds: new wolkenkratzer.ResourceArray(String, 'Yes', null),
-      VpcId: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      SubnetIds: new ResourceArray(String, 'Yes', null),
+      VpcId: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class DynamoDBAttributeDefinitions extends wolkenkratzer.SubPropertyObject {
+class DynamoDBAttributeDefinitions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AttributeName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      AttributeType: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      AttributeName: new ResourceProperty(String, 'Yes', null),
+      AttributeType: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class DynamoDBGlobalSecondaryIndexes extends wolkenkratzer.SubPropertyObject {
+class DynamoDBGlobalSecondaryIndexes extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      IndexName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      KeySchema: new wolkenkratzer.ResourceProperty(DynamoDBKeySchema, 'Yes', null),
-      Projection: new wolkenkratzer.ResourceProperty(DynamoDBProjectionObject, 'Yes', null),
-      ProvisionedThroughput: new wolkenkratzer.ResourceProperty(DynamoDBProvisionedThroughput, 'Yes', null)
+      IndexName: new ResourceProperty(String, 'Yes', null),
+      KeySchema: new ResourceProperty(DynamoDBKeySchema, 'Yes', null),
+      Projection: new ResourceProperty(DynamoDBProjectionObject, 'Yes', null),
+      ProvisionedThroughput: new ResourceProperty(DynamoDBProvisionedThroughput, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class DynamoDBKeySchema extends wolkenkratzer.SubPropertyObject {
+class DynamoDBKeySchema extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AttributeName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      KeyType: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      AttributeName: new ResourceProperty(String, 'Yes', null),
+      KeyType: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class DynamoDBLocalSecondaryIndexes extends wolkenkratzer.SubPropertyObject {
+class DynamoDBLocalSecondaryIndexes extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      IndexName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      KeySchema: new wolkenkratzer.ResourceProperty(DynamoDBKeySchema, 'Yes', null),
-      Projection: new wolkenkratzer.ResourceProperty(DynamoDBProjectionObject, 'Yes', null)
+      IndexName: new ResourceProperty(String, 'Yes', null),
+      KeySchema: new ResourceProperty(DynamoDBKeySchema, 'Yes', null),
+      Projection: new ResourceProperty(DynamoDBProjectionObject, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class DynamoDBProjectionObject extends wolkenkratzer.SubPropertyObject {
+class DynamoDBProjectionObject extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      NonKeyAttributes: new wolkenkratzer.ResourceArray(String, 'No', null),
-      ProjectionType: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      KEYS_ONLY: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null),
-      INCLUDE: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null),
-      ALL: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null)
+      NonKeyAttributes: new ResourceArray(String, 'No', null),
+      ProjectionType: new ResourceProperty(String, 'No', null),
+      KEYS_ONLY: new ResourceProperty(undefined, 'undefined', null),
+      INCLUDE: new ResourceProperty(undefined, 'undefined', null),
+      ALL: new ResourceProperty(undefined, 'undefined', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class DynamoDBProvisionedThroughput extends wolkenkratzer.SubPropertyObject {
+class DynamoDBProvisionedThroughput extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ReadCapacityUnits: new wolkenkratzer.ResourceProperty(Number, 'Yes', null),
-      WriteCapacityUnits: new wolkenkratzer.ResourceProperty(Number, 'Yes', null)
+      ReadCapacityUnits: new ResourceProperty(Number, 'Yes', null),
+      WriteCapacityUnits: new ResourceProperty(Number, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class DynamoDBTableStreamSpecification extends wolkenkratzer.SubPropertyObject {
+class DynamoDBTableStreamSpecification extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      StreamViewType: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      StreamViewType: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2BlockDeviceMappingProperty extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2BlockDeviceMappingProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DeviceName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Ebs: new wolkenkratzer.ResourceProperty(AmazonElasticBlockStoreBlockDeviceProperty, 'Conditional', null),
-      NoDevice: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      VirtualName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      DeviceName: new ResourceProperty(String, 'Yes', null),
+      Ebs: new ResourceProperty(AmazonElasticBlockStoreBlockDeviceProperty, 'Conditional', null),
+      NoDevice: new ResourceProperty(Map, 'No', null),
+      VirtualName: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticBlockStoreBlockDeviceProperty extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticBlockStoreBlockDeviceProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DeleteOnTermination: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Encrypted: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Iops: new wolkenkratzer.ResourceProperty(Number, 'Conditional', null),
-      SnapshotId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      VolumeSize: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      VolumeType: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      DeleteOnTermination: new ResourceProperty(Boolean, 'No', null),
+      Encrypted: new ResourceProperty(Boolean, 'No', null),
+      Iops: new ResourceProperty(Number, 'Conditional', null),
+      SnapshotId: new ResourceProperty(String, 'Conditional', null),
+      VolumeSize: new ResourceProperty(String, 'Conditional', null),
+      VolumeType: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class EC2ICMPPropertyType extends wolkenkratzer.SubPropertyObject {
+class EC2ICMPPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
     }
@@ -886,97 +888,97 @@ class EC2ICMPPropertyType extends wolkenkratzer.SubPropertyObject {
   }
 }
 
-class AmazonEC2InstanceSsmAssociations extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2InstanceSsmAssociations extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AssociationParameters: new wolkenkratzer.ResourceArray(AmazonEC2InstanceSsmAssociationsAssociationParameters, 'No', null),
-      DocumentName: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      AssociationParameters: new ResourceArray(AmazonEC2InstanceSsmAssociationsAssociationParameters, 'No', null),
+      DocumentName: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2InstanceSsmAssociationsAssociationParameters extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2InstanceSsmAssociationsAssociationParameters extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceArray(String, 'Yes', null)
+      Key: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceArray(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class EC2MountPointPropertyType extends wolkenkratzer.SubPropertyObject {
+class EC2MountPointPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Device: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      VolumeId: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Device: new ResourceProperty(String, 'Yes', null),
+      VolumeId: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class EC2NetworkInterfaceEmbeddedPropertyType extends wolkenkratzer.SubPropertyObject {
+class EC2NetworkInterfaceEmbeddedPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AssociatePublicIpAddress: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      DeleteOnTermination: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      DeviceIndex: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      GroupSet: new wolkenkratzer.ResourceArray(String, 'No', null),
-      NetworkInterfaceId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      PrivateIpAddress: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      PrivateIpAddresses: new wolkenkratzer.ResourceArray(Map, 'No', null),
-      SecondaryPrivateIpAddressCount: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      SubnetId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      AssociatePublicIpAddress: new ResourceProperty(Boolean, 'No', null),
+      DeleteOnTermination: new ResourceProperty(Boolean, 'No', null),
+      Description: new ResourceProperty(String, 'No', null),
+      DeviceIndex: new ResourceProperty(String, 'Yes', null),
+      GroupSet: new ResourceArray(String, 'No', null),
+      NetworkInterfaceId: new ResourceProperty(String, 'Conditional', null),
+      PrivateIpAddress: new ResourceProperty(String, 'No', null),
+      PrivateIpAddresses: new ResourceArray(Map, 'No', null),
+      SecondaryPrivateIpAddressCount: new ResourceProperty(Map, 'No', null),
+      SubnetId: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class EC2NetworkInterfaceAssociation extends wolkenkratzer.SubPropertyObject {
+class EC2NetworkInterfaceAssociation extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AttachmentID: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      InstanceID: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      PublicIp: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      IpOwnerId: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      AttachmentID: new ResourceProperty(String, 'Yes', null),
+      InstanceID: new ResourceProperty(String, 'Yes', null),
+      PublicIp: new ResourceProperty(String, 'Yes', null),
+      IpOwnerId: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class EC2NetworkInterfaceAttachment extends wolkenkratzer.SubPropertyObject {
+class EC2NetworkInterfaceAttachment extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AttachmentID: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      InstanceID: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      AttachmentID: new ResourceProperty(String, 'Yes', null),
+      InstanceID: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class EC2NetworkInterfaceGroupItem extends wolkenkratzer.SubPropertyObject {
+class EC2NetworkInterfaceGroupItem extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Key: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class EC2NetworkInterfacePrivateIPSpecification extends wolkenkratzer.SubPropertyObject {
+class EC2NetworkInterfacePrivateIPSpecification extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      PrivateIpAddress: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Primary: new wolkenkratzer.ResourceProperty(Boolean, 'Yes', null)
+      PrivateIpAddress: new ResourceProperty(String, 'Yes', null),
+      Primary: new ResourceProperty(Boolean, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class EC2PortRangePropertyType extends wolkenkratzer.SubPropertyObject {
+class EC2PortRangePropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
     }
@@ -984,815 +986,815 @@ class EC2PortRangePropertyType extends wolkenkratzer.SubPropertyObject {
   }
 }
 
-class EC2SecurityGroupRulePropertyType extends wolkenkratzer.SubPropertyObject {
+class EC2SecurityGroupRulePropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CidrIp: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      DestinationSecurityGroupId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      FromPort: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      IpProtocol: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      SourceSecurityGroupId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      SourceSecurityGroupName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      SourceSecurityGroupOwnerId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      ToPort: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      CidrIp: new ResourceProperty(String, 'Conditional', null),
+      DestinationSecurityGroupId: new ResourceProperty(String, 'Conditional', null),
+      FromPort: new ResourceProperty(Map, 'No', null),
+      IpProtocol: new ResourceProperty(String, 'Yes', null),
+      SourceSecurityGroupId: new ResourceProperty(String, 'Conditional', null),
+      SourceSecurityGroupName: new ResourceProperty(String, 'Conditional', null),
+      SourceSecurityGroupOwnerId: new ResourceProperty(String, 'Conditional', null),
+      ToPort: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2SpotFleetSpotFleetRequestConfigData extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2SpotFleetSpotFleetRequestConfigData extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AllocationStrategy: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ExcessCapacityTerminationPolicy: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      IamFleetRole: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      LaunchSpecifications: new wolkenkratzer.ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications, 'Yes', null),
-      SpotPrice: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      TargetCapacity: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      TerminateInstancesWithExpiration: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      ValidFrom: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ValidUntil: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      AllocationStrategy: new ResourceProperty(String, 'No', null),
+      ExcessCapacityTerminationPolicy: new ResourceProperty(String, 'No', null),
+      IamFleetRole: new ResourceProperty(String, 'Yes', null),
+      LaunchSpecifications: new ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications, 'Yes', null),
+      SpotPrice: new ResourceProperty(String, 'Yes', null),
+      TargetCapacity: new ResourceProperty(Map, 'Yes', null),
+      TerminateInstancesWithExpiration: new ResourceProperty(Boolean, 'No', null),
+      ValidFrom: new ResourceProperty(String, 'No', null),
+      ValidUntil: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      BlockDeviceMappings: new wolkenkratzer.ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings, 'No', null),
-      EbsOptimized: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      IamInstanceProfile: new wolkenkratzer.ResourceProperty(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile, 'No', null),
-      ImageId: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      InstanceType: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      KernelId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      KeyName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Monitoring: new wolkenkratzer.ResourceProperty(AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring, 'No', null),
-      NetworkInterfaces: new wolkenkratzer.ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces, 'No', null),
-      Placement: new wolkenkratzer.ResourceProperty(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement, 'No', null),
-      RamdiskId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SecurityGroups: new wolkenkratzer.ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups, 'No', null),
-      SubnetId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      UserData: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      WeightedCapacity: new wolkenkratzer.ResourceProperty(Number, 'No', null)
+      BlockDeviceMappings: new ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings, 'No', null),
+      EbsOptimized: new ResourceProperty(Boolean, 'No', null),
+      IamInstanceProfile: new ResourceProperty(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile, 'No', null),
+      ImageId: new ResourceProperty(String, 'Yes', null),
+      InstanceType: new ResourceProperty(String, 'Yes', null),
+      KernelId: new ResourceProperty(String, 'No', null),
+      KeyName: new ResourceProperty(String, 'No', null),
+      Monitoring: new ResourceProperty(AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring, 'No', null),
+      NetworkInterfaces: new ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces, 'No', null),
+      Placement: new ResourceProperty(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement, 'No', null),
+      RamdiskId: new ResourceProperty(String, 'No', null),
+      SecurityGroups: new ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups, 'No', null),
+      SubnetId: new ResourceProperty(String, 'No', null),
+      UserData: new ResourceProperty(String, 'No', null),
+      WeightedCapacity: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DeviceName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Ebs: new wolkenkratzer.ResourceProperty(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs, 'Conditional', null),
-      NoDevice: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      VirtualName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      DeviceName: new ResourceProperty(String, 'Yes', null),
+      Ebs: new ResourceProperty(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs, 'Conditional', null),
+      NoDevice: new ResourceProperty(Boolean, 'No', null),
+      VirtualName: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DeleteOnTermination: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Encrypted: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Iops: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      SnapshotId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      VolumeSize: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null),
-      VolumeType: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      DeleteOnTermination: new ResourceProperty(Boolean, 'No', null),
+      Encrypted: new ResourceProperty(Boolean, 'No', null),
+      Iops: new ResourceProperty(Map, 'No', null),
+      SnapshotId: new ResourceProperty(String, 'Conditional', null),
+      VolumeSize: new ResourceProperty(Map, 'Conditional', null),
+      VolumeType: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Arn: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Arn: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Enabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null)
+      Enabled: new ResourceProperty(Boolean, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AssociatePublicIpAddress: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      DeleteOnTermination: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      DeviceIndex: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      Groups: new wolkenkratzer.ResourceArray(String, 'No', null),
-      NetworkInterfaceId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      PrivateIpAddresses: new wolkenkratzer.ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses, 'No', null),
-      SecondaryPrivateIpAddressCount: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      SubnetId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      AssociatePublicIpAddress: new ResourceProperty(Boolean, 'No', null),
+      DeleteOnTermination: new ResourceProperty(Boolean, 'No', null),
+      Description: new ResourceProperty(String, 'No', null),
+      DeviceIndex: new ResourceProperty(Map, 'Yes', null),
+      Groups: new ResourceArray(String, 'No', null),
+      NetworkInterfaceId: new ResourceProperty(String, 'No', null),
+      PrivateIpAddresses: new ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses, 'No', null),
+      SecondaryPrivateIpAddressCount: new ResourceProperty(Map, 'No', null),
+      SubnetId: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Primary: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      PrivateIpAddress: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Primary: new ResourceProperty(Boolean, 'No', null),
+      PrivateIpAddress: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AvailabilityZone: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      GroupName: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      AvailabilityZone: new ResourceProperty(String, 'No', null),
+      GroupName: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      GroupId: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      GroupId: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceServiceDeploymentConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceServiceDeploymentConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      MaximumPercent: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      MinimumHealthyPercent: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      MaximumPercent: new ResourceProperty(Map, 'No', null),
+      MinimumHealthyPercent: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceServiceLoadBalancers extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceServiceLoadBalancers extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ContainerName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ContainerPort: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      LoadBalancerName: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      ContainerName: new ResourceProperty(String, 'No', null),
+      ContainerPort: new ResourceProperty(Map, 'Yes', null),
+      LoadBalancerName: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Command: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Cpu: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      DisableNetworking: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      DnsSearchDomains: new wolkenkratzer.ResourceArray(String, 'No', null),
-      DnsServers: new wolkenkratzer.ResourceArray(String, 'No', null),
-      DockerLabels: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      DockerSecurityOptions: new wolkenkratzer.ResourceArray(String, 'No', null),
-      EntryPoint: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Environment: new wolkenkratzer.ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment, 'No', null),
-      Essential: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      ExtraHosts: new wolkenkratzer.ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry, 'No', null),
-      Hostname: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Image: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Links: new wolkenkratzer.ResourceArray(String, 'No', null),
-      LogConfiguration: new wolkenkratzer.ResourceProperty(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration, 'No', null),
-      Memory: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      MountPoints: new wolkenkratzer.ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints, 'No', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      PortMappings: new wolkenkratzer.ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings, 'No', null),
-      Privileged: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      ReadonlyRootFilesystem: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Ulimits: new wolkenkratzer.ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit, 'No', null),
-      User: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      VolumesFrom: new wolkenkratzer.ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom, 'No', null),
-      WorkingDirectory: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Command: new ResourceArray(String, 'No', null),
+      Cpu: new ResourceProperty(Map, 'No', null),
+      DisableNetworking: new ResourceProperty(Boolean, 'No', null),
+      DnsSearchDomains: new ResourceArray(String, 'No', null),
+      DnsServers: new ResourceArray(String, 'No', null),
+      DockerLabels: new ResourceProperty(Map, 'No', null),
+      DockerSecurityOptions: new ResourceArray(String, 'No', null),
+      EntryPoint: new ResourceArray(String, 'No', null),
+      Environment: new ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment, 'No', null),
+      Essential: new ResourceProperty(Boolean, 'No', null),
+      ExtraHosts: new ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry, 'No', null),
+      Hostname: new ResourceProperty(String, 'No', null),
+      Image: new ResourceProperty(String, 'Yes', null),
+      Links: new ResourceArray(String, 'No', null),
+      LogConfiguration: new ResourceProperty(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration, 'No', null),
+      Memory: new ResourceProperty(Map, 'Yes', null),
+      MountPoints: new ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints, 'No', null),
+      Name: new ResourceProperty(String, 'Yes', null),
+      PortMappings: new ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings, 'No', null),
+      Privileged: new ResourceProperty(Boolean, 'No', null),
+      ReadonlyRootFilesystem: new ResourceProperty(Boolean, 'No', null),
+      Ulimits: new ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit, 'No', null),
+      User: new ResourceProperty(String, 'No', null),
+      VolumesFrom: new ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom, 'No', null),
+      WorkingDirectory: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Name: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Hostname: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      IpAddress: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Hostname: new ResourceProperty(String, 'Yes', null),
+      IpAddress: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      LogDriver: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Options: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      LogDriver: new ResourceProperty(String, 'Yes', null),
+      Options: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ContainerPath: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      SourceVolume: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      ReadOnly: new wolkenkratzer.ResourceProperty(Boolean, 'No', null)
+      ContainerPath: new ResourceProperty(String, 'Yes', null),
+      SourceVolume: new ResourceProperty(String, 'Yes', null),
+      ReadOnly: new ResourceProperty(Boolean, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ContainerPort: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      HostPort: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      ContainerPort: new ResourceProperty(Map, 'Yes', null),
+      HostPort: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      HardLimit: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SoftLimit: new wolkenkratzer.ResourceProperty(Map, 'Yes', null)
+      HardLimit: new ResourceProperty(Map, 'Yes', null),
+      Name: new ResourceProperty(String, 'No', null),
+      SoftLimit: new ResourceProperty(Map, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      SourceContainer: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      ReadOnly: new wolkenkratzer.ResourceProperty(Boolean, 'No', null)
+      SourceContainer: new ResourceProperty(String, 'Yes', null),
+      ReadOnly: new ResourceProperty(Boolean, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceTaskDefinitionVolumes extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceTaskDefinitionVolumes extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Host: new wolkenkratzer.ResourceProperty(AmazonEC2ContainerServiceTaskDefinitionVolumesHost, 'No', null)
+      Name: new ResourceProperty(String, 'Yes', null),
+      Host: new ResourceProperty(AmazonEC2ContainerServiceTaskDefinitionVolumesHost, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonEC2ContainerServiceTaskDefinitionVolumesHost extends wolkenkratzer.SubPropertyObject {
+class AmazonEC2ContainerServiceTaskDefinitionVolumesHost extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      SourcePath: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      SourcePath: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticFileSystemFileSystemFileSystemTags extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticFileSystemFileSystemFileSystemTags extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Key: new ResourceProperty(String, 'No', null),
+      Value: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticBeanstalkEnvironmentTierPropertyType extends wolkenkratzer.SubPropertyObject {
+class ElasticBeanstalkEnvironmentTierPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Version: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Name: new ResourceProperty(String, 'No', null),
+      Type: new ResourceProperty(String, 'No', null),
+      Version: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticBeanstalkOptionSettingsPropertyType extends wolkenkratzer.SubPropertyObject {
+class ElasticBeanstalkOptionSettingsPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Namespace: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      OptionName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Namespace: new ResourceProperty(String, 'Yes', null),
+      OptionName: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticBeanstalkSourceBundlePropertyType extends wolkenkratzer.SubPropertyObject {
+class ElasticBeanstalkSourceBundlePropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      S3Bucket: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      S3Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      S3Bucket: new ResourceProperty(String, 'Yes', null),
+      S3Key: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticBeanstalkSourceConfigurationPropertyType extends wolkenkratzer.SubPropertyObject {
+class ElasticBeanstalkSourceConfigurationPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ApplicationName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      TemplateName: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      ApplicationName: new ResourceProperty(String, 'Yes', null),
+      TemplateName: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticLoadBalancingAccessLoggingPolicy extends wolkenkratzer.SubPropertyObject {
+class ElasticLoadBalancingAccessLoggingPolicy extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      EmitInterval: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Enabled: new wolkenkratzer.ResourceProperty(Boolean, 'Yes', null),
-      S3BucketName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      S3BucketPrefix: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      EmitInterval: new ResourceProperty(Map, 'No', null),
+      Enabled: new ResourceProperty(Boolean, 'Yes', null),
+      S3BucketName: new ResourceProperty(String, 'Yes', null),
+      S3BucketPrefix: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticLoadBalancingAppCookieStickinessPolicyType extends wolkenkratzer.SubPropertyObject {
+class ElasticLoadBalancingAppCookieStickinessPolicyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CookieName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      PolicyName: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      CookieName: new ResourceProperty(String, 'Yes', null),
+      PolicyName: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticLoadBalancingConnectionDrainingPolicy extends wolkenkratzer.SubPropertyObject {
+class ElasticLoadBalancingConnectionDrainingPolicy extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Enabled: new wolkenkratzer.ResourceProperty(Boolean, 'Yes', null),
-      Timeout: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      Enabled: new ResourceProperty(Boolean, 'Yes', null),
+      Timeout: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticLoadBalancingConnectionSettings extends wolkenkratzer.SubPropertyObject {
+class ElasticLoadBalancingConnectionSettings extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      IdleTimeout: new wolkenkratzer.ResourceProperty(Map, 'Yes', null)
+      IdleTimeout: new ResourceProperty(Map, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticLoadBalancingHealthCheckType extends wolkenkratzer.SubPropertyObject {
+class ElasticLoadBalancingHealthCheckType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      HealthyThreshold: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Interval: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Target: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Timeout: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      UnhealthyThreshold: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      HealthyThreshold: new ResourceProperty(String, 'Yes', null),
+      Interval: new ResourceProperty(String, 'Yes', null),
+      Target: new ResourceProperty(String, 'Yes', null),
+      Timeout: new ResourceProperty(String, 'Yes', null),
+      UnhealthyThreshold: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticLoadBalancingLBCookieStickinessPolicyType extends wolkenkratzer.SubPropertyObject {
+class ElasticLoadBalancingLBCookieStickinessPolicyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CookieExpirationPeriod: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      PolicyName: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null)
+      CookieExpirationPeriod: new ResourceProperty(String, 'No', null),
+      PolicyName: new ResourceProperty(undefined, 'undefined', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticLoadBalancingListenerPropertyType extends wolkenkratzer.SubPropertyObject {
+class ElasticLoadBalancingListenerPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      InstancePort: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      InstanceProtocol: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      LoadBalancerPort: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      PolicyNames: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Protocol: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      SSLCertificateId: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      InstancePort: new ResourceProperty(String, 'Yes', null),
+      InstanceProtocol: new ResourceProperty(String, 'No', null),
+      LoadBalancerPort: new ResourceProperty(String, 'Yes', null),
+      PolicyNames: new ResourceArray(String, 'No', null),
+      Protocol: new ResourceProperty(String, 'Yes', null),
+      SSLCertificateId: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class ElasticLoadBalancingPolicyType extends wolkenkratzer.SubPropertyObject {
+class ElasticLoadBalancingPolicyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Attributes: new wolkenkratzer.ResourceArray(Object, 'Yes', null),
-      InstancePorts: new wolkenkratzer.ResourceArray(String, 'No', null),
-      LoadBalancerPorts: new wolkenkratzer.ResourceArray(String, 'Conditional', null),
-      PolicyName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      PolicyType: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Attributes: new ResourceArray(Object, 'Yes', null),
+      InstancePorts: new ResourceArray(String, 'No', null),
+      LoadBalancerPorts: new ResourceArray(String, 'Conditional', null),
+      PolicyName: new ResourceProperty(String, 'Yes', null),
+      PolicyType: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticsearchServiceDomainEBSOptions extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticsearchServiceDomainEBSOptions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      EBSEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Iops: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      VolumeSize: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      VolumeType: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      EBSEnabled: new ResourceProperty(Boolean, 'No', null),
+      Iops: new ResourceProperty(Map, 'No', null),
+      VolumeSize: new ResourceProperty(Map, 'No', null),
+      VolumeType: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticsearchServiceDomainElasticsearchClusterConfig extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticsearchServiceDomainElasticsearchClusterConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DedicatedMasterCount: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      DedicatedMasterEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      DedicatedMasterType: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      InstanceCount: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      InstanceType: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ZoneAwarenessEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null)
+      DedicatedMasterCount: new ResourceProperty(Map, 'No', null),
+      DedicatedMasterEnabled: new ResourceProperty(Boolean, 'No', null),
+      DedicatedMasterType: new ResourceProperty(String, 'No', null),
+      InstanceCount: new ResourceProperty(Map, 'No', null),
+      InstanceType: new ResourceProperty(String, 'No', null),
+      ZoneAwarenessEnabled: new ResourceProperty(Boolean, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticsearchServiceDomainSnapshotOptions extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticsearchServiceDomainSnapshotOptions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AutomatedSnapshotStartHour: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      AutomatedSnapshotStartHour: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceClusterApplication extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceClusterApplication extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AdditionalInfo: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Args: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Version: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      AdditionalInfo: new ResourceProperty(Map, 'No', null),
+      Args: new ResourceArray(String, 'No', null),
+      Name: new ResourceProperty(String, 'No', null),
+      Version: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceClusterBootstrapActionConfig extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceClusterBootstrapActionConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      ScriptBootstrapAction: new wolkenkratzer.ResourceProperty(AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig, 'Yes', null)
+      Name: new ResourceProperty(String, 'Yes', null),
+      ScriptBootstrapAction: new ResourceProperty(AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Args: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Path: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Args: new ResourceArray(String, 'No', null),
+      Path: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceClusterConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceClusterConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Classification: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ConfigurationProperties: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Configurations: new wolkenkratzer.ResourceArray(AmazonElasticMapReduceClusterConfiguration, 'No', null)
+      Classification: new ResourceProperty(String, 'No', null),
+      ConfigurationProperties: new ResourceProperty(Map, 'No', null),
+      Configurations: new ResourceArray(AmazonElasticMapReduceClusterConfiguration, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceClusterJobFlowInstancesConfig extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceClusterJobFlowInstancesConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AdditionalMasterSecurityGroups: new wolkenkratzer.ResourceArray(String, 'No', null),
-      AdditionalSlaveSecurityGroups: new wolkenkratzer.ResourceArray(String, 'No', null),
-      CoreInstanceGroup: new wolkenkratzer.ResourceProperty(AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig, 'Yes', null),
-      Ec2KeyName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Ec2SubnetId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      EmrManagedMasterSecurityGroup: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      EmrManagedSlaveSecurityGroup: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      HadoopVersion: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MasterInstanceGroup: new wolkenkratzer.ResourceProperty(AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig, 'Yes', null),
-      Placement: new wolkenkratzer.ResourceProperty(AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType, 'No', null),
-      ServiceAccessSecurityGroup: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      TerminationProtected: new wolkenkratzer.ResourceProperty(Boolean, 'No', null)
+      AdditionalMasterSecurityGroups: new ResourceArray(String, 'No', null),
+      AdditionalSlaveSecurityGroups: new ResourceArray(String, 'No', null),
+      CoreInstanceGroup: new ResourceProperty(AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig, 'Yes', null),
+      Ec2KeyName: new ResourceProperty(String, 'No', null),
+      Ec2SubnetId: new ResourceProperty(String, 'No', null),
+      EmrManagedMasterSecurityGroup: new ResourceProperty(String, 'No', null),
+      EmrManagedSlaveSecurityGroup: new ResourceProperty(String, 'No', null),
+      HadoopVersion: new ResourceProperty(String, 'No', null),
+      MasterInstanceGroup: new ResourceProperty(AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig, 'Yes', null),
+      Placement: new ResourceProperty(AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType, 'No', null),
+      ServiceAccessSecurityGroup: new ResourceProperty(String, 'No', null),
+      TerminationProtected: new ResourceProperty(Boolean, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      BidPrice: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Configurations: new wolkenkratzer.ResourceArray(AmazonElasticMapReduceClusterConfiguration, 'No', null),
-      EbsConfiguration: new wolkenkratzer.ResourceProperty(AmazonElasticMapReduceEbsConfiguration, 'No', null),
-      InstanceCount: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      InstanceType: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Market: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      BidPrice: new ResourceProperty(String, 'No', null),
+      Configurations: new ResourceArray(AmazonElasticMapReduceClusterConfiguration, 'No', null),
+      EbsConfiguration: new ResourceProperty(AmazonElasticMapReduceEbsConfiguration, 'No', null),
+      InstanceCount: new ResourceProperty(Map, 'Yes', null),
+      InstanceType: new ResourceProperty(String, 'Yes', null),
+      Market: new ResourceProperty(String, 'No', null),
+      Name: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AvailabilityZone: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      AvailabilityZone: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceEbsConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceEbsConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      EbsBlockDeviceConfigs: new wolkenkratzer.ResourceArray(AmazonElasticMapReduceEbsConfiguration, 'No', null),
-      EbsOptimized: new wolkenkratzer.ResourceProperty(Boolean, 'No', null)
+      EbsBlockDeviceConfigs: new ResourceArray(AmazonElasticMapReduceEbsConfiguration, 'No', null),
+      EbsOptimized: new ResourceProperty(Boolean, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      VolumeSpecification: new wolkenkratzer.ResourceProperty(AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification, 'Yes', null),
-      VolumesPerInstance: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      VolumeSpecification: new ResourceProperty(AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification, 'Yes', null),
+      VolumesPerInstance: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Iops: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      SizeInGB: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      VolumeType: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Iops: new ResourceProperty(Map, 'No', null),
+      SizeInGB: new ResourceProperty(Map, 'Yes', null),
+      VolumeType: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceStepHadoopJarStepConfig extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceStepHadoopJarStepConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Args: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Jar: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      MainClass: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      StepProperties: new wolkenkratzer.ResourceArray(AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue, 'No', null)
+      Args: new ResourceArray(String, 'No', null),
+      Jar: new ResourceProperty(String, 'Yes', null),
+      MainClass: new ResourceProperty(String, 'No', null),
+      StepProperties: new ResourceArray(AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue extends wolkenkratzer.SubPropertyObject {
+class AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Key: new ResourceProperty(String, 'No', null),
+      Value: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonGameLiftAliasRoutingStrategy extends wolkenkratzer.SubPropertyObject {
+class AmazonGameLiftAliasRoutingStrategy extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      FleetId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      Message: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      FleetId: new ResourceProperty(String, 'Conditional', null),
+      Message: new ResourceProperty(String, 'Conditional', null),
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonGameLiftBuildStorageLocation extends wolkenkratzer.SubPropertyObject {
+class AmazonGameLiftBuildStorageLocation extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Bucket: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      RoleArn: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Bucket: new ResourceProperty(String, 'Yes', null),
+      Key: new ResourceProperty(String, 'Yes', null),
+      RoleArn: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonGameLiftFleetEC2InboundPermission extends wolkenkratzer.SubPropertyObject {
+class AmazonGameLiftFleetEC2InboundPermission extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      FromPort: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      IpRange: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Protocol: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      ToPort: new wolkenkratzer.ResourceProperty(Map, 'Yes', null)
+      FromPort: new ResourceProperty(Map, 'Yes', null),
+      IpRange: new ResourceProperty(String, 'Yes', null),
+      Protocol: new ResourceProperty(String, 'Yes', null),
+      ToPort: new ResourceProperty(Map, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class IAMPolicies extends wolkenkratzer.SubPropertyObject {
+class IAMPolicies extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      PolicyDocument: new wolkenkratzer.ResourceProperty(Object, 'Yes', null),
-      PolicyName: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      PolicyDocument: new ResourceProperty(Object, 'Yes', null),
+      PolicyName: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class IAMUserLoginProfile extends wolkenkratzer.SubPropertyObject {
+class IAMUserLoginProfile extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Password: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      PasswordResetRequired: new wolkenkratzer.ResourceProperty(Boolean, 'No', null)
+      Password: new ResourceProperty(String, 'Yes', null),
+      PasswordResetRequired: new ResourceProperty(Boolean, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions extends wolkenkratzer.SubPropertyObject {
+class AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Enabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      LogGroupName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      LogStreamName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      Enabled: new ResourceProperty(Boolean, 'No', null),
+      LogGroupName: new ResourceProperty(String, 'Conditional', null),
+      LogStreamName: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      BufferingHints: new wolkenkratzer.ResourceProperty(AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints, 'Yes', null),
-      CloudWatchLoggingOptions: new wolkenkratzer.ResourceProperty(AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
-      DomainARN: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      IndexName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      IndexRotationPeriod: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      RetryOptions: new wolkenkratzer.ResourceProperty(String, 'undefined', null),
-      RoleARN: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      S3BackupMode: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      S3Configuration: new wolkenkratzer.ResourceProperty(String, 'undefined', null),
-      TypeName: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      BufferingHints: new ResourceProperty(AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints, 'Yes', null),
+      CloudWatchLoggingOptions: new ResourceProperty(AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
+      DomainARN: new ResourceProperty(String, 'Yes', null),
+      IndexName: new ResourceProperty(String, 'Yes', null),
+      IndexRotationPeriod: new ResourceProperty(String, 'Yes', null),
+      RetryOptions: new ResourceProperty(String, 'undefined', null),
+      RoleARN: new ResourceProperty(String, 'Yes', null),
+      S3BackupMode: new ResourceProperty(String, 'Yes', null),
+      S3Configuration: new ResourceProperty(String, 'undefined', null),
+      TypeName: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints extends wolkenkratzer.SubPropertyObject {
+class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      IntervalInSeconds: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      SizeInMBs: new wolkenkratzer.ResourceProperty(Map, 'Yes', null)
+      IntervalInSeconds: new ResourceProperty(Map, 'Yes', null),
+      SizeInMBs: new ResourceProperty(Map, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions extends wolkenkratzer.SubPropertyObject {
+class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DurationInSeconds: new wolkenkratzer.ResourceProperty(Map, 'Yes', null)
+      DurationInSeconds: new ResourceProperty(Map, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CloudWatchLoggingOptions: new wolkenkratzer.ResourceProperty(AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
-      ClusterJDBCURL: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      CopyCommand: new wolkenkratzer.ResourceProperty(AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand, 'Yes', null),
-      Password: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      RoleARN: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      S3Configuration: new wolkenkratzer.ResourceProperty(AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration, 'Yes', null),
-      Username: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      CloudWatchLoggingOptions: new ResourceProperty(AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
+      ClusterJDBCURL: new ResourceProperty(String, 'Yes', null),
+      CopyCommand: new ResourceProperty(AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand, 'Yes', null),
+      Password: new ResourceProperty(String, 'Yes', null),
+      RoleARN: new ResourceProperty(String, 'Yes', null),
+      S3Configuration: new ResourceProperty(AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration, 'Yes', null),
+      Username: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand extends wolkenkratzer.SubPropertyObject {
+class AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CopyOptions: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      DataTableColumns: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      DataTableName: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      CopyOptions: new ResourceProperty(String, 'No', null),
+      DataTableColumns: new ResourceProperty(String, 'No', null),
+      DataTableName: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      BucketARN: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      BufferingHints: new wolkenkratzer.ResourceProperty(AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints, 'Yes', null),
-      CloudWatchLoggingOptions: new wolkenkratzer.ResourceProperty(AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
-      CompressionFormat: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      EncryptionConfiguration: new wolkenkratzer.ResourceProperty(AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration, 'No', null),
-      Prefix: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      RoleARN: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      BucketARN: new ResourceProperty(String, 'Yes', null),
+      BufferingHints: new ResourceProperty(AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints, 'Yes', null),
+      CloudWatchLoggingOptions: new ResourceProperty(AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
+      CompressionFormat: new ResourceProperty(String, 'Yes', null),
+      EncryptionConfiguration: new ResourceProperty(AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration, 'No', null),
+      Prefix: new ResourceProperty(String, 'Yes', null),
+      RoleARN: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints extends wolkenkratzer.SubPropertyObject {
+class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      IntervalInSeconds: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      SizeInMBs: new wolkenkratzer.ResourceProperty(Map, 'Yes', null)
+      IntervalInSeconds: new ResourceProperty(Map, 'Yes', null),
+      SizeInMBs: new ResourceProperty(Map, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig extends wolkenkratzer.SubPropertyObject {
+class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AWSKMSKeyARN: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      AWSKMSKeyARN: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      KMSEncryptionConfig: new wolkenkratzer.ResourceProperty(AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig, 'No', null),
-      NoEncryptionConfig: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      KMSEncryptionConfig: new ResourceProperty(AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig, 'No', null),
+      NoEncryptionConfig: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSLambdaFunctionCode extends wolkenkratzer.SubPropertyObject {
+class AWSLambdaFunctionCode extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      S3Bucket: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      S3Key: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      S3ObjectVersion: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ZipFile: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      event: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null),
-      context: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null),
-      responseStatus: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null),
-      responseData: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null),
-      physicalResourceId: new wolkenkratzer.ResourceProperty(undefined, 'undefined', null)
+      S3Bucket: new ResourceProperty(String, 'Conditional', null),
+      S3Key: new ResourceProperty(String, 'Conditional', null),
+      S3ObjectVersion: new ResourceProperty(String, 'No', null),
+      ZipFile: new ResourceProperty(String, 'Conditional', null),
+      event: new ResourceProperty(undefined, 'undefined', null),
+      context: new ResourceProperty(undefined, 'undefined', null),
+      responseStatus: new ResourceProperty(undefined, 'undefined', null),
+      responseData: new ResourceProperty(undefined, 'undefined', null),
+      physicalResourceId: new ResourceProperty(undefined, 'undefined', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSLambdaFunctionVPCConfig extends wolkenkratzer.SubPropertyObject {
+class AWSLambdaFunctionVPCConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      SecurityGroupIds: new wolkenkratzer.ResourceArray(String, 'Yes', null),
-      SubnetIds: new wolkenkratzer.ResourceArray(String, 'Yes', null)
+      SecurityGroupIds: new ResourceArray(String, 'Yes', null),
+      SubnetIds: new ResourceArray(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class NameType extends wolkenkratzer.SubPropertyObject {
+class NameType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
     }
@@ -1800,670 +1802,670 @@ class NameType extends wolkenkratzer.SubPropertyObject {
   }
 }
 
-class AWSOpsWorksAutoScalingThresholdsType extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksAutoScalingThresholdsType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CpuThreshold: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      IgnoreMetricsTime: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      InstanceCount: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      LoadThreshold: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      MemoryThreshold: new wolkenkratzer.ResourceProperty(Number, 'No', null),
-      ThresholdsWaitTime: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      CpuThreshold: new ResourceProperty(Number, 'No', null),
+      IgnoreMetricsTime: new ResourceProperty(Map, 'No', null),
+      InstanceCount: new ResourceProperty(Map, 'No', null),
+      LoadThreshold: new ResourceProperty(Number, 'No', null),
+      MemoryThreshold: new ResourceProperty(Number, 'No', null),
+      ThresholdsWaitTime: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksChefConfigurationType extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksChefConfigurationType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      BerkshelfVersion: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ManageBerkshelf: new wolkenkratzer.ResourceProperty(Boolean, 'No', null)
+      BerkshelfVersion: new ResourceProperty(String, 'No', null),
+      ManageBerkshelf: new ResourceProperty(Boolean, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksLayerLifeCycleConfiguration extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksLayerLifeCycleConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ShutdownEventConfiguration: new wolkenkratzer.ResourceProperty(AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration, 'No', null)
+      ShutdownEventConfiguration: new ResourceProperty(AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DelayUntilElbConnectionsDrained: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      ExecutionTimeout: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      DelayUntilElbConnectionsDrained: new ResourceProperty(Boolean, 'No', null),
+      ExecutionTimeout: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksLoadBasedAutoScalingType extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksLoadBasedAutoScalingType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DownScaling: new wolkenkratzer.ResourceProperty(AWSOpsWorksAutoScalingThresholdsType, 'No', null),
-      Enable: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      UpScaling: new wolkenkratzer.ResourceProperty(AWSOpsWorksAutoScalingThresholdsType, 'No', null)
+      DownScaling: new ResourceProperty(AWSOpsWorksAutoScalingThresholdsType, 'No', null),
+      Enable: new ResourceProperty(Boolean, 'No', null),
+      UpScaling: new ResourceProperty(AWSOpsWorksAutoScalingThresholdsType, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksRecipesType extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksRecipesType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Configure: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Deploy: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Setup: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Shutdown: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Undeploy: new wolkenkratzer.ResourceArray(String, 'No', null)
+      Configure: new ResourceArray(String, 'No', null),
+      Deploy: new ResourceArray(String, 'No', null),
+      Setup: new ResourceArray(String, 'No', null),
+      Shutdown: new ResourceArray(String, 'No', null),
+      Undeploy: new ResourceArray(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksSourceType extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksSourceType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Password: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Revision: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SshKey: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Url: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Username: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Password: new ResourceProperty(String, 'No', null),
+      Revision: new ResourceProperty(String, 'No', null),
+      SshKey: new ResourceProperty(String, 'No', null),
+      Type: new ResourceProperty(String, 'No', null),
+      Url: new ResourceProperty(String, 'No', null),
+      Username: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksAppEnvironment extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksAppEnvironment extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Secure: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Key: new ResourceProperty(String, 'Yes', null),
+      Secure: new ResourceProperty(Boolean, 'No', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksSslConfigurationType extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksSslConfigurationType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Certificate: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Chain: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      PrivateKey: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Certificate: new ResourceProperty(String, 'Yes', null),
+      Chain: new ResourceProperty(String, 'No', null),
+      PrivateKey: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksStackConfigurationManagerType extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksStackConfigurationManagerType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Version: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Name: new ResourceProperty(String, 'No', null),
+      Version: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksTimeBasedAutoScalingType extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksTimeBasedAutoScalingType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Friday: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Monday: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Saturday: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Sunday: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Thursday: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Tuesday: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Wednesday: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      Friday: new ResourceProperty(Map, 'No', null),
+      Monday: new ResourceProperty(Map, 'No', null),
+      Saturday: new ResourceProperty(Map, 'No', null),
+      Sunday: new ResourceProperty(Map, 'No', null),
+      Thursday: new ResourceProperty(Map, 'No', null),
+      Tuesday: new ResourceProperty(Map, 'No', null),
+      Wednesday: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSOpsWorksVolumeConfigurationType extends wolkenkratzer.SubPropertyObject {
+class AWSOpsWorksVolumeConfigurationType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Iops: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null),
-      MountPoint: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      NumberOfDisks: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      RaidLevel: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      Size: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      VolumeType: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Iops: new ResourceProperty(Map, 'Conditional', null),
+      MountPoint: new ResourceProperty(String, 'Yes', null),
+      NumberOfDisks: new ResourceProperty(Map, 'Yes', null),
+      RaidLevel: new ResourceProperty(Map, 'No', null),
+      Size: new ResourceProperty(Map, 'Yes', null),
+      VolumeType: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonRedshiftParameterType extends wolkenkratzer.SubPropertyObject {
+class AmazonRedshiftParameterType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ParameterName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      ParameterValue: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      ParameterName: new ResourceProperty(String, 'Yes', null),
+      ParameterValue: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSCloudFormationResourceTagsType extends wolkenkratzer.SubPropertyObject {
+class AWSCloudFormationResourceTagsType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Key: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonRDSOptionGroupOptionConfigurations extends wolkenkratzer.SubPropertyObject {
+class AmazonRDSOptionGroupOptionConfigurations extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DBSecurityGroupMemberships: new wolkenkratzer.ResourceArray(String, 'No', null),
-      OptionName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      OptionSettings: new wolkenkratzer.ResourceProperty(AmazonRDSOptionGroupOptionConfigurationsOptionSettings, 'No', null),
-      Port: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      VpcSecurityGroupMemberships: new wolkenkratzer.ResourceArray(String, 'No', null)
+      DBSecurityGroupMemberships: new ResourceArray(String, 'No', null),
+      OptionName: new ResourceProperty(String, 'Yes', null),
+      OptionSettings: new ResourceProperty(AmazonRDSOptionGroupOptionConfigurationsOptionSettings, 'No', null),
+      Port: new ResourceProperty(Map, 'No', null),
+      VpcSecurityGroupMemberships: new ResourceArray(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonRDSOptionGroupOptionConfigurationsOptionSettings extends wolkenkratzer.SubPropertyObject {
+class AmazonRDSOptionGroupOptionConfigurationsOptionSettings extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Name: new ResourceProperty(String, 'No', null),
+      Value: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonRDSSecurityGroupRule extends wolkenkratzer.SubPropertyObject {
+class AmazonRDSSecurityGroupRule extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CIDRIP: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      EC2SecurityGroupId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      EC2SecurityGroupName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      EC2SecurityGroupOwnerId: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      CIDRIP: new ResourceProperty(String, 'No', null),
+      EC2SecurityGroupId: new ResourceProperty(String, 'No', null),
+      EC2SecurityGroupName: new ResourceProperty(String, 'No', null),
+      EC2SecurityGroupOwnerId: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class Route53AliasTargetProperty extends wolkenkratzer.SubPropertyObject {
+class Route53AliasTargetProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DNSName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      EvaluateTargetHealth: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      HostedZoneId: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      DNSName: new ResourceProperty(String, 'Yes', null),
+      EvaluateTargetHealth: new ResourceProperty(Boolean, 'No', null),
+      HostedZoneId: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonRoute53RecordSetGeoLocationProperty extends wolkenkratzer.SubPropertyObject {
+class AmazonRoute53RecordSetGeoLocationProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ContinentCode: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      CountryCode: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      SubdivisionCode: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      ContinentCode: new ResourceProperty(String, 'Conditional', null),
+      CountryCode: new ResourceProperty(String, 'Conditional', null),
+      SubdivisionCode: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonRoute53HealthCheckConfig extends wolkenkratzer.SubPropertyObject {
+class AmazonRoute53HealthCheckConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      FailureThreshold: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      FullyQualifiedDomainName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      IPAddress: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Port: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null),
-      RequestInterval: new wolkenkratzer.ResourceProperty(Map, 'No', null),
-      ResourcePath: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SearchString: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      FailureThreshold: new ResourceProperty(Map, 'No', null),
+      FullyQualifiedDomainName: new ResourceProperty(String, 'Conditional', null),
+      IPAddress: new ResourceProperty(String, 'No', null),
+      Port: new ResourceProperty(Map, 'Conditional', null),
+      RequestInterval: new ResourceProperty(Map, 'No', null),
+      ResourcePath: new ResourceProperty(String, 'No', null),
+      SearchString: new ResourceProperty(String, 'No', null),
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonRoute53HealthCheckTags extends wolkenkratzer.SubPropertyObject {
+class AmazonRoute53HealthCheckTags extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Key: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonRoute53HostedZoneConfigProperty extends wolkenkratzer.SubPropertyObject {
+class AmazonRoute53HostedZoneConfigProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Comment: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Comment: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonRoute53HostedZoneTags extends wolkenkratzer.SubPropertyObject {
+class AmazonRoute53HostedZoneTags extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Key: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Key: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonRoute53HostedZoneVPCs extends wolkenkratzer.SubPropertyObject {
+class AmazonRoute53HostedZoneVPCs extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      VPCId: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      VPCRegion: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      VPCId: new ResourceProperty(String, 'Yes', null),
+      VPCRegion: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3CorsConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonS3CorsConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CorsRules: new wolkenkratzer.ResourceProperty(AmazonS3CorsConfigurationRule, 'Yes', null)
+      CorsRules: new ResourceProperty(AmazonS3CorsConfigurationRule, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3CorsConfigurationRule extends wolkenkratzer.SubPropertyObject {
+class AmazonS3CorsConfigurationRule extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AllowedHeaders: new wolkenkratzer.ResourceArray(String, 'No', null),
-      AllowedMethods: new wolkenkratzer.ResourceArray(String, 'Yes', null),
-      AllowedOrigins: new wolkenkratzer.ResourceArray(String, 'Yes', null),
-      ExposedHeaders: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Id: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MaxAge: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      AllowedHeaders: new ResourceArray(String, 'No', null),
+      AllowedMethods: new ResourceArray(String, 'Yes', null),
+      AllowedOrigins: new ResourceArray(String, 'Yes', null),
+      ExposedHeaders: new ResourceArray(String, 'No', null),
+      Id: new ResourceProperty(String, 'No', null),
+      MaxAge: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3LifecycleConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonS3LifecycleConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Rules: new wolkenkratzer.ResourceProperty(AmazonS3LifecycleRule, 'Yes', null)
+      Rules: new ResourceProperty(AmazonS3LifecycleRule, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3LifecycleRule extends wolkenkratzer.SubPropertyObject {
+class AmazonS3LifecycleRule extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ExpirationDate: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      ExpirationInDays: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null),
-      Id: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      NoncurrentVersionExpirationInDays: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null),
-      NoncurrentVersionTransition: new wolkenkratzer.ResourceProperty(AmazonS3LifecycleRuleNoncurrentVersionTransition, 'Conditional', null),
-      NoncurrentVersionTransitions: new wolkenkratzer.ResourceArray(AmazonS3LifecycleRuleNoncurrentVersionTransition, 'Conditional', null),
-      Prefix: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Status: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Transition: new wolkenkratzer.ResourceProperty(AmazonS3LifecycleRuleTransition, 'Conditional', null),
-      Transitions: new wolkenkratzer.ResourceArray(AmazonS3LifecycleRuleTransition, 'Conditional', null)
+      ExpirationDate: new ResourceProperty(String, 'Conditional', null),
+      ExpirationInDays: new ResourceProperty(Map, 'Conditional', null),
+      Id: new ResourceProperty(String, 'No', null),
+      NoncurrentVersionExpirationInDays: new ResourceProperty(Map, 'Conditional', null),
+      NoncurrentVersionTransition: new ResourceProperty(AmazonS3LifecycleRuleNoncurrentVersionTransition, 'Conditional', null),
+      NoncurrentVersionTransitions: new ResourceArray(AmazonS3LifecycleRuleNoncurrentVersionTransition, 'Conditional', null),
+      Prefix: new ResourceProperty(String, 'No', null),
+      Status: new ResourceProperty(String, 'Yes', null),
+      Transition: new ResourceProperty(AmazonS3LifecycleRuleTransition, 'Conditional', null),
+      Transitions: new ResourceArray(AmazonS3LifecycleRuleTransition, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3LifecycleRuleNoncurrentVersionTransition extends wolkenkratzer.SubPropertyObject {
+class AmazonS3LifecycleRuleNoncurrentVersionTransition extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      StorageClass: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      TransitionInDays: new wolkenkratzer.ResourceProperty(Map, 'Yes', null)
+      StorageClass: new ResourceProperty(String, 'Yes', null),
+      TransitionInDays: new ResourceProperty(Map, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3LifecycleRuleTransition extends wolkenkratzer.SubPropertyObject {
+class AmazonS3LifecycleRuleTransition extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      StorageClass: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      TransitionDate: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      TransitionInDays: new wolkenkratzer.ResourceProperty(Map, 'Conditional', null)
+      StorageClass: new ResourceProperty(String, 'Yes', null),
+      TransitionDate: new ResourceProperty(String, 'Conditional', null),
+      TransitionInDays: new ResourceProperty(Map, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3LoggingConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonS3LoggingConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DestinationBucketName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      LogFilePrefix: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      DestinationBucketName: new ResourceProperty(String, 'No', null),
+      LogFilePrefix: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3NotificationConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonS3NotificationConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      LambdaConfigurations: new wolkenkratzer.ResourceProperty(AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations, 'No', null),
-      QueueConfigurations: new wolkenkratzer.ResourceProperty(AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations, 'No', null),
-      TopicConfigurations: new wolkenkratzer.ResourceProperty(AmazonS3NotificationConfigurationTopicConfigurations, 'No', null)
+      LambdaConfigurations: new ResourceProperty(AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations, 'No', null),
+      QueueConfigurations: new ResourceProperty(AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations, 'No', null),
+      TopicConfigurations: new ResourceProperty(AmazonS3NotificationConfigurationTopicConfigurations, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3NotificationConfigurationConfigFilter extends wolkenkratzer.SubPropertyObject {
+class AmazonS3NotificationConfigurationConfigFilter extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      S3Key: new wolkenkratzer.ResourceProperty(AmazonS3NotificationConfigurationConfigFilterS3Key, 'Yes', null)
+      S3Key: new ResourceProperty(AmazonS3NotificationConfigurationConfigFilterS3Key, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3NotificationConfigurationConfigFilterS3Key extends wolkenkratzer.SubPropertyObject {
+class AmazonS3NotificationConfigurationConfigFilterS3Key extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Rules: new wolkenkratzer.ResourceArray(AmazonS3NotificationConfigurationConfigFilterS3KeyRules, 'Yes', null)
+      Rules: new ResourceArray(AmazonS3NotificationConfigurationConfigFilterS3KeyRules, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3NotificationConfigurationConfigFilterS3KeyRules extends wolkenkratzer.SubPropertyObject {
+class AmazonS3NotificationConfigurationConfigFilterS3KeyRules extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Name: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations extends wolkenkratzer.SubPropertyObject {
+class AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Event: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Filter: new wolkenkratzer.ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, 'No', null),
-      Function: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Event: new ResourceProperty(String, 'Yes', null),
+      Filter: new ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, 'No', null),
+      Function: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations extends wolkenkratzer.SubPropertyObject {
+class AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Event: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Filter: new wolkenkratzer.ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, 'No', null),
-      Queue: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Event: new ResourceProperty(String, 'Yes', null),
+      Filter: new ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, 'No', null),
+      Queue: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3NotificationConfigurationTopicConfigurations extends wolkenkratzer.SubPropertyObject {
+class AmazonS3NotificationConfigurationTopicConfigurations extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Event: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Filter: new wolkenkratzer.ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, 'No', null),
-      Topic: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Event: new ResourceProperty(String, 'Yes', null),
+      Filter: new ResourceProperty(AmazonS3NotificationConfigurationConfigFilter, 'No', null),
+      Topic: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3ReplicationConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonS3ReplicationConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Role: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Rules: new wolkenkratzer.ResourceArray(AmazonS3ReplicationConfigurationRules, 'Yes', null)
+      Role: new ResourceProperty(String, 'Yes', null),
+      Rules: new ResourceArray(AmazonS3ReplicationConfigurationRules, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3ReplicationConfigurationRules extends wolkenkratzer.SubPropertyObject {
+class AmazonS3ReplicationConfigurationRules extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Destination: new wolkenkratzer.ResourceProperty(AmazonS3ReplicationConfigurationRulesDestination, 'Yes', null),
-      Id: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Prefix: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Status: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Destination: new ResourceProperty(AmazonS3ReplicationConfigurationRulesDestination, 'Yes', null),
+      Id: new ResourceProperty(String, 'No', null),
+      Prefix: new ResourceProperty(String, 'Yes', null),
+      Status: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3ReplicationConfigurationRulesDestination extends wolkenkratzer.SubPropertyObject {
+class AmazonS3ReplicationConfigurationRulesDestination extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Bucket: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      StorageClass: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Bucket: new ResourceProperty(String, 'Yes', null),
+      StorageClass: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3VersioningConfiguration extends wolkenkratzer.SubPropertyObject {
+class AmazonS3VersioningConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Status: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Status: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3WebsiteConfigurationProperty extends wolkenkratzer.SubPropertyObject {
+class AmazonS3WebsiteConfigurationProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ErrorDocument: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      IndexDocument: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      RedirectAllRequestsTo: new wolkenkratzer.ResourceProperty(AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty, 'No', null),
-      RoutingRules: new wolkenkratzer.ResourceArray(AmazonS3WebsiteConfigurationRoutingRulesProperty, 'No', null)
+      ErrorDocument: new ResourceProperty(String, 'No', null),
+      IndexDocument: new ResourceProperty(String, 'Yes', null),
+      RedirectAllRequestsTo: new ResourceProperty(AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty, 'No', null),
+      RoutingRules: new ResourceArray(AmazonS3WebsiteConfigurationRoutingRulesProperty, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty extends wolkenkratzer.SubPropertyObject {
+class AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      HostName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Protocol: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      HostName: new ResourceProperty(String, 'Yes', null),
+      Protocol: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3WebsiteConfigurationRoutingRulesProperty extends wolkenkratzer.SubPropertyObject {
+class AmazonS3WebsiteConfigurationRoutingRulesProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      RedirectRule: new wolkenkratzer.ResourceProperty(AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty, 'Yes', null),
-      RoutingRuleCondition: new wolkenkratzer.ResourceProperty(AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty, 'No', null)
+      RedirectRule: new ResourceProperty(AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty, 'Yes', null),
+      RoutingRuleCondition: new ResourceProperty(AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty extends wolkenkratzer.SubPropertyObject {
+class AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      HostName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      HttpRedirectCode: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Protocol: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ReplaceKeyPrefixWith: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ReplaceKeyWith: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      HostName: new ResourceProperty(String, 'No', null),
+      HttpRedirectCode: new ResourceProperty(String, 'No', null),
+      Protocol: new ResourceProperty(String, 'No', null),
+      ReplaceKeyPrefixWith: new ResourceProperty(String, 'No', null),
+      ReplaceKeyWith: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty extends wolkenkratzer.SubPropertyObject {
+class AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      HttpErrorCodeReturnedEquals: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      KeyPrefixEquals: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      HttpErrorCodeReturnedEquals: new ResourceProperty(String, 'Conditional', null),
+      KeyPrefixEquals: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonSNSSubscriptionPropertyType extends wolkenkratzer.SubPropertyObject {
+class AmazonSNSSubscriptionPropertyType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Endpoint: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Protocol: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Endpoint: new ResourceProperty(String, 'Yes', null),
+      Protocol: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AmazonSQSRedrivePolicy extends wolkenkratzer.SubPropertyObject {
+class AmazonSQSRedrivePolicy extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      deadLetterTargetArn: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      maxReceiveCount: new wolkenkratzer.ResourceProperty(Map, 'No', null)
+      deadLetterTargetArn: new ResourceProperty(String, 'No', null),
+      maxReceiveCount: new ResourceProperty(Map, 'No', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFByteMatchSetByteMatchTuples extends wolkenkratzer.SubPropertyObject {
+class AWSWAFByteMatchSetByteMatchTuples extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      FieldToMatch: new wolkenkratzer.ResourceProperty(AWSWAFByteMatchSetByteMatchTuplesFieldToMatch, 'Yes', null),
-      PositionalConstraint: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      TargetString: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      TargetStringBase64: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      TextTransformation: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      FieldToMatch: new ResourceProperty(AWSWAFByteMatchSetByteMatchTuplesFieldToMatch, 'Yes', null),
+      PositionalConstraint: new ResourceProperty(String, 'Yes', null),
+      TargetString: new ResourceProperty(String, 'Conditional', null),
+      TargetStringBase64: new ResourceProperty(String, 'Conditional', null),
+      TextTransformation: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFByteMatchSetByteMatchTuplesFieldToMatch extends wolkenkratzer.SubPropertyObject {
+class AWSWAFByteMatchSetByteMatchTuplesFieldToMatch extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Data: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Data: new ResourceProperty(String, 'Conditional', null),
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFIPSetIPSetDescriptors extends wolkenkratzer.SubPropertyObject {
+class AWSWAFIPSetIPSetDescriptors extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Value: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Type: new ResourceProperty(String, 'Yes', null),
+      Value: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFRulePredicates extends wolkenkratzer.SubPropertyObject {
+class AWSWAFRulePredicates extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DataId: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Negated: new wolkenkratzer.ResourceProperty(Boolean, 'Yes', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      DataId: new ResourceProperty(String, 'Yes', null),
+      Negated: new ResourceProperty(Boolean, 'Yes', null),
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFSizeConstraintSetSizeConstraint extends wolkenkratzer.SubPropertyObject {
+class AWSWAFSizeConstraintSetSizeConstraint extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ComparisonOperator: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      FieldToMatch: new wolkenkratzer.ResourceProperty(AWSWAFSizeConstraintSetSizeConstraintFieldToMatch, 'Yes', null),
-      Size: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      TextTransformation: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      ComparisonOperator: new ResourceProperty(String, 'Yes', null),
+      FieldToMatch: new ResourceProperty(AWSWAFSizeConstraintSetSizeConstraintFieldToMatch, 'Yes', null),
+      Size: new ResourceProperty(Map, 'Yes', null),
+      TextTransformation: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFSizeConstraintSetSizeConstraintFieldToMatch extends wolkenkratzer.SubPropertyObject {
+class AWSWAFSizeConstraintSetSizeConstraintFieldToMatch extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Data: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Data: new ResourceProperty(String, 'Conditional', null),
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples extends wolkenkratzer.SubPropertyObject {
+class AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      FieldToMatch: new wolkenkratzer.ResourceProperty(AWSWAFByteMatchSetByteMatchTuplesFieldToMatch, 'Yes', null),
-      TextTransformation: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      FieldToMatch: new ResourceProperty(AWSWAFByteMatchSetByteMatchTuplesFieldToMatch, 'Yes', null),
+      TextTransformation: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch extends wolkenkratzer.SubPropertyObject {
+class AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Data: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Data: new ResourceProperty(String, 'Conditional', null),
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFXssMatchSetXssMatchTuple extends wolkenkratzer.SubPropertyObject {
+class AWSWAFXssMatchSetXssMatchTuple extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      FieldToMatch: new wolkenkratzer.ResourceProperty(AWSWAFXssMatchSetXssMatchTupleFieldToMatch, 'Yes', null),
-      TextTransformation: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      FieldToMatch: new ResourceProperty(AWSWAFXssMatchSetXssMatchTupleFieldToMatch, 'Yes', null),
+      TextTransformation: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFXssMatchSetXssMatchTupleFieldToMatch extends wolkenkratzer.SubPropertyObject {
+class AWSWAFXssMatchSetXssMatchTupleFieldToMatch extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Data: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Data: new ResourceProperty(String, 'Conditional', null),
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFWebACLAction extends wolkenkratzer.SubPropertyObject {
+class AWSWAFWebACLAction extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Type: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Type: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
 }
 
-class AWSWAFWebACLRules extends wolkenkratzer.SubPropertyObject {
+class AWSWAFWebACLRules extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Action: new wolkenkratzer.ResourceProperty(AWSWAFWebACLAction, 'Yes', null),
-      Priority: new wolkenkratzer.ResourceProperty(Map, 'Yes', null),
-      RuleId: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Action: new ResourceProperty(AWSWAFWebACLAction, 'Yes', null),
+      Priority: new ResourceProperty(Map, 'Yes', null),
+      RuleId: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
   }

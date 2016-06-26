@@ -14,23 +14,27 @@ let props = fs
     let header = ''
     header += '\'use strict\'\n\n'
     header += 'const wolkenkratzer = require(\'./../index\')\n'
-    header += 'const propertyTypes = require(\'./../propertytypes/propertytypes\')\n\n'
+    header += 'const propertyTypes = require(\'./propertytypes/propertytypes\')\n\n'
     //let exportList = []
 
     for(let subType in file) {
       let subProp = file[subType]
-      console.log(subProp)
+      //console.log(subProp)
       let resourceName = subProp.name.replace(/AWS::\w+::/g,'')
       let exportLine = (resourceName + ': ' + resourceName)
       let resourceBody = ''
       resourceBody += 'class ' + resourceName + ' extends wolkenkratzer.BaseAWSObject {\n'
-      resourceBody += '  constructor(propertiesObject) {\n'
+      resourceBody += '  constructor(name, propertiesObject) {\n'
       resourceBody += '    let resourceType = \'' + subProp.name + '\'\n'
       resourceBody += '    let properties = {\n'
       let props = Object.keys(subProp.properties)
       for (let i = 0; i < props.length; i++) {
         let wkType = 'ResourceProperty'
         let propType = subProp.properties[ props[ i ] ].Type
+        if(propType === 'Type::ListofAWS::Route53::RecordSetobjects,asshowninthefollowingexample:') {
+          //console.log('Hit')
+          propType = ['RecordSet']
+        }
         if(Array.isArray(propType)) {
           wkType = 'ResourceArray'
           propType = propType[0]
@@ -80,12 +84,25 @@ let props = fs
             propType = 'String'
           case 'key-valuepairs':
             propType = 'Map'
+          case 'referencestoAWS::IAM::RolesCurrently,amaximumofonerolecanbeassignedtoaninstanceprofile':
+            propType = 'String'
         }
-        if(!((propType === 'String') || (propType === 'Date') || (propType === 'Number') || (propType === 'Boolean') || (propType === 'Map') || (propType === 'Object'))) {
+        if(!((propType === 'String') ||
+          (propType === 'Date') ||
+          (propType === 'Number') ||
+          (propType === 'Boolean') ||
+          (propType === 'Map') ||
+          (propType === 'Object') ||
+          (propType === 'RecordSet')
+          )) {
           propType = 'propertyTypes.' + propType
         }
         let name = props[i].replace(/ \(.+\)/g,'')
-        resourceBody += '      ' + name + ': new wolkenkratzer.' + wkType + '(' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
+        if(name === 'Tags') {
+          resourceBody += '      ' + name + ': new wolkenkratzer.TagSet()'
+        } else {
+          resourceBody += '      ' + name + ': new wolkenkratzer.' + wkType + '(' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
+        }
 
         if (i === (props.length - 1)) {
           resourceBody += '\n'
@@ -129,7 +146,7 @@ let props = fs
     //console.log('resourceBody:')
     //console.log(resourceBody)
     //return resourceBody
-    return fs.writeFileAsync('../resources/autogenresources/' + group.toLowerCase() + '.js', groups[group].body + exportBody)
+    return fs.writeFileAsync('../resources/' + group.toLowerCase() + '.js', groups[group].body + exportBody)
   })
   .then(() => {
     console.log('Finished writing resource file.')

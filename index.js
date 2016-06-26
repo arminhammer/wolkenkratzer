@@ -17,6 +17,7 @@ const ResourceArray = require('./resourceproperty').ResourceArray
 const TypeException = require('./exceptions').TypeException
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const ValueException = require('./exceptions').ValueException
+const Properties = require('./resources/propertytypes/propertytypes')
 
 // constants for DeletionPolicy
 /* const Delete = 'Delete'
@@ -36,6 +37,7 @@ module.exports = {
   BaseAWSObject: BaseAWSObject,
   SubPropertyObject: SubPropertyObject,
   Parameter: Parameter,
+  Properties: Properties,
   ResourceProperty: ResourceProperty,
   ResourceArray: ResourceArray,
   TagSet: TagSet,
