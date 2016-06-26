@@ -18,11 +18,7 @@ links()
     let subLink = BPromise.promisify(x(link, {
       name: '.topictitle',
       titles: ['dt'],
-      attributes: x('.variablelist', 'dd', [{
-        Description: 'p:nth-child(1)',
-        Required: 'p:nth-child(2)',
-        Type: 'p:nth-child(3)'
-      }])
+      attributes: x('dd', [['p']])
     }))
     return subLink()
       .then((obj) => {
@@ -33,16 +29,36 @@ links()
           properties: {}
         }
         for(let i = 0; i < obj.titles.length; i++) {
-          if(obj.attributes[i].Required) {
-            obj.attributes[i].Required = obj.attributes[i].Required.replace(/Required: /g,'')
-            if(!((obj.attributes[i].Required === 'Yes') || (obj.attributes[i].Required === 'No'))) {
-              obj.attributes[i].Required = 'Conditional'
+          let attributes = { Description: '' }
+          obj.attributes[i].forEach((attr) => {
+            if(attr.startsWith('Type:')) {
+              attributes.Type = attr
+            } else if(attr.startsWith('Required:')) {
+              attributes.Required = attr
+            } else {
+              attributes.Description += attr
+            }
+          })
+          if(attributes.Required) {
+            attributes.Required = attributes.Required.replace(/Required: /g,'')
+            if(!((attributes.Required === 'Yes') || (attributes.Required === 'No'))) {
+              attributes.Required = 'Conditional'
             }
           }
-          if(obj.attributes[i].Type) {
-            obj.attributes[i].Type = obj.attributes[i].Type.replace(/Type: /g,'').replace(/\s/g,'')
+          if(attributes.Type) {
+            attributes.Type = attributes.Type.replace(/Type: /g,'').replace(/\s/g,'')
+            if(attributes.Type === 'Mappingofkey-valuepairs') {
+              attributes.Type = 'Map'
+            }
+            else if(attributes.Type.startsWith('Listof')) {
+              let val = attributes.Type.replace(/^Listof/,'')
+              if(val === 'strings') {
+                val = 'String'
+              }
+              attributes.Type = [val]
+            }
           }
-          result.properties[obj.titles[i]] = obj.attributes[i]
+          result.properties[obj.titles[i]] = attributes
         }
         properties[result.name] = result
       })
