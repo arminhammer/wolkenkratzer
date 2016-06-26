@@ -553,7 +553,7 @@
         "Description": "A list of origins for this CloudFront distribution. For each origin, you can specify\n                  whether it is an Amazon S3 or custom origin.",
         "Required": "Yes",
         "Type": [
-          "Origins."
+          "Origins"
         ]
       },
       "PriceClass": {
@@ -1874,7 +1874,7 @@
         "Description": "A list of security group IDs associated with this network interface.",
         "Required": "No",
         "Type": [
-          "strings."
+          "String"
         ]
       },
       "NetworkInterfaceId": {
@@ -1890,7 +1890,9 @@
       "PrivateIpAddresses": {
         "Description": "Assigns a list of private IP addresses to the network interface. You can\n                  specify a primary private IP address by setting the value of the\n                     Primary property to true in the\n                     PrivateIpAddressSpecification property. If you want Amazon EC2 to\n                  automatically assign private IP addresses, use the\n                     SecondaryPrivateIpCount property and do not specify this\n                  property.For information about the maximum number of private IP addresses, see Private IP Addresses\n                     Per ENI Per Instance Type in the\n                     Amazon EC2 User Guide for Linux Instances.",
         "Required": "No",
-        "Type": "listofPrivateIpAddressSpecification"
+        "Type": [
+          "PrivateIpAddressSpecification"
+        ]
       },
       "SecondaryPrivateIpAddressCount": {
         "Description": "The number of secondary private IP addresses that Amazon EC2 auto assigns to the\n                  network interface. Amazon EC2 uses the value of the PrivateIpAddress\n                  property as the primary private IP address. If you don't specify that property,\n                  Amazon EC2 auto assigns both the primary and secondary private IP addresses.If you want to specify your own list of private IP addresses, use the\n                     PrivateIpAddresses property and do not specify this\n                  property.For information about the maximum number of private IP addresses, see Private IP Addresses\n                     Per ENI Per Instance Type in the\n                     Amazon EC2 User Guide for Linux Instances.",
@@ -2901,7 +2903,7 @@
         "Description": "A list of arbitrary attributes for this policy. If you don't need to specify\n                  any policy attributes, specify an empty list ([]).",
         "Required": "Yes",
         "Type": [
-          "JSONname-valuepairs."
+          "JSONname-valuepairs"
         ]
       },
       "InstancePorts": {

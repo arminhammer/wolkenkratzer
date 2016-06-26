@@ -50,8 +50,8 @@ links()
             if(attributes.Type === 'Mappingofkey-valuepairs') {
               attributes.Type = 'Map'
             }
-            else if(attributes.Type.startsWith('Listof')) {
-              let val = attributes.Type.replace(/^Listof/,'')
+            else if(attributes.Type.startsWith('Listof') || attributes.Type.startsWith('listof')) {
+              let val = attributes.Type.replace(/^Listof/,'').replace(/^listof/,'').replace(/\./g, '')
               if(val === 'strings') {
                 val = 'String'
               }
