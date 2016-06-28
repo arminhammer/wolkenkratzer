@@ -31,6 +31,6 @@ vpcGatewayAttachment.VpnGatewayId.ref(vpnGateway)
 t.addResource(vpcGatewayAttachment)*/
 
 // console.log(JSON.stringify(t, null, 2))
-console.log('toJson():')
+//console.log('toJson():')
 // console.log(t.toJson())
 console.log(t.toJson())
