@@ -7,6 +7,7 @@ const Ref = require('./intrinsic').Ref
 const Intrinsic = require('./intrinsic').Intrinsic
 const FnGetAtt = require('./intrinsic').FnGetAtt
 const FnFindInMap = require('./intrinsic').FnFindInMap
+const FnBase64 = require('./intrinsic').FnBase64
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const TypeException = require('./exceptions').TypeException
 const SubPropertyObject = require('./baseawsobject').SubPropertyObject
@@ -43,6 +44,9 @@ class ResourceProperty {
   }
   findInMap (map, top, second) {
     this.val = new FnFindInMap(map, top, second)
+  }
+  base64 (content) {
+    this.val = new FnBase64(content)
   }
   toJson () {
     if (this.val !== null) {
@@ -90,7 +94,7 @@ class ResourceArray extends ResourceProperty {
     } else if(typeof val == 'number') {
       valueType = new Number(val)
     }
-    if (valueType instanceof this.Type) {
+    if (valueType instanceof this.Type || valueType instanceof Intrinsic) {
       if(!this.val) {
         this.val = []
       }
@@ -108,7 +112,17 @@ class ResourceArray extends ResourceProperty {
         }
         return propArray
       } else {
-        return this.val
+        let propArray = []
+        for (let prop in this.val) {
+          if(this.val[prop] instanceof Intrinsic) {
+            propArray.push(this.val[ prop ].toJson())
+          } else {
+            propArray.push(this.val[prop])
+          }
+        }
+        return propArray
+        //console.log('array is ' + this.val)
+        //console.log(this.val)
       }
     } else {
       if (this.required === 'Yes') { throw new RequiredPropertyException('this value is required') }

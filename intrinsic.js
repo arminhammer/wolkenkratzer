@@ -28,13 +28,15 @@ class FnGetAtt extends Intrinsic {
   }
 }
 
-/* class FnBase64 extends Intrinsic {
- constructor (string) {
- super()
- this.base64 = new Buffer(string).toJson('base64')
- }
- toJson () {}
- }*/
+class FnBase64 extends Intrinsic {
+  constructor (content) {
+    super()
+    this.content = content
+  }
+  toJson () {
+    return { "Fn::Base64" : this.content }
+  }
+}
 
 class FnFindInMap extends Intrinsic {
   constructor (mapName, topLevelKey, secondLevelKey) {
@@ -113,5 +115,6 @@ module.exports = {
   Ref: Ref,
   Intrinsic: Intrinsic,
   FnGetAtt: FnGetAtt,
+  FnBase64: FnBase64,
   FnFindInMap: FnFindInMap
 }
