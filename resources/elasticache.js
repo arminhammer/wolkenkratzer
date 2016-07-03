@@ -1,105 +1,107 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class CacheCluster extends wolkenkratzer.BaseAWSObject {
+class CacheCluster extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::CacheCluster'
     let properties = {
-      AutoMinorVersionUpgrade: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      AZMode: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      CacheNodeType: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      CacheParameterGroupName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      CacheSecurityGroupNames: new wolkenkratzer.ResourceArray(String, 'Conditional', null),
-      CacheSubnetGroupName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      ClusterName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Engine: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      EngineVersion: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      NotificationTopicArn: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      NumCacheNodes: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Port: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      PreferredAvailabilityZone: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      PreferredAvailabilityZones: new wolkenkratzer.ResourceArray(String, 'No', null),
-      PreferredMaintenanceWindow: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SnapshotArns: new wolkenkratzer.ResourceArray(String, 'No', null),
-      SnapshotName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SnapshotRetentionLimit: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SnapshotWindow: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Tags: new wolkenkratzer.TagSet(),
-      VpcSecurityGroupIds: new wolkenkratzer.ResourceArray(String, 'Conditional', null)
+      AutoMinorVersionUpgrade: new resource.ResourceProperty(Boolean, 'No', null),
+      AZMode: new resource.ResourceProperty(String, 'Conditional', null),
+      CacheNodeType: new resource.ResourceProperty(String, 'Yes', null),
+      CacheParameterGroupName: new resource.ResourceProperty(String, 'No', null),
+      CacheSecurityGroupNames: new resource.ResourceArray(String, 'Conditional', null),
+      CacheSubnetGroupName: new resource.ResourceProperty(String, 'Conditional', null),
+      ClusterName: new resource.ResourceProperty(String, 'No', null),
+      Engine: new resource.ResourceProperty(String, 'Yes', null),
+      EngineVersion: new resource.ResourceProperty(String, 'No', null),
+      NotificationTopicArn: new resource.ResourceProperty(String, 'No', null),
+      NumCacheNodes: new resource.ResourceProperty(String, 'Yes', null),
+      Port: new resource.ResourceProperty(Number, 'No', null),
+      PreferredAvailabilityZone: new resource.ResourceProperty(String, 'No', null),
+      PreferredAvailabilityZones: new resource.ResourceArray(String, 'No', null),
+      PreferredMaintenanceWindow: new resource.ResourceProperty(String, 'No', null),
+      SnapshotArns: new resource.ResourceArray(String, 'No', null),
+      SnapshotName: new resource.ResourceProperty(String, 'No', null),
+      SnapshotRetentionLimit: new resource.ResourceProperty(Number, 'No', null),
+      SnapshotWindow: new resource.ResourceProperty(String, 'No', null),
+      Tags: new tag.TagSet(),
+      VpcSecurityGroupIds: new resource.ResourceArray(String, 'Conditional', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class ParameterGroup extends wolkenkratzer.BaseAWSObject {
+class ParameterGroup extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ParameterGroup'
     let properties = {
-      CacheParameterGroupFamily: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Properties: new wolkenkratzer.ResourceProperty(Object, 'Yes', null)
+      CacheParameterGroupFamily: new resource.ResourceProperty(String, 'Yes', null),
+      Description: new resource.ResourceProperty(String, 'Yes', null),
+      Properties: new resource.ResourceProperty(Object, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class ReplicationGroup extends wolkenkratzer.BaseAWSObject {
+class ReplicationGroup extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ReplicationGroup'
     let properties = {
-      AutomaticFailoverEnabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      AutoMinorVersionUpgrade: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      CacheNodeType: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      CacheParameterGroupName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      CacheSecurityGroupNames: new wolkenkratzer.ResourceArray(String, 'No', null),
-      CacheSubnetGroupName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Engine: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      EngineVersion: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      NotificationTopicArn: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      NumCacheClusters: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Port: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      PreferredCacheClusterAZs: new wolkenkratzer.ResourceArray(String, 'No', null),
-      PreferredMaintenanceWindow: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ReplicationGroupDescription: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      SecurityGroupIds: new wolkenkratzer.ResourceArray(String, 'No', null),
-      SnapshotArns: new wolkenkratzer.ResourceArray(String, 'No', null),
-      SnapshotRetentionLimit: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SnapshotWindow: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      AutomaticFailoverEnabled: new resource.ResourceProperty(Boolean, 'No', null),
+      AutoMinorVersionUpgrade: new resource.ResourceProperty(Boolean, 'No', null),
+      CacheNodeType: new resource.ResourceProperty(String, 'Yes', null),
+      CacheParameterGroupName: new resource.ResourceProperty(String, 'No', null),
+      CacheSecurityGroupNames: new resource.ResourceArray(String, 'No', null),
+      CacheSubnetGroupName: new resource.ResourceProperty(String, 'No', null),
+      Engine: new resource.ResourceProperty(String, 'Yes', null),
+      EngineVersion: new resource.ResourceProperty(String, 'No', null),
+      NotificationTopicArn: new resource.ResourceProperty(String, 'No', null),
+      NumCacheClusters: new resource.ResourceProperty(Number, 'Yes', null),
+      Port: new resource.ResourceProperty(Number, 'No', null),
+      PreferredCacheClusterAZs: new resource.ResourceArray(String, 'No', null),
+      PreferredMaintenanceWindow: new resource.ResourceProperty(String, 'No', null),
+      ReplicationGroupDescription: new resource.ResourceProperty(String, 'Yes', null),
+      SecurityGroupIds: new resource.ResourceArray(String, 'No', null),
+      SnapshotArns: new resource.ResourceArray(String, 'No', null),
+      SnapshotRetentionLimit: new resource.ResourceProperty(Number, 'No', null),
+      SnapshotWindow: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class SecurityGroup extends wolkenkratzer.BaseAWSObject {
+class SecurityGroup extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroup'
     let properties = {
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Description: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class SecurityGroupIngress extends wolkenkratzer.BaseAWSObject {
+class SecurityGroupIngress extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroupIngress'
     let properties = {
-      CacheSecurityGroupName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      EC2SecurityGroupName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      EC2SecurityGroupOwnerId: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      CacheSecurityGroupName: new resource.ResourceProperty(String, 'Yes', null),
+      EC2SecurityGroupName: new resource.ResourceProperty(String, 'Yes', null),
+      EC2SecurityGroupOwnerId: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class SubnetGroup extends wolkenkratzer.BaseAWSObject {
+class SubnetGroup extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SubnetGroup'
     let properties = {
-      Description: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      SubnetIds: new wolkenkratzer.ResourceProperty(propertyTypes.Stringlist, 'Yes', null)
+      Description: new resource.ResourceProperty(String, 'Yes', null),
+      SubnetIds: new resource.ResourceProperty(types.Stringlist, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

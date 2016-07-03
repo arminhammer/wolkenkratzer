@@ -1,13 +1,15 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Document extends wolkenkratzer.BaseAWSObject {
+class Document extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::SSM::Document'
     let properties = {
-      Content: new wolkenkratzer.ResourceProperty(Object, 'Yes', null)
+      Content: new resource.ResourceProperty(Object, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

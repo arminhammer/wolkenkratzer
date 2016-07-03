@@ -1,14 +1,16 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Repository extends wolkenkratzer.BaseAWSObject {
+class Repository extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ECR::Repository'
     let properties = {
-      RepositoryName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      RepositoryPolicyText: new wolkenkratzer.ResourceProperty(Object, 'No', null)
+      RepositoryName: new resource.ResourceProperty(String, 'No', null),
+      RepositoryPolicyText: new resource.ResourceProperty(Object, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

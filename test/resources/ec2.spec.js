@@ -88,13 +88,13 @@ describe('EC2', () => {
     })
 
     it('should handle arrays of sub objects like Amazon EC2 Block Device Mapping Property', () => {
-      let device = new wolkenkratzer.Properties.AmazonElasticBlockStoreBlockDeviceProperty()
+      let device = new wolkenkratzer.Types.AmazonElasticBlockStoreBlockDeviceProperty()
       device.SnapshotId = 'snap-xxxxxx'
       device.VolumeSize = '50'
       device.VolumeType = 'io1'
       device.Iops = 1000
       device.DeleteOnTermination = false
-      let mapping = new wolkenkratzer.Properties.AmazonEC2BlockDeviceMappingProperty()
+      let mapping = new wolkenkratzer.Types.AmazonEC2BlockDeviceMappingProperty()
       mapping.DeviceName = '/dev/sdc'
       mapping.Ebs = device
       instance.BlockDeviceMappings.push(mapping)

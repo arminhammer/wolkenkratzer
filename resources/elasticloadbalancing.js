@@ -1,28 +1,30 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class LoadBalancer extends wolkenkratzer.BaseAWSObject {
+class LoadBalancer extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancing::LoadBalancer'
     let properties = {
-      AccessLoggingPolicy: new wolkenkratzer.ResourceProperty(propertyTypes.ElasticLoadBalancingAccessLoggingPolicy, 'No', null),
-      AppCookieStickinessPolicy: new wolkenkratzer.ResourceArray(propertyTypes.AppCookieStickinessPolicyobjects, 'No', null),
-      AvailabilityZones: new wolkenkratzer.ResourceArray(String, 'No', null),
-      ConnectionDrainingPolicy: new wolkenkratzer.ResourceProperty(propertyTypes.ElasticLoadBalancingConnectionDrainingPolicy, 'No', null),
-      ConnectionSettings: new wolkenkratzer.ResourceProperty(propertyTypes.ElasticLoadBalancingConnectionSettings, 'No', null),
-      CrossZone: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      HealthCheck: new wolkenkratzer.ResourceProperty(propertyTypes.ElasticLoadBalancingHealthCheckType, 'No', null),
-      Instances: new wolkenkratzer.ResourceArray(String, 'No', null),
-      LBCookieStickinessPolicy: new wolkenkratzer.ResourceArray(propertyTypes.LBCookieStickinessPolicyobjects, 'No', null),
-      LoadBalancerName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Listeners: new wolkenkratzer.ResourceArray(propertyTypes.ElasticLoadBalancingListenerPropertyTypeobjects, 'Yes', null),
-      Policies: new wolkenkratzer.ResourceArray(propertyTypes.ElasticLoadBalancingpolicyobjects, 'No', null),
-      Scheme: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SecurityGroups: new wolkenkratzer.ResourceArray(propertyTypes.securitygroupsassignedtoyourloadbalancerwithinyourvirtualprivatecloud(VPC), 'No', null),
-      Subnets: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Tags: new wolkenkratzer.TagSet()
+      AccessLoggingPolicy: new resource.ResourceProperty(types.ElasticLoadBalancingAccessLoggingPolicy, 'No', null),
+      AppCookieStickinessPolicy: new resource.ResourceArray(types.AppCookieStickinessPolicyobjects, 'No', null),
+      AvailabilityZones: new resource.ResourceArray(String, 'No', null),
+      ConnectionDrainingPolicy: new resource.ResourceProperty(types.ElasticLoadBalancingConnectionDrainingPolicy, 'No', null),
+      ConnectionSettings: new resource.ResourceProperty(types.ElasticLoadBalancingConnectionSettings, 'No', null),
+      CrossZone: new resource.ResourceProperty(Boolean, 'No', null),
+      HealthCheck: new resource.ResourceProperty(types.ElasticLoadBalancingHealthCheckType, 'No', null),
+      Instances: new resource.ResourceArray(String, 'No', null),
+      LBCookieStickinessPolicy: new resource.ResourceArray(types.LBCookieStickinessPolicyobjects, 'No', null),
+      LoadBalancerName: new resource.ResourceProperty(String, 'No', null),
+      Listeners: new resource.ResourceArray(types.ElasticLoadBalancingListenerPropertyTypeobjects, 'Yes', null),
+      Policies: new resource.ResourceArray(types.ElasticLoadBalancingpolicyobjects, 'No', null),
+      Scheme: new resource.ResourceProperty(String, 'No', null),
+      SecurityGroups: new resource.ResourceArray(types.securitygroupsassignedtoyourloadbalancerwithinyourvirtualprivatecloud(VPC), 'No', null),
+      Subnets: new resource.ResourceArray(String, 'No', null),
+      Tags: new tag.TagSet()
     }
     super(name, resourceType, properties, propertiesObject)
   }

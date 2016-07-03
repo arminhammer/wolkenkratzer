@@ -1,15 +1,17 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Stream extends wolkenkratzer.BaseAWSObject {
+class Stream extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Kinesis::Stream'
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ShardCount: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Tags: new wolkenkratzer.TagSet()
+      Name: new resource.ResourceProperty(String, 'No', null),
+      ShardCount: new resource.ResourceProperty(Number, 'Yes', null),
+      Tags: new tag.TagSet()
     }
     super(name, resourceType, properties, propertiesObject)
   }

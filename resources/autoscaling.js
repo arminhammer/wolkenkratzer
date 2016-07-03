@@ -1,104 +1,106 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class AutoScalingGroup extends wolkenkratzer.BaseAWSObject {
+class AutoScalingGroup extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::AutoScalingGroup'
     let properties = {
-      AvailabilityZones: new wolkenkratzer.ResourceArray(String, 'Conditional', null),
-      Cooldown: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      DesiredCapacity: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      HealthCheckGracePeriod: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      HealthCheckType: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      InstanceId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      LaunchConfigurationName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      LoadBalancerNames: new wolkenkratzer.ResourceArray(String, 'No', null),
-      MaxSize: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      MetricsCollection: new wolkenkratzer.ResourceArray(propertyTypes.AutoScalingMetricsCollection, 'No', null),
-      MinSize: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      NotificationConfigurations: new wolkenkratzer.ResourceArray(propertyTypes.AutoScalingNotificationConfigurations, 'No', null),
-      PlacementGroup: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Tags: new wolkenkratzer.TagSet(),
-      TerminationPolicies: new wolkenkratzer.ResourceArray(String, 'No', null),
-      VPCZoneIdentifier: new wolkenkratzer.ResourceArray(String, 'Conditional', null)
+      AvailabilityZones: new resource.ResourceArray(String, 'Conditional', null),
+      Cooldown: new resource.ResourceProperty(String, 'No', null),
+      DesiredCapacity: new resource.ResourceProperty(String, 'No', null),
+      HealthCheckGracePeriod: new resource.ResourceProperty(Number, 'No', null),
+      HealthCheckType: new resource.ResourceProperty(String, 'No', null),
+      InstanceId: new resource.ResourceProperty(String, 'Conditional', null),
+      LaunchConfigurationName: new resource.ResourceProperty(String, 'Conditional', null),
+      LoadBalancerNames: new resource.ResourceArray(String, 'No', null),
+      MaxSize: new resource.ResourceProperty(String, 'Yes', null),
+      MetricsCollection: new resource.ResourceArray(types.AutoScalingMetricsCollection, 'No', null),
+      MinSize: new resource.ResourceProperty(String, 'Yes', null),
+      NotificationConfigurations: new resource.ResourceArray(types.AutoScalingNotificationConfigurations, 'No', null),
+      PlacementGroup: new resource.ResourceProperty(String, 'No', null),
+      Tags: new tag.TagSet(),
+      TerminationPolicies: new resource.ResourceArray(String, 'No', null),
+      VPCZoneIdentifier: new resource.ResourceArray(String, 'Conditional', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class LaunchConfiguration extends wolkenkratzer.BaseAWSObject {
+class LaunchConfiguration extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::LaunchConfiguration'
     let properties = {
-      AssociatePublicIpAddress: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      BlockDeviceMappings: new wolkenkratzer.ResourceArray(propertyTypes.BlockDeviceMappings, 'No', null),
-      ClassicLinkVPCId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ClassicLinkVPCSecurityGroups: new wolkenkratzer.ResourceArray(String, 'Conditional', null),
-      EbsOptimized: new wolkenkratzer.ResourceProperty(Boolean, 'Conditional', null),
-      IamInstanceProfile: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ImageId: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      InstanceId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      InstanceMonitoring: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      InstanceType: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      KernelId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      KeyName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      PlacementTenancy: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      RamDiskId: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SecurityGroups: new wolkenkratzer.ResourceArray(propertyTypes.EC2securitygroups, 'No', null),
-      SpotPrice: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      UserData: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      AssociatePublicIpAddress: new resource.ResourceProperty(Boolean, 'No', null),
+      BlockDeviceMappings: new resource.ResourceArray(types.BlockDeviceMappings, 'No', null),
+      ClassicLinkVPCId: new resource.ResourceProperty(String, 'No', null),
+      ClassicLinkVPCSecurityGroups: new resource.ResourceArray(String, 'Conditional', null),
+      EbsOptimized: new resource.ResourceProperty(Boolean, 'Conditional', null),
+      IamInstanceProfile: new resource.ResourceProperty(String, 'No', null),
+      ImageId: new resource.ResourceProperty(String, 'Yes', null),
+      InstanceId: new resource.ResourceProperty(String, 'No', null),
+      InstanceMonitoring: new resource.ResourceProperty(Boolean, 'No', null),
+      InstanceType: new resource.ResourceProperty(String, 'Yes', null),
+      KernelId: new resource.ResourceProperty(String, 'No', null),
+      KeyName: new resource.ResourceProperty(String, 'No', null),
+      PlacementTenancy: new resource.ResourceProperty(String, 'No', null),
+      RamDiskId: new resource.ResourceProperty(String, 'No', null),
+      SecurityGroups: new resource.ResourceArray(types.EC2securitygroups, 'No', null),
+      SpotPrice: new resource.ResourceProperty(String, 'No', null),
+      UserData: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class LifecycleHook extends wolkenkratzer.BaseAWSObject {
+class LifecycleHook extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::LifecycleHook'
     let properties = {
-      AutoScalingGroupName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      DefaultResult: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      HeartbeatTimeout: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      LifecycleTransition: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      NotificationMetadata: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      NotificationTargetARN: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      RoleARN: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      AutoScalingGroupName: new resource.ResourceProperty(String, 'Yes', null),
+      DefaultResult: new resource.ResourceProperty(String, 'No', null),
+      HeartbeatTimeout: new resource.ResourceProperty(Number, 'No', null),
+      LifecycleTransition: new resource.ResourceProperty(String, 'Yes', null),
+      NotificationMetadata: new resource.ResourceProperty(String, 'No', null),
+      NotificationTargetARN: new resource.ResourceProperty(String, 'Yes', null),
+      RoleARN: new resource.ResourceProperty(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class ScalingPolicy extends wolkenkratzer.BaseAWSObject {
+class ScalingPolicy extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::ScalingPolicy'
     let properties = {
-      AdjustmentType: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      AutoScalingGroupName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Cooldown: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      EstimatedInstanceWarmup: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MetricAggregationType: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MinAdjustmentMagnitude: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      PolicyType: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ScalingAdjustment: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      StepAdjustments: new wolkenkratzer.ResourceArray(propertyTypes.AutoScalingScalingPolicyStepAdjustments, 'Conditional', null)
+      AdjustmentType: new resource.ResourceProperty(String, 'Yes', null),
+      AutoScalingGroupName: new resource.ResourceProperty(String, 'Yes', null),
+      Cooldown: new resource.ResourceProperty(String, 'No', null),
+      EstimatedInstanceWarmup: new resource.ResourceProperty(Number, 'No', null),
+      MetricAggregationType: new resource.ResourceProperty(String, 'No', null),
+      MinAdjustmentMagnitude: new resource.ResourceProperty(Number, 'No', null),
+      PolicyType: new resource.ResourceProperty(String, 'No', null),
+      ScalingAdjustment: new resource.ResourceProperty(Number, 'Conditional', null),
+      StepAdjustments: new resource.ResourceArray(types.AutoScalingScalingPolicyStepAdjustments, 'Conditional', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class ScheduledAction extends wolkenkratzer.BaseAWSObject {
+class ScheduledAction extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::ScheduledAction'
     let properties = {
-      AutoScalingGroupName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      DesiredCapacity: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      EndTime: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MaxSize: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MinSize: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Recurrence: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      StartTime: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      AutoScalingGroupName: new resource.ResourceProperty(String, 'Yes', null),
+      DesiredCapacity: new resource.ResourceProperty(Number, 'No', null),
+      EndTime: new resource.ResourceProperty(Date, 'No', null),
+      MaxSize: new resource.ResourceProperty(Number, 'No', null),
+      MinSize: new resource.ResourceProperty(Number, 'No', null),
+      Recurrence: new resource.ResourceProperty(String, 'No', null),
+      StartTime: new resource.ResourceProperty(Date, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

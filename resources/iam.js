@@ -1,105 +1,107 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class AccessKey extends wolkenkratzer.BaseAWSObject {
+class AccessKey extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::IAM::AccessKey'
     let properties = {
-      Serial: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Status: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      UserName: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Serial: new resource.ResourceProperty(Number, 'No', null),
+      Status: new resource.ResourceProperty(String, 'No', null),
+      UserName: new resource.ResourceProperty(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Group extends wolkenkratzer.BaseAWSObject {
+class Group extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::IAM::Group'
     let properties = {
-      ManagedPolicyArns: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Path: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Policies: new wolkenkratzer.ResourceArray(propertyTypes.IAMPolicies, 'No', null)
+      ManagedPolicyArns: new resource.ResourceArray(String, 'No', null),
+      Path: new resource.ResourceProperty(String, 'No', null),
+      Policies: new resource.ResourceArray(types.IAMPolicies, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class InstanceProfile extends wolkenkratzer.BaseAWSObject {
+class InstanceProfile extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::IAM::InstanceProfile'
     let properties = {
-      Path: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Roles: new wolkenkratzer.ResourceArray(String, 'Yes', null)
+      Path: new resource.ResourceProperty(String, 'Yes', null),
+      Roles: new resource.ResourceArray(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class ManagedPolicy extends wolkenkratzer.BaseAWSObject {
+class ManagedPolicy extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::IAM::ManagedPolicy'
     let properties = {
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Groups: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Path: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      PolicyDocument: new wolkenkratzer.ResourceProperty(Object, 'Yes', null),
-      Roles: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Users: new wolkenkratzer.ResourceArray(String, 'No', null)
+      Description: new resource.ResourceProperty(String, 'No', null),
+      Groups: new resource.ResourceArray(String, 'No', null),
+      Path: new resource.ResourceProperty(String, 'No', null),
+      PolicyDocument: new resource.ResourceProperty(Object, 'Yes', null),
+      Roles: new resource.ResourceArray(String, 'No', null),
+      Users: new resource.ResourceArray(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Policy extends wolkenkratzer.BaseAWSObject {
+class Policy extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::IAM::Policy'
     let properties = {
-      Groups: new wolkenkratzer.ResourceArray(String, 'Conditional', null),
-      PolicyDocument: new wolkenkratzer.ResourceProperty(Object, 'Yes', null),
-      PolicyName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Roles: new wolkenkratzer.ResourceArray(String, 'Conditional', null),
-      Users: new wolkenkratzer.ResourceArray(String, 'Conditional', null)
+      Groups: new resource.ResourceArray(String, 'Conditional', null),
+      PolicyDocument: new resource.ResourceProperty(Object, 'Yes', null),
+      PolicyName: new resource.ResourceProperty(String, 'Yes', null),
+      Roles: new resource.ResourceArray(String, 'Conditional', null),
+      Users: new resource.ResourceArray(String, 'Conditional', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Role extends wolkenkratzer.BaseAWSObject {
+class Role extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::IAM::Role'
     let properties = {
-      AssumeRolePolicyDocument: new wolkenkratzer.ResourceProperty(Object, 'Yes', null),
-      ManagedPolicyArns: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Path: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Policies: new wolkenkratzer.ResourceArray(propertyTypes.IAMPolicies, 'No', null)
+      AssumeRolePolicyDocument: new resource.ResourceProperty(Object, 'Yes', null),
+      ManagedPolicyArns: new resource.ResourceArray(String, 'No', null),
+      Path: new resource.ResourceProperty(String, 'No', null),
+      Policies: new resource.ResourceArray(types.IAMPolicies, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class User extends wolkenkratzer.BaseAWSObject {
+class User extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::IAM::User'
     let properties = {
-      Groups: new wolkenkratzer.ResourceArray(String, 'No', null),
-      LoginProfile: new wolkenkratzer.ResourceProperty(propertyTypes.IAMUserLoginProfile, 'No', null),
-      ManagedPolicyArns: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Path: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Policies: new wolkenkratzer.ResourceArray(propertyTypes.IAMPolicies, 'No', null)
+      Groups: new resource.ResourceArray(String, 'No', null),
+      LoginProfile: new resource.ResourceProperty(types.IAMUserLoginProfile, 'No', null),
+      ManagedPolicyArns: new resource.ResourceArray(String, 'No', null),
+      Path: new resource.ResourceProperty(String, 'No', null),
+      Policies: new resource.ResourceArray(types.IAMPolicies, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class UserToGroupAddition extends wolkenkratzer.BaseAWSObject {
+class UserToGroupAddition extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::IAM::UserToGroupAddition'
     let properties = {
-      GroupName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Users: new wolkenkratzer.ResourceArray(propertyTypes.users, 'Yes', null)
+      GroupName: new resource.ResourceProperty(String, 'Yes', null),
+      Users: new resource.ResourceArray(types.users, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

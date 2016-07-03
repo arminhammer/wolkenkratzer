@@ -1,55 +1,57 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Cluster extends wolkenkratzer.BaseAWSObject {
+class Cluster extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::EMR::Cluster'
     let properties = {
-      AdditionalInfo: new wolkenkratzer.ResourceProperty(Object, 'No', null),
-      Applications: new wolkenkratzer.ResourceArray(propertyTypes.AmazonElasticMapReduceClusterApplication, 'No', null),
-      BootstrapActions: new wolkenkratzer.ResourceArray(propertyTypes.AmazonElasticMapReduceClusterBootstrapActionConfig, 'No', null),
-      Configurations: new wolkenkratzer.ResourceArray(propertyTypes.AmazonElasticMapReduceClusterConfiguration, 'No', null),
-      Instances: new wolkenkratzer.ResourceProperty(propertyTypes.AmazonElasticMapReduceClusterJobFlowInstancesConfig, 'Yes', null),
-      JobFlowRole: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      LogUri: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      ReleaseLabel: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ServiceRole: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Tags: new wolkenkratzer.TagSet(),
-      VisibleToAllUsers: new wolkenkratzer.ResourceProperty(Boolean, 'No', null)
+      AdditionalInfo: new resource.ResourceProperty(Object, 'No', null),
+      Applications: new resource.ResourceArray(types.AmazonElasticMapReduceClusterApplication, 'No', null),
+      BootstrapActions: new resource.ResourceArray(types.AmazonElasticMapReduceClusterBootstrapActionConfig, 'No', null),
+      Configurations: new resource.ResourceArray(types.AmazonElasticMapReduceClusterConfiguration, 'No', null),
+      Instances: new resource.ResourceProperty(types.AmazonElasticMapReduceClusterJobFlowInstancesConfig, 'Yes', null),
+      JobFlowRole: new resource.ResourceProperty(String, 'Yes', null),
+      LogUri: new resource.ResourceProperty(String, 'No', null),
+      Name: new resource.ResourceProperty(String, 'Yes', null),
+      ReleaseLabel: new resource.ResourceProperty(String, 'No', null),
+      ServiceRole: new resource.ResourceProperty(String, 'Yes', null),
+      Tags: new tag.TagSet(),
+      VisibleToAllUsers: new resource.ResourceProperty(Boolean, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class InstanceGroupConfig extends wolkenkratzer.BaseAWSObject {
+class InstanceGroupConfig extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::EMR::InstanceGroupConfig'
     let properties = {
-      BidPrice: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Configurations: new wolkenkratzer.ResourceArray(propertyTypes.AmazonElasticMapReduceClusterConfiguration, 'No', null),
-      EbsConfiguration: new wolkenkratzer.ResourceProperty(propertyTypes.AmazonElasticMapReduceEbsConfiguration, 'No', null),
-      InstanceCount: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      InstanceRole: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      InstanceType: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      JobFlowId: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Market: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      BidPrice: new resource.ResourceProperty(String, 'No', null),
+      Configurations: new resource.ResourceArray(types.AmazonElasticMapReduceClusterConfiguration, 'No', null),
+      EbsConfiguration: new resource.ResourceProperty(types.AmazonElasticMapReduceEbsConfiguration, 'No', null),
+      InstanceCount: new resource.ResourceProperty(Number, 'Yes', null),
+      InstanceRole: new resource.ResourceProperty(String, 'Yes', null),
+      InstanceType: new resource.ResourceProperty(String, 'Yes', null),
+      JobFlowId: new resource.ResourceProperty(String, 'Yes', null),
+      Market: new resource.ResourceProperty(String, 'No', null),
+      Name: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Step extends wolkenkratzer.BaseAWSObject {
+class Step extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::EMR::Step'
     let properties = {
-      ActionOnFailure: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      HadoopJarStep: new wolkenkratzer.ResourceProperty(propertyTypes.AmazonElasticMapReduceStepHadoopJarStepConfig, 'Yes', null),
-      JobFlowId: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      ActionOnFailure: new resource.ResourceProperty(String, 'Yes', null),
+      HadoopJarStep: new resource.ResourceProperty(types.AmazonElasticMapReduceStepHadoopJarStepConfig, 'Yes', null),
+      JobFlowId: new resource.ResourceProperty(String, 'Yes', null),
+      Name: new resource.ResourceProperty(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

@@ -1,26 +1,28 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Topic extends wolkenkratzer.BaseAWSObject {
+class Topic extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::SNS::Topic'
     let properties = {
-      DisplayName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Subscription: new wolkenkratzer.ResourceArray(propertyTypes.SNSSubscriptions, 'No', null),
-      TopicName: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      DisplayName: new resource.ResourceProperty(String, 'No', null),
+      Subscription: new resource.ResourceArray(types.SNSSubscriptions, 'No', null),
+      TopicName: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class TopicPolicy extends wolkenkratzer.BaseAWSObject {
+class TopicPolicy extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::SNS::TopicPolicy'
     let properties = {
-      PolicyDocument: new wolkenkratzer.ResourceProperty(Object, 'Yes', null),
-      Topics: new wolkenkratzer.ResourceArray(propertyTypes.AmazonSNStopicsARNs, 'Yes', null)
+      PolicyDocument: new resource.ResourceProperty(Object, 'Yes', null),
+      Topics: new resource.ResourceArray(types.AmazonSNStopicsARNs, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

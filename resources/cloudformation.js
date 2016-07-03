@@ -1,36 +1,38 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Authentication extends wolkenkratzer.BaseAWSObject {
+class Authentication extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Authentication'
     let properties = {
-      accessKeyId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      buckets: new wolkenkratzer.ResourceArray(String, 'Conditional', null),
-      password: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      secretKey: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      type: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      uris: new wolkenkratzer.ResourceArray(String, 'Conditional', null),
-      username: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      roleName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null)
+      accessKeyId: new resource.ResourceProperty(String, 'Conditional', null),
+      buckets: new resource.ResourceArray(String, 'Conditional', null),
+      password: new resource.ResourceProperty(String, 'Conditional', null),
+      secretKey: new resource.ResourceProperty(String, 'Conditional', null),
+      type: new resource.ResourceProperty(String, 'Yes', null),
+      uris: new resource.ResourceArray(String, 'Conditional', null),
+      username: new resource.ResourceProperty(String, 'Conditional', null),
+      roleName: new resource.ResourceProperty(String, 'Conditional', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class CustomResource extends wolkenkratzer.BaseAWSObject {
+class CustomResource extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::CustomResource'
     let properties = {
-      ServiceToken: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      ServiceToken: new resource.ResourceProperty(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Init extends wolkenkratzer.BaseAWSObject {
+class Init extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Init'
     let properties = {
@@ -39,44 +41,44 @@ class Init extends wolkenkratzer.BaseAWSObject {
   }
 }
 
-class Interface extends wolkenkratzer.BaseAWSObject {
+class Interface extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Interface'
     let properties = {
-      ParameterGroups: new wolkenkratzer.ResourceProperty(propertyTypes.AWSCloudFormationInterfaceParameterGroup, 'No', null),
-      ParameterLabels: new wolkenkratzer.ResourceProperty(propertyTypes.AWSCloudFormationInterfaceParameterLabel, 'No', null)
+      ParameterGroups: new resource.ResourceProperty(types.AWSCloudFormationInterfaceParameterGroup, 'No', null),
+      ParameterLabels: new resource.ResourceProperty(types.AWSCloudFormationInterfaceParameterLabel, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Stack extends wolkenkratzer.BaseAWSObject {
+class Stack extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Stack'
     let properties = {
-      NotificationARNs: new wolkenkratzer.ResourceArray(String, 'No', null),
-      Parameters: new wolkenkratzer.ResourceProperty(propertyTypes.CloudFormationStackParametersPropertyType, 'Conditional', null),
-      Tags: new wolkenkratzer.TagSet(),
-      TemplateURL: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      TimeoutInMinutes: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      NotificationARNs: new resource.ResourceArray(String, 'No', null),
+      Parameters: new resource.ResourceProperty(types.CloudFormationStackParametersPropertyType, 'Conditional', null),
+      Tags: new tag.TagSet(),
+      TemplateURL: new resource.ResourceProperty(String, 'Yes', null),
+      TimeoutInMinutes: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class WaitCondition extends wolkenkratzer.BaseAWSObject {
+class WaitCondition extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitCondition'
     let properties = {
-      Count: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Handle: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Timeout: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Count: new resource.ResourceProperty(String, 'No', null),
+      Handle: new resource.ResourceProperty(String, 'Yes', null),
+      Timeout: new resource.ResourceProperty(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class WaitConditionHandle extends wolkenkratzer.BaseAWSObject {
+class WaitConditionHandle extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitConditionHandle'
     let properties = {

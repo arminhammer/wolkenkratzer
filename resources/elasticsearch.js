@@ -1,19 +1,21 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Domain extends wolkenkratzer.BaseAWSObject {
+class Domain extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Elasticsearch::Domain'
     let properties = {
-      AccessPolicies: new wolkenkratzer.ResourceProperty(Object, 'No', null),
-      AdvancedOptions: new wolkenkratzer.ResourceProperty(Object, 'No', null),
-      DomainName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      EBSOptions: new wolkenkratzer.ResourceProperty(propertyTypes.AmazonElasticsearchServiceDomainEBSOptions, 'No', null),
-      ElasticsearchClusterConfig: new wolkenkratzer.ResourceProperty(propertyTypes.AmazonElasticsearchServiceDomainElasticsearchClusterConfig, 'No', null),
-      SnapshotOptions: new wolkenkratzer.ResourceProperty(propertyTypes.AmazonElasticsearchServiceDomainSnapshotOptions, 'No', null),
-      Tags: new wolkenkratzer.TagSet()
+      AccessPolicies: new resource.ResourceProperty(Object, 'No', null),
+      AdvancedOptions: new resource.ResourceProperty(Object, 'No', null),
+      DomainName: new resource.ResourceProperty(String, 'No', null),
+      EBSOptions: new resource.ResourceProperty(types.AmazonElasticsearchServiceDomainEBSOptions, 'No', null),
+      ElasticsearchClusterConfig: new resource.ResourceProperty(types.AmazonElasticsearchServiceDomainElasticsearchClusterConfig, 'No', null),
+      SnapshotOptions: new resource.ResourceProperty(types.AmazonElasticsearchServiceDomainSnapshotOptions, 'No', null),
+      Tags: new tag.TagSet()
     }
     super(name, resourceType, properties, propertiesObject)
   }

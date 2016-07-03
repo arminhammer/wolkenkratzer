@@ -10,14 +10,16 @@ const Intrinsic = require('./intrinsic').Intrinsic
 const Ref = require('./intrinsic').Ref
 const FnGetAtt = require('./intrinsic').FnGetAtt
 const Parameter = require('./parameter').Parameter
-const BaseAWSObject = require('./baseawsobject').BaseAWSObject
+// const BaseAWSObject = require('./baseawsobject').BaseAWSObject
 const SubPropertyObject = require('./baseawsobject').SubPropertyObject
 const ResourceProperty = require('./resourceproperty').ResourceProperty
 const ResourceArray = require('./resourceproperty').ResourceArray
 const TypeException = require('./exceptions').TypeException
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const ValueException = require('./exceptions').ValueException
-const Properties = require('./resources/propertytypes/propertytypes')
+const Types = require('./types')
+
+const EC2 = require('./resources/ec2')
 
 // constants for DeletionPolicy
 /* const Delete = 'Delete'
@@ -34,10 +36,11 @@ const AWS_STACK_NAME = 'AWS::StackName'*/
 
 module.exports = {
   Template: Template,
-  BaseAWSObject: BaseAWSObject,
+  // BaseAWSObject: BaseAWSObject,
+  EC2: EC2,
   SubPropertyObject: SubPropertyObject,
   Parameter: Parameter,
-  Properties: Properties,
+  Types: Types,
   ResourceProperty: ResourceProperty,
   ResourceArray: ResourceArray,
   TagSet: TagSet,

@@ -1,30 +1,32 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Queue extends wolkenkratzer.BaseAWSObject {
+class Queue extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::SQS::Queue'
     let properties = {
-      DelaySeconds: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MaximumMessageSize: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      MessageRetentionPeriod: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      QueueName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      ReceiveMessageWaitTimeSeconds: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      RedrivePolicy: new wolkenkratzer.ResourceProperty(propertyTypes.AmazonSQSRedrivePolicy, 'No', null),
-      VisibilityTimeout: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      DelaySeconds: new resource.ResourceProperty(Number, 'No', null),
+      MaximumMessageSize: new resource.ResourceProperty(Number, 'No', null),
+      MessageRetentionPeriod: new resource.ResourceProperty(Number, 'No', null),
+      QueueName: new resource.ResourceProperty(String, 'No', null),
+      ReceiveMessageWaitTimeSeconds: new resource.ResourceProperty(Number, 'No', null),
+      RedrivePolicy: new resource.ResourceProperty(types.AmazonSQSRedrivePolicy, 'No', null),
+      VisibilityTimeout: new resource.ResourceProperty(Number, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class QueuePolicy extends wolkenkratzer.BaseAWSObject {
+class QueuePolicy extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::SQS::QueuePolicy'
     let properties = {
-      PolicyDocument: new wolkenkratzer.ResourceProperty(Object, 'Yes', null),
-      Queues: new wolkenkratzer.ResourceArray(String, 'Yes', null)
+      PolicyDocument: new resource.ResourceProperty(Object, 'Yes', null),
+      Queues: new resource.ResourceArray(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

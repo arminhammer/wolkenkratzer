@@ -1,60 +1,62 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Application extends wolkenkratzer.BaseAWSObject {
+class Application extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::Application'
     let properties = {
-      ApplicationName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      ApplicationName: new resource.ResourceProperty(String, 'No', null),
+      Description: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class ApplicationVersion extends wolkenkratzer.BaseAWSObject {
+class ApplicationVersion extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::ApplicationVersion'
     let properties = {
-      ApplicationName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SourceBundle: new wolkenkratzer.ResourceProperty(propertyTypes.SourceBundle, 'Yes', null)
+      ApplicationName: new resource.ResourceProperty(String, 'Yes', null),
+      Description: new resource.ResourceProperty(String, 'No', null),
+      SourceBundle: new resource.ResourceProperty(types.SourceBundle, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class ConfigurationTemplate extends wolkenkratzer.BaseAWSObject {
+class ConfigurationTemplate extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::ConfigurationTemplate'
     let properties = {
-      ApplicationName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      EnvironmentId: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      OptionSettings: new wolkenkratzer.ResourceArray(propertyTypes.OptionSettings, 'No', null),
-      SolutionStackName: new wolkenkratzer.ResourceProperty(String, 'Conditional', null),
-      SourceConfiguration: new wolkenkratzer.ResourceProperty(propertyTypes.ElasticBeanstalkSourceConfigurationPropertyType, 'Conditional', null)
+      ApplicationName: new resource.ResourceProperty(String, 'Yes', null),
+      Description: new resource.ResourceProperty(String, 'No', null),
+      EnvironmentId: new resource.ResourceProperty(String, 'Conditional', null),
+      OptionSettings: new resource.ResourceArray(types.OptionSettings, 'No', null),
+      SolutionStackName: new resource.ResourceProperty(String, 'Conditional', null),
+      SourceConfiguration: new resource.ResourceProperty(types.ElasticBeanstalkSourceConfigurationPropertyType, 'Conditional', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Environment extends wolkenkratzer.BaseAWSObject {
+class Environment extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::Environment'
     let properties = {
-      ApplicationName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      CNAMEPrefix: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      EnvironmentName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      OptionSettings: new wolkenkratzer.ResourceArray(propertyTypes.OptionSettings, 'No', null),
-      SolutionStackName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Tags: new wolkenkratzer.TagSet(),
-      TemplateName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Tier: new wolkenkratzer.ResourceProperty(propertyTypes.ElasticBeanstalkEnvironmentTierPropertyType, 'No', null),
-      VersionLabel: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      ApplicationName: new resource.ResourceProperty(String, 'Yes', null),
+      CNAMEPrefix: new resource.ResourceProperty(String, 'No', null),
+      Description: new resource.ResourceProperty(String, 'No', null),
+      EnvironmentName: new resource.ResourceProperty(String, 'No', null),
+      OptionSettings: new resource.ResourceArray(types.OptionSettings, 'No', null),
+      SolutionStackName: new resource.ResourceProperty(String, 'No', null),
+      Tags: new tag.TagSet(),
+      TemplateName: new resource.ResourceProperty(String, 'No', null),
+      Tier: new resource.ResourceProperty(types.ElasticBeanstalkEnvironmentTierPropertyType, 'No', null),
+      VersionLabel: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

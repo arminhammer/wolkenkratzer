@@ -1,74 +1,76 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class EventSourceMapping extends wolkenkratzer.BaseAWSObject {
+class EventSourceMapping extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Lambda::EventSourceMapping'
     let properties = {
-      BatchSize: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Enabled: new wolkenkratzer.ResourceProperty(Boolean, 'No', null),
-      EventSourceArn: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      FunctionName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      StartingPosition: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      BatchSize: new resource.ResourceProperty(Number, 'No', null),
+      Enabled: new resource.ResourceProperty(Boolean, 'No', null),
+      EventSourceArn: new resource.ResourceProperty(String, 'Yes', null),
+      FunctionName: new resource.ResourceProperty(String, 'Yes', null),
+      StartingPosition: new resource.ResourceProperty(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Alias extends wolkenkratzer.BaseAWSObject {
+class Alias extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Alias'
     let properties = {
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      FunctionName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      FunctionVersion: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Description: new resource.ResourceProperty(String, 'No', null),
+      FunctionName: new resource.ResourceProperty(String, 'Yes', null),
+      FunctionVersion: new resource.ResourceProperty(String, 'Yes', null),
+      Name: new resource.ResourceProperty(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Function extends wolkenkratzer.BaseAWSObject {
+class Function extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Function'
     let properties = {
-      Code: new wolkenkratzer.ResourceProperty(propertyTypes.AWSLambdaFunctionCode, 'Yes', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      FunctionName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Handler: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      MemorySize: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Role: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Runtime: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Timeout: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      VpcConfig: new wolkenkratzer.ResourceProperty(propertyTypes.AWSLambdaFunctionVPCConfig, 'No', null)
+      Code: new resource.ResourceProperty(types.AWSLambdaFunctionCode, 'Yes', null),
+      Description: new resource.ResourceProperty(String, 'No', null),
+      FunctionName: new resource.ResourceProperty(String, 'No', null),
+      Handler: new resource.ResourceProperty(String, 'Yes', null),
+      MemorySize: new resource.ResourceProperty(Number, 'No', null),
+      Role: new resource.ResourceProperty(String, 'Yes', null),
+      Runtime: new resource.ResourceProperty(String, 'Yes', null),
+      Timeout: new resource.ResourceProperty(Number, 'No', null),
+      VpcConfig: new resource.ResourceProperty(types.AWSLambdaFunctionVPCConfig, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Permission extends wolkenkratzer.BaseAWSObject {
+class Permission extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Permission'
     let properties = {
-      Action: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      FunctionName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      Principal: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      SourceAccount: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SourceArn: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      Action: new resource.ResourceProperty(String, 'Yes', null),
+      FunctionName: new resource.ResourceProperty(String, 'Yes', null),
+      Principal: new resource.ResourceProperty(String, 'Yes', null),
+      SourceAccount: new resource.ResourceProperty(String, 'No', null),
+      SourceArn: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class Version extends wolkenkratzer.BaseAWSObject {
+class Version extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Version'
     let properties = {
-      CodeSha256: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      FunctionName: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      CodeSha256: new resource.ResourceProperty(String, 'No', null),
+      Description: new resource.ResourceProperty(String, 'No', null),
+      FunctionName: new resource.ResourceProperty(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

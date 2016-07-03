@@ -1,8 +1,8 @@
 'use strict'
 
-const SubPropertyObject = require('./../../baseawsobject').SubPropertyObject
-const ResourceArray = require('./../../resourceproperty').ResourceArray
-const ResourceProperty = require('./../../resourceproperty').ResourceProperty
+const SubPropertyObject = require('./baseawsobject').SubPropertyObject
+const ResourceArray = require('./resourceproperty').ResourceArray
+const ResourceProperty = require('./resourceproperty').ResourceProperty
 
 class AmazonAPIGatewayApiKeyStageKey extends SubPropertyObject {
   constructor(propertiesObject) {
@@ -20,7 +20,7 @@ class AmazonAPIGatewayDeploymentStageDescription extends SubPropertyObject {
       CacheClusterEnabled: new ResourceProperty(Boolean, 'No', null),
       CacheClusterSize: new ResourceProperty(String, 'No', null),
       CacheDataEncrypted: new ResourceProperty(Boolean, 'No', null),
-      CacheTtlInSeconds: new ResourceProperty(Map, 'No', null),
+      CacheTtlInSeconds: new ResourceProperty(Number, 'No', null),
       CachingEnabled: new ResourceProperty(Boolean, 'No', null),
       ClientCertificateId: new ResourceProperty(String, 'No', null),
       DataTraceEnabled: new ResourceProperty(Boolean, 'No', null),
@@ -29,7 +29,7 @@ class AmazonAPIGatewayDeploymentStageDescription extends SubPropertyObject {
       MethodSettings: new ResourceProperty(AmazonAPIGatewayDeploymentStageDescriptionMethodSetting, 'No', null),
       MetricsEnabled: new ResourceProperty(Boolean, 'No', null),
       StageName: new ResourceProperty(String, 'No', null),
-      ThrottlingBurstLimit: new ResourceProperty(Map, 'No', null),
+      ThrottlingBurstLimit: new ResourceProperty(Number, 'No', null),
       ThrottlingRateLimit: new ResourceProperty(Number, 'No', null),
       Variables: new ResourceProperty(Map, 'No', null)
     }
@@ -41,14 +41,14 @@ class AmazonAPIGatewayDeploymentStageDescriptionMethodSetting extends SubPropert
   constructor(propertiesObject) {
     let properties = {
       CacheDataEncrypted: new ResourceProperty(Boolean, 'No', null),
-      CacheTtlInSeconds: new ResourceProperty(Map, 'No', null),
+      CacheTtlInSeconds: new ResourceProperty(Number, 'No', null),
       CachingEnabled: new ResourceProperty(Boolean, 'No', null),
       DataTraceEnabled: new ResourceProperty(Boolean, 'No', null),
       HttpMethod: new ResourceProperty(String, 'No', null),
       LoggingLevel: new ResourceProperty(String, 'No', null),
       MetricsEnabled: new ResourceProperty(Boolean, 'No', null),
       ResourcePath: new ResourceProperty(String, 'No', null),
-      ThrottlingBurstLimit: new ResourceProperty(Map, 'No', null),
+      ThrottlingBurstLimit: new ResourceProperty(Number, 'No', null),
       ThrottlingRateLimit: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
@@ -111,14 +111,14 @@ class AmazonAPIGatewayStageMethodSetting extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
       CacheDataEncrypted: new ResourceProperty(Boolean, 'No', null),
-      CacheTtlInSeconds: new ResourceProperty(Map, 'No', null),
+      CacheTtlInSeconds: new ResourceProperty(Number, 'No', null),
       CachingEnabled: new ResourceProperty(Boolean, 'No', null),
       DataTraceEnabled: new ResourceProperty(Boolean, 'No', null),
       HttpMethod: new ResourceProperty(String, 'Yes', null),
       LoggingLevel: new ResourceProperty(String, 'No', null),
       MetricsEnabled: new ResourceProperty(Boolean, 'No', null),
       ResourcePath: new ResourceProperty(String, 'Yes', null),
-      ThrottlingBurstLimit: new ResourceProperty(Map, 'No', null),
+      ThrottlingBurstLimit: new ResourceProperty(Number, 'No', null),
       ThrottlingRateLimit: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
@@ -129,7 +129,7 @@ class AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType extends SubProp
   constructor(propertiesObject) {
     let properties = {
       DeviceName: new ResourceProperty(String, 'Yes', null),
-      Ebs: new ResourceProperty(Map, 'Conditional', null),
+      Ebs: new ResourceProperty(AWSCloudFormationAutoScalingEBSBlockDevicePropertyType, 'Conditional', null),
       NoDevice: new ResourceProperty(Boolean, 'No', null),
       VirtualName: new ResourceProperty(String, 'Conditional', null)
     }
@@ -142,9 +142,9 @@ class AWSCloudFormationAutoScalingEBSBlockDevicePropertyType extends SubProperty
     let properties = {
       DeleteOnTermination: new ResourceProperty(Boolean, 'No', null),
       Encrypted: new ResourceProperty(Boolean, 'No', null),
-      Iops: new ResourceProperty(Map, 'No', null),
+      Iops: new ResourceProperty(Number, 'No', null),
       SnapshotId: new ResourceProperty(String, 'Conditional', null),
-      VolumeSize: new ResourceProperty(Map, 'Conditional', null),
+      VolumeSize: new ResourceProperty(Number, 'Conditional', null),
       VolumeType: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
@@ -176,7 +176,7 @@ class AutoScalingScalingPolicyStepAdjustments extends SubPropertyObject {
     let properties = {
       MetricIntervalLowerBound: new ResourceProperty(Number, 'No', null),
       MetricIntervalUpperBound: new ResourceProperty(Number, 'No', null),
-      ScalingAdjustment: new ResourceProperty(Map, 'Yes', null)
+      ScalingAdjustment: new ResourceProperty(Number, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
@@ -233,14 +233,14 @@ class CloudFrontDistributionConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
       Aliases: new ResourceArray(String, 'No', null),
-      CacheBehaviors: new ResourceArray(Map, 'No', null),
+      CacheBehaviors: new ResourceArray(CloudFrontDistributionConfigCacheBehavior, 'No', null),
       Comment: new ResourceProperty(String, 'No', null),
       CustomErrorResponses: new ResourceProperty(undefined, 'No', null),
-      DefaultCacheBehavior: new ResourceProperty(Map, 'Yes', null),
+      DefaultCacheBehavior: new ResourceProperty(CloudFrontDefaultCacheBehavior, 'Yes', null),
       DefaultRootObject: new ResourceProperty(String, 'No', null),
       Enabled: new ResourceProperty(Boolean, 'Yes', null),
-      Logging: new ResourceProperty(Map, 'No', null),
-      Origins: new ResourceArray(Map, 'Yes', null),
+      Logging: new ResourceProperty(CloudFrontLogging, 'No', null),
+      Origins: new ResourceArray(CloudFrontDistributionConfigOrigin, 'Yes', null),
       PriceClass: new ResourceProperty(String, 'No', null),
       Restrictions: new ResourceProperty(CloudFrontDistributionConfigurationRestrictions, 'No', null),
       ViewerCertificate: new ResourceProperty(CloudFrontDistributionConfigurationViewerCertificate, 'No', null),
@@ -257,7 +257,7 @@ class CloudFrontDistributionConfigCacheBehavior extends SubPropertyObject {
       CachedMethods: new ResourceArray(String, 'No', null),
       Compress: new ResourceProperty(Boolean, 'No', null),
       DefaultTTL: new ResourceProperty(Number, 'No', null),
-      ForwardedValues: new ResourceProperty(Map, 'Yes', null),
+      ForwardedValues: new ResourceProperty(CloudFrontForwardedValues, 'Yes', null),
       MaxTTL: new ResourceProperty(Number, 'No', null),
       MinTTL: new ResourceProperty(Number, 'No', null),
       PathPattern: new ResourceProperty(String, 'Yes', null),
@@ -273,9 +273,9 @@ class CloudFrontDistributionConfigCacheBehavior extends SubPropertyObject {
 class CloudFrontDistributionConfigCustomErrorResponse extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ErrorCachingMinTTL: new ResourceProperty(Map, 'No', null),
-      ErrorCode: new ResourceProperty(Map, 'Yes', null),
-      ResponseCode: new ResourceProperty(Map, 'Conditional', null),
+      ErrorCachingMinTTL: new ResourceProperty(Number, 'No', null),
+      ErrorCode: new ResourceProperty(Number, 'Yes', null),
+      ResponseCode: new ResourceProperty(Number, 'Conditional', null),
       ResponsePagePath: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
@@ -289,7 +289,7 @@ class CloudFrontDefaultCacheBehavior extends SubPropertyObject {
       CachedMethods: new ResourceArray(String, 'No', null),
       Compress: new ResourceProperty(Boolean, 'No', null),
       DefaultTTL: new ResourceProperty(Number, 'No', null),
-      ForwardedValues: new ResourceProperty(Map, 'Yes', null),
+      ForwardedValues: new ResourceProperty(CloudFrontForwardedValues, 'Yes', null),
       MaxTTL: new ResourceProperty(Number, 'No', null),
       MinTTL: new ResourceProperty(String, 'No', null),
       SmoothStreaming: new ResourceProperty(Boolean, 'No', null),
@@ -315,11 +315,11 @@ class CloudFrontLogging extends SubPropertyObject {
 class CloudFrontDistributionConfigOrigin extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      CustomOriginConfig: new ResourceProperty(Map, 'Conditional', null),
+      CustomOriginConfig: new ResourceProperty(CloudFrontDistributionConfigOriginCustomOrigin, 'Conditional', null),
       DomainName: new ResourceProperty(String, 'Yes', null),
       Id: new ResourceProperty(String, 'Yes', null),
       OriginPath: new ResourceProperty(String, 'No', null),
-      S3OriginConfig: new ResourceProperty(Map, 'Conditional', null)
+      S3OriginConfig: new ResourceProperty(CloudFrontDistributionConfigOriginS3Origin, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
@@ -437,7 +437,7 @@ class AWSCodeDeployDeploymentConfigMinimumHealthyHosts extends SubPropertyObject
   constructor(propertiesObject) {
     let properties = {
       Type: new ResourceProperty(String, 'No', null),
-      Value: new ResourceProperty(Map, 'No', null)
+      Value: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -513,8 +513,8 @@ class AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters extends SubProper
 class AWSCodePipelineCustomActionTypeArtifactDetails extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      MaximumCount: new ResourceProperty(Map, 'Yes', null),
-      MinimumCount: new ResourceProperty(Map, 'Yes', null)
+      MaximumCount: new ResourceProperty(Number, 'Yes', null),
+      MinimumCount: new ResourceProperty(Number, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
@@ -598,7 +598,7 @@ class AWSCodePipelinePipelineStagesActions extends SubPropertyObject {
       Name: new ResourceProperty(String, 'Yes', null),
       OutputArtifacts: new ResourceArray(AWSCodePipelinePipelineStagesActionsOutputArtifacts, 'No', null),
       RoleArn: new ResourceProperty(String, 'No', null),
-      RunOrder: new ResourceProperty(Map, 'No', null)
+      RunOrder: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -928,8 +928,8 @@ class EC2NetworkInterfaceEmbeddedPropertyType extends SubPropertyObject {
       GroupSet: new ResourceArray(String, 'No', null),
       NetworkInterfaceId: new ResourceProperty(String, 'Conditional', null),
       PrivateIpAddress: new ResourceProperty(String, 'No', null),
-      PrivateIpAddresses: new ResourceArray(Map, 'No', null),
-      SecondaryPrivateIpAddressCount: new ResourceProperty(Map, 'No', null),
+      PrivateIpAddresses: new ResourceArray(EC2NetworkInterfacePrivateIPSpecification, 'No', null),
+      SecondaryPrivateIpAddressCount: new ResourceProperty(Number, 'No', null),
       SubnetId: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
@@ -991,12 +991,12 @@ class EC2SecurityGroupRulePropertyType extends SubPropertyObject {
     let properties = {
       CidrIp: new ResourceProperty(String, 'Conditional', null),
       DestinationSecurityGroupId: new ResourceProperty(String, 'Conditional', null),
-      FromPort: new ResourceProperty(Map, 'No', null),
+      FromPort: new ResourceProperty(Number, 'No', null),
       IpProtocol: new ResourceProperty(String, 'Yes', null),
       SourceSecurityGroupId: new ResourceProperty(String, 'Conditional', null),
       SourceSecurityGroupName: new ResourceProperty(String, 'Conditional', null),
       SourceSecurityGroupOwnerId: new ResourceProperty(String, 'Conditional', null),
-      ToPort: new ResourceProperty(Map, 'No', null)
+      ToPort: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -1010,7 +1010,7 @@ class AmazonEC2SpotFleetSpotFleetRequestConfigData extends SubPropertyObject {
       IamFleetRole: new ResourceProperty(String, 'Yes', null),
       LaunchSpecifications: new ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications, 'Yes', null),
       SpotPrice: new ResourceProperty(String, 'Yes', null),
-      TargetCapacity: new ResourceProperty(Map, 'Yes', null),
+      TargetCapacity: new ResourceProperty(Number, 'Yes', null),
       TerminateInstancesWithExpiration: new ResourceProperty(Boolean, 'No', null),
       ValidFrom: new ResourceProperty(String, 'No', null),
       ValidUntil: new ResourceProperty(String, 'No', null)
@@ -1059,9 +1059,9 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
     let properties = {
       DeleteOnTermination: new ResourceProperty(Boolean, 'No', null),
       Encrypted: new ResourceProperty(Boolean, 'No', null),
-      Iops: new ResourceProperty(Map, 'No', null),
+      Iops: new ResourceProperty(Number, 'No', null),
       SnapshotId: new ResourceProperty(String, 'Conditional', null),
-      VolumeSize: new ResourceProperty(Map, 'Conditional', null),
+      VolumeSize: new ResourceProperty(Number, 'Conditional', null),
       VolumeType: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
@@ -1092,11 +1092,11 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
       AssociatePublicIpAddress: new ResourceProperty(Boolean, 'No', null),
       DeleteOnTermination: new ResourceProperty(Boolean, 'No', null),
       Description: new ResourceProperty(String, 'No', null),
-      DeviceIndex: new ResourceProperty(Map, 'Yes', null),
+      DeviceIndex: new ResourceProperty(Number, 'Yes', null),
       Groups: new ResourceArray(String, 'No', null),
       NetworkInterfaceId: new ResourceProperty(String, 'No', null),
       PrivateIpAddresses: new ResourceArray(AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses, 'No', null),
-      SecondaryPrivateIpAddressCount: new ResourceProperty(Map, 'No', null),
+      SecondaryPrivateIpAddressCount: new ResourceProperty(Number, 'No', null),
       SubnetId: new ResourceProperty(String, 'Conditional', null)
     }
     super(properties, propertiesObject)
@@ -1135,8 +1135,8 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
 class AmazonEC2ContainerServiceServiceDeploymentConfiguration extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      MaximumPercent: new ResourceProperty(Map, 'No', null),
-      MinimumHealthyPercent: new ResourceProperty(Map, 'No', null)
+      MaximumPercent: new ResourceProperty(Number, 'No', null),
+      MinimumHealthyPercent: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -1146,7 +1146,7 @@ class AmazonEC2ContainerServiceServiceLoadBalancers extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
       ContainerName: new ResourceProperty(String, 'No', null),
-      ContainerPort: new ResourceProperty(Map, 'Yes', null),
+      ContainerPort: new ResourceProperty(Number, 'Yes', null),
       LoadBalancerName: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
@@ -1157,7 +1157,7 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions extends SubPro
   constructor(propertiesObject) {
     let properties = {
       Command: new ResourceArray(String, 'No', null),
-      Cpu: new ResourceProperty(Map, 'No', null),
+      Cpu: new ResourceProperty(Number, 'No', null),
       DisableNetworking: new ResourceProperty(Boolean, 'No', null),
       DnsSearchDomains: new ResourceArray(String, 'No', null),
       DnsServers: new ResourceArray(String, 'No', null),
@@ -1171,7 +1171,7 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions extends SubPro
       Image: new ResourceProperty(String, 'Yes', null),
       Links: new ResourceArray(String, 'No', null),
       LogConfiguration: new ResourceProperty(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration, 'No', null),
-      Memory: new ResourceProperty(Map, 'Yes', null),
+      Memory: new ResourceProperty(Number, 'Yes', null),
       MountPoints: new ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints, 'No', null),
       Name: new ResourceProperty(String, 'Yes', null),
       PortMappings: new ResourceArray(AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings, 'No', null),
@@ -1230,8 +1230,8 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints ext
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      ContainerPort: new ResourceProperty(Map, 'Yes', null),
-      HostPort: new ResourceProperty(Map, 'No', null)
+      ContainerPort: new ResourceProperty(Number, 'Yes', null),
+      HostPort: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -1240,9 +1240,9 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings ex
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      HardLimit: new ResourceProperty(Map, 'Yes', null),
+      HardLimit: new ResourceProperty(Number, 'Yes', null),
       Name: new ResourceProperty(String, 'No', null),
-      SoftLimit: new ResourceProperty(Map, 'Yes', null)
+      SoftLimit: new ResourceProperty(Number, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
@@ -1332,7 +1332,7 @@ class ElasticBeanstalkSourceConfigurationPropertyType extends SubPropertyObject 
 class ElasticLoadBalancingAccessLoggingPolicy extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      EmitInterval: new ResourceProperty(Map, 'No', null),
+      EmitInterval: new ResourceProperty(Number, 'No', null),
       Enabled: new ResourceProperty(Boolean, 'Yes', null),
       S3BucketName: new ResourceProperty(String, 'Yes', null),
       S3BucketPrefix: new ResourceProperty(String, 'No', null)
@@ -1355,7 +1355,7 @@ class ElasticLoadBalancingConnectionDrainingPolicy extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
       Enabled: new ResourceProperty(Boolean, 'Yes', null),
-      Timeout: new ResourceProperty(Map, 'No', null)
+      Timeout: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -1364,7 +1364,7 @@ class ElasticLoadBalancingConnectionDrainingPolicy extends SubPropertyObject {
 class ElasticLoadBalancingConnectionSettings extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      IdleTimeout: new ResourceProperty(Map, 'Yes', null)
+      IdleTimeout: new ResourceProperty(Number, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
@@ -1424,8 +1424,8 @@ class AmazonElasticsearchServiceDomainEBSOptions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
       EBSEnabled: new ResourceProperty(Boolean, 'No', null),
-      Iops: new ResourceProperty(Map, 'No', null),
-      VolumeSize: new ResourceProperty(Map, 'No', null),
+      Iops: new ResourceProperty(Number, 'No', null),
+      VolumeSize: new ResourceProperty(Number, 'No', null),
       VolumeType: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
@@ -1435,10 +1435,10 @@ class AmazonElasticsearchServiceDomainEBSOptions extends SubPropertyObject {
 class AmazonElasticsearchServiceDomainElasticsearchClusterConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DedicatedMasterCount: new ResourceProperty(Map, 'No', null),
+      DedicatedMasterCount: new ResourceProperty(Number, 'No', null),
       DedicatedMasterEnabled: new ResourceProperty(Boolean, 'No', null),
       DedicatedMasterType: new ResourceProperty(String, 'No', null),
-      InstanceCount: new ResourceProperty(Map, 'No', null),
+      InstanceCount: new ResourceProperty(Number, 'No', null),
       InstanceType: new ResourceProperty(String, 'No', null),
       ZoneAwarenessEnabled: new ResourceProperty(Boolean, 'No', null)
     }
@@ -1449,7 +1449,7 @@ class AmazonElasticsearchServiceDomainElasticsearchClusterConfig extends SubProp
 class AmazonElasticsearchServiceDomainSnapshotOptions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      AutomatedSnapshotStartHour: new ResourceProperty(Map, 'No', null)
+      AutomatedSnapshotStartHour: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -1524,7 +1524,7 @@ class AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig ext
       BidPrice: new ResourceProperty(String, 'No', null),
       Configurations: new ResourceArray(AmazonElasticMapReduceClusterConfiguration, 'No', null),
       EbsConfiguration: new ResourceProperty(AmazonElasticMapReduceEbsConfiguration, 'No', null),
-      InstanceCount: new ResourceProperty(Map, 'Yes', null),
+      InstanceCount: new ResourceProperty(Number, 'Yes', null),
       InstanceType: new ResourceProperty(String, 'Yes', null),
       Market: new ResourceProperty(String, 'No', null),
       Name: new ResourceProperty(String, 'No', null)
@@ -1556,7 +1556,7 @@ class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs extends SubPro
   constructor(propertiesObject) {
     let properties = {
       VolumeSpecification: new ResourceProperty(AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification, 'Yes', null),
-      VolumesPerInstance: new ResourceProperty(Map, 'No', null)
+      VolumesPerInstance: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -1565,8 +1565,8 @@ class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs extends SubPro
 class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Iops: new ResourceProperty(Map, 'No', null),
-      SizeInGB: new ResourceProperty(Map, 'Yes', null),
+      Iops: new ResourceProperty(Number, 'No', null),
+      SizeInGB: new ResourceProperty(Number, 'Yes', null),
       VolumeType: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
@@ -1620,10 +1620,10 @@ class AmazonGameLiftBuildStorageLocation extends SubPropertyObject {
 class AmazonGameLiftFleetEC2InboundPermission extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      FromPort: new ResourceProperty(Map, 'Yes', null),
+      FromPort: new ResourceProperty(Number, 'Yes', null),
       IpRange: new ResourceProperty(String, 'Yes', null),
       Protocol: new ResourceProperty(String, 'Yes', null),
-      ToPort: new ResourceProperty(Map, 'Yes', null)
+      ToPort: new ResourceProperty(Number, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
@@ -1681,8 +1681,8 @@ class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration e
 class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      IntervalInSeconds: new ResourceProperty(Map, 'Yes', null),
-      SizeInMBs: new ResourceProperty(Map, 'Yes', null)
+      IntervalInSeconds: new ResourceProperty(Number, 'Yes', null),
+      SizeInMBs: new ResourceProperty(Number, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
@@ -1691,7 +1691,7 @@ class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBu
 class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      DurationInSeconds: new ResourceProperty(Map, 'Yes', null)
+      DurationInSeconds: new ResourceProperty(Number, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
@@ -1741,8 +1741,8 @@ class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration extends SubP
 class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      IntervalInSeconds: new ResourceProperty(Map, 'Yes', null),
-      SizeInMBs: new ResourceProperty(Map, 'Yes', null)
+      IntervalInSeconds: new ResourceProperty(Number, 'Yes', null),
+      SizeInMBs: new ResourceProperty(Number, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
@@ -1806,11 +1806,11 @@ class AWSOpsWorksAutoScalingThresholdsType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
       CpuThreshold: new ResourceProperty(Number, 'No', null),
-      IgnoreMetricsTime: new ResourceProperty(Map, 'No', null),
-      InstanceCount: new ResourceProperty(Map, 'No', null),
+      IgnoreMetricsTime: new ResourceProperty(Number, 'No', null),
+      InstanceCount: new ResourceProperty(Number, 'No', null),
       LoadThreshold: new ResourceProperty(Number, 'No', null),
       MemoryThreshold: new ResourceProperty(Number, 'No', null),
-      ThresholdsWaitTime: new ResourceProperty(Map, 'No', null)
+      ThresholdsWaitTime: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -1839,7 +1839,7 @@ class AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration extends S
   constructor(propertiesObject) {
     let properties = {
       DelayUntilElbConnectionsDrained: new ResourceProperty(Boolean, 'No', null),
-      ExecutionTimeout: new ResourceProperty(Map, 'No', null)
+      ExecutionTimeout: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -1933,11 +1933,11 @@ class AWSOpsWorksTimeBasedAutoScalingType extends SubPropertyObject {
 class AWSOpsWorksVolumeConfigurationType extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      Iops: new ResourceProperty(Map, 'Conditional', null),
+      Iops: new ResourceProperty(Number, 'Conditional', null),
       MountPoint: new ResourceProperty(String, 'Yes', null),
-      NumberOfDisks: new ResourceProperty(Map, 'Yes', null),
-      RaidLevel: new ResourceProperty(Map, 'No', null),
-      Size: new ResourceProperty(Map, 'Yes', null),
+      NumberOfDisks: new ResourceProperty(Number, 'Yes', null),
+      RaidLevel: new ResourceProperty(Number, 'No', null),
+      Size: new ResourceProperty(Number, 'Yes', null),
       VolumeType: new ResourceProperty(String, 'No', null)
     }
     super(properties, propertiesObject)
@@ -1970,7 +1970,7 @@ class AmazonRDSOptionGroupOptionConfigurations extends SubPropertyObject {
       DBSecurityGroupMemberships: new ResourceArray(String, 'No', null),
       OptionName: new ResourceProperty(String, 'Yes', null),
       OptionSettings: new ResourceProperty(AmazonRDSOptionGroupOptionConfigurationsOptionSettings, 'No', null),
-      Port: new ResourceProperty(Map, 'No', null),
+      Port: new ResourceProperty(Number, 'No', null),
       VpcSecurityGroupMemberships: new ResourceArray(String, 'No', null)
     }
     super(properties, propertiesObject)
@@ -2024,11 +2024,11 @@ class AmazonRoute53RecordSetGeoLocationProperty extends SubPropertyObject {
 class AmazonRoute53HealthCheckConfig extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
-      FailureThreshold: new ResourceProperty(Map, 'No', null),
+      FailureThreshold: new ResourceProperty(Number, 'No', null),
       FullyQualifiedDomainName: new ResourceProperty(String, 'Conditional', null),
       IPAddress: new ResourceProperty(String, 'No', null),
-      Port: new ResourceProperty(Map, 'Conditional', null),
-      RequestInterval: new ResourceProperty(Map, 'No', null),
+      Port: new ResourceProperty(Number, 'Conditional', null),
+      RequestInterval: new ResourceProperty(Number, 'No', null),
       ResourcePath: new ResourceProperty(String, 'No', null),
       SearchString: new ResourceProperty(String, 'No', null),
       Type: new ResourceProperty(String, 'Yes', null)
@@ -2093,7 +2093,7 @@ class AmazonS3CorsConfigurationRule extends SubPropertyObject {
       AllowedOrigins: new ResourceArray(String, 'Yes', null),
       ExposedHeaders: new ResourceArray(String, 'No', null),
       Id: new ResourceProperty(String, 'No', null),
-      MaxAge: new ResourceProperty(Map, 'No', null)
+      MaxAge: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -2112,9 +2112,9 @@ class AmazonS3LifecycleRule extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
       ExpirationDate: new ResourceProperty(String, 'Conditional', null),
-      ExpirationInDays: new ResourceProperty(Map, 'Conditional', null),
+      ExpirationInDays: new ResourceProperty(Number, 'Conditional', null),
       Id: new ResourceProperty(String, 'No', null),
-      NoncurrentVersionExpirationInDays: new ResourceProperty(Map, 'Conditional', null),
+      NoncurrentVersionExpirationInDays: new ResourceProperty(Number, 'Conditional', null),
       NoncurrentVersionTransition: new ResourceProperty(AmazonS3LifecycleRuleNoncurrentVersionTransition, 'Conditional', null),
       NoncurrentVersionTransitions: new ResourceArray(AmazonS3LifecycleRuleNoncurrentVersionTransition, 'Conditional', null),
       Prefix: new ResourceProperty(String, 'No', null),
@@ -2130,7 +2130,7 @@ class AmazonS3LifecycleRuleNoncurrentVersionTransition extends SubPropertyObject
   constructor(propertiesObject) {
     let properties = {
       StorageClass: new ResourceProperty(String, 'Yes', null),
-      TransitionInDays: new ResourceProperty(Map, 'Yes', null)
+      TransitionInDays: new ResourceProperty(Number, 'Yes', null)
     }
     super(properties, propertiesObject)
   }
@@ -2141,7 +2141,7 @@ class AmazonS3LifecycleRuleTransition extends SubPropertyObject {
     let properties = {
       StorageClass: new ResourceProperty(String, 'Yes', null),
       TransitionDate: new ResourceProperty(String, 'Conditional', null),
-      TransitionInDays: new ResourceProperty(Map, 'Conditional', null)
+      TransitionInDays: new ResourceProperty(Number, 'Conditional', null)
     }
     super(properties, propertiesObject)
   }
@@ -2339,7 +2339,7 @@ class AmazonSQSRedrivePolicy extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
       deadLetterTargetArn: new ResourceProperty(String, 'No', null),
-      maxReceiveCount: new ResourceProperty(Map, 'No', null)
+      maxReceiveCount: new ResourceProperty(Number, 'No', null)
     }
     super(properties, propertiesObject)
   }
@@ -2394,7 +2394,7 @@ class AWSWAFSizeConstraintSetSizeConstraint extends SubPropertyObject {
     let properties = {
       ComparisonOperator: new ResourceProperty(String, 'Yes', null),
       FieldToMatch: new ResourceProperty(AWSWAFSizeConstraintSetSizeConstraintFieldToMatch, 'Yes', null),
-      Size: new ResourceProperty(Map, 'Yes', null),
+      Size: new ResourceProperty(Number, 'Yes', null),
       TextTransformation: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)
@@ -2464,7 +2464,7 @@ class AWSWAFWebACLRules extends SubPropertyObject {
   constructor(propertiesObject) {
     let properties = {
       Action: new ResourceProperty(AWSWAFWebACLAction, 'Yes', null),
-      Priority: new ResourceProperty(Map, 'Yes', null),
+      Priority: new ResourceProperty(Number, 'Yes', null),
       RuleId: new ResourceProperty(String, 'Yes', null)
     }
     super(properties, propertiesObject)

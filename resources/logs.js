@@ -1,62 +1,64 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Destination extends wolkenkratzer.BaseAWSObject {
+class Destination extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Logs::Destination'
     let properties = {
-      DestinationName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      DestinationPolicy: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      RoleArn: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      TargetArn: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      DestinationName: new resource.ResourceProperty(String, 'Yes', null),
+      DestinationPolicy: new resource.ResourceProperty(String, 'Yes', null),
+      RoleArn: new resource.ResourceProperty(String, 'Yes', null),
+      TargetArn: new resource.ResourceProperty(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class LogGroup extends wolkenkratzer.BaseAWSObject {
+class LogGroup extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogGroup'
     let properties = {
-      RetentionInDays: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      RetentionInDays: new resource.ResourceProperty(Number, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class LogStream extends wolkenkratzer.BaseAWSObject {
+class LogStream extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogStream'
     let properties = {
-      LogGroupName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      LogStreamName: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      LogGroupName: new resource.ResourceProperty(String, 'Yes', null),
+      LogStreamName: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class MetricFilter extends wolkenkratzer.BaseAWSObject {
+class MetricFilter extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Logs::MetricFilter'
     let properties = {
-      FilterPattern: new wolkenkratzer.ResourceArray(String, 'Yes', null),
-      LogGroupName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      MetricTransformations: new wolkenkratzer.ResourceArray(propertyTypes.CloudWatchLogsMetricFilterMetricTransformationProperty, 'Yes', null)
+      FilterPattern: new resource.ResourceArray(String, 'Yes', null),
+      LogGroupName: new resource.ResourceProperty(String, 'Yes', null),
+      MetricTransformations: new resource.ResourceArray(types.CloudWatchLogsMetricFilterMetricTransformationProperty, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class SubscriptionFilter extends wolkenkratzer.BaseAWSObject {
+class SubscriptionFilter extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Logs::SubscriptionFilter'
     let properties = {
-      DestinationArn: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      FilterPattern: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      LogGroupName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      RoleArn: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      DestinationArn: new resource.ResourceProperty(String, 'Yes', null),
+      FilterPattern: new resource.ResourceProperty(String, 'Yes', null),
+      LogGroupName: new resource.ResourceProperty(String, 'Yes', null),
+      RoleArn: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

@@ -13,8 +13,11 @@ let props = fs
   .then((file) => {
     let header = ''
     header += '\'use strict\'\n\n'
-    header += 'const wolkenkratzer = require(\'./../index\')\n'
-    header += 'const propertyTypes = require(\'./propertytypes/propertytypes\')\n\n'
+    // header += 'const wolkenkratzer = require(\'./../index\')\n'
+    header += 'const baseawsobject = require(\'./../baseawsobject\')\n'
+    header += 'const resource = require(\'./../resourceproperty\')\n'
+    header += 'const tag = require(\'./../tag\')\n'
+    header += 'const types = require(\'./../types\')\n\n'
     //let exportList = []
 
     for(let subType in file) {
@@ -23,7 +26,7 @@ let props = fs
       let resourceName = subProp.name.replace(/AWS::\w+::/g,'')
       let exportLine = (resourceName + ': ' + resourceName)
       let resourceBody = ''
-      resourceBody += 'class ' + resourceName + ' extends wolkenkratzer.BaseAWSObject {\n'
+      resourceBody += 'class ' + resourceName + ' extends baseawsobject.BaseAWSObject {\n'
       resourceBody += '  constructor(name, propertiesObject) {\n'
       resourceBody += '    let resourceType = \'' + subProp.name + '\'\n'
       resourceBody += '    let properties = {\n'
@@ -48,44 +51,66 @@ let props = fs
         switch(propType) {
           case 'Integer':
             propType = 'Number'
+            break
           case 'AutoScalingEBSBlockDevice':
             propType = 'AWSCloudFormationAutoScalingEBSBlockDevicePropertyType'
+            break
           case 'CacheBehavior':
             propType = 'CloudFrontDistributionConfigCacheBehavior'
+            break
           case 'DefaultCacheBehaviortype':
             propType = 'CloudFrontDefaultCacheBehavior'
+            break
           case 'Loggingtype':
             propType = 'CloudFrontLogging'
+            break
           case 'Origins':
             propType = 'CloudFrontDistributionConfigOrigin'
+            break
           case 'ForwardedValuestype':
             propType = 'CloudFrontForwardedValues'
+            break
           case 'CustomOrigintype':
             propType = 'CloudFrontDistributionConfigOriginCustomOrigin'
+            break
           case 'S3Origintype':
             propType = 'CloudFrontDistributionConfigOriginS3Origin'
+            break
           case 'anemptymap:{}':
             propType = 'Map'
+            break
           case 'PrivateIpAddressSpecification':
             propType = 'EC2NetworkInterfacePrivateIPSpecification'
+            break
           case 'Key-valuepairs,withthenameofthelabelasthekeyandthelabelvalueasthevalue':
             propType = 'Map'
+            break
           case 'Key-valuepairs,withtheoptionnameasthekeyandtheoptionvalueasthevalue':
             propType = 'Map'
+            break
           case 'String-to-stringmap':
             propType = 'Map'
+            break
           case 'Stringtostringmap':
             propType = 'Map'
+            break
           case 'Timestamp':
             propType = 'Date'
+            break
           case 'StringValidvaluesare"basic"or"S3"':
             propType = 'String'
+            break
           case 'String(1–1600chars)':
             propType = 'String'
+            break
           case 'key-valuepairs':
             propType = 'Map'
+            break
           case 'referencestoAWS::IAM::RolesCurrently,amaximumofonerolecanbeassignedtoaninstanceprofile':
             propType = 'String'
+            break
+          default:
+            break
         }
         if(!((propType === 'String') ||
           (propType === 'Date') ||
@@ -95,13 +120,13 @@ let props = fs
           (propType === 'Object') ||
           (propType === 'RecordSet')
           )) {
-          propType = 'propertyTypes.' + propType
+          propType = 'types.' + propType
         }
         let name = props[i].replace(/ \(.+\)/g,'')
         if(name === 'Tags') {
-          resourceBody += '      ' + name + ': new wolkenkratzer.TagSet()'
+          resourceBody += '      ' + name + ': new tag.TagSet()'
         } else {
-          resourceBody += '      ' + name + ': new wolkenkratzer.' + wkType + '(' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
+          resourceBody += '      ' + name + ': new resource.' + wkType + '(' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
         }
 
         if (i === (props.length - 1)) {

@@ -11,9 +11,9 @@ let props = fs
   .then((file) => {
     let result = ''
     result += '\'use strict\'\n\n'
-    result += 'const SubPropertyObject = require(\'./../../baseawsobject\').SubPropertyObject\n'
-    result += 'const ResourceArray = require(\'./../../resourceproperty\').ResourceArray\n'
-    result += 'const ResourceProperty = require(\'./../../resourceproperty\').ResourceProperty\n\n'
+    result += 'const SubPropertyObject = require(\'./baseawsobject\').SubPropertyObject\n'
+    result += 'const ResourceArray = require(\'./resourceproperty\').ResourceArray\n'
+    result += 'const ResourceProperty = require(\'./resourceproperty\').ResourceProperty\n\n'
     //result += 'const wolkenkratzer = require(\'./../../index\')\n\n'
     let exportList = []
 
@@ -41,35 +41,51 @@ let props = fs
         switch(propType) {
           case 'Integer':
             propType = 'Number'
+            break
           case 'AutoScalingEBSBlockDevice':
             propType = 'AWSCloudFormationAutoScalingEBSBlockDevicePropertyType'
+            break
           case 'CacheBehavior':
             propType = 'CloudFrontDistributionConfigCacheBehavior'
+            break
           case 'DefaultCacheBehaviortype':
             propType = 'CloudFrontDefaultCacheBehavior'
+            break
           case 'Loggingtype':
             propType = 'CloudFrontLogging'
+            break
           case 'Origins':
             propType = 'CloudFrontDistributionConfigOrigin'
+            break
           case 'ForwardedValuestype':
             propType = 'CloudFrontForwardedValues'
+            break
           case 'CustomOrigintype':
             propType = 'CloudFrontDistributionConfigOriginCustomOrigin'
+            break
           case 'S3Origintype':
             propType = 'CloudFrontDistributionConfigOriginS3Origin'
+            break
           case 'anemptymap:{}':
             propType = 'Map'
+            break
           case 'PrivateIpAddressSpecification':
             propType = 'EC2NetworkInterfacePrivateIPSpecification'
+            break
           case 'Key-valuepairs,withthenameofthelabelasthekeyandthelabelvalueasthevalue':
             propType = 'Map'
+            break
           case 'Key-valuepairs,withtheoptionnameasthekeyandtheoptionvalueasthevalue':
             propType = 'Map'
+            break
           case 'String-to-stringmap':
             propType = 'Map'
+            break
           case 'Stringtostringmap':
             propType = 'Map'
-
+            break
+          default:
+            break
         }
         let name = props[i].replace(/ \(.+\)/g,'')
         result += '      ' + name + ': new ' + wkType + '(' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
@@ -98,7 +114,7 @@ let props = fs
     return result
   })
   .then((result) => {
-    return fs.writeFileAsync('../resources/propertytypes/propertytypes.js', result)
+    return fs.writeFileAsync('../types.js', result)
   })
   .then(() => {
     console.log('Finished writing file.')

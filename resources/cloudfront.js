@@ -1,13 +1,15 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class Distribution extends wolkenkratzer.BaseAWSObject {
+class Distribution extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::CloudFront::Distribution'
     let properties = {
-      DistributionConfig: new wolkenkratzer.ResourceProperty(propertyTypes.DistributionConfigtype, 'Yes', null)
+      DistributionConfig: new resource.ResourceProperty(types.DistributionConfigtype, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

@@ -1,44 +1,46 @@
 'use strict'
 
-const wolkenkratzer = require('./../index')
-const propertyTypes = require('./propertytypes/propertytypes')
+const baseawsobject = require('./../baseawsobject')
+const resource = require('./../resourceproperty')
+const tag = require('./../tag')
+const types = require('./../types')
 
-class ConfigRule extends wolkenkratzer.BaseAWSObject {
+class ConfigRule extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Config::ConfigRule'
     let properties = {
-      ConfigRuleName: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Description: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      InputParameters: new wolkenkratzer.ResourceProperty(Object, 'No', null),
-      MaximumExecutionFrequency: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      Scope: new wolkenkratzer.ResourceProperty(propertyTypes.AWSConfigConfigRuleScope, 'No', null),
-      Source: new wolkenkratzer.ResourceProperty(propertyTypes.AWSConfigConfigRuleSource, 'Yes', null)
+      ConfigRuleName: new resource.ResourceProperty(String, 'No', null),
+      Description: new resource.ResourceProperty(String, 'No', null),
+      InputParameters: new resource.ResourceProperty(Object, 'No', null),
+      MaximumExecutionFrequency: new resource.ResourceProperty(String, 'No', null),
+      Scope: new resource.ResourceProperty(types.AWSConfigConfigRuleScope, 'No', null),
+      Source: new resource.ResourceProperty(types.AWSConfigConfigRuleSource, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class ConfigurationRecorder extends wolkenkratzer.BaseAWSObject {
+class ConfigurationRecorder extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Config::ConfigurationRecorder'
     let properties = {
-      Name: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      RecordingGroup: new wolkenkratzer.ResourceProperty(propertyTypes.AWSConfigConfigurationRecorderRecordingGroup, 'No', null),
-      RoleARN: new wolkenkratzer.ResourceProperty(String, 'Yes', null)
+      Name: new resource.ResourceProperty(String, 'No', null),
+      RecordingGroup: new resource.ResourceProperty(types.AWSConfigConfigurationRecorderRecordingGroup, 'No', null),
+      RoleARN: new resource.ResourceProperty(String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
 }
 
-class DeliveryChannel extends wolkenkratzer.BaseAWSObject {
+class DeliveryChannel extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Config::DeliveryChannel'
     let properties = {
-      ConfigSnapshotDeliveryProperties: new wolkenkratzer.ResourceProperty(propertyTypes.AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties, 'No', null),
-      Name: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      S3BucketName: new wolkenkratzer.ResourceProperty(String, 'Yes', null),
-      S3KeyPrefix: new wolkenkratzer.ResourceProperty(String, 'No', null),
-      SnsTopicARN: new wolkenkratzer.ResourceProperty(String, 'No', null)
+      ConfigSnapshotDeliveryProperties: new resource.ResourceProperty(types.AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties, 'No', null),
+      Name: new resource.ResourceProperty(String, 'No', null),
+      S3BucketName: new resource.ResourceProperty(String, 'Yes', null),
+      S3KeyPrefix: new resource.ResourceProperty(String, 'No', null),
+      SnsTopicARN: new resource.ResourceProperty(String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
