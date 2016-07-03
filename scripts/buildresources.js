@@ -109,6 +109,9 @@ let props = fs
           case 'referencestoAWS::IAM::RolesCurrently,amaximumofonerolecanbeassignedtoaninstanceprofile':
             propType = 'String'
             break
+          case 'EC2SecurityGroupRule':
+            propType = 'EC2SecurityGroupRulePropertyType'
+              break
           default:
             break
         }

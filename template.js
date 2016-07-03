@@ -3,7 +3,9 @@
  */
 'use strict'
 const debug = require('debug')('template')
-const ValueException = require('./index').ValueException
+const ValueException = require('./exceptions').ValueException
+const TypeException = require('./exceptions').TypeException
+const output = require('./output')
 
 class Template {
   constructor () {
@@ -45,8 +47,11 @@ class Template {
     }
     return values
   }
-  addOutput (output) {
-    return this._update(this.Outputs, output)
+  addOutput (newOutput) {
+    if(!(newOutput instanceof output.Output)) {
+      throw new TypeException(newOutput + ' is not of type Output')
+    }
+    return this._update(this.Outputs, newOutput)
   }
   addMapping (name, mapping) {
     this.Mappings[name] = mapping
@@ -68,6 +73,9 @@ class Template {
     }
     for (let resource in this.Resources) {
       j.Resources[resource] = this.Resources[resource].toJson()
+    }
+    for (let output in this.Outputs) {
+      j.Outputs[output] = this.Outputs[output].toJson()
     }
     return JSON.stringify(j, null, 2)
   }

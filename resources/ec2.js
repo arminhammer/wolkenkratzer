@@ -241,8 +241,8 @@ class SecurityGroup extends baseawsobject.BaseAWSObject {
     let resourceType = 'AWS::EC2::SecurityGroup'
     let properties = {
       GroupDescription: new resource.ResourceProperty(String, 'Yes', null),
-      SecurityGroupEgress: new resource.ResourceArray(types.EC2SecurityGroupRule, 'No', null),
-      SecurityGroupIngress: new resource.ResourceArray(types.EC2SecurityGroupRule, 'No', null),
+      SecurityGroupEgress: new resource.ResourceArray(types.EC2SecurityGroupRulePropertyType, 'No', null),
+      SecurityGroupIngress: new resource.ResourceArray(types.EC2SecurityGroupRulePropertyType, 'No', null),
       Tags: new tag.TagSet(),
       VpcId: new resource.ResourceProperty(String, 'Conditional', null)
     }

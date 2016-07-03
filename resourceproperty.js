@@ -6,6 +6,7 @@
 const Ref = require('./intrinsic').Ref
 const Intrinsic = require('./intrinsic').Intrinsic
 const FnGetAtt = require('./intrinsic').FnGetAtt
+const FnFindInMap = require('./intrinsic').FnFindInMap
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const TypeException = require('./exceptions').TypeException
 const SubPropertyObject = require('./baseawsobject').SubPropertyObject
@@ -40,6 +41,9 @@ class ResourceProperty {
   getAtt (resource, attribute) {
     this.val = new FnGetAtt(resource, attribute)
   }
+  findInMap (map, top, second) {
+    this.val = new FnFindInMap(map, top, second)
+  }
   toJson () {
     if (this.val !== null) {
       if (this.val instanceof Intrinsic) {
@@ -72,33 +76,31 @@ class ResourceArray extends ResourceProperty {
         valueType = new Number(val)
       }
       if (!(valueType instanceof this.Type)) {
-        console.log('typeof is')
-        console.log(typeof valueType)
         throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
       }
       this.val = value
     }
   }
-  push (value) {
-    let valueType = value
-    if (typeof value === 'string') {
-      valueType = new String(value)
-    } else if (typeof value === 'boolean') {
-      valueType = new Boolean(value)
+  push (val) {
+    let valueType = val
+    if (typeof val === 'string') {
+      valueType = new String(val)
+    } else if (typeof val === 'boolean') {
+      valueType = new Boolean(val)
+    } else if(typeof val == 'number') {
+      valueType = new Number(val)
     }
     if (valueType instanceof this.Type) {
       if(!this.val) {
         this.val = []
       }
-      this.val.push(value)
+      this.val.push(val)
     } else {
-      throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
+      throw new TypeException(val + ' is the wrong type, was expecting ' + this.Type)
     }
   }
   toJson () {
     if (this.val !== null) {
-      //console.log(this.Type instanceof SubPropertyObject)
-      //console.log(this.Type.prototype)
       if(this.Type.prototype instanceof SubPropertyObject) {
         let propArray = []
         for (let prop in this.val) {

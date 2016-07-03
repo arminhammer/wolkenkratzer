@@ -36,15 +36,17 @@ class FnGetAtt extends Intrinsic {
  toJson () {}
  }*/
 
-/* class FnFindInMap extends Intrinsic {
- constructor (mapName, topLevelKey, secondLevelKey) {
- super()
- this.mapName = mapName
- this.topLevelKey = topLevelKey
- this.secondLevelKey = secondLevelKey
- }
- toJson () {}
- }*/
+class FnFindInMap extends Intrinsic {
+  constructor (mapName, topLevelKey, secondLevelKey) {
+    super()
+    this.mapName = mapName
+    this.topLevelKey = topLevelKey
+    this.secondLevelKey = secondLevelKey
+  }
+  toJson () {
+    return { "Fn::FindInMap" : [ this.mapName, this.topLevelKey, this.secondLevelKey ] }
+  }
+}
 
 /* class FnGetAZs extends Intrinsic {
  constructor (region) {
@@ -110,5 +112,6 @@ class FnGetAtt extends Intrinsic {
 module.exports = {
   Ref: Ref,
   Intrinsic: Intrinsic,
-  FnGetAtt: FnGetAtt
+  FnGetAtt: FnGetAtt,
+  FnFindInMap: FnFindInMap
 }
