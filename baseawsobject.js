@@ -5,6 +5,7 @@
 const debug = require('debug')('baseawsobject')
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const ConditionNotMetException = require('./exceptions').ConditionNotMetException
+const TypeException = require('./exceptions').TypeException
 
 class BaseAWSObject {
   constructor (name, resourceType, properties, propertiesObject, conditional) {
@@ -31,6 +32,38 @@ class BaseAWSObject {
   dependsOn (resource) {
     this.dependsOn = resource
   }
+  addConfig (config) {
+    if(this instanceof require('./resources/ec2').Instance) {
+      if(!this.Metadata) {
+        this.Metadata = {
+        }
+      }
+      if(!this.Metadata['AWS::CloudFormation::Init']) {
+        this.Metadata['AWS::CloudFormation::Init'] = {
+          configSets: {}
+        }
+      }
+      this.Metadata['AWS::CloudFormation::Init'][config.Name] = config
+    } else {
+      throw new TypeException('Not allowed to add ' + config + 'to ' + this.Name + ' because it is not an Instance or LaunchConfiguration')
+    }
+  }
+  addConfigSet (configSet) {
+    if(this instanceof require('./resources/ec2').Instance) {
+      if(!this.Metadata) {
+        this.Metadata = {
+        }
+      }
+      if(!this.Metadata['AWS::CloudFormation::Init']) {
+        this.Metadata['AWS::CloudFormation::Init'] = {
+          configSets: {}
+        }
+      }
+      this.Metadata['AWS::CloudFormation::Init'].configSets[configSet.Name] = configSet.configs
+    } else {
+      throw new TypeException('Not allowed to add ' + configSet + 'to ' + this.Name + ' because it is not an Instance or LaunchConfiguration')
+    }
+  }
   toJson () {
     debug('Generating Resource json')
     let newProperties = JSON.parse(JSON.stringify(this.properties))
@@ -52,9 +85,11 @@ class BaseAWSObject {
         }
       }
     }
+
     let returnObject = {
       Type: this.resourceType,
-      Properties: newProperties
+      Properties: newProperties,
+      Metadata: this.Metadata
     }
     if (this.dependsOn) {
       returnObject.DependsOn = this.dependsOn.Name

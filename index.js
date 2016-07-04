@@ -19,6 +19,7 @@ const RequiredPropertyException = require('./exceptions').RequiredPropertyExcept
 const ValueException = require('./exceptions').ValueException
 const Types = require('./types')
 const Output = require('./output').Output
+const Init = require('./init')
 
 const EC2 = require('./resources/ec2')
 
@@ -47,6 +48,7 @@ module.exports = {
   TagSet: TagSet,
   Tag: Tag,
   Ref: Ref,
+  Init: Init,
   Intrinsic: Intrinsic,
   Output: Output,
   TypeException: TypeException,
