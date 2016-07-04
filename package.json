@@ -1,18 +1,12 @@
 {
   "name": "wolkenkratzer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Library for generating CloudFormation templates",
   "main": "index.js",
-  "scripts": {
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha 'test/**/*.spec.js'"
+  "directories": {
+    "example": "examples",
+    "test": "test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
-  },
-  "author": "Armin Graf",
-  "license": "MIT",
-  "homepage": "https://github.com/arminhammer/wolkenkratzer",
   "dependencies": {
     "debug": "^2.2.0"
   },
@@ -29,5 +23,21 @@
     "bluebird": "^3.4.1",
     "fs-extra": "^0.30.0",
     "x-ray": "^2.3.0"
-  }
+  },
+  "scripts": {
+    "test": "istanbul cover ./node_modules/.bin/_mocha 'test/**/*.spec.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
+  },
+  "keywords": [
+    "CloudFormation"
+  ],
+  "author": "Armin Graf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arminhammer/wolkenkratzer/issues"
+  },
+  "homepage": "https://github.com/arminhammer/wolkenkratzer#readme"
 }
