@@ -1,23 +1,19 @@
 {
   "name": "wolkenkratzer",
   "version": "0.0.1",
-  "description": "Library for building CloudFormation templates",
+  "description": "Library for generating CloudFormation templates",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha 'test/**/*.spec.js'"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://arminhammer@bitbucket.org/arminhammer/wolkenkratzer.git"
+    "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/arminhammer/wolkenkratzer#readme",
+  "author": "Armin Graf",
+  "license": "MIT",
+  "homepage": "https://github.com/arminhammer/wolkenkratzer",
   "dependencies": {
-    "bluebird": "^3.4.1",
-    "debug": "^2.2.0",
-    "fs-extra": "^0.30.0",
-    "x-ray": "^2.3.0"
   },
   "devDependencies": {
     "aws-sdk": "^2.3.17",
@@ -28,6 +24,10 @@
     "istanbul": "^0.4.3",
     "lodash": "^4.13.1",
     "mocha": "^2.5.3",
-    "standard": "^7.1.2"
+    "standard": "^7.1.2",
+    "bluebird": "^3.4.1",
+    "debug": "^2.2.0",
+    "fs-extra": "^0.30.0",
+    "x-ray": "^2.3.0"
   }
 }
