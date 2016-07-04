@@ -10,19 +10,18 @@ chai.should()
 var should = require('chai').should()
 const BPromise = require('bluebird')
 const fs = BPromise.promisifyAll(require('fs-extra'))
-const child_process = require('child_process')
+//const child_process = require('child_process')
+const execFile = require('child_process').execFile;
 
 const AWS = require('aws-sdk')
 AWS.config.setPromisesDependency(BPromise);
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
 describe('Examples', () => {
-  it('Should be able to generate the expected template', (done) => {
-
-    fs
+  it('Should be able to generate the expected template', () => {
+    return fs
       .readdirAsync(path.join(__dirname, '..', 'examples'))
       .map((file) => {
-        const execFile = require('child_process').execFile;
         return new BPromise((resolve, reject) => {
           execFile('node', [file], { cwd: path.join(__dirname, '..', 'examples') }, (error, stdout, stderr) => {
             if (error) {
@@ -44,11 +43,30 @@ describe('Examples', () => {
       .then((results) => {
         results.forEach((result) => {
         })
-        done()
       })
-      .catch((err) => {
-        console.error(err)
-        done(err)
+  })
+
+  it('Should correctly create the wordpress template', () => {
+    let file = ''
+    return fs
+      .readJsonAsync(path.join(__dirname, 'templates', 'wordpressSingle.json'))
+      .then((readFile) => {
+        //console.log('Read file!')
+        file = readFile
+        return new BPromise((resolve, reject) => {
+          execFile('node', ['wordpressSingle'], { cwd: path.join(__dirname, '..', 'examples') }, (error, stdout, stderr) => {
+            if (error) {
+              reject(error)
+            } else if(stderr) {
+              reject(stderr)
+            }
+            resolve(stdout)
+          })
+        })
+      })
+      .then((result) => {
+        let jsonString = JSON.parse(result)
+        jsonString.should.deep.equal(file)
       })
   })
 })

@@ -77,6 +77,24 @@ class Template {
     for (let output in this.Outputs) {
       j.Outputs[output] = this.Outputs[output].toJson()
     }
+    if(Object.keys(j.Metadata).length === 0) {
+      delete j.Metadata
+    }
+    if(Object.keys(j.Conditions).length === 0) {
+      delete j.Conditions
+    }
+    if(Object.keys(j.Mappings).length === 0) {
+      delete j.Mappings
+    }
+    if(Object.keys(j.Outputs).length === 0) {
+      delete j.Outputs
+    }
+    if(Object.keys(j.Parameters).length === 0) {
+      delete j.Parameters
+    }
+    if(j.Description === '') {
+      delete j.Description
+    }
     return JSON.stringify(j, null, 2)
   }
 }

@@ -6,6 +6,7 @@ const debug = require('debug')('baseawsobject')
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const ConditionNotMetException = require('./exceptions').ConditionNotMetException
 const TypeException = require('./exceptions').TypeException
+const Policy = require('./policy').Policy
 
 class BaseAWSObject {
   constructor (name, resourceType, properties, propertiesObject, conditional) {
@@ -64,6 +65,16 @@ class BaseAWSObject {
       throw new TypeException('Not allowed to add ' + configSet + 'to ' + this.Name + ' because it is not an Instance or LaunchConfiguration')
     }
   }
+  addPolicy (policy) {
+    if(!this.policies) {
+      this.policies = {}
+    }
+    if(policy instanceof Policy) {
+      this.policies[policy.Name] = policy
+    } else {
+      throw new TypeException(policy + ' must be of type Policy')
+    }
+  }
   toJson () {
     debug('Generating Resource json')
     let newProperties = JSON.parse(JSON.stringify(this.properties))
@@ -85,11 +96,30 @@ class BaseAWSObject {
         }
       }
     }
-
+    let newMetadata = {}
+    if(this.Metadata) {
+      if(this.Metadata['AWS::CloudFormation::Init']) {
+        newMetadata['AWS::CloudFormation::Init'] = {}
+        for (let config in this.Metadata['AWS::CloudFormation::Init']) {
+          if(config === 'configSets') {
+            newMetadata['AWS::CloudFormation::Init'][config] = this.Metadata['AWS::CloudFormation::Init'][config]
+          } else {
+            newMetadata['AWS::CloudFormation::Init'][config] = this.Metadata['AWS::CloudFormation::Init'][config].toJson()
+          }
+        }
+      }
+    }
     let returnObject = {
       Type: this.resourceType,
       Properties: newProperties,
-      Metadata: this.Metadata
+    }
+    if(this.Metadata) {
+      returnObject.Metadata = newMetadata
+    }
+    if(this.policies) {
+      for(let policy in this.policies) {
+        returnObject[policy] = this.policies[policy].toJson()
+      }
     }
     if (this.dependsOn) {
       returnObject.DependsOn = this.dependsOn.Name

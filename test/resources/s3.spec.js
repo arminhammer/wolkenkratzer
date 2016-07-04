@@ -40,19 +40,13 @@ describe('S3', () => {
 
   t.addResource(bucketPolicy)
 
-  it ('Should be able to add a bucket to the template', () => {
+  it ('should be able to add a bucket to the template', () => {
     t.Resources['newBucket'].resourceType.should.equal('AWS::S3::Bucket')
   })
 
-  it ('Should generate the expected JSON template', () => {
+  it ('should generate the expected JSON template', () => {
     let jsonString = JSON.parse(t.toJson())
     jsonString.should.deep.equal({
-      'Description': '',
-      'Metadata': {},
-      'Conditions': {},
-      'Mappings': {},
-      'Outputs': {},
-      'Parameters': {},
       'Resources': {
         'newBucket': {
           'Type': 'AWS::S3::Bucket',

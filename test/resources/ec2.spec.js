@@ -25,19 +25,13 @@ describe('EC2', () => {
     t.addResource(instance)
     // console.log(JSON.stringify(t.Resources['myinstance'], null, 2))
 
-    it ('Should be able to add an instance to the template', () => {
+    it ('should be able to add an instance to the template', () => {
       t.Resources[ 'myinstance' ].resourceType.should.equal('AWS::EC2::Instance')
     })
 
-    it ('Should generate the expected JSON template', () => {
+    it ('should generate the expected JSON template', () => {
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
-        'Description': '',
-        'Metadata': {},
-        'Conditions': {},
-        'Mappings': {},
-        'Outputs': {},
-        'Parameters': {},
         'Resources': {
           'myinstance': {
             'Type': 'AWS::EC2::Instance',
@@ -67,12 +61,6 @@ describe('EC2', () => {
       instance.SecurityGroupIds = ['sg-12345', 'sg-4567']
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
-        'Description': '',
-        'Metadata': {},
-        'Conditions': {},
-        'Mappings': {},
-        'Outputs': {},
-        'Parameters': {},
         'Resources': {
           'myinstance': {
             'Type': 'AWS::EC2::Instance',
@@ -100,12 +88,6 @@ describe('EC2', () => {
       instance.BlockDeviceMappings.push(mapping)
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
-        'Description': '',
-        'Metadata': {},
-        'Conditions': {},
-        'Mappings': {},
-        'Outputs': {},
-        'Parameters': {},
         'Resources': {
           'myinstance': {
             'Type': 'AWS::EC2::Instance',
@@ -146,19 +128,13 @@ describe('EC2', () => {
 
     t.addResource(vpc)
 
-    it('Should be able to add an instance to the template', () => {
+    it('should be able to add an instance to the template', () => {
       t.Resources[ 'myvpc' ].resourceType.should.equal('AWS::EC2::VPC')
     })
 
-    it('Should generate the expected JSON template', () => {
+    it('should generate the expected JSON template', () => {
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
-        'Description': '',
-        'Metadata': {},
-        'Conditions': {},
-        'Mappings': {},
-        'Outputs': {},
-        'Parameters': {},
         'Resources': {
           'myvpc': {
             'Type': 'AWS::EC2::VPC',
@@ -183,11 +159,11 @@ describe('EC2', () => {
     vpnGateway.Type = 'ipsec.1'
     t.addResource(vpnGateway)
 
-    it ('Should be able to add a VPN Gateway to the template', () => {
+    it ('should be able to add a VPN Gateway to the template', () => {
       t.Resources['VPNGateway'].resourceType.should.equal('AWS::EC2::VPNGateway')
     })
 
-    it('Conditional should be tested, only ipsec.1 can be allowed as the type', () => {
+    it('conditional should be tested, only ipsec.1 can be allowed as the type', () => {
       vpnGateway.Type = 'ipsec.2'
       try {
         t.toJson()
@@ -196,16 +172,10 @@ describe('EC2', () => {
       }
     })
 
-    it ('Should generate the expected JSON template', () => {
+    it ('should generate the expected JSON template', () => {
       vpnGateway.Type = 'ipsec.1'
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
-        'Description': '',
-        'Metadata': {},
-        'Conditions': {},
-        'Mappings': {},
-        'Outputs': {},
-        'Parameters': {},
         'Resources': {
           'VPNGateway': {
             'Type': 'AWS::EC2::VPNGateway',
@@ -380,11 +350,6 @@ describe('EC2', () => {
       // t.toJson()
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
-        'Description': '',
-        'Metadata': {},
-        'Conditions': {},
-        'Mappings': {},
-        'Outputs': {},
         'Parameters': {
           'VPCCIDR': {
             'Type': 'String',

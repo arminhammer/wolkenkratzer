@@ -20,6 +20,7 @@ const ValueException = require('./exceptions').ValueException
 const Types = require('./types')
 const Output = require('./output').Output
 const Init = require('./init')
+const Policy = require('./policy')
 
 const EC2 = require('./resources/ec2')
 
@@ -51,6 +52,7 @@ module.exports = {
   Init: Init,
   Intrinsic: Intrinsic,
   Output: Output,
+  Policy: Policy,
   TypeException: TypeException,
   RequiredPropertyException: RequiredPropertyException,
   ValueException: ValueException,
