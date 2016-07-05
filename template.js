@@ -2,7 +2,6 @@
  * Created by arming on 6/15/16.
  */
 'use strict'
-const debug = require('debug')('template')
 const ValueException = require('./exceptions').ValueException
 const TypeException = require('./exceptions').TypeException
 const output = require('./output')
@@ -60,7 +59,6 @@ class Template {
     return this._update(this.Parameters, parameter)
   }
   addResource (resource) {
-    debug('adding resource ' + JSON.stringify(resource, null, 2))
     this._update(this.Resources, resource)
   }
   addVersion (version) {

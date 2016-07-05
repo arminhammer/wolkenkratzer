@@ -2,7 +2,6 @@
  * Created by arming on 6/15/16.
  */
 'use strict'
-const debug = require('debug')('baseawsobject')
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const ConditionNotMetException = require('./exceptions').ConditionNotMetException
 const TypeException = require('./exceptions').TypeException
@@ -76,7 +75,6 @@ class BaseAWSObject {
     }
   }
   toJson () {
-    debug('Generating Resource json')
     let newProperties = JSON.parse(JSON.stringify(this.properties))
     for (let prop in newProperties) {
       try {
@@ -149,7 +147,6 @@ class SubPropertyObject {
     }
   }
   toJson() {
-    debug('Generating Resource json')
     let newProperties = JSON.parse(JSON.stringify(this.properties))
     for (let prop in newProperties) {
       try {

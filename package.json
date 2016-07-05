@@ -7,9 +7,7 @@
     "example": "examples",
     "test": "test"
   },
-  "dependencies": {
-    "debug": "^2.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "aws-sdk": "^2.3.17",
     "chai": "^3.5.0",

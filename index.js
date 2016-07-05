@@ -2,7 +2,6 @@
  * Created by arming on 6/2/16.
  */
 'use strict'
-const debug = require('debug')('index')
 const Template = require('./template').Template
 const Tag = require('./tag').Tag
 const TagSet = require('./tag').TagSet
