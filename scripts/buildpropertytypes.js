@@ -14,7 +14,7 @@ let props = fs
     result += 'const SubPropertyObject = require(\'./baseawsobject\').SubPropertyObject\n'
     result += 'const ResourceArray = require(\'./resourceproperty\').ResourceArray\n'
     result += 'const ResourceProperty = require(\'./resourceproperty\').ResourceProperty\n\n'
-    //result += 'const wolkenkratzer = require(\'./../../index\')\n\n'
+    //result += 'const wk = require(\'./../../index\')\n\n'
     let exportList = []
 
     for(let subType in file) {

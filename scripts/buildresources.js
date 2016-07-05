@@ -13,7 +13,7 @@ let props = fs
   .then((file) => {
     let header = ''
     header += '\'use strict\'\n\n'
-    // header += 'const wolkenkratzer = require(\'./../index\')\n'
+    // header += 'const wk = require(\'./../index\')\n'
     header += 'const baseawsobject = require(\'./../baseawsobject\')\n'
     header += 'const resource = require(\'./../resourceproperty\')\n'
     header += 'const tag = require(\'./../tag\')\n'

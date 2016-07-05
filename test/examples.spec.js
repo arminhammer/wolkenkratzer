@@ -10,7 +10,6 @@ chai.should()
 var should = require('chai').should()
 const BPromise = require('bluebird')
 const fs = BPromise.promisifyAll(require('fs-extra'))
-//const child_process = require('child_process')
 const execFile = require('child_process').execFile;
 
 const AWS = require('aws-sdk')

@@ -8,11 +8,11 @@ const chai = require('chai')
 
 chai.should()
 
-const wolkenkratzer = require(path.join(__dirname, '..', 'index'))
+const wk = require(path.join(__dirname, '..', 'index'))
 
 /* stubs for building code coverage */
-const apigateway = require(path.join(__dirname, '..', 'resources/apigateway'))
 //const  = require(path.join(__dirname, '..', 'resources/'))
+const apigateway = require(path.join(__dirname, '..', 'resources/apigateway'))
 const autoscaling = require(path.join(__dirname, '..', 'resources/autoscaling'))
 const cloudformation = require(path.join(__dirname, '..', 'resources/cloudformation'))
 const cloudfront = require(path.join(__dirname, '..', 'resources/cloudfront'))
@@ -51,7 +51,7 @@ const waf = require(path.join(__dirname, '..', 'resources/waf'))
 const workspaces = require(path.join(__dirname, '..', 'resources/workspaces'))
 
 describe ('Template', () => {
-  let template = new wolkenkratzer.Template()
+  let template = new wk.Template()
 
   it ('Version should be 2010-09-09', () => {
     template.AWSTemplateFormatVersion.should.equal('2010-09-09')

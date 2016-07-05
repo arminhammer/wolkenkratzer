@@ -9,17 +9,16 @@ chai.config.truncateThreshold = 0
 chai.should()
 var should = require('chai').should()
 
-const wolkenkratzer = require(path.join(__dirname, '..', '..', 'index'))
-const ec2 = require(path.join(__dirname, '..', '..', 'resources/ec2'))
+const wk = require(path.join(__dirname, '..', '..', 'index'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
 describe('EC2', () => {
 
   describe ('Instance', () => {
-    let t = new wolkenkratzer.Template()
+    let t = new wk.Template()
 
-    let instance = new ec2.Instance('myinstance')
+    let instance = new wk.EC2.Instance('myinstance')
     instance.ImageId = 'ami-951945d0'
     instance.InstanceType = 't2.micro'
     t.addResource(instance)
@@ -76,13 +75,13 @@ describe('EC2', () => {
     })
 
     it('should handle arrays of sub objects like Amazon EC2 Block Device Mapping Property', () => {
-      let device = new wolkenkratzer.Types.AmazonElasticBlockStoreBlockDeviceProperty()
+      let device = new wk.Types.AmazonElasticBlockStoreBlockDeviceProperty()
       device.SnapshotId = 'snap-xxxxxx'
       device.VolumeSize = '50'
       device.VolumeType = 'io1'
       device.Iops = 1000
       device.DeleteOnTermination = false
-      let mapping = new wolkenkratzer.Types.AmazonEC2BlockDeviceMappingProperty()
+      let mapping = new wk.Types.AmazonEC2BlockDeviceMappingProperty()
       mapping.DeviceName = '/dev/sdc'
       mapping.Ebs = device
       instance.BlockDeviceMappings.push(mapping)
@@ -118,9 +117,9 @@ describe('EC2', () => {
 
   describe('VPC', () => {
 
-    let t = new wolkenkratzer.Template()
+    let t = new wk.Template()
 
-    let vpc = new ec2.VPC('myvpc')
+    let vpc = new wk.EC2.VPC('myvpc')
     vpc.CidrBlock = '10.0.0.0/16'
     vpc.InstanceTenancy = 'default'
     vpc.EnableDnsSupport = true
@@ -153,9 +152,9 @@ describe('EC2', () => {
 
   describe('VPNGatewayAttachment', () => {
 
-    let t = new wolkenkratzer.Template()
+    let t = new wk.Template()
 
-    let vpnGateway = new ec2.VPNGateway('VPNGateway')
+    let vpnGateway = new wk.EC2.VPNGateway('VPNGateway')
     vpnGateway.Type = 'ipsec.1'
     t.addResource(vpnGateway)
 
@@ -204,144 +203,144 @@ describe('EC2', () => {
 
   describe ('Combined Networking', () => {
 
-    let t = new wolkenkratzer.Template()
-    let vpcCiderParam = new wolkenkratzer.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
+    let t = new wk.Template()
+    let vpcCiderParam = new wk.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
     t.addParameter(vpcCiderParam)
-    let publicSubnetPubACIDRParam = new wolkenkratzer.Parameter('PublicSubnetPubACIDR', { Type: 'String', Default: '10.0.0.0/24' })
+    let publicSubnetPubACIDRParam = new wk.Parameter('PublicSubnetPubACIDR', { Type: 'String', Default: '10.0.0.0/24' })
     t.addParameter(publicSubnetPubACIDRParam)
-    let publicSubnetPubBCIDRParam = new wolkenkratzer.Parameter('PublicSubnetPubBCIDR', { Type: 'String', Default: '10.0.1.0/24' })
+    let publicSubnetPubBCIDRParam = new wk.Parameter('PublicSubnetPubBCIDR', { Type: 'String', Default: '10.0.1.0/24' })
     t.addParameter(publicSubnetPubBCIDRParam)
-    let privateSubnetPrivCCIDRParam = new wolkenkratzer.Parameter('PrivateSubnetPrivCCIDR', { Type: 'String', Default: '10.0.2.0/24' })
+    let privateSubnetPrivCCIDRParam = new wk.Parameter('PrivateSubnetPrivCCIDR', { Type: 'String', Default: '10.0.2.0/24' })
     t.addParameter(privateSubnetPrivCCIDRParam)
-    let privateSubnetPrivDCIDRParam = new wolkenkratzer.Parameter('PrivateSubnetPrivDCIDR', { Type: 'String', Default: '10.0.3.0/24' })
+    let privateSubnetPrivDCIDRParam = new wk.Parameter('PrivateSubnetPrivDCIDR', { Type: 'String', Default: '10.0.3.0/24' })
     t.addParameter(privateSubnetPrivDCIDRParam)
-    let vPCTagParam = new wolkenkratzer.Parameter('VPCTag', { Type: 'String', Default: 'BaseVPC' })
+    let vPCTagParam = new wk.Parameter('VPCTag', { Type: 'String', Default: 'BaseVPC' })
     t.addParameter(vPCTagParam)
 
-    let vpc = new ec2.VPC('VPC')
+    let vpc = new wk.EC2.VPC('VPC')
     vpc.CidrBlock.ref(vpcCiderParam)
     vpc.InstanceTenancy = 'default'
     vpc.EnableDnsSupport = true
     vpc.EnableDnsHostnames = true
     vpc.Tags.add({ Key: 'Name', Value: 'BaseVPC' })
-    vpc.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
+    vpc.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
     t.addResource(vpc)
 
-    let igw = new ec2.InternetGateway('InternetGateway')
+    let igw = new wk.EC2.InternetGateway('InternetGateway')
     igw.Tags.add({ Key: 'Name', Value: 'InternetGateway' })
-    igw.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
+    igw.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
     t.addResource(igw)
 
-    let vpcgatewayatt = new ec2.VPCGatewayAttachment('AttachInternetGateway')
+    let vpcgatewayatt = new wk.EC2.VPCGatewayAttachment('AttachInternetGateway')
     vpcgatewayatt.VpcId.ref(vpc)
     vpcgatewayatt.InternetGatewayId.ref(igw)
 
     t.addResource(vpcgatewayatt)
 
-    let publicSubnetPubA = new ec2.Subnet('PublicSubnetPubA')
+    let publicSubnetPubA = new wk.EC2.Subnet('PublicSubnetPubA')
     publicSubnetPubA.CidrBlock.ref(publicSubnetPubACIDRParam)
     publicSubnetPubA.VpcId.ref(vpc)
     publicSubnetPubA.MapPublicIpOnLaunch = true
     publicSubnetPubA.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubA' })
-    publicSubnetPubA.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
+    publicSubnetPubA.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
     t.addResource(publicSubnetPubA)
 
-    let publicSubnetPubB = new ec2.Subnet('PublicSubnetPubB')
+    let publicSubnetPubB = new wk.EC2.Subnet('PublicSubnetPubB')
     publicSubnetPubB.CidrBlock.ref(publicSubnetPubBCIDRParam)
     publicSubnetPubB.VpcId.ref(vpc)
     publicSubnetPubB.MapPublicIpOnLaunch = true
     publicSubnetPubB.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubB' })
-    publicSubnetPubB.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
+    publicSubnetPubB.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
     t.addResource(publicSubnetPubB)
 
-    let eipPubA = new ec2.EIP('EIPPubA')
+    let eipPubA = new wk.EC2.EIP('EIPPubA')
     eipPubA.Domain = 'vpc'
     t.addResource(eipPubA)
 
-    let natPubA = new ec2.NatGateway('NATPubA')
+    let natPubA = new wk.EC2.NatGateway('NATPubA')
     natPubA.SubnetId.ref(publicSubnetPubA)
     natPubA.AllocationId.getAtt(eipPubA, 'AllocationId')
     natPubA.dependsOn(igw)
     t.addResource(natPubA)
 
-    let eipPubB = new ec2.EIP('EIPPubB')
+    let eipPubB = new wk.EC2.EIP('EIPPubB')
     eipPubB.Domain = 'vpc'
     t.addResource(eipPubB)
 
-    let natPubB = new ec2.NatGateway('NATPubB')
+    let natPubB = new wk.EC2.NatGateway('NATPubB')
     natPubB.SubnetId.ref(publicSubnetPubB)
     natPubB.AllocationId.getAtt(eipPubB, 'AllocationId')
     natPubB.dependsOn(igw)
     t.addResource(natPubB)
 
-    let privateSubnetPrivC = new ec2.Subnet('PrivateSubnetPrivC')
+    let privateSubnetPrivC = new wk.EC2.Subnet('PrivateSubnetPrivC')
     privateSubnetPrivC.CidrBlock.ref(privateSubnetPrivCCIDRParam)
     privateSubnetPrivC.VpcId.ref(vpc)
     privateSubnetPrivC.MapPublicIpOnLaunch = false
     privateSubnetPrivC.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivC' })
-    privateSubnetPrivC.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
+    privateSubnetPrivC.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
     t.addResource(privateSubnetPrivC)
 
-    let privateSubnetPrivD = new ec2.Subnet('PrivateSubnetPrivD')
+    let privateSubnetPrivD = new wk.EC2.Subnet('PrivateSubnetPrivD')
     privateSubnetPrivD.CidrBlock.ref(privateSubnetPrivDCIDRParam)
     privateSubnetPrivD.VpcId.ref(vpc)
     privateSubnetPrivD.MapPublicIpOnLaunch = false
     privateSubnetPrivD.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivD' })
-    privateSubnetPrivD.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
+    privateSubnetPrivD.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
     t.addResource(privateSubnetPrivD)
 
-    let publicRouteTable = new ec2.RouteTable('PublicRouteTable')
+    let publicRouteTable = new wk.EC2.RouteTable('PublicRouteTable')
     publicRouteTable.VpcId.ref(vpc)
     publicRouteTable.Tags.add({ Key: 'Name', Value: 'PublicRouteTable' })
-    publicRouteTable.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
+    publicRouteTable.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
     t.addResource(publicRouteTable)
 
-    let routeTablePrivC = new ec2.RouteTable('RouteTablePrivC')
+    let routeTablePrivC = new wk.EC2.RouteTable('RouteTablePrivC')
     routeTablePrivC.VpcId.ref(vpc)
     routeTablePrivC.Tags.add({ Key: 'Name', Value: 'RouteTablePrivC' })
-    routeTablePrivC.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
+    routeTablePrivC.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
     t.addResource(routeTablePrivC)
 
-    let routeTablePrivD = new ec2.RouteTable('RouteTablePrivD')
+    let routeTablePrivD = new wk.EC2.RouteTable('RouteTablePrivD')
     routeTablePrivD.VpcId.ref(vpc)
     routeTablePrivD.Tags.add({ Key: 'Name', Value: 'RouteTablePrivD' })
-    routeTablePrivD.Tags.add({ Key: 'Group', Value: new wolkenkratzer.Ref(vPCTagParam) })
+    routeTablePrivD.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
     t.addResource(routeTablePrivD)
 
-    let publicIGWRoute = new ec2.Route('PublicIGWRoute')
+    let publicIGWRoute = new wk.EC2.Route('PublicIGWRoute')
     publicIGWRoute.RouteTableId.ref(publicRouteTable)
     publicIGWRoute.DestinationCidrBlock = '0.0.0.0/0'
     publicIGWRoute.GatewayId.ref(igw)
     t.addResource(publicIGWRoute)
 
-    let nATRoutePrivC = new ec2.Route('NATRoutePrivC')
+    let nATRoutePrivC = new wk.EC2.Route('NATRoutePrivC')
     nATRoutePrivC.RouteTableId.ref(routeTablePrivC)
     nATRoutePrivC.DestinationCidrBlock = '0.0.0.0/0'
     nATRoutePrivC.NatGatewayId.ref(natPubA)
     t.addResource(nATRoutePrivC)
 
-    let nATRoutePrivD = new ec2.Route('NATRoutePrivD')
+    let nATRoutePrivD = new wk.EC2.Route('NATRoutePrivD')
     nATRoutePrivD.RouteTableId.ref(routeTablePrivD)
     nATRoutePrivD.DestinationCidrBlock = '0.0.0.0/0'
     nATRoutePrivD.NatGatewayId.ref(natPubB)
     t.addResource(nATRoutePrivD)
 
-    let publicSubnetRouteTableAssociationA = new ec2.SubnetRouteTableAssociation('PublicSubnetRouteTableAssociationA')
+    let publicSubnetRouteTableAssociationA = new wk.EC2.SubnetRouteTableAssociation('PublicSubnetRouteTableAssociationA')
     publicSubnetRouteTableAssociationA.SubnetId.ref(publicSubnetPubA)
     publicSubnetRouteTableAssociationA.RouteTableId.ref(publicRouteTable)
     t.addResource(publicSubnetRouteTableAssociationA)
 
-    let publicSubnetRouteTableAssociationB = new ec2.SubnetRouteTableAssociation('PublicSubnetRouteTableAssociationB')
+    let publicSubnetRouteTableAssociationB = new wk.EC2.SubnetRouteTableAssociation('PublicSubnetRouteTableAssociationB')
     publicSubnetRouteTableAssociationB.SubnetId.ref(publicSubnetPubB)
     publicSubnetRouteTableAssociationB.RouteTableId.ref(publicRouteTable)
     t.addResource(publicSubnetRouteTableAssociationB)
 
-    let privateSubnetRouteTableAssociationPrivC = new ec2.SubnetRouteTableAssociation('PrivateSubnetRouteTableAssociationPrivC')
+    let privateSubnetRouteTableAssociationPrivC = new wk.EC2.SubnetRouteTableAssociation('PrivateSubnetRouteTableAssociationPrivC')
     privateSubnetRouteTableAssociationPrivC.SubnetId.ref(privateSubnetPrivC)
     privateSubnetRouteTableAssociationPrivC.RouteTableId.ref(routeTablePrivC)
     t.addResource(privateSubnetRouteTableAssociationPrivC)
 
-    let privateSubnetRouteTableAssociationPrivD = new ec2.SubnetRouteTableAssociation('PrivateSubnetRouteTableAssociationPrivD')
+    let privateSubnetRouteTableAssociationPrivD = new wk.EC2.SubnetRouteTableAssociation('PrivateSubnetRouteTableAssociationPrivD')
     privateSubnetRouteTableAssociationPrivD.SubnetId.ref(privateSubnetPrivD)
     privateSubnetRouteTableAssociationPrivD.RouteTableId.ref(routeTablePrivD)
     t.addResource(privateSubnetRouteTableAssociationPrivD)

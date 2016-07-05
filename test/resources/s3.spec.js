@@ -14,20 +14,19 @@ chai.should()
 var should = require('chai').should()
 
 // const _ = require('lodash')
-const wolkenkratzer = require(path.join(__dirname, '..', '..', 'index'))
-const s3 = require(path.join(__dirname, '..', '..', 'resources/s3'))
+const wk = require(path.join(__dirname, '..', '..', 'index'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
 describe('S3', () => {
-  let t = new wolkenkratzer.Template()
+  let t = new wk.Template()
 
-  let bucket = new s3.Bucket('newBucket')
+  let bucket = new wk.S3.Bucket('newBucket')
   bucket.BucketName = 'newBucket'
 
   t.addResource(bucket)
 
-  let bucketPolicy = new s3.BucketPolicy('newBucketPolicy')
+  let bucketPolicy = new wk.S3.BucketPolicy('newBucketPolicy')
   bucketPolicy.PolicyDocument = {
     'Statement': [{
       'Action': ['s3:GetObject'],

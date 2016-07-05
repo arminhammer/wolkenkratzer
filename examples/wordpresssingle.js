@@ -3,20 +3,20 @@
  */
 'use strict'
 
-const wolkenkratzer = require('../index')
+const wk = require('../index')
 
-let t = new wolkenkratzer.Template()
+let t = new wk.Template()
 
 t.addDescription('AWS CloudFormation Sample Template WordPress_Single_Instance: WordPress is web software you can use to create a beautiful website or blog. This template installs WordPress with a local MySQL database for storage. It demonstrates using the AWS CloudFormation bootstrap scripts to deploy WordPress. **WARNING** This template creates an Amazon EC2 instance. You will be billed for the AWS resources used if you create a stack from this template.')
 
-let keyNameParam = new wolkenkratzer.Parameter('KeyName', {
+let keyNameParam = new wk.Parameter('KeyName', {
   'Type': 'AWS::EC2::KeyPair::KeyName',
   'ConstraintDescription' : 'must be the name of an existing EC2 KeyPair.',
   'Description': 'Name of an existing EC2 KeyPair to enable SSH access to the instances'
 })
 t.addParameter(keyNameParam)
 
-let instanceTypeParam = new wolkenkratzer.Parameter('InstanceType', {
+let instanceTypeParam = new wk.Parameter('InstanceType', {
   'Description' : 'WebServer EC2 instance type',
   'Type' : 'String',
   'Default' : 't2.small',
@@ -25,7 +25,7 @@ let instanceTypeParam = new wolkenkratzer.Parameter('InstanceType', {
 })
 t.addParameter(instanceTypeParam)
 
-let sshLocationParam = new wolkenkratzer.Parameter('SSHLocation', {
+let sshLocationParam = new wk.Parameter('SSHLocation', {
   'Description': 'The IP address range that can be used to SSH to the EC2 instances',
   'Type': 'String',
   'MinLength': '9',
@@ -36,7 +36,7 @@ let sshLocationParam = new wolkenkratzer.Parameter('SSHLocation', {
 })
 t.addParameter(sshLocationParam)
 
-let dbNameParam = new wolkenkratzer.Parameter('DBName', {
+let dbNameParam = new wk.Parameter('DBName', {
   'Default': 'wordpressdb',
   'Description' : 'The WordPress database name',
   'Type': 'String',
@@ -47,7 +47,7 @@ let dbNameParam = new wolkenkratzer.Parameter('DBName', {
 })
 t.addParameter(dbNameParam)
 
-let dbUserParam = new wolkenkratzer.Parameter('DBUser', {
+let dbUserParam = new wk.Parameter('DBUser', {
   'NoEcho': 'true',
   'Description' : 'The WordPress database admin account username',
   'Type': 'String',
@@ -58,7 +58,7 @@ let dbUserParam = new wolkenkratzer.Parameter('DBUser', {
 })
 t.addParameter(dbUserParam)
 
-let dbPasswordParam = new wolkenkratzer.Parameter('DBPassword', {
+let dbPasswordParam = new wk.Parameter('DBPassword', {
   'NoEcho': 'true',
   'Description' : 'The WordPress database admin account password',
   'Type': 'String',
@@ -69,7 +69,7 @@ let dbPasswordParam = new wolkenkratzer.Parameter('DBPassword', {
 })
 t.addParameter(dbPasswordParam)
 
-let dbRootPasswordParam = new wolkenkratzer.Parameter('DBRootPassword', {
+let dbRootPasswordParam = new wk.Parameter('DBRootPassword', {
   'NoEcho': 'true',
   'Description' : 'MySQL root password',
   'Type': 'String',
@@ -80,14 +80,14 @@ let dbRootPasswordParam = new wolkenkratzer.Parameter('DBRootPassword', {
 })
 t.addParameter(dbRootPasswordParam)
 
-let webServerSecurityGroup = new wolkenkratzer.EC2.SecurityGroup('WebServerSecurityGroup')
+let webServerSecurityGroup = new wk.EC2.SecurityGroup('WebServerSecurityGroup')
 t.addResource(webServerSecurityGroup)
 webServerSecurityGroup.GroupDescription = 'Enable HTTP access via port 80 locked down to the load balancer + SSH access'
 
-let rule1 = new wolkenkratzer.Types.EC2SecurityGroupRulePropertyType({'IpProtocol' : 'tcp', 'FromPort' : 80, 'ToPort' : 80, 'CidrIp' : '0.0.0.0/0'})
+let rule1 = new wk.Types.EC2SecurityGroupRulePropertyType({'IpProtocol' : 'tcp', 'FromPort' : 80, 'ToPort' : 80, 'CidrIp' : '0.0.0.0/0'})
 webServerSecurityGroup.SecurityGroupIngress.push(rule1)
 
-let rule2 = new wolkenkratzer.Types.EC2SecurityGroupRulePropertyType()
+let rule2 = new wk.Types.EC2SecurityGroupRulePropertyType()
 rule2.IpProtocol = 'tcp'
 rule2.FromPort = 22
 rule2.ToPort = 22
@@ -220,12 +220,12 @@ t.addMapping('AWSRegionArch2AMI', {
   'cn-north-1'       : {'PV64' : 'ami-77559f1a', 'HVM64' : 'ami-8e6aa0e3', 'HVMG2' : 'NOT_SUPPORTED'}
 })
 
-let webServer = new wolkenkratzer.EC2.Instance('WebServer')
+let webServer = new wk.EC2.Instance('WebServer')
 webServer.ImageId.findInMap('AWSRegionArch2AMI', { 'Ref' : 'AWS::Region' }, { 'Fn::FindInMap' : [ 'AWSInstanceType2Arch', { 'Ref' : 'InstanceType' }, 'Arch' ] })
 t.addResource(webServer)
 
 webServer.InstanceType.ref(instanceTypeParam)
-webServer.SecurityGroups.push( new wolkenkratzer.Intrinsic.Ref(webServerSecurityGroup) )
+webServer.SecurityGroups.push( new wk.Intrinsic.Ref(webServerSecurityGroup) )
 webServer.KeyName.ref(keyNameParam)
 webServer.UserData.base64({ 'Fn::Join' : ['', [
   '#!/bin/bash -xe\n',
@@ -244,66 +244,66 @@ webServer.UserData.base64({ 'Fn::Join' : ['', [
 ]]})
 
 
-let webSiteUrlOutput = new wolkenkratzer.Output('WebsiteURL', {
+let webSiteUrlOutput = new wk.Output('WebsiteURL', {
   'Value' : { 'Fn::Join' : ['', ['http://', { 'Fn::GetAtt' : [ 'WebServer', 'PublicDnsName' ]}, '/wordpress' ]]},
   'Description' : 'WordPress Website'
 })
 
-let set_mysql_root_password = new wolkenkratzer.Init.Command('01_set_mysql_root_password')
+let set_mysql_root_password = new wk.Init.Command('01_set_mysql_root_password')
 set_mysql_root_password.command = { 'Fn::Join' : ['', ['mysqladmin -u root password \'', { 'Ref' : 'DBRootPassword' }, '\'']]}
 set_mysql_root_password.test = { 'Fn::Join' : ['', ['$(mysql ', { 'Ref' : 'DBName' }, ' -u root --password=\'', { 'Ref' : 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))']]}
 
-let create_database = new wolkenkratzer.Init.Command('02_create_database')
+let create_database = new wk.Init.Command('02_create_database')
 create_database.command = { 'Fn::Join': ['', ['mysql -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' < /tmp/setup.mysql']] }
 create_database.test = { 'Fn::Join': ['', ['$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))']] }
 
-let configure_wordpressCMD = new wolkenkratzer.Init.Command('03_configure_wordpress')
+let configure_wordpressCMD = new wk.Init.Command('03_configure_wordpress')
 configure_wordpressCMD.command = '/tmp/create-wp-config'
 configure_wordpressCMD.cwd = '/var/www/html/wordpress'
 
-let configure_wordpress = new wolkenkratzer.Init.Config('configure_wordpress')
+let configure_wordpress = new wk.Init.Config('configure_wordpress')
 configure_wordpress.add(set_mysql_root_password)
 configure_wordpress.add(create_database)
 configure_wordpress.add(configure_wordpressCMD)
 
 webServer.addConfig(configure_wordpress)
 
-let cfnHup = new wolkenkratzer.Init.File('/etc/cfn/cfn-hup.conf')
+let cfnHup = new wk.Init.File('/etc/cfn/cfn-hup.conf')
 cfnHup.content = { 'Fn::Join': ['', [ '[main]\n', 'stack=', { 'Ref': 'AWS::StackId' }, '\n', 'region=', { 'Ref': 'AWS::Region' }, '\n' ]] }
 cfnHup.mode = '000400'
 cfnHup.owner = 'root'
 cfnHup.group = 'root'
 
-let cfnAutoReloader = new wolkenkratzer.Init.File('/etc/cfn/hooks.d/cfn-auto-reloader.conf')
+let cfnAutoReloader = new wk.Init.File('/etc/cfn/hooks.d/cfn-auto-reloader.conf')
 cfnAutoReloader.content = { 'Fn::Join': ['', [ '[cfn-auto-reloader-hook]\n',   'triggers=post.update\n',   'path=Resources.WebServer.Metadata.AWS::CloudFormation::Init\n', 'action=/opt/aws/bin/cfn-init -v ', '         --stack ', { 'Ref': 'AWS::StackName' }, '         --resource WebServer ', '         --configsets wordpress_install ', '         --region ', { 'Ref': 'AWS::Region' }, '\n' ]] }
 cfnAutoReloader.mode = '000400'
 cfnAutoReloader.owner = 'root'
 cfnAutoReloader.group = 'root'
 
-let cfnHupService = new wolkenkratzer.Init.Service('cfn-hup')
+let cfnHupService = new wk.Init.Service('cfn-hup')
 cfnHupService.enabled = 'true'
 cfnHupService.ensureRunning = 'true'
 cfnHupService.files = ['/etc/cfn/cfn-hup.conf', '/etc/cfn/hooks.d/cfn-auto-reloader.conf']
 
-let install_cfn = new wolkenkratzer.Init.Config('install_cfn')
+let install_cfn = new wk.Init.Config('install_cfn')
 install_cfn.add(cfnHup)
 install_cfn.add(cfnAutoReloader)
 install_cfn.add(cfnHupService)
 webServer.addConfig(install_cfn)
 
-let createWPConfig = new wolkenkratzer.Init.File('/tmp/create-wp-config')
+let createWPConfig = new wk.Init.File('/tmp/create-wp-config')
 createWPConfig.content = { 'Fn::Join' : [ '', [ '#!/bin/bash -xe\n', 'cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n', 'sed -i \"s/\'database_name_here\'/\'',{ 'Ref' : 'DBName' }, '\'/g\" wp-config.php\n', 'sed -i \"s/\'username_here\'/\'',{ 'Ref' : 'DBUser' }, '\'/g\" wp-config.php\n', 'sed -i \"s/\'password_here\'/\'',{ 'Ref' : 'DBPassword' }, '\'/g\" wp-config.php\n' ]]}
 createWPConfig.mode = '000500'
 createWPConfig.owner = 'root'
 createWPConfig.group = 'root'
 
-let setupMysql = new wolkenkratzer.Init.File('/tmp/setup.mysql')
+let setupMysql = new wk.Init.File('/tmp/setup.mysql')
 setupMysql.content = { 'Fn::Join' : ['', [ 'CREATE DATABASE ', { 'Ref' : 'DBName' }, ';\n',   'CREATE USER \'', { 'Ref' : 'DBUser' }, '\'@\'localhost\' IDENTIFIED BY \'', { 'Ref' : 'DBPassword' }, '\';\n',   'GRANT ALL ON ', { 'Ref' : 'DBName' }, '.* TO \'', { 'Ref' : 'DBUser' }, '\'@\'localhost\';\n', 'FLUSH PRIVILEGES;\n' ]]}
 setupMysql.mode = '000400'
 setupMysql.owner = 'root'
 setupMysql.group = 'root'
 
-let wpPackages = new wolkenkratzer.Init.Packages('yum', {
+let wpPackages = new wk.Init.Packages('yum', {
   'php'          : [],
   'php-mysql'    : [],
   'mysql'        : [],
@@ -313,17 +313,17 @@ let wpPackages = new wolkenkratzer.Init.Packages('yum', {
   'httpd'        : []
 })
 
-let httpd = new wolkenkratzer.Init.Service('httpd')
+let httpd = new wk.Init.Service('httpd')
 httpd.enabled = 'true'
 httpd.ensureRunning = 'true'
 
-let mysqld = new wolkenkratzer.Init.Service('mysqld')
+let mysqld = new wk.Init.Service('mysqld')
 mysqld.enabled = 'true'
 mysqld.ensureRunning = 'true'
 
-let htmlSource = new wolkenkratzer.Init.Source('/var/www/html', "http://wordpress.org/latest.tar.gz")
+let htmlSource = new wk.Init.Source('/var/www/html', "http://wordpress.org/latest.tar.gz")
 
-let install_wordpress = new wolkenkratzer.Init.Config('install_wordpress')
+let install_wordpress = new wk.Init.Config('install_wordpress')
 install_wordpress.add(createWPConfig)
 install_wordpress.add(setupMysql)
 install_wordpress.add(wpPackages)
@@ -332,13 +332,13 @@ install_wordpress.add(mysqld)
 install_wordpress.add(htmlSource)
 webServer.addConfig(install_wordpress)
 
-let wordpress_install = new wolkenkratzer.Init.ConfigSet('wordpress_install')
+let wordpress_install = new wk.Init.ConfigSet('wordpress_install')
 wordpress_install.add(install_cfn)
 wordpress_install.add(install_wordpress)
 wordpress_install.add(configure_wordpress)
 webServer.addConfigSet(wordpress_install)
 
-let cPolicy = new wolkenkratzer.Policy.CreationPolicy({
+let cPolicy = new wk.Policy.CreationPolicy({
   'ResourceSignal': {
     'Timeout': 'PT15M'
   }
