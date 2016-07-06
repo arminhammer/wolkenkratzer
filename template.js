@@ -4,7 +4,7 @@
 'use strict'
 const ValueException = require('./exceptions').ValueException
 const TypeException = require('./exceptions').TypeException
-const output = require('./output')
+const Output = require('./output')
 
 class Template {
   constructor () {
@@ -46,11 +46,11 @@ class Template {
     }
     return values
   }
-  addOutput (newOutput) {
-    if(!(newOutput instanceof output.Output)) {
-      throw new TypeException(newOutput + ' is not of type Output')
+  addOutput (output) {
+    if(!(output instanceof Output.Output)) {
+      throw new TypeException(output + ' is not of type Output')
     }
-    return this._update(this.Outputs, newOutput)
+    return this._update(this.Outputs, output)
   }
   addMapping (name, mapping) {
     this.Mappings[name] = mapping

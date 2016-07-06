@@ -25,7 +25,29 @@ class BaseAWSObject {
     }
     if (propertiesObject) {
       for (let prop in propertiesObject) {
-        this.properties[prop] = propertiesObject[prop]
+        if(this.properties[prop]) {
+          let property = propertiesObject[prop]
+          if(typeof property === 'string') {
+            property = new String(property)
+          } else if(typeof property === 'boolean') {
+            property = new Boolean(property)
+          } else if(typeof property === 'number') {
+            property = new Number(property)
+          }
+          if(this.properties[prop].Type) {
+            if(property instanceof this.properties[prop].Type) {
+            } else {
+              try {
+                property = new this.properties[prop].Type(property)
+              } catch(e) {
+              }
+            }
+            try {
+              this.properties[prop].set(propertiesObject[prop])
+            } catch (e) {
+            }
+          }
+        }
       }
     }
   }
