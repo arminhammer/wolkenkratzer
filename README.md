@@ -51,6 +51,42 @@ This results in the template:
 }
 ```
 
+### Template class
+
+#### constructor
+
+Template has a no-argument constructor:
+
+```javascript let t = new wolkenkratzer.Template()```
+
+#### addDescription (description)
+
+Add a description to the template.
+
+#### addMetadata (metadata)
+
+Add a Metadata block to the template.
+
+#### addCondition (name, condition)
+
+Add a condition with a name to the template.
+
+#### addOutput (output)
+
+Add an output to the template.
+
+#### addMapping (name, mapping)
+
+Add a mapping with a name to the template.
+
+#### addParameter (parameter)
+
+Add a parameter to the template.
+
+#### addResource (resource)
+
+Add a resource to the template.
+
 ### Intrinsic Functions
 
 Intrinsic functions such as Ref and Fn::GetAtt are supported. Any resource can associate with other elements by using the corresponding intrinsic function:
