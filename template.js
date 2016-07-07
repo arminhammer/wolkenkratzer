@@ -56,7 +56,7 @@ class Template {
   addMapping (map, mapping) {
     // If the first parameter is a Mapping, add it
     if(map instanceof Mapping) {
-      this.Mappings[map.Name] = map
+      this.Mappings[map.WKName] = map
     } else {
       // Support pure JSON with two parameters
       this.Mappings[map] = mapping

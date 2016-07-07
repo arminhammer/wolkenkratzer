@@ -151,7 +151,8 @@ class BaseAWSObject {
 }
 
 class SubPropertyObject {
-  constructor (properties, propertiesObject, conditional) {
+  constructor (name, properties, propertiesObject, conditional) {
+    this.WKName = name
     this.properties = properties
     this.conditional = conditional
     for (let prop in this.properties) {
@@ -191,6 +192,9 @@ class SubPropertyObject {
       }
     }
     return newProperties
+  }
+  toString () {
+    return this.WKName
   }
 }
 

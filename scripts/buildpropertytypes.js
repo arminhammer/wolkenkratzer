@@ -96,7 +96,7 @@ let props = fs
         }
       }
       result += '    }\n'
-      result += '    super(properties, propertiesObject)\n'
+      result += '    super(\''+ subProp.name + '\', properties, propertiesObject)\n'
       result += '  }\n'
       result += '}\n\n'
     }
