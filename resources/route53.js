@@ -33,7 +33,7 @@ class RecordSet extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Route53::RecordSet'
     let properties = {
-      AliasTarget: new resource.ResourceProperty('AliasTarget', Number, 'Conditional', null),
+      AliasTarget: new resource.ResourceProperty('AliasTarget', types.Route53AliasTargetProperty, 'Conditional', null),
       Comment: new resource.ResourceProperty('Comment', String, 'No', null),
       Failover: new resource.ResourceProperty('Failover', String, 'No', null),
       GeoLocation: new resource.ResourceProperty('GeoLocation', types.AmazonRoute53RecordSetGeoLocationProperty, 'No', null),

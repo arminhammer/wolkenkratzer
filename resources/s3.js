@@ -18,7 +18,7 @@ class Bucket extends baseawsobject.BaseAWSObject {
       ReplicationConfiguration: new resource.ResourceProperty('ReplicationConfiguration', types.AmazonS3ReplicationConfiguration, 'No', null),
       Tags: new tag.TagSet(),
       VersioningConfiguration: new resource.ResourceProperty('VersioningConfiguration', types.AmazonS3VersioningConfiguration, 'No', null),
-      WebsiteConfiguration: new resource.ResourceProperty('WebsiteConfiguration', Number, 'No', null)
+      WebsiteConfiguration: new resource.ResourceProperty('WebsiteConfiguration', types.AmazonS3WebsiteConfigurationProperty, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

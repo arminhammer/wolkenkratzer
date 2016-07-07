@@ -37,10 +37,10 @@ t.addMapping(region2S3WebsiteSuffixMap)
 
 let s3BucketForWebsiteContent = new wk.S3.Bucket('S3BucketForWebsiteContent')
 s3BucketForWebsiteContent.AccessControl = 'PublicRead'
-//let webConfig = new wk.Types.AmazonS3WebsiteConfigurationProperty()
-//webConfig.IndexDocument = 'index.html'
-//webConfig.ErrorDocument = 'error.html'
-//s3BucketForWebsiteContent.WebsiteConfiguration = webConfig
+let webConfig = new wk.Types.AmazonS3WebsiteConfigurationProperty()
+webConfig.IndexDocument = 'index.html'
+webConfig.ErrorDocument = 'error.html'
+s3BucketForWebsiteContent.WebsiteConfiguration = webConfig
 
 t.addResource(s3BucketForWebsiteContent)
 

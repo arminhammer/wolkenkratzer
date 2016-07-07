@@ -111,23 +111,26 @@ let props = fs
             break
           case 'EC2SecurityGroupRule':
             propType = 'EC2SecurityGroupRulePropertyType'
-              break
+            break
           case 'WebsiteConfigurationType':
             propType = 'AmazonS3WebsiteConfigurationProperty'
+            break
           case 'AliasTarget':
             propType = 'Route53AliasTargetProperty'
+            break
           case 'NumberWeightexpectsintegervalues':
             propType = 'Number'
+            break
           default:
             break
         }
         if(!((propType === 'String') ||
-          (propType === 'Date') ||
-          (propType === 'Number') ||
-          (propType === 'Boolean') ||
-          (propType === 'Map') ||
-          (propType === 'Object') ||
-          (propType === 'RecordSet')
+            (propType === 'Date') ||
+            (propType === 'Number') ||
+            (propType === 'Boolean') ||
+            (propType === 'Map') ||
+            (propType === 'Object') ||
+            (propType === 'RecordSet')
           )) {
           propType = 'types.' + propType
         }
@@ -162,8 +165,8 @@ let props = fs
     }
   })
   /*.then((resourceBody) => {
-    return fs.writeFileAsync('../resources/autogenresources/resources.js', resourceBody)
-  })*/
+   return fs.writeFileAsync('../resources/autogenresources/resources.js', resourceBody)
+   })*/
   .then(() => {
     return Object.keys(groups)
   })
