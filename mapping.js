@@ -9,12 +9,12 @@
 
 class Mapping {
   constructor (name, body) {
-    this.Name = name
+    this.WKName = name
     this.body = body
   }
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
-    delete p.Name
+    delete p.WKName
     return p.body
   }
 }

@@ -7,11 +7,11 @@ const TypeException = require('./exceptions').TypeException
 
 class Policy {
   constructor (name) {
-    this.Name = name
+    this.WKName = name
   }
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
-    delete p.Name
+    delete p.WKName
     return p
   }
 }

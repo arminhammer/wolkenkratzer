@@ -13,7 +13,7 @@ class Ref extends Intrinsic {
     this.ref = resource
   }
   toJson () {
-    return { 'Ref': this.ref.Name }
+    return { 'Ref': this.ref.WKName }
   }
 }
 
@@ -24,7 +24,7 @@ class FnGetAtt extends Intrinsic {
     this.attribute = attribute
   }
   toJson () {
-    return { 'Fn::GetAtt': [this.resource.Name, this.attribute] }
+    return { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
   }
 }
 

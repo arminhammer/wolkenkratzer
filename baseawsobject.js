@@ -9,7 +9,7 @@ const Policy = require('./policy').Policy
 
 class BaseAWSObject {
   constructor (name, resourceType, properties, propertiesObject, conditional) {
-    this.Name = name
+    this.WKName = name
     this.resourceType = resourceType
     this.properties = properties
     this.conditional = conditional
@@ -65,9 +65,9 @@ class BaseAWSObject {
           configSets: {}
         }
       }
-      this.Metadata['AWS::CloudFormation::Init'][config.Name] = config
+      this.Metadata['AWS::CloudFormation::Init'][config.WKName] = config
     } else {
-      throw new TypeException('Not allowed to add ' + config + 'to ' + this.Name + ' because it is not an Instance or LaunchConfiguration')
+      throw new TypeException('Not allowed to add ' + config + 'to ' + this.WKName + ' because it is not an Instance or LaunchConfiguration')
     }
   }
   addConfigSet (configSet) {
@@ -81,9 +81,9 @@ class BaseAWSObject {
           configSets: {}
         }
       }
-      this.Metadata['AWS::CloudFormation::Init'].configSets[configSet.Name] = configSet.configs
+      this.Metadata['AWS::CloudFormation::Init'].configSets[configSet.WKName] = configSet.configs
     } else {
-      throw new TypeException('Not allowed to add ' + configSet + 'to ' + this.Name + ' because it is not an Instance or LaunchConfiguration')
+      throw new TypeException('Not allowed to add ' + configSet + 'to ' + this.WKName + ' because it is not an Instance or LaunchConfiguration')
     }
   }
   addPolicy (policy) {
@@ -91,7 +91,7 @@ class BaseAWSObject {
       this.policies = {}
     }
     if(policy instanceof Policy) {
-      this.policies[policy.Name] = policy
+      this.policies[policy.WKName] = policy
     } else {
       throw new TypeException(policy + ' must be of type Policy')
     }
@@ -105,7 +105,7 @@ class BaseAWSObject {
         if (e instanceof RequiredPropertyException) {
           console.log('THIS:')
           console.log(this)
-          throw new RequiredPropertyException(this.Name + '.' + prop + ' is required but not defined.')
+          throw new RequiredPropertyException(this.WKName + '.' + prop + ' is required but not defined.')
         }
       }
     }
@@ -114,7 +114,7 @@ class BaseAWSObject {
         this.conditional(this.properties)
       } catch (e) {
         if (e instanceof ConditionNotMetException) {
-          throw new ConditionNotMetException(this.Name + ' has a condition that was not met: ' + e.message)
+          throw new ConditionNotMetException(this.WKName + ' has a condition that was not met: ' + e.message)
         }
       }
     }
@@ -144,7 +144,7 @@ class BaseAWSObject {
       }
     }
     if (this.dependsOn) {
-      returnObject.DependsOn = this.dependsOn.Name
+      returnObject.DependsOn = this.dependsOn.WKName
     }
     return returnObject
   }
@@ -177,7 +177,7 @@ class SubPropertyObject {
         newProperties[prop] = this.properties[prop].toJson()
       } catch (e) {
         if (e instanceof RequiredPropertyException) {
-          throw new RequiredPropertyException(this.Name + '.' + prop + ' is required but not defined.')
+          throw new RequiredPropertyException(this.WKName + '.' + prop + ' is required but not defined.')
         }
       }
     }
@@ -186,7 +186,7 @@ class SubPropertyObject {
         this.conditional(this.properties)
       } catch (e) {
         if (e instanceof ConditionNotMetException) {
-          throw new ConditionNotMetException(this.Name + ' has a condition that was not met: ' + e.message)
+          throw new ConditionNotMetException(this.WKName + ' has a condition that was not met: ' + e.message)
         }
       }
     }

@@ -34,16 +34,16 @@ class Template {
   _update (d, values) {
     if (Array.isArray(values)) {
       values.forEach((v) => {
-        if (v.Name in d) {
-          this.handleDuplicateKey(v.Name)
+        if (v.WKName in d) {
+          this.handleDuplicateKey(v.WKName)
         }
-        d[v.Name] = v
+        d[v.WKName] = v
       })
     } else {
-      if (values.Name in d) {
-        this.handleDuplicateKey(values.Name)
+      if (values.WKName in d) {
+        this.handleDuplicateKey(values.WKName)
       }
-      d[values.Name] = values
+      d[values.WKName] = values
     }
     return values
   }

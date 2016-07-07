@@ -7,11 +7,11 @@ const TypeException = require('./exceptions').TypeException
 
 class Block {
   constructor(name) {
-    this.Name = name
+    this.WKName = name
   }
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
-    delete p.Name
+    delete p.WKName
     return p
   }
 }
@@ -82,7 +82,7 @@ class Source extends Block {
 
 class Config {
   constructor (name) {
-    this.Name = name
+    this.WKName = name
     this.commands = {}
     this.files = {}
     this.packages = {}
@@ -93,23 +93,23 @@ class Config {
   }
   add (block) {
     if(block instanceof Command) {
-      this.commands[block.Name] = block
+      this.commands[block.WKName] = block
     } else if(block instanceof File) {
-      this.files[block.Name] = block
+      this.files[block.WKName] = block
     } else if(block instanceof Packages) {
-      this.packages[block.Name] = block
+      this.packages[block.WKName] = block
     } else if(block instanceof Service) {
-      this.services.sysvinit[block.Name] = block
+      this.services.sysvinit[block.WKName] = block
     } else if(block instanceof Source) {
-      this.sources[block.Name] = block
+      this.sources[block.WKName] = block
     }
     else {
-      throw new TypeException(block.Name + ' is not a proper type for ConfigSet ' + this.Name)
+      throw new TypeException(block.WKName + ' is not a proper type for ConfigSet ' + this.Name)
     }
   }
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
-    delete p.Name
+    delete p.WKName
     for(let block in p) {
       if(Object.keys(p[block]).length === 0) {
         delete p[block]
@@ -136,15 +136,15 @@ class Config {
 
 class ConfigSet {
   constructor (name) {
-    this.Name = name
+    this.WKName = name
     this.configs = []
   }
   add (config) {
-    this.configs.push(config.Name)
+    this.configs.push(config.WKName)
   }
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
-    delete p.Name
+    delete p.WKName
     return p
   }
 }

@@ -5,13 +5,13 @@
 
 class Output {
   constructor (name, parameter) {
-    this.Name = name
+    this.WKName = name
     this.Description = parameter.Description
     this.Value = parameter.Value
   }
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
-    delete p.Name
+    delete p.WKName
     return p
   }
 }

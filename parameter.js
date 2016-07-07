@@ -5,7 +5,7 @@
 
 class Parameter {
   constructor (name, parameter) {
-    this.Name = name
+    this.WKName = name
     this.Type = parameter.Type
     this.AllowedPattern = parameter.AllowedPattern
     this.AllowedValues = parameter.AllowedValues
@@ -20,7 +20,7 @@ class Parameter {
   }
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
-    delete p.Name
+    delete p.WKName
     return p
   }
 }
