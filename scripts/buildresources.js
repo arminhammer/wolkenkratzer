@@ -112,6 +112,12 @@ let props = fs
           case 'EC2SecurityGroupRule':
             propType = 'EC2SecurityGroupRulePropertyType'
               break
+          case 'WebsiteConfigurationType':
+            propType = 'AmazonS3WebsiteConfigurationProperty'
+          case 'AliasTarget':
+            propType = 'Route53AliasTargetProperty'
+          case 'NumberWeightexpectsintegervalues':
+            propType = 'Number'
           default:
             break
         }

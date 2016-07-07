@@ -3,24 +3,25 @@
  */
 'use strict'
 const path = require('path')
-const Template = require('./template').Template
-const Tag = require('./tag').Tag
-const TagSet = require('./tag').TagSet
-const Intrinsic = require('./intrinsic')
-const Ref = require('./intrinsic').Ref
-const FnGetAtt = require('./intrinsic').FnGetAtt
-const Parameter = require('./parameter').Parameter
-// const BaseAWSObject = require('./baseawsobject').BaseAWSObject
-const SubPropertyObject = require('./baseawsobject').SubPropertyObject
-const ResourceProperty = require('./resourceproperty').ResourceProperty
-const ResourceArray = require('./resourceproperty').ResourceArray
-const TypeException = require('./exceptions').TypeException
-const RequiredPropertyException = require('./exceptions').RequiredPropertyException
-const ValueException = require('./exceptions').ValueException
-const Types = require('./types')
-const Output = require('./output').Output
-const Init = require('./init')
-const Policy = require('./policy')
+const Template = require(path.join(__dirname, 'template')).Template
+const Tag = require(path.join(__dirname, 'tag')).Tag
+const TagSet = require(path.join(__dirname,'tag')).TagSet
+const Intrinsic = require(path.join(__dirname, '/intrinsic'))
+const Ref = require(path.join(__dirname, '/intrinsic')).Ref
+const FnGetAtt = require(path.join(__dirname, '/intrinsic')).FnGetAtt
+const Parameter = require(path.join(__dirname, '/parameter')).Parameter
+// const BaseAWSObject = require(path.join(__dirname, '/baseawsobject')).BaseAWSObject
+const SubPropertyObject = require(path.join(__dirname, '/baseawsobject')).SubPropertyObject
+const ResourceProperty = require(path.join(__dirname, '/resourceproperty')).ResourceProperty
+const ResourceArray = require(path.join(__dirname, '/resourceproperty')).ResourceArray
+const TypeException = require(path.join(__dirname, '/exceptions')).TypeException
+const RequiredPropertyException = require(path.join(__dirname, '/exceptions')).RequiredPropertyException
+const ValueException = require(path.join(__dirname, '/exceptions')).ValueException
+const Types = require(path.join(__dirname, '/types'))
+const Output = require(path.join(__dirname, '/output')).Output
+const Init = require(path.join(__dirname, '/init'))
+const Policy = require(path.join(__dirname, '/policy'))
+const Mapping = require(path.join(__dirname, '/mapping')).Mapping
 
 const ApiGateway = require(path.join(__dirname, 'resources/apigateway'))
 const AutoScaling = require(path.join(__dirname, 'resources/autoscaling'))
@@ -132,5 +133,6 @@ module.exports = {
   TypeException: TypeException,
   RequiredPropertyException: RequiredPropertyException,
   ValueException: ValueException,
-  FnGetAtt: FnGetAtt
+  FnGetAtt: FnGetAtt,
+  Mapping: Mapping
 }

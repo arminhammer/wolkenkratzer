@@ -33,7 +33,7 @@ class RecordSet extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Route53::RecordSet'
     let properties = {
-      AliasTarget: new resource.ResourceProperty(types.AliasTarget, 'Conditional', null),
+      AliasTarget: new resource.ResourceProperty(Number, 'Conditional', null),
       Comment: new resource.ResourceProperty(String, 'No', null),
       Failover: new resource.ResourceProperty(String, 'No', null),
       GeoLocation: new resource.ResourceProperty(types.AmazonRoute53RecordSetGeoLocationProperty, 'No', null),
@@ -45,7 +45,7 @@ class RecordSet extends baseawsobject.BaseAWSObject {
       SetIdentifier: new resource.ResourceProperty(String, 'Conditional', null),
       TTL: new resource.ResourceProperty(String, 'Conditional', null),
       Type: new resource.ResourceProperty(String, 'Yes', null),
-      Weight: new resource.ResourceProperty(types.NumberWeightexpectsintegervalues, 'Conditional', null)
+      Weight: new resource.ResourceProperty(Number, 'Conditional', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

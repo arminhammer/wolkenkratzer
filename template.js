@@ -4,6 +4,7 @@
 'use strict'
 const ValueException = require('./exceptions').ValueException
 const TypeException = require('./exceptions').TypeException
+const Mapping = require('./mapping').Mapping
 const Output = require('./output')
 
 class Template {
@@ -52,8 +53,14 @@ class Template {
     }
     return this._update(this.Outputs, output)
   }
-  addMapping (name, mapping) {
-    this.Mappings[name] = mapping
+  addMapping (map, mapping) {
+    // If the first parameter is a Mapping, add it
+    if(map instanceof Mapping) {
+      this.Mappings[map.Name] = map
+    } else {
+      // Support pure JSON with two parameters
+      this.Mappings[map] = mapping
+    }
   }
   addParameter (parameter) {
     return this._update(this.Parameters, parameter)
@@ -74,6 +81,13 @@ class Template {
     }
     for (let output in this.Outputs) {
       j.Outputs[output] = this.Outputs[output].toJson()
+    }
+    for (let map in this.Mappings) {
+      if(this.Mappings[map] instanceof Mapping) {
+        j.Mappings[map] = this.Mappings[map].toJson()
+      } else {
+        j.Mappings[map] = this.Mappings[map]
+      }
     }
     if(Object.keys(j.Metadata).length === 0) {
       delete j.Metadata

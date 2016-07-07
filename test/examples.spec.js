@@ -68,4 +68,29 @@ describe('Examples', () => {
         jsonString.should.deep.equal(file)
       })
   })
+
+  /*
+  it('Should correctly create the s3CloudFront template', () => {
+    let file = ''
+    return fs
+      .readJsonAsync(path.join(__dirname, 'templates', 's3CloudFront.json'))
+      .then((readFile) => {
+        //console.log('Read file!')
+        file = readFile
+        return new BPromise((resolve, reject) => {
+          execFile('node', ['s3CloudFront'], { cwd: path.join(__dirname, '..', 'examples') }, (error, stdout, stderr) => {
+            if (error) {
+              reject(error)
+            } else if(stderr) {
+              reject(stderr)
+            }
+            resolve(stdout)
+          })
+        })
+      })
+      .then((result) => {
+        let jsonString = JSON.parse(result)
+        jsonString.should.deep.equal(file)
+      })
+  })*/
 })

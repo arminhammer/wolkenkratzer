@@ -30,8 +30,6 @@ class ResourceProperty {
     if (valueType instanceof this.Type) {
       this.val = value
     } else {
-      //console.log('typeof is')
-      //console.log(typeof valueType)
       throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
     }
   }

@@ -32,7 +32,7 @@ class Alias extends baseawsobject.BaseAWSObject {
   }
 }
 
-class LambdaFunction extends baseawsobject.BaseAWSObject {
+class Function extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Function'
     let properties = {
@@ -79,7 +79,7 @@ class Version extends baseawsobject.BaseAWSObject {
 module.exports = {
   EventSourceMapping: EventSourceMapping,
   Alias: Alias,
-  LambdaFunction: LambdaFunction,
+  Function: Function,
   Permission: Permission,
   Version: Version
 }

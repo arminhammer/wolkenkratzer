@@ -103,6 +103,8 @@ class BaseAWSObject {
         newProperties[prop] = this.properties[prop].toJson()
       } catch (e) {
         if (e instanceof RequiredPropertyException) {
+          console.log('THIS:')
+          console.log(this)
           throw new RequiredPropertyException(this.Name + '.' + prop + ' is required but not defined.')
         }
       }
