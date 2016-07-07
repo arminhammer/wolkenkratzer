@@ -58,14 +58,16 @@ class FnFindInMap extends Intrinsic {
  toJson () {}
  }*/
 
-/* class FnJoin extends Intrinsic {
- constructor (delimiter, values) {
- super()
- this.delimiter = delimiter
- this.values = values
- }
- toJson () {}
- }*/
+class FnJoin extends Intrinsic {
+  constructor (delimiter, values) {
+    super()
+    this.delimiter = delimiter
+    this.values = values
+  }
+  toJson () {
+    return { "Fn::Join" : [ this.delimiter, this.values ] }
+  }
+}
 
 /* class FnSelect extends Intrinsic {
  constructor (index, list) {
@@ -116,5 +118,6 @@ module.exports = {
   Intrinsic: Intrinsic,
   FnGetAtt: FnGetAtt,
   FnBase64: FnBase64,
-  FnFindInMap: FnFindInMap
+  FnFindInMap: FnFindInMap,
+  FnJoin: FnJoin
 }

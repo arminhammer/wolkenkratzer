@@ -3,7 +3,7 @@
  */
 'use strict'
 
-const wk = require('../index')
+const wk = require('../../index')
 
 let t = new wk.Template()
 
@@ -44,26 +44,58 @@ s3BucketForWebsiteContent.WebsiteConfiguration = webConfig
 
 t.addResource(s3BucketForWebsiteContent)
 
-/*let websiteDNSName = new wk.Route53.RecordSet('WebsiteDNSName')
+let websiteDNSName = new wk.Route53.RecordSet('WebsiteDNSName')
 websiteDNSName.Type = 'CNAME'
 websiteDNSName.TTL = '900'
 websiteDNSName.Comment = 'CNAME redirect custom name to CloudFront distribution'
-
+websiteDNSName.Name.join('', [{'Ref' : 'AWS::StackName'}, {'Ref' : 'AWS::AccountId'}, '.', {'Ref' : 'AWS::Region'}, '.', { 'Ref' : 'HostedZone' }])
+websiteDNSName.ResourceRecords.join('', ['http://', {'Fn::GetAtt' : ['WebsiteCDN', 'DomainName'] } ])
+websiteDNSName.HostedZoneName.join('', [ { 'Ref' : 'HostedZone' }, '.'] )
 t.addResource(websiteDNSName)
-*/
-/*
-  "WebsiteDNSName" : {
-  "Type" : "AWS::Route53::RecordSet",
-    "Properties" : {
-    "HostedZoneName" : { "Fn::Join" : [ "", [{ "Ref" : "HostedZone" }, "."]]},
-    "Comment" : "CNAME redirect custom name to CloudFront distribution",
-      "Name" : { "Fn::Join" : [ "", [{"Ref" : "AWS::StackName"}, {"Ref" : "AWS::AccountId"}, ".", {"Ref" : "AWS::Region"}, ".", { "Ref" : "HostedZone" }]]},
-    "Type" : "CNAME",
-      "TTL" : "900",
-      "ResourceRecords" : [{ "Fn::Join" : [ "", ["http://", {"Fn::GetAtt" : ["WebsiteCDN", "DomainName"]} ]]}]
-  }
-}*/
 
+/*let websiteCDN = new wk.CloudFront.Distribution('WebsiteCDN')
+let distConfigOrigin = new wk.Types.CloudFrontDistributionConfigOrigin()
+let defaultCacheBehavior = new wk.Types.CloudFrontDefaultCacheBehavior()
+let forwardedValues = new wk.Types.CloudFrontForwardedValues()
+forwardedValues.QueryString = true
+defaultCacheBehavior.ForwardedValues = forwardedValues
+defaultCacheBehavior.TargetOriginId = 'only-origin'
+defaultCacheBehavior.ViewerProtocolPolicy = 'allow-all'
+let distConfig = new wk.Types.CloudFrontDistributionConfig()
+distConfig.Comment = 'CDN for S3-backed website'
+distConfig.Origin = distConfigOrigin
+websiteCDN.DistributionConfig = distConfig
+websiteCDN.DefaultCacheBehavior = defaultCacheBehavior
+t.addResource(websiteCDN)*/
+/*
+'WebsiteCDN' : {
+  'Type' : 'AWS::CloudFront::Distribution',
+    'Properties' : {
+    'DistributionConfig' : {
+      'Comment' : 'CDN for S3-backed website',
+        'Aliases' : [{ 'Fn::Join' : [ '', [{'Ref' : 'AWS::StackName'}, {'Ref' : 'AWS::AccountId'}, '.', {'Ref' : 'AWS::Region'}, '.', { 'Ref' : 'HostedZone' }]]}],
+        'Enabled' : 'true',
+        'DefaultCacheBehavior' : {
+        'ForwardedValues' : { 'QueryString' : 'true' },
+        'TargetOriginId' : 'only-origin',
+          'ViewerProtocolPolicy' : 'allow-all'
+      },
+      'DefaultRootObject' : 'index.html',
+        'Origins' : [
+        { 'CustomOriginConfig' :
+        {
+          'HTTPPort' : '80',
+          'HTTPSPort' : '443',
+          'OriginProtocolPolicy' : 'http-only'
+        },
+          'DomainName' : { 'Fn::Join' : ['', [{'Ref' : 'S3BucketForWebsiteContent'},
+            {'Fn::FindInMap' : [ 'Region2S3WebsiteSuffix', {'Ref' : 'AWS::Region'}, 'Suffix' ]}]]},
+          'Id' : 'only-origin'
+        }]
+    }
+  }
+},
+*/
 /*
 t.addOutput(new wk.Output('WebsiteURL', {
   'Value' : {'Fn::Join' : [ '', ['http://', {'Ref' : 'WebsiteDNSName'} ]] },
@@ -73,6 +105,6 @@ t.addOutput(new wk.Output('WebsiteURL', {
 t.addOutput(new wk.Output('BucketName', {
   'Value' : { 'Ref' : 'S3BucketForWebsiteContent' },
   'Description' : 'Name of S3 bucket to hold website content'
-}))*/
-
+}))
+*/
 console.log(t.toJson())

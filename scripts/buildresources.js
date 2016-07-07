@@ -121,6 +121,9 @@ let props = fs
           case 'NumberWeightexpectsintegervalues':
             propType = 'Number'
             break
+          case 'DistributionConfigtype':
+            propType = 'CloudFrontDistributionConfig'
+            break
           default:
             break
         }

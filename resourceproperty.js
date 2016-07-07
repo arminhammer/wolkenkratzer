@@ -8,6 +8,7 @@ const Intrinsic = require('./intrinsic').Intrinsic
 const FnGetAtt = require('./intrinsic').FnGetAtt
 const FnFindInMap = require('./intrinsic').FnFindInMap
 const FnBase64 = require('./intrinsic').FnBase64
+const FnJoin = require('./intrinsic').FnJoin
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const TypeException = require('./exceptions').TypeException
 const SubPropertyObject = require('./baseawsobject').SubPropertyObject
@@ -43,6 +44,9 @@ class ResourceProperty {
   }
   findInMap (map, top, second) {
     this.val = new FnFindInMap(map, top, second)
+  }
+  join (delimiter, values) {
+    this.val = new FnJoin(delimiter, values)
   }
   base64 (content) {
     this.val = new FnBase64(content)
