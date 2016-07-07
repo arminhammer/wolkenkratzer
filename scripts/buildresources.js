@@ -135,7 +135,7 @@ let props = fs
         if(name === 'Tags') {
           resourceBody += '      ' + name + ': new tag.TagSet()'
         } else {
-          resourceBody += '      ' + name + ': new resource.' + wkType + '(' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
+          resourceBody += '      ' + name + ': new resource.' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
         }
 
         if (i === (props.length - 1)) {

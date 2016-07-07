@@ -88,7 +88,7 @@ let props = fs
             break
         }
         let name = props[i].replace(/ \(.+\)/g,'')
-        result += '      ' + name + ': new ' + wkType + '(' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
+        result += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
         if (i === (props.length - 1)) {
           result += '\n'
         } else {

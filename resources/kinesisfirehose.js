@@ -9,10 +9,10 @@ class DeliveryStream extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::KinesisFirehose::DeliveryStream'
     let properties = {
-      DeliveryStreamName: new resource.ResourceProperty(String, 'No', null),
-      ElasticsearchDestinationConfiguration: new resource.ResourceProperty(types.AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration, 'Conditional', null),
-      RedshiftDestinationConfiguration: new resource.ResourceProperty(types.AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration, 'Conditional', null),
-      S3DestinationConfiguration: new resource.ResourceProperty(types.AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration, 'Conditional', null)
+      DeliveryStreamName: new resource.ResourceProperty('DeliveryStreamName', String, 'No', null),
+      ElasticsearchDestinationConfiguration: new resource.ResourceProperty('ElasticsearchDestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration, 'Conditional', null),
+      RedshiftDestinationConfiguration: new resource.ResourceProperty('RedshiftDestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration, 'Conditional', null),
+      S3DestinationConfiguration: new resource.ResourceProperty('S3DestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration, 'Conditional', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

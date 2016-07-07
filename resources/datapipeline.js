@@ -9,13 +9,13 @@ class Pipeline extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::DataPipeline::Pipeline'
     let properties = {
-      Activate: new resource.ResourceProperty(Boolean, 'No', null),
-      Description: new resource.ResourceProperty(String, 'No', null),
-      Name: new resource.ResourceProperty(String, 'Yes', null),
-      ParameterObjects: new resource.ResourceProperty(types.AWSDataPipelinePipelineParameterObjects, 'No', null),
-      ParameterValues: new resource.ResourceProperty(types.AWSDataPipelinePipelineParameterValues, 'No', null),
-      PipelineObjects: new resource.ResourceArray(types.AWSDataPipelinePipelineObjects, 'Yes', null),
-      PipelineTags: new resource.ResourceProperty(types.AWSDataPipelinePipelinePipelineTags, 'No', null)
+      Activate: new resource.ResourceProperty('Activate', Boolean, 'No', null),
+      Description: new resource.ResourceProperty('Description', String, 'No', null),
+      Name: new resource.ResourceProperty('Name', String, 'Yes', null),
+      ParameterObjects: new resource.ResourceProperty('ParameterObjects', types.AWSDataPipelinePipelineParameterObjects, 'No', null),
+      ParameterValues: new resource.ResourceProperty('ParameterValues', types.AWSDataPipelinePipelineParameterValues, 'No', null),
+      PipelineObjects: new resource.ResourceArray('PipelineObjects', types.AWSDataPipelinePipelineObjects, 'Yes', null),
+      PipelineTags: new resource.ResourceProperty('PipelineTags', types.AWSDataPipelinePipelinePipelineTags, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

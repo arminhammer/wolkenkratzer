@@ -9,7 +9,7 @@ class Document extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::SSM::Document'
     let properties = {
-      Content: new resource.ResourceProperty(Object, 'Yes', null)
+      Content: new resource.ResourceProperty('Content', Object, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

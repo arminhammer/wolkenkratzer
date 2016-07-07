@@ -9,8 +9,8 @@ class Repository extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::ECR::Repository'
     let properties = {
-      RepositoryName: new resource.ResourceProperty(String, 'No', null),
-      RepositoryPolicyText: new resource.ResourceProperty(Object, 'No', null)
+      RepositoryName: new resource.ResourceProperty('RepositoryName', String, 'No', null),
+      RepositoryPolicyText: new resource.ResourceProperty('RepositoryPolicyText', Object, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

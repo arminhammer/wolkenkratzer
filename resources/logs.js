@@ -9,10 +9,10 @@ class Destination extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Logs::Destination'
     let properties = {
-      DestinationName: new resource.ResourceProperty(String, 'Yes', null),
-      DestinationPolicy: new resource.ResourceProperty(String, 'Yes', null),
-      RoleArn: new resource.ResourceProperty(String, 'Yes', null),
-      TargetArn: new resource.ResourceProperty(String, 'Yes', null)
+      DestinationName: new resource.ResourceProperty('DestinationName', String, 'Yes', null),
+      DestinationPolicy: new resource.ResourceProperty('DestinationPolicy', String, 'Yes', null),
+      RoleArn: new resource.ResourceProperty('RoleArn', String, 'Yes', null),
+      TargetArn: new resource.ResourceProperty('TargetArn', String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -22,7 +22,7 @@ class LogGroup extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogGroup'
     let properties = {
-      RetentionInDays: new resource.ResourceProperty(Number, 'No', null)
+      RetentionInDays: new resource.ResourceProperty('RetentionInDays', Number, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -32,8 +32,8 @@ class LogStream extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogStream'
     let properties = {
-      LogGroupName: new resource.ResourceProperty(String, 'Yes', null),
-      LogStreamName: new resource.ResourceProperty(String, 'No', null)
+      LogGroupName: new resource.ResourceProperty('LogGroupName', String, 'Yes', null),
+      LogStreamName: new resource.ResourceProperty('LogStreamName', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -43,9 +43,9 @@ class MetricFilter extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Logs::MetricFilter'
     let properties = {
-      FilterPattern: new resource.ResourceArray(String, 'Yes', null),
-      LogGroupName: new resource.ResourceProperty(String, 'Yes', null),
-      MetricTransformations: new resource.ResourceArray(types.CloudWatchLogsMetricFilterMetricTransformationProperty, 'Yes', null)
+      FilterPattern: new resource.ResourceArray('FilterPattern', String, 'Yes', null),
+      LogGroupName: new resource.ResourceProperty('LogGroupName', String, 'Yes', null),
+      MetricTransformations: new resource.ResourceArray('MetricTransformations', types.CloudWatchLogsMetricFilterMetricTransformationProperty, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -55,10 +55,10 @@ class SubscriptionFilter extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::Logs::SubscriptionFilter'
     let properties = {
-      DestinationArn: new resource.ResourceProperty(String, 'Yes', null),
-      FilterPattern: new resource.ResourceProperty(String, 'Yes', null),
-      LogGroupName: new resource.ResourceProperty(String, 'Yes', null),
-      RoleArn: new resource.ResourceProperty(String, 'No', null)
+      DestinationArn: new resource.ResourceProperty('DestinationArn', String, 'Yes', null),
+      FilterPattern: new resource.ResourceProperty('FilterPattern', String, 'Yes', null),
+      LogGroupName: new resource.ResourceProperty('LogGroupName', String, 'Yes', null),
+      RoleArn: new resource.ResourceProperty('RoleArn', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

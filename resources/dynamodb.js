@@ -9,13 +9,13 @@ class Table extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::DynamoDB::Table'
     let properties = {
-      AttributeDefinitions: new resource.ResourceArray(types.DynamoDBAttributeDefinitions, 'Yes', null),
-      GlobalSecondaryIndexes: new resource.ResourceArray(types.DynamoDBGlobalSecondaryIndexes, 'No', null),
-      KeySchema: new resource.ResourceArray(types.DynamoDBKeySchema, 'Yes', null),
-      LocalSecondaryIndexes: new resource.ResourceArray(types.DynamoDBLocalSecondaryIndexes, 'No', null),
-      ProvisionedThroughput: new resource.ResourceProperty(types.DynamoDBProvisionedThroughput, 'Yes', null),
-      StreamSpecification: new resource.ResourceProperty(types.DynamoDBTableStreamSpecification, 'No', null),
-      TableName: new resource.ResourceProperty(String, 'No', null)
+      AttributeDefinitions: new resource.ResourceArray('AttributeDefinitions', types.DynamoDBAttributeDefinitions, 'Yes', null),
+      GlobalSecondaryIndexes: new resource.ResourceArray('GlobalSecondaryIndexes', types.DynamoDBGlobalSecondaryIndexes, 'No', null),
+      KeySchema: new resource.ResourceArray('KeySchema', types.DynamoDBKeySchema, 'Yes', null),
+      LocalSecondaryIndexes: new resource.ResourceArray('LocalSecondaryIndexes', types.DynamoDBLocalSecondaryIndexes, 'No', null),
+      ProvisionedThroughput: new resource.ResourceProperty('ProvisionedThroughput', types.DynamoDBProvisionedThroughput, 'Yes', null),
+      StreamSpecification: new resource.ResourceProperty('StreamSpecification', types.DynamoDBTableStreamSpecification, 'No', null),
+      TableName: new resource.ResourceProperty('TableName', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

@@ -9,7 +9,7 @@ class Distribution extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::CloudFront::Distribution'
     let properties = {
-      DistributionConfig: new resource.ResourceProperty(types.DistributionConfigtype, 'Yes', null)
+      DistributionConfig: new resource.ResourceProperty('DistributionConfig', types.DistributionConfigtype, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

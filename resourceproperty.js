@@ -13,8 +13,9 @@ const TypeException = require('./exceptions').TypeException
 const SubPropertyObject = require('./baseawsobject').SubPropertyObject
 
 class ResourceProperty {
-  constructor (Type, required, value) {
-    this.Type = Type
+  constructor (name, type, required, value) {
+    this.WKName = name
+    this.Type = type
     this.required = required
     this.val = value
   }
@@ -30,11 +31,7 @@ class ResourceProperty {
     if (valueType instanceof this.Type) {
       this.val = value
     } else {
-      /*console.log('this:')
-      console.log(this)
-      console.log('value:')
-      console.log(valueType)*/
-      throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
+      throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)
     }
   }
   get () { return this.val }
@@ -65,8 +62,8 @@ class ResourceProperty {
 }
 
 class ResourceArray extends ResourceProperty {
-  constructor(Type, required, value) {
-    super(Type, required, value)
+  constructor(name, type, required, value) {
+    super(name, type, required, value)
   }
   set (value) {
     if (!Array.isArray(value)) {

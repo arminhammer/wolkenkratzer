@@ -9,16 +9,16 @@ class Bucket extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::S3::Bucket'
     let properties = {
-      AccessControl: new resource.ResourceProperty(String, 'No', null),
-      BucketName: new resource.ResourceProperty(String, 'No', null),
-      CorsConfiguration: new resource.ResourceProperty(types.AmazonS3CorsConfiguration, 'No', null),
-      LifecycleConfiguration: new resource.ResourceProperty(types.AmazonS3LifecycleConfiguration, 'No', null),
-      LoggingConfiguration: new resource.ResourceProperty(types.AmazonS3LoggingConfiguration, 'No', null),
-      NotificationConfiguration: new resource.ResourceProperty(types.AmazonS3NotificationConfiguration, 'No', null),
-      ReplicationConfiguration: new resource.ResourceProperty(types.AmazonS3ReplicationConfiguration, 'No', null),
+      AccessControl: new resource.ResourceProperty('AccessControl', String, 'No', null),
+      BucketName: new resource.ResourceProperty('BucketName', String, 'No', null),
+      CorsConfiguration: new resource.ResourceProperty('CorsConfiguration', types.AmazonS3CorsConfiguration, 'No', null),
+      LifecycleConfiguration: new resource.ResourceProperty('LifecycleConfiguration', types.AmazonS3LifecycleConfiguration, 'No', null),
+      LoggingConfiguration: new resource.ResourceProperty('LoggingConfiguration', types.AmazonS3LoggingConfiguration, 'No', null),
+      NotificationConfiguration: new resource.ResourceProperty('NotificationConfiguration', types.AmazonS3NotificationConfiguration, 'No', null),
+      ReplicationConfiguration: new resource.ResourceProperty('ReplicationConfiguration', types.AmazonS3ReplicationConfiguration, 'No', null),
       Tags: new tag.TagSet(),
-      VersioningConfiguration: new resource.ResourceProperty(types.AmazonS3VersioningConfiguration, 'No', null),
-      WebsiteConfiguration: new resource.ResourceProperty(Number, 'No', null)
+      VersioningConfiguration: new resource.ResourceProperty('VersioningConfiguration', types.AmazonS3VersioningConfiguration, 'No', null),
+      WebsiteConfiguration: new resource.ResourceProperty('WebsiteConfiguration', Number, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -28,8 +28,8 @@ class BucketPolicy extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::S3::BucketPolicy'
     let properties = {
-      Bucket: new resource.ResourceProperty(String, 'Yes', null),
-      PolicyDocument: new resource.ResourceProperty(Object, 'Yes', null)
+      Bucket: new resource.ResourceProperty('Bucket', String, 'Yes', null),
+      PolicyDocument: new resource.ResourceProperty('PolicyDocument', Object, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

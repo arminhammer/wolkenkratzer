@@ -9,10 +9,10 @@ class Key extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::KMS::Key'
     let properties = {
-      Description: new resource.ResourceProperty(String, 'No', null),
-      Enabled: new resource.ResourceProperty(Boolean, 'No', null),
-      EnableKeyRotation: new resource.ResourceProperty(Boolean, 'No', null),
-      KeyPolicy: new resource.ResourceProperty(Object, 'Yes', null)
+      Description: new resource.ResourceProperty('Description', String, 'No', null),
+      Enabled: new resource.ResourceProperty('Enabled', Boolean, 'No', null),
+      EnableKeyRotation: new resource.ResourceProperty('EnableKeyRotation', Boolean, 'No', null),
+      KeyPolicy: new resource.ResourceProperty('KeyPolicy', Object, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

@@ -9,16 +9,16 @@ class Trail extends baseawsobject.BaseAWSObject {
   constructor(name, propertiesObject) {
     let resourceType = 'AWS::CloudTrail::Trail'
     let properties = {
-      CloudWatchLogsLogGroupArn: new resource.ResourceProperty(String, 'Conditional', null),
-      CloudWatchLogsRoleArn: new resource.ResourceProperty(String, 'No', null),
-      EnableLogFileValidation: new resource.ResourceProperty(Boolean, 'No', null),
-      IncludeGlobalServiceEvents: new resource.ResourceProperty(Boolean, 'No', null),
-      IsLogging: new resource.ResourceProperty(Boolean, 'Yes', null),
-      IsMultiRegionTrail: new resource.ResourceProperty(Boolean, 'No', null),
-      KMSKeyId: new resource.ResourceProperty(String, 'No', null),
-      S3BucketName: new resource.ResourceProperty(String, 'Yes', null),
-      S3KeyPrefix: new resource.ResourceProperty(String, 'No', null),
-      SnsTopicName: new resource.ResourceProperty(String, 'No', null),
+      CloudWatchLogsLogGroupArn: new resource.ResourceProperty('CloudWatchLogsLogGroupArn', String, 'Conditional', null),
+      CloudWatchLogsRoleArn: new resource.ResourceProperty('CloudWatchLogsRoleArn', String, 'No', null),
+      EnableLogFileValidation: new resource.ResourceProperty('EnableLogFileValidation', Boolean, 'No', null),
+      IncludeGlobalServiceEvents: new resource.ResourceProperty('IncludeGlobalServiceEvents', Boolean, 'No', null),
+      IsLogging: new resource.ResourceProperty('IsLogging', Boolean, 'Yes', null),
+      IsMultiRegionTrail: new resource.ResourceProperty('IsMultiRegionTrail', Boolean, 'No', null),
+      KMSKeyId: new resource.ResourceProperty('KMSKeyId', String, 'No', null),
+      S3BucketName: new resource.ResourceProperty('S3BucketName', String, 'Yes', null),
+      S3KeyPrefix: new resource.ResourceProperty('S3KeyPrefix', String, 'No', null),
+      SnsTopicName: new resource.ResourceProperty('SnsTopicName', String, 'No', null),
       Tags: new tag.TagSet()
     }
     super(name, resourceType, properties, propertiesObject)
