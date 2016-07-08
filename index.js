@@ -50,7 +50,7 @@ const GameLift = require(path.join(__dirname, 'resources/gamelift'))
 const IAM = require(path.join(__dirname, 'resources/iam'))
 const Kinesis = require(path.join(__dirname, 'resources/kinesis'))
 const KMS = require(path.join(__dirname, 'resources/kms'))
-/*const lambda = require(path.join(__dirname, 'resources/lambda'))*/
+const Lambda = require(path.join(__dirname, 'resources/lambda'))
 const Logs = require(path.join(__dirname, 'resources/logs'))
 const OpsWorks = require(path.join(__dirname, 'resources/opsworks'))
 const RDS = require(path.join(__dirname, 'resources/rds'))
@@ -106,7 +106,7 @@ module.exports = {
   IAM:IAM,
   Kinesis:Kinesis,
   KMS:KMS,
-  /*const lambda:lambda,*/
+  Lambda:Lambda,
   Logs:Logs,
   OpsWorks:OpsWorks,
   RDS:RDS,

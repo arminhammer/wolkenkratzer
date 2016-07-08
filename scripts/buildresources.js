@@ -22,8 +22,11 @@ let props = fs
 
     for(let subType in file) {
       let subProp = file[subType]
-      //console.log(subProp)
       let resourceName = subProp.name.replace(/AWS::\w+::/g,'')
+      // Lambda's Function in this case conflicts with Javascript Function.
+      if(resourceName === 'Function') {
+        resourceName = 'LambdaFunction'
+      }
       let exportLine = (resourceName + ': ' + resourceName)
       let resourceBody = ''
       resourceBody += 'class ' + resourceName + ' extends baseawsobject.BaseAWSObject {\n'
