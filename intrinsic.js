@@ -15,6 +15,9 @@ class Ref extends Intrinsic {
   toJson () {
     return { 'Ref': this.ref.WKName }
   }
+  toJSON () {
+    return { 'Ref': this.ref.WKName }
+  }
 }
 
 class FnGetAtt extends Intrinsic {
@@ -24,6 +27,9 @@ class FnGetAtt extends Intrinsic {
     this.attribute = attribute
   }
   toJson () {
+    return { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
+  }
+  toJSON () {
     return { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
   }
 }
@@ -36,6 +42,9 @@ class FnBase64 extends Intrinsic {
   toJson () {
     return { "Fn::Base64": this.content }
   }
+  toJSON () {
+    return { "Fn::Base64": this.content }
+  }
 }
 
 class FnFindInMap extends Intrinsic {
@@ -46,6 +55,9 @@ class FnFindInMap extends Intrinsic {
     this.secondLevelKey = secondLevelKey
   }
   toJson () {
+    return { "Fn::FindInMap": [ this.mapName, this.topLevelKey, this.secondLevelKey ] }
+  }
+  toJSON () {
     return { "Fn::FindInMap": [ this.mapName, this.topLevelKey, this.secondLevelKey ] }
   }
 }
@@ -65,6 +77,9 @@ class FnJoin extends Intrinsic {
     this.values = values
   }
   toJson () {
+    return { "Fn::Join": [ this.delimiter, this.values ] }
+  }
+  toJSON () {
     return { "Fn::Join": [ this.delimiter, this.values ] }
   }
 }

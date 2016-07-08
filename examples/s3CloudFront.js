@@ -84,47 +84,16 @@ distConfig.DefaultCacheBehavior = defaultCacheBehavior
 
 websiteCDN.DistributionConfig = distConfig
 
-//console.log(JSON.stringify(distConfigOrigin.toJson(), null, 2))
-
-//console.log(websiteCDN.toJson())
 t.addResource(websiteCDN)
-/*
-'WebsiteCDN' : {
-  'Type' : 'AWS::CloudFront::Distribution',
-    'Properties' : {
-    'DistributionConfig' : {
-      'Comment' : 'CDN for S3-backed website',
-        'Aliases' : [{ 'Fn::Join' : [ '', [{'Ref' : 'AWS::StackName'}, {'Ref' : 'AWS::AccountId'}, '.', {'Ref' : 'AWS::Region'}, '.', { 'Ref' : 'HostedZone' }]]}],
-        'Enabled' : 'true',
-        'DefaultCacheBehavior' : {
-        'ForwardedValues' : { 'QueryString' : 'true' },
-        'TargetOriginId' : 'only-origin',
-          'ViewerProtocolPolicy' : 'allow-all'
-      },
-      'DefaultRootObject' : 'index.html',
-        'Origins' : [
-        { 'CustomOriginConfig' :
-        {
-          'HTTPPort' : '80',
-          'HTTPSPort' : '443',
-          'OriginProtocolPolicy' : 'http-only'
-        },
-          'DomainName' : { 'Fn::Join' : ['', [{'Ref' : 'S3BucketForWebsiteContent'},
-            {'Fn::FindInMap' : [ 'Region2S3WebsiteSuffix', {'Ref' : 'AWS::Region'}, 'Suffix' ]}]]},
-          'Id' : 'only-origin'
-        }]
-    }
-  }
-},
-*/
 
 t.addOutput(new wk.Output('WebsiteURL', {
-  'Value' : {'Fn::Join' : [ '', ['http://', {'Ref' : 'WebsiteDNSName'} ]] },
+  //'Value' : {'Fn::Join' : [ '', ['http://', new wk.Intrinsic.Ref(websiteDNSName) ]] },
+  'Value' : new wk.Intrinsic.FnJoin('', ['http://', new wk.Intrinsic.Ref(websiteDNSName)]),
   'Description' : 'The URL of the newly created website'
 }))
 
 t.addOutput(new wk.Output('BucketName', {
-  'Value' : { 'Ref' : 'S3BucketForWebsiteContent' },
+  'Value' : new wk.Intrinsic.Ref(s3BucketForWebsiteContent),
   'Description' : 'Name of S3 bucket to hold website content'
 }))
 
