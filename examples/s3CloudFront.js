@@ -4,6 +4,7 @@
 'use strict'
 
 const wk = require('../index')
+const Ref = wk.Intrinsic.Ref
 
 let t = new wk.Template()
 
@@ -48,16 +49,16 @@ let websiteDNSName = new wk.Route53.RecordSet('WebsiteDNSName')
 websiteDNSName.Type = 'CNAME'
 websiteDNSName.TTL = '900'
 websiteDNSName.Comment = 'CNAME redirect custom name to CloudFront distribution'
-websiteDNSName.Name.join('', [{'Ref' : 'AWS::StackName'}, {'Ref' : 'AWS::AccountId'}, '.', {'Ref' : 'AWS::Region'}, '.', { 'Ref' : 'HostedZone' }])
-websiteDNSName.ResourceRecords.join('', ['http://', {'Fn::GetAtt' : ['WebsiteCDN', 'DomainName'] } ])
-websiteDNSName.HostedZoneName.join('', [ { 'Ref' : 'HostedZone' }, '.'] )
+websiteDNSName.Name.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam)])
+websiteDNSName.ResourceRecords.join('', ['http://', new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName') ])
+websiteDNSName.HostedZoneName.join('', [ new Ref(hostedZoneParam), '.'] )
 t.addResource(websiteDNSName)
 
 let websiteCDN = new wk.CloudFront.Distribution('WebsiteCDN')
 
 let distConfigOrigin = new wk.Types.CloudFrontDistributionConfigOrigin()
-distConfigOrigin.DomainName.join('', [{'Ref' : 'S3BucketForWebsiteContent'},
-  {'Fn::FindInMap' : [ 'Region2S3WebsiteSuffix', {'Ref' : 'AWS::Region'}, 'Suffix' ]}])
+distConfigOrigin.DomainName.join('', [ new Ref(s3BucketForWebsiteContent),
+  new wk.Intrinsic.FnFindInMap('Region2S3WebsiteSuffix', new Ref(wk.Pseudo.AWS_REGION), 'Suffix') ])
 distConfigOrigin.Id = 'only-origin'
 let customOriginConfig = new wk.Types.CloudFrontDistributionConfigOriginCustomOrigin()
 customOriginConfig.HTTPPort = '80'
@@ -75,7 +76,7 @@ defaultCacheBehavior.ViewerProtocolPolicy = 'allow-all'
 
 let distConfig = new wk.Types.CloudFrontDistributionConfig()
 distConfig.Comment = 'CDN for S3-backed website'
-distConfig.Aliases.join('', [{'Ref' : 'AWS::StackName'}, {'Ref' : 'AWS::AccountId'}, '.', {'Ref' : 'AWS::Region'}, '.', { 'Ref' : 'HostedZone' }])
+distConfig.Aliases.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam)])
 
 distConfig.Origins.push(distConfigOrigin)
 distConfig.Enabled = true
@@ -87,13 +88,12 @@ websiteCDN.DistributionConfig = distConfig
 t.addResource(websiteCDN)
 
 t.addOutput(new wk.Output('WebsiteURL', {
-  //'Value' : {'Fn::Join' : [ '', ['http://', new wk.Intrinsic.Ref(websiteDNSName) ]] },
-  'Value' : new wk.Intrinsic.FnJoin('', ['http://', new wk.Intrinsic.Ref(websiteDNSName)]),
+  'Value' : new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
   'Description' : 'The URL of the newly created website'
 }))
 
 t.addOutput(new wk.Output('BucketName', {
-  'Value' : new wk.Intrinsic.Ref(s3BucketForWebsiteContent),
+  'Value' : new Ref(s3BucketForWebsiteContent),
   'Description' : 'Name of S3 bucket to hold website content'
 }))
 

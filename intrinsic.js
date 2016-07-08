@@ -3,6 +3,9 @@
  */
 'use strict'
 
+const BaseAWSObject = require('./baseawsobject').BaseAWSObject
+const Parameter = require('./parameter').Parameter
+
 class Intrinsic {
   toJson () {}
 }
@@ -16,7 +19,11 @@ class Ref extends Intrinsic {
     return { 'Ref': this.ref.WKName }
   }
   toJSON () {
-    return { 'Ref': this.ref.WKName }
+    if(this.ref instanceof BaseAWSObject || this.ref instanceof Parameter) {
+      return { 'Ref': this.ref.WKName }
+    } else {
+      return { 'Ref': this.ref }
+    }
   }
 }
 
@@ -30,6 +37,11 @@ class FnGetAtt extends Intrinsic {
     return { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
   }
   toJSON () {
+    if(this.resource instanceof BaseAWSObject || this.resource instanceof Parameter) {
+      return { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
+    } else {
+      return { 'Fn::GetAtt': [this.resource, this.attribute] }
+    }
     return { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
   }
 }

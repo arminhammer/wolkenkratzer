@@ -70,12 +70,14 @@ const Retain = 'Retain'
 const Snapshot = 'Snapshot'*/
 
 // Pseudo Parameters
-/* const AWS_ACCOUNT_ID = 'AWS::AccountId'
-const AWS_NOTIFICATION_ARNS = 'AWS::NotificationARNs'
-const AWS_NO_VALUE = 'AWS::NoValue'
-const AWS_REGION = 'AWS::Region'
-const AWS_STACK_ID = 'AWS::StackId'
-const AWS_STACK_NAME = 'AWS::StackName'*/
+const Pseudo = {
+  AWS_ACCOUNT_ID: 'AWS::AccountId',
+  AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
+  AWS_NO_VALUE: 'AWS::NoValue',
+  AWS_REGION: 'AWS::Region',
+  AWS_STACK_ID: 'AWS::StackId',
+  AWS_STACK_NAME: 'AWS::StackName'
+}
 
 module.exports = {
   ApiGateway: ApiGateway,
@@ -134,5 +136,6 @@ module.exports = {
   RequiredPropertyException: RequiredPropertyException,
   ValueException: ValueException,
   FnGetAtt: FnGetAtt,
-  Mapping: Mapping
+  Mapping: Mapping,
+  Pseudo: Pseudo
 }
