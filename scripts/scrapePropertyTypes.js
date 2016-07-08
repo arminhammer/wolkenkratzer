@@ -35,6 +35,9 @@ links()
               attributes.Type = attr
             } else if(attr.startsWith('Required:')) {
               attributes.Required = attr
+            } else if(attr.startsWith('Type')) {
+              // Handle CustomErrorResponses on http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distributionconfig.html
+              attributes.Type = attr
             } else {
               attributes.Description += attr
             }
@@ -46,7 +49,7 @@ links()
             }
           }
           if(attributes.Type) {
-            attributes.Type = attributes.Type.replace(/Type: /g,'').replace(/\s/g,'')
+            attributes.Type = attributes.Type.replace(/^Type: /g,'').replace(/^Type /g,'').replace(/\s/g,'')
             if(attributes.Type === 'Mappingofkey-valuepairs') {
               attributes.Type = 'Map'
             }

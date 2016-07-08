@@ -176,7 +176,7 @@ class SubPropertyObject {
         newProperties[prop] = this.properties[prop].toJson()
       } catch (e) {
         if (e instanceof RequiredPropertyException) {
-          throw new RequiredPropertyException(this.WKName + '.' + prop + ' is required but not defined.')
+          throw new RequiredPropertyException(this.WKName + '.' + prop + ' is required but not defined: ' + e.message)
         }
       }
     }

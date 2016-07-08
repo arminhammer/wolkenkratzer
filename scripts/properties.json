@@ -526,8 +526,11 @@
         "Type": "String"
       },
       "CustomErrorResponses": {
-        "Description": "Whether CloudFront replaces HTTP status codes in the 4xx and\n                     5xx range with custom error messages before returning the response\n                  to the viewer.Type List of CloudFront\n      DistributionConfig CustomErrorResponse",
-        "Required": "No"
+        "Description": "Whether CloudFront replaces HTTP status codes in the 4xx and\n                     5xx range with custom error messages before returning the response\n                  to the viewer.",
+        "Required": "No",
+        "Type": [
+          "CloudFrontDistributionConfigCustomErrorResponse"
+        ]
       },
       "DefaultCacheBehavior": {
         "Description": "The default cache behavior that is triggered if you do not specify the\n                     CacheBehavior property or if files don't match any of the values\n                  of PathPattern in the CacheBehavior property.",

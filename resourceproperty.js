@@ -124,8 +124,6 @@ class ResourceArray extends ResourceProperty {
           }
         }
         return propArray
-        //console.log('array is ' + this.val)
-        //console.log(this.val)
       }
     } else {
       if (this.required === 'Yes') { throw new RequiredPropertyException('this value is required') }

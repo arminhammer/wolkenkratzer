@@ -235,7 +235,7 @@ class CloudFrontDistributionConfig extends SubPropertyObject {
       Aliases: new ResourceArray('Aliases', String, 'No', null),
       CacheBehaviors: new ResourceArray('CacheBehaviors', CloudFrontDistributionConfigCacheBehavior, 'No', null),
       Comment: new ResourceProperty('Comment', String, 'No', null),
-      CustomErrorResponses: new ResourceProperty('CustomErrorResponses', undefined, 'No', null),
+      CustomErrorResponses: new ResourceArray('CustomErrorResponses', CloudFrontDistributionConfigCustomErrorResponse, 'No', null),
       DefaultCacheBehavior: new ResourceProperty('DefaultCacheBehavior', CloudFrontDefaultCacheBehavior, 'Yes', null),
       DefaultRootObject: new ResourceProperty('DefaultRootObject', String, 'No', null),
       Enabled: new ResourceProperty('Enabled', Boolean, 'Yes', null),
