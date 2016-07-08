@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class DBCluster extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBCluster'
     let properties = {
       AvailabilityZones: new resource.ResourceProperty('AvailabilityZones', String, 'No', null),
@@ -32,7 +32,7 @@ class DBCluster extends baseawsobject.BaseAWSObject {
 }
 
 class DBClusterParameterGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBClusterParameterGroup'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'Yes', null),
@@ -45,7 +45,7 @@ class DBClusterParameterGroup extends baseawsobject.BaseAWSObject {
 }
 
 class DBInstance extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBInstance'
     let properties = {
       AllocatedStorage: new resource.ResourceProperty('AllocatedStorage', String, 'Conditional', null),
@@ -86,7 +86,7 @@ class DBInstance extends baseawsobject.BaseAWSObject {
 }
 
 class DBParameterGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBParameterGroup'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'Yes', null),
@@ -99,7 +99,7 @@ class DBParameterGroup extends baseawsobject.BaseAWSObject {
 }
 
 class DBSecurityGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSecurityGroup'
     let properties = {
       EC2VpcId: new resource.ResourceProperty('EC2VpcId', String, 'Conditional', null),
@@ -112,7 +112,7 @@ class DBSecurityGroup extends baseawsobject.BaseAWSObject {
 }
 
 class DBSecurityGroupIngress extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSecurityGroupIngress'
     let properties = {
       CIDRIP: new resource.ResourceProperty('CIDRIP', String, 'undefined', null),
@@ -126,7 +126,7 @@ class DBSecurityGroupIngress extends baseawsobject.BaseAWSObject {
 }
 
 class DBSubnetGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSubnetGroup'
     let properties = {
       DBSubnetGroupDescription: new resource.ResourceProperty('DBSubnetGroupDescription', String, 'Yes', null),
@@ -138,7 +138,7 @@ class DBSubnetGroup extends baseawsobject.BaseAWSObject {
 }
 
 class EventSubscription extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::EventSubscription'
     let properties = {
       Enabled: new resource.ResourceProperty('Enabled', Boolean, 'No', null),
@@ -152,7 +152,7 @@ class EventSubscription extends baseawsobject.BaseAWSObject {
 }
 
 class OptionGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::OptionGroup'
     let properties = {
       EngineName: new resource.ResourceProperty('EngineName', String, 'Yes', null),

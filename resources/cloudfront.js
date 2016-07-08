@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Distribution extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFront::Distribution'
     let properties = {
       DistributionConfig: new resource.ResourceProperty('DistributionConfig', types.CloudFrontDistributionConfig, 'Yes', null)

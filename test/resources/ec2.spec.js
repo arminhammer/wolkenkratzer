@@ -1,6 +1,8 @@
 /**
  * Created by arming on 6/5/16.
  */
+
+/* global describe it */
 'use strict'
 
 const path = require('path')
@@ -14,8 +16,7 @@ const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
 describe('EC2', () => {
-
-  describe ('Instance', () => {
+  describe('Instance', () => {
     let t = new wk.Template()
 
     let instance = new wk.EC2.Instance('myinstance')
@@ -24,11 +25,11 @@ describe('EC2', () => {
     t.addResource(instance)
     // console.log(JSON.stringify(t.Resources['myinstance'], null, 2))
 
-    it ('should be able to add an instance to the template', () => {
+    it('should be able to add an instance to the template', () => {
       t.Resources[ 'myinstance' ].resourceType.should.equal('AWS::EC2::Instance')
     })
 
-    it ('should generate the expected JSON template', () => {
+    it('should generate the expected JSON template', () => {
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
         'Resources': {
@@ -44,7 +45,7 @@ describe('EC2', () => {
       })
     })
 
-    it ('CloudFormation should validate the template', () => {
+    it('CloudFormation should validate the template', () => {
       let jsonString = t.toJson()
       CloudFormation.validateTemplate({
         TemplateBody: jsonString
@@ -56,7 +57,7 @@ describe('EC2', () => {
       })
     })
 
-    it ('should handle property arrays for things like SecurityGroupIds', () => {
+    it('should handle property arrays for things like SecurityGroupIds', () => {
       instance.SecurityGroupIds = ['sg-12345', 'sg-4567']
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
@@ -96,11 +97,11 @@ describe('EC2', () => {
               'SecurityGroupIds': ['sg-12345', 'sg-4567'],
               'BlockDeviceMappings': [
                 {
-                  'DeviceName':'/dev/sdc',
-                  'Ebs':{
-                    'SnapshotId':'snap-xxxxxx',
-                    'VolumeSize':'50',
-                    'VolumeType':'io1',
+                  'DeviceName': '/dev/sdc',
+                  'Ebs': {
+                    'SnapshotId': 'snap-xxxxxx',
+                    'VolumeSize': '50',
+                    'VolumeType': 'io1',
                     'Iops': 1000,
                     'DeleteOnTermination': false
                   }
@@ -112,11 +113,9 @@ describe('EC2', () => {
         'AWSTemplateFormatVersion': '2010-09-09'
       })
     })
-
   })
 
   describe('VPC', () => {
-
     let t = new wk.Template()
 
     let vpc = new wk.EC2.VPC('myvpc')
@@ -151,14 +150,13 @@ describe('EC2', () => {
   })
 
   describe('VPNGatewayAttachment', () => {
-
     let t = new wk.Template()
 
     let vpnGateway = new wk.EC2.VPNGateway('VPNGateway')
     vpnGateway.Type = 'ipsec.1'
     t.addResource(vpnGateway)
 
-    it ('should be able to add a VPN Gateway to the template', () => {
+    it('should be able to add a VPN Gateway to the template', () => {
       t.Resources['VPNGateway'].resourceType.should.equal('AWS::EC2::VPNGateway')
     })
 
@@ -166,12 +164,12 @@ describe('EC2', () => {
       vpnGateway.Type = 'ipsec.2'
       try {
         t.toJson()
-      } catch(e) {
+      } catch (e) {
         e.message.should.equal('VPNGateway has a condition that was not met: The only valid value for Type is "ipsec.1"')
       }
     })
 
-    it ('should generate the expected JSON template', () => {
+    it('should generate the expected JSON template', () => {
       vpnGateway.Type = 'ipsec.1'
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
@@ -187,7 +185,7 @@ describe('EC2', () => {
       })
     })
 
-    it ('CloudFormation should validate the template', () => {
+    it('CloudFormation should validate the template', () => {
       let jsonString = t.toJson()
       CloudFormation.validateTemplate({
         TemplateBody: jsonString
@@ -198,11 +196,9 @@ describe('EC2', () => {
         should.exist(data)
       })
     })
-
   })
 
-  describe ('Combined Networking', () => {
-
+  describe('Combined Networking', () => {
     let t = new wk.Template()
     let vpcCiderParam = new wk.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
     t.addParameter(vpcCiderParam)
@@ -345,7 +341,7 @@ describe('EC2', () => {
     privateSubnetRouteTableAssociationPrivD.RouteTableId.ref(routeTablePrivD)
     t.addResource(privateSubnetRouteTableAssociationPrivD)
 
-    it ('Should generate the expected JSON template', () => {
+    it('Should generate the expected JSON template', () => {
       // t.toJson()
       let jsonString = JSON.parse(t.toJson())
       jsonString.should.deep.equal({
@@ -568,7 +564,7 @@ describe('EC2', () => {
       })
     })
 
-    it ('CloudFormation should validate the template', () => {
+    it('CloudFormation should validate the template', () => {
       let jsonString = t.toJson()
       CloudFormation.validateTemplate({
         TemplateBody: jsonString

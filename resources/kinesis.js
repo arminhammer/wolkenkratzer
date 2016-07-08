@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Stream extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Kinesis::Stream'
     let properties = {
       Name: new resource.ResourceProperty('Name', String, 'No', null),

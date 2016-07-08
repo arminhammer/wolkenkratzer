@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class EventSourceMapping extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::EventSourceMapping'
     let properties = {
       BatchSize: new resource.ResourceProperty('BatchSize', Number, 'No', null),
@@ -20,7 +20,7 @@ class EventSourceMapping extends baseawsobject.BaseAWSObject {
 }
 
 class Alias extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Alias'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'No', null),
@@ -33,7 +33,7 @@ class Alias extends baseawsobject.BaseAWSObject {
 }
 
 class LambdaFunction extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Function'
     let properties = {
       Code: new resource.ResourceProperty('Code', types.AWSLambdaFunctionCode, 'Yes', null),
@@ -51,7 +51,7 @@ class LambdaFunction extends baseawsobject.BaseAWSObject {
 }
 
 class Permission extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Permission'
     let properties = {
       Action: new resource.ResourceProperty('Action', String, 'Yes', null),
@@ -65,7 +65,7 @@ class Permission extends baseawsobject.BaseAWSObject {
 }
 
 class Version extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Version'
     let properties = {
       CodeSha256: new resource.ResourceProperty('CodeSha256', String, 'No', null),

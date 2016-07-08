@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Cluster extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::Cluster'
     let properties = {
       AllowVersionUpgrade: new resource.ResourceProperty('AllowVersionUpgrade', Boolean, 'No', null),
@@ -39,7 +39,7 @@ class Cluster extends baseawsobject.BaseAWSObject {
 }
 
 class ClusterParameterGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterParameterGroup'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'Yes', null),
@@ -51,7 +51,7 @@ class ClusterParameterGroup extends baseawsobject.BaseAWSObject {
 }
 
 class ClusterSecurityGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSecurityGroup'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'Yes', null)
@@ -61,7 +61,7 @@ class ClusterSecurityGroup extends baseawsobject.BaseAWSObject {
 }
 
 class ClusterSecurityGroupIngress extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSecurityGroupIngress'
     let properties = {
       ClusterSecurityGroupName: new resource.ResourceProperty('ClusterSecurityGroupName', String, 'Yes', null),
@@ -74,7 +74,7 @@ class ClusterSecurityGroupIngress extends baseawsobject.BaseAWSObject {
 }
 
 class ClusterSubnetGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSubnetGroup'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'Yes', null),

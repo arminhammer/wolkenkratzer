@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class CacheCluster extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::CacheCluster'
     let properties = {
       AutoMinorVersionUpgrade: new resource.ResourceProperty('AutoMinorVersionUpgrade', Boolean, 'No', null),
@@ -36,7 +36,7 @@ class CacheCluster extends baseawsobject.BaseAWSObject {
 }
 
 class ParameterGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ParameterGroup'
     let properties = {
       CacheParameterGroupFamily: new resource.ResourceProperty('CacheParameterGroupFamily', String, 'Yes', null),
@@ -48,7 +48,7 @@ class ParameterGroup extends baseawsobject.BaseAWSObject {
 }
 
 class ReplicationGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ReplicationGroup'
     let properties = {
       AutomaticFailoverEnabled: new resource.ResourceProperty('AutomaticFailoverEnabled', Boolean, 'No', null),
@@ -75,7 +75,7 @@ class ReplicationGroup extends baseawsobject.BaseAWSObject {
 }
 
 class SecurityGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroup'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'No', null)
@@ -85,7 +85,7 @@ class SecurityGroup extends baseawsobject.BaseAWSObject {
 }
 
 class SecurityGroupIngress extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroupIngress'
     let properties = {
       CacheSecurityGroupName: new resource.ResourceProperty('CacheSecurityGroupName', String, 'Yes', null),
@@ -97,7 +97,7 @@ class SecurityGroupIngress extends baseawsobject.BaseAWSObject {
 }
 
 class SubnetGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SubnetGroup'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'Yes', null),

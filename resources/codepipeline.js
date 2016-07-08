@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class CustomActionType extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CodePipeline::CustomActionType'
     let properties = {
       Category: new resource.ResourceProperty('Category', String, 'Yes', null),
@@ -22,7 +22,7 @@ class CustomActionType extends baseawsobject.BaseAWSObject {
 }
 
 class Pipeline extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CodePipeline::Pipeline'
     let properties = {
       ArtifactStore: new resource.ResourceProperty('ArtifactStore', types.AWSCodePipelinePipelineArtifactStore, 'Yes', null),

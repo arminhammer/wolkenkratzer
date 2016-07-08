@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class DeliveryStream extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::KinesisFirehose::DeliveryStream'
     let properties = {
       DeliveryStreamName: new resource.ResourceProperty('DeliveryStreamName', String, 'No', null),

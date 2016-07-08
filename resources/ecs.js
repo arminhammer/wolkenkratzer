@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Cluster extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECS::Cluster'
     let properties = {
     }
@@ -15,7 +15,7 @@ class Cluster extends baseawsobject.BaseAWSObject {
 }
 
 class Service extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECS::Service'
     let properties = {
       Cluster: new resource.ResourceProperty('Cluster', String, 'No', null),
@@ -30,7 +30,7 @@ class Service extends baseawsobject.BaseAWSObject {
 }
 
 class TaskDefinition extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECS::TaskDefinition'
     let properties = {
       ContainerDefinitions: new resource.ResourceArray('ContainerDefinitions', types.AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions, 'Yes', null),

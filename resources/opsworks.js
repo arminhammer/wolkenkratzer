@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class App extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::App'
     let properties = {
       AppSource: new resource.ResourceProperty('AppSource', types.AWSOpsWorksSourceType, 'No', null),
@@ -26,7 +26,7 @@ class App extends baseawsobject.BaseAWSObject {
 }
 
 class ElasticLoadBalancerAttachment extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::ElasticLoadBalancerAttachment'
     let properties = {
       ElasticLoadBalancerName: new resource.ResourceProperty('ElasticLoadBalancerName', String, 'Yes', null),
@@ -37,7 +37,7 @@ class ElasticLoadBalancerAttachment extends baseawsobject.BaseAWSObject {
 }
 
 class Instance extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Instance'
     let properties = {
       AmiId: new resource.ResourceProperty('AmiId', String, 'No', null),
@@ -60,7 +60,7 @@ class Instance extends baseawsobject.BaseAWSObject {
 }
 
 class Layer extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Layer'
     let properties = {
       Attributes: new resource.ResourceArray('Attributes', Map, 'No', null),
@@ -85,7 +85,7 @@ class Layer extends baseawsobject.BaseAWSObject {
 }
 
 class Stack extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Stack'
     let properties = {
       AgentVersion: new resource.ResourceProperty('AgentVersion', String, 'No', null),

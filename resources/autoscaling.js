@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class AutoScalingGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::AutoScalingGroup'
     let properties = {
       AvailabilityZones: new resource.ResourceArray('AvailabilityZones', String, 'Conditional', null),
@@ -31,7 +31,7 @@ class AutoScalingGroup extends baseawsobject.BaseAWSObject {
 }
 
 class LaunchConfiguration extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::LaunchConfiguration'
     let properties = {
       AssociatePublicIpAddress: new resource.ResourceProperty('AssociatePublicIpAddress', Boolean, 'No', null),
@@ -57,7 +57,7 @@ class LaunchConfiguration extends baseawsobject.BaseAWSObject {
 }
 
 class LifecycleHook extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::LifecycleHook'
     let properties = {
       AutoScalingGroupName: new resource.ResourceProperty('AutoScalingGroupName', String, 'Yes', null),
@@ -73,7 +73,7 @@ class LifecycleHook extends baseawsobject.BaseAWSObject {
 }
 
 class ScalingPolicy extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::ScalingPolicy'
     let properties = {
       AdjustmentType: new resource.ResourceProperty('AdjustmentType', String, 'Yes', null),
@@ -91,7 +91,7 @@ class ScalingPolicy extends baseawsobject.BaseAWSObject {
 }
 
 class ScheduledAction extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::ScheduledAction'
     let properties = {
       AutoScalingGroupName: new resource.ResourceProperty('AutoScalingGroupName', String, 'Yes', null),

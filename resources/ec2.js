@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class CustomerGateway extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::CustomerGateway'
     let properties = {
       BgpAsn: new resource.ResourceProperty('BgpAsn', types.NumberBgpAsnisalwaysanintegervalue, 'Yes', null),
@@ -19,7 +19,7 @@ class CustomerGateway extends baseawsobject.BaseAWSObject {
 }
 
 class DHCPOptions extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::DHCPOptions'
     let properties = {
       DomainName: new resource.ResourceProperty('DomainName', String, 'Conditional', null),
@@ -34,7 +34,7 @@ class DHCPOptions extends baseawsobject.BaseAWSObject {
 }
 
 class EIP extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::EIP'
     let properties = {
       InstanceId: new resource.ResourceProperty('InstanceId', String, 'No', null),
@@ -45,7 +45,7 @@ class EIP extends baseawsobject.BaseAWSObject {
 }
 
 class EIPAssociation extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::EIPAssociation'
     let properties = {
       AllocationId: new resource.ResourceProperty('AllocationId', String, 'Conditional', null),
@@ -59,7 +59,7 @@ class EIPAssociation extends baseawsobject.BaseAWSObject {
 }
 
 class FlowLog extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::FlowLog'
     let properties = {
       DeliverLogsPermissionArn: new resource.ResourceProperty('DeliverLogsPermissionArn', String, 'Yes', null),
@@ -73,7 +73,7 @@ class FlowLog extends baseawsobject.BaseAWSObject {
 }
 
 class Host extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Host'
     let properties = {
       AutoPlacement: new resource.ResourceProperty('AutoPlacement', String, 'No', null),
@@ -85,7 +85,7 @@ class Host extends baseawsobject.BaseAWSObject {
 }
 
 class Instance extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Instance'
     let properties = {
       Affinity: new resource.ResourceProperty('Affinity', String, 'No', null),
@@ -121,7 +121,7 @@ class Instance extends baseawsobject.BaseAWSObject {
 }
 
 class InternetGateway extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::InternetGateway'
     let properties = {
       Tags: new tag.TagSet()
@@ -131,7 +131,7 @@ class InternetGateway extends baseawsobject.BaseAWSObject {
 }
 
 class NatGateway extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NatGateway'
     let properties = {
       AllocationId: new resource.ResourceProperty('AllocationId', String, 'Yes', null),
@@ -142,7 +142,7 @@ class NatGateway extends baseawsobject.BaseAWSObject {
 }
 
 class NetworkAcl extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkAcl'
     let properties = {
       Tags: new tag.TagSet(),
@@ -153,7 +153,7 @@ class NetworkAcl extends baseawsobject.BaseAWSObject {
 }
 
 class NetworkAclEntry extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkAclEntry'
     let properties = {
       CidrBlock: new resource.ResourceProperty('CidrBlock', String, 'Yes', null),
@@ -170,7 +170,7 @@ class NetworkAclEntry extends baseawsobject.BaseAWSObject {
 }
 
 class NetworkInterface extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkInterface'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'No', null),
@@ -187,7 +187,7 @@ class NetworkInterface extends baseawsobject.BaseAWSObject {
 }
 
 class NetworkInterfaceAttachment extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkInterfaceAttachment'
     let properties = {
       DeleteOnTermination: new resource.ResourceProperty('DeleteOnTermination', Boolean, 'No', null),
@@ -200,7 +200,7 @@ class NetworkInterfaceAttachment extends baseawsobject.BaseAWSObject {
 }
 
 class PlacementGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::PlacementGroup'
     let properties = {
       Strategy: new resource.ResourceProperty('Strategy', String, 'No', null)
@@ -210,7 +210,7 @@ class PlacementGroup extends baseawsobject.BaseAWSObject {
 }
 
 class Route extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Route'
     let properties = {
       DestinationCidrBlock: new resource.ResourceProperty('DestinationCidrBlock', String, 'Yes', null),
@@ -226,7 +226,7 @@ class Route extends baseawsobject.BaseAWSObject {
 }
 
 class RouteTable extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::RouteTable'
     let properties = {
       VpcId: new resource.ResourceProperty('VpcId', String, 'Yes', null),
@@ -237,7 +237,7 @@ class RouteTable extends baseawsobject.BaseAWSObject {
 }
 
 class SecurityGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroup'
     let properties = {
       GroupDescription: new resource.ResourceProperty('GroupDescription', String, 'Yes', null),
@@ -251,7 +251,7 @@ class SecurityGroup extends baseawsobject.BaseAWSObject {
 }
 
 class SecurityGroupEgress extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroupEgress'
     let properties = {
       CidrIp: new resource.ResourceProperty('CidrIp', String, 'Conditional', null),
@@ -266,7 +266,7 @@ class SecurityGroupEgress extends baseawsobject.BaseAWSObject {
 }
 
 class SecurityGroupIngress extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroupIngress'
     let properties = {
       CidrIp: new resource.ResourceProperty('CidrIp', String, 'Conditional', null),
@@ -284,7 +284,7 @@ class SecurityGroupIngress extends baseawsobject.BaseAWSObject {
 }
 
 class SpotFleet extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SpotFleet'
     let properties = {
       SpotFleetRequestConfigData: new resource.ResourceProperty('SpotFleetRequestConfigData', types.AmazonEC2SpotFleetSpotFleetRequestConfigData, 'Yes', null)
@@ -294,7 +294,7 @@ class SpotFleet extends baseawsobject.BaseAWSObject {
 }
 
 class Subnet extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Subnet'
     let properties = {
       AvailabilityZone: new resource.ResourceProperty('AvailabilityZone', String, 'No', null),
@@ -308,7 +308,7 @@ class Subnet extends baseawsobject.BaseAWSObject {
 }
 
 class SubnetNetworkAclAssociation extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SubnetNetworkAclAssociation'
     let properties = {
       SubnetId: new resource.ResourceProperty('SubnetId', String, 'Yes', null),
@@ -319,7 +319,7 @@ class SubnetNetworkAclAssociation extends baseawsobject.BaseAWSObject {
 }
 
 class SubnetRouteTableAssociation extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SubnetRouteTableAssociation'
     let properties = {
       RouteTableId: new resource.ResourceProperty('RouteTableId', String, 'Yes', null),
@@ -330,7 +330,7 @@ class SubnetRouteTableAssociation extends baseawsobject.BaseAWSObject {
 }
 
 class Volume extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Volume'
     let properties = {
       AutoEnableIO: new resource.ResourceProperty('AutoEnableIO', Boolean, 'No', null),
@@ -348,7 +348,7 @@ class Volume extends baseawsobject.BaseAWSObject {
 }
 
 class VolumeAttachment extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VolumeAttachment'
     let properties = {
       Device: new resource.ResourceProperty('Device', String, 'Yes', null),
@@ -360,7 +360,7 @@ class VolumeAttachment extends baseawsobject.BaseAWSObject {
 }
 
 class VPC extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPC'
     let properties = {
       CidrBlock: new resource.ResourceProperty('CidrBlock', String, 'Yes', null),
@@ -374,7 +374,7 @@ class VPC extends baseawsobject.BaseAWSObject {
 }
 
 class VPCDHCPOptionsAssociation extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCDHCPOptionsAssociation'
     let properties = {
       DhcpOptionsId: new resource.ResourceProperty('DhcpOptionsId', String, 'Yes', null),
@@ -385,7 +385,7 @@ class VPCDHCPOptionsAssociation extends baseawsobject.BaseAWSObject {
 }
 
 class VPCEndpoint extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCEndpoint'
     let properties = {
       PolicyDocument: new resource.ResourceProperty('PolicyDocument', Object, 'No', null),
@@ -398,7 +398,7 @@ class VPCEndpoint extends baseawsobject.BaseAWSObject {
 }
 
 class VPCGatewayAttachment extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCGatewayAttachment'
     let properties = {
       InternetGatewayId: new resource.ResourceProperty('InternetGatewayId', String, 'Conditional', null),
@@ -410,7 +410,7 @@ class VPCGatewayAttachment extends baseawsobject.BaseAWSObject {
 }
 
 class VPCPeeringConnection extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCPeeringConnection'
     let properties = {
       PeerVpcId: new resource.ResourceProperty('PeerVpcId', String, 'Yes', null),
@@ -422,7 +422,7 @@ class VPCPeeringConnection extends baseawsobject.BaseAWSObject {
 }
 
 class VPNConnection extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNConnection'
     let properties = {
       Type: new resource.ResourceProperty('Type', String, 'Yes', null),
@@ -436,7 +436,7 @@ class VPNConnection extends baseawsobject.BaseAWSObject {
 }
 
 class VPNConnectionRoute extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNConnectionRoute'
     let properties = {
       DestinationCidrBlock: new resource.ResourceProperty('DestinationCidrBlock', String, 'Conditional', null),
@@ -447,7 +447,7 @@ class VPNConnectionRoute extends baseawsobject.BaseAWSObject {
 }
 
 class VPNGateway extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNGateway'
     let properties = {
       Type: new resource.ResourceProperty('Type', String, 'Yes', null),
@@ -458,7 +458,7 @@ class VPNGateway extends baseawsobject.BaseAWSObject {
 }
 
 class VPNGatewayRoutePropagation extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNGatewayRoutePropagation'
     let properties = {
       RouteTableIds: new resource.ResourceArray('RouteTableIds', types.routetableIDs, 'Yes', null),

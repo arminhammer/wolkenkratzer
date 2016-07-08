@@ -2,9 +2,7 @@
  * Created by arming on 6/5/16.
  */
 
-/**
- * Created by arming on 6/5/16.
- */
+/* global describe it */
 'use strict'
 
 const path = require('path')
@@ -39,11 +37,11 @@ describe('S3', () => {
 
   t.addResource(bucketPolicy)
 
-  it ('should be able to add a bucket to the template', () => {
+  it('should be able to add a bucket to the template', () => {
     t.Resources['newBucket'].resourceType.should.equal('AWS::S3::Bucket')
   })
 
-  it ('should generate the expected JSON template', () => {
+  it('should generate the expected JSON template', () => {
     let jsonString = JSON.parse(t.toJson())
     jsonString.should.deep.equal({
       'Resources': {
@@ -78,7 +76,7 @@ describe('S3', () => {
     })
   })
 
-  it ('CloudFormation should validate the template', () => {
+  it('CloudFormation should validate the template', () => {
     let jsonString = t.toJson()
     CloudFormation.validateTemplate({
       TemplateBody: jsonString

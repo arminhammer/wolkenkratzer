@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Workspace extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::WorkSpaces::Workspace'
     let properties = {
       BundleId: new resource.ResourceProperty('BundleId', String, 'Yes', null),

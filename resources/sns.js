@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Topic extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::SNS::Topic'
     let properties = {
       DisplayName: new resource.ResourceProperty('DisplayName', String, 'No', null),
@@ -18,7 +18,7 @@ class Topic extends baseawsobject.BaseAWSObject {
 }
 
 class TopicPolicy extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::SNS::TopicPolicy'
     let properties = {
       PolicyDocument: new resource.ResourceProperty('PolicyDocument', Object, 'Yes', null),

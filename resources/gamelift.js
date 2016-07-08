@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Alias extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Alias'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'No', null),
@@ -18,7 +18,7 @@ class Alias extends baseawsobject.BaseAWSObject {
 }
 
 class Build extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Build'
     let properties = {
       Name: new resource.ResourceProperty('Name', String, 'No', null),
@@ -30,7 +30,7 @@ class Build extends baseawsobject.BaseAWSObject {
 }
 
 class Fleet extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Fleet'
     let properties = {
       BuildId: new resource.ResourceProperty('BuildId', String, 'Yes', null),

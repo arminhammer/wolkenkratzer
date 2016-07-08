@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Table extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::DynamoDB::Table'
     let properties = {
       AttributeDefinitions: new resource.ResourceArray('AttributeDefinitions', types.DynamoDBAttributeDefinitions, 'Yes', null),

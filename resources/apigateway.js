@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Account extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Account'
     let properties = {
       CloudWatchRoleArn: new resource.ResourceProperty('CloudWatchRoleArn', String, 'No', null)
@@ -16,7 +16,7 @@ class Account extends baseawsobject.BaseAWSObject {
 }
 
 class ApiKey extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::ApiKey'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'No', null),
@@ -29,7 +29,7 @@ class ApiKey extends baseawsobject.BaseAWSObject {
 }
 
 class Authorizer extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Authorizer'
     let properties = {
       AuthorizerCredentials: new resource.ResourceProperty('AuthorizerCredentials', String, 'No', null),
@@ -46,7 +46,7 @@ class Authorizer extends baseawsobject.BaseAWSObject {
 }
 
 class BasePathMapping extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::BasePathMapping'
     let properties = {
       BasePath: new resource.ResourceProperty('BasePath', String, 'No', null),
@@ -59,7 +59,7 @@ class BasePathMapping extends baseawsobject.BaseAWSObject {
 }
 
 class ClientCertificate extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::ClientCertificate'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'No', null)
@@ -69,7 +69,7 @@ class ClientCertificate extends baseawsobject.BaseAWSObject {
 }
 
 class Deployment extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Deployment'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'No', null),
@@ -82,7 +82,7 @@ class Deployment extends baseawsobject.BaseAWSObject {
 }
 
 class Method extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Method'
     let properties = {
       ApiKeyRequired: new resource.ResourceProperty('ApiKeyRequired', Boolean, 'No', null),
@@ -101,7 +101,7 @@ class Method extends baseawsobject.BaseAWSObject {
 }
 
 class Model extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Model'
     let properties = {
       ContentType: new resource.ResourceProperty('ContentType', String, 'No', null),
@@ -115,7 +115,7 @@ class Model extends baseawsobject.BaseAWSObject {
 }
 
 class Resource extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Resource'
     let properties = {
       ParentId: new resource.ResourceProperty('ParentId', String, 'Yes', null),
@@ -127,7 +127,7 @@ class Resource extends baseawsobject.BaseAWSObject {
 }
 
 class RestApi extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::RestApi'
     let properties = {
       Body: new resource.ResourceProperty('Body', String, 'No', null),
@@ -143,7 +143,7 @@ class RestApi extends baseawsobject.BaseAWSObject {
 }
 
 class Stage extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Stage'
     let properties = {
       CacheClusterEnabled: new resource.ResourceProperty('CacheClusterEnabled', Boolean, 'No', null),

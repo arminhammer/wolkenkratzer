@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Domain extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Elasticsearch::Domain'
     let properties = {
       AccessPolicies: new resource.ResourceProperty('AccessPolicies', Object, 'No', null),

@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class HealthCheck extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Route53::HealthCheck'
     let properties = {
       HealthCheckConfig: new resource.ResourceProperty('HealthCheckConfig', types.AmazonRoute53HealthCheckConfig, 'Yes', null),
@@ -17,7 +17,7 @@ class HealthCheck extends baseawsobject.BaseAWSObject {
 }
 
 class HostedZone extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Route53::HostedZone'
     let properties = {
       HostedZoneConfig: new resource.ResourceProperty('HostedZoneConfig', types.AmazonRoute53HostedZoneConfigProperty, 'No', null),
@@ -30,7 +30,7 @@ class HostedZone extends baseawsobject.BaseAWSObject {
 }
 
 class RecordSet extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Route53::RecordSet'
     let properties = {
       AliasTarget: new resource.ResourceProperty('AliasTarget', types.Route53AliasTargetProperty, 'Conditional', null),
@@ -52,7 +52,7 @@ class RecordSet extends baseawsobject.BaseAWSObject {
 }
 
 class RecordSetGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Route53::RecordSetGroup'
     let properties = {
       Comment: new resource.ResourceProperty('Comment', String, 'No', null),

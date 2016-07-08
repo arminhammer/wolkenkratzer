@@ -1,6 +1,7 @@
 /**
  * Created by arming on 6/5/16.
  */
+/* global describe it */
 'use strict'
 
 const path = require('path')
@@ -11,7 +12,7 @@ chai.should()
 const wk = require(path.join(__dirname, '..', 'index'))
 
 /* stubs for building code coverage */
-//const  = require(path.join(__dirname, '..', 'resources/'))
+/* const  = require(path.join(__dirname, '..', 'resources/'))
 const apigateway = require(path.join(__dirname, '..', 'resources/apigateway'))
 const autoscaling = require(path.join(__dirname, '..', 'resources/autoscaling'))
 const cloudformation = require(path.join(__dirname, '..', 'resources/cloudformation'))
@@ -49,11 +50,12 @@ const sqs = require(path.join(__dirname, '..', 'resources/sqs'))
 const ssm = require(path.join(__dirname, '..', 'resources/ssm'))
 const waf = require(path.join(__dirname, '..', 'resources/waf'))
 const workspaces = require(path.join(__dirname, '..', 'resources/workspaces'))
+*/
 
-describe ('Template', () => {
+describe('Template', () => {
   let template = new wk.Template()
 
-  it ('Version should be 2010-09-09', () => {
+  it('Version should be 2010-09-09', () => {
     template.AWSTemplateFormatVersion.should.equal('2010-09-09')
   })
 })

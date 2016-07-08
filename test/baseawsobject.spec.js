@@ -1,6 +1,7 @@
 /**
  * Created by arming on 6/5/16.
  */
+/* global describe it */
 'use strict'
 
 const path = require('path')
@@ -10,10 +11,8 @@ chai.should()
 
 const wk = require(path.join(__dirname, '..', 'index'))
 
-describe ('BaseAWSObject', () => {
-
-  describe ('Test conditional logic', () => {
-
+describe('BaseAWSObject', () => {
+  describe('Test conditional logic', () => {
     let t = new wk.Template()
 
     let vpcCiderParam = new wk.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
@@ -38,13 +37,12 @@ describe ('BaseAWSObject', () => {
     vpcGatewayAttachment.VpcId.ref(vpc)
     vpcGatewayAttachment.VpnGatewayId.ref(vpnGateway)
     t.addResource(vpcGatewayAttachment)
-    
-    it ('Conditional should be tested, You must specify either InternetGatewayId or VpnGatewayId, but not both.', () => {
+    it('Conditional should be tested, You must specify either InternetGatewayId or VpnGatewayId, but not both.', () => {
       try {
         t.toJson()
-      } catch(e) {
+      } catch (e) {
         e.message.should.equal('VPCGatewayAttachment has a condition that was not met: You must specify either InternetGatewayId or VpnGatewayId, but not both.')
-        }
+      }
     })
 
     /* it ('Should generate the expected JSON template', () => {
@@ -81,7 +79,5 @@ describe ('BaseAWSObject', () => {
         should.exist(data)
       })
     })*/
-
   })
-
 })

@@ -5,7 +5,7 @@ const ResourceArray = require('./resourceproperty').ResourceArray
 const ResourceProperty = require('./resourceproperty').ResourceProperty
 
 class AmazonAPIGatewayApiKeyStageKey extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       RestApiId: new ResourceProperty('RestApiId', String, 'No', null),
       StageName: new ResourceProperty('StageName', String, 'No', null)
@@ -15,7 +15,7 @@ class AmazonAPIGatewayApiKeyStageKey extends SubPropertyObject {
 }
 
 class AmazonAPIGatewayDeploymentStageDescription extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CacheClusterEnabled: new ResourceProperty('CacheClusterEnabled', Boolean, 'No', null),
       CacheClusterSize: new ResourceProperty('CacheClusterSize', String, 'No', null),
@@ -38,7 +38,7 @@ class AmazonAPIGatewayDeploymentStageDescription extends SubPropertyObject {
 }
 
 class AmazonAPIGatewayDeploymentStageDescriptionMethodSetting extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CacheDataEncrypted: new ResourceProperty('CacheDataEncrypted', Boolean, 'No', null),
       CacheTtlInSeconds: new ResourceProperty('CacheTtlInSeconds', Number, 'No', null),
@@ -56,7 +56,7 @@ class AmazonAPIGatewayDeploymentStageDescriptionMethodSetting extends SubPropert
 }
 
 class AmazonAPIGatewayMethodIntegration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CacheKeyParameters: new ResourceArray('CacheKeyParameters', String, 'No', null),
       CacheNamespace: new ResourceProperty('CacheNamespace', String, 'No', null),
@@ -73,7 +73,7 @@ class AmazonAPIGatewayMethodIntegration extends SubPropertyObject {
 }
 
 class AmazonAPIGatewayMethodIntegrationIntegrationResponse extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ResponseParameters: new ResourceProperty('ResponseParameters', Map, 'No', null),
       ResponseTemplates: new ResourceProperty('ResponseTemplates', Map, 'No', null),
@@ -85,7 +85,7 @@ class AmazonAPIGatewayMethodIntegrationIntegrationResponse extends SubPropertyOb
 }
 
 class AmazonAPIGatewayMethodMethodResponse extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ResponseModels: new ResourceProperty('ResponseModels', Map, 'No', null),
       ResponseParameters: new ResourceProperty('ResponseParameters', Map, 'No', null),
@@ -96,7 +96,7 @@ class AmazonAPIGatewayMethodMethodResponse extends SubPropertyObject {
 }
 
 class AmazonAPIGatewayRestApiS3Location extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Bucket: new ResourceProperty('Bucket', String, 'No', null),
       ETag: new ResourceProperty('ETag', String, 'No', null),
@@ -108,7 +108,7 @@ class AmazonAPIGatewayRestApiS3Location extends SubPropertyObject {
 }
 
 class AmazonAPIGatewayStageMethodSetting extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CacheDataEncrypted: new ResourceProperty('CacheDataEncrypted', Boolean, 'No', null),
       CacheTtlInSeconds: new ResourceProperty('CacheTtlInSeconds', Number, 'No', null),
@@ -126,7 +126,7 @@ class AmazonAPIGatewayStageMethodSetting extends SubPropertyObject {
 }
 
 class AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DeviceName: new ResourceProperty('DeviceName', String, 'Yes', null),
       Ebs: new ResourceProperty('Ebs', AWSCloudFormationAutoScalingEBSBlockDevicePropertyType, 'Conditional', null),
@@ -138,7 +138,7 @@ class AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType extends SubProp
 }
 
 class AWSCloudFormationAutoScalingEBSBlockDevicePropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DeleteOnTermination: new ResourceProperty('DeleteOnTermination', Boolean, 'No', null),
       Encrypted: new ResourceProperty('Encrypted', Boolean, 'No', null),
@@ -152,7 +152,7 @@ class AWSCloudFormationAutoScalingEBSBlockDevicePropertyType extends SubProperty
 }
 
 class AutoScalingMetricsCollection extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Granularity: new ResourceProperty('Granularity', String, 'Yes', null),
       Metrics: new ResourceArray('Metrics', String, 'No', null)
@@ -162,7 +162,7 @@ class AutoScalingMetricsCollection extends SubPropertyObject {
 }
 
 class AutoScalingNotificationConfigurations extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       NotificationTypes: new ResourceArray('NotificationTypes', String, 'Yes', null),
       TopicARN: new ResourceProperty('TopicARN', String, 'Yes', null)
@@ -172,7 +172,7 @@ class AutoScalingNotificationConfigurations extends SubPropertyObject {
 }
 
 class AutoScalingScalingPolicyStepAdjustments extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       MetricIntervalLowerBound: new ResourceProperty('MetricIntervalLowerBound', Number, 'No', null),
       MetricIntervalUpperBound: new ResourceProperty('MetricIntervalUpperBound', Number, 'No', null),
@@ -183,7 +183,7 @@ class AutoScalingScalingPolicyStepAdjustments extends SubPropertyObject {
 }
 
 class AutoScalingTagsPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'Yes', null),
       Value: new ResourceProperty('Value', String, 'Yes', null),
@@ -194,7 +194,7 @@ class AutoScalingTagsPropertyType extends SubPropertyObject {
 }
 
 class CloudFormationStackParametersPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
     }
     super('CloudFormationStackParametersPropertyType', properties, propertiesObject)
@@ -202,7 +202,7 @@ class CloudFormationStackParametersPropertyType extends SubPropertyObject {
 }
 
 class AWSCloudFormationInterfaceLabel extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       default: new ResourceProperty('default', String, 'No', null)
     }
@@ -211,7 +211,7 @@ class AWSCloudFormationInterfaceLabel extends SubPropertyObject {
 }
 
 class AWSCloudFormationInterfaceParameterGroup extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Label: new ResourceProperty('Label', AWSCloudFormationInterfaceLabel, 'No', null),
       Parameters: new ResourceArray('Parameters', String, 'No', null)
@@ -221,7 +221,7 @@ class AWSCloudFormationInterfaceParameterGroup extends SubPropertyObject {
 }
 
 class AWSCloudFormationInterfaceParameterLabel extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ParameterLogicalID: new ResourceProperty('ParameterLogicalID', AWSCloudFormationInterfaceLabel, 'No', null)
     }
@@ -230,7 +230,7 @@ class AWSCloudFormationInterfaceParameterLabel extends SubPropertyObject {
 }
 
 class CloudFrontDistributionConfig extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Aliases: new ResourceArray('Aliases', String, 'No', null),
       CacheBehaviors: new ResourceArray('CacheBehaviors', CloudFrontDistributionConfigCacheBehavior, 'No', null),
@@ -251,7 +251,7 @@ class CloudFrontDistributionConfig extends SubPropertyObject {
 }
 
 class CloudFrontDistributionConfigCacheBehavior extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AllowedMethods: new ResourceArray('AllowedMethods', String, 'No', null),
       CachedMethods: new ResourceArray('CachedMethods', String, 'No', null),
@@ -271,7 +271,7 @@ class CloudFrontDistributionConfigCacheBehavior extends SubPropertyObject {
 }
 
 class CloudFrontDistributionConfigCustomErrorResponse extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ErrorCachingMinTTL: new ResourceProperty('ErrorCachingMinTTL', Number, 'No', null),
       ErrorCode: new ResourceProperty('ErrorCode', Number, 'Yes', null),
@@ -283,7 +283,7 @@ class CloudFrontDistributionConfigCustomErrorResponse extends SubPropertyObject 
 }
 
 class CloudFrontDefaultCacheBehavior extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AllowedMethods: new ResourceArray('AllowedMethods', String, 'No', null),
       CachedMethods: new ResourceArray('CachedMethods', String, 'No', null),
@@ -302,7 +302,7 @@ class CloudFrontDefaultCacheBehavior extends SubPropertyObject {
 }
 
 class CloudFrontLogging extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Bucket: new ResourceProperty('Bucket', String, 'Yes', null),
       IncludeCookies: new ResourceProperty('IncludeCookies', Boolean, 'No', null),
@@ -313,7 +313,7 @@ class CloudFrontLogging extends SubPropertyObject {
 }
 
 class CloudFrontDistributionConfigOrigin extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CustomOriginConfig: new ResourceProperty('CustomOriginConfig', CloudFrontDistributionConfigOriginCustomOrigin, 'Conditional', null),
       DomainName: new ResourceProperty('DomainName', String, 'Yes', null),
@@ -326,7 +326,7 @@ class CloudFrontDistributionConfigOrigin extends SubPropertyObject {
 }
 
 class CloudFrontDistributionConfigOriginCustomOrigin extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       HTTPPort: new ResourceProperty('HTTPPort', String, 'No', null),
       HTTPSPort: new ResourceProperty('HTTPSPort', String, 'No', null),
@@ -337,7 +337,7 @@ class CloudFrontDistributionConfigOriginCustomOrigin extends SubPropertyObject {
 }
 
 class CloudFrontDistributionConfigOriginS3Origin extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       OriginAccessIdentity: new ResourceProperty('OriginAccessIdentity', String, 'No', null)
     }
@@ -346,7 +346,7 @@ class CloudFrontDistributionConfigOriginS3Origin extends SubPropertyObject {
 }
 
 class CloudFrontDistributionConfigurationRestrictions extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       GeoRestriction: new ResourceProperty('GeoRestriction', CloudFrontDistributionConfigRestrictionsGeoRestriction, 'Yes', null)
     }
@@ -355,7 +355,7 @@ class CloudFrontDistributionConfigurationRestrictions extends SubPropertyObject 
 }
 
 class CloudFrontDistributionConfigRestrictionsGeoRestriction extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Locations: new ResourceArray('Locations', String, 'Conditional', null),
       RestrictionType: new ResourceProperty('RestrictionType', String, 'Yes', null),
@@ -368,7 +368,7 @@ class CloudFrontDistributionConfigRestrictionsGeoRestriction extends SubProperty
 }
 
 class CloudFrontDistributionConfigurationViewerCertificate extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CloudFrontDefaultCertificate: new ResourceProperty('CloudFrontDefaultCertificate', Boolean, 'Conditional', null),
       IamCertificateId: new ResourceProperty('IamCertificateId', String, 'Conditional', null),
@@ -380,7 +380,7 @@ class CloudFrontDistributionConfigurationViewerCertificate extends SubPropertyOb
 }
 
 class CloudFrontForwardedValues extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Cookies: new ResourceProperty('Cookies', CloudFrontForwardedValuesCookies, 'No', null),
       Headers: new ResourceArray('Headers', String, 'No', null),
@@ -391,7 +391,7 @@ class CloudFrontForwardedValues extends SubPropertyObject {
 }
 
 class CloudFrontForwardedValuesCookies extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Forward: new ResourceProperty('Forward', String, 'Yes', null),
       WhitelistedNames: new ResourceArray('WhitelistedNames', String, 'Conditional', null)
@@ -401,7 +401,7 @@ class CloudFrontForwardedValuesCookies extends SubPropertyObject {
 }
 
 class CloudWatchMetricDimensionPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'Yes', null),
       Value: new ResourceProperty('Value', String, 'Yes', null)
@@ -411,7 +411,7 @@ class CloudWatchMetricDimensionPropertyType extends SubPropertyObject {
 }
 
 class AmazonCloudWatchEventsRuleTarget extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Arn: new ResourceProperty('Arn', String, 'Yes', null),
       Id: new ResourceProperty('Id', String, 'Yes', null),
@@ -423,7 +423,7 @@ class AmazonCloudWatchEventsRuleTarget extends SubPropertyObject {
 }
 
 class CloudWatchLogsMetricFilterMetricTransformationProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       MetricName: new ResourceProperty('MetricName', String, 'Yes', null),
       MetricNamespace: new ResourceProperty('MetricNamespace', String, 'Yes', null),
@@ -434,7 +434,7 @@ class CloudWatchLogsMetricFilterMetricTransformationProperty extends SubProperty
 }
 
 class AWSCodeDeployDeploymentConfigMinimumHealthyHosts extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Type: new ResourceProperty('Type', String, 'No', null),
       Value: new ResourceProperty('Value', Number, 'No', null)
@@ -444,7 +444,7 @@ class AWSCodeDeployDeploymentConfigMinimumHealthyHosts extends SubPropertyObject
 }
 
 class AWSCodeDeployDeploymentGroupDeployment extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Description: new ResourceProperty('Description', String, 'No', null),
       IgnoreApplicationStopFailures: new ResourceProperty('IgnoreApplicationStopFailures', Boolean, 'No', null),
@@ -455,7 +455,7 @@ class AWSCodeDeployDeploymentGroupDeployment extends SubPropertyObject {
 }
 
 class AWSCodeDeployDeploymentGroupDeploymentRevision extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       GitHubLocation: new ResourceProperty('GitHubLocation', AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation, 'No', null),
       RevisionType: new ResourceProperty('RevisionType', String, 'No', null),
@@ -466,7 +466,7 @@ class AWSCodeDeployDeploymentGroupDeploymentRevision extends SubPropertyObject {
 }
 
 class AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CommitId: new ResourceProperty('CommitId', String, 'Yes', null),
       Repository: new ResourceProperty('Repository', String, 'Yes', null)
@@ -476,7 +476,7 @@ class AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation extends SubPr
 }
 
 class AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Bucket: new ResourceProperty('Bucket', String, 'Yes', null),
       BundleType: new ResourceProperty('BundleType', String, 'Yes', null),
@@ -489,7 +489,7 @@ class AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location extends SubProper
 }
 
 class AWSCodeDeployDeploymentGroupEc2TagFilters extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'No', null),
       Type: new ResourceProperty('Type', String, 'Yes', null),
@@ -500,7 +500,7 @@ class AWSCodeDeployDeploymentGroupEc2TagFilters extends SubPropertyObject {
 }
 
 class AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'No', null),
       Type: new ResourceProperty('Type', String, 'No', null),
@@ -511,7 +511,7 @@ class AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters extends SubProper
 }
 
 class AWSCodePipelineCustomActionTypeArtifactDetails extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       MaximumCount: new ResourceProperty('MaximumCount', Number, 'Yes', null),
       MinimumCount: new ResourceProperty('MinimumCount', Number, 'Yes', null)
@@ -521,7 +521,7 @@ class AWSCodePipelineCustomActionTypeArtifactDetails extends SubPropertyObject {
 }
 
 class AWSCodePipelineCustomActionTypeConfigurationProperties extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Description: new ResourceProperty('Description', String, 'No', null),
       Key: new ResourceProperty('Key', Boolean, 'Yes', null),
@@ -536,7 +536,7 @@ class AWSCodePipelineCustomActionTypeConfigurationProperties extends SubProperty
 }
 
 class AWSCodePipelineCustomActionTypeSettings extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       EntityUrlTemplate: new ResourceProperty('EntityUrlTemplate', String, 'No', null),
       ExecutionUrlTemplate: new ResourceProperty('ExecutionUrlTemplate', String, 'No', null),
@@ -548,7 +548,7 @@ class AWSCodePipelineCustomActionTypeSettings extends SubPropertyObject {
 }
 
 class AWSCodePipelinePipelineArtifactStore extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       EncryptionKey: new ResourceProperty('EncryptionKey', AWSCodePipelinePipelineArtifactStoreEncryptionKey, 'No', null),
       Location: new ResourceProperty('Location', String, 'Yes', null),
@@ -559,7 +559,7 @@ class AWSCodePipelinePipelineArtifactStore extends SubPropertyObject {
 }
 
 class AWSCodePipelinePipelineArtifactStoreEncryptionKey extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Id: new ResourceProperty('Id', String, 'Yes', null),
       Type: new ResourceProperty('Type', String, 'Yes', null)
@@ -569,7 +569,7 @@ class AWSCodePipelinePipelineArtifactStoreEncryptionKey extends SubPropertyObjec
 }
 
 class AWSCodePipelinePipelineDisableInboundStageTransitions extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Reason: new ResourceProperty('Reason', String, 'Yes', null),
       StageName: new ResourceProperty('StageName', String, 'Yes', null)
@@ -579,7 +579,7 @@ class AWSCodePipelinePipelineDisableInboundStageTransitions extends SubPropertyO
 }
 
 class AWSCodePipelinePipelineStages extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Actions: new ResourceArray('Actions', AWSCodePipelinePipelineStagesActions, 'Yes', null),
       Blockers: new ResourceArray('Blockers', AWSCodePipelinePipelineStagesBlockers, 'No', null),
@@ -590,7 +590,7 @@ class AWSCodePipelinePipelineStages extends SubPropertyObject {
 }
 
 class AWSCodePipelinePipelineStagesActions extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ActionTypeId: new ResourceProperty('ActionTypeId', AWSCodePipelinePipelineStagesActionsActionTypeId, 'Yes', null),
       Configuration: new ResourceProperty('Configuration', Object, 'No', null),
@@ -605,7 +605,7 @@ class AWSCodePipelinePipelineStagesActions extends SubPropertyObject {
 }
 
 class AWSCodePipelinePipelineStagesActionsActionTypeId extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Category: new ResourceProperty('Category', String, 'Yes', null),
       Owner: new ResourceProperty('Owner', String, 'Yes', null),
@@ -617,7 +617,7 @@ class AWSCodePipelinePipelineStagesActionsActionTypeId extends SubPropertyObject
 }
 
 class AWSCodePipelinePipelineStagesActionsInputArtifacts extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'Yes', null)
     }
@@ -626,7 +626,7 @@ class AWSCodePipelinePipelineStagesActionsInputArtifacts extends SubPropertyObje
 }
 
 class AWSCodePipelinePipelineStagesActionsOutputArtifacts extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'Yes', null)
     }
@@ -635,7 +635,7 @@ class AWSCodePipelinePipelineStagesActionsOutputArtifacts extends SubPropertyObj
 }
 
 class AWSCodePipelinePipelineStagesBlockers extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'Yes', null),
       Type: new ResourceProperty('Type', String, 'Yes', null)
@@ -645,7 +645,7 @@ class AWSCodePipelinePipelineStagesBlockers extends SubPropertyObject {
 }
 
 class AWSConfigConfigRuleScope extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ComplianceResourceId: new ResourceProperty('ComplianceResourceId', String, 'No', null),
       ComplianceResourceTypes: new ResourceArray('ComplianceResourceTypes', String, 'Conditional', null),
@@ -657,7 +657,7 @@ class AWSConfigConfigRuleScope extends SubPropertyObject {
 }
 
 class AWSConfigConfigRuleSource extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Owner: new ResourceProperty('Owner', String, 'Yes', null),
       SourceDetails: new ResourceArray('SourceDetails', AWSConfigConfigRuleSourceSourceDetails, 'No', null),
@@ -668,7 +668,7 @@ class AWSConfigConfigRuleSource extends SubPropertyObject {
 }
 
 class AWSConfigConfigRuleSourceSourceDetails extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       EventSource: new ResourceProperty('EventSource', String, 'Yes', null),
       MessageType: new ResourceProperty('MessageType', String, 'Yes', null)
@@ -678,7 +678,7 @@ class AWSConfigConfigRuleSourceSourceDetails extends SubPropertyObject {
 }
 
 class AWSConfigConfigurationRecorderRecordingGroup extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AllSupported: new ResourceProperty('AllSupported', Boolean, 'No', null),
       IncludeGlobalResourceTypes: new ResourceProperty('IncludeGlobalResourceTypes', Boolean, 'No', null),
@@ -689,7 +689,7 @@ class AWSConfigConfigurationRecorderRecordingGroup extends SubPropertyObject {
 }
 
 class AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DeliveryFrequency: new ResourceProperty('DeliveryFrequency', String, 'No', null)
     }
@@ -698,7 +698,7 @@ class AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties extends SubProper
 }
 
 class AWSDataPipelinePipelineParameterObjects extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Attributes: new ResourceProperty('Attributes', AWSDataPipelineParameterObjectsAttributes, 'Yes', null),
       Id: new ResourceProperty('Id', String, 'Yes', null)
@@ -708,7 +708,7 @@ class AWSDataPipelinePipelineParameterObjects extends SubPropertyObject {
 }
 
 class AWSDataPipelineParameterObjectsAttributes extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'Yes', null),
       StringValue: new ResourceProperty('StringValue', String, 'Conditional', null)
@@ -718,7 +718,7 @@ class AWSDataPipelineParameterObjectsAttributes extends SubPropertyObject {
 }
 
 class AWSDataPipelinePipelineParameterValues extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Id: new ResourceProperty('Id', String, 'Yes', null),
       StringValue: new ResourceProperty('StringValue', String, 'Yes', null)
@@ -728,7 +728,7 @@ class AWSDataPipelinePipelineParameterValues extends SubPropertyObject {
 }
 
 class AWSDataPipelinePipelineObjects extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Fields: new ResourceProperty('Fields', AWSDataPipelineDataPipelineObjectFields, 'Yes', null),
       Id: new ResourceProperty('Id', String, 'Yes', null),
@@ -739,7 +739,7 @@ class AWSDataPipelinePipelineObjects extends SubPropertyObject {
 }
 
 class AWSDataPipelineDataPipelineObjectFields extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'Yes', null),
       RefValue: new ResourceProperty('RefValue', String, 'Conditional', null),
@@ -750,7 +750,7 @@ class AWSDataPipelineDataPipelineObjectFields extends SubPropertyObject {
 }
 
 class AWSDataPipelinePipelinePipelineTags extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'Yes', null),
       Value: new ResourceProperty('Value', String, 'Yes', null)
@@ -760,7 +760,7 @@ class AWSDataPipelinePipelinePipelineTags extends SubPropertyObject {
 }
 
 class AWSDirectoryServiceMicrosoftADVpcSettings extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       SubnetIds: new ResourceArray('SubnetIds', String, 'Yes', null),
       VpcId: new ResourceProperty('VpcId', String, 'Yes', null)
@@ -770,7 +770,7 @@ class AWSDirectoryServiceMicrosoftADVpcSettings extends SubPropertyObject {
 }
 
 class AWSDirectoryServiceSimpleADVpcSettings extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       SubnetIds: new ResourceArray('SubnetIds', String, 'Yes', null),
       VpcId: new ResourceProperty('VpcId', String, 'Yes', null)
@@ -780,7 +780,7 @@ class AWSDirectoryServiceSimpleADVpcSettings extends SubPropertyObject {
 }
 
 class DynamoDBAttributeDefinitions extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AttributeName: new ResourceProperty('AttributeName', String, 'Yes', null),
       AttributeType: new ResourceProperty('AttributeType', String, 'Yes', null)
@@ -790,7 +790,7 @@ class DynamoDBAttributeDefinitions extends SubPropertyObject {
 }
 
 class DynamoDBGlobalSecondaryIndexes extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       IndexName: new ResourceProperty('IndexName', String, 'Yes', null),
       KeySchema: new ResourceProperty('KeySchema', DynamoDBKeySchema, 'Yes', null),
@@ -802,7 +802,7 @@ class DynamoDBGlobalSecondaryIndexes extends SubPropertyObject {
 }
 
 class DynamoDBKeySchema extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AttributeName: new ResourceProperty('AttributeName', String, 'Yes', null),
       KeyType: new ResourceProperty('KeyType', String, 'Yes', null)
@@ -812,7 +812,7 @@ class DynamoDBKeySchema extends SubPropertyObject {
 }
 
 class DynamoDBLocalSecondaryIndexes extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       IndexName: new ResourceProperty('IndexName', String, 'Yes', null),
       KeySchema: new ResourceProperty('KeySchema', DynamoDBKeySchema, 'Yes', null),
@@ -823,7 +823,7 @@ class DynamoDBLocalSecondaryIndexes extends SubPropertyObject {
 }
 
 class DynamoDBProjectionObject extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       NonKeyAttributes: new ResourceArray('NonKeyAttributes', String, 'No', null),
       ProjectionType: new ResourceProperty('ProjectionType', String, 'No', null),
@@ -836,7 +836,7 @@ class DynamoDBProjectionObject extends SubPropertyObject {
 }
 
 class DynamoDBProvisionedThroughput extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ReadCapacityUnits: new ResourceProperty('ReadCapacityUnits', Number, 'Yes', null),
       WriteCapacityUnits: new ResourceProperty('WriteCapacityUnits', Number, 'Yes', null)
@@ -846,7 +846,7 @@ class DynamoDBProvisionedThroughput extends SubPropertyObject {
 }
 
 class DynamoDBTableStreamSpecification extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       StreamViewType: new ResourceProperty('StreamViewType', String, 'Yes', null)
     }
@@ -855,7 +855,7 @@ class DynamoDBTableStreamSpecification extends SubPropertyObject {
 }
 
 class AmazonEC2BlockDeviceMappingProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DeviceName: new ResourceProperty('DeviceName', String, 'Yes', null),
       Ebs: new ResourceProperty('Ebs', AmazonElasticBlockStoreBlockDeviceProperty, 'Conditional', null),
@@ -867,7 +867,7 @@ class AmazonEC2BlockDeviceMappingProperty extends SubPropertyObject {
 }
 
 class AmazonElasticBlockStoreBlockDeviceProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DeleteOnTermination: new ResourceProperty('DeleteOnTermination', Boolean, 'No', null),
       Encrypted: new ResourceProperty('Encrypted', Boolean, 'No', null),
@@ -881,7 +881,7 @@ class AmazonElasticBlockStoreBlockDeviceProperty extends SubPropertyObject {
 }
 
 class EC2ICMPPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
     }
     super('EC2ICMPPropertyType', properties, propertiesObject)
@@ -889,7 +889,7 @@ class EC2ICMPPropertyType extends SubPropertyObject {
 }
 
 class AmazonEC2InstanceSsmAssociations extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AssociationParameters: new ResourceArray('AssociationParameters', AmazonEC2InstanceSsmAssociationsAssociationParameters, 'No', null),
       DocumentName: new ResourceProperty('DocumentName', String, 'Yes', null)
@@ -899,7 +899,7 @@ class AmazonEC2InstanceSsmAssociations extends SubPropertyObject {
 }
 
 class AmazonEC2InstanceSsmAssociationsAssociationParameters extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'Yes', null),
       Value: new ResourceArray('Value', String, 'Yes', null)
@@ -909,7 +909,7 @@ class AmazonEC2InstanceSsmAssociationsAssociationParameters extends SubPropertyO
 }
 
 class EC2MountPointPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Device: new ResourceProperty('Device', String, 'Yes', null),
       VolumeId: new ResourceProperty('VolumeId', String, 'Yes', null)
@@ -919,7 +919,7 @@ class EC2MountPointPropertyType extends SubPropertyObject {
 }
 
 class EC2NetworkInterfaceEmbeddedPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AssociatePublicIpAddress: new ResourceProperty('AssociatePublicIpAddress', Boolean, 'No', null),
       DeleteOnTermination: new ResourceProperty('DeleteOnTermination', Boolean, 'No', null),
@@ -937,7 +937,7 @@ class EC2NetworkInterfaceEmbeddedPropertyType extends SubPropertyObject {
 }
 
 class EC2NetworkInterfaceAssociation extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AttachmentID: new ResourceProperty('AttachmentID', String, 'Yes', null),
       InstanceID: new ResourceProperty('InstanceID', String, 'Yes', null),
@@ -949,7 +949,7 @@ class EC2NetworkInterfaceAssociation extends SubPropertyObject {
 }
 
 class EC2NetworkInterfaceAttachment extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AttachmentID: new ResourceProperty('AttachmentID', String, 'Yes', null),
       InstanceID: new ResourceProperty('InstanceID', String, 'Yes', null)
@@ -959,7 +959,7 @@ class EC2NetworkInterfaceAttachment extends SubPropertyObject {
 }
 
 class EC2NetworkInterfaceGroupItem extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'Yes', null),
       Value: new ResourceProperty('Value', String, 'Yes', null)
@@ -969,7 +969,7 @@ class EC2NetworkInterfaceGroupItem extends SubPropertyObject {
 }
 
 class EC2NetworkInterfacePrivateIPSpecification extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       PrivateIpAddress: new ResourceProperty('PrivateIpAddress', String, 'Yes', null),
       Primary: new ResourceProperty('Primary', Boolean, 'Yes', null)
@@ -979,7 +979,7 @@ class EC2NetworkInterfacePrivateIPSpecification extends SubPropertyObject {
 }
 
 class EC2PortRangePropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
     }
     super('EC2PortRangePropertyType', properties, propertiesObject)
@@ -987,7 +987,7 @@ class EC2PortRangePropertyType extends SubPropertyObject {
 }
 
 class EC2SecurityGroupRulePropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CidrIp: new ResourceProperty('CidrIp', String, 'Conditional', null),
       DestinationSecurityGroupId: new ResourceProperty('DestinationSecurityGroupId', String, 'Conditional', null),
@@ -1003,7 +1003,7 @@ class EC2SecurityGroupRulePropertyType extends SubPropertyObject {
 }
 
 class AmazonEC2SpotFleetSpotFleetRequestConfigData extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AllocationStrategy: new ResourceProperty('AllocationStrategy', String, 'No', null),
       ExcessCapacityTerminationPolicy: new ResourceProperty('ExcessCapacityTerminationPolicy', String, 'No', null),
@@ -1020,7 +1020,7 @@ class AmazonEC2SpotFleetSpotFleetRequestConfigData extends SubPropertyObject {
 }
 
 class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       BlockDeviceMappings: new ResourceArray('BlockDeviceMappings', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings, 'No', null),
       EbsOptimized: new ResourceProperty('EbsOptimized', Boolean, 'No', null),
@@ -1043,7 +1043,7 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
 }
 
 class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DeviceName: new ResourceProperty('DeviceName', String, 'Yes', null),
       Ebs: new ResourceProperty('Ebs', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs, 'Conditional', null),
@@ -1055,7 +1055,7 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
 }
 
 class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DeleteOnTermination: new ResourceProperty('DeleteOnTermination', Boolean, 'No', null),
       Encrypted: new ResourceProperty('Encrypted', Boolean, 'No', null),
@@ -1069,7 +1069,7 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
 }
 
 class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Arn: new ResourceProperty('Arn', String, 'No', null)
     }
@@ -1078,7 +1078,7 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
 }
 
 class AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Enabled: new ResourceProperty('Enabled', Boolean, 'No', null)
     }
@@ -1087,7 +1087,7 @@ class AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring
 }
 
 class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AssociatePublicIpAddress: new ResourceProperty('AssociatePublicIpAddress', Boolean, 'No', null),
       DeleteOnTermination: new ResourceProperty('DeleteOnTermination', Boolean, 'No', null),
@@ -1104,7 +1104,7 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
 }
 
 class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Primary: new ResourceProperty('Primary', Boolean, 'No', null),
       PrivateIpAddress: new ResourceProperty('PrivateIpAddress', String, 'Yes', null)
@@ -1114,7 +1114,7 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
 }
 
 class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AvailabilityZone: new ResourceProperty('AvailabilityZone', String, 'No', null),
       GroupName: new ResourceProperty('GroupName', String, 'No', null)
@@ -1124,7 +1124,7 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
 }
 
 class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       GroupId: new ResourceProperty('GroupId', String, 'No', null)
     }
@@ -1133,7 +1133,7 @@ class AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecific
 }
 
 class AmazonEC2ContainerServiceServiceDeploymentConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       MaximumPercent: new ResourceProperty('MaximumPercent', Number, 'No', null),
       MinimumHealthyPercent: new ResourceProperty('MinimumHealthyPercent', Number, 'No', null)
@@ -1143,7 +1143,7 @@ class AmazonEC2ContainerServiceServiceDeploymentConfiguration extends SubPropert
 }
 
 class AmazonEC2ContainerServiceServiceLoadBalancers extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ContainerName: new ResourceProperty('ContainerName', String, 'No', null),
       ContainerPort: new ResourceProperty('ContainerPort', Number, 'Yes', null),
@@ -1154,7 +1154,7 @@ class AmazonEC2ContainerServiceServiceLoadBalancers extends SubPropertyObject {
 }
 
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Command: new ResourceArray('Command', String, 'No', null),
       Cpu: new ResourceProperty('Cpu', Number, 'No', null),
@@ -1187,7 +1187,7 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions extends SubPro
 }
 
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'Yes', null),
       Value: new ResourceProperty('Value', String, 'Yes', null)
@@ -1197,7 +1197,7 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment ext
 }
 
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Hostname: new ResourceProperty('Hostname', String, 'Yes', null),
       IpAddress: new ResourceProperty('IpAddress', String, 'Yes', null)
@@ -1207,7 +1207,7 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry exten
 }
 
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       LogDriver: new ResourceProperty('LogDriver', String, 'Yes', null),
       Options: new ResourceProperty('Options', Map, 'No', null)
@@ -1217,7 +1217,7 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguratio
 }
 
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ContainerPath: new ResourceProperty('ContainerPath', String, 'Yes', null),
       SourceVolume: new ResourceProperty('SourceVolume', String, 'Yes', null),
@@ -1228,7 +1228,7 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints ext
 }
 
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ContainerPort: new ResourceProperty('ContainerPort', Number, 'Yes', null),
       HostPort: new ResourceProperty('HostPort', Number, 'No', null)
@@ -1238,7 +1238,7 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings ex
 }
 
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       HardLimit: new ResourceProperty('HardLimit', Number, 'Yes', null),
       Name: new ResourceProperty('Name', String, 'No', null),
@@ -1249,7 +1249,7 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit extends 
 }
 
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       SourceContainer: new ResourceProperty('SourceContainer', String, 'Yes', null),
       ReadOnly: new ResourceProperty('ReadOnly', Boolean, 'No', null)
@@ -1259,7 +1259,7 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom ext
 }
 
 class AmazonEC2ContainerServiceTaskDefinitionVolumes extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'Yes', null),
       Host: new ResourceProperty('Host', AmazonEC2ContainerServiceTaskDefinitionVolumesHost, 'No', null)
@@ -1269,7 +1269,7 @@ class AmazonEC2ContainerServiceTaskDefinitionVolumes extends SubPropertyObject {
 }
 
 class AmazonEC2ContainerServiceTaskDefinitionVolumesHost extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       SourcePath: new ResourceProperty('SourcePath', String, 'No', null)
     }
@@ -1278,7 +1278,7 @@ class AmazonEC2ContainerServiceTaskDefinitionVolumesHost extends SubPropertyObje
 }
 
 class AmazonElasticFileSystemFileSystemFileSystemTags extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'No', null),
       Value: new ResourceProperty('Value', String, 'No', null)
@@ -1288,7 +1288,7 @@ class AmazonElasticFileSystemFileSystemFileSystemTags extends SubPropertyObject 
 }
 
 class ElasticBeanstalkEnvironmentTierPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'No', null),
       Type: new ResourceProperty('Type', String, 'No', null),
@@ -1299,7 +1299,7 @@ class ElasticBeanstalkEnvironmentTierPropertyType extends SubPropertyObject {
 }
 
 class ElasticBeanstalkOptionSettingsPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Namespace: new ResourceProperty('Namespace', String, 'Yes', null),
       OptionName: new ResourceProperty('OptionName', String, 'Yes', null),
@@ -1310,7 +1310,7 @@ class ElasticBeanstalkOptionSettingsPropertyType extends SubPropertyObject {
 }
 
 class ElasticBeanstalkSourceBundlePropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       S3Bucket: new ResourceProperty('S3Bucket', String, 'Yes', null),
       S3Key: new ResourceProperty('S3Key', String, 'Yes', null)
@@ -1320,7 +1320,7 @@ class ElasticBeanstalkSourceBundlePropertyType extends SubPropertyObject {
 }
 
 class ElasticBeanstalkSourceConfigurationPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ApplicationName: new ResourceProperty('ApplicationName', String, 'Yes', null),
       TemplateName: new ResourceProperty('TemplateName', String, 'Yes', null)
@@ -1330,7 +1330,7 @@ class ElasticBeanstalkSourceConfigurationPropertyType extends SubPropertyObject 
 }
 
 class ElasticLoadBalancingAccessLoggingPolicy extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       EmitInterval: new ResourceProperty('EmitInterval', Number, 'No', null),
       Enabled: new ResourceProperty('Enabled', Boolean, 'Yes', null),
@@ -1342,7 +1342,7 @@ class ElasticLoadBalancingAccessLoggingPolicy extends SubPropertyObject {
 }
 
 class ElasticLoadBalancingAppCookieStickinessPolicyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CookieName: new ResourceProperty('CookieName', String, 'Yes', null),
       PolicyName: new ResourceProperty('PolicyName', String, 'Yes', null)
@@ -1352,7 +1352,7 @@ class ElasticLoadBalancingAppCookieStickinessPolicyType extends SubPropertyObjec
 }
 
 class ElasticLoadBalancingConnectionDrainingPolicy extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Enabled: new ResourceProperty('Enabled', Boolean, 'Yes', null),
       Timeout: new ResourceProperty('Timeout', Number, 'No', null)
@@ -1362,7 +1362,7 @@ class ElasticLoadBalancingConnectionDrainingPolicy extends SubPropertyObject {
 }
 
 class ElasticLoadBalancingConnectionSettings extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       IdleTimeout: new ResourceProperty('IdleTimeout', Number, 'Yes', null)
     }
@@ -1371,7 +1371,7 @@ class ElasticLoadBalancingConnectionSettings extends SubPropertyObject {
 }
 
 class ElasticLoadBalancingHealthCheckType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       HealthyThreshold: new ResourceProperty('HealthyThreshold', String, 'Yes', null),
       Interval: new ResourceProperty('Interval', String, 'Yes', null),
@@ -1384,7 +1384,7 @@ class ElasticLoadBalancingHealthCheckType extends SubPropertyObject {
 }
 
 class ElasticLoadBalancingLBCookieStickinessPolicyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CookieExpirationPeriod: new ResourceProperty('CookieExpirationPeriod', String, 'No', null),
       PolicyName: new ResourceProperty('PolicyName', undefined, 'undefined', null)
@@ -1394,7 +1394,7 @@ class ElasticLoadBalancingLBCookieStickinessPolicyType extends SubPropertyObject
 }
 
 class ElasticLoadBalancingListenerPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       InstancePort: new ResourceProperty('InstancePort', String, 'Yes', null),
       InstanceProtocol: new ResourceProperty('InstanceProtocol', String, 'No', null),
@@ -1408,7 +1408,7 @@ class ElasticLoadBalancingListenerPropertyType extends SubPropertyObject {
 }
 
 class ElasticLoadBalancingPolicyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Attributes: new ResourceArray('Attributes', Object, 'Yes', null),
       InstancePorts: new ResourceArray('InstancePorts', String, 'No', null),
@@ -1421,7 +1421,7 @@ class ElasticLoadBalancingPolicyType extends SubPropertyObject {
 }
 
 class AmazonElasticsearchServiceDomainEBSOptions extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       EBSEnabled: new ResourceProperty('EBSEnabled', Boolean, 'No', null),
       Iops: new ResourceProperty('Iops', Number, 'No', null),
@@ -1433,7 +1433,7 @@ class AmazonElasticsearchServiceDomainEBSOptions extends SubPropertyObject {
 }
 
 class AmazonElasticsearchServiceDomainElasticsearchClusterConfig extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DedicatedMasterCount: new ResourceProperty('DedicatedMasterCount', Number, 'No', null),
       DedicatedMasterEnabled: new ResourceProperty('DedicatedMasterEnabled', Boolean, 'No', null),
@@ -1447,7 +1447,7 @@ class AmazonElasticsearchServiceDomainElasticsearchClusterConfig extends SubProp
 }
 
 class AmazonElasticsearchServiceDomainSnapshotOptions extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AutomatedSnapshotStartHour: new ResourceProperty('AutomatedSnapshotStartHour', Number, 'No', null)
     }
@@ -1456,7 +1456,7 @@ class AmazonElasticsearchServiceDomainSnapshotOptions extends SubPropertyObject 
 }
 
 class AmazonElasticMapReduceClusterApplication extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AdditionalInfo: new ResourceProperty('AdditionalInfo', Map, 'No', null),
       Args: new ResourceArray('Args', String, 'No', null),
@@ -1468,7 +1468,7 @@ class AmazonElasticMapReduceClusterApplication extends SubPropertyObject {
 }
 
 class AmazonElasticMapReduceClusterBootstrapActionConfig extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'Yes', null),
       ScriptBootstrapAction: new ResourceProperty('ScriptBootstrapAction', AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig, 'Yes', null)
@@ -1478,7 +1478,7 @@ class AmazonElasticMapReduceClusterBootstrapActionConfig extends SubPropertyObje
 }
 
 class AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Args: new ResourceArray('Args', String, 'No', null),
       Path: new ResourceProperty('Path', String, 'Yes', null)
@@ -1488,7 +1488,7 @@ class AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionCon
 }
 
 class AmazonElasticMapReduceClusterConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Classification: new ResourceProperty('Classification', String, 'No', null),
       ConfigurationProperties: new ResourceProperty('ConfigurationProperties', Map, 'No', null),
@@ -1499,7 +1499,7 @@ class AmazonElasticMapReduceClusterConfiguration extends SubPropertyObject {
 }
 
 class AmazonElasticMapReduceClusterJobFlowInstancesConfig extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AdditionalMasterSecurityGroups: new ResourceArray('AdditionalMasterSecurityGroups', String, 'No', null),
       AdditionalSlaveSecurityGroups: new ResourceArray('AdditionalSlaveSecurityGroups', String, 'No', null),
@@ -1519,7 +1519,7 @@ class AmazonElasticMapReduceClusterJobFlowInstancesConfig extends SubPropertyObj
 }
 
 class AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       BidPrice: new ResourceProperty('BidPrice', String, 'No', null),
       Configurations: new ResourceArray('Configurations', AmazonElasticMapReduceClusterConfiguration, 'No', null),
@@ -1534,7 +1534,7 @@ class AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig ext
 }
 
 class AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AvailabilityZone: new ResourceProperty('AvailabilityZone', String, 'Yes', null)
     }
@@ -1543,7 +1543,7 @@ class AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType extends S
 }
 
 class AmazonElasticMapReduceEbsConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       EbsBlockDeviceConfigs: new ResourceArray('EbsBlockDeviceConfigs', AmazonElasticMapReduceEbsConfiguration, 'No', null),
       EbsOptimized: new ResourceProperty('EbsOptimized', Boolean, 'No', null)
@@ -1553,7 +1553,7 @@ class AmazonElasticMapReduceEbsConfiguration extends SubPropertyObject {
 }
 
 class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       VolumeSpecification: new ResourceProperty('VolumeSpecification', AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification, 'Yes', null),
       VolumesPerInstance: new ResourceProperty('VolumesPerInstance', Number, 'No', null)
@@ -1563,7 +1563,7 @@ class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs extends SubPro
 }
 
 class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Iops: new ResourceProperty('Iops', Number, 'No', null),
       SizeInGB: new ResourceProperty('SizeInGB', Number, 'Yes', null),
@@ -1574,7 +1574,7 @@ class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecificat
 }
 
 class AmazonElasticMapReduceStepHadoopJarStepConfig extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Args: new ResourceArray('Args', String, 'No', null),
       Jar: new ResourceProperty('Jar', String, 'Yes', null),
@@ -1586,7 +1586,7 @@ class AmazonElasticMapReduceStepHadoopJarStepConfig extends SubPropertyObject {
 }
 
 class AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'No', null),
       Value: new ResourceProperty('Value', String, 'No', null)
@@ -1596,7 +1596,7 @@ class AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue extends SubPropertyO
 }
 
 class AmazonGameLiftAliasRoutingStrategy extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       FleetId: new ResourceProperty('FleetId', String, 'Conditional', null),
       Message: new ResourceProperty('Message', String, 'Conditional', null),
@@ -1607,7 +1607,7 @@ class AmazonGameLiftAliasRoutingStrategy extends SubPropertyObject {
 }
 
 class AmazonGameLiftBuildStorageLocation extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Bucket: new ResourceProperty('Bucket', String, 'Yes', null),
       Key: new ResourceProperty('Key', String, 'Yes', null),
@@ -1618,7 +1618,7 @@ class AmazonGameLiftBuildStorageLocation extends SubPropertyObject {
 }
 
 class AmazonGameLiftFleetEC2InboundPermission extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       FromPort: new ResourceProperty('FromPort', Number, 'Yes', null),
       IpRange: new ResourceProperty('IpRange', String, 'Yes', null),
@@ -1630,7 +1630,7 @@ class AmazonGameLiftFleetEC2InboundPermission extends SubPropertyObject {
 }
 
 class IAMPolicies extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       PolicyDocument: new ResourceProperty('PolicyDocument', Object, 'Yes', null),
       PolicyName: new ResourceProperty('PolicyName', String, 'Yes', null)
@@ -1640,7 +1640,7 @@ class IAMPolicies extends SubPropertyObject {
 }
 
 class IAMUserLoginProfile extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Password: new ResourceProperty('Password', String, 'Yes', null),
       PasswordResetRequired: new ResourceProperty('PasswordResetRequired', Boolean, 'No', null)
@@ -1650,7 +1650,7 @@ class IAMUserLoginProfile extends SubPropertyObject {
 }
 
 class AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Enabled: new ResourceProperty('Enabled', Boolean, 'No', null),
       LogGroupName: new ResourceProperty('LogGroupName', String, 'Conditional', null),
@@ -1661,7 +1661,7 @@ class AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions ext
 }
 
 class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       BufferingHints: new ResourceProperty('BufferingHints', AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints, 'Yes', null),
       CloudWatchLoggingOptions: new ResourceProperty('CloudWatchLoggingOptions', AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
@@ -1679,7 +1679,7 @@ class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration e
 }
 
 class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       IntervalInSeconds: new ResourceProperty('IntervalInSeconds', Number, 'Yes', null),
       SizeInMBs: new ResourceProperty('SizeInMBs', Number, 'Yes', null)
@@ -1689,7 +1689,7 @@ class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBu
 }
 
 class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DurationInSeconds: new ResourceProperty('DurationInSeconds', Number, 'Yes', null)
     }
@@ -1698,7 +1698,7 @@ class AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRe
 }
 
 class AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CloudWatchLoggingOptions: new ResourceProperty('CloudWatchLoggingOptions', AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
       ClusterJDBCURL: new ResourceProperty('ClusterJDBCURL', String, 'Yes', null),
@@ -1713,7 +1713,7 @@ class AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration extend
 }
 
 class AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CopyOptions: new ResourceProperty('CopyOptions', String, 'No', null),
       DataTableColumns: new ResourceProperty('DataTableColumns', String, 'No', null),
@@ -1724,7 +1724,7 @@ class AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCom
 }
 
 class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       BucketARN: new ResourceProperty('BucketARN', String, 'Yes', null),
       BufferingHints: new ResourceProperty('BufferingHints', AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints, 'Yes', null),
@@ -1739,7 +1739,7 @@ class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration extends SubP
 }
 
 class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       IntervalInSeconds: new ResourceProperty('IntervalInSeconds', Number, 'Yes', null),
       SizeInMBs: new ResourceProperty('SizeInMBs', Number, 'Yes', null)
@@ -1749,7 +1749,7 @@ class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHint
 }
 
 class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AWSKMSKeyARN: new ResourceProperty('AWSKMSKeyARN', String, 'Yes', null)
     }
@@ -1758,7 +1758,7 @@ class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionCon
 }
 
 class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       KMSEncryptionConfig: new ResourceProperty('KMSEncryptionConfig', AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig, 'No', null),
       NoEncryptionConfig: new ResourceProperty('NoEncryptionConfig', String, 'No', null)
@@ -1768,7 +1768,7 @@ class AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionCon
 }
 
 class AWSLambdaFunctionCode extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       S3Bucket: new ResourceProperty('S3Bucket', String, 'Conditional', null),
       S3Key: new ResourceProperty('S3Key', String, 'Conditional', null),
@@ -1785,7 +1785,7 @@ class AWSLambdaFunctionCode extends SubPropertyObject {
 }
 
 class AWSLambdaFunctionVPCConfig extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       SecurityGroupIds: new ResourceArray('SecurityGroupIds', String, 'Yes', null),
       SubnetIds: new ResourceArray('SubnetIds', String, 'Yes', null)
@@ -1795,7 +1795,7 @@ class AWSLambdaFunctionVPCConfig extends SubPropertyObject {
 }
 
 class NameType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
     }
     super('NameType', properties, propertiesObject)
@@ -1803,7 +1803,7 @@ class NameType extends SubPropertyObject {
 }
 
 class AWSOpsWorksAutoScalingThresholdsType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CpuThreshold: new ResourceProperty('CpuThreshold', Number, 'No', null),
       IgnoreMetricsTime: new ResourceProperty('IgnoreMetricsTime', Number, 'No', null),
@@ -1817,7 +1817,7 @@ class AWSOpsWorksAutoScalingThresholdsType extends SubPropertyObject {
 }
 
 class AWSOpsWorksChefConfigurationType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       BerkshelfVersion: new ResourceProperty('BerkshelfVersion', String, 'No', null),
       ManageBerkshelf: new ResourceProperty('ManageBerkshelf', Boolean, 'No', null)
@@ -1827,7 +1827,7 @@ class AWSOpsWorksChefConfigurationType extends SubPropertyObject {
 }
 
 class AWSOpsWorksLayerLifeCycleConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ShutdownEventConfiguration: new ResourceProperty('ShutdownEventConfiguration', AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration, 'No', null)
     }
@@ -1836,7 +1836,7 @@ class AWSOpsWorksLayerLifeCycleConfiguration extends SubPropertyObject {
 }
 
 class AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DelayUntilElbConnectionsDrained: new ResourceProperty('DelayUntilElbConnectionsDrained', Boolean, 'No', null),
       ExecutionTimeout: new ResourceProperty('ExecutionTimeout', Number, 'No', null)
@@ -1846,7 +1846,7 @@ class AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration extends S
 }
 
 class AWSOpsWorksLoadBasedAutoScalingType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DownScaling: new ResourceProperty('DownScaling', AWSOpsWorksAutoScalingThresholdsType, 'No', null),
       Enable: new ResourceProperty('Enable', Boolean, 'No', null),
@@ -1857,7 +1857,7 @@ class AWSOpsWorksLoadBasedAutoScalingType extends SubPropertyObject {
 }
 
 class AWSOpsWorksRecipesType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Configure: new ResourceArray('Configure', String, 'No', null),
       Deploy: new ResourceArray('Deploy', String, 'No', null),
@@ -1870,7 +1870,7 @@ class AWSOpsWorksRecipesType extends SubPropertyObject {
 }
 
 class AWSOpsWorksSourceType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Password: new ResourceProperty('Password', String, 'No', null),
       Revision: new ResourceProperty('Revision', String, 'No', null),
@@ -1884,7 +1884,7 @@ class AWSOpsWorksSourceType extends SubPropertyObject {
 }
 
 class AWSOpsWorksAppEnvironment extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'Yes', null),
       Secure: new ResourceProperty('Secure', Boolean, 'No', null),
@@ -1895,7 +1895,7 @@ class AWSOpsWorksAppEnvironment extends SubPropertyObject {
 }
 
 class AWSOpsWorksSslConfigurationType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Certificate: new ResourceProperty('Certificate', String, 'Yes', null),
       Chain: new ResourceProperty('Chain', String, 'No', null),
@@ -1906,7 +1906,7 @@ class AWSOpsWorksSslConfigurationType extends SubPropertyObject {
 }
 
 class AWSOpsWorksStackConfigurationManagerType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'No', null),
       Version: new ResourceProperty('Version', String, 'No', null)
@@ -1916,7 +1916,7 @@ class AWSOpsWorksStackConfigurationManagerType extends SubPropertyObject {
 }
 
 class AWSOpsWorksTimeBasedAutoScalingType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Friday: new ResourceProperty('Friday', Map, 'No', null),
       Monday: new ResourceProperty('Monday', Map, 'No', null),
@@ -1931,7 +1931,7 @@ class AWSOpsWorksTimeBasedAutoScalingType extends SubPropertyObject {
 }
 
 class AWSOpsWorksVolumeConfigurationType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Iops: new ResourceProperty('Iops', Number, 'Conditional', null),
       MountPoint: new ResourceProperty('MountPoint', String, 'Yes', null),
@@ -1945,7 +1945,7 @@ class AWSOpsWorksVolumeConfigurationType extends SubPropertyObject {
 }
 
 class AmazonRedshiftParameterType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ParameterName: new ResourceProperty('ParameterName', String, 'Yes', null),
       ParameterValue: new ResourceProperty('ParameterValue', String, 'Yes', null)
@@ -1955,7 +1955,7 @@ class AmazonRedshiftParameterType extends SubPropertyObject {
 }
 
 class AWSCloudFormationResourceTagsType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'Yes', null),
       Value: new ResourceProperty('Value', String, 'Yes', null)
@@ -1965,7 +1965,7 @@ class AWSCloudFormationResourceTagsType extends SubPropertyObject {
 }
 
 class AmazonRDSOptionGroupOptionConfigurations extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DBSecurityGroupMemberships: new ResourceArray('DBSecurityGroupMemberships', String, 'No', null),
       OptionName: new ResourceProperty('OptionName', String, 'Yes', null),
@@ -1978,7 +1978,7 @@ class AmazonRDSOptionGroupOptionConfigurations extends SubPropertyObject {
 }
 
 class AmazonRDSOptionGroupOptionConfigurationsOptionSettings extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'No', null),
       Value: new ResourceProperty('Value', String, 'No', null)
@@ -1988,7 +1988,7 @@ class AmazonRDSOptionGroupOptionConfigurationsOptionSettings extends SubProperty
 }
 
 class AmazonRDSSecurityGroupRule extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CIDRIP: new ResourceProperty('CIDRIP', String, 'No', null),
       EC2SecurityGroupId: new ResourceProperty('EC2SecurityGroupId', String, 'No', null),
@@ -2000,7 +2000,7 @@ class AmazonRDSSecurityGroupRule extends SubPropertyObject {
 }
 
 class Route53AliasTargetProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DNSName: new ResourceProperty('DNSName', String, 'Yes', null),
       EvaluateTargetHealth: new ResourceProperty('EvaluateTargetHealth', Boolean, 'No', null),
@@ -2011,7 +2011,7 @@ class Route53AliasTargetProperty extends SubPropertyObject {
 }
 
 class AmazonRoute53RecordSetGeoLocationProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ContinentCode: new ResourceProperty('ContinentCode', String, 'Conditional', null),
       CountryCode: new ResourceProperty('CountryCode', String, 'Conditional', null),
@@ -2022,7 +2022,7 @@ class AmazonRoute53RecordSetGeoLocationProperty extends SubPropertyObject {
 }
 
 class AmazonRoute53HealthCheckConfig extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       FailureThreshold: new ResourceProperty('FailureThreshold', Number, 'No', null),
       FullyQualifiedDomainName: new ResourceProperty('FullyQualifiedDomainName', String, 'Conditional', null),
@@ -2038,7 +2038,7 @@ class AmazonRoute53HealthCheckConfig extends SubPropertyObject {
 }
 
 class AmazonRoute53HealthCheckTags extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'Yes', null),
       Value: new ResourceProperty('Value', String, 'Yes', null)
@@ -2048,7 +2048,7 @@ class AmazonRoute53HealthCheckTags extends SubPropertyObject {
 }
 
 class AmazonRoute53HostedZoneConfigProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Comment: new ResourceProperty('Comment', String, 'No', null)
     }
@@ -2057,7 +2057,7 @@ class AmazonRoute53HostedZoneConfigProperty extends SubPropertyObject {
 }
 
 class AmazonRoute53HostedZoneTags extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Key: new ResourceProperty('Key', String, 'Yes', null),
       Value: new ResourceProperty('Value', String, 'Yes', null)
@@ -2067,7 +2067,7 @@ class AmazonRoute53HostedZoneTags extends SubPropertyObject {
 }
 
 class AmazonRoute53HostedZoneVPCs extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       VPCId: new ResourceProperty('VPCId', String, 'Yes', null),
       VPCRegion: new ResourceProperty('VPCRegion', String, 'Yes', null)
@@ -2077,7 +2077,7 @@ class AmazonRoute53HostedZoneVPCs extends SubPropertyObject {
 }
 
 class AmazonS3CorsConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       CorsRules: new ResourceProperty('CorsRules', AmazonS3CorsConfigurationRule, 'Yes', null)
     }
@@ -2086,7 +2086,7 @@ class AmazonS3CorsConfiguration extends SubPropertyObject {
 }
 
 class AmazonS3CorsConfigurationRule extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       AllowedHeaders: new ResourceArray('AllowedHeaders', String, 'No', null),
       AllowedMethods: new ResourceArray('AllowedMethods', String, 'Yes', null),
@@ -2100,7 +2100,7 @@ class AmazonS3CorsConfigurationRule extends SubPropertyObject {
 }
 
 class AmazonS3LifecycleConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Rules: new ResourceProperty('Rules', AmazonS3LifecycleRule, 'Yes', null)
     }
@@ -2109,7 +2109,7 @@ class AmazonS3LifecycleConfiguration extends SubPropertyObject {
 }
 
 class AmazonS3LifecycleRule extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ExpirationDate: new ResourceProperty('ExpirationDate', String, 'Conditional', null),
       ExpirationInDays: new ResourceProperty('ExpirationInDays', Number, 'Conditional', null),
@@ -2127,7 +2127,7 @@ class AmazonS3LifecycleRule extends SubPropertyObject {
 }
 
 class AmazonS3LifecycleRuleNoncurrentVersionTransition extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       StorageClass: new ResourceProperty('StorageClass', String, 'Yes', null),
       TransitionInDays: new ResourceProperty('TransitionInDays', Number, 'Yes', null)
@@ -2137,7 +2137,7 @@ class AmazonS3LifecycleRuleNoncurrentVersionTransition extends SubPropertyObject
 }
 
 class AmazonS3LifecycleRuleTransition extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       StorageClass: new ResourceProperty('StorageClass', String, 'Yes', null),
       TransitionDate: new ResourceProperty('TransitionDate', String, 'Conditional', null),
@@ -2148,7 +2148,7 @@ class AmazonS3LifecycleRuleTransition extends SubPropertyObject {
 }
 
 class AmazonS3LoggingConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DestinationBucketName: new ResourceProperty('DestinationBucketName', String, 'No', null),
       LogFilePrefix: new ResourceProperty('LogFilePrefix', String, 'No', null)
@@ -2158,7 +2158,7 @@ class AmazonS3LoggingConfiguration extends SubPropertyObject {
 }
 
 class AmazonS3NotificationConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       LambdaConfigurations: new ResourceProperty('LambdaConfigurations', AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations, 'No', null),
       QueueConfigurations: new ResourceProperty('QueueConfigurations', AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations, 'No', null),
@@ -2169,7 +2169,7 @@ class AmazonS3NotificationConfiguration extends SubPropertyObject {
 }
 
 class AmazonS3NotificationConfigurationConfigFilter extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       S3Key: new ResourceProperty('S3Key', AmazonS3NotificationConfigurationConfigFilterS3Key, 'Yes', null)
     }
@@ -2178,7 +2178,7 @@ class AmazonS3NotificationConfigurationConfigFilter extends SubPropertyObject {
 }
 
 class AmazonS3NotificationConfigurationConfigFilterS3Key extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Rules: new ResourceArray('Rules', AmazonS3NotificationConfigurationConfigFilterS3KeyRules, 'Yes', null)
     }
@@ -2187,7 +2187,7 @@ class AmazonS3NotificationConfigurationConfigFilterS3Key extends SubPropertyObje
 }
 
 class AmazonS3NotificationConfigurationConfigFilterS3KeyRules extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Name: new ResourceProperty('Name', String, 'Yes', null),
       Value: new ResourceProperty('Value', String, 'Yes', null)
@@ -2197,7 +2197,7 @@ class AmazonS3NotificationConfigurationConfigFilterS3KeyRules extends SubPropert
 }
 
 class AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Event: new ResourceProperty('Event', String, 'Yes', null),
       Filter: new ResourceProperty('Filter', AmazonS3NotificationConfigurationConfigFilter, 'No', null),
@@ -2208,7 +2208,7 @@ class AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations ex
 }
 
 class AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Event: new ResourceProperty('Event', String, 'Yes', null),
       Filter: new ResourceProperty('Filter', AmazonS3NotificationConfigurationConfigFilter, 'No', null),
@@ -2219,7 +2219,7 @@ class AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations ext
 }
 
 class AmazonS3NotificationConfigurationTopicConfigurations extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Event: new ResourceProperty('Event', String, 'Yes', null),
       Filter: new ResourceProperty('Filter', AmazonS3NotificationConfigurationConfigFilter, 'No', null),
@@ -2230,7 +2230,7 @@ class AmazonS3NotificationConfigurationTopicConfigurations extends SubPropertyOb
 }
 
 class AmazonS3ReplicationConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Role: new ResourceProperty('Role', String, 'Yes', null),
       Rules: new ResourceArray('Rules', AmazonS3ReplicationConfigurationRules, 'Yes', null)
@@ -2240,7 +2240,7 @@ class AmazonS3ReplicationConfiguration extends SubPropertyObject {
 }
 
 class AmazonS3ReplicationConfigurationRules extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Destination: new ResourceProperty('Destination', AmazonS3ReplicationConfigurationRulesDestination, 'Yes', null),
       Id: new ResourceProperty('Id', String, 'No', null),
@@ -2252,7 +2252,7 @@ class AmazonS3ReplicationConfigurationRules extends SubPropertyObject {
 }
 
 class AmazonS3ReplicationConfigurationRulesDestination extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Bucket: new ResourceProperty('Bucket', String, 'Yes', null),
       StorageClass: new ResourceProperty('StorageClass', String, 'No', null)
@@ -2262,7 +2262,7 @@ class AmazonS3ReplicationConfigurationRulesDestination extends SubPropertyObject
 }
 
 class AmazonS3VersioningConfiguration extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Status: new ResourceProperty('Status', String, 'Yes', null)
     }
@@ -2271,7 +2271,7 @@ class AmazonS3VersioningConfiguration extends SubPropertyObject {
 }
 
 class AmazonS3WebsiteConfigurationProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ErrorDocument: new ResourceProperty('ErrorDocument', String, 'No', null),
       IndexDocument: new ResourceProperty('IndexDocument', String, 'Yes', null),
@@ -2283,7 +2283,7 @@ class AmazonS3WebsiteConfigurationProperty extends SubPropertyObject {
 }
 
 class AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       HostName: new ResourceProperty('HostName', String, 'Yes', null),
       Protocol: new ResourceProperty('Protocol', String, 'No', null)
@@ -2293,7 +2293,7 @@ class AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty extends SubPrope
 }
 
 class AmazonS3WebsiteConfigurationRoutingRulesProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       RedirectRule: new ResourceProperty('RedirectRule', AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty, 'Yes', null),
       RoutingRuleCondition: new ResourceProperty('RoutingRuleCondition', AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty, 'No', null)
@@ -2303,7 +2303,7 @@ class AmazonS3WebsiteConfigurationRoutingRulesProperty extends SubPropertyObject
 }
 
 class AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       HostName: new ResourceProperty('HostName', String, 'No', null),
       HttpRedirectCode: new ResourceProperty('HttpRedirectCode', String, 'No', null),
@@ -2316,7 +2316,7 @@ class AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty extends SubPr
 }
 
 class AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       HttpErrorCodeReturnedEquals: new ResourceProperty('HttpErrorCodeReturnedEquals', String, 'Conditional', null),
       KeyPrefixEquals: new ResourceProperty('KeyPrefixEquals', String, 'Conditional', null)
@@ -2326,7 +2326,7 @@ class AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty exten
 }
 
 class AmazonSNSSubscriptionPropertyType extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Endpoint: new ResourceProperty('Endpoint', String, 'Yes', null),
       Protocol: new ResourceProperty('Protocol', String, 'Yes', null)
@@ -2336,7 +2336,7 @@ class AmazonSNSSubscriptionPropertyType extends SubPropertyObject {
 }
 
 class AmazonSQSRedrivePolicy extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       deadLetterTargetArn: new ResourceProperty('deadLetterTargetArn', String, 'No', null),
       maxReceiveCount: new ResourceProperty('maxReceiveCount', Number, 'No', null)
@@ -2346,7 +2346,7 @@ class AmazonSQSRedrivePolicy extends SubPropertyObject {
 }
 
 class AWSWAFByteMatchSetByteMatchTuples extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       FieldToMatch: new ResourceProperty('FieldToMatch', AWSWAFByteMatchSetByteMatchTuplesFieldToMatch, 'Yes', null),
       PositionalConstraint: new ResourceProperty('PositionalConstraint', String, 'Yes', null),
@@ -2359,7 +2359,7 @@ class AWSWAFByteMatchSetByteMatchTuples extends SubPropertyObject {
 }
 
 class AWSWAFByteMatchSetByteMatchTuplesFieldToMatch extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Data: new ResourceProperty('Data', String, 'Conditional', null),
       Type: new ResourceProperty('Type', String, 'Yes', null)
@@ -2369,7 +2369,7 @@ class AWSWAFByteMatchSetByteMatchTuplesFieldToMatch extends SubPropertyObject {
 }
 
 class AWSWAFIPSetIPSetDescriptors extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Type: new ResourceProperty('Type', String, 'Yes', null),
       Value: new ResourceProperty('Value', String, 'Yes', null)
@@ -2379,7 +2379,7 @@ class AWSWAFIPSetIPSetDescriptors extends SubPropertyObject {
 }
 
 class AWSWAFRulePredicates extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       DataId: new ResourceProperty('DataId', String, 'Yes', null),
       Negated: new ResourceProperty('Negated', Boolean, 'Yes', null),
@@ -2390,7 +2390,7 @@ class AWSWAFRulePredicates extends SubPropertyObject {
 }
 
 class AWSWAFSizeConstraintSetSizeConstraint extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       ComparisonOperator: new ResourceProperty('ComparisonOperator', String, 'Yes', null),
       FieldToMatch: new ResourceProperty('FieldToMatch', AWSWAFSizeConstraintSetSizeConstraintFieldToMatch, 'Yes', null),
@@ -2402,7 +2402,7 @@ class AWSWAFSizeConstraintSetSizeConstraint extends SubPropertyObject {
 }
 
 class AWSWAFSizeConstraintSetSizeConstraintFieldToMatch extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Data: new ResourceProperty('Data', String, 'Conditional', null),
       Type: new ResourceProperty('Type', String, 'Yes', null)
@@ -2412,7 +2412,7 @@ class AWSWAFSizeConstraintSetSizeConstraintFieldToMatch extends SubPropertyObjec
 }
 
 class AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       FieldToMatch: new ResourceProperty('FieldToMatch', AWSWAFByteMatchSetByteMatchTuplesFieldToMatch, 'Yes', null),
       TextTransformation: new ResourceProperty('TextTransformation', String, 'Yes', null)
@@ -2422,7 +2422,7 @@ class AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples extends SubPropertyObjec
 }
 
 class AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Data: new ResourceProperty('Data', String, 'Conditional', null),
       Type: new ResourceProperty('Type', String, 'Yes', null)
@@ -2432,7 +2432,7 @@ class AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch extends SubP
 }
 
 class AWSWAFXssMatchSetXssMatchTuple extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       FieldToMatch: new ResourceProperty('FieldToMatch', AWSWAFXssMatchSetXssMatchTupleFieldToMatch, 'Yes', null),
       TextTransformation: new ResourceProperty('TextTransformation', String, 'Yes', null)
@@ -2442,7 +2442,7 @@ class AWSWAFXssMatchSetXssMatchTuple extends SubPropertyObject {
 }
 
 class AWSWAFXssMatchSetXssMatchTupleFieldToMatch extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Data: new ResourceProperty('Data', String, 'Conditional', null),
       Type: new ResourceProperty('Type', String, 'Yes', null)
@@ -2452,7 +2452,7 @@ class AWSWAFXssMatchSetXssMatchTupleFieldToMatch extends SubPropertyObject {
 }
 
 class AWSWAFWebACLAction extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Type: new ResourceProperty('Type', String, 'Yes', null)
     }
@@ -2461,7 +2461,7 @@ class AWSWAFWebACLAction extends SubPropertyObject {
 }
 
 class AWSWAFWebACLRules extends SubPropertyObject {
-  constructor(propertiesObject) {
+  constructor (propertiesObject) {
     let properties = {
       Action: new ResourceProperty('Action', AWSWAFWebACLAction, 'Yes', null),
       Priority: new ResourceProperty('Priority', Number, 'Yes', null),
@@ -2472,219 +2472,219 @@ class AWSWAFWebACLRules extends SubPropertyObject {
 }
 
 module.exports = {
-AmazonAPIGatewayApiKeyStageKey: AmazonAPIGatewayApiKeyStageKey,
-AmazonAPIGatewayDeploymentStageDescription: AmazonAPIGatewayDeploymentStageDescription,
-AmazonAPIGatewayDeploymentStageDescriptionMethodSetting: AmazonAPIGatewayDeploymentStageDescriptionMethodSetting,
-AmazonAPIGatewayMethodIntegration: AmazonAPIGatewayMethodIntegration,
-AmazonAPIGatewayMethodIntegrationIntegrationResponse: AmazonAPIGatewayMethodIntegrationIntegrationResponse,
-AmazonAPIGatewayMethodMethodResponse: AmazonAPIGatewayMethodMethodResponse,
-AmazonAPIGatewayRestApiS3Location: AmazonAPIGatewayRestApiS3Location,
-AmazonAPIGatewayStageMethodSetting: AmazonAPIGatewayStageMethodSetting,
-AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType: AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType,
-AWSCloudFormationAutoScalingEBSBlockDevicePropertyType: AWSCloudFormationAutoScalingEBSBlockDevicePropertyType,
-AutoScalingMetricsCollection: AutoScalingMetricsCollection,
-AutoScalingNotificationConfigurations: AutoScalingNotificationConfigurations,
-AutoScalingScalingPolicyStepAdjustments: AutoScalingScalingPolicyStepAdjustments,
-AutoScalingTagsPropertyType: AutoScalingTagsPropertyType,
-CloudFormationStackParametersPropertyType: CloudFormationStackParametersPropertyType,
-AWSCloudFormationInterfaceLabel: AWSCloudFormationInterfaceLabel,
-AWSCloudFormationInterfaceParameterGroup: AWSCloudFormationInterfaceParameterGroup,
-AWSCloudFormationInterfaceParameterLabel: AWSCloudFormationInterfaceParameterLabel,
-CloudFrontDistributionConfig: CloudFrontDistributionConfig,
-CloudFrontDistributionConfigCacheBehavior: CloudFrontDistributionConfigCacheBehavior,
-CloudFrontDistributionConfigCustomErrorResponse: CloudFrontDistributionConfigCustomErrorResponse,
-CloudFrontDefaultCacheBehavior: CloudFrontDefaultCacheBehavior,
-CloudFrontLogging: CloudFrontLogging,
-CloudFrontDistributionConfigOrigin: CloudFrontDistributionConfigOrigin,
-CloudFrontDistributionConfigOriginCustomOrigin: CloudFrontDistributionConfigOriginCustomOrigin,
-CloudFrontDistributionConfigOriginS3Origin: CloudFrontDistributionConfigOriginS3Origin,
-CloudFrontDistributionConfigurationRestrictions: CloudFrontDistributionConfigurationRestrictions,
-CloudFrontDistributionConfigRestrictionsGeoRestriction: CloudFrontDistributionConfigRestrictionsGeoRestriction,
-CloudFrontDistributionConfigurationViewerCertificate: CloudFrontDistributionConfigurationViewerCertificate,
-CloudFrontForwardedValues: CloudFrontForwardedValues,
-CloudFrontForwardedValuesCookies: CloudFrontForwardedValuesCookies,
-CloudWatchMetricDimensionPropertyType: CloudWatchMetricDimensionPropertyType,
-AmazonCloudWatchEventsRuleTarget: AmazonCloudWatchEventsRuleTarget,
-CloudWatchLogsMetricFilterMetricTransformationProperty: CloudWatchLogsMetricFilterMetricTransformationProperty,
-AWSCodeDeployDeploymentConfigMinimumHealthyHosts: AWSCodeDeployDeploymentConfigMinimumHealthyHosts,
-AWSCodeDeployDeploymentGroupDeployment: AWSCodeDeployDeploymentGroupDeployment,
-AWSCodeDeployDeploymentGroupDeploymentRevision: AWSCodeDeployDeploymentGroupDeploymentRevision,
-AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation: AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation,
-AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location: AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location,
-AWSCodeDeployDeploymentGroupEc2TagFilters: AWSCodeDeployDeploymentGroupEc2TagFilters,
-AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters: AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters,
-AWSCodePipelineCustomActionTypeArtifactDetails: AWSCodePipelineCustomActionTypeArtifactDetails,
-AWSCodePipelineCustomActionTypeConfigurationProperties: AWSCodePipelineCustomActionTypeConfigurationProperties,
-AWSCodePipelineCustomActionTypeSettings: AWSCodePipelineCustomActionTypeSettings,
-AWSCodePipelinePipelineArtifactStore: AWSCodePipelinePipelineArtifactStore,
-AWSCodePipelinePipelineArtifactStoreEncryptionKey: AWSCodePipelinePipelineArtifactStoreEncryptionKey,
-AWSCodePipelinePipelineDisableInboundStageTransitions: AWSCodePipelinePipelineDisableInboundStageTransitions,
-AWSCodePipelinePipelineStages: AWSCodePipelinePipelineStages,
-AWSCodePipelinePipelineStagesActions: AWSCodePipelinePipelineStagesActions,
-AWSCodePipelinePipelineStagesActionsActionTypeId: AWSCodePipelinePipelineStagesActionsActionTypeId,
-AWSCodePipelinePipelineStagesActionsInputArtifacts: AWSCodePipelinePipelineStagesActionsInputArtifacts,
-AWSCodePipelinePipelineStagesActionsOutputArtifacts: AWSCodePipelinePipelineStagesActionsOutputArtifacts,
-AWSCodePipelinePipelineStagesBlockers: AWSCodePipelinePipelineStagesBlockers,
-AWSConfigConfigRuleScope: AWSConfigConfigRuleScope,
-AWSConfigConfigRuleSource: AWSConfigConfigRuleSource,
-AWSConfigConfigRuleSourceSourceDetails: AWSConfigConfigRuleSourceSourceDetails,
-AWSConfigConfigurationRecorderRecordingGroup: AWSConfigConfigurationRecorderRecordingGroup,
-AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties: AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties,
-AWSDataPipelinePipelineParameterObjects: AWSDataPipelinePipelineParameterObjects,
-AWSDataPipelineParameterObjectsAttributes: AWSDataPipelineParameterObjectsAttributes,
-AWSDataPipelinePipelineParameterValues: AWSDataPipelinePipelineParameterValues,
-AWSDataPipelinePipelineObjects: AWSDataPipelinePipelineObjects,
-AWSDataPipelineDataPipelineObjectFields: AWSDataPipelineDataPipelineObjectFields,
-AWSDataPipelinePipelinePipelineTags: AWSDataPipelinePipelinePipelineTags,
-AWSDirectoryServiceMicrosoftADVpcSettings: AWSDirectoryServiceMicrosoftADVpcSettings,
-AWSDirectoryServiceSimpleADVpcSettings: AWSDirectoryServiceSimpleADVpcSettings,
-DynamoDBAttributeDefinitions: DynamoDBAttributeDefinitions,
-DynamoDBGlobalSecondaryIndexes: DynamoDBGlobalSecondaryIndexes,
-DynamoDBKeySchema: DynamoDBKeySchema,
-DynamoDBLocalSecondaryIndexes: DynamoDBLocalSecondaryIndexes,
-DynamoDBProjectionObject: DynamoDBProjectionObject,
-DynamoDBProvisionedThroughput: DynamoDBProvisionedThroughput,
-DynamoDBTableStreamSpecification: DynamoDBTableStreamSpecification,
-AmazonEC2BlockDeviceMappingProperty: AmazonEC2BlockDeviceMappingProperty,
-AmazonElasticBlockStoreBlockDeviceProperty: AmazonElasticBlockStoreBlockDeviceProperty,
-EC2ICMPPropertyType: EC2ICMPPropertyType,
-AmazonEC2InstanceSsmAssociations: AmazonEC2InstanceSsmAssociations,
-AmazonEC2InstanceSsmAssociationsAssociationParameters: AmazonEC2InstanceSsmAssociationsAssociationParameters,
-EC2MountPointPropertyType: EC2MountPointPropertyType,
-EC2NetworkInterfaceEmbeddedPropertyType: EC2NetworkInterfaceEmbeddedPropertyType,
-EC2NetworkInterfaceAssociation: EC2NetworkInterfaceAssociation,
-EC2NetworkInterfaceAttachment: EC2NetworkInterfaceAttachment,
-EC2NetworkInterfaceGroupItem: EC2NetworkInterfaceGroupItem,
-EC2NetworkInterfacePrivateIPSpecification: EC2NetworkInterfacePrivateIPSpecification,
-EC2PortRangePropertyType: EC2PortRangePropertyType,
-EC2SecurityGroupRulePropertyType: EC2SecurityGroupRulePropertyType,
-AmazonEC2SpotFleetSpotFleetRequestConfigData: AmazonEC2SpotFleetSpotFleetRequestConfigData,
-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications,
-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings,
-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs,
-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile,
-AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring: AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring,
-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces,
-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses,
-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement,
-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups,
-AmazonEC2ContainerServiceServiceDeploymentConfiguration: AmazonEC2ContainerServiceServiceDeploymentConfiguration,
-AmazonEC2ContainerServiceServiceLoadBalancers: AmazonEC2ContainerServiceServiceLoadBalancers,
-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions,
-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment,
-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry,
-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration,
-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints,
-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings,
-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit,
-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom,
-AmazonEC2ContainerServiceTaskDefinitionVolumes: AmazonEC2ContainerServiceTaskDefinitionVolumes,
-AmazonEC2ContainerServiceTaskDefinitionVolumesHost: AmazonEC2ContainerServiceTaskDefinitionVolumesHost,
-AmazonElasticFileSystemFileSystemFileSystemTags: AmazonElasticFileSystemFileSystemFileSystemTags,
-ElasticBeanstalkEnvironmentTierPropertyType: ElasticBeanstalkEnvironmentTierPropertyType,
-ElasticBeanstalkOptionSettingsPropertyType: ElasticBeanstalkOptionSettingsPropertyType,
-ElasticBeanstalkSourceBundlePropertyType: ElasticBeanstalkSourceBundlePropertyType,
-ElasticBeanstalkSourceConfigurationPropertyType: ElasticBeanstalkSourceConfigurationPropertyType,
-ElasticLoadBalancingAccessLoggingPolicy: ElasticLoadBalancingAccessLoggingPolicy,
-ElasticLoadBalancingAppCookieStickinessPolicyType: ElasticLoadBalancingAppCookieStickinessPolicyType,
-ElasticLoadBalancingConnectionDrainingPolicy: ElasticLoadBalancingConnectionDrainingPolicy,
-ElasticLoadBalancingConnectionSettings: ElasticLoadBalancingConnectionSettings,
-ElasticLoadBalancingHealthCheckType: ElasticLoadBalancingHealthCheckType,
-ElasticLoadBalancingLBCookieStickinessPolicyType: ElasticLoadBalancingLBCookieStickinessPolicyType,
-ElasticLoadBalancingListenerPropertyType: ElasticLoadBalancingListenerPropertyType,
-ElasticLoadBalancingPolicyType: ElasticLoadBalancingPolicyType,
-AmazonElasticsearchServiceDomainEBSOptions: AmazonElasticsearchServiceDomainEBSOptions,
-AmazonElasticsearchServiceDomainElasticsearchClusterConfig: AmazonElasticsearchServiceDomainElasticsearchClusterConfig,
-AmazonElasticsearchServiceDomainSnapshotOptions: AmazonElasticsearchServiceDomainSnapshotOptions,
-AmazonElasticMapReduceClusterApplication: AmazonElasticMapReduceClusterApplication,
-AmazonElasticMapReduceClusterBootstrapActionConfig: AmazonElasticMapReduceClusterBootstrapActionConfig,
-AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig: AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig,
-AmazonElasticMapReduceClusterConfiguration: AmazonElasticMapReduceClusterConfiguration,
-AmazonElasticMapReduceClusterJobFlowInstancesConfig: AmazonElasticMapReduceClusterJobFlowInstancesConfig,
-AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig: AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig,
-AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType: AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType,
-AmazonElasticMapReduceEbsConfiguration: AmazonElasticMapReduceEbsConfiguration,
-AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs: AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs,
-AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification: AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification,
-AmazonElasticMapReduceStepHadoopJarStepConfig: AmazonElasticMapReduceStepHadoopJarStepConfig,
-AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue: AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue,
-AmazonGameLiftAliasRoutingStrategy: AmazonGameLiftAliasRoutingStrategy,
-AmazonGameLiftBuildStorageLocation: AmazonGameLiftBuildStorageLocation,
-AmazonGameLiftFleetEC2InboundPermission: AmazonGameLiftFleetEC2InboundPermission,
-IAMPolicies: IAMPolicies,
-IAMUserLoginProfile: IAMUserLoginProfile,
-AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions: AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions,
-AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration: AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration,
-AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints: AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints,
-AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions: AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions,
-AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration: AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration,
-AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand: AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand,
-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration: AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration,
-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints: AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints,
-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig: AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig,
-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration: AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration,
-AWSLambdaFunctionCode: AWSLambdaFunctionCode,
-AWSLambdaFunctionVPCConfig: AWSLambdaFunctionVPCConfig,
-NameType: NameType,
-AWSOpsWorksAutoScalingThresholdsType: AWSOpsWorksAutoScalingThresholdsType,
-AWSOpsWorksChefConfigurationType: AWSOpsWorksChefConfigurationType,
-AWSOpsWorksLayerLifeCycleConfiguration: AWSOpsWorksLayerLifeCycleConfiguration,
-AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration: AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration,
-AWSOpsWorksLoadBasedAutoScalingType: AWSOpsWorksLoadBasedAutoScalingType,
-AWSOpsWorksRecipesType: AWSOpsWorksRecipesType,
-AWSOpsWorksSourceType: AWSOpsWorksSourceType,
-AWSOpsWorksAppEnvironment: AWSOpsWorksAppEnvironment,
-AWSOpsWorksSslConfigurationType: AWSOpsWorksSslConfigurationType,
-AWSOpsWorksStackConfigurationManagerType: AWSOpsWorksStackConfigurationManagerType,
-AWSOpsWorksTimeBasedAutoScalingType: AWSOpsWorksTimeBasedAutoScalingType,
-AWSOpsWorksVolumeConfigurationType: AWSOpsWorksVolumeConfigurationType,
-AmazonRedshiftParameterType: AmazonRedshiftParameterType,
-AWSCloudFormationResourceTagsType: AWSCloudFormationResourceTagsType,
-AmazonRDSOptionGroupOptionConfigurations: AmazonRDSOptionGroupOptionConfigurations,
-AmazonRDSOptionGroupOptionConfigurationsOptionSettings: AmazonRDSOptionGroupOptionConfigurationsOptionSettings,
-AmazonRDSSecurityGroupRule: AmazonRDSSecurityGroupRule,
-Route53AliasTargetProperty: Route53AliasTargetProperty,
-AmazonRoute53RecordSetGeoLocationProperty: AmazonRoute53RecordSetGeoLocationProperty,
-AmazonRoute53HealthCheckConfig: AmazonRoute53HealthCheckConfig,
-AmazonRoute53HealthCheckTags: AmazonRoute53HealthCheckTags,
-AmazonRoute53HostedZoneConfigProperty: AmazonRoute53HostedZoneConfigProperty,
-AmazonRoute53HostedZoneTags: AmazonRoute53HostedZoneTags,
-AmazonRoute53HostedZoneVPCs: AmazonRoute53HostedZoneVPCs,
-AmazonS3CorsConfiguration: AmazonS3CorsConfiguration,
-AmazonS3CorsConfigurationRule: AmazonS3CorsConfigurationRule,
-AmazonS3LifecycleConfiguration: AmazonS3LifecycleConfiguration,
-AmazonS3LifecycleRule: AmazonS3LifecycleRule,
-AmazonS3LifecycleRuleNoncurrentVersionTransition: AmazonS3LifecycleRuleNoncurrentVersionTransition,
-AmazonS3LifecycleRuleTransition: AmazonS3LifecycleRuleTransition,
-AmazonS3LoggingConfiguration: AmazonS3LoggingConfiguration,
-AmazonS3NotificationConfiguration: AmazonS3NotificationConfiguration,
-AmazonS3NotificationConfigurationConfigFilter: AmazonS3NotificationConfigurationConfigFilter,
-AmazonS3NotificationConfigurationConfigFilterS3Key: AmazonS3NotificationConfigurationConfigFilterS3Key,
-AmazonS3NotificationConfigurationConfigFilterS3KeyRules: AmazonS3NotificationConfigurationConfigFilterS3KeyRules,
-AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations: AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations,
-AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations: AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations,
-AmazonS3NotificationConfigurationTopicConfigurations: AmazonS3NotificationConfigurationTopicConfigurations,
-AmazonS3ReplicationConfiguration: AmazonS3ReplicationConfiguration,
-AmazonS3ReplicationConfigurationRules: AmazonS3ReplicationConfigurationRules,
-AmazonS3ReplicationConfigurationRulesDestination: AmazonS3ReplicationConfigurationRulesDestination,
-AmazonS3VersioningConfiguration: AmazonS3VersioningConfiguration,
-AmazonS3WebsiteConfigurationProperty: AmazonS3WebsiteConfigurationProperty,
-AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty: AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty,
-AmazonS3WebsiteConfigurationRoutingRulesProperty: AmazonS3WebsiteConfigurationRoutingRulesProperty,
-AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty: AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty,
-AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty: AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty,
-AmazonSNSSubscriptionPropertyType: AmazonSNSSubscriptionPropertyType,
-AmazonSQSRedrivePolicy: AmazonSQSRedrivePolicy,
-AWSWAFByteMatchSetByteMatchTuples: AWSWAFByteMatchSetByteMatchTuples,
-AWSWAFByteMatchSetByteMatchTuplesFieldToMatch: AWSWAFByteMatchSetByteMatchTuplesFieldToMatch,
-AWSWAFIPSetIPSetDescriptors: AWSWAFIPSetIPSetDescriptors,
-AWSWAFRulePredicates: AWSWAFRulePredicates,
-AWSWAFSizeConstraintSetSizeConstraint: AWSWAFSizeConstraintSetSizeConstraint,
-AWSWAFSizeConstraintSetSizeConstraintFieldToMatch: AWSWAFSizeConstraintSetSizeConstraintFieldToMatch,
-AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples: AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples,
-AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch: AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch,
-AWSWAFXssMatchSetXssMatchTuple: AWSWAFXssMatchSetXssMatchTuple,
-AWSWAFXssMatchSetXssMatchTupleFieldToMatch: AWSWAFXssMatchSetXssMatchTupleFieldToMatch,
-AWSWAFWebACLAction: AWSWAFWebACLAction,
-AWSWAFWebACLRules: AWSWAFWebACLRules
+  AmazonAPIGatewayApiKeyStageKey: AmazonAPIGatewayApiKeyStageKey,
+  AmazonAPIGatewayDeploymentStageDescription: AmazonAPIGatewayDeploymentStageDescription,
+  AmazonAPIGatewayDeploymentStageDescriptionMethodSetting: AmazonAPIGatewayDeploymentStageDescriptionMethodSetting,
+  AmazonAPIGatewayMethodIntegration: AmazonAPIGatewayMethodIntegration,
+  AmazonAPIGatewayMethodIntegrationIntegrationResponse: AmazonAPIGatewayMethodIntegrationIntegrationResponse,
+  AmazonAPIGatewayMethodMethodResponse: AmazonAPIGatewayMethodMethodResponse,
+  AmazonAPIGatewayRestApiS3Location: AmazonAPIGatewayRestApiS3Location,
+  AmazonAPIGatewayStageMethodSetting: AmazonAPIGatewayStageMethodSetting,
+  AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType: AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType,
+  AWSCloudFormationAutoScalingEBSBlockDevicePropertyType: AWSCloudFormationAutoScalingEBSBlockDevicePropertyType,
+  AutoScalingMetricsCollection: AutoScalingMetricsCollection,
+  AutoScalingNotificationConfigurations: AutoScalingNotificationConfigurations,
+  AutoScalingScalingPolicyStepAdjustments: AutoScalingScalingPolicyStepAdjustments,
+  AutoScalingTagsPropertyType: AutoScalingTagsPropertyType,
+  CloudFormationStackParametersPropertyType: CloudFormationStackParametersPropertyType,
+  AWSCloudFormationInterfaceLabel: AWSCloudFormationInterfaceLabel,
+  AWSCloudFormationInterfaceParameterGroup: AWSCloudFormationInterfaceParameterGroup,
+  AWSCloudFormationInterfaceParameterLabel: AWSCloudFormationInterfaceParameterLabel,
+  CloudFrontDistributionConfig: CloudFrontDistributionConfig,
+  CloudFrontDistributionConfigCacheBehavior: CloudFrontDistributionConfigCacheBehavior,
+  CloudFrontDistributionConfigCustomErrorResponse: CloudFrontDistributionConfigCustomErrorResponse,
+  CloudFrontDefaultCacheBehavior: CloudFrontDefaultCacheBehavior,
+  CloudFrontLogging: CloudFrontLogging,
+  CloudFrontDistributionConfigOrigin: CloudFrontDistributionConfigOrigin,
+  CloudFrontDistributionConfigOriginCustomOrigin: CloudFrontDistributionConfigOriginCustomOrigin,
+  CloudFrontDistributionConfigOriginS3Origin: CloudFrontDistributionConfigOriginS3Origin,
+  CloudFrontDistributionConfigurationRestrictions: CloudFrontDistributionConfigurationRestrictions,
+  CloudFrontDistributionConfigRestrictionsGeoRestriction: CloudFrontDistributionConfigRestrictionsGeoRestriction,
+  CloudFrontDistributionConfigurationViewerCertificate: CloudFrontDistributionConfigurationViewerCertificate,
+  CloudFrontForwardedValues: CloudFrontForwardedValues,
+  CloudFrontForwardedValuesCookies: CloudFrontForwardedValuesCookies,
+  CloudWatchMetricDimensionPropertyType: CloudWatchMetricDimensionPropertyType,
+  AmazonCloudWatchEventsRuleTarget: AmazonCloudWatchEventsRuleTarget,
+  CloudWatchLogsMetricFilterMetricTransformationProperty: CloudWatchLogsMetricFilterMetricTransformationProperty,
+  AWSCodeDeployDeploymentConfigMinimumHealthyHosts: AWSCodeDeployDeploymentConfigMinimumHealthyHosts,
+  AWSCodeDeployDeploymentGroupDeployment: AWSCodeDeployDeploymentGroupDeployment,
+  AWSCodeDeployDeploymentGroupDeploymentRevision: AWSCodeDeployDeploymentGroupDeploymentRevision,
+  AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation: AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation,
+  AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location: AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location,
+  AWSCodeDeployDeploymentGroupEc2TagFilters: AWSCodeDeployDeploymentGroupEc2TagFilters,
+  AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters: AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters,
+  AWSCodePipelineCustomActionTypeArtifactDetails: AWSCodePipelineCustomActionTypeArtifactDetails,
+  AWSCodePipelineCustomActionTypeConfigurationProperties: AWSCodePipelineCustomActionTypeConfigurationProperties,
+  AWSCodePipelineCustomActionTypeSettings: AWSCodePipelineCustomActionTypeSettings,
+  AWSCodePipelinePipelineArtifactStore: AWSCodePipelinePipelineArtifactStore,
+  AWSCodePipelinePipelineArtifactStoreEncryptionKey: AWSCodePipelinePipelineArtifactStoreEncryptionKey,
+  AWSCodePipelinePipelineDisableInboundStageTransitions: AWSCodePipelinePipelineDisableInboundStageTransitions,
+  AWSCodePipelinePipelineStages: AWSCodePipelinePipelineStages,
+  AWSCodePipelinePipelineStagesActions: AWSCodePipelinePipelineStagesActions,
+  AWSCodePipelinePipelineStagesActionsActionTypeId: AWSCodePipelinePipelineStagesActionsActionTypeId,
+  AWSCodePipelinePipelineStagesActionsInputArtifacts: AWSCodePipelinePipelineStagesActionsInputArtifacts,
+  AWSCodePipelinePipelineStagesActionsOutputArtifacts: AWSCodePipelinePipelineStagesActionsOutputArtifacts,
+  AWSCodePipelinePipelineStagesBlockers: AWSCodePipelinePipelineStagesBlockers,
+  AWSConfigConfigRuleScope: AWSConfigConfigRuleScope,
+  AWSConfigConfigRuleSource: AWSConfigConfigRuleSource,
+  AWSConfigConfigRuleSourceSourceDetails: AWSConfigConfigRuleSourceSourceDetails,
+  AWSConfigConfigurationRecorderRecordingGroup: AWSConfigConfigurationRecorderRecordingGroup,
+  AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties: AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties,
+  AWSDataPipelinePipelineParameterObjects: AWSDataPipelinePipelineParameterObjects,
+  AWSDataPipelineParameterObjectsAttributes: AWSDataPipelineParameterObjectsAttributes,
+  AWSDataPipelinePipelineParameterValues: AWSDataPipelinePipelineParameterValues,
+  AWSDataPipelinePipelineObjects: AWSDataPipelinePipelineObjects,
+  AWSDataPipelineDataPipelineObjectFields: AWSDataPipelineDataPipelineObjectFields,
+  AWSDataPipelinePipelinePipelineTags: AWSDataPipelinePipelinePipelineTags,
+  AWSDirectoryServiceMicrosoftADVpcSettings: AWSDirectoryServiceMicrosoftADVpcSettings,
+  AWSDirectoryServiceSimpleADVpcSettings: AWSDirectoryServiceSimpleADVpcSettings,
+  DynamoDBAttributeDefinitions: DynamoDBAttributeDefinitions,
+  DynamoDBGlobalSecondaryIndexes: DynamoDBGlobalSecondaryIndexes,
+  DynamoDBKeySchema: DynamoDBKeySchema,
+  DynamoDBLocalSecondaryIndexes: DynamoDBLocalSecondaryIndexes,
+  DynamoDBProjectionObject: DynamoDBProjectionObject,
+  DynamoDBProvisionedThroughput: DynamoDBProvisionedThroughput,
+  DynamoDBTableStreamSpecification: DynamoDBTableStreamSpecification,
+  AmazonEC2BlockDeviceMappingProperty: AmazonEC2BlockDeviceMappingProperty,
+  AmazonElasticBlockStoreBlockDeviceProperty: AmazonElasticBlockStoreBlockDeviceProperty,
+  EC2ICMPPropertyType: EC2ICMPPropertyType,
+  AmazonEC2InstanceSsmAssociations: AmazonEC2InstanceSsmAssociations,
+  AmazonEC2InstanceSsmAssociationsAssociationParameters: AmazonEC2InstanceSsmAssociationsAssociationParameters,
+  EC2MountPointPropertyType: EC2MountPointPropertyType,
+  EC2NetworkInterfaceEmbeddedPropertyType: EC2NetworkInterfaceEmbeddedPropertyType,
+  EC2NetworkInterfaceAssociation: EC2NetworkInterfaceAssociation,
+  EC2NetworkInterfaceAttachment: EC2NetworkInterfaceAttachment,
+  EC2NetworkInterfaceGroupItem: EC2NetworkInterfaceGroupItem,
+  EC2NetworkInterfacePrivateIPSpecification: EC2NetworkInterfacePrivateIPSpecification,
+  EC2PortRangePropertyType: EC2PortRangePropertyType,
+  EC2SecurityGroupRulePropertyType: EC2SecurityGroupRulePropertyType,
+  AmazonEC2SpotFleetSpotFleetRequestConfigData: AmazonEC2SpotFleetSpotFleetRequestConfigData,
+  AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications,
+  AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings,
+  AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs,
+  AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile,
+  AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring: AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring,
+  AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces,
+  AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses,
+  AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement,
+  AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups,
+  AmazonEC2ContainerServiceServiceDeploymentConfiguration: AmazonEC2ContainerServiceServiceDeploymentConfiguration,
+  AmazonEC2ContainerServiceServiceLoadBalancers: AmazonEC2ContainerServiceServiceLoadBalancers,
+  AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions,
+  AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment,
+  AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry,
+  AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration,
+  AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints,
+  AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings,
+  AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit,
+  AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom: AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom,
+  AmazonEC2ContainerServiceTaskDefinitionVolumes: AmazonEC2ContainerServiceTaskDefinitionVolumes,
+  AmazonEC2ContainerServiceTaskDefinitionVolumesHost: AmazonEC2ContainerServiceTaskDefinitionVolumesHost,
+  AmazonElasticFileSystemFileSystemFileSystemTags: AmazonElasticFileSystemFileSystemFileSystemTags,
+  ElasticBeanstalkEnvironmentTierPropertyType: ElasticBeanstalkEnvironmentTierPropertyType,
+  ElasticBeanstalkOptionSettingsPropertyType: ElasticBeanstalkOptionSettingsPropertyType,
+  ElasticBeanstalkSourceBundlePropertyType: ElasticBeanstalkSourceBundlePropertyType,
+  ElasticBeanstalkSourceConfigurationPropertyType: ElasticBeanstalkSourceConfigurationPropertyType,
+  ElasticLoadBalancingAccessLoggingPolicy: ElasticLoadBalancingAccessLoggingPolicy,
+  ElasticLoadBalancingAppCookieStickinessPolicyType: ElasticLoadBalancingAppCookieStickinessPolicyType,
+  ElasticLoadBalancingConnectionDrainingPolicy: ElasticLoadBalancingConnectionDrainingPolicy,
+  ElasticLoadBalancingConnectionSettings: ElasticLoadBalancingConnectionSettings,
+  ElasticLoadBalancingHealthCheckType: ElasticLoadBalancingHealthCheckType,
+  ElasticLoadBalancingLBCookieStickinessPolicyType: ElasticLoadBalancingLBCookieStickinessPolicyType,
+  ElasticLoadBalancingListenerPropertyType: ElasticLoadBalancingListenerPropertyType,
+  ElasticLoadBalancingPolicyType: ElasticLoadBalancingPolicyType,
+  AmazonElasticsearchServiceDomainEBSOptions: AmazonElasticsearchServiceDomainEBSOptions,
+  AmazonElasticsearchServiceDomainElasticsearchClusterConfig: AmazonElasticsearchServiceDomainElasticsearchClusterConfig,
+  AmazonElasticsearchServiceDomainSnapshotOptions: AmazonElasticsearchServiceDomainSnapshotOptions,
+  AmazonElasticMapReduceClusterApplication: AmazonElasticMapReduceClusterApplication,
+  AmazonElasticMapReduceClusterBootstrapActionConfig: AmazonElasticMapReduceClusterBootstrapActionConfig,
+  AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig: AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig,
+  AmazonElasticMapReduceClusterConfiguration: AmazonElasticMapReduceClusterConfiguration,
+  AmazonElasticMapReduceClusterJobFlowInstancesConfig: AmazonElasticMapReduceClusterJobFlowInstancesConfig,
+  AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig: AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig,
+  AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType: AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType,
+  AmazonElasticMapReduceEbsConfiguration: AmazonElasticMapReduceEbsConfiguration,
+  AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs: AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs,
+  AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification: AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification,
+  AmazonElasticMapReduceStepHadoopJarStepConfig: AmazonElasticMapReduceStepHadoopJarStepConfig,
+  AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue: AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue,
+  AmazonGameLiftAliasRoutingStrategy: AmazonGameLiftAliasRoutingStrategy,
+  AmazonGameLiftBuildStorageLocation: AmazonGameLiftBuildStorageLocation,
+  AmazonGameLiftFleetEC2InboundPermission: AmazonGameLiftFleetEC2InboundPermission,
+  IAMPolicies: IAMPolicies,
+  IAMUserLoginProfile: IAMUserLoginProfile,
+  AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions: AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions,
+  AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration: AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration,
+  AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints: AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints,
+  AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions: AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions,
+  AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration: AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration,
+  AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand: AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand,
+  AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration: AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration,
+  AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints: AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints,
+  AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig: AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig,
+  AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration: AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration,
+  AWSLambdaFunctionCode: AWSLambdaFunctionCode,
+  AWSLambdaFunctionVPCConfig: AWSLambdaFunctionVPCConfig,
+  NameType: NameType,
+  AWSOpsWorksAutoScalingThresholdsType: AWSOpsWorksAutoScalingThresholdsType,
+  AWSOpsWorksChefConfigurationType: AWSOpsWorksChefConfigurationType,
+  AWSOpsWorksLayerLifeCycleConfiguration: AWSOpsWorksLayerLifeCycleConfiguration,
+  AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration: AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration,
+  AWSOpsWorksLoadBasedAutoScalingType: AWSOpsWorksLoadBasedAutoScalingType,
+  AWSOpsWorksRecipesType: AWSOpsWorksRecipesType,
+  AWSOpsWorksSourceType: AWSOpsWorksSourceType,
+  AWSOpsWorksAppEnvironment: AWSOpsWorksAppEnvironment,
+  AWSOpsWorksSslConfigurationType: AWSOpsWorksSslConfigurationType,
+  AWSOpsWorksStackConfigurationManagerType: AWSOpsWorksStackConfigurationManagerType,
+  AWSOpsWorksTimeBasedAutoScalingType: AWSOpsWorksTimeBasedAutoScalingType,
+  AWSOpsWorksVolumeConfigurationType: AWSOpsWorksVolumeConfigurationType,
+  AmazonRedshiftParameterType: AmazonRedshiftParameterType,
+  AWSCloudFormationResourceTagsType: AWSCloudFormationResourceTagsType,
+  AmazonRDSOptionGroupOptionConfigurations: AmazonRDSOptionGroupOptionConfigurations,
+  AmazonRDSOptionGroupOptionConfigurationsOptionSettings: AmazonRDSOptionGroupOptionConfigurationsOptionSettings,
+  AmazonRDSSecurityGroupRule: AmazonRDSSecurityGroupRule,
+  Route53AliasTargetProperty: Route53AliasTargetProperty,
+  AmazonRoute53RecordSetGeoLocationProperty: AmazonRoute53RecordSetGeoLocationProperty,
+  AmazonRoute53HealthCheckConfig: AmazonRoute53HealthCheckConfig,
+  AmazonRoute53HealthCheckTags: AmazonRoute53HealthCheckTags,
+  AmazonRoute53HostedZoneConfigProperty: AmazonRoute53HostedZoneConfigProperty,
+  AmazonRoute53HostedZoneTags: AmazonRoute53HostedZoneTags,
+  AmazonRoute53HostedZoneVPCs: AmazonRoute53HostedZoneVPCs,
+  AmazonS3CorsConfiguration: AmazonS3CorsConfiguration,
+  AmazonS3CorsConfigurationRule: AmazonS3CorsConfigurationRule,
+  AmazonS3LifecycleConfiguration: AmazonS3LifecycleConfiguration,
+  AmazonS3LifecycleRule: AmazonS3LifecycleRule,
+  AmazonS3LifecycleRuleNoncurrentVersionTransition: AmazonS3LifecycleRuleNoncurrentVersionTransition,
+  AmazonS3LifecycleRuleTransition: AmazonS3LifecycleRuleTransition,
+  AmazonS3LoggingConfiguration: AmazonS3LoggingConfiguration,
+  AmazonS3NotificationConfiguration: AmazonS3NotificationConfiguration,
+  AmazonS3NotificationConfigurationConfigFilter: AmazonS3NotificationConfigurationConfigFilter,
+  AmazonS3NotificationConfigurationConfigFilterS3Key: AmazonS3NotificationConfigurationConfigFilterS3Key,
+  AmazonS3NotificationConfigurationConfigFilterS3KeyRules: AmazonS3NotificationConfigurationConfigFilterS3KeyRules,
+  AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations: AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations,
+  AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations: AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations,
+  AmazonS3NotificationConfigurationTopicConfigurations: AmazonS3NotificationConfigurationTopicConfigurations,
+  AmazonS3ReplicationConfiguration: AmazonS3ReplicationConfiguration,
+  AmazonS3ReplicationConfigurationRules: AmazonS3ReplicationConfigurationRules,
+  AmazonS3ReplicationConfigurationRulesDestination: AmazonS3ReplicationConfigurationRulesDestination,
+  AmazonS3VersioningConfiguration: AmazonS3VersioningConfiguration,
+  AmazonS3WebsiteConfigurationProperty: AmazonS3WebsiteConfigurationProperty,
+  AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty: AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty,
+  AmazonS3WebsiteConfigurationRoutingRulesProperty: AmazonS3WebsiteConfigurationRoutingRulesProperty,
+  AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty: AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty,
+  AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty: AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty,
+  AmazonSNSSubscriptionPropertyType: AmazonSNSSubscriptionPropertyType,
+  AmazonSQSRedrivePolicy: AmazonSQSRedrivePolicy,
+  AWSWAFByteMatchSetByteMatchTuples: AWSWAFByteMatchSetByteMatchTuples,
+  AWSWAFByteMatchSetByteMatchTuplesFieldToMatch: AWSWAFByteMatchSetByteMatchTuplesFieldToMatch,
+  AWSWAFIPSetIPSetDescriptors: AWSWAFIPSetIPSetDescriptors,
+  AWSWAFRulePredicates: AWSWAFRulePredicates,
+  AWSWAFSizeConstraintSetSizeConstraint: AWSWAFSizeConstraintSetSizeConstraint,
+  AWSWAFSizeConstraintSetSizeConstraintFieldToMatch: AWSWAFSizeConstraintSetSizeConstraintFieldToMatch,
+  AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples: AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples,
+  AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch: AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch,
+  AWSWAFXssMatchSetXssMatchTuple: AWSWAFXssMatchSetXssMatchTuple,
+  AWSWAFXssMatchSetXssMatchTupleFieldToMatch: AWSWAFXssMatchSetXssMatchTupleFieldToMatch,
+  AWSWAFWebACLAction: AWSWAFWebACLAction,
+  AWSWAFWebACLRules: AWSWAFWebACLRules
 }

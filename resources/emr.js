@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Cluster extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EMR::Cluster'
     let properties = {
       AdditionalInfo: new resource.ResourceProperty('AdditionalInfo', Object, 'No', null),
@@ -27,7 +27,7 @@ class Cluster extends baseawsobject.BaseAWSObject {
 }
 
 class InstanceGroupConfig extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EMR::InstanceGroupConfig'
     let properties = {
       BidPrice: new resource.ResourceProperty('BidPrice', String, 'No', null),
@@ -45,7 +45,7 @@ class InstanceGroupConfig extends baseawsobject.BaseAWSObject {
 }
 
 class Step extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EMR::Step'
     let properties = {
       ActionOnFailure: new resource.ResourceProperty('ActionOnFailure', String, 'Yes', null),

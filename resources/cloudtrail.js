@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Trail extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudTrail::Trail'
     let properties = {
       CloudWatchLogsLogGroupArn: new resource.ResourceProperty('CloudWatchLogsLogGroupArn', String, 'Conditional', null),

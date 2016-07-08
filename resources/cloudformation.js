@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Authentication extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Authentication'
     let properties = {
       accessKeyId: new resource.ResourceProperty('accessKeyId', String, 'Conditional', null),
@@ -23,7 +23,7 @@ class Authentication extends baseawsobject.BaseAWSObject {
 }
 
 class CustomResource extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::CustomResource'
     let properties = {
       ServiceToken: new resource.ResourceProperty('ServiceToken', String, 'Yes', null)
@@ -33,7 +33,7 @@ class CustomResource extends baseawsobject.BaseAWSObject {
 }
 
 class Init extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Init'
     let properties = {
     }
@@ -42,7 +42,7 @@ class Init extends baseawsobject.BaseAWSObject {
 }
 
 class Interface extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Interface'
     let properties = {
       ParameterGroups: new resource.ResourceProperty('ParameterGroups', types.AWSCloudFormationInterfaceParameterGroup, 'No', null),
@@ -53,7 +53,7 @@ class Interface extends baseawsobject.BaseAWSObject {
 }
 
 class Stack extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Stack'
     let properties = {
       NotificationARNs: new resource.ResourceArray('NotificationARNs', String, 'No', null),
@@ -67,7 +67,7 @@ class Stack extends baseawsobject.BaseAWSObject {
 }
 
 class WaitCondition extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitCondition'
     let properties = {
       Count: new resource.ResourceProperty('Count', String, 'No', null),
@@ -79,7 +79,7 @@ class WaitCondition extends baseawsobject.BaseAWSObject {
 }
 
 class WaitConditionHandle extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitConditionHandle'
     let properties = {
     }

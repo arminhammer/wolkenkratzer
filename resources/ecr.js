@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Repository extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECR::Repository'
     let properties = {
       RepositoryName: new resource.ResourceProperty('RepositoryName', String, 'No', null),

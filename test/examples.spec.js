@@ -1,19 +1,19 @@
 /**
  * Created by arming on 6/27/16.
  */
+/* global describe it */
 'use strict'
 
 const path = require('path')
 const chai = require('chai')
 chai.config.truncateThreshold = 0
 chai.should()
-var should = require('chai').should()
 const BPromise = require('bluebird')
 const fs = BPromise.promisifyAll(require('fs-extra'))
-const execFile = require('child_process').execFile;
+const execFile = require('child_process').execFile
 
 const AWS = require('aws-sdk')
-AWS.config.setPromisesDependency(BPromise);
+AWS.config.setPromisesDependency(BPromise)
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
 describe('Examples', () => {
@@ -25,7 +25,7 @@ describe('Examples', () => {
           execFile('node', [file], { cwd: path.join(__dirname, '..', 'examples') }, (error, stdout, stderr) => {
             if (error) {
               reject(error)
-            } else if(stderr) {
+            } else if (stderr) {
               reject(stderr)
             }
             resolve(stdout)
@@ -50,13 +50,12 @@ describe('Examples', () => {
     return fs
       .readJsonAsync(path.join(__dirname, 'templates', 'wordpressSingle.json'))
       .then((readFile) => {
-        //console.log('Read file!')
         file = readFile
         return new BPromise((resolve, reject) => {
           execFile('node', ['wordpressSingle'], { cwd: path.join(__dirname, '..', 'examples') }, (error, stdout, stderr) => {
             if (error) {
               reject(error)
-            } else if(stderr) {
+            } else if (stderr) {
               reject(stderr)
             }
             resolve(stdout)
@@ -74,13 +73,12 @@ describe('Examples', () => {
     return fs
       .readJsonAsync(path.join(__dirname, 'templates', 's3CloudFront.json'))
       .then((readFile) => {
-        //console.log('Read file!')
         file = readFile
         return new BPromise((resolve, reject) => {
           execFile('node', ['s3CloudFront'], { cwd: path.join(__dirname, '..', 'examples') }, (error, stdout, stderr) => {
             if (error) {
               reject(error)
-            } else if(stderr) {
+            } else if (stderr) {
               reject(stderr)
             }
             resolve(stdout)
@@ -92,5 +90,4 @@ describe('Examples', () => {
         jsonString.should.deep.equal(file)
       })
   })
-  
 })

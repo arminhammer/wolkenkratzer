@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class LoadBalancer extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancing::LoadBalancer'
     let properties = {
       AccessLoggingPolicy: new resource.ResourceProperty('AccessLoggingPolicy', types.ElasticLoadBalancingAccessLoggingPolicy, 'No', null),

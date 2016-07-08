@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Application extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::Application'
     let properties = {
       ApplicationName: new resource.ResourceProperty('ApplicationName', String, 'No', null),
@@ -17,7 +17,7 @@ class Application extends baseawsobject.BaseAWSObject {
 }
 
 class ApplicationVersion extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::ApplicationVersion'
     let properties = {
       ApplicationName: new resource.ResourceProperty('ApplicationName', String, 'Yes', null),
@@ -29,7 +29,7 @@ class ApplicationVersion extends baseawsobject.BaseAWSObject {
 }
 
 class ConfigurationTemplate extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::ConfigurationTemplate'
     let properties = {
       ApplicationName: new resource.ResourceProperty('ApplicationName', String, 'Yes', null),
@@ -44,7 +44,7 @@ class ConfigurationTemplate extends baseawsobject.BaseAWSObject {
 }
 
 class Environment extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::Environment'
     let properties = {
       ApplicationName: new resource.ResourceProperty('ApplicationName', String, 'Yes', null),

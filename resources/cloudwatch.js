@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Alarm extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudWatch::Alarm'
     let properties = {
       ActionsEnabled: new resource.ResourceProperty('ActionsEnabled', Boolean, 'No', null),

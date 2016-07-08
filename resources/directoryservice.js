@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class MicrosoftAD extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::DirectoryService::MicrosoftAD'
     let properties = {
       CreateAlias: new resource.ResourceProperty('CreateAlias', Boolean, 'No', null),
@@ -21,7 +21,7 @@ class MicrosoftAD extends baseawsobject.BaseAWSObject {
 }
 
 class SimpleAD extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::DirectoryService::SimpleAD'
     let properties = {
       CreateAlias: new resource.ResourceProperty('CreateAlias', Boolean, 'No', null),

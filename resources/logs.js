@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Destination extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::Destination'
     let properties = {
       DestinationName: new resource.ResourceProperty('DestinationName', String, 'Yes', null),
@@ -19,7 +19,7 @@ class Destination extends baseawsobject.BaseAWSObject {
 }
 
 class LogGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogGroup'
     let properties = {
       RetentionInDays: new resource.ResourceProperty('RetentionInDays', Number, 'No', null)
@@ -29,7 +29,7 @@ class LogGroup extends baseawsobject.BaseAWSObject {
 }
 
 class LogStream extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogStream'
     let properties = {
       LogGroupName: new resource.ResourceProperty('LogGroupName', String, 'Yes', null),
@@ -40,7 +40,7 @@ class LogStream extends baseawsobject.BaseAWSObject {
 }
 
 class MetricFilter extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::MetricFilter'
     let properties = {
       FilterPattern: new resource.ResourceArray('FilterPattern', String, 'Yes', null),
@@ -52,7 +52,7 @@ class MetricFilter extends baseawsobject.BaseAWSObject {
 }
 
 class SubscriptionFilter extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::SubscriptionFilter'
     let properties = {
       DestinationArn: new resource.ResourceProperty('DestinationArn', String, 'Yes', null),

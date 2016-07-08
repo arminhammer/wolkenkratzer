@@ -1,12 +1,12 @@
 /**
  * Created by arming on 6/26/16.
  */
-'use strict';
+'use strict'
 
 const BPromise = require('bluebird')
 const fs = BPromise.promisifyAll(require('fs-extra'))
 
-let props = fs
+fs
   .readJsonAsync('./properties.json')
   .then((file) => {
     let result = ''
@@ -14,31 +14,30 @@ let props = fs
     result += 'const SubPropertyObject = require(\'./baseawsobject\').SubPropertyObject\n'
     result += 'const ResourceArray = require(\'./resourceproperty\').ResourceArray\n'
     result += 'const ResourceProperty = require(\'./resourceproperty\').ResourceProperty\n\n'
-    //result += 'const wk = require(\'./../../index\')\n\n'
     let exportList = []
 
-    for(let subType in file) {
+    for (let subType in file) {
       let subProp = file[subType]
       console.log(subProp)
       exportList.push(subType + ': ' + subType)
       result += 'class ' + subProp.name + ' extends SubPropertyObject {\n'
-      result += '  constructor(propertiesObject) {\n'
+      result += '  constructor (propertiesObject) {\n'
       result += '    let properties = {\n'
       let props = Object.keys(subProp.properties)
       for (let i = 0; i < props.length; i++) {
         let wkType = 'ResourceProperty'
         let propType = subProp.properties[ props[ i ] ].Type
-        if(Array.isArray(propType)) {
+        if (Array.isArray(propType)) {
           wkType = 'ResourceArray'
           propType = propType[0]
         }
-        if(typeof propType === 'string') {
+        if (typeof propType === 'string') {
           propType = propType.replace(/\./g, '')
-          if(propType.includes('JSON')) {
+          if (propType.includes('JSON')) {
             propType = 'Object'
           }
         }
-        switch(propType) {
+        switch (propType) {
           case 'Integer':
             propType = 'Number'
             break
@@ -87,7 +86,7 @@ let props = fs
           default:
             break
         }
-        let name = props[i].replace(/ \(.+\)/g,'')
+        let name = props[i].replace(/ \(.+\)/g, '')
         result += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
         if (i === (props.length - 1)) {
           result += '\n'
@@ -101,14 +100,14 @@ let props = fs
       result += '}\n\n'
     }
     result += 'module.exports = {\n'
-    for(let i = 0; i < exportList.length; i++) {
+    for (let i = 0; i < exportList.length; i++) {
       let ending = ',\n'
-      if(i === (exportList.length - 1)) {
+      if (i === (exportList.length - 1)) {
         ending = '\n'
       }
-      result += exportList[i] + ending
+      result += '  ' + exportList[i] + ending
     }
-    result += '}'
+    result += '}\n'
     console.log('result:')
     console.log(result)
     return result

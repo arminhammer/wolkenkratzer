@@ -1,57 +1,54 @@
 /**
  * Created by arming on 6/26/16.
  */
-'use strict';
+'use strict'
 
 const BPromise = require('bluebird')
 const fs = BPromise.promisifyAll(require('fs-extra'))
 
 let groups = {}
 
-let props = fs
+fs
   .readJsonAsync('./resources.json')
   .then((file) => {
     let header = ''
     header += '\'use strict\'\n\n'
-    // header += 'const wk = require(\'./../index\')\n'
     header += 'const baseawsobject = require(\'./../baseawsobject\')\n'
     header += 'const resource = require(\'./../resourceproperty\')\n'
     header += 'const tag = require(\'./../tag\')\n'
     header += 'const types = require(\'./../types\')\n\n'
-    //let exportList = []
 
-    for(let subType in file) {
+    for (let subType in file) {
       let subProp = file[subType]
-      let resourceName = subProp.name.replace(/AWS::\w+::/g,'')
+      let resourceName = subProp.name.replace(/AWS::\w+::/g, '')
       // Lambda's Function in this case conflicts with Javascript Function.
-      if(resourceName === 'Function') {
+      if (resourceName === 'Function') {
         resourceName = 'LambdaFunction'
       }
       let exportLine = (resourceName + ': ' + resourceName)
       let resourceBody = ''
       resourceBody += 'class ' + resourceName + ' extends baseawsobject.BaseAWSObject {\n'
-      resourceBody += '  constructor(name, propertiesObject) {\n'
+      resourceBody += '  constructor (name, propertiesObject) {\n'
       resourceBody += '    let resourceType = \'' + subProp.name + '\'\n'
       resourceBody += '    let properties = {\n'
       let props = Object.keys(subProp.properties)
       for (let i = 0; i < props.length; i++) {
         let wkType = 'ResourceProperty'
         let propType = subProp.properties[ props[ i ] ].Type
-        if(propType === 'Type::ListofAWS::Route53::RecordSetobjects,asshowninthefollowingexample:') {
-          //console.log('Hit')
+        if (propType === 'Type::ListofAWS::Route53::RecordSetobjects,asshowninthefollowingexample:') {
           propType = ['RecordSet']
         }
-        if(Array.isArray(propType)) {
+        if (Array.isArray(propType)) {
           wkType = 'ResourceArray'
           propType = propType[0]
         }
-        if(typeof propType === 'string') {
+        if (typeof propType === 'string') {
           propType = propType.replace(/\./g, '')
-          if(propType.includes('JSON')) {
+          if (propType.includes('JSON')) {
             propType = 'Object'
           }
         }
-        switch(propType) {
+        switch (propType) {
           case 'Integer':
             propType = 'Number'
             break
@@ -130,7 +127,7 @@ let props = fs
           default:
             break
         }
-        if(!((propType === 'String') ||
+        if (!((propType === 'String') ||
             (propType === 'Date') ||
             (propType === 'Number') ||
             (propType === 'Boolean') ||
@@ -140,8 +137,8 @@ let props = fs
           )) {
           propType = 'types.' + propType
         }
-        let name = props[i].replace(/ \(.+\)/g,'')
-        if(name === 'Tags') {
+        let name = props[i].replace(/ \(.+\)/g, '')
+        if (name === 'Tags') {
           resourceBody += '      ' + name + ': new tag.TagSet()'
         } else {
           resourceBody += '      ' + name + ': new resource.' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
@@ -158,8 +155,8 @@ let props = fs
       resourceBody += '  }\n'
       resourceBody += '}\n\n'
 
-      let groupName = subProp.name.replace(/^AWS::/,'').replace(/::\w+$/,'')
-      if(groups[groupName]) {
+      let groupName = subProp.name.replace(/^AWS::/, '').replace(/::\w+$/, '')
+      if (groups[groupName]) {
         groups[groupName].body += resourceBody
         groups[groupName].exports.push(exportLine)
       } else {
@@ -170,25 +167,19 @@ let props = fs
       }
     }
   })
-  /*.then((resourceBody) => {
-   return fs.writeFileAsync('../resources/autogenresources/resources.js', resourceBody)
-   })*/
   .then(() => {
     return Object.keys(groups)
   })
   .mapSeries((group) => {
     let exportBody = 'module.exports = {\n'
-    for(let i = 0; i < groups[group].exports.length; i++) {
+    for (let i = 0; i < groups[group].exports.length; i++) {
       let ending = ',\n'
-      if(i === (groups[group].exports.length - 1)) {
+      if (i === (groups[group].exports.length - 1)) {
         ending = '\n'
       }
       exportBody += '  ' + groups[group].exports[i] + ending
     }
-    exportBody += '}'
-    //console.log('resourceBody:')
-    //console.log(resourceBody)
-    //return resourceBody
+    exportBody += '}\n'
     return fs.writeFileAsync('../resources/' + group.toLowerCase() + '.js', groups[group].body + exportBody)
   })
   .then(() => {

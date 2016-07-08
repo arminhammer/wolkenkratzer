@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class FileSystem extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EFS::FileSystem'
     let properties = {
       FileSystemTags: new resource.ResourceProperty('FileSystemTags', types.AmazonElasticFileSystemFileSystemFileSystemTags, 'No', null)
@@ -16,7 +16,7 @@ class FileSystem extends baseawsobject.BaseAWSObject {
 }
 
 class MountTarget extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::EFS::MountTarget'
     let properties = {
       FileSystemId: new resource.ResourceProperty('FileSystemId', String, 'Yes', null),

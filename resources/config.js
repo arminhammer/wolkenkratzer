@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class ConfigRule extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Config::ConfigRule'
     let properties = {
       ConfigRuleName: new resource.ResourceProperty('ConfigRuleName', String, 'No', null),
@@ -21,7 +21,7 @@ class ConfigRule extends baseawsobject.BaseAWSObject {
 }
 
 class ConfigurationRecorder extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Config::ConfigurationRecorder'
     let properties = {
       Name: new resource.ResourceProperty('Name', String, 'No', null),
@@ -33,7 +33,7 @@ class ConfigurationRecorder extends baseawsobject.BaseAWSObject {
 }
 
 class DeliveryChannel extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::Config::DeliveryChannel'
     let properties = {
       ConfigSnapshotDeliveryProperties: new resource.ResourceProperty('ConfigSnapshotDeliveryProperties', types.AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties, 'No', null),

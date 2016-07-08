@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Application extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::Application'
     let properties = {
       ApplicationName: new resource.ResourceProperty('ApplicationName', String, 'No', null)
@@ -16,7 +16,7 @@ class Application extends baseawsobject.BaseAWSObject {
 }
 
 class DeploymentConfig extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::DeploymentConfig'
     let properties = {
       DeploymentConfigName: new resource.ResourceProperty('DeploymentConfigName', String, 'No', null),
@@ -27,7 +27,7 @@ class DeploymentConfig extends baseawsobject.BaseAWSObject {
 }
 
 class DeploymentGroup extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::DeploymentGroup'
     let properties = {
       ApplicationName: new resource.ResourceProperty('ApplicationName', String, 'Yes', null),

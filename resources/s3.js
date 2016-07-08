@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Bucket extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::S3::Bucket'
     let properties = {
       AccessControl: new resource.ResourceProperty('AccessControl', String, 'No', null),
@@ -25,7 +25,7 @@ class Bucket extends baseawsobject.BaseAWSObject {
 }
 
 class BucketPolicy extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::S3::BucketPolicy'
     let properties = {
       Bucket: new resource.ResourceProperty('Bucket', String, 'Yes', null),

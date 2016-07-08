@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Queue extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::SQS::Queue'
     let properties = {
       DelaySeconds: new resource.ResourceProperty('DelaySeconds', Number, 'No', null),
@@ -22,7 +22,7 @@ class Queue extends baseawsobject.BaseAWSObject {
 }
 
 class QueuePolicy extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::SQS::QueuePolicy'
     let properties = {
       PolicyDocument: new resource.ResourceProperty('PolicyDocument', Object, 'Yes', null),

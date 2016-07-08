@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class Pipeline extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::DataPipeline::Pipeline'
     let properties = {
       Activate: new resource.ResourceProperty('Activate', Boolean, 'No', null),

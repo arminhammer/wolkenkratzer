@@ -6,7 +6,7 @@ const tag = require('./../tag')
 const types = require('./../types')
 
 class AccessKey extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::AccessKey'
     let properties = {
       Serial: new resource.ResourceProperty('Serial', Number, 'No', null),
@@ -18,7 +18,7 @@ class AccessKey extends baseawsobject.BaseAWSObject {
 }
 
 class Group extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Group'
     let properties = {
       ManagedPolicyArns: new resource.ResourceArray('ManagedPolicyArns', String, 'No', null),
@@ -30,7 +30,7 @@ class Group extends baseawsobject.BaseAWSObject {
 }
 
 class InstanceProfile extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::InstanceProfile'
     let properties = {
       Path: new resource.ResourceProperty('Path', String, 'Yes', null),
@@ -41,7 +41,7 @@ class InstanceProfile extends baseawsobject.BaseAWSObject {
 }
 
 class ManagedPolicy extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::ManagedPolicy'
     let properties = {
       Description: new resource.ResourceProperty('Description', String, 'No', null),
@@ -56,7 +56,7 @@ class ManagedPolicy extends baseawsobject.BaseAWSObject {
 }
 
 class Policy extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Policy'
     let properties = {
       Groups: new resource.ResourceArray('Groups', String, 'Conditional', null),
@@ -70,7 +70,7 @@ class Policy extends baseawsobject.BaseAWSObject {
 }
 
 class Role extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Role'
     let properties = {
       AssumeRolePolicyDocument: new resource.ResourceProperty('AssumeRolePolicyDocument', Object, 'Yes', null),
@@ -83,7 +83,7 @@ class Role extends baseawsobject.BaseAWSObject {
 }
 
 class User extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::User'
     let properties = {
       Groups: new resource.ResourceArray('Groups', String, 'No', null),
@@ -97,7 +97,7 @@ class User extends baseawsobject.BaseAWSObject {
 }
 
 class UserToGroupAddition extends baseawsobject.BaseAWSObject {
-  constructor(name, propertiesObject) {
+  constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::UserToGroupAddition'
     let properties = {
       GroupName: new resource.ResourceProperty('GroupName', String, 'Yes', null),
