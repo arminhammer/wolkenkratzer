@@ -34,7 +34,7 @@ class FnBase64 extends Intrinsic {
     this.content = content
   }
   toJson () {
-    return { "Fn::Base64" : this.content }
+    return { "Fn::Base64": this.content }
   }
 }
 
@@ -46,7 +46,7 @@ class FnFindInMap extends Intrinsic {
     this.secondLevelKey = secondLevelKey
   }
   toJson () {
-    return { "Fn::FindInMap" : [ this.mapName, this.topLevelKey, this.secondLevelKey ] }
+    return { "Fn::FindInMap": [ this.mapName, this.topLevelKey, this.secondLevelKey ] }
   }
 }
 
@@ -65,7 +65,7 @@ class FnJoin extends Intrinsic {
     this.values = values
   }
   toJson () {
-    return { "Fn::Join" : [ this.delimiter, this.values ] }
+    return { "Fn::Join": [ this.delimiter, this.values ] }
   }
 }
 

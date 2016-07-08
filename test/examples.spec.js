@@ -69,7 +69,6 @@ describe('Examples', () => {
       })
   })
 
-  /*
   it('Should correctly create the s3CloudFront template', () => {
     let file = ''
     return fs
@@ -92,5 +91,6 @@ describe('Examples', () => {
         let jsonString = JSON.parse(result)
         jsonString.should.deep.equal(file)
       })
-  })*/
+  })
+  
 })

@@ -47,9 +47,9 @@
         "DistributionConfig" : {
           "Comment" : "CDN for S3-backed website",
           "Aliases" : [{ "Fn::Join" : [ "", [{"Ref" : "AWS::StackName"}, {"Ref" : "AWS::AccountId"}, ".", {"Ref" : "AWS::Region"}, ".", { "Ref" : "HostedZone" }]]}],
-          "Enabled" : "true",
+          "Enabled" : true,
           "DefaultCacheBehavior" : {
-            "ForwardedValues" : { "QueryString" : "true" },
+            "ForwardedValues" : { "QueryString" : true },
             "TargetOriginId" : "only-origin",
             "ViewerProtocolPolicy" : "allow-all"
           },

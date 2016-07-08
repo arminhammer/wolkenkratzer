@@ -88,6 +88,12 @@ class ResourceArray extends ResourceProperty {
       this.val = value
     }
   }
+  join (delimiter, values) {
+    if(!this.val) {
+      this.val = []
+    }
+    this.val.push(new FnJoin(delimiter, values))
+  }
   push (val) {
     let valueType = val
     if (typeof val === 'string') {
@@ -126,7 +132,7 @@ class ResourceArray extends ResourceProperty {
         return propArray
       }
     } else {
-      if (this.required === 'Yes') { throw new RequiredPropertyException('this value is required') }
+      if (this.required === 'Yes') { throw new RequiredPropertyException(this.WKName + ' is required.') }
     }
   }
 }

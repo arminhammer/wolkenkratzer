@@ -59,6 +59,11 @@ let distConfigOrigin = new wk.Types.CloudFrontDistributionConfigOrigin()
 distConfigOrigin.DomainName.join('', [{'Ref' : 'S3BucketForWebsiteContent'},
   {'Fn::FindInMap' : [ 'Region2S3WebsiteSuffix', {'Ref' : 'AWS::Region'}, 'Suffix' ]}])
 distConfigOrigin.Id = 'only-origin'
+let customOriginConfig = new wk.Types.CloudFrontDistributionConfigOriginCustomOrigin()
+customOriginConfig.HTTPPort = '80'
+customOriginConfig.HTTPSPort = '443'
+customOriginConfig.OriginProtocolPolicy = 'http-only'
+distConfigOrigin.CustomOriginConfig = customOriginConfig
 
 let forwardedValues = new wk.Types.CloudFrontForwardedValues()
 forwardedValues.QueryString = true
@@ -70,8 +75,11 @@ defaultCacheBehavior.ViewerProtocolPolicy = 'allow-all'
 
 let distConfig = new wk.Types.CloudFrontDistributionConfig()
 distConfig.Comment = 'CDN for S3-backed website'
+distConfig.Aliases.join('', [{'Ref' : 'AWS::StackName'}, {'Ref' : 'AWS::AccountId'}, '.', {'Ref' : 'AWS::Region'}, '.', { 'Ref' : 'HostedZone' }])
+
 distConfig.Origins.push(distConfigOrigin)
 distConfig.Enabled = true
+distConfig.DefaultRootObject = 'index.html'
 distConfig.DefaultCacheBehavior = defaultCacheBehavior
 
 websiteCDN.DistributionConfig = distConfig
@@ -109,7 +117,7 @@ t.addResource(websiteCDN)
   }
 },
 */
-/*
+
 t.addOutput(new wk.Output('WebsiteURL', {
   'Value' : {'Fn::Join' : [ '', ['http://', {'Ref' : 'WebsiteDNSName'} ]] },
   'Description' : 'The URL of the newly created website'
@@ -119,5 +127,5 @@ t.addOutput(new wk.Output('BucketName', {
   'Value' : { 'Ref' : 'S3BucketForWebsiteContent' },
   'Description' : 'Name of S3 bucket to hold website content'
 }))
-*/
+
 console.log(t.toJson())
