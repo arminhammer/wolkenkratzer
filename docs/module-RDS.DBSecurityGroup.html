@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: DBSecurityGroup</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: DBSecurityGroup</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-RDS.html">RDS</a>.</span>DBSecurityGroup</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="DBSecurityGroup"><span class="type-signature"></span>new DBSecurityGroup<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>EC2VpcId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required: Conditional. The Id of VPC. Indicates which VPC this DB Security Group should belong to.Update requires: Replacement</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DBSecurityGroupIngress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">RDSSecurityGroupRules</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required: Yes. Network ingress authorization for an Amazon EC2 security group or an IP address range.Update requires: No interruption</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>GroupDescription</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required: Yes. Description of the security group.Update requires: Replacement</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Tags</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">resourcetags</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required: No. The tags that you want to attach to the Amazon RDS DB security group.Update requires: No interruption</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="resources_rds.js.html">resources/rds.js</a>, <a href="resources_rds.js.html#line359">line 359</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>WKResource</li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-RDS.html">RDS</a>.</span>DBSecurityGroup</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="DBSecurityGroup"><span class="type-signature"></span>new DBSecurityGroup<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>EC2VpcId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required: Conditional. The Id of VPC. Indicates which VPC this DB Security Group should belong to.Update requires: Replacement</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DBSecurityGroupIngress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">RDSSecurityGroupRules</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required: Yes. Network ingress authorization for an Amazon EC2 security group or an IP address range.Update requires: No interruption</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>GroupDescription</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required: Yes. Description of the security group.Update requires: Replacement</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Tags</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">resourcetags</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Required: No. The tags that you want to attach to the Amazon RDS DB security group.Update requires: No interruption</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="resources_rds.js.html">resources/rds.js</a>, <a href="resources_rds.js.html#line359">line 359</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>WKResource</li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ApiGateway.html">ApiGateway</a></li><li><a href="module-AutoScaling.html">AutoScaling</a></li><li><a href="module-CloudFormation.html">CloudFormation</a></li><li><a href="module-CloudFront.html">CloudFront</a></li><li><a href="module-CloudTrail.html">CloudTrail</a></li><li><a href="module-CloudWatch.html">CloudWatch</a></li><li><a href="module-CodeDeploy.html">CodeDeploy</a></li><li><a href="module-CodePipeline.html">CodePipeline</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Core.html">Core</a></li><li><a href="module-DataPipeline.html">DataPipeline</a></li><li><a href="module-DirectoryService.html">DirectoryService</a></li><li><a href="module-DynamoDB.html">DynamoDB</a></li><li><a href="module-EC2.html">EC2</a></li><li><a href="module-ECR.html">ECR</a></li><li><a href="module-ECS.html">ECS</a></li><li><a href="module-EFS.html">EFS</a></li><li><a href="module-ElastiCache.html">ElastiCache</a></li><li><a href="module-ElasticBeanstalk.html">ElasticBeanstalk</a></li><li><a href="module-ElasticLoadBalancing.html">ElasticLoadBalancing</a></li><li><a href="module-Elasticsearch.html">Elasticsearch</a></li><li><a href="module-EMR.html">EMR</a></li><li><a href="module-Events.html">Events</a></li><li><a href="module-GameLift.html">GameLift</a></li><li><a href="module-IAM.html">IAM</a></li><li><a href="module-Kinesis.html">Kinesis</a></li><li><a href="module-KinesisFirehose.html">KinesisFirehose</a></li><li><a href="module-KMS.html">KMS</a></li><li><a href="module-Lambda.html">Lambda</a></li><li><a href="module-Logs.html">Logs</a></li><li><a href="module-OpsWorks.html">OpsWorks</a></li><li><a href="module-RDS.html">RDS</a></li><li><a href="module-Redshift.html">Redshift</a></li><li><a href="module-Route53.html">Route53</a></li><li><a href="module-S3.html">S3</a></li><li><a href="module-SDB.html">SDB</a></li><li><a href="module-SNS.html">SNS</a></li><li><a href="module-SQS.html">SQS</a></li><li><a href="module-SSM.html">SSM</a></li><li><a href="module-Types.html">Types</a></li><li><a href="module-WAF.html">WAF</a></li><li><a href="module-WorkSpaces.html">WorkSpaces</a></li></ul><h3>Classes</h3><ul><li><a href="module-ApiGateway.Account.html">Account</a></li><li><a href="module-ApiGateway.ApiKey.html">ApiKey</a></li><li><a href="module-ApiGateway.Authorizer.html">Authorizer</a></li><li><a href="module-ApiGateway.BasePathMapping.html">BasePathMapping</a></li><li><a href="module-ApiGateway.ClientCertificate.html">ClientCertificate</a></li><li><a href="module-ApiGateway.Deployment.html">Deployment</a></li><li><a href="module-ApiGateway.Method.html">Method</a></li><li><a href="module-ApiGateway.Model.html">Model</a></li><li><a href="module-ApiGateway.Resource.html">Resource</a></li><li><a href="module-ApiGateway.RestApi.html">RestApi</a></li><li><a href="module-ApiGateway.Stage.html">Stage</a></li><li><a href="module-AutoScaling.AutoScalingGroup.html">AutoScalingGroup</a></li><li><a href="module-AutoScaling.LaunchConfiguration.html">LaunchConfiguration</a></li><li><a href="module-AutoScaling.LifecycleHook.html">LifecycleHook</a></li><li><a href="module-AutoScaling.ScalingPolicy.html">ScalingPolicy</a></li><li><a href="module-AutoScaling.ScheduledAction.html">ScheduledAction</a></li><li><a href="module-CloudFormation.Authentication.html">Authentication</a></li><li><a href="module-CloudFormation.CustomResource.html">CustomResource</a></li><li><a href="module-CloudFormation.Init.html">Init</a></li><li><a href="module-CloudFormation.Interface.html">Interface</a></li><li><a href="module-CloudFormation.Stack.html">Stack</a></li><li><a href="module-CloudFormation.WaitCondition.html">WaitCondition</a></li><li><a href="module-CloudFormation.WaitConditionHandle.html">WaitConditionHandle</a></li><li><a href="module-CloudFront.Distribution.html">Distribution</a></li><li><a href="module-CloudTrail.Trail.html">Trail</a></li><li><a href="module-CloudWatch.Alarm.html">Alarm</a></li><li><a href="module-CodeDeploy.Application.html">Application</a></li><li><a href="module-CodeDeploy.DeploymentConfig.html">DeploymentConfig</a></li><li><a href="module-CodeDeploy.DeploymentGroup.html">DeploymentGroup</a></li><li><a href="module-CodePipeline.CustomActionType.html">CustomActionType</a></li><li><a href="module-CodePipeline.Pipeline.html">Pipeline</a></li><li><a href="module-Config.ConfigRule.html">ConfigRule</a></li><li><a href="module-Config.ConfigurationRecorder.html">ConfigurationRecorder</a></li><li><a href="module-Config.DeliveryChannel.html">DeliveryChannel</a></li><li><a href="module-Core.ResourceProperty.html">ResourceProperty</a></li><li><a href="module-Core.WKResource.html">WKResource</a></li><li><a href="module-DataPipeline.Pipeline.html">Pipeline</a></li><li><a href="module-DirectoryService.MicrosoftAD.html">MicrosoftAD</a></li><li><a href="module-DirectoryService.SimpleAD.html">SimpleAD</a></li><li><a href="module-DynamoDB.Table.html">Table</a></li><li><a href="module-EC2.CustomerGateway.html">CustomerGateway</a></li><li><a href="module-EC2.DHCPOptions.html">DHCPOptions</a></li><li><a href="module-EC2.EIP.html">EIP</a></li><li><a href="module-EC2.EIPAssociation.html">EIPAssociation</a></li><li><a href="module-EC2.FlowLog.html">FlowLog</a></li><li><a href="module-EC2.Host.html">Host</a></li><li><a href="module-EC2.Instance.html">Instance</a></li><li><a href="module-EC2.InternetGateway.html">InternetGateway</a></li><li><a href="module-EC2.NatGateway.html">NatGateway</a></li><li><a href="module-EC2.NetworkAcl.html">NetworkAcl</a></li><li><a href="module-EC2.NetworkAclEntry.html">NetworkAclEntry</a></li><li><a href="module-EC2.NetworkInterface.html">NetworkInterface</a></li><li><a href="module-EC2.NetworkInterfaceAttachment.html">NetworkInterfaceAttachment</a></li><li><a href="module-EC2.PlacementGroup.html">PlacementGroup</a></li><li><a href="module-EC2.Route.html">Route</a></li><li><a href="module-EC2.RouteTable.html">RouteTable</a></li><li><a href="module-EC2.SecurityGroup.html">SecurityGroup</a></li><li><a href="module-EC2.SecurityGroupEgress.html">SecurityGroupEgress</a></li><li><a href="module-EC2.SecurityGroupIngress.html">SecurityGroupIngress</a></li><li><a href="module-EC2.SpotFleet.html">SpotFleet</a></li><li><a href="module-EC2.Subnet.html">Subnet</a></li><li><a href="module-EC2.SubnetNetworkAclAssociation.html">SubnetNetworkAclAssociation</a></li><li><a href="module-EC2.SubnetRouteTableAssociation.html">SubnetRouteTableAssociation</a></li><li><a href="module-EC2.Volume.html">Volume</a></li><li><a href="module-EC2.VolumeAttachment.html">VolumeAttachment</a></li><li><a href="module-EC2.VPC.html">VPC</a></li><li><a href="module-EC2.VPCDHCPOptionsAssociation.html">VPCDHCPOptionsAssociation</a></li><li><a href="module-EC2.VPCEndpoint.html">VPCEndpoint</a></li><li><a href="module-EC2.VPCGatewayAttachment.html">VPCGatewayAttachment</a></li><li><a href="module-EC2.VPCPeeringConnection.html">VPCPeeringConnection</a></li><li><a href="module-EC2.VPNConnection.html">VPNConnection</a></li><li><a href="module-EC2.VPNConnectionRoute.html">VPNConnectionRoute</a></li><li><a href="module-EC2.VPNGateway.html">VPNGateway</a></li><li><a href="module-EC2.VPNGatewayRoutePropagation.html">VPNGatewayRoutePropagation</a></li><li><a href="module-ECR.Repository.html">Repository</a></li><li><a href="module-ECS.Cluster.html">Cluster</a></li><li><a href="module-ECS.Service.html">Service</a></li><li><a href="module-ECS.TaskDefinition.html">TaskDefinition</a></li><li><a href="module-EFS.FileSystem.html">FileSystem</a></li><li><a href="module-EFS.MountTarget.html">MountTarget</a></li><li><a href="module-ElastiCache.CacheCluster.html">CacheCluster</a></li><li><a href="module-ElastiCache.ParameterGroup.html">ParameterGroup</a></li><li><a href="module-ElastiCache.ReplicationGroup.html">ReplicationGroup</a></li><li><a href="module-ElastiCache.SecurityGroup.html">SecurityGroup</a></li><li><a href="module-ElastiCache.SecurityGroupIngress.html">SecurityGroupIngress</a></li><li><a href="module-ElastiCache.SubnetGroup.html">SubnetGroup</a></li><li><a href="module-ElasticBeanstalk.Application.html">Application</a></li><li><a href="module-ElasticBeanstalk.ApplicationVersion.html">ApplicationVersion</a></li><li><a href="module-ElasticBeanstalk.ConfigurationTemplate.html">ConfigurationTemplate</a></li><li><a href="module-ElasticBeanstalk.Environment.html">Environment</a></li><li><a href="module-ElasticLoadBalancing.LoadBalancer.html">LoadBalancer</a></li><li><a href="module-Elasticsearch.Domain.html">Domain</a></li><li><a href="module-EMR.Cluster.html">Cluster</a></li><li><a href="module-EMR.InstanceGroupConfig.html">InstanceGroupConfig</a></li><li><a href="module-EMR.Step.html">Step</a></li><li><a href="module-Events.Rule.html">Rule</a></li><li><a href="module-GameLift.Alias.html">Alias</a></li><li><a href="module-GameLift.Build.html">Build</a></li><li><a href="module-GameLift.Fleet.html">Fleet</a></li><li><a href="module-IAM.AccessKey.html">AccessKey</a></li><li><a href="module-IAM.Group.html">Group</a></li><li><a href="module-IAM.InstanceProfile.html">InstanceProfile</a></li><li><a href="module-IAM.ManagedPolicy.html">ManagedPolicy</a></li><li><a href="module-IAM.Policy.html">Policy</a></li><li><a href="module-IAM.Role.html">Role</a></li><li><a href="module-IAM.User.html">User</a></li><li><a href="module-IAM.UserToGroupAddition.html">UserToGroupAddition</a></li><li><a href="module-Kinesis.Stream.html">Stream</a></li><li><a href="module-KinesisFirehose.DeliveryStream.html">DeliveryStream</a></li><li><a href="module-KMS.Key.html">Key</a></li><li><a href="module-Lambda.Alias.html">Alias</a></li><li><a href="module-Lambda.EventSourceMapping.html">EventSourceMapping</a></li><li><a href="module-Lambda.LambdaFunction.html">LambdaFunction</a></li><li><a href="module-Lambda.Permission.html">Permission</a></li><li><a href="module-Lambda.Version.html">Version</a></li><li><a href="module-Logs.Destination.html">Destination</a></li><li><a href="module-Logs.LogGroup.html">LogGroup</a></li><li><a href="module-Logs.LogStream.html">LogStream</a></li><li><a href="module-Logs.MetricFilter.html">MetricFilter</a></li><li><a href="module-Logs.SubscriptionFilter.html">SubscriptionFilter</a></li><li><a href="module-OpsWorks.App.html">App</a></li><li><a href="module-OpsWorks.ElasticLoadBalancerAttachment.html">ElasticLoadBalancerAttachment</a></li><li><a href="module-OpsWorks.Instance.html">Instance</a></li><li><a href="module-OpsWorks.Layer.html">Layer</a></li><li><a href="module-OpsWorks.Stack.html">Stack</a></li><li><a href="module-RDS.DBCluster.html">DBCluster</a></li><li><a href="module-RDS.DBClusterParameterGroup.html">DBClusterParameterGroup</a></li><li><a href="module-RDS.DBInstance.html">DBInstance</a></li><li><a href="module-RDS.DBParameterGroup.html">DBParameterGroup</a></li><li><a href="module-RDS.DBSecurityGroup.html">DBSecurityGroup</a></li><li><a href="module-RDS.DBSecurityGroupIngress.html">DBSecurityGroupIngress</a></li><li><a href="module-RDS.DBSubnetGroup.html">DBSubnetGroup</a></li><li><a href="module-RDS.EventSubscription.html">EventSubscription</a></li><li><a href="module-RDS.OptionGroup.html">OptionGroup</a></li><li><a href="module-Redshift.Cluster.html">Cluster</a></li><li><a href="module-Redshift.ClusterParameterGroup.html">ClusterParameterGroup</a></li><li><a href="module-Redshift.ClusterSecurityGroup.html">ClusterSecurityGroup</a></li><li><a href="module-Redshift.ClusterSecurityGroupIngress.html">ClusterSecurityGroupIngress</a></li><li><a href="module-Redshift.ClusterSubnetGroup.html">ClusterSubnetGroup</a></li><li><a href="module-Route53.HealthCheck.html">HealthCheck</a></li><li><a href="module-Route53.HostedZone.html">HostedZone</a></li><li><a href="module-Route53.RecordSet.html">RecordSet</a></li><li><a href="module-Route53.RecordSetGroup.html">RecordSetGroup</a></li><li><a href="module-S3.Bucket.html">Bucket</a></li><li><a href="module-S3.BucketPolicy.html">BucketPolicy</a></li><li><a href="module-SDB.Domain.html">Domain</a></li><li><a href="module-SNS.Topic.html">Topic</a></li><li><a href="module-SNS.TopicPolicy.html">TopicPolicy</a></li><li><a href="module-SQS.Queue.html">Queue</a></li><li><a href="module-SQS.QueuePolicy.html">QueuePolicy</a></li><li><a href="module-SSM.Document.html">Document</a></li><li><a href="module-Types-AmazonAPIGatewayApiKeyStageKey.html">AmazonAPIGatewayApiKeyStageKey</a></li><li><a href="module-Types-AmazonAPIGatewayDeploymentStageDescription.html">AmazonAPIGatewayDeploymentStageDescription</a></li><li><a href="module-Types-AmazonAPIGatewayDeploymentStageDescriptionMethodSetting.html">AmazonAPIGatewayDeploymentStageDescriptionMethodSetting</a></li><li><a href="module-Types-AmazonAPIGatewayMethodIntegration.html">AmazonAPIGatewayMethodIntegration</a></li><li><a href="module-Types-AmazonAPIGatewayMethodIntegrationIntegrationResponse.html">AmazonAPIGatewayMethodIntegrationIntegrationResponse</a></li><li><a href="module-Types-AmazonAPIGatewayMethodMethodResponse.html">AmazonAPIGatewayMethodMethodResponse</a></li><li><a href="module-Types-AmazonAPIGatewayRestApiS3Location.html">AmazonAPIGatewayRestApiS3Location</a></li><li><a href="module-Types-AmazonAPIGatewayStageMethodSetting.html">AmazonAPIGatewayStageMethodSetting</a></li><li><a href="module-Types-AmazonCloudWatchEventsRuleTarget.html">AmazonCloudWatchEventsRuleTarget</a></li><li><a href="module-Types-AmazonEC2BlockDeviceMappingProperty.html">AmazonEC2BlockDeviceMappingProperty</a></li><li><a href="module-Types-AmazonEC2ContainerServiceServiceDeploymentConfiguration.html">AmazonEC2ContainerServiceServiceDeploymentConfiguration</a></li><li><a href="module-Types-AmazonEC2ContainerServiceServiceLoadBalancers.html">AmazonEC2ContainerServiceServiceLoadBalancers</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionVolumes.html">AmazonEC2ContainerServiceTaskDefinitionVolumes</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionVolumesHost.html">AmazonEC2ContainerServiceTaskDefinitionVolumesHost</a></li><li><a href="module-Types-AmazonEC2InstanceSsmAssociations.html">AmazonEC2InstanceSsmAssociations</a></li><li><a href="module-Types-AmazonEC2InstanceSsmAssociationsAssociationParameters.html">AmazonEC2InstanceSsmAssociationsAssociationParameters</a></li><li><a href="module-Types-AmazonEC2SpotFleetSpotFleetRequestConfigData.html">AmazonEC2SpotFleetSpotFleetRequestConfigData</a></li><li><a href="module-Types-AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring.html">AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring</a></li><li><a href="module-Types-AmazonElasticBlockStoreBlockDeviceProperty.html">AmazonElasticBlockStoreBlockDeviceProperty</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups</a></li><li><a href="module-Types-AmazonElasticFileSystemFileSystemFileSystemTags.html">AmazonElasticFileSystemFileSystemFileSystemTags</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterApplication.html">AmazonElasticMapReduceClusterApplication</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterBootstrapActionConfig.html">AmazonElasticMapReduceClusterBootstrapActionConfig</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig.html">AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterConfiguration.html">AmazonElasticMapReduceClusterConfiguration</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterJobFlowInstancesConfig.html">AmazonElasticMapReduceClusterJobFlowInstancesConfig</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig.html">AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType.html">AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType</a></li><li><a href="module-Types-AmazonElasticMapReduceEbsConfiguration.html">AmazonElasticMapReduceEbsConfiguration</a></li><li><a href="module-Types-AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs.html">AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs</a></li><li><a href="module-Types-AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification.html">AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification</a></li><li><a href="module-Types-AmazonElasticMapReduceStepHadoopJarStepConfig.html">AmazonElasticMapReduceStepHadoopJarStepConfig</a></li><li><a href="module-Types-AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue.html">AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue</a></li><li><a href="module-Types-AmazonElasticsearchServiceDomainEBSOptions.html">AmazonElasticsearchServiceDomainEBSOptions</a></li><li><a href="module-Types-AmazonElasticsearchServiceDomainElasticsearchClusterConfig.html">AmazonElasticsearchServiceDomainElasticsearchClusterConfig</a></li><li><a href="module-Types-AmazonElasticsearchServiceDomainSnapshotOptions.html">AmazonElasticsearchServiceDomainSnapshotOptions</a></li><li><a href="module-Types-AmazonGameLiftAliasRoutingStrategy.html">AmazonGameLiftAliasRoutingStrategy</a></li><li><a href="module-Types-AmazonGameLiftBuildStorageLocation.html">AmazonGameLiftBuildStorageLocation</a></li><li><a href="module-Types-AmazonGameLiftFleetEC2InboundPermission.html">AmazonGameLiftFleetEC2InboundPermission</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions.html">AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration.html">AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints.html">AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions.html">AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration.html">AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand.html">AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration.html">AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints.html">AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration.html">AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig.html">AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig</a></li><li><a href="module-Types-AmazonRDSOptionGroupOptionConfigurations.html">AmazonRDSOptionGroupOptionConfigurations</a></li><li><a href="module-Types-AmazonRDSOptionGroupOptionConfigurationsOptionSettings.html">AmazonRDSOptionGroupOptionConfigurationsOptionSettings</a></li><li><a href="module-Types-AmazonRDSSecurityGroupRule.html">AmazonRDSSecurityGroupRule</a></li><li><a href="module-Types-AmazonRedshiftParameterType.html">AmazonRedshiftParameterType</a></li><li><a href="module-Types-AmazonRoute53HealthCheckConfig.html">AmazonRoute53HealthCheckConfig</a></li><li><a href="module-Types-AmazonRoute53HealthCheckTags.html">AmazonRoute53HealthCheckTags</a></li><li><a href="module-Types-AmazonRoute53HostedZoneConfigProperty.html">AmazonRoute53HostedZoneConfigProperty</a></li><li><a href="module-Types-AmazonRoute53HostedZoneTags.html">AmazonRoute53HostedZoneTags</a></li><li><a href="module-Types-AmazonRoute53HostedZoneVPCs.html">AmazonRoute53HostedZoneVPCs</a></li><li><a href="module-Types-AmazonRoute53RecordSetGeoLocationProperty.html">AmazonRoute53RecordSetGeoLocationProperty</a></li><li><a href="module-Types-AmazonS3CorsConfiguration.html">AmazonS3CorsConfiguration</a></li><li><a href="module-Types-AmazonS3CorsConfigurationRule.html">AmazonS3CorsConfigurationRule</a></li><li><a href="module-Types-AmazonS3LifecycleConfiguration.html">AmazonS3LifecycleConfiguration</a></li><li><a href="module-Types-AmazonS3LifecycleRule.html">AmazonS3LifecycleRule</a></li><li><a href="module-Types-AmazonS3LifecycleRuleNoncurrentVersionTransition.html">AmazonS3LifecycleRuleNoncurrentVersionTransition</a></li><li><a href="module-Types-AmazonS3LifecycleRuleTransition.html">AmazonS3LifecycleRuleTransition</a></li><li><a href="module-Types-AmazonS3LoggingConfiguration.html">AmazonS3LoggingConfiguration</a></li><li><a href="module-Types-AmazonS3NotificationConfiguration.html">AmazonS3NotificationConfiguration</a></li><li><a href="module-Types-AmazonS3NotificationConfigurationConfigFilter.html">AmazonS3NotificationConfigurationConfigFilter</a></li><li><a href="module-Types-AmazonS3NotificationConfigurationConfigFilterS3Key.html">AmazonS3NotificationConfigurationConfigFilterS3Key</a></li><li><a href="module-Types-AmazonS3NotificationConfigurationConfigFilterS3KeyRules.html">AmazonS3NotificationConfigurationConfigFilterS3KeyRules</a></li><li><a href="module-Types-AmazonS3NotificationConfigurationTopicConfigurations.html">AmazonS3NotificationConfigurationTopicConfigurations</a></li><li><a href="module-Types-AmazonS3ReplicationConfiguration.html">AmazonS3ReplicationConfiguration</a></li><li><a href="module-Types-AmazonS3ReplicationConfigurationRules.html">AmazonS3ReplicationConfigurationRules</a></li><li><a href="module-Types-AmazonS3ReplicationConfigurationRulesDestination.html">AmazonS3ReplicationConfigurationRulesDestination</a></li><li><a href="module-Types-AmazonS3VersioningConfiguration.html">AmazonS3VersioningConfiguration</a></li><li><a href="module-Types-AmazonS3WebsiteConfigurationProperty.html">AmazonS3WebsiteConfigurationProperty</a></li><li><a href="module-Types-AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty.html">AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty</a></li><li><a href="module-Types-AmazonS3WebsiteConfigurationRoutingRulesProperty.html">AmazonS3WebsiteConfigurationRoutingRulesProperty</a></li><li><a href="module-Types-AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty.html">AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty</a></li><li><a href="module-Types-AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty.html">AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty</a></li><li><a href="module-Types-AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations.html">AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations</a></li><li><a href="module-Types-AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations.html">AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations</a></li><li><a href="module-Types-AmazonSNSSubscriptionPropertyType.html">AmazonSNSSubscriptionPropertyType</a></li><li><a href="module-Types-AmazonSQSRedrivePolicy.html">AmazonSQSRedrivePolicy</a></li><li><a href="module-Types-AutoScalingMetricsCollection.html">AutoScalingMetricsCollection</a></li><li><a href="module-Types-AutoScalingNotificationConfigurations.html">AutoScalingNotificationConfigurations</a></li><li><a href="module-Types-AutoScalingScalingPolicyStepAdjustments.html">AutoScalingScalingPolicyStepAdjustments</a></li><li><a href="module-Types-AutoScalingTagsPropertyType.html">AutoScalingTagsPropertyType</a></li><li><a href="module-Types-AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType.html">AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType</a></li><li><a href="module-Types-AWSCloudFormationAutoScalingEBSBlockDevicePropertyType.html">AWSCloudFormationAutoScalingEBSBlockDevicePropertyType</a></li><li><a href="module-Types-AWSCloudFormationInterfaceLabel.html">AWSCloudFormationInterfaceLabel</a></li><li><a href="module-Types-AWSCloudFormationInterfaceParameterGroup.html">AWSCloudFormationInterfaceParameterGroup</a></li><li><a href="module-Types-AWSCloudFormationInterfaceParameterLabel.html">AWSCloudFormationInterfaceParameterLabel</a></li><li><a href="module-Types-AWSCloudFormationResourceTagsType.html">AWSCloudFormationResourceTagsType</a></li><li><a href="module-Types-AWSCodeDeployDeploymentConfigMinimumHealthyHosts.html">AWSCodeDeployDeploymentConfigMinimumHealthyHosts</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupDeployment.html">AWSCodeDeployDeploymentGroupDeployment</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupDeploymentRevision.html">AWSCodeDeployDeploymentGroupDeploymentRevision</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation.html">AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location.html">AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupEc2TagFilters.html">AWSCodeDeployDeploymentGroupEc2TagFilters</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters.html">AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters</a></li><li><a href="module-Types-AWSCodePipelineCustomActionTypeArtifactDetails.html">AWSCodePipelineCustomActionTypeArtifactDetails</a></li><li><a href="module-Types-AWSCodePipelineCustomActionTypeConfigurationProperties.html">AWSCodePipelineCustomActionTypeConfigurationProperties</a></li><li><a href="module-Types-AWSCodePipelineCustomActionTypeSettings.html">AWSCodePipelineCustomActionTypeSettings</a></li><li><a href="module-Types-AWSCodePipelinePipelineArtifactStore.html">AWSCodePipelinePipelineArtifactStore</a></li><li><a href="module-Types-AWSCodePipelinePipelineArtifactStoreEncryptionKey.html">AWSCodePipelinePipelineArtifactStoreEncryptionKey</a></li><li><a href="module-Types-AWSCodePipelinePipelineDisableInboundStageTransitions.html">AWSCodePipelinePipelineDisableInboundStageTransitions</a></li><li><a href="module-Types-AWSCodePipelinePipelineStages.html">AWSCodePipelinePipelineStages</a></li><li><a href="module-Types-AWSCodePipelinePipelineStagesActions.html">AWSCodePipelinePipelineStagesActions</a></li><li><a href="module-Types-AWSCodePipelinePipelineStagesActionsActionTypeId.html">AWSCodePipelinePipelineStagesActionsActionTypeId</a></li><li><a href="module-Types-AWSCodePipelinePipelineStagesActionsInputArtifacts.html">AWSCodePipelinePipelineStagesActionsInputArtifacts</a></li><li><a href="module-Types-AWSCodePipelinePipelineStagesActionsOutputArtifacts.html">AWSCodePipelinePipelineStagesActionsOutputArtifacts</a></li><li><a href="module-Types-AWSCodePipelinePipelineStagesBlockers.html">AWSCodePipelinePipelineStagesBlockers</a></li><li><a href="module-Types-AWSConfigConfigRuleScope.html">AWSConfigConfigRuleScope</a></li><li><a href="module-Types-AWSConfigConfigRuleSource.html">AWSConfigConfigRuleSource</a></li><li><a href="module-Types-AWSConfigConfigRuleSourceSourceDetails.html">AWSConfigConfigRuleSourceSourceDetails</a></li><li><a href="module-Types-AWSConfigConfigurationRecorderRecordingGroup.html">AWSConfigConfigurationRecorderRecordingGroup</a></li><li><a href="module-Types-AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties.html">AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties</a></li><li><a href="module-Types-AWSDataPipelineDataPipelineObjectFields.html">AWSDataPipelineDataPipelineObjectFields</a></li><li><a href="module-Types-AWSDataPipelineParameterObjectsAttributes.html">AWSDataPipelineParameterObjectsAttributes</a></li><li><a href="module-Types-AWSDataPipelinePipelineObjects.html">AWSDataPipelinePipelineObjects</a></li><li><a href="module-Types-AWSDataPipelinePipelineParameterObjects.html">AWSDataPipelinePipelineParameterObjects</a></li><li><a href="module-Types-AWSDataPipelinePipelineParameterValues.html">AWSDataPipelinePipelineParameterValues</a></li><li><a href="module-Types-AWSDataPipelinePipelinePipelineTags.html">AWSDataPipelinePipelinePipelineTags</a></li><li><a href="module-Types-AWSDirectoryServiceMicrosoftADVpcSettings.html">AWSDirectoryServiceMicrosoftADVpcSettings</a></li><li><a href="module-Types-AWSDirectoryServiceSimpleADVpcSettings.html">AWSDirectoryServiceSimpleADVpcSettings</a></li><li><a href="module-Types-AWSLambdaFunctionCode.html">AWSLambdaFunctionCode</a></li><li><a href="module-Types-AWSLambdaFunctionVPCConfig.html">AWSLambdaFunctionVPCConfig</a></li><li><a href="module-Types-AWSOpsWorksAppEnvironment.html">AWSOpsWorksAppEnvironment</a></li><li><a href="module-Types-AWSOpsWorksAutoScalingThresholdsType.html">AWSOpsWorksAutoScalingThresholdsType</a></li><li><a href="module-Types-AWSOpsWorksChefConfigurationType.html">AWSOpsWorksChefConfigurationType</a></li><li><a href="module-Types-AWSOpsWorksLayerLifeCycleConfiguration.html">AWSOpsWorksLayerLifeCycleConfiguration</a></li><li><a href="module-Types-AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration.html">AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration</a></li><li><a href="module-Types-AWSOpsWorksLoadBasedAutoScalingType.html">AWSOpsWorksLoadBasedAutoScalingType</a></li><li><a href="module-Types-AWSOpsWorksRecipesType.html">AWSOpsWorksRecipesType</a></li><li><a href="module-Types-AWSOpsWorksSourceType.html">AWSOpsWorksSourceType</a></li><li><a href="module-Types-AWSOpsWorksSslConfigurationType.html">AWSOpsWorksSslConfigurationType</a></li><li><a href="module-Types-AWSOpsWorksStackConfigurationManagerType.html">AWSOpsWorksStackConfigurationManagerType</a></li><li><a href="module-Types-AWSOpsWorksTimeBasedAutoScalingType.html">AWSOpsWorksTimeBasedAutoScalingType</a></li><li><a href="module-Types-AWSOpsWorksVolumeConfigurationType.html">AWSOpsWorksVolumeConfigurationType</a></li><li><a href="module-Types-AWSWAFByteMatchSetByteMatchTuples.html">AWSWAFByteMatchSetByteMatchTuples</a></li><li><a href="module-Types-AWSWAFByteMatchSetByteMatchTuplesFieldToMatch.html">AWSWAFByteMatchSetByteMatchTuplesFieldToMatch</a></li><li><a href="module-Types-AWSWAFIPSetIPSetDescriptors.html">AWSWAFIPSetIPSetDescriptors</a></li><li><a href="module-Types-AWSWAFRulePredicates.html">AWSWAFRulePredicates</a></li><li><a href="module-Types-AWSWAFSizeConstraintSetSizeConstraint.html">AWSWAFSizeConstraintSetSizeConstraint</a></li><li><a href="module-Types-AWSWAFSizeConstraintSetSizeConstraintFieldToMatch.html">AWSWAFSizeConstraintSetSizeConstraintFieldToMatch</a></li><li><a href="module-Types-AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples.html">AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples</a></li><li><a href="module-Types-AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch.html">AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch</a></li><li><a href="module-Types-AWSWAFWebACLAction.html">AWSWAFWebACLAction</a></li><li><a href="module-Types-AWSWAFWebACLRules.html">AWSWAFWebACLRules</a></li><li><a href="module-Types-AWSWAFXssMatchSetXssMatchTuple.html">AWSWAFXssMatchSetXssMatchTuple</a></li><li><a href="module-Types-AWSWAFXssMatchSetXssMatchTupleFieldToMatch.html">AWSWAFXssMatchSetXssMatchTupleFieldToMatch</a></li><li><a href="module-Types-CloudFormationStackParametersPropertyType.html">CloudFormationStackParametersPropertyType</a></li><li><a href="module-Types-CloudFrontDefaultCacheBehavior.html">CloudFrontDefaultCacheBehavior</a></li><li><a href="module-Types-CloudFrontDistributionConfig.html">CloudFrontDistributionConfig</a></li><li><a href="module-Types-CloudFrontDistributionConfigCacheBehavior.html">CloudFrontDistributionConfigCacheBehavior</a></li><li><a href="module-Types-CloudFrontDistributionConfigCustomErrorResponse.html">CloudFrontDistributionConfigCustomErrorResponse</a></li><li><a href="module-Types-CloudFrontDistributionConfigOrigin.html">CloudFrontDistributionConfigOrigin</a></li><li><a href="module-Types-CloudFrontDistributionConfigOriginCustomOrigin.html">CloudFrontDistributionConfigOriginCustomOrigin</a></li><li><a href="module-Types-CloudFrontDistributionConfigOriginS3Origin.html">CloudFrontDistributionConfigOriginS3Origin</a></li><li><a href="module-Types-CloudFrontDistributionConfigRestrictionsGeoRestriction.html">CloudFrontDistributionConfigRestrictionsGeoRestriction</a></li><li><a href="module-Types-CloudFrontDistributionConfigurationRestrictions.html">CloudFrontDistributionConfigurationRestrictions</a></li><li><a href="module-Types-CloudFrontDistributionConfigurationViewerCertificate.html">CloudFrontDistributionConfigurationViewerCertificate</a></li><li><a href="module-Types-CloudFrontForwardedValues.html">CloudFrontForwardedValues</a></li><li><a href="module-Types-CloudFrontForwardedValuesCookies.html">CloudFrontForwardedValuesCookies</a></li><li><a href="module-Types-CloudFrontLogging.html">CloudFrontLogging</a></li><li><a href="module-Types-CloudWatchLogsMetricFilterMetricTransformationProperty.html">CloudWatchLogsMetricFilterMetricTransformationProperty</a></li><li><a href="module-Types-CloudWatchMetricDimensionPropertyType.html">CloudWatchMetricDimensionPropertyType</a></li><li><a href="module-Types-DynamoDBAttributeDefinitions.html">DynamoDBAttributeDefinitions</a></li><li><a href="module-Types-DynamoDBGlobalSecondaryIndexes.html">DynamoDBGlobalSecondaryIndexes</a></li><li><a href="module-Types-DynamoDBKeySchema.html">DynamoDBKeySchema</a></li><li><a href="module-Types-DynamoDBLocalSecondaryIndexes.html">DynamoDBLocalSecondaryIndexes</a></li><li><a href="module-Types-DynamoDBProjectionObject.html">DynamoDBProjectionObject</a></li><li><a href="module-Types-DynamoDBProvisionedThroughput.html">DynamoDBProvisionedThroughput</a></li><li><a href="module-Types-DynamoDBTableStreamSpecification.html">DynamoDBTableStreamSpecification</a></li><li><a href="module-Types-EC2ICMPPropertyType.html">EC2ICMPPropertyType</a></li><li><a href="module-Types-EC2MountPointPropertyType.html">EC2MountPointPropertyType</a></li><li><a href="module-Types-EC2NetworkInterfaceAssociation.html">EC2NetworkInterfaceAssociation</a></li><li><a href="module-Types-EC2NetworkInterfaceAttachment.html">EC2NetworkInterfaceAttachment</a></li><li><a href="module-Types-EC2NetworkInterfaceEmbeddedPropertyType.html">EC2NetworkInterfaceEmbeddedPropertyType</a></li><li><a href="module-Types-EC2NetworkInterfaceGroupItem.html">EC2NetworkInterfaceGroupItem</a></li><li><a href="module-Types-EC2NetworkInterfacePrivateIPSpecification.html">EC2NetworkInterfacePrivateIPSpecification</a></li><li><a href="module-Types-EC2PortRangePropertyType.html">EC2PortRangePropertyType</a></li><li><a href="module-Types-EC2SecurityGroupRulePropertyType.html">EC2SecurityGroupRulePropertyType</a></li><li><a href="module-Types-ElasticBeanstalkEnvironmentTierPropertyType.html">ElasticBeanstalkEnvironmentTierPropertyType</a></li><li><a href="module-Types-ElasticBeanstalkOptionSettingsPropertyType.html">ElasticBeanstalkOptionSettingsPropertyType</a></li><li><a href="module-Types-ElasticBeanstalkSourceBundlePropertyType.html">ElasticBeanstalkSourceBundlePropertyType</a></li><li><a href="module-Types-ElasticBeanstalkSourceConfigurationPropertyType.html">ElasticBeanstalkSourceConfigurationPropertyType</a></li><li><a href="module-Types-ElasticLoadBalancingAccessLoggingPolicy.html">ElasticLoadBalancingAccessLoggingPolicy</a></li><li><a href="module-Types-ElasticLoadBalancingAppCookieStickinessPolicyType.html">ElasticLoadBalancingAppCookieStickinessPolicyType</a></li><li><a href="module-Types-ElasticLoadBalancingConnectionDrainingPolicy.html">ElasticLoadBalancingConnectionDrainingPolicy</a></li><li><a href="module-Types-ElasticLoadBalancingConnectionSettings.html">ElasticLoadBalancingConnectionSettings</a></li><li><a href="module-Types-ElasticLoadBalancingHealthCheckType.html">ElasticLoadBalancingHealthCheckType</a></li><li><a href="module-Types-ElasticLoadBalancingLBCookieStickinessPolicyType.html">ElasticLoadBalancingLBCookieStickinessPolicyType</a></li><li><a href="module-Types-ElasticLoadBalancingListenerPropertyType.html">ElasticLoadBalancingListenerPropertyType</a></li><li><a href="module-Types-ElasticLoadBalancingPolicyType.html">ElasticLoadBalancingPolicyType</a></li><li><a href="module-Types-IAMPolicies.html">IAMPolicies</a></li><li><a href="module-Types-IAMUserLoginProfile.html">IAMUserLoginProfile</a></li><li><a href="module-Types-NameType.html">NameType</a></li><li><a href="module-Types-Route53AliasTargetProperty.html">Route53AliasTargetProperty</a></li><li><a href="module-WAF.ByteMatchSet.html">ByteMatchSet</a></li><li><a href="module-WAF.IPSet.html">IPSet</a></li><li><a href="module-WAF.Rule.html">Rule</a></li><li><a href="module-WAF.SizeConstraintSet.html">SizeConstraintSet</a></li><li><a href="module-WAF.SqlInjectionMatchSet.html">SqlInjectionMatchSet</a></li><li><a href="module-WAF.WebACL.html">WebACL</a></li><li><a href="module-WAF.XssMatchSet.html">XssMatchSet</a></li><li><a href="module-WorkSpaces.Workspace.html">Workspace</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Jul 10 2016 01:30:29 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
