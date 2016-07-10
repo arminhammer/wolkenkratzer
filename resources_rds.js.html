@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: resources/rds.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: resources/rds.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict'
+
+const WKResource = require('./../resource').WKResource
+const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
+const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
+const tag = require('./../tag')
+const types = require('./../types')
+
+/** @module RDS */
+
+/** @memberof module:RDS
+*   @extends WKResource
+* @property {String} AvailabilityZones Required: No. A list of Availability Zones (AZs) in which DB instances in the cluster can be
+                  created.Update requires: Replacement
+* @property {Number} BackupRetentionPeriod Required: No. The number of days for which automatic backups are retained. For more
+                  information, see CreateDBCluster in the Amazon Relational Database Service API Reference.Update requires: No interruption or some
+                     interruptions. For more information, see ModifyDBInstance in the
+                     Amazon Relational Database Service API Reference.
+* @property {String} DatabaseName Required: No. The name of your database. You can specify a name of up to eight alpha-numeric
+                  characters. If you do not provide a name, Amazon Relational Database Service (Amazon RDS) won't create a
+                  database in this DB cluster.Update requires: Replacement
+* @property {String} DBClusterParameterGroupName Required: No. The name of the DB cluster parameter group to associate with this DB cluster.
+                  For the default value, see the DBClusterParameterGroupName parameter
+                  of the CreateDBCluster
+                  action in the Amazon Relational Database Service API Reference.Update requires: Some interruptions
+* @property {String} DBSubnetGroupName Required: No. A DB subnet group that you want to associate with this DB cluster.Update requires: Replacement
+* @property {String} Engine Required: Yes. The name of the database engine that you want to use for this DB
+                  cluster.For valid values, see the Engine parameter of the CreateDBCluster action in the
+                  Amazon Relational Database Service API Reference.Update requires: Replacement
+* @property {String} EngineVersion Required: No. The version number of the database engine that you want to use.Update requires: Replacement
+* @property {String} KmsKeyId Required: No. The Amazon Resource Name (ARN) of the AWS Key Management Service master key that is used to
+                  encrypt the database instances in the DB cluster, such as
+                     arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef.
+                  If you enable the StorageEncrypted property but don't specify this
+                  property, the default master key is used. If you specify this property, you must
+                  set the StorageEncrypted property to true.If you specify the SnapshotIdentifier, do not specify this
+                  property. The value is inherited from the snapshot DB cluster.Update requires: Replacement.
+* @property {String} MasterUsername Required: Conditional. The master user name for the DB instance.Update requires: Replacement.
+* @property {String} MasterUserPassword Required: Conditional. The password for the master database user.Update requires: No interruption
+* @property {Number} Port Required: No. The port number on which the DB instances in the cluster can accept
+                  connections.Update requires: No interruption
+* @property {String} PreferredBackupWindow Required: No. if automated backups are enabled (see the BackupRetentionPeriod
+                  property), the daily time range in UTC during which you want to create automated
+                  backups.For valid values, see the PreferredBackupWindow parameter of the
+                     CreateDBInstance action in the
+                  Amazon Relational Database Service API Reference.Update requires: No interruption
+* @property {String} PreferredMaintenanceWindow Required: No. The weekly time range (in UTC) during which system maintenance can
+                  occur.For valid values, see the PreferredMaintenanceWindow parameter of
+                  the CreateDBInstance action in the
+                  Amazon Relational Database Service API Reference.Update requires: No interruption or some
+                     interruptions. For more information, see ModifyDBInstance in the
+                     Amazon Relational Database Service API Reference.
+* @property {String} SnapshotIdentifier Required: No. The identifier for the DB cluster snapshot from which you want to
+                  restore.Update requires: Replacement
+* @property {Boolean} StorageEncrypted Required: Conditional. Indicates whether the DB instances in the cluster are encrypted.If you specify the SnapshotIdentifier property, do not specify
+                  this property. The value is inherited from the snapshot DB cluster.Update requires: Replacement.
+* @property {resourcetags} Tags Required: No. The tags that you want to attach to this DB cluster.Update requires: Updates are not supported.
+* @property {String} VpcSecurityGroupIds Required: No. A list of VPC security groups to associate with this DB cluster.Update requires: No interruption
+*/
+class DBCluster extends WKResource {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::RDS::DBCluster'
+    let properties = {
+      AvailabilityZones: new ResourceAttribute('AvailabilityZones', String, 'No', null),
+      BackupRetentionPeriod: new ResourceAttribute('BackupRetentionPeriod', Number, 'No', null),
+      DatabaseName: new ResourceAttribute('DatabaseName', String, 'No', null),
+      DBClusterParameterGroupName: new ResourceAttribute('DBClusterParameterGroupName', String, 'No', null),
+      DBSubnetGroupName: new ResourceAttribute('DBSubnetGroupName', String, 'No', null),
+      Engine: new ResourceAttribute('Engine', String, 'Yes', null),
+      EngineVersion: new ResourceAttribute('EngineVersion', String, 'No', null),
+      KmsKeyId: new ResourceAttribute('KmsKeyId', String, 'No', null),
+      MasterUsername: new ResourceAttribute('MasterUsername', String, 'Conditional', null),
+      MasterUserPassword: new ResourceAttribute('MasterUserPassword', String, 'Conditional', null),
+      Port: new ResourceAttribute('Port', Number, 'No', null),
+      PreferredBackupWindow: new ResourceAttribute('PreferredBackupWindow', String, 'No', null),
+      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, 'No', null),
+      SnapshotIdentifier: new ResourceAttribute('SnapshotIdentifier', String, 'No', null),
+      StorageEncrypted: new ResourceAttribute('StorageEncrypted', Boolean, 'Conditional', null),
+      Tags: new tag.TagSet(),
+      VpcSecurityGroupIds: new ResourceAttributeArray('VpcSecurityGroupIds', String, 'No', null)
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/** @memberof module:RDS
+*   @extends WKResource
+* @property {String} Description Required: Yes. A friendly description for this DB cluster parameter group.Update requires: Replacement
+* @property {String} Family Required: Yes. The database family of this DB cluster parameter group, such as
+                     aurora5.6.Update requires: Replacement
+* @property {Object} Parameters Required: Yes. The parameters to set for this DB cluster parameter group. For a list of
+                  parameter keys, see Appendix: DB Cluster
+                     and DB Instance Parameters in the
+                     Amazon Relational Database Service User Guide.Changes to dynamic parameters are applied immediately. Changes to static
+                  parameters require a reboot without failover to the DB instance that is associated
+                  with the parameter group before the change can take effect.Update requires: No interruption or some
+                     interruptions, depending on the parameters that you update.
+* @property {resourcetags} Tags Required: No. The tags that you want to attach to this parameter group.Update requires: Updates are not supported.
+*/
+class DBClusterParameterGroup extends WKResource {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::RDS::DBClusterParameterGroup'
+    let properties = {
+      Description: new ResourceAttribute('Description', String, 'Yes', null),
+      Family: new ResourceAttribute('Family', String, 'Yes', null),
+      Parameters: new ResourceAttribute('Parameters', Object, 'Yes', null),
+      Tags: new tag.TagSet()
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/** @memberof module:RDS
+*   @extends WKResource
+* @property {String} AllocatedStorage Required: Conditional. The allocated storage size specified in gigabytes (GB).If any value is used in the Iops parameter,
+                     AllocatedStorage must be at least 100 GB, which
+                  corresponds to the minimum Iops value of 1000. If
+                     Iops is increased (in 1000 IOPS increments), then
+                     AllocatedStorage must also be increased (in 100 GB
+                  increments) correspondingly.Update requires: No interruption
+* @property {Boolean} AllowMajorVersionUpgrade Required: No. Indicates whether major version upgrades are allowed. Changing this parameter
+                  does not result in an outage, and the change is applied asynchronously as soon as
+                  possible.Constraints: This parameter must be set to
+                     true when you specify an EngineVersion that differs
+                  from the DB instance's current major version.Update requires: No interruption
+* @property {Boolean} AutoMinorVersionUpgrade Required: No. Indicates that minor engine upgrades will be applied automatically to the DB
+                  instance during the maintenance window. The default value is
+                  true.Update requires: No interruption or some
+                     interruptions. For more information, see ModifyDBInstance in the
+                     Amazon Relational Database Service API Reference.
+* @property {String} AvailabilityZone Required: No. The name of the Availability Zone where the DB instance is located. You cannot
+                  set the AvailabilityZone parameter if the
+                     MultiAZ parameter is set to true.Update requires: Replacement
+* @property {String} BackupRetentionPeriod Required: No. The number of days for which automatic DB snapshots are retained.ImportantIf this DB instance is deleted or replaced during an update, all
+                        automated snapshots are deleted. However, manual DB snapshot are
+                        retained.Update requires: No interruption or some
+                     interruptions. For more information, see ModifyDBInstance in the
+                     Amazon Relational Database Service API Reference.
+* @property {String} CharacterSetName Required: No. For supported engines, specifies the character set to associate with the
+                  database instance. For more information, see Appendix: Oracle
+                     Character Sets Supported in Amazon RDS in the
+                     Amazon Relational Database Service User Guide.If you specify the DBSnapshotIdentifier or
+                     SourceDBInstanceIdentifier property, do not specify this property.
+                  The value is inherited from the snapshot or source database instance.Update requires: Replacement
+* @property {String} DBClusterIdentifier Required: No. The identifier of an existing DB cluster that this instance will be associated
+                  with. If you specify this property, specify aurora for the
+                     Engine property and do not specify any of the following
+                  properties: AllocatedStorage, CharacterSetName,
+                     DBSecurityGroups, SourceDBInstanceIdentifier,
+                  and StorageType.Amazon RDS assigns the first DB instance in the cluster as the primary and
+                  additional DB instances as replicas.Update requires: Replacement
+* @property {String} DBInstanceClass Required: Yes. The name of the compute and memory capacity class of the DB instance.Update requires: Some interruptions
+* @property {String} DBInstanceIdentifier Required: No. A name for the DB instance. If you specify a name, AWS CloudFormation converts it to lower
+                  case. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses
+                  that ID for the DB instance. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
+You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement
+* @property {String} DBName Required: No. The name of the initial database of this instance that was provided at create
+                  time, if one was specified. This same name is returned for the life of the DB
+                  instance.NoteIf you restore from a snapshot, do specify this property for the MySQL or
+                     MariaDB engines.Update requires: Replacement
+* @property {String} DBParameterGroupName Required: No. The name of an existing DB parameter group or a reference to an AWS::RDS::DBParameterGroup
+                  resource created in the template.Update requires: No interruption or some
+                     interruptions. For more information, see ModifyDBInstance in the
+                     Amazon Relational Database Service API Reference. Also, if any of the data members of the
+                  referenced parameter group are changed during an update, the database instance may
+                  need to be restarted, causing some interruption.
+* @property {String} DBSecurityGroups Required: No. A list of the DB security groups to assign to the Amazon RDS instance. The list can
+                  include both the name of existing DB security groups or references to AWS::RDS::DBSecurityGroup
+                  resources created in the template.If you set DBSecurityGroups, you must not set VPCSecurityGroups, and
+                  vice-versa.Update requires: No interruption
+* @property {String} DBSnapshotIdentifier Required: No. The identifier for the DB snapshot to restore from.By specifying this property, you can create a DB instance from the specified DB
+                  snapshot. If the DBSnapshotIdentifier property is an empty string or the
+                  AWS::RDS::DBInstance declaration has no DBSnapshotIdentifier property, the
+                  database is created as a new database. If the property contains a value (other
+                  than empty string), AWS CloudFormation creates a database from the specified snapshot. If a
+                  snapshot with the specified name does not exist, the database creation fails and
+                  the stack rolls back.Some DB instance properties are not valid when you restore from a snapshot,
+                  such as the MasterUsername and MasterUserPassword
+                  properties. For information about the properties that you can specify, see the
+                     RestoreDBInstanceFromDBSnapshot action in the
+                     Amazon Relational Database Service API Reference.Update requires: Replacement
+* @property {String} DBSubnetGroupName Required: No. A DB subnet group to associate with the DB instance.If there is no DB subnet group, then it is a non-VPC DB instance.For more information about using Amazon RDS in a VPC, go to Using Amazon RDS
+                     with Amazon Virtual Private Cloud (VPC) in the
+                     Amazon Relational Database Service Developer Guide.Update requires: Replacement
+* @property {String} Engine Required: Conditional. The name of the database engine that the DB instance uses. This property is
+                  optional when you specify the DBSnapshotIdentifier property to create
+                  DB instances.For valid values, see the Engine parameter of the CreateDBInstance action in the
+                  Amazon Relational Database Service API Reference.Update requires: Replacement
+* @property {String} EngineVersion Required: No. The version number of the database engine to use.Update requires: Some interruptions
+* @property {Number} Iops Required: Conditional. The number of I/O operations per second (IOPS) that the database provisions.
+                  The value must be equal to or greater than 1000.If you specify this property, you must follow the range of allowed ratios of
+                  your requested IOPS rate to the amount of storage that you allocate (IOPS to
+                  allocated storage).  For example, you can provision an Oracle database instance
+                  with 1000 IOPS and 200 GB of storage (a ratio of 5:1) or
+                  specify 2000 IOPS with 200 GB of storage (a ratio of 10:1). For more information,
+                  see Amazon RDS Provisioned IOPS
+                     Storage to Improve Performance in the
+                     Amazon Relational Database Service User Guide.Update requires: No interruption
+* @property {String} KmsKeyId Required: No. The Amazon Resource Name (ARN) of the AWS Key Management Service master key that is used to
+                  encrypt the database instance, such as
+                     arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef.
+                  If you enable the StorageEncrypted property but don't specify this
+                  property, the default master key is used. If you specify this property, you must
+                  set the StorageEncrypted property to true.If you specify the DBSnapshotIdentifier or
+                     SourceDBInstanceIdentifier property, do not specify this property.
+                  The value is inherited from the snapshot or source database instance.NoteCurrently, if you specify DBSecurityGroups, this property is
+                     ignored. If you want to specify a security group and this property, you must
+                     use a VPC security group. For more information about Amazon RDS and VPC, see Using Amazon RDS with Amazon VPC in the
+                        Amazon Relational Database Service User Guide.Update requires: Replacement.
+* @property {String} LicenseModel Required: No. The license model information for the DB instance.Update requires: Replacement.
+* @property {String} MasterUsername Required: Conditional. The master user name for the database instance. This property is optional when
+                  you specify the DBSnapshotIdentifier or the
+                     DBClusterIdentifier property to create DB instances. NoteIf you specify the SourceDBInstanceIdentifier or
+                           DBSnapshotIdentifier property, do not specify this property.
+                        The value is inherited from the source database instance or snapshot.Update requires: Replacement.
+* @property {String} MasterUserPassword Required: Conditional. The master password for the database instance. This property is optional when
+                  you specify the DBSnapshotIdentifier or the
+                     DBClusterIdentifier property to create DB instances.NoteIf you specify the SourceDBInstanceIdentifier property, do not
+                     specify this property. The value is inherited from the source database
+                     instance.Update requires: No interruption.
+* @property {Boolean} MultiAZ Required: No. Specifies if the database instance is a multiple Availability Zone deployment.
+                  You cannot set the AvailabilityZone parameter if the
+                     MultiAZ parameter is set to true.NoteDo not specify this property if you want a Multi-AZ deployment for a SQL
+                        Server database instance. Use the mirroring option in an option group to set
+                        Multi-AZ for a SQL Server database instance.Update requires: No interruption.
+* @property {String} OptionGroupName Required: No. An option group that this database instance is associated with.Update requires: No interruption.
+* @property {String} Port Required: No. The port for the instance.Update requires: Replacement.
+* @property {String} PreferredBackupWindow Required: No. The daily time range during which automated backups are created if automated backups are enabled, as determined by the BackupRetentionPeriod property. For valid values, see the PreferredBackupWindow parameter for the CreateDBInstance action in the Amazon Relational Database Service API Reference.Update requires: No interruption.
+* @property {String} PreferredMaintenanceWindow Required: No. The weekly time range (in UTC) during which system maintenance can occur. For valid values, see the PreferredMaintenanceWindow parameter for the CreateDBInstance action in the Amazon Relational Database Service API Reference.NoteThis property applies during the initial resource creation. If you use AWS CloudFormation to update the DB instance, AWS CloudFormation applies those updates immediately.Update requires: No interruption or some
+                     interruptions. For more information, see ModifyDBInstance in the
+                     Amazon Relational Database Service API Reference.
+* @property {Boolean} PubliclyAccessible Required: No. Indicates whether the database instance is an Internet-facing instance. If you
+                  specify true, an instance is created with a publicly resolvable DNS
+                  name, which resolves to a public IP address. If you specify false, an
+                  internal instance is created with a DNS name that resolves to a private IP
+                  address. The default behavior value depends on your VPC setup and the database subnet
+                  group. For more information, see the PubliclyAccessible parameter in
+                     CreateDBInstance in the Amazon Relational Database Service API Reference.If this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the
+DependsOn attribute to declare a dependency on the VPC-gateway attachment. For more information,
+see DependsOn Attribute.NoteCurrently, if you specify DBSecurityGroups, this property is
+                     ignored. If you want to specify a security group and this property, you must
+                     use a VPC security group. For more information about Amazon RDS and VPC, see Using Amazon RDS with Amazon VPC in the
+                        Amazon Relational Database Service User Guide.Update requires: Replacement.
+* @property {String} SourceDBInstanceIdentifier Required: No. If you want to create a read replica DB instance, specify the ID of the source
+                  database instance. Each database instance can have a certain number of read
+                  replicas. For more information, see Working with Read Replicas in the
+                     Amazon Relational Database Service Developer Guide.The SourceDBInstanceIdentifier property determines whether a
+                  database instance is a read replica. If you remove the
+                     SourceDBInstanceIdentifier property from your current template and
+                  then update your stack, the read replica is deleted and a new database instance
+                  (not a read replica) is created.ImportantRead replicas do not support deletion policies. Any deletion policy
+                           that's associated with a read replica is ignored.If you specify SourceDBInstanceIdentifier, do not set the
+                              MultiAZ property to true and do not specify
+                           the DBSnapshotIdentifier property. You cannot deploy read
+                           replicas in multiple Availability Zones, and you cannot create a read
+                           replica from a snapshot.Do not set the BackupRetentionPeriod,
+                           DBName, MasterUsername,
+                              MasterUserPassword, and
+                              PreferredBackupWindow properties. The database attributes
+                           are inherited from the source database instance, and backups are disabled
+                           for read replicas.If the source DB instance is in a different region than the read
+                           replica, specify a valid DB instance ARN. For more information, see
+                              Constructing a Amazon RDS Amazon Resource Name (ARN) in the
+                              Amazon Relational Database Service User Guide.For DB instances in an Amazon Aurora clusters, do not specify this
+                           property. Amazon RDS assigns automatically assigns a writer and reader DB
+                           instances.Update requires: Replacement.
+* @property {Boolean} StorageEncrypted Required: Conditional. Indicates whether the database instance is encrypted.If you specify the DBClusterIdentifier,
+                     DBSnapshotIdentifier, or SourceDBInstanceIdentifier
+                  property, do not specify this property. The value is inherited from the cluster,
+                  snapshot, or source database instance.Update requires: Replacement.
+* @property {String} StorageType Required: No. The storage type associated with this database instance.For the default and valid values, see the StorageType parameter of
+                  the CreateDBInstance action in the
+                  Amazon Relational Database Service API Reference.Update requires: Some interruptions
+* @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this database
+                  instance.Update requires: No interruption.
+* @property {String} VPCSecurityGroups Required: No. A list of the VPC security group IDs to assign to the Amazon RDS instance. The list can include both the physical IDs of existing VPC security groups or references to AWS::EC2::SecurityGroup resources created in the template.If you set VPCSecurityGroups, you must not set DBSecurityGroups, and
+                  vice-versa.ImportantYou can migrate a database instance in your stack from an RDS DB security
+                     group to a VPC security group, but you should keep the following points in
+                     mind:You cannot revert to using an RDS security group once you have
+                           established a VPC security group membership.When you migrate your DB instance to VPC security groups, if your
+                           stack update rolls back because of another failure in the database
+                           instance update, or because of an update failure in another AWS CloudFormation
+                           resource, the rollback will fail because it cannot revert to an RDS
+                           security group.To avoid this situation, only migrate your DB instance to using VPC security
+                     groups when that is the only change in your stack
+                     template.Update requires: No interruption.
+*/
+class DBInstance extends WKResource {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::RDS::DBInstance'
+    let properties = {
+      AllocatedStorage: new ResourceAttribute('AllocatedStorage', String, 'Conditional', null),
+      AllowMajorVersionUpgrade: new ResourceAttribute('AllowMajorVersionUpgrade', Boolean, 'No', null),
+      AutoMinorVersionUpgrade: new ResourceAttribute('AutoMinorVersionUpgrade', Boolean, 'No', null),
+      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'No', null),
+      BackupRetentionPeriod: new ResourceAttribute('BackupRetentionPeriod', String, 'No', null),
+      CharacterSetName: new ResourceAttribute('CharacterSetName', String, 'No', null),
+      DBClusterIdentifier: new ResourceAttribute('DBClusterIdentifier', String, 'No', null),
+      DBInstanceClass: new ResourceAttribute('DBInstanceClass', String, 'Yes', null),
+      DBInstanceIdentifier: new ResourceAttribute('DBInstanceIdentifier', String, 'No', null),
+      DBName: new ResourceAttribute('DBName', String, 'No', null),
+      DBParameterGroupName: new ResourceAttribute('DBParameterGroupName', String, 'No', null),
+      DBSecurityGroups: new ResourceAttributeArray('DBSecurityGroups', String, 'No', null),
+      DBSnapshotIdentifier: new ResourceAttribute('DBSnapshotIdentifier', String, 'No', null),
+      DBSubnetGroupName: new ResourceAttribute('DBSubnetGroupName', String, 'No', null),
+      Engine: new ResourceAttribute('Engine', String, 'Conditional', null),
+      EngineVersion: new ResourceAttribute('EngineVersion', String, 'No', null),
+      Iops: new ResourceAttribute('Iops', Number, 'Conditional', null),
+      KmsKeyId: new ResourceAttribute('KmsKeyId', String, 'No', null),
+      LicenseModel: new ResourceAttribute('LicenseModel', String, 'No', null),
+      MasterUsername: new ResourceAttribute('MasterUsername', String, 'Conditional', null),
+      MasterUserPassword: new ResourceAttribute('MasterUserPassword', String, 'Conditional', null),
+      MultiAZ: new ResourceAttribute('MultiAZ', Boolean, 'No', null),
+      OptionGroupName: new ResourceAttribute('OptionGroupName', String, 'No', null),
+      Port: new ResourceAttribute('Port', String, 'No', null),
+      PreferredBackupWindow: new ResourceAttribute('PreferredBackupWindow', String, 'No', null),
+      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, 'No', null),
+      PubliclyAccessible: new ResourceAttribute('PubliclyAccessible', Boolean, 'No', null),
+      SourceDBInstanceIdentifier: new ResourceAttribute('SourceDBInstanceIdentifier', String, 'No', null),
+      StorageEncrypted: new ResourceAttribute('StorageEncrypted', Boolean, 'Conditional', null),
+      StorageType: new ResourceAttribute('StorageType', String, 'No', null),
+      Tags: new tag.TagSet(),
+      VPCSecurityGroups: new ResourceAttributeArray('VPCSecurityGroups', String, 'No', null)
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/** @memberof module:RDS
+*   @extends WKResource
+* @property {String} Description Required: Yes. A friendly description of the RDS parameter group. For example, "My Parameter Group".Update requires: Updates are not supported.
+* @property {String} Family Required: Yes. The database family of this RDS parameter group. For example, "MySQL5.1".Update requires: Updates are not supported.
+* @property {Object} Parameters Required: No. The parameters to set for this RDS parameter group. Changes to dynamic parameters are applied immediately. Changes to static
+                  parameters require a reboot without failover to the DB instance that is associated
+                  with the parameter group before the change can take effect.Update requires: No interruption or Some
+                     interruptions
+* @property {resourcetags} Tags Required: No. The tags that you want to attach to the RDS parameter group.Update requires: No interruption
+*/
+class DBParameterGroup extends WKResource {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::RDS::DBParameterGroup'
+    let properties = {
+      Description: new ResourceAttribute('Description', String, 'Yes', null),
+      Family: new ResourceAttribute('Family', String, 'Yes', null),
+      Parameters: new ResourceAttribute('Parameters', Object, 'No', null),
+      Tags: new tag.TagSet()
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/** @memberof module:RDS
+*   @extends WKResource
+* @property {String} EC2VpcId Required: Conditional. The Id of VPC. Indicates which VPC this DB Security Group should belong to.Update requires: Replacement
+* @property {RDSSecurityGroupRules} DBSecurityGroupIngress Required: Yes. Network ingress authorization for an Amazon EC2 security group or an IP address range.Update requires: No interruption
+* @property {String} GroupDescription Required: Yes. Description of the security group.Update requires: Replacement
+* @property {resourcetags} Tags Required: No. The tags that you want to attach to the Amazon RDS DB security group.Update requires: No interruption
+*/
+class DBSecurityGroup extends WKResource {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::RDS::DBSecurityGroup'
+    let properties = {
+      EC2VpcId: new ResourceAttribute('EC2VpcId', String, 'Conditional', null),
+      DBSecurityGroupIngress: new ResourceAttributeArray('DBSecurityGroupIngress', types.RDSSecurityGroupRules, 'Yes', null),
+      GroupDescription: new ResourceAttribute('GroupDescription', String, 'Yes', null),
+      Tags: new tag.TagSet()
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/** @memberof module:RDS
+*   @extends WKResource
+* @property {String} CIDRIP Required: undefined. The IP range to authorize.For an overview of CIDR ranges, go to the Wikipedia
+                  Tutorial.Update requires: No interruption
+* @property {String} DBSecurityGroupName Required: Yes. The name (ARN) of the AWS::RDS::DBSecurityGroup to which this ingress
+                  will be added.Update requires: No interruption
+* @property {String} EC2SecurityGroupId Required: No. The ID of the VPC or EC2 security group to authorize.For VPC DB security groups, use EC2SecurityGroupId. For EC2 security groups, use
+                  EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId.Update requires: No interruption
+* @property {String} EC2SecurityGroupName Required: No. The name of the EC2 security group to authorize.For VPC DB security groups, use EC2SecurityGroupId. For EC2 security groups, use
+                  EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId.Update requires: No interruption
+* @property {String} EC2SecurityGroupOwnerId Required: No. The AWS Account Number of the owner of the EC2 security group specified in the EC2SecurityGroupName
+                  parameter. The AWS Access Key ID is not an acceptable value.For VPC DB security groups, use EC2SecurityGroupId. For EC2 security groups, use
+                  EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId.Update requires: No interruption
+*/
+class DBSecurityGroupIngress extends WKResource {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::RDS::DBSecurityGroupIngress'
+    let properties = {
+      CIDRIP: new ResourceAttribute('CIDRIP', String, 'undefined', null),
+      DBSecurityGroupName: new ResourceAttribute('DBSecurityGroupName', String, 'Yes', null),
+      EC2SecurityGroupId: new ResourceAttribute('EC2SecurityGroupId', String, 'No', null),
+      EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, 'No', null),
+      EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, 'No', null)
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/** @memberof module:RDS
+*   @extends WKResource
+* @property {String} DBSubnetGroupDescription Required: Yes. The description for the DB Subnet Group.Update requires: No interruption
+* @property {String} SubnetIds Required: Yes. The EC2 Subnet IDs for the DB Subnet Group.Update requires: No interruption
+* @property {resourcetags} Tags Required: No. The tags that you want to attach to the RDS database subnet group.Update requires: No interruption
+*/
+class DBSubnetGroup extends WKResource {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::RDS::DBSubnetGroup'
+    let properties = {
+      DBSubnetGroupDescription: new ResourceAttribute('DBSubnetGroupDescription', String, 'Yes', null),
+      SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null),
+      Tags: new tag.TagSet()
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/** @memberof module:RDS
+*   @extends WKResource
+* @property {Boolean} Enabled Required: No. Indicates whether to activate the subscription. If you don't specify this
+                  property, AWS CloudFormation activates the subscription.Update requires: No interruption
+* @property {String} EventCategories Required: No. A list of event categories that you want to subscribe to for a given source
+                  type. If you don't specify this property, you are notified about all event
+                  categories.Update requires: No interruption
+* @property {String} SnsTopicArn Required: Yes. The Amazon Resource Name (ARN) of an Amazon SNS topic that you want to send event
+                  notifications to.Update requires: Replacement
+* @property {String} SourceIds Required: No. A list of identifiers for which Amazon RDS provides notification events.If you don't specify a value, notifications are provided for all sources. If
+                  you specify multiple values, they must be of the same type. For example, if you
+                  specify a database instance ID, all other values must be database instance
+                  IDs.Update requires: No interruption
+* @property {String} SourceType Required: Conditional. The type of source for which Amazon RDS provides notification events. For example, if you want to be notified of events generated by a database instance, set this parameter to db-instance. If you don't specify a value, notifications are provided for all source types. For valid values, see the SourceType parameter for the CreateEventSubscription action in the
+                     Amazon Relational Database Service API Reference.Update requires: Replacement if you're removing this property after it was previously
+                  specified. All other updates require no
+                     interruption.
+*/
+class EventSubscription extends WKResource {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::RDS::EventSubscription'
+    let properties = {
+      Enabled: new ResourceAttribute('Enabled', Boolean, 'No', null),
+      EventCategories: new ResourceAttributeArray('EventCategories', String, 'No', null),
+      SnsTopicArn: new ResourceAttribute('SnsTopicArn', String, 'Yes', null),
+      SourceIds: new ResourceAttributeArray('SourceIds', String, 'No', null),
+      SourceType: new ResourceAttribute('SourceType', String, 'Conditional', null)
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+/** @memberof module:RDS
+*   @extends WKResource
+* @property {String} EngineName Required: Yes. The name of the database engine that this option group is associated
+                  with.Update requires: Replacement
+* @property {String} MajorEngineVersion Required: Yes. The major version number of the database engine that this option group is
+                  associated with.Update requires: Replacement
+* @property {String} OptionGroupDescription Required: Yes. A description of the option group.Update requires: Replacement
+* @property {AmazonRDSOptionGroupOptionConfigurations} OptionConfigurations Required: Yes. The configurations for this option group.Update requires: Replacement
+* @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this option group.Update requires: No interruption
+*/
+class OptionGroup extends WKResource {
+  constructor (name, propertiesObject) {
+    let resourceType = 'AWS::RDS::OptionGroup'
+    let properties = {
+      EngineName: new ResourceAttribute('EngineName', String, 'Yes', null),
+      MajorEngineVersion: new ResourceAttribute('MajorEngineVersion', String, 'Yes', null),
+      OptionGroupDescription: new ResourceAttribute('OptionGroupDescription', String, 'Yes', null),
+      OptionConfigurations: new ResourceAttribute('OptionConfigurations', types.AmazonRDSOptionGroupOptionConfigurations, 'Yes', null),
+      Tags: new tag.TagSet()
+    }
+    super(name, resourceType, properties, propertiesObject)
+  }
+}
+
+module.exports = {  DBCluster: DBCluster,
+  DBClusterParameterGroup: DBClusterParameterGroup,
+  DBInstance: DBInstance,
+  DBParameterGroup: DBParameterGroup,
+  DBSecurityGroup: DBSecurityGroup,
+  DBSecurityGroupIngress: DBSecurityGroupIngress,
+  DBSubnetGroup: DBSubnetGroup,
+  EventSubscription: EventSubscription,
+  OptionGroup: OptionGroup
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ApiGateway.html">ApiGateway</a></li><li><a href="module-AutoScaling.html">AutoScaling</a></li><li><a href="module-CloudFormation.html">CloudFormation</a></li><li><a href="module-CloudFront.html">CloudFront</a></li><li><a href="module-CloudTrail.html">CloudTrail</a></li><li><a href="module-CloudWatch.html">CloudWatch</a></li><li><a href="module-CodeDeploy.html">CodeDeploy</a></li><li><a href="module-CodePipeline.html">CodePipeline</a></li><li><a href="module-Config.html">Config</a></li><li><a href="module-Core.html">Core</a></li><li><a href="module-DataPipeline.html">DataPipeline</a></li><li><a href="module-DirectoryService.html">DirectoryService</a></li><li><a href="module-DynamoDB.html">DynamoDB</a></li><li><a href="module-EC2.html">EC2</a></li><li><a href="module-ECR.html">ECR</a></li><li><a href="module-ECS.html">ECS</a></li><li><a href="module-EFS.html">EFS</a></li><li><a href="module-ElastiCache.html">ElastiCache</a></li><li><a href="module-ElasticBeanstalk.html">ElasticBeanstalk</a></li><li><a href="module-ElasticLoadBalancing.html">ElasticLoadBalancing</a></li><li><a href="module-Elasticsearch.html">Elasticsearch</a></li><li><a href="module-EMR.html">EMR</a></li><li><a href="module-Events.html">Events</a></li><li><a href="module-GameLift.html">GameLift</a></li><li><a href="module-IAM.html">IAM</a></li><li><a href="module-Kinesis.html">Kinesis</a></li><li><a href="module-KinesisFirehose.html">KinesisFirehose</a></li><li><a href="module-KMS.html">KMS</a></li><li><a href="module-Lambda.html">Lambda</a></li><li><a href="module-Logs.html">Logs</a></li><li><a href="module-OpsWorks.html">OpsWorks</a></li><li><a href="module-RDS.html">RDS</a></li><li><a href="module-Redshift.html">Redshift</a></li><li><a href="module-Route53.html">Route53</a></li><li><a href="module-S3.html">S3</a></li><li><a href="module-SDB.html">SDB</a></li><li><a href="module-SNS.html">SNS</a></li><li><a href="module-SQS.html">SQS</a></li><li><a href="module-SSM.html">SSM</a></li><li><a href="module-Types.html">Types</a></li><li><a href="module-WAF.html">WAF</a></li><li><a href="module-WorkSpaces.html">WorkSpaces</a></li></ul><h3>Classes</h3><ul><li><a href="module-ApiGateway.Account.html">Account</a></li><li><a href="module-ApiGateway.ApiKey.html">ApiKey</a></li><li><a href="module-ApiGateway.Authorizer.html">Authorizer</a></li><li><a href="module-ApiGateway.BasePathMapping.html">BasePathMapping</a></li><li><a href="module-ApiGateway.ClientCertificate.html">ClientCertificate</a></li><li><a href="module-ApiGateway.Deployment.html">Deployment</a></li><li><a href="module-ApiGateway.Method.html">Method</a></li><li><a href="module-ApiGateway.Model.html">Model</a></li><li><a href="module-ApiGateway.Resource.html">Resource</a></li><li><a href="module-ApiGateway.RestApi.html">RestApi</a></li><li><a href="module-ApiGateway.Stage.html">Stage</a></li><li><a href="module-AutoScaling.AutoScalingGroup.html">AutoScalingGroup</a></li><li><a href="module-AutoScaling.LaunchConfiguration.html">LaunchConfiguration</a></li><li><a href="module-AutoScaling.LifecycleHook.html">LifecycleHook</a></li><li><a href="module-AutoScaling.ScalingPolicy.html">ScalingPolicy</a></li><li><a href="module-AutoScaling.ScheduledAction.html">ScheduledAction</a></li><li><a href="module-CloudFormation.Authentication.html">Authentication</a></li><li><a href="module-CloudFormation.CustomResource.html">CustomResource</a></li><li><a href="module-CloudFormation.Init.html">Init</a></li><li><a href="module-CloudFormation.Interface.html">Interface</a></li><li><a href="module-CloudFormation.Stack.html">Stack</a></li><li><a href="module-CloudFormation.WaitCondition.html">WaitCondition</a></li><li><a href="module-CloudFormation.WaitConditionHandle.html">WaitConditionHandle</a></li><li><a href="module-CloudFront.Distribution.html">Distribution</a></li><li><a href="module-CloudTrail.Trail.html">Trail</a></li><li><a href="module-CloudWatch.Alarm.html">Alarm</a></li><li><a href="module-CodeDeploy.Application.html">Application</a></li><li><a href="module-CodeDeploy.DeploymentConfig.html">DeploymentConfig</a></li><li><a href="module-CodeDeploy.DeploymentGroup.html">DeploymentGroup</a></li><li><a href="module-CodePipeline.CustomActionType.html">CustomActionType</a></li><li><a href="module-CodePipeline.Pipeline.html">Pipeline</a></li><li><a href="module-Config.ConfigRule.html">ConfigRule</a></li><li><a href="module-Config.ConfigurationRecorder.html">ConfigurationRecorder</a></li><li><a href="module-Config.DeliveryChannel.html">DeliveryChannel</a></li><li><a href="module-Core.ResourceProperty.html">ResourceProperty</a></li><li><a href="module-Core.WKResource.html">WKResource</a></li><li><a href="module-DataPipeline.Pipeline.html">Pipeline</a></li><li><a href="module-DirectoryService.MicrosoftAD.html">MicrosoftAD</a></li><li><a href="module-DirectoryService.SimpleAD.html">SimpleAD</a></li><li><a href="module-DynamoDB.Table.html">Table</a></li><li><a href="module-EC2.CustomerGateway.html">CustomerGateway</a></li><li><a href="module-EC2.DHCPOptions.html">DHCPOptions</a></li><li><a href="module-EC2.EIP.html">EIP</a></li><li><a href="module-EC2.EIPAssociation.html">EIPAssociation</a></li><li><a href="module-EC2.FlowLog.html">FlowLog</a></li><li><a href="module-EC2.Host.html">Host</a></li><li><a href="module-EC2.Instance.html">Instance</a></li><li><a href="module-EC2.InternetGateway.html">InternetGateway</a></li><li><a href="module-EC2.NatGateway.html">NatGateway</a></li><li><a href="module-EC2.NetworkAcl.html">NetworkAcl</a></li><li><a href="module-EC2.NetworkAclEntry.html">NetworkAclEntry</a></li><li><a href="module-EC2.NetworkInterface.html">NetworkInterface</a></li><li><a href="module-EC2.NetworkInterfaceAttachment.html">NetworkInterfaceAttachment</a></li><li><a href="module-EC2.PlacementGroup.html">PlacementGroup</a></li><li><a href="module-EC2.Route.html">Route</a></li><li><a href="module-EC2.RouteTable.html">RouteTable</a></li><li><a href="module-EC2.SecurityGroup.html">SecurityGroup</a></li><li><a href="module-EC2.SecurityGroupEgress.html">SecurityGroupEgress</a></li><li><a href="module-EC2.SecurityGroupIngress.html">SecurityGroupIngress</a></li><li><a href="module-EC2.SpotFleet.html">SpotFleet</a></li><li><a href="module-EC2.Subnet.html">Subnet</a></li><li><a href="module-EC2.SubnetNetworkAclAssociation.html">SubnetNetworkAclAssociation</a></li><li><a href="module-EC2.SubnetRouteTableAssociation.html">SubnetRouteTableAssociation</a></li><li><a href="module-EC2.Volume.html">Volume</a></li><li><a href="module-EC2.VolumeAttachment.html">VolumeAttachment</a></li><li><a href="module-EC2.VPC.html">VPC</a></li><li><a href="module-EC2.VPCDHCPOptionsAssociation.html">VPCDHCPOptionsAssociation</a></li><li><a href="module-EC2.VPCEndpoint.html">VPCEndpoint</a></li><li><a href="module-EC2.VPCGatewayAttachment.html">VPCGatewayAttachment</a></li><li><a href="module-EC2.VPCPeeringConnection.html">VPCPeeringConnection</a></li><li><a href="module-EC2.VPNConnection.html">VPNConnection</a></li><li><a href="module-EC2.VPNConnectionRoute.html">VPNConnectionRoute</a></li><li><a href="module-EC2.VPNGateway.html">VPNGateway</a></li><li><a href="module-EC2.VPNGatewayRoutePropagation.html">VPNGatewayRoutePropagation</a></li><li><a href="module-ECR.Repository.html">Repository</a></li><li><a href="module-ECS.Cluster.html">Cluster</a></li><li><a href="module-ECS.Service.html">Service</a></li><li><a href="module-ECS.TaskDefinition.html">TaskDefinition</a></li><li><a href="module-EFS.FileSystem.html">FileSystem</a></li><li><a href="module-EFS.MountTarget.html">MountTarget</a></li><li><a href="module-ElastiCache.CacheCluster.html">CacheCluster</a></li><li><a href="module-ElastiCache.ParameterGroup.html">ParameterGroup</a></li><li><a href="module-ElastiCache.ReplicationGroup.html">ReplicationGroup</a></li><li><a href="module-ElastiCache.SecurityGroup.html">SecurityGroup</a></li><li><a href="module-ElastiCache.SecurityGroupIngress.html">SecurityGroupIngress</a></li><li><a href="module-ElastiCache.SubnetGroup.html">SubnetGroup</a></li><li><a href="module-ElasticBeanstalk.Application.html">Application</a></li><li><a href="module-ElasticBeanstalk.ApplicationVersion.html">ApplicationVersion</a></li><li><a href="module-ElasticBeanstalk.ConfigurationTemplate.html">ConfigurationTemplate</a></li><li><a href="module-ElasticBeanstalk.Environment.html">Environment</a></li><li><a href="module-ElasticLoadBalancing.LoadBalancer.html">LoadBalancer</a></li><li><a href="module-Elasticsearch.Domain.html">Domain</a></li><li><a href="module-EMR.Cluster.html">Cluster</a></li><li><a href="module-EMR.InstanceGroupConfig.html">InstanceGroupConfig</a></li><li><a href="module-EMR.Step.html">Step</a></li><li><a href="module-Events.Rule.html">Rule</a></li><li><a href="module-GameLift.Alias.html">Alias</a></li><li><a href="module-GameLift.Build.html">Build</a></li><li><a href="module-GameLift.Fleet.html">Fleet</a></li><li><a href="module-IAM.AccessKey.html">AccessKey</a></li><li><a href="module-IAM.Group.html">Group</a></li><li><a href="module-IAM.InstanceProfile.html">InstanceProfile</a></li><li><a href="module-IAM.ManagedPolicy.html">ManagedPolicy</a></li><li><a href="module-IAM.Policy.html">Policy</a></li><li><a href="module-IAM.Role.html">Role</a></li><li><a href="module-IAM.User.html">User</a></li><li><a href="module-IAM.UserToGroupAddition.html">UserToGroupAddition</a></li><li><a href="module-Kinesis.Stream.html">Stream</a></li><li><a href="module-KinesisFirehose.DeliveryStream.html">DeliveryStream</a></li><li><a href="module-KMS.Key.html">Key</a></li><li><a href="module-Lambda.Alias.html">Alias</a></li><li><a href="module-Lambda.EventSourceMapping.html">EventSourceMapping</a></li><li><a href="module-Lambda.LambdaFunction.html">LambdaFunction</a></li><li><a href="module-Lambda.Permission.html">Permission</a></li><li><a href="module-Lambda.Version.html">Version</a></li><li><a href="module-Logs.Destination.html">Destination</a></li><li><a href="module-Logs.LogGroup.html">LogGroup</a></li><li><a href="module-Logs.LogStream.html">LogStream</a></li><li><a href="module-Logs.MetricFilter.html">MetricFilter</a></li><li><a href="module-Logs.SubscriptionFilter.html">SubscriptionFilter</a></li><li><a href="module-OpsWorks.App.html">App</a></li><li><a href="module-OpsWorks.ElasticLoadBalancerAttachment.html">ElasticLoadBalancerAttachment</a></li><li><a href="module-OpsWorks.Instance.html">Instance</a></li><li><a href="module-OpsWorks.Layer.html">Layer</a></li><li><a href="module-OpsWorks.Stack.html">Stack</a></li><li><a href="module-RDS.DBCluster.html">DBCluster</a></li><li><a href="module-RDS.DBClusterParameterGroup.html">DBClusterParameterGroup</a></li><li><a href="module-RDS.DBInstance.html">DBInstance</a></li><li><a href="module-RDS.DBParameterGroup.html">DBParameterGroup</a></li><li><a href="module-RDS.DBSecurityGroup.html">DBSecurityGroup</a></li><li><a href="module-RDS.DBSecurityGroupIngress.html">DBSecurityGroupIngress</a></li><li><a href="module-RDS.DBSubnetGroup.html">DBSubnetGroup</a></li><li><a href="module-RDS.EventSubscription.html">EventSubscription</a></li><li><a href="module-RDS.OptionGroup.html">OptionGroup</a></li><li><a href="module-Redshift.Cluster.html">Cluster</a></li><li><a href="module-Redshift.ClusterParameterGroup.html">ClusterParameterGroup</a></li><li><a href="module-Redshift.ClusterSecurityGroup.html">ClusterSecurityGroup</a></li><li><a href="module-Redshift.ClusterSecurityGroupIngress.html">ClusterSecurityGroupIngress</a></li><li><a href="module-Redshift.ClusterSubnetGroup.html">ClusterSubnetGroup</a></li><li><a href="module-Route53.HealthCheck.html">HealthCheck</a></li><li><a href="module-Route53.HostedZone.html">HostedZone</a></li><li><a href="module-Route53.RecordSet.html">RecordSet</a></li><li><a href="module-Route53.RecordSetGroup.html">RecordSetGroup</a></li><li><a href="module-S3.Bucket.html">Bucket</a></li><li><a href="module-S3.BucketPolicy.html">BucketPolicy</a></li><li><a href="module-SDB.Domain.html">Domain</a></li><li><a href="module-SNS.Topic.html">Topic</a></li><li><a href="module-SNS.TopicPolicy.html">TopicPolicy</a></li><li><a href="module-SQS.Queue.html">Queue</a></li><li><a href="module-SQS.QueuePolicy.html">QueuePolicy</a></li><li><a href="module-SSM.Document.html">Document</a></li><li><a href="module-Types-AmazonAPIGatewayApiKeyStageKey.html">AmazonAPIGatewayApiKeyStageKey</a></li><li><a href="module-Types-AmazonAPIGatewayDeploymentStageDescription.html">AmazonAPIGatewayDeploymentStageDescription</a></li><li><a href="module-Types-AmazonAPIGatewayDeploymentStageDescriptionMethodSetting.html">AmazonAPIGatewayDeploymentStageDescriptionMethodSetting</a></li><li><a href="module-Types-AmazonAPIGatewayMethodIntegration.html">AmazonAPIGatewayMethodIntegration</a></li><li><a href="module-Types-AmazonAPIGatewayMethodIntegrationIntegrationResponse.html">AmazonAPIGatewayMethodIntegrationIntegrationResponse</a></li><li><a href="module-Types-AmazonAPIGatewayMethodMethodResponse.html">AmazonAPIGatewayMethodMethodResponse</a></li><li><a href="module-Types-AmazonAPIGatewayRestApiS3Location.html">AmazonAPIGatewayRestApiS3Location</a></li><li><a href="module-Types-AmazonAPIGatewayStageMethodSetting.html">AmazonAPIGatewayStageMethodSetting</a></li><li><a href="module-Types-AmazonCloudWatchEventsRuleTarget.html">AmazonCloudWatchEventsRuleTarget</a></li><li><a href="module-Types-AmazonEC2BlockDeviceMappingProperty.html">AmazonEC2BlockDeviceMappingProperty</a></li><li><a href="module-Types-AmazonEC2ContainerServiceServiceDeploymentConfiguration.html">AmazonEC2ContainerServiceServiceDeploymentConfiguration</a></li><li><a href="module-Types-AmazonEC2ContainerServiceServiceLoadBalancers.html">AmazonEC2ContainerServiceServiceLoadBalancers</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom.html">AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionVolumes.html">AmazonEC2ContainerServiceTaskDefinitionVolumes</a></li><li><a href="module-Types-AmazonEC2ContainerServiceTaskDefinitionVolumesHost.html">AmazonEC2ContainerServiceTaskDefinitionVolumesHost</a></li><li><a href="module-Types-AmazonEC2InstanceSsmAssociations.html">AmazonEC2InstanceSsmAssociations</a></li><li><a href="module-Types-AmazonEC2InstanceSsmAssociationsAssociationParameters.html">AmazonEC2InstanceSsmAssociationsAssociationParameters</a></li><li><a href="module-Types-AmazonEC2SpotFleetSpotFleetRequestConfigData.html">AmazonEC2SpotFleetSpotFleetRequestConfigData</a></li><li><a href="module-Types-AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring.html">AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring</a></li><li><a href="module-Types-AmazonElasticBlockStoreBlockDeviceProperty.html">AmazonElasticBlockStoreBlockDeviceProperty</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement</a></li><li><a href="module-Types-AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups.html">AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups</a></li><li><a href="module-Types-AmazonElasticFileSystemFileSystemFileSystemTags.html">AmazonElasticFileSystemFileSystemFileSystemTags</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterApplication.html">AmazonElasticMapReduceClusterApplication</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterBootstrapActionConfig.html">AmazonElasticMapReduceClusterBootstrapActionConfig</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig.html">AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterConfiguration.html">AmazonElasticMapReduceClusterConfiguration</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterJobFlowInstancesConfig.html">AmazonElasticMapReduceClusterJobFlowInstancesConfig</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig.html">AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig</a></li><li><a href="module-Types-AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType.html">AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType</a></li><li><a href="module-Types-AmazonElasticMapReduceEbsConfiguration.html">AmazonElasticMapReduceEbsConfiguration</a></li><li><a href="module-Types-AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs.html">AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs</a></li><li><a href="module-Types-AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification.html">AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification</a></li><li><a href="module-Types-AmazonElasticMapReduceStepHadoopJarStepConfig.html">AmazonElasticMapReduceStepHadoopJarStepConfig</a></li><li><a href="module-Types-AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue.html">AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue</a></li><li><a href="module-Types-AmazonElasticsearchServiceDomainEBSOptions.html">AmazonElasticsearchServiceDomainEBSOptions</a></li><li><a href="module-Types-AmazonElasticsearchServiceDomainElasticsearchClusterConfig.html">AmazonElasticsearchServiceDomainElasticsearchClusterConfig</a></li><li><a href="module-Types-AmazonElasticsearchServiceDomainSnapshotOptions.html">AmazonElasticsearchServiceDomainSnapshotOptions</a></li><li><a href="module-Types-AmazonGameLiftAliasRoutingStrategy.html">AmazonGameLiftAliasRoutingStrategy</a></li><li><a href="module-Types-AmazonGameLiftBuildStorageLocation.html">AmazonGameLiftBuildStorageLocation</a></li><li><a href="module-Types-AmazonGameLiftFleetEC2InboundPermission.html">AmazonGameLiftFleetEC2InboundPermission</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions.html">AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration.html">AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints.html">AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions.html">AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration.html">AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand.html">AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration.html">AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints.html">AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration.html">AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration</a></li><li><a href="module-Types-AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig.html">AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig</a></li><li><a href="module-Types-AmazonRDSOptionGroupOptionConfigurations.html">AmazonRDSOptionGroupOptionConfigurations</a></li><li><a href="module-Types-AmazonRDSOptionGroupOptionConfigurationsOptionSettings.html">AmazonRDSOptionGroupOptionConfigurationsOptionSettings</a></li><li><a href="module-Types-AmazonRDSSecurityGroupRule.html">AmazonRDSSecurityGroupRule</a></li><li><a href="module-Types-AmazonRedshiftParameterType.html">AmazonRedshiftParameterType</a></li><li><a href="module-Types-AmazonRoute53HealthCheckConfig.html">AmazonRoute53HealthCheckConfig</a></li><li><a href="module-Types-AmazonRoute53HealthCheckTags.html">AmazonRoute53HealthCheckTags</a></li><li><a href="module-Types-AmazonRoute53HostedZoneConfigProperty.html">AmazonRoute53HostedZoneConfigProperty</a></li><li><a href="module-Types-AmazonRoute53HostedZoneTags.html">AmazonRoute53HostedZoneTags</a></li><li><a href="module-Types-AmazonRoute53HostedZoneVPCs.html">AmazonRoute53HostedZoneVPCs</a></li><li><a href="module-Types-AmazonRoute53RecordSetGeoLocationProperty.html">AmazonRoute53RecordSetGeoLocationProperty</a></li><li><a href="module-Types-AmazonS3CorsConfiguration.html">AmazonS3CorsConfiguration</a></li><li><a href="module-Types-AmazonS3CorsConfigurationRule.html">AmazonS3CorsConfigurationRule</a></li><li><a href="module-Types-AmazonS3LifecycleConfiguration.html">AmazonS3LifecycleConfiguration</a></li><li><a href="module-Types-AmazonS3LifecycleRule.html">AmazonS3LifecycleRule</a></li><li><a href="module-Types-AmazonS3LifecycleRuleNoncurrentVersionTransition.html">AmazonS3LifecycleRuleNoncurrentVersionTransition</a></li><li><a href="module-Types-AmazonS3LifecycleRuleTransition.html">AmazonS3LifecycleRuleTransition</a></li><li><a href="module-Types-AmazonS3LoggingConfiguration.html">AmazonS3LoggingConfiguration</a></li><li><a href="module-Types-AmazonS3NotificationConfiguration.html">AmazonS3NotificationConfiguration</a></li><li><a href="module-Types-AmazonS3NotificationConfigurationConfigFilter.html">AmazonS3NotificationConfigurationConfigFilter</a></li><li><a href="module-Types-AmazonS3NotificationConfigurationConfigFilterS3Key.html">AmazonS3NotificationConfigurationConfigFilterS3Key</a></li><li><a href="module-Types-AmazonS3NotificationConfigurationConfigFilterS3KeyRules.html">AmazonS3NotificationConfigurationConfigFilterS3KeyRules</a></li><li><a href="module-Types-AmazonS3NotificationConfigurationTopicConfigurations.html">AmazonS3NotificationConfigurationTopicConfigurations</a></li><li><a href="module-Types-AmazonS3ReplicationConfiguration.html">AmazonS3ReplicationConfiguration</a></li><li><a href="module-Types-AmazonS3ReplicationConfigurationRules.html">AmazonS3ReplicationConfigurationRules</a></li><li><a href="module-Types-AmazonS3ReplicationConfigurationRulesDestination.html">AmazonS3ReplicationConfigurationRulesDestination</a></li><li><a href="module-Types-AmazonS3VersioningConfiguration.html">AmazonS3VersioningConfiguration</a></li><li><a href="module-Types-AmazonS3WebsiteConfigurationProperty.html">AmazonS3WebsiteConfigurationProperty</a></li><li><a href="module-Types-AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty.html">AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty</a></li><li><a href="module-Types-AmazonS3WebsiteConfigurationRoutingRulesProperty.html">AmazonS3WebsiteConfigurationRoutingRulesProperty</a></li><li><a href="module-Types-AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty.html">AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty</a></li><li><a href="module-Types-AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty.html">AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty</a></li><li><a href="module-Types-AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations.html">AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations</a></li><li><a href="module-Types-AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations.html">AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations</a></li><li><a href="module-Types-AmazonSNSSubscriptionPropertyType.html">AmazonSNSSubscriptionPropertyType</a></li><li><a href="module-Types-AmazonSQSRedrivePolicy.html">AmazonSQSRedrivePolicy</a></li><li><a href="module-Types-AutoScalingMetricsCollection.html">AutoScalingMetricsCollection</a></li><li><a href="module-Types-AutoScalingNotificationConfigurations.html">AutoScalingNotificationConfigurations</a></li><li><a href="module-Types-AutoScalingScalingPolicyStepAdjustments.html">AutoScalingScalingPolicyStepAdjustments</a></li><li><a href="module-Types-AutoScalingTagsPropertyType.html">AutoScalingTagsPropertyType</a></li><li><a href="module-Types-AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType.html">AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType</a></li><li><a href="module-Types-AWSCloudFormationAutoScalingEBSBlockDevicePropertyType.html">AWSCloudFormationAutoScalingEBSBlockDevicePropertyType</a></li><li><a href="module-Types-AWSCloudFormationInterfaceLabel.html">AWSCloudFormationInterfaceLabel</a></li><li><a href="module-Types-AWSCloudFormationInterfaceParameterGroup.html">AWSCloudFormationInterfaceParameterGroup</a></li><li><a href="module-Types-AWSCloudFormationInterfaceParameterLabel.html">AWSCloudFormationInterfaceParameterLabel</a></li><li><a href="module-Types-AWSCloudFormationResourceTagsType.html">AWSCloudFormationResourceTagsType</a></li><li><a href="module-Types-AWSCodeDeployDeploymentConfigMinimumHealthyHosts.html">AWSCodeDeployDeploymentConfigMinimumHealthyHosts</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupDeployment.html">AWSCodeDeployDeploymentGroupDeployment</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupDeploymentRevision.html">AWSCodeDeployDeploymentGroupDeploymentRevision</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation.html">AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location.html">AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupEc2TagFilters.html">AWSCodeDeployDeploymentGroupEc2TagFilters</a></li><li><a href="module-Types-AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters.html">AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters</a></li><li><a href="module-Types-AWSCodePipelineCustomActionTypeArtifactDetails.html">AWSCodePipelineCustomActionTypeArtifactDetails</a></li><li><a href="module-Types-AWSCodePipelineCustomActionTypeConfigurationProperties.html">AWSCodePipelineCustomActionTypeConfigurationProperties</a></li><li><a href="module-Types-AWSCodePipelineCustomActionTypeSettings.html">AWSCodePipelineCustomActionTypeSettings</a></li><li><a href="module-Types-AWSCodePipelinePipelineArtifactStore.html">AWSCodePipelinePipelineArtifactStore</a></li><li><a href="module-Types-AWSCodePipelinePipelineArtifactStoreEncryptionKey.html">AWSCodePipelinePipelineArtifactStoreEncryptionKey</a></li><li><a href="module-Types-AWSCodePipelinePipelineDisableInboundStageTransitions.html">AWSCodePipelinePipelineDisableInboundStageTransitions</a></li><li><a href="module-Types-AWSCodePipelinePipelineStages.html">AWSCodePipelinePipelineStages</a></li><li><a href="module-Types-AWSCodePipelinePipelineStagesActions.html">AWSCodePipelinePipelineStagesActions</a></li><li><a href="module-Types-AWSCodePipelinePipelineStagesActionsActionTypeId.html">AWSCodePipelinePipelineStagesActionsActionTypeId</a></li><li><a href="module-Types-AWSCodePipelinePipelineStagesActionsInputArtifacts.html">AWSCodePipelinePipelineStagesActionsInputArtifacts</a></li><li><a href="module-Types-AWSCodePipelinePipelineStagesActionsOutputArtifacts.html">AWSCodePipelinePipelineStagesActionsOutputArtifacts</a></li><li><a href="module-Types-AWSCodePipelinePipelineStagesBlockers.html">AWSCodePipelinePipelineStagesBlockers</a></li><li><a href="module-Types-AWSConfigConfigRuleScope.html">AWSConfigConfigRuleScope</a></li><li><a href="module-Types-AWSConfigConfigRuleSource.html">AWSConfigConfigRuleSource</a></li><li><a href="module-Types-AWSConfigConfigRuleSourceSourceDetails.html">AWSConfigConfigRuleSourceSourceDetails</a></li><li><a href="module-Types-AWSConfigConfigurationRecorderRecordingGroup.html">AWSConfigConfigurationRecorderRecordingGroup</a></li><li><a href="module-Types-AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties.html">AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties</a></li><li><a href="module-Types-AWSDataPipelineDataPipelineObjectFields.html">AWSDataPipelineDataPipelineObjectFields</a></li><li><a href="module-Types-AWSDataPipelineParameterObjectsAttributes.html">AWSDataPipelineParameterObjectsAttributes</a></li><li><a href="module-Types-AWSDataPipelinePipelineObjects.html">AWSDataPipelinePipelineObjects</a></li><li><a href="module-Types-AWSDataPipelinePipelineParameterObjects.html">AWSDataPipelinePipelineParameterObjects</a></li><li><a href="module-Types-AWSDataPipelinePipelineParameterValues.html">AWSDataPipelinePipelineParameterValues</a></li><li><a href="module-Types-AWSDataPipelinePipelinePipelineTags.html">AWSDataPipelinePipelinePipelineTags</a></li><li><a href="module-Types-AWSDirectoryServiceMicrosoftADVpcSettings.html">AWSDirectoryServiceMicrosoftADVpcSettings</a></li><li><a href="module-Types-AWSDirectoryServiceSimpleADVpcSettings.html">AWSDirectoryServiceSimpleADVpcSettings</a></li><li><a href="module-Types-AWSLambdaFunctionCode.html">AWSLambdaFunctionCode</a></li><li><a href="module-Types-AWSLambdaFunctionVPCConfig.html">AWSLambdaFunctionVPCConfig</a></li><li><a href="module-Types-AWSOpsWorksAppEnvironment.html">AWSOpsWorksAppEnvironment</a></li><li><a href="module-Types-AWSOpsWorksAutoScalingThresholdsType.html">AWSOpsWorksAutoScalingThresholdsType</a></li><li><a href="module-Types-AWSOpsWorksChefConfigurationType.html">AWSOpsWorksChefConfigurationType</a></li><li><a href="module-Types-AWSOpsWorksLayerLifeCycleConfiguration.html">AWSOpsWorksLayerLifeCycleConfiguration</a></li><li><a href="module-Types-AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration.html">AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration</a></li><li><a href="module-Types-AWSOpsWorksLoadBasedAutoScalingType.html">AWSOpsWorksLoadBasedAutoScalingType</a></li><li><a href="module-Types-AWSOpsWorksRecipesType.html">AWSOpsWorksRecipesType</a></li><li><a href="module-Types-AWSOpsWorksSourceType.html">AWSOpsWorksSourceType</a></li><li><a href="module-Types-AWSOpsWorksSslConfigurationType.html">AWSOpsWorksSslConfigurationType</a></li><li><a href="module-Types-AWSOpsWorksStackConfigurationManagerType.html">AWSOpsWorksStackConfigurationManagerType</a></li><li><a href="module-Types-AWSOpsWorksTimeBasedAutoScalingType.html">AWSOpsWorksTimeBasedAutoScalingType</a></li><li><a href="module-Types-AWSOpsWorksVolumeConfigurationType.html">AWSOpsWorksVolumeConfigurationType</a></li><li><a href="module-Types-AWSWAFByteMatchSetByteMatchTuples.html">AWSWAFByteMatchSetByteMatchTuples</a></li><li><a href="module-Types-AWSWAFByteMatchSetByteMatchTuplesFieldToMatch.html">AWSWAFByteMatchSetByteMatchTuplesFieldToMatch</a></li><li><a href="module-Types-AWSWAFIPSetIPSetDescriptors.html">AWSWAFIPSetIPSetDescriptors</a></li><li><a href="module-Types-AWSWAFRulePredicates.html">AWSWAFRulePredicates</a></li><li><a href="module-Types-AWSWAFSizeConstraintSetSizeConstraint.html">AWSWAFSizeConstraintSetSizeConstraint</a></li><li><a href="module-Types-AWSWAFSizeConstraintSetSizeConstraintFieldToMatch.html">AWSWAFSizeConstraintSetSizeConstraintFieldToMatch</a></li><li><a href="module-Types-AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples.html">AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples</a></li><li><a href="module-Types-AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch.html">AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch</a></li><li><a href="module-Types-AWSWAFWebACLAction.html">AWSWAFWebACLAction</a></li><li><a href="module-Types-AWSWAFWebACLRules.html">AWSWAFWebACLRules</a></li><li><a href="module-Types-AWSWAFXssMatchSetXssMatchTuple.html">AWSWAFXssMatchSetXssMatchTuple</a></li><li><a href="module-Types-AWSWAFXssMatchSetXssMatchTupleFieldToMatch.html">AWSWAFXssMatchSetXssMatchTupleFieldToMatch</a></li><li><a href="module-Types-CloudFormationStackParametersPropertyType.html">CloudFormationStackParametersPropertyType</a></li><li><a href="module-Types-CloudFrontDefaultCacheBehavior.html">CloudFrontDefaultCacheBehavior</a></li><li><a href="module-Types-CloudFrontDistributionConfig.html">CloudFrontDistributionConfig</a></li><li><a href="module-Types-CloudFrontDistributionConfigCacheBehavior.html">CloudFrontDistributionConfigCacheBehavior</a></li><li><a href="module-Types-CloudFrontDistributionConfigCustomErrorResponse.html">CloudFrontDistributionConfigCustomErrorResponse</a></li><li><a href="module-Types-CloudFrontDistributionConfigOrigin.html">CloudFrontDistributionConfigOrigin</a></li><li><a href="module-Types-CloudFrontDistributionConfigOriginCustomOrigin.html">CloudFrontDistributionConfigOriginCustomOrigin</a></li><li><a href="module-Types-CloudFrontDistributionConfigOriginS3Origin.html">CloudFrontDistributionConfigOriginS3Origin</a></li><li><a href="module-Types-CloudFrontDistributionConfigRestrictionsGeoRestriction.html">CloudFrontDistributionConfigRestrictionsGeoRestriction</a></li><li><a href="module-Types-CloudFrontDistributionConfigurationRestrictions.html">CloudFrontDistributionConfigurationRestrictions</a></li><li><a href="module-Types-CloudFrontDistributionConfigurationViewerCertificate.html">CloudFrontDistributionConfigurationViewerCertificate</a></li><li><a href="module-Types-CloudFrontForwardedValues.html">CloudFrontForwardedValues</a></li><li><a href="module-Types-CloudFrontForwardedValuesCookies.html">CloudFrontForwardedValuesCookies</a></li><li><a href="module-Types-CloudFrontLogging.html">CloudFrontLogging</a></li><li><a href="module-Types-CloudWatchLogsMetricFilterMetricTransformationProperty.html">CloudWatchLogsMetricFilterMetricTransformationProperty</a></li><li><a href="module-Types-CloudWatchMetricDimensionPropertyType.html">CloudWatchMetricDimensionPropertyType</a></li><li><a href="module-Types-DynamoDBAttributeDefinitions.html">DynamoDBAttributeDefinitions</a></li><li><a href="module-Types-DynamoDBGlobalSecondaryIndexes.html">DynamoDBGlobalSecondaryIndexes</a></li><li><a href="module-Types-DynamoDBKeySchema.html">DynamoDBKeySchema</a></li><li><a href="module-Types-DynamoDBLocalSecondaryIndexes.html">DynamoDBLocalSecondaryIndexes</a></li><li><a href="module-Types-DynamoDBProjectionObject.html">DynamoDBProjectionObject</a></li><li><a href="module-Types-DynamoDBProvisionedThroughput.html">DynamoDBProvisionedThroughput</a></li><li><a href="module-Types-DynamoDBTableStreamSpecification.html">DynamoDBTableStreamSpecification</a></li><li><a href="module-Types-EC2ICMPPropertyType.html">EC2ICMPPropertyType</a></li><li><a href="module-Types-EC2MountPointPropertyType.html">EC2MountPointPropertyType</a></li><li><a href="module-Types-EC2NetworkInterfaceAssociation.html">EC2NetworkInterfaceAssociation</a></li><li><a href="module-Types-EC2NetworkInterfaceAttachment.html">EC2NetworkInterfaceAttachment</a></li><li><a href="module-Types-EC2NetworkInterfaceEmbeddedPropertyType.html">EC2NetworkInterfaceEmbeddedPropertyType</a></li><li><a href="module-Types-EC2NetworkInterfaceGroupItem.html">EC2NetworkInterfaceGroupItem</a></li><li><a href="module-Types-EC2NetworkInterfacePrivateIPSpecification.html">EC2NetworkInterfacePrivateIPSpecification</a></li><li><a href="module-Types-EC2PortRangePropertyType.html">EC2PortRangePropertyType</a></li><li><a href="module-Types-EC2SecurityGroupRulePropertyType.html">EC2SecurityGroupRulePropertyType</a></li><li><a href="module-Types-ElasticBeanstalkEnvironmentTierPropertyType.html">ElasticBeanstalkEnvironmentTierPropertyType</a></li><li><a href="module-Types-ElasticBeanstalkOptionSettingsPropertyType.html">ElasticBeanstalkOptionSettingsPropertyType</a></li><li><a href="module-Types-ElasticBeanstalkSourceBundlePropertyType.html">ElasticBeanstalkSourceBundlePropertyType</a></li><li><a href="module-Types-ElasticBeanstalkSourceConfigurationPropertyType.html">ElasticBeanstalkSourceConfigurationPropertyType</a></li><li><a href="module-Types-ElasticLoadBalancingAccessLoggingPolicy.html">ElasticLoadBalancingAccessLoggingPolicy</a></li><li><a href="module-Types-ElasticLoadBalancingAppCookieStickinessPolicyType.html">ElasticLoadBalancingAppCookieStickinessPolicyType</a></li><li><a href="module-Types-ElasticLoadBalancingConnectionDrainingPolicy.html">ElasticLoadBalancingConnectionDrainingPolicy</a></li><li><a href="module-Types-ElasticLoadBalancingConnectionSettings.html">ElasticLoadBalancingConnectionSettings</a></li><li><a href="module-Types-ElasticLoadBalancingHealthCheckType.html">ElasticLoadBalancingHealthCheckType</a></li><li><a href="module-Types-ElasticLoadBalancingLBCookieStickinessPolicyType.html">ElasticLoadBalancingLBCookieStickinessPolicyType</a></li><li><a href="module-Types-ElasticLoadBalancingListenerPropertyType.html">ElasticLoadBalancingListenerPropertyType</a></li><li><a href="module-Types-ElasticLoadBalancingPolicyType.html">ElasticLoadBalancingPolicyType</a></li><li><a href="module-Types-IAMPolicies.html">IAMPolicies</a></li><li><a href="module-Types-IAMUserLoginProfile.html">IAMUserLoginProfile</a></li><li><a href="module-Types-NameType.html">NameType</a></li><li><a href="module-Types-Route53AliasTargetProperty.html">Route53AliasTargetProperty</a></li><li><a href="module-WAF.ByteMatchSet.html">ByteMatchSet</a></li><li><a href="module-WAF.IPSet.html">IPSet</a></li><li><a href="module-WAF.Rule.html">Rule</a></li><li><a href="module-WAF.SizeConstraintSet.html">SizeConstraintSet</a></li><li><a href="module-WAF.SqlInjectionMatchSet.html">SqlInjectionMatchSet</a></li><li><a href="module-WAF.WebACL.html">WebACL</a></li><li><a href="module-WAF.XssMatchSet.html">XssMatchSet</a></li><li><a href="module-WorkSpaces.Workspace.html">Workspace</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Jul 10 2016 01:30:28 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
