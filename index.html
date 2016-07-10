@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>wolkenkratzer</h1><p>Wolkenkratzer is a Javascript library that helps you programmatically generate CloudFormation templates. The scope of the project is similar to the Python library https://github.com/cloudtools/troposphere.</p>
+<h2>Installation</h2><p>  <code>$ npm install wolkenkratzer</code></p>
+<h2>Usage</h2><h3>General</h3><p>The core class is Template, which is instantiated with <code>new wolkenkratzer.Template()</code>. Parameters can be added with the <code>addParameter()</code> method,
+and Resources can be added with <code>addParameter</code>. The final template can be retrieved with Template.toJson().</p>
+<p>The following script adds a VPNGateway to the template:</p>
+<pre class="prettyprint source lang-javascript"><code>const wk = require('wolkenkratzer')
+
+let t = new wk.Template()
+
+let vpcCiderParam = new wk.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
+t.addParameter(vpcCiderParam)
+
+let vpnGateway = new wk.EC2.VPNGateway('VPNGateway')
+vpnGateway.Type = 'ipsec.1'
+t.addResource(vpnGateway)
+
+console.log(t.toJson())</code></pre><p>This results in the template:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;Parameters&quot;: {
+    &quot;VPCCIDR&quot;: {
+      &quot;Type&quot;: &quot;String&quot;,
+      &quot;Default&quot;: &quot;10.0.0.0/16&quot;
+    }
+  },
+  &quot;Resources&quot;: {
+    &quot;VPNGateway&quot;: {
+      &quot;Type&quot;: &quot;AWS::EC2::VPNGateway&quot;,
+      &quot;Properties&quot;: {
+        &quot;Type&quot;: &quot;ipsec.1&quot;
+      }
+    }
+  },
+  &quot;AWSTemplateFormatVersion&quot;: &quot;2010-09-09&quot;
+}</code></pre><h3>Template class</h3><h4>constructor</h4><p>Template has a no-argument constructor:</p>
+<p><code>javascript let t = new wolkenkratzer.Template()</code></p>
+<h4>addDescription (description)</h4><p>Add a description to the template.</p>
+<h4>addMetadata (metadata)</h4><p>Add a Metadata block to the template.</p>
+<h4>addCondition (name, condition)</h4><p>Add a condition with a name to the template.</p>
+<h4>addOutput (output)</h4><p>Add an output to the template.</p>
+<h4>addMapping (name, mapping)</h4><p>Add a mapping with a name to the template.</p>
+<h4>addParameter (parameter)</h4><p>Add a parameter to the template.</p>
+<h4>addResource (resource)</h4><p>Add a resource to the template.</p>
+<h4>toJson()</h4><p>Returns a JSON CloudFormation template.</p>
+<h3>Resources</h3><h4>constructor (name, properties)</h4><p>Resources must be created with a name parameter, which will be the CloudFormation logical id for the resource:</p>
+<pre class="prettyprint source lang-javascript"><code>let ec2One = new wk.EC2.Instance('ec2One')</code></pre><p>Once you create the resource, you can set the attributes using setters. Although you can use the = operator to set new values, wolkenkratzer overrides
+the setters and does typechecking for you.</p>
+<pre class="prettyprint source lang-javascript"><code>ec2One.ImageId = 'ami-2a69aa47'</code></pre><p>You can use the second parameter in case you want to create the resource with a JSON block, instead of setting the attributes one at a time.</p>
+<p>An example of creating a resource with one argument (ec2One), and another (ec2Two) with a JSON object:</p>
+<pre class="prettyprint source lang-javascript"><code>'use strict';
+
+const aws = require('aws-sdk')
+const EC2 = new aws.EC2({ region: 'us-east-1' })
+const wk = require('wolkenkratzer')
+
+let t = new wk.Template()
+
+let ec2One = new wk.EC2.Instance('ec2One')
+ec2One.ImageId = 'ami-2a69aa47'
+
+t.addResource(ec2One)
+
+EC2.describeInstances({}, (err, data) => {
+  if(err) {
+    console.log(err)
+  } else {
+    let instance = data.Reservations[0].Instances[0]
+    let ec2Two = new wk.EC2.Instance('ec2Two', instance)
+    t.addResource(ec2Two)
+    console.log(t.toJson())
+  }
+})</code></pre><h4>dependsOn (resource)</h4><h4>addConfig (config)</h4><h4>addConfigSet (configSet)</h4><h4>addPolicy (policy)</h4><h4>toJson ()</h4><h3>Intrinsic Functions</h3><p>Intrinsic functions such as Ref and Fn::GetAtt are supported. Any resource can associate with other elements by using the corresponding intrinsic function:</p>
+<pre class="prettyprint source lang-javascript"><code>natPubA.SubnetId.ref(publicSubnetPubA)
+natPubA.AllocationId.getAtt(eipPubA, 'AllocationId')</code></pre><p>A more complete example is</p>
+<pre class="prettyprint source lang-javascript"><code>'use strict'
+
+const wk = require('wolkenkratzer')
+
+let t = new wk.Template()
+let vpcCiderParam = new wk.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
+t.addParameter(vpcCiderParam)
+let publicSubnetPubACIDRParam = new wk.Parameter('PublicSubnetPubACIDR', { Type: 'String', Default: '10.0.0.0/24' })
+t.addParameter(publicSubnetPubACIDRParam)
+let publicSubnetPubBCIDRParam = new wk.Parameter('PublicSubnetPubBCIDR', { Type: 'String', Default: '10.0.1.0/24' })
+t.addParameter(publicSubnetPubBCIDRParam)
+let privateSubnetPrivCCIDRParam = new wk.Parameter('PrivateSubnetPrivCCIDR', { Type: 'String', Default: '10.0.2.0/24' })
+t.addParameter(privateSubnetPrivCCIDRParam)
+let privateSubnetPrivDCIDRParam = new wk.Parameter('PrivateSubnetPrivDCIDR', { Type: 'String', Default: '10.0.3.0/24' })
+t.addParameter(privateSubnetPrivDCIDRParam)
+let vPCTagParam = new wk.Parameter('VPCTag', { Type: 'String', Default: 'BaseVPC' })
+t.addParameter(vPCTagParam)
+
+let vpc = new wk.EC2.VPC('VPC')
+vpc.CidrBlock.ref(vpcCiderParam)
+vpc.InstanceTenancy = 'default'
+vpc.EnableDnsSupport = true
+vpc.EnableDnsHostnames = true
+vpc.Tags.add({ Key: 'Name', Value: 'BaseVPC' })
+vpc.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
+t.addResource(vpc)
+
+let igw = new wk.EC2.InternetGateway('InternetGateway')
+igw.Tags.add({ Key: 'Name', Value: 'InternetGateway' })
+igw.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
+t.addResource(igw)
+
+let vpcgatewayatt = new wk.EC2.VPCGatewayAttachment('AttachInternetGateway')
+vpcgatewayatt.VpcId.ref(vpc)
+vpcgatewayatt.InternetGatewayId.ref(igw)
+
+t.addResource(vpcgatewayatt)
+
+let publicSubnetPubA = new wk.EC2.Subnet('PublicSubnetPubA')
+publicSubnetPubA.CidrBlock.ref(publicSubnetPubACIDRParam)
+publicSubnetPubA.VpcId.ref(vpc)
+publicSubnetPubA.MapPublicIpOnLaunch = true
+publicSubnetPubA.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubA' })
+publicSubnetPubA.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
+t.addResource(publicSubnetPubA)
+
+let publicSubnetPubB = new wk.EC2.Subnet('PublicSubnetPubB')
+publicSubnetPubB.CidrBlock.ref(publicSubnetPubBCIDRParam)
+publicSubnetPubB.VpcId.ref(vpc)
+publicSubnetPubB.MapPublicIpOnLaunch = true
+publicSubnetPubB.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubB' })
+publicSubnetPubB.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
+t.addResource(publicSubnetPubB)
+
+let eipPubA = new wk.EC2.EIP('EIPPubA')
+eipPubA.Domain = 'vpc'
+t.addResource(eipPubA)
+
+let natPubA = new wk.EC2.NatGateway('NATPubA')
+natPubA.SubnetId.ref(publicSubnetPubA)
+natPubA.AllocationId.getAtt(eipPubA, 'AllocationId')
+natPubA.dependsOn(igw)
+t.addResource(natPubA)
+
+let eipPubB = new wk.EC2.EIP('EIPPubB')
+eipPubB.Domain = 'vpc'
+t.addResource(eipPubB)
+
+let natPubB = new wk.EC2.NatGateway('NATPubB')
+natPubB.SubnetId.ref(publicSubnetPubB)
+natPubB.AllocationId.getAtt(eipPubB, 'AllocationId')
+natPubB.dependsOn(igw)
+t.addResource(natPubB)
+
+let privateSubnetPrivC = new wk.EC2.Subnet('PrivateSubnetPrivC')
+privateSubnetPrivC.CidrBlock.ref(privateSubnetPrivCCIDRParam)
+privateSubnetPrivC.VpcId.ref(vpc)
+privateSubnetPrivC.MapPublicIpOnLaunch = false
+privateSubnetPrivC.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivC' })
+privateSubnetPrivC.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
+t.addResource(privateSubnetPrivC)
+
+let privateSubnetPrivD = new wk.EC2.Subnet('PrivateSubnetPrivD')
+privateSubnetPrivD.CidrBlock.ref(privateSubnetPrivDCIDRParam)
+privateSubnetPrivD.VpcId.ref(vpc)
+privateSubnetPrivD.MapPublicIpOnLaunch = false
+privateSubnetPrivD.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivD' })
+privateSubnetPrivD.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
+t.addResource(privateSubnetPrivD)
+
+let publicRouteTable = new wk.EC2.RouteTable('PublicRouteTable')
+publicRouteTable.VpcId.ref(vpc)
+publicRouteTable.Tags.add({ Key: 'Name', Value: 'PublicRouteTable' })
+publicRouteTable.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
+t.addResource(publicRouteTable)
+
+let routeTablePrivC = new wk.EC2.RouteTable('RouteTablePrivC')
+routeTablePrivC.VpcId.ref(vpc)
+routeTablePrivC.Tags.add({ Key: 'Name', Value: 'RouteTablePrivC' })
+routeTablePrivC.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
+t.addResource(routeTablePrivC)
+
+let routeTablePrivD = new wk.EC2.RouteTable('RouteTablePrivD')
+routeTablePrivD.VpcId.ref(vpc)
+routeTablePrivD.Tags.add({ Key: 'Name', Value: 'RouteTablePrivD' })
+routeTablePrivD.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
+t.addResource(routeTablePrivD)
+
+let publicIGWRoute = new wk.EC2.Route('PublicIGWRoute')
+publicIGWRoute.RouteTableId.ref(publicRouteTable)
+publicIGWRoute.DestinationCidrBlock = '0.0.0.0/0'
+publicIGWRoute.GatewayId.ref(igw)
+t.addResource(publicIGWRoute)
+
+let nATRoutePrivC = new wk.EC2.Route('NATRoutePrivC')
+nATRoutePrivC.RouteTableId.ref(routeTablePrivC)
+nATRoutePrivC.DestinationCidrBlock = '0.0.0.0/0'
+nATRoutePrivC.NatGatewayId.ref(natPubA)
+t.addResource(nATRoutePrivC)
+
+let nATRoutePrivD = new wk.EC2.Route('NATRoutePrivD')
+nATRoutePrivD.RouteTableId.ref(routeTablePrivD)
+nATRoutePrivD.DestinationCidrBlock = '0.0.0.0/0'
+nATRoutePrivD.NatGatewayId.ref(natPubB)
+t.addResource(nATRoutePrivD)
+
+let publicSubnetRouteTableAssociationA = new wk.EC2.SubnetRouteTableAssociation('PublicSubnetRouteTableAssociationA')
+publicSubnetRouteTableAssociationA.SubnetId.ref(publicSubnetPubA)
+publicSubnetRouteTableAssociationA.RouteTableId.ref(publicRouteTable)
+t.addResource(publicSubnetRouteTableAssociationA)
+
+let publicSubnetRouteTableAssociationB = new wk.EC2.SubnetRouteTableAssociation('PublicSubnetRouteTableAssociationB')
+publicSubnetRouteTableAssociationB.SubnetId.ref(publicSubnetPubB)
+publicSubnetRouteTableAssociationB.RouteTableId.ref(publicRouteTable)
+t.addResource(publicSubnetRouteTableAssociationB)
+
+let privateSubnetRouteTableAssociationPrivC = new wk.EC2.SubnetRouteTableAssociation('PrivateSubnetRouteTableAssociationPrivC')
+privateSubnetRouteTableAssociationPrivC.SubnetId.ref(privateSubnetPrivC)
+privateSubnetRouteTableAssociationPrivC.RouteTableId.ref(routeTablePrivC)
+t.addResource(privateSubnetRouteTableAssociationPrivC)
+
+let privateSubnetRouteTableAssociationPrivD = new wk.EC2.SubnetRouteTableAssociation('PrivateSubnetRouteTableAssociationPrivD')
+privateSubnetRouteTableAssociationPrivD.SubnetId.ref(privateSubnetPrivD)
+privateSubnetRouteTableAssociationPrivD.RouteTableId.ref(routeTablePrivD)
+t.addResource(privateSubnetRouteTableAssociationPrivD)
+
+console.log(t.toJson())</code></pre><p>More examples can be found in the /examples folder.</p>
+<h2>Resource support</h2><p>Wolkenkratzer supports all CloudFormation resources. This is made possible by scripts that scrape the CloudFormation documentation pages and generate the resource code files. The scrapers can be found in the /scripts folder.</p>
+<h2>Contributing</h2><p>Wolkenkratzer is still a new library and needs lots of testing. If you run into any problems please open an issue or create a PR. All contributions are welcome!</p>
+<h2>License</h2><p>Wolkenkratzer uses the MIT open source license.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="WKResource.html">WKResource</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sat Jul 09 2016 22:11:37 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
