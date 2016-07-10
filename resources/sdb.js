@@ -6,6 +6,11 @@ const ResourceAttributeArray = require('./../resourceattribute').ResourceAttribu
 const tag = require('./../tag')
 const types = require('./../types')
 
+/** @module SDB */
+
+/** @memberof module:SDB
+*   @extends WKResource
+*/
 class Domain extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::SDB::Domain'
@@ -15,6 +20,5 @@ class Domain extends WKResource {
   }
 }
 
-module.exports = {
-  Domain: Domain
+module.exports = {  Domain: Domain
 }

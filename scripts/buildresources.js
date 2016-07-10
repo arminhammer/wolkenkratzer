@@ -21,12 +21,19 @@ fs
 
     for (let subType in file) {
       let subProp = file[subType]
+      let groupName = subProp.name.replace(/^AWS::/, '').replace(/::\w+$/, '')
+
       let resourceName = subProp.name.replace(/AWS::\w+::/g, '')
       // Lambda's Function in this case conflicts with Javascript Function.
       if (resourceName === 'Function') {
         resourceName = 'LambdaFunction'
       }
       let exportLine = (resourceName + ': ' + resourceName)
+
+      let docHeader = ''
+      docHeader += '/** @memberof module:' + groupName + '\n'
+      docHeader += '*   @extends WKResource\n'
+
       let resourceBody = ''
       resourceBody += 'class ' + resourceName + ' extends WKResource {\n'
       resourceBody += '  constructor (name, propertiesObject) {\n'
@@ -128,6 +135,7 @@ fs
           default:
             break
         }
+        let docType = propType
         if (!((propType === 'String') ||
             (propType === 'Date') ||
             (propType === 'Number') ||
@@ -145,6 +153,8 @@ fs
           resourceBody += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
         }
 
+        docHeader += '* @property {' + docType + '} ' + name + ' Required: ' + subProp.properties[ props[ i ] ].Required + '. ' + subProp.properties[ props[ i ] ].Description + '\n'
+
         if (i === (props.length - 1)) {
           resourceBody += '\n'
         } else {
@@ -156,13 +166,15 @@ fs
       resourceBody += '  }\n'
       resourceBody += '}\n\n'
 
-      let groupName = subProp.name.replace(/^AWS::/, '').replace(/::\w+$/, '')
+      docHeader += '*/\n'
+
       if (groups[groupName]) {
-        groups[groupName].body += resourceBody
+        groups[groupName].body += docHeader + resourceBody
         groups[groupName].exports.push(exportLine)
       } else {
+        let moduleHeader = '/** @module ' + groupName + ' */\n\n'
         groups[groupName] = {
-          body: header + resourceBody,
+          body: header + moduleHeader + docHeader + resourceBody,
           exports: [exportLine]
         }
       }
@@ -172,7 +184,7 @@ fs
     return Object.keys(groups)
   })
   .mapSeries((group) => {
-    let exportBody = 'module.exports = {\n'
+    let exportBody = 'module.exports = {'
     for (let i = 0; i < groups[group].exports.length; i++) {
       let ending = ',\n'
       if (i === (groups[group].exports.length - 1)) {

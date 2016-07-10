@@ -6,6 +6,14 @@ const ResourceAttributeArray = require('./../resourceattribute').ResourceAttribu
 const tag = require('./../tag')
 const types = require('./../types')
 
+/** @module SSM */
+
+/** @memberof module:SSM
+*   @extends WKResource
+* @property {Object} Content Required: Yes. A JSON object that describes an instance configuration. For more information,
+                  see SSM Documents in the
+                     Amazon EC2 Simple Systems Manager API Reference.Update requires: Replacement
+*/
 class Document extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::SSM::Document'
@@ -16,6 +24,5 @@ class Document extends WKResource {
   }
 }
 
-module.exports = {
-  Document: Document
+module.exports = {  Document: Document
 }

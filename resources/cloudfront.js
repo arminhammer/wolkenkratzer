@@ -6,6 +6,12 @@ const ResourceAttributeArray = require('./../resourceattribute').ResourceAttribu
 const tag = require('./../tag')
 const types = require('./../types')
 
+/** @module CloudFront */
+
+/** @memberof module:CloudFront
+*   @extends WKResource
+* @property {CloudFrontDistributionConfig} DistributionConfig Required: Yes. The distribution's configuration information.Update requires: No interruption
+*/
 class Distribution extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFront::Distribution'
@@ -16,6 +22,5 @@ class Distribution extends WKResource {
   }
 }
 
-module.exports = {
-  Distribution: Distribution
+module.exports = {  Distribution: Distribution
 }

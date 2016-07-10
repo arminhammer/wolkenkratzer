@@ -6,6 +6,11 @@ const ResourceAttributeArray = require('./../resourceattribute').ResourceAttribu
 const tag = require('./../tag')
 const types = require('./../types')
 
+/** @module ECS */
+
+/** @memberof module:ECS
+*   @extends WKResource
+*/
 class Cluster extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECS::Cluster'
@@ -15,6 +20,21 @@ class Cluster extends WKResource {
   }
 }
 
+/** @memberof module:ECS
+*   @extends WKResource
+* @property {String} Cluster Required: No. The name or Amazon Resource Name (ARN) of the cluster that you want to run your
+                  service on. If you do not specify a cluster, Amazon ECS uses the default
+                  cluster.Update requires: Replacement
+* @property {AmazonEC2ContainerServiceServiceDeploymentConfiguration} DeploymentConfiguration Required: No. Configures how many tasks run during a deployment.Update requires: No interruption
+* @property {String} DesiredCount Required: Yes. The number of simultaneous tasks, which you specify by using the
+                     TaskDefinition property, that you want to run on the
+                  cluster.Update requires: No interruption
+* @property {AmazonEC2ContainerServiceServiceLoadBalancers} LoadBalancers Required: No. A list of load balancer objects to associate with the cluster.Update requires: Replacement
+* @property {String} Role Required: Conditional. The name or ARN of an AWS Identity and Access Management (IAM) role that allows your Amazon ECS container
+                  agent to make calls to your load balancer.NoteIn some cases, you might need to add a dependency on the service role's
+                     policy. For more information, see IAM role policy in DependsOn Attribute.Update requires: Replacement
+* @property {String} TaskDefinition Required: Yes. The ARN of the task definition that you want to run on the cluster.Update requires: Some interruptions
+*/
 class Service extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECS::Service'
@@ -30,6 +50,13 @@ class Service extends WKResource {
   }
 }
 
+/** @memberof module:ECS
+*   @extends WKResource
+* @property {AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions} ContainerDefinitions Required: Yes. A list of container definitions in JSON format that describe the containers
+            that make up your task.Update requires: Replacement
+* @property {AmazonEC2ContainerServiceTaskDefinitionVolumes} Volumes Required: Yes. A list of volume definitions in JSON format for volumes that you can use in
+            your container definitions.Update requires: Replacement
+*/
 class TaskDefinition extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECS::TaskDefinition'
@@ -41,8 +68,7 @@ class TaskDefinition extends WKResource {
   }
 }
 
-module.exports = {
-  Cluster: Cluster,
+module.exports = {  Cluster: Cluster,
   Service: Service,
   TaskDefinition: TaskDefinition
 }

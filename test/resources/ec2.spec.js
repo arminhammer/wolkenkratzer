@@ -26,7 +26,7 @@ describe('EC2', () => {
     // console.log(JSON.stringify(t.Resources['myinstance'], null, 2))
 
     it('should be able to add an instance to the template', () => {
-      t.Resources[ 'myinstance' ].resourceType.should.equal('AWS::EC2::Instance')
+      t.Resources[ 'myinstance' ].WKResourceType.should.equal('AWS::EC2::Instance')
     })
 
     it('should generate the expected JSON template', () => {
@@ -127,7 +127,7 @@ describe('EC2', () => {
     t.addResource(vpc)
 
     it('should be able to add an instance to the template', () => {
-      t.Resources[ 'myvpc' ].resourceType.should.equal('AWS::EC2::VPC')
+      t.Resources[ 'myvpc' ].WKResourceType.should.equal('AWS::EC2::VPC')
     })
 
     it('should generate the expected JSON template', () => {
@@ -157,7 +157,7 @@ describe('EC2', () => {
     t.addResource(vpnGateway)
 
     it('should be able to add a VPN Gateway to the template', () => {
-      t.Resources['VPNGateway'].resourceType.should.equal('AWS::EC2::VPNGateway')
+      t.Resources['VPNGateway'].WKResourceType.should.equal('AWS::EC2::VPNGateway')
     })
 
     it('conditional should be tested, only ipsec.1 can be allowed as the type', () => {

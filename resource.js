@@ -7,16 +7,16 @@ const ConditionNotMetException = require('./exceptions').ConditionNotMetExceptio
 const TypeException = require('./exceptions').TypeException
 const Policy = require('./policy').Policy
 
+/** @module Core */
+
+/**
+ * @memberof module:Core
+ * @property {String} WKName
+ */
 class WKResource {
-  /**
-   * Construct a Resource.
-   * @param {string} str The string to repeat.
-   * @param {number} [times=1] How many times to repeat the string.
-   * @returns {string}
-   */
   constructor (name, resourceType, properties, propertiesObject, conditional) {
     this.WKName = name
-    this.resourceType = resourceType
+    this.WKResourceType = resourceType
     this.properties = properties
     this.conditional = conditional
     for (let prop in this.properties) {
@@ -102,6 +102,10 @@ class WKResource {
       throw new TypeException(policy + ' must be of type Policy')
     }
   }
+  /**
+   * Performs validation and returns a pretty-printed JSON object.
+   * @returns {String}
+   */
   toJson () {
     let newProperties = JSON.parse(JSON.stringify(this.properties))
     for (let prop in newProperties) {
@@ -136,7 +140,7 @@ class WKResource {
       }
     }
     let returnObject = {
-      Type: this.resourceType,
+      Type: this.WKResourceType,
       Properties: newProperties,
     }
     if(this.Metadata) {
@@ -154,6 +158,9 @@ class WKResource {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class ResourceProperty {
   constructor (name, properties, propertiesObject, conditional) {
     this.WKName = name
@@ -196,9 +203,6 @@ class ResourceProperty {
       }
     }
     return newProperties
-  }
-  toString () {
-    return this.WKName
   }
 }
 

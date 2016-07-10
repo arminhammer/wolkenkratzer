@@ -6,6 +6,15 @@ const ResourceAttributeArray = require('./../resourceattribute').ResourceAttribu
 const tag = require('./../tag')
 const types = require('./../types')
 
+/** @module WAF */
+
+/** @memberof module:WAF
+*   @extends WKResource
+* @property {AWSWAFByteMatchSetByteMatchTuples} ByteMatchTuples Required: No. Settings for the ByteMatchSet, such as the bytes (typically a
+            string that corresponds with ASCII characters) that you want AWS WAF to search for in web
+            requests.Update requires: No interruption
+* @property {String} Name Required: Yes. A friendly name or description of the ByteMatchSet.Update requires: Replacement
+*/
 class ByteMatchSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::ByteMatchSet'
@@ -17,6 +26,16 @@ class ByteMatchSet extends WKResource {
   }
 }
 
+/** @memberof module:WAF
+*   @extends WKResource
+* @property {AWSWAFIPSetIPSetDescriptors} IPSetDescriptors Required: No. The IP address type and IP address range (in CIDR notation) from which web
+            requests originate. If you associate the IPSet with a web ACL that is associated with a Amazon CloudFront
+            (CloudFront) distribution, this descriptor is the value of one of the following fields in the
+            CloudFront access logs:If the viewer did not use an HTTP proxy or a load balancer to send the
+                    requestIf the viewer did use an HTTP proxy or a load balancer to send the
+                    requestUpdate requires: No interruption
+* @property {String} Name Required: Yes. A friendly name or description of the IPSet.Update requires: Replacement
+*/
 class IPSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::IPSet'
@@ -28,6 +47,12 @@ class IPSet extends WKResource {
   }
 }
 
+/** @memberof module:WAF
+*   @extends WKResource
+* @property {String} MetricName Required: Yes. A friendly name or description for the metrics of the rule.Update requires: Replacement
+* @property {String} Name Required: Yes. A friendly name or description of the rule.Update requires: Replacement
+* @property {AWSWAFRulePredicates} Predicates Required: No. The ByteMatchSet, IPSet, SizeConstraintSet, SqlInjectionMatchSet, or XssMatchSet objects to include in a rule. If you add more than one predicate to a rule, a request must match all conditions in order to be allowed or blocked.Update requires: No interruption
+*/
 class Rule extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::Rule'
@@ -40,6 +65,11 @@ class Rule extends WKResource {
   }
 }
 
+/** @memberof module:WAF
+*   @extends WKResource
+* @property {String} Name Required: Yes. A friendly name or description for the SizeConstraintSet.Update requires: Replacement
+* @property {AWSWAFSizeConstraintSetSizeConstraint} SizeConstraints Required: Yes. The size constraint and the part of the web request to check.Update requires: No interruption
+*/
 class SizeConstraintSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::SizeConstraintSet'
@@ -51,6 +81,12 @@ class SizeConstraintSet extends WKResource {
   }
 }
 
+/** @memberof module:WAF
+*   @extends WKResource
+* @property {String} Name Required: Yes. A friendly name or description of the SqlInjectionMatchSet.Update requires: Replacement
+* @property {AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples} SqlInjectionMatchTuples Required: No. The parts of web requests that you want AWS WAF to inspect for malicious SQL code
+            and, if you want AWS WAF to inspect a header, the name of the header.Update requires: No interruption
+*/
 class SqlInjectionMatchSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::SqlInjectionMatchSet'
@@ -62,6 +98,14 @@ class SqlInjectionMatchSet extends WKResource {
   }
 }
 
+/** @memberof module:WAF
+*   @extends WKResource
+* @property {AWSWAFWebACLAction} DefaultAction Required: Yes. The action that you want AWS WAF to take when a request doesn't match the
+                  criteria in any of the rules that are associated with the web ACL.Update requires: No interruption
+* @property {String} MetricName Required: Yes. A friendly name or description for the Amazon CloudWatch metric of this web ACL.Update requires: Replacement
+* @property {String} Name Required: Yes. A friendly name or description of the web ACL.Update requires: Replacement
+* @property {AWSWAFWebACLRules} Rules Required: No. The rules to associate with the web ACL and the settings for each rule.Update requires: No interruption
+*/
 class WebACL extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::WebACL'
@@ -75,6 +119,11 @@ class WebACL extends WKResource {
   }
 }
 
+/** @memberof module:WAF
+*   @extends WKResource
+* @property {String} Name Required: Yes. A friendly name or description for the XssMatchSet.Update requires: Replacement
+* @property {AWSWAFXssMatchSetXssMatchTuple} XssMatchTuples Required: No. The parts of web requests that you want to inspect for cross-site scripting attacks.Update requires: No interruption
+*/
 class XssMatchSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::XssMatchSet'
@@ -86,8 +135,7 @@ class XssMatchSet extends WKResource {
   }
 }
 
-module.exports = {
-  ByteMatchSet: ByteMatchSet,
+module.exports = {  ByteMatchSet: ByteMatchSet,
   IPSet: IPSet,
   Rule: Rule,
   SizeConstraintSet: SizeConstraintSet,

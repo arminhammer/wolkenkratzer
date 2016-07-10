@@ -16,29 +16,39 @@ const wk = require(path.join(__dirname, '..', '..', 'index'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
-describe('S3', () => {
+describe('CodePipeline', () => {
   let t = new wk.Template()
 
-  let bucket = new wk.S3.Bucket('newBucket')
-  bucket.BucketName = 'newBucket'
+  let s3location = new wk.Parameter('s3bucketlocation', { Type: 'String' })
+  t.addParameter(s3location)
 
-  t.addResource(bucket)
+  let rolearn = new wk.Parameter('rolearn', { Type: 'String' })
+  t.addParameter(rolearn)
 
-  let bucketPolicy = new wk.S3.BucketPolicy('newBucketPolicy')
-  bucketPolicy.PolicyDocument = {
-    'Statement': [{
-      'Action': ['s3:GetObject'],
-      'Effect': 'Allow',
-      'Resource': '*',
-      'Principal': '*'
-    }]
-  }
-  bucketPolicy.Bucket.ref(bucket)
+  let customActionType = new wk.CodePipeline.CustomActionType('customActionType')
+  customActionType.Category = 'Source'
+  customActionType.InputArtifactDetails = new wk.Types.AWSCodePipelineCustomActionTypeArtifactDetails({ MaximumCount: 1, MinimumCount: 0 })
+  customActionType.OutputArtifactDetails = new wk.Types.AWSCodePipelineCustomActionTypeArtifactDetails({ MaximumCount: 1, MinimumCount: 0 })
+  customActionType.Provider = 'Provider'
+  t.addResource(customActionType)
 
-  t.addResource(bucketPolicy)
+  let stage = new wk.Types.AWSCodePipelinePipelineStages()
+  stage.Name = 'stage0'
+  stage.Actions.push(new wk.Types.AWSCodePipelinePipelineStagesActions())
 
-  it('should be able to add a bucket to the template', () => {
-    t.Resources['newBucket'].WKResourceType.should.equal('AWS::S3::Bucket')
+  let pipeline = new wk.CodePipeline.Pipeline('pipeline')
+  pipeline.ArtifactStore = new wk.Types.AWSCodePipelinePipelineArtifactStore({
+    Location: new wk.Intrinsic.Ref(s3location),
+    Type: 'S3'
+  })
+  pipeline.RoleArn.ref(rolearn)
+  pipeline.Stages.push(stage)
+  t.addResource(pipeline)
+
+  console.log(t.toJson())
+
+  it('should be able to add a custom action type to the template', () => {
+    t.Resources[ 'customActionType' ].resourceType.should.equal('AWS::CodePipeline::CustomActionType')
   })
 
   it('should generate the expected JSON template', () => {
