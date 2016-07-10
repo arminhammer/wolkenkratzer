@@ -14,15 +14,20 @@ fs
     result += 'const ResourceProperty = require(\'./resource\').ResourceProperty\n'
     result += 'const ResourceAttributeArray = require(\'./resourceattribute\').ResourceAttributeArray\n'
     result += 'const ResourceAttribute = require(\'./resourceattribute\').ResourceAttribute\n\n'
+    result += '/** @module Types' + ' */\n\n'
+
     let exportList = []
 
     for (let subType in file) {
       let subProp = file[subType]
       console.log(subProp)
       exportList.push(subType + ': ' + subType)
-      result += 'class ' + subProp.name + ' extends ResourceProperty {\n'
-      result += '  constructor (propertiesObject) {\n'
-      result += '    let properties = {\n'
+      let docHeader = ''
+      docHeader += '/** \n'
+      let body = ''
+      body += 'class ' + subProp.name + ' extends ResourceProperty {\n'
+      body += '  constructor (propertiesObject) {\n'
+      body += '    let properties = {\n'
       let props = Object.keys(subProp.properties)
       for (let i = 0; i < props.length; i++) {
         let wkType = 'ResourceAttribute'
@@ -87,18 +92,25 @@ fs
             break
         }
         let name = props[i].replace(/ \(.+\)/g, '')
-        result += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
+        body += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
         if (i === (props.length - 1)) {
-          result += '\n'
+          body += '\n'
         } else {
-          result += ',\n'
+          body += ',\n'
         }
+
+        docHeader += '* @property ' + name + ' {' + propType + '} Required: ' + subProp.properties[ props[ i ] ].Required + '. ' + subProp.properties[ props[ i ] ].Description + '\n'
       }
-      result += '    }\n'
-      result += '    super(\''+ subProp.name + '\', properties, propertiesObject)\n'
-      result += '  }\n'
-      result += '}\n\n'
+      body += '    }\n'
+      body += '    super(\''+ subProp.name + '\', properties, propertiesObject)\n'
+      body += '  }\n'
+      body += '}\n\n'
+
+      docHeader += '*/\n'
+      result += docHeader
+      result += body
     }
+
     result += 'module.exports = {\n'
     for (let i = 0; i < exportList.length; i++) {
       let ending = ',\n'
