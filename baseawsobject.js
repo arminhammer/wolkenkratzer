@@ -8,6 +8,12 @@ const TypeException = require('./exceptions').TypeException
 const Policy = require('./policy').Policy
 
 class BaseAWSObject {
+  /**
+   * Construct a BaseAWSObject.
+   * @param {string} str The string to repeat.
+   * @param {number} [times=1] How many times to repeat the string.
+   * @returns {string}
+   */
   constructor (name, resourceType, properties, propertiesObject, conditional) {
     this.WKName = name
     this.resourceType = resourceType
