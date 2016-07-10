@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class EventSourceMapping extends baseawsobject.BaseAWSObject {
+class EventSourceMapping extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::EventSourceMapping'
     let properties = {
@@ -20,7 +20,7 @@ class EventSourceMapping extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Alias extends baseawsobject.BaseAWSObject {
+class Alias extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Alias'
     let properties = {
@@ -33,7 +33,7 @@ class Alias extends baseawsobject.BaseAWSObject {
   }
 }
 
-class LambdaFunction extends baseawsobject.BaseAWSObject {
+class LambdaFunction extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Function'
     let properties = {
@@ -51,7 +51,7 @@ class LambdaFunction extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Permission extends baseawsobject.BaseAWSObject {
+class Permission extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Permission'
     let properties = {
@@ -65,7 +65,7 @@ class Permission extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Version extends baseawsobject.BaseAWSObject {
+class Version extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Version'
     let properties = {

@@ -10,8 +10,8 @@ const Intrinsic = require(path.join(__dirname, '/intrinsic'))
 const Ref = require(path.join(__dirname, '/intrinsic')).Ref
 const FnGetAtt = require(path.join(__dirname, '/intrinsic')).FnGetAtt
 const Parameter = require(path.join(__dirname, '/parameter')).Parameter
-// const BaseAWSObject = require(path.join(__dirname, '/baseawsobject')).BaseAWSObject
-const SubPropertyObject = require(path.join(__dirname, '/baseawsobject')).SubPropertyObject
+const WKResource = require(path.join(__dirname, '/resource')).WKResource
+const ResourceProperty = require(path.join(__dirname, '/resource')).ResourceProperty
 const ResourceAttribute = require(path.join(__dirname, '/resourceattribute')).ResourceAttribute
 const ResourceAttributeArray = require(path.join(__dirname, '/resourceattribute')).ResourceAttributeArray
 const TypeException = require(path.join(__dirname, '/exceptions')).TypeException
@@ -120,7 +120,8 @@ module.exports = {
   WAF:WAF,
   WorkSpaces:WorkSpaces,
   Template: Template,
-  SubPropertyObject: SubPropertyObject,
+  WKResource: WKResource,
+  ResourceProperty: ResourceProperty,
   Parameter: Parameter,
   Types: Types,
   ResourceAttribute: ResourceAttribute,

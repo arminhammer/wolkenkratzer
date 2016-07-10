@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Trail extends baseawsobject.BaseAWSObject {
+class Trail extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudTrail::Trail'
     let properties = {

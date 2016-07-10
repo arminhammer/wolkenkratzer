@@ -7,9 +7,9 @@ const ConditionNotMetException = require('./exceptions').ConditionNotMetExceptio
 const TypeException = require('./exceptions').TypeException
 const Policy = require('./policy').Policy
 
-class BaseAWSObject {
+class WKResource {
   /**
-   * Construct a BaseAWSObject.
+   * Construct a Resource.
    * @param {string} str The string to repeat.
    * @param {number} [times=1] How many times to repeat the string.
    * @returns {string}
@@ -154,7 +154,7 @@ class BaseAWSObject {
   }
 }
 
-class SubPropertyObject {
+class ResourceProperty {
   constructor (name, properties, propertiesObject, conditional) {
     this.WKName = name
     this.properties = properties
@@ -203,6 +203,6 @@ class SubPropertyObject {
 }
 
 module.exports = {
-  BaseAWSObject: BaseAWSObject,
-  SubPropertyObject: SubPropertyObject
+  WKResource: WKResource,
+  ResourceProperty: ResourceProperty
 }

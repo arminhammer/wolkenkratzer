@@ -11,7 +11,7 @@ const FnBase64 = require('./intrinsic').FnBase64
 const FnJoin = require('./intrinsic').FnJoin
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const TypeException = require('./exceptions').TypeException
-const SubPropertyObject = require('./baseawsobject').SubPropertyObject
+const ResourceProperty = require('./resource').ResourceProperty
 
 class ResourceAttribute {
   constructor (name, type, required, value) {
@@ -55,7 +55,7 @@ class ResourceAttribute {
     if (this.val !== null) {
       if (this.val instanceof Intrinsic) {
         return this.val.toJson()
-      } else if(this.val instanceof SubPropertyObject) {
+      } else if(this.val instanceof ResourceProperty) {
         return this.val.toJson()
       }
       return this.val
@@ -114,7 +114,7 @@ class ResourceAttributeArray extends ResourceAttribute {
   }
   toJson () {
     if (this.val !== null) {
-      if(this.Type.prototype instanceof SubPropertyObject) {
+      if(this.Type.prototype instanceof ResourceProperty) {
         let propArray = []
         for (let prop in this.val) {
           propArray.push(this.val[prop].toJson())

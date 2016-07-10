@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class CacheCluster extends baseawsobject.BaseAWSObject {
+class CacheCluster extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::CacheCluster'
     let properties = {
@@ -36,7 +36,7 @@ class CacheCluster extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ParameterGroup extends baseawsobject.BaseAWSObject {
+class ParameterGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ParameterGroup'
     let properties = {
@@ -48,7 +48,7 @@ class ParameterGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ReplicationGroup extends baseawsobject.BaseAWSObject {
+class ReplicationGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ReplicationGroup'
     let properties = {
@@ -75,7 +75,7 @@ class ReplicationGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SecurityGroup extends baseawsobject.BaseAWSObject {
+class SecurityGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroup'
     let properties = {
@@ -85,7 +85,7 @@ class SecurityGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SecurityGroupIngress extends baseawsobject.BaseAWSObject {
+class SecurityGroupIngress extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroupIngress'
     let properties = {
@@ -97,7 +97,7 @@ class SecurityGroupIngress extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SubnetGroup extends baseawsobject.BaseAWSObject {
+class SubnetGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SubnetGroup'
     let properties = {

@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Destination extends baseawsobject.BaseAWSObject {
+class Destination extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::Destination'
     let properties = {
@@ -19,7 +19,7 @@ class Destination extends baseawsobject.BaseAWSObject {
   }
 }
 
-class LogGroup extends baseawsobject.BaseAWSObject {
+class LogGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogGroup'
     let properties = {
@@ -29,7 +29,7 @@ class LogGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class LogStream extends baseawsobject.BaseAWSObject {
+class LogStream extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogStream'
     let properties = {
@@ -40,7 +40,7 @@ class LogStream extends baseawsobject.BaseAWSObject {
   }
 }
 
-class MetricFilter extends baseawsobject.BaseAWSObject {
+class MetricFilter extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::MetricFilter'
     let properties = {
@@ -52,7 +52,7 @@ class MetricFilter extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SubscriptionFilter extends baseawsobject.BaseAWSObject {
+class SubscriptionFilter extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::SubscriptionFilter'
     let properties = {

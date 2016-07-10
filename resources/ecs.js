@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Cluster extends baseawsobject.BaseAWSObject {
+class Cluster extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECS::Cluster'
     let properties = {
@@ -15,7 +15,7 @@ class Cluster extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Service extends baseawsobject.BaseAWSObject {
+class Service extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECS::Service'
     let properties = {
@@ -30,7 +30,7 @@ class Service extends baseawsobject.BaseAWSObject {
   }
 }
 
-class TaskDefinition extends baseawsobject.BaseAWSObject {
+class TaskDefinition extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ECS::TaskDefinition'
     let properties = {

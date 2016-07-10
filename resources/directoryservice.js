@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class MicrosoftAD extends baseawsobject.BaseAWSObject {
+class MicrosoftAD extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::DirectoryService::MicrosoftAD'
     let properties = {
@@ -21,7 +21,7 @@ class MicrosoftAD extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SimpleAD extends baseawsobject.BaseAWSObject {
+class SimpleAD extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::DirectoryService::SimpleAD'
     let properties = {

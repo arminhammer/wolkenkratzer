@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Cluster extends baseawsobject.BaseAWSObject {
+class Cluster extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::Cluster'
     let properties = {
@@ -39,7 +39,7 @@ class Cluster extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ClusterParameterGroup extends baseawsobject.BaseAWSObject {
+class ClusterParameterGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterParameterGroup'
     let properties = {
@@ -51,7 +51,7 @@ class ClusterParameterGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ClusterSecurityGroup extends baseawsobject.BaseAWSObject {
+class ClusterSecurityGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSecurityGroup'
     let properties = {
@@ -61,7 +61,7 @@ class ClusterSecurityGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ClusterSecurityGroupIngress extends baseawsobject.BaseAWSObject {
+class ClusterSecurityGroupIngress extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSecurityGroupIngress'
     let properties = {
@@ -74,7 +74,7 @@ class ClusterSecurityGroupIngress extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ClusterSubnetGroup extends baseawsobject.BaseAWSObject {
+class ClusterSubnetGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSubnetGroup'
     let properties = {

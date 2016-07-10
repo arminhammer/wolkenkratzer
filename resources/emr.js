@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Cluster extends baseawsobject.BaseAWSObject {
+class Cluster extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EMR::Cluster'
     let properties = {
@@ -27,7 +27,7 @@ class Cluster extends baseawsobject.BaseAWSObject {
   }
 }
 
-class InstanceGroupConfig extends baseawsobject.BaseAWSObject {
+class InstanceGroupConfig extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EMR::InstanceGroupConfig'
     let properties = {
@@ -45,7 +45,7 @@ class InstanceGroupConfig extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Step extends baseawsobject.BaseAWSObject {
+class Step extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EMR::Step'
     let properties = {

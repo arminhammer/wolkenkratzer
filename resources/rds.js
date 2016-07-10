@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class DBCluster extends baseawsobject.BaseAWSObject {
+class DBCluster extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBCluster'
     let properties = {
@@ -32,7 +32,7 @@ class DBCluster extends baseawsobject.BaseAWSObject {
   }
 }
 
-class DBClusterParameterGroup extends baseawsobject.BaseAWSObject {
+class DBClusterParameterGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBClusterParameterGroup'
     let properties = {
@@ -45,7 +45,7 @@ class DBClusterParameterGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class DBInstance extends baseawsobject.BaseAWSObject {
+class DBInstance extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBInstance'
     let properties = {
@@ -86,7 +86,7 @@ class DBInstance extends baseawsobject.BaseAWSObject {
   }
 }
 
-class DBParameterGroup extends baseawsobject.BaseAWSObject {
+class DBParameterGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBParameterGroup'
     let properties = {
@@ -99,7 +99,7 @@ class DBParameterGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class DBSecurityGroup extends baseawsobject.BaseAWSObject {
+class DBSecurityGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSecurityGroup'
     let properties = {
@@ -112,7 +112,7 @@ class DBSecurityGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class DBSecurityGroupIngress extends baseawsobject.BaseAWSObject {
+class DBSecurityGroupIngress extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSecurityGroupIngress'
     let properties = {
@@ -126,7 +126,7 @@ class DBSecurityGroupIngress extends baseawsobject.BaseAWSObject {
   }
 }
 
-class DBSubnetGroup extends baseawsobject.BaseAWSObject {
+class DBSubnetGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSubnetGroup'
     let properties = {
@@ -138,7 +138,7 @@ class DBSubnetGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class EventSubscription extends baseawsobject.BaseAWSObject {
+class EventSubscription extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::EventSubscription'
     let properties = {
@@ -152,7 +152,7 @@ class EventSubscription extends baseawsobject.BaseAWSObject {
   }
 }
 
-class OptionGroup extends baseawsobject.BaseAWSObject {
+class OptionGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::RDS::OptionGroup'
     let properties = {

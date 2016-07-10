@@ -11,7 +11,7 @@ fs
   .then((file) => {
     let result = ''
     result += '\'use strict\'\n\n'
-    result += 'const SubPropertyObject = require(\'./baseawsobject\').SubPropertyObject\n'
+    result += 'const ResourceProperty = require(\'./resource\').ResourceProperty\n'
     result += 'const ResourceAttributeArray = require(\'./resourceattribute\').ResourceAttributeArray\n'
     result += 'const ResourceAttribute = require(\'./resourceattribute\').ResourceAttribute\n\n'
     let exportList = []
@@ -20,7 +20,7 @@ fs
       let subProp = file[subType]
       console.log(subProp)
       exportList.push(subType + ': ' + subType)
-      result += 'class ' + subProp.name + ' extends SubPropertyObject {\n'
+      result += 'class ' + subProp.name + ' extends ResourceProperty {\n'
       result += '  constructor (propertiesObject) {\n'
       result += '    let properties = {\n'
       let props = Object.keys(subProp.properties)

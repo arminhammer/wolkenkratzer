@@ -13,7 +13,7 @@ fs
   .then((file) => {
     let header = ''
     header += '\'use strict\'\n\n'
-    header += 'const baseawsobject = require(\'./../baseawsobject\')\n'
+    header += 'const WKResource = require(\'./../resource\').WKResource\n'
     header += 'const ResourceAttribute = require(\'./../resourceattribute\').ResourceAttribute\n'
     header += 'const ResourceAttributeArray = require(\'./../resourceattribute\').ResourceAttributeArray\n'
     header += 'const tag = require(\'./../tag\')\n'
@@ -28,7 +28,7 @@ fs
       }
       let exportLine = (resourceName + ': ' + resourceName)
       let resourceBody = ''
-      resourceBody += 'class ' + resourceName + ' extends baseawsobject.BaseAWSObject {\n'
+      resourceBody += 'class ' + resourceName + ' extends WKResource {\n'
       resourceBody += '  constructor (name, propertiesObject) {\n'
       resourceBody += '    let resourceType = \'' + subProp.name + '\'\n'
       resourceBody += '    let properties = {\n'

@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Account extends baseawsobject.BaseAWSObject {
+class Account extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Account'
     let properties = {
@@ -16,7 +16,7 @@ class Account extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ApiKey extends baseawsobject.BaseAWSObject {
+class ApiKey extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::ApiKey'
     let properties = {
@@ -29,7 +29,7 @@ class ApiKey extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Authorizer extends baseawsobject.BaseAWSObject {
+class Authorizer extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Authorizer'
     let properties = {
@@ -46,7 +46,7 @@ class Authorizer extends baseawsobject.BaseAWSObject {
   }
 }
 
-class BasePathMapping extends baseawsobject.BaseAWSObject {
+class BasePathMapping extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::BasePathMapping'
     let properties = {
@@ -59,7 +59,7 @@ class BasePathMapping extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ClientCertificate extends baseawsobject.BaseAWSObject {
+class ClientCertificate extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::ClientCertificate'
     let properties = {
@@ -69,7 +69,7 @@ class ClientCertificate extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Deployment extends baseawsobject.BaseAWSObject {
+class Deployment extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Deployment'
     let properties = {
@@ -82,7 +82,7 @@ class Deployment extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Method extends baseawsobject.BaseAWSObject {
+class Method extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Method'
     let properties = {
@@ -101,7 +101,7 @@ class Method extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Model extends baseawsobject.BaseAWSObject {
+class Model extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Model'
     let properties = {
@@ -115,7 +115,7 @@ class Model extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Resource extends baseawsobject.BaseAWSObject {
+class Resource extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Resource'
     let properties = {
@@ -127,7 +127,7 @@ class Resource extends baseawsobject.BaseAWSObject {
   }
 }
 
-class RestApi extends baseawsobject.BaseAWSObject {
+class RestApi extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::RestApi'
     let properties = {
@@ -143,7 +143,7 @@ class RestApi extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Stage extends baseawsobject.BaseAWSObject {
+class Stage extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Stage'
     let properties = {

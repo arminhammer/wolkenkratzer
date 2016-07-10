@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Pipeline extends baseawsobject.BaseAWSObject {
+class Pipeline extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::DataPipeline::Pipeline'
     let properties = {

@@ -11,7 +11,7 @@ chai.should()
 
 const wk = require(path.join(__dirname, '..', 'index'))
 
-describe('BaseAWSObject', () => {
+describe('Resource', () => {
   describe('Test conditional logic', () => {
     let t = new wk.Template()
 

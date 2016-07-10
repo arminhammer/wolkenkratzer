@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Application extends baseawsobject.BaseAWSObject {
+class Application extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::Application'
     let properties = {
@@ -16,7 +16,7 @@ class Application extends baseawsobject.BaseAWSObject {
   }
 }
 
-class DeploymentConfig extends baseawsobject.BaseAWSObject {
+class DeploymentConfig extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::DeploymentConfig'
     let properties = {
@@ -27,7 +27,7 @@ class DeploymentConfig extends baseawsobject.BaseAWSObject {
   }
 }
 
-class DeploymentGroup extends baseawsobject.BaseAWSObject {
+class DeploymentGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::DeploymentGroup'
     let properties = {

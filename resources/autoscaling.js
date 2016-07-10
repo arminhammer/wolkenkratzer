@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class AutoScalingGroup extends baseawsobject.BaseAWSObject {
+class AutoScalingGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::AutoScalingGroup'
     let properties = {
@@ -31,7 +31,7 @@ class AutoScalingGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class LaunchConfiguration extends baseawsobject.BaseAWSObject {
+class LaunchConfiguration extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::LaunchConfiguration'
     let properties = {
@@ -57,7 +57,7 @@ class LaunchConfiguration extends baseawsobject.BaseAWSObject {
   }
 }
 
-class LifecycleHook extends baseawsobject.BaseAWSObject {
+class LifecycleHook extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::LifecycleHook'
     let properties = {
@@ -73,7 +73,7 @@ class LifecycleHook extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ScalingPolicy extends baseawsobject.BaseAWSObject {
+class ScalingPolicy extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::ScalingPolicy'
     let properties = {
@@ -91,7 +91,7 @@ class ScalingPolicy extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ScheduledAction extends baseawsobject.BaseAWSObject {
+class ScheduledAction extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::ScheduledAction'
     let properties = {

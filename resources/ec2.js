@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class CustomerGateway extends baseawsobject.BaseAWSObject {
+class CustomerGateway extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::CustomerGateway'
     let properties = {
@@ -19,7 +19,7 @@ class CustomerGateway extends baseawsobject.BaseAWSObject {
   }
 }
 
-class DHCPOptions extends baseawsobject.BaseAWSObject {
+class DHCPOptions extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::DHCPOptions'
     let properties = {
@@ -34,7 +34,7 @@ class DHCPOptions extends baseawsobject.BaseAWSObject {
   }
 }
 
-class EIP extends baseawsobject.BaseAWSObject {
+class EIP extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::EIP'
     let properties = {
@@ -45,7 +45,7 @@ class EIP extends baseawsobject.BaseAWSObject {
   }
 }
 
-class EIPAssociation extends baseawsobject.BaseAWSObject {
+class EIPAssociation extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::EIPAssociation'
     let properties = {
@@ -59,7 +59,7 @@ class EIPAssociation extends baseawsobject.BaseAWSObject {
   }
 }
 
-class FlowLog extends baseawsobject.BaseAWSObject {
+class FlowLog extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::FlowLog'
     let properties = {
@@ -73,7 +73,7 @@ class FlowLog extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Host extends baseawsobject.BaseAWSObject {
+class Host extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Host'
     let properties = {
@@ -85,7 +85,7 @@ class Host extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Instance extends baseawsobject.BaseAWSObject {
+class Instance extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Instance'
     let properties = {
@@ -121,7 +121,7 @@ class Instance extends baseawsobject.BaseAWSObject {
   }
 }
 
-class InternetGateway extends baseawsobject.BaseAWSObject {
+class InternetGateway extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::InternetGateway'
     let properties = {
@@ -131,7 +131,7 @@ class InternetGateway extends baseawsobject.BaseAWSObject {
   }
 }
 
-class NatGateway extends baseawsobject.BaseAWSObject {
+class NatGateway extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NatGateway'
     let properties = {
@@ -142,7 +142,7 @@ class NatGateway extends baseawsobject.BaseAWSObject {
   }
 }
 
-class NetworkAcl extends baseawsobject.BaseAWSObject {
+class NetworkAcl extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkAcl'
     let properties = {
@@ -153,7 +153,7 @@ class NetworkAcl extends baseawsobject.BaseAWSObject {
   }
 }
 
-class NetworkAclEntry extends baseawsobject.BaseAWSObject {
+class NetworkAclEntry extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkAclEntry'
     let properties = {
@@ -170,7 +170,7 @@ class NetworkAclEntry extends baseawsobject.BaseAWSObject {
   }
 }
 
-class NetworkInterface extends baseawsobject.BaseAWSObject {
+class NetworkInterface extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkInterface'
     let properties = {
@@ -187,7 +187,7 @@ class NetworkInterface extends baseawsobject.BaseAWSObject {
   }
 }
 
-class NetworkInterfaceAttachment extends baseawsobject.BaseAWSObject {
+class NetworkInterfaceAttachment extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkInterfaceAttachment'
     let properties = {
@@ -200,7 +200,7 @@ class NetworkInterfaceAttachment extends baseawsobject.BaseAWSObject {
   }
 }
 
-class PlacementGroup extends baseawsobject.BaseAWSObject {
+class PlacementGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::PlacementGroup'
     let properties = {
@@ -210,7 +210,7 @@ class PlacementGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Route extends baseawsobject.BaseAWSObject {
+class Route extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Route'
     let properties = {
@@ -226,7 +226,7 @@ class Route extends baseawsobject.BaseAWSObject {
   }
 }
 
-class RouteTable extends baseawsobject.BaseAWSObject {
+class RouteTable extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::RouteTable'
     let properties = {
@@ -237,7 +237,7 @@ class RouteTable extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SecurityGroup extends baseawsobject.BaseAWSObject {
+class SecurityGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroup'
     let properties = {
@@ -251,7 +251,7 @@ class SecurityGroup extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SecurityGroupEgress extends baseawsobject.BaseAWSObject {
+class SecurityGroupEgress extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroupEgress'
     let properties = {
@@ -266,7 +266,7 @@ class SecurityGroupEgress extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SecurityGroupIngress extends baseawsobject.BaseAWSObject {
+class SecurityGroupIngress extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroupIngress'
     let properties = {
@@ -284,7 +284,7 @@ class SecurityGroupIngress extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SpotFleet extends baseawsobject.BaseAWSObject {
+class SpotFleet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SpotFleet'
     let properties = {
@@ -294,7 +294,7 @@ class SpotFleet extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Subnet extends baseawsobject.BaseAWSObject {
+class Subnet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Subnet'
     let properties = {
@@ -308,7 +308,7 @@ class Subnet extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SubnetNetworkAclAssociation extends baseawsobject.BaseAWSObject {
+class SubnetNetworkAclAssociation extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SubnetNetworkAclAssociation'
     let properties = {
@@ -319,7 +319,7 @@ class SubnetNetworkAclAssociation extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SubnetRouteTableAssociation extends baseawsobject.BaseAWSObject {
+class SubnetRouteTableAssociation extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SubnetRouteTableAssociation'
     let properties = {
@@ -330,7 +330,7 @@ class SubnetRouteTableAssociation extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Volume extends baseawsobject.BaseAWSObject {
+class Volume extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Volume'
     let properties = {
@@ -348,7 +348,7 @@ class Volume extends baseawsobject.BaseAWSObject {
   }
 }
 
-class VolumeAttachment extends baseawsobject.BaseAWSObject {
+class VolumeAttachment extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VolumeAttachment'
     let properties = {
@@ -360,7 +360,7 @@ class VolumeAttachment extends baseawsobject.BaseAWSObject {
   }
 }
 
-class VPC extends baseawsobject.BaseAWSObject {
+class VPC extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPC'
     let properties = {
@@ -374,7 +374,7 @@ class VPC extends baseawsobject.BaseAWSObject {
   }
 }
 
-class VPCDHCPOptionsAssociation extends baseawsobject.BaseAWSObject {
+class VPCDHCPOptionsAssociation extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCDHCPOptionsAssociation'
     let properties = {
@@ -385,7 +385,7 @@ class VPCDHCPOptionsAssociation extends baseawsobject.BaseAWSObject {
   }
 }
 
-class VPCEndpoint extends baseawsobject.BaseAWSObject {
+class VPCEndpoint extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCEndpoint'
     let properties = {
@@ -398,7 +398,7 @@ class VPCEndpoint extends baseawsobject.BaseAWSObject {
   }
 }
 
-class VPCGatewayAttachment extends baseawsobject.BaseAWSObject {
+class VPCGatewayAttachment extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCGatewayAttachment'
     let properties = {
@@ -410,7 +410,7 @@ class VPCGatewayAttachment extends baseawsobject.BaseAWSObject {
   }
 }
 
-class VPCPeeringConnection extends baseawsobject.BaseAWSObject {
+class VPCPeeringConnection extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCPeeringConnection'
     let properties = {
@@ -422,7 +422,7 @@ class VPCPeeringConnection extends baseawsobject.BaseAWSObject {
   }
 }
 
-class VPNConnection extends baseawsobject.BaseAWSObject {
+class VPNConnection extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNConnection'
     let properties = {
@@ -436,7 +436,7 @@ class VPNConnection extends baseawsobject.BaseAWSObject {
   }
 }
 
-class VPNConnectionRoute extends baseawsobject.BaseAWSObject {
+class VPNConnectionRoute extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNConnectionRoute'
     let properties = {
@@ -447,7 +447,7 @@ class VPNConnectionRoute extends baseawsobject.BaseAWSObject {
   }
 }
 
-class VPNGateway extends baseawsobject.BaseAWSObject {
+class VPNGateway extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNGateway'
     let properties = {
@@ -458,7 +458,7 @@ class VPNGateway extends baseawsobject.BaseAWSObject {
   }
 }
 
-class VPNGatewayRoutePropagation extends baseawsobject.BaseAWSObject {
+class VPNGatewayRoutePropagation extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNGatewayRoutePropagation'
     let properties = {

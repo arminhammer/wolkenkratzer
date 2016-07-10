@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Queue extends baseawsobject.BaseAWSObject {
+class Queue extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::SQS::Queue'
     let properties = {
@@ -22,7 +22,7 @@ class Queue extends baseawsobject.BaseAWSObject {
   }
 }
 
-class QueuePolicy extends baseawsobject.BaseAWSObject {
+class QueuePolicy extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::SQS::QueuePolicy'
     let properties = {

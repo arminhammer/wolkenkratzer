@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Application extends baseawsobject.BaseAWSObject {
+class Application extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::Application'
     let properties = {
@@ -17,7 +17,7 @@ class Application extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ApplicationVersion extends baseawsobject.BaseAWSObject {
+class ApplicationVersion extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::ApplicationVersion'
     let properties = {
@@ -29,7 +29,7 @@ class ApplicationVersion extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ConfigurationTemplate extends baseawsobject.BaseAWSObject {
+class ConfigurationTemplate extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::ConfigurationTemplate'
     let properties = {
@@ -44,7 +44,7 @@ class ConfigurationTemplate extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Environment extends baseawsobject.BaseAWSObject {
+class Environment extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::Environment'
     let properties = {

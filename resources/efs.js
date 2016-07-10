@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class FileSystem extends baseawsobject.BaseAWSObject {
+class FileSystem extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EFS::FileSystem'
     let properties = {
@@ -16,7 +16,7 @@ class FileSystem extends baseawsobject.BaseAWSObject {
   }
 }
 
-class MountTarget extends baseawsobject.BaseAWSObject {
+class MountTarget extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EFS::MountTarget'
     let properties = {

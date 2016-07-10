@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Bucket extends baseawsobject.BaseAWSObject {
+class Bucket extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::S3::Bucket'
     let properties = {
@@ -25,7 +25,7 @@ class Bucket extends baseawsobject.BaseAWSObject {
   }
 }
 
-class BucketPolicy extends baseawsobject.BaseAWSObject {
+class BucketPolicy extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::S3::BucketPolicy'
     let properties = {

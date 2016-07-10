@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class ByteMatchSet extends baseawsobject.BaseAWSObject {
+class ByteMatchSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::ByteMatchSet'
     let properties = {
@@ -17,7 +17,7 @@ class ByteMatchSet extends baseawsobject.BaseAWSObject {
   }
 }
 
-class IPSet extends baseawsobject.BaseAWSObject {
+class IPSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::IPSet'
     let properties = {
@@ -28,7 +28,7 @@ class IPSet extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Rule extends baseawsobject.BaseAWSObject {
+class Rule extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::Rule'
     let properties = {
@@ -40,7 +40,7 @@ class Rule extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SizeConstraintSet extends baseawsobject.BaseAWSObject {
+class SizeConstraintSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::SizeConstraintSet'
     let properties = {
@@ -51,7 +51,7 @@ class SizeConstraintSet extends baseawsobject.BaseAWSObject {
   }
 }
 
-class SqlInjectionMatchSet extends baseawsobject.BaseAWSObject {
+class SqlInjectionMatchSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::SqlInjectionMatchSet'
     let properties = {
@@ -62,7 +62,7 @@ class SqlInjectionMatchSet extends baseawsobject.BaseAWSObject {
   }
 }
 
-class WebACL extends baseawsobject.BaseAWSObject {
+class WebACL extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::WebACL'
     let properties = {
@@ -75,7 +75,7 @@ class WebACL extends baseawsobject.BaseAWSObject {
   }
 }
 
-class XssMatchSet extends baseawsobject.BaseAWSObject {
+class XssMatchSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::WAF::XssMatchSet'
     let properties = {

@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Authentication extends baseawsobject.BaseAWSObject {
+class Authentication extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Authentication'
     let properties = {
@@ -23,7 +23,7 @@ class Authentication extends baseawsobject.BaseAWSObject {
   }
 }
 
-class CustomResource extends baseawsobject.BaseAWSObject {
+class CustomResource extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::CustomResource'
     let properties = {
@@ -33,7 +33,7 @@ class CustomResource extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Init extends baseawsobject.BaseAWSObject {
+class Init extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Init'
     let properties = {
@@ -42,7 +42,7 @@ class Init extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Interface extends baseawsobject.BaseAWSObject {
+class Interface extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Interface'
     let properties = {
@@ -53,7 +53,7 @@ class Interface extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Stack extends baseawsobject.BaseAWSObject {
+class Stack extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Stack'
     let properties = {
@@ -67,7 +67,7 @@ class Stack extends baseawsobject.BaseAWSObject {
   }
 }
 
-class WaitCondition extends baseawsobject.BaseAWSObject {
+class WaitCondition extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitCondition'
     let properties = {
@@ -79,7 +79,7 @@ class WaitCondition extends baseawsobject.BaseAWSObject {
   }
 }
 
-class WaitConditionHandle extends baseawsobject.BaseAWSObject {
+class WaitConditionHandle extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitConditionHandle'
     let properties = {

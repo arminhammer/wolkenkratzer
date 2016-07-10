@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Alias extends baseawsobject.BaseAWSObject {
+class Alias extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Alias'
     let properties = {
@@ -18,7 +18,7 @@ class Alias extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Build extends baseawsobject.BaseAWSObject {
+class Build extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Build'
     let properties = {
@@ -30,7 +30,7 @@ class Build extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Fleet extends baseawsobject.BaseAWSObject {
+class Fleet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Fleet'
     let properties = {

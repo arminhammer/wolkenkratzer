@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class Domain extends baseawsobject.BaseAWSObject {
+class Domain extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::SDB::Domain'
     let properties = {

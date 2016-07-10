@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class App extends baseawsobject.BaseAWSObject {
+class App extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::App'
     let properties = {
@@ -26,7 +26,7 @@ class App extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ElasticLoadBalancerAttachment extends baseawsobject.BaseAWSObject {
+class ElasticLoadBalancerAttachment extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::ElasticLoadBalancerAttachment'
     let properties = {
@@ -37,7 +37,7 @@ class ElasticLoadBalancerAttachment extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Instance extends baseawsobject.BaseAWSObject {
+class Instance extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Instance'
     let properties = {
@@ -60,7 +60,7 @@ class Instance extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Layer extends baseawsobject.BaseAWSObject {
+class Layer extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Layer'
     let properties = {
@@ -85,7 +85,7 @@ class Layer extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Stack extends baseawsobject.BaseAWSObject {
+class Stack extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Stack'
     let properties = {

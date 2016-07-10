@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class AccessKey extends baseawsobject.BaseAWSObject {
+class AccessKey extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::AccessKey'
     let properties = {
@@ -18,7 +18,7 @@ class AccessKey extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Group extends baseawsobject.BaseAWSObject {
+class Group extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Group'
     let properties = {
@@ -30,7 +30,7 @@ class Group extends baseawsobject.BaseAWSObject {
   }
 }
 
-class InstanceProfile extends baseawsobject.BaseAWSObject {
+class InstanceProfile extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::InstanceProfile'
     let properties = {
@@ -41,7 +41,7 @@ class InstanceProfile extends baseawsobject.BaseAWSObject {
   }
 }
 
-class ManagedPolicy extends baseawsobject.BaseAWSObject {
+class ManagedPolicy extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::ManagedPolicy'
     let properties = {
@@ -56,7 +56,7 @@ class ManagedPolicy extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Policy extends baseawsobject.BaseAWSObject {
+class Policy extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Policy'
     let properties = {
@@ -70,7 +70,7 @@ class Policy extends baseawsobject.BaseAWSObject {
   }
 }
 
-class Role extends baseawsobject.BaseAWSObject {
+class Role extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Role'
     let properties = {
@@ -83,7 +83,7 @@ class Role extends baseawsobject.BaseAWSObject {
   }
 }
 
-class User extends baseawsobject.BaseAWSObject {
+class User extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::User'
     let properties = {
@@ -97,7 +97,7 @@ class User extends baseawsobject.BaseAWSObject {
   }
 }
 
-class UserToGroupAddition extends baseawsobject.BaseAWSObject {
+class UserToGroupAddition extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::UserToGroupAddition'
     let properties = {

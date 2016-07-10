@@ -26,7 +26,8 @@
   "scripts": {
     "lint": "standard",
     "test": "istanbul cover ./node_modules/.bin/_mocha 'test/**/*.spec.js'",
-    "builddocs": "./node_modules/.bin/jsdoc -c jsdoc.conf.json -R ./README.md"
+    "builddocs": "./node_modules/.bin/jsdoc -c jsdoc.conf.json -R ./README.md",
+    "linecount": "git ls-files | xargs wc -l"
   },
   "repository": {
     "type": "git",

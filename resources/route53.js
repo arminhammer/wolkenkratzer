@@ -1,12 +1,12 @@
 'use strict'
 
-const baseawsobject = require('./../baseawsobject')
+const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
 const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
-class HealthCheck extends baseawsobject.BaseAWSObject {
+class HealthCheck extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Route53::HealthCheck'
     let properties = {
@@ -17,7 +17,7 @@ class HealthCheck extends baseawsobject.BaseAWSObject {
   }
 }
 
-class HostedZone extends baseawsobject.BaseAWSObject {
+class HostedZone extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Route53::HostedZone'
     let properties = {
@@ -30,7 +30,7 @@ class HostedZone extends baseawsobject.BaseAWSObject {
   }
 }
 
-class RecordSet extends baseawsobject.BaseAWSObject {
+class RecordSet extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Route53::RecordSet'
     let properties = {
@@ -52,7 +52,7 @@ class RecordSet extends baseawsobject.BaseAWSObject {
   }
 }
 
-class RecordSetGroup extends baseawsobject.BaseAWSObject {
+class RecordSetGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Route53::RecordSetGroup'
     let properties = {
