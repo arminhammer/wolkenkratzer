@@ -1,7 +1,8 @@
 'use strict'
 
 const baseawsobject = require('./../baseawsobject')
-const resource = require('./../resourceproperty')
+const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
+const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 

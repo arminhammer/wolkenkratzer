@@ -13,7 +13,7 @@ const RequiredPropertyException = require('./exceptions').RequiredPropertyExcept
 const TypeException = require('./exceptions').TypeException
 const SubPropertyObject = require('./baseawsobject').SubPropertyObject
 
-class ResourceProperty {
+class ResourceAttribute {
   constructor (name, type, required, value) {
     this.WKName = name
     this.Type = type
@@ -65,7 +65,7 @@ class ResourceProperty {
   }
 }
 
-class ResourceArray extends ResourceProperty {
+class ResourceAttributeArray extends ResourceAttribute {
   constructor(name, type, required, value) {
     super(name, type, required, value)
   }
@@ -138,6 +138,6 @@ class ResourceArray extends ResourceProperty {
 }
 
 module.exports = {
-  ResourceProperty: ResourceProperty,
-  ResourceArray: ResourceArray
+  ResourceAttribute: ResourceAttribute,
+  ResourceAttributeArray: ResourceAttributeArray
 }

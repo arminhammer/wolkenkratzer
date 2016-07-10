@@ -40,8 +40,6 @@ describe('Examples', () => {
         })
       })
       .then((results) => {
-        results.forEach((result) => {
-        })
       })
   })
 

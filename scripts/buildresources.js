@@ -14,7 +14,8 @@ fs
     let header = ''
     header += '\'use strict\'\n\n'
     header += 'const baseawsobject = require(\'./../baseawsobject\')\n'
-    header += 'const resource = require(\'./../resourceproperty\')\n'
+    header += 'const ResourceAttribute = require(\'./../resourceattribute\').ResourceAttribute\n'
+    header += 'const ResourceAttributeArray = require(\'./../resourceattribute\').ResourceAttributeArray\n'
     header += 'const tag = require(\'./../tag\')\n'
     header += 'const types = require(\'./../types\')\n\n'
 
@@ -33,13 +34,13 @@ fs
       resourceBody += '    let properties = {\n'
       let props = Object.keys(subProp.properties)
       for (let i = 0; i < props.length; i++) {
-        let wkType = 'ResourceProperty'
+        let wkType = 'ResourceAttribute'
         let propType = subProp.properties[ props[ i ] ].Type
         if (propType === 'Type::ListofAWS::Route53::RecordSetobjects,asshowninthefollowingexample:') {
           propType = ['RecordSet']
         }
         if (Array.isArray(propType)) {
-          wkType = 'ResourceArray'
+          wkType = 'ResourceAttributeArray'
           propType = propType[0]
         }
         if (typeof propType === 'string') {
@@ -141,7 +142,7 @@ fs
         if (name === 'Tags') {
           resourceBody += '      ' + name + ': new tag.TagSet()'
         } else {
-          resourceBody += '      ' + name + ': new resource.' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
+          resourceBody += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
         }
 
         if (i === (props.length - 1)) {

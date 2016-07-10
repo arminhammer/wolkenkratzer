@@ -1,7 +1,8 @@
 'use strict'
 
 const baseawsobject = require('./../baseawsobject')
-const resource = require('./../resourceproperty')
+const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
+const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -9,8 +10,8 @@ class Application extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::Application'
     let properties = {
-      ApplicationName: new resource.ResourceProperty('ApplicationName', String, 'No', null),
-      Description: new resource.ResourceProperty('Description', String, 'No', null)
+      ApplicationName: new ResourceAttribute('ApplicationName', String, 'No', null),
+      Description: new ResourceAttribute('Description', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -20,9 +21,9 @@ class ApplicationVersion extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::ApplicationVersion'
     let properties = {
-      ApplicationName: new resource.ResourceProperty('ApplicationName', String, 'Yes', null),
-      Description: new resource.ResourceProperty('Description', String, 'No', null),
-      SourceBundle: new resource.ResourceProperty('SourceBundle', types.SourceBundle, 'Yes', null)
+      ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
+      Description: new ResourceAttribute('Description', String, 'No', null),
+      SourceBundle: new ResourceAttribute('SourceBundle', types.SourceBundle, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -32,12 +33,12 @@ class ConfigurationTemplate extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::ConfigurationTemplate'
     let properties = {
-      ApplicationName: new resource.ResourceProperty('ApplicationName', String, 'Yes', null),
-      Description: new resource.ResourceProperty('Description', String, 'No', null),
-      EnvironmentId: new resource.ResourceProperty('EnvironmentId', String, 'Conditional', null),
-      OptionSettings: new resource.ResourceArray('OptionSettings', types.OptionSettings, 'No', null),
-      SolutionStackName: new resource.ResourceProperty('SolutionStackName', String, 'Conditional', null),
-      SourceConfiguration: new resource.ResourceProperty('SourceConfiguration', types.ElasticBeanstalkSourceConfigurationPropertyType, 'Conditional', null)
+      ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
+      Description: new ResourceAttribute('Description', String, 'No', null),
+      EnvironmentId: new ResourceAttribute('EnvironmentId', String, 'Conditional', null),
+      OptionSettings: new ResourceAttributeArray('OptionSettings', types.OptionSettings, 'No', null),
+      SolutionStackName: new ResourceAttribute('SolutionStackName', String, 'Conditional', null),
+      SourceConfiguration: new ResourceAttribute('SourceConfiguration', types.ElasticBeanstalkSourceConfigurationPropertyType, 'Conditional', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -47,16 +48,16 @@ class Environment extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::Environment'
     let properties = {
-      ApplicationName: new resource.ResourceProperty('ApplicationName', String, 'Yes', null),
-      CNAMEPrefix: new resource.ResourceProperty('CNAMEPrefix', String, 'No', null),
-      Description: new resource.ResourceProperty('Description', String, 'No', null),
-      EnvironmentName: new resource.ResourceProperty('EnvironmentName', String, 'No', null),
-      OptionSettings: new resource.ResourceArray('OptionSettings', types.OptionSettings, 'No', null),
-      SolutionStackName: new resource.ResourceProperty('SolutionStackName', String, 'No', null),
+      ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
+      CNAMEPrefix: new ResourceAttribute('CNAMEPrefix', String, 'No', null),
+      Description: new ResourceAttribute('Description', String, 'No', null),
+      EnvironmentName: new ResourceAttribute('EnvironmentName', String, 'No', null),
+      OptionSettings: new ResourceAttributeArray('OptionSettings', types.OptionSettings, 'No', null),
+      SolutionStackName: new ResourceAttribute('SolutionStackName', String, 'No', null),
       Tags: new tag.TagSet(),
-      TemplateName: new resource.ResourceProperty('TemplateName', String, 'No', null),
-      Tier: new resource.ResourceProperty('Tier', types.ElasticBeanstalkEnvironmentTierPropertyType, 'No', null),
-      VersionLabel: new resource.ResourceProperty('VersionLabel', String, 'No', null)
+      TemplateName: new ResourceAttribute('TemplateName', String, 'No', null),
+      Tier: new ResourceAttribute('Tier', types.ElasticBeanstalkEnvironmentTierPropertyType, 'No', null),
+      VersionLabel: new ResourceAttribute('VersionLabel', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

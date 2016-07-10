@@ -1,7 +1,8 @@
 'use strict'
 
 const baseawsobject = require('./../baseawsobject')
-const resource = require('./../resourceproperty')
+const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
+const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -9,10 +10,10 @@ class Destination extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::Destination'
     let properties = {
-      DestinationName: new resource.ResourceProperty('DestinationName', String, 'Yes', null),
-      DestinationPolicy: new resource.ResourceProperty('DestinationPolicy', String, 'Yes', null),
-      RoleArn: new resource.ResourceProperty('RoleArn', String, 'Yes', null),
-      TargetArn: new resource.ResourceProperty('TargetArn', String, 'Yes', null)
+      DestinationName: new ResourceAttribute('DestinationName', String, 'Yes', null),
+      DestinationPolicy: new ResourceAttribute('DestinationPolicy', String, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
+      TargetArn: new ResourceAttribute('TargetArn', String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -22,7 +23,7 @@ class LogGroup extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogGroup'
     let properties = {
-      RetentionInDays: new resource.ResourceProperty('RetentionInDays', Number, 'No', null)
+      RetentionInDays: new ResourceAttribute('RetentionInDays', Number, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -32,8 +33,8 @@ class LogStream extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogStream'
     let properties = {
-      LogGroupName: new resource.ResourceProperty('LogGroupName', String, 'Yes', null),
-      LogStreamName: new resource.ResourceProperty('LogStreamName', String, 'No', null)
+      LogGroupName: new ResourceAttribute('LogGroupName', String, 'Yes', null),
+      LogStreamName: new ResourceAttribute('LogStreamName', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -43,9 +44,9 @@ class MetricFilter extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::MetricFilter'
     let properties = {
-      FilterPattern: new resource.ResourceArray('FilterPattern', String, 'Yes', null),
-      LogGroupName: new resource.ResourceProperty('LogGroupName', String, 'Yes', null),
-      MetricTransformations: new resource.ResourceArray('MetricTransformations', types.CloudWatchLogsMetricFilterMetricTransformationProperty, 'Yes', null)
+      FilterPattern: new ResourceAttributeArray('FilterPattern', String, 'Yes', null),
+      LogGroupName: new ResourceAttribute('LogGroupName', String, 'Yes', null),
+      MetricTransformations: new ResourceAttributeArray('MetricTransformations', types.CloudWatchLogsMetricFilterMetricTransformationProperty, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -55,10 +56,10 @@ class SubscriptionFilter extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Logs::SubscriptionFilter'
     let properties = {
-      DestinationArn: new resource.ResourceProperty('DestinationArn', String, 'Yes', null),
-      FilterPattern: new resource.ResourceProperty('FilterPattern', String, 'Yes', null),
-      LogGroupName: new resource.ResourceProperty('LogGroupName', String, 'Yes', null),
-      RoleArn: new resource.ResourceProperty('RoleArn', String, 'No', null)
+      DestinationArn: new ResourceAttribute('DestinationArn', String, 'Yes', null),
+      FilterPattern: new ResourceAttribute('FilterPattern', String, 'Yes', null),
+      LogGroupName: new ResourceAttribute('LogGroupName', String, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

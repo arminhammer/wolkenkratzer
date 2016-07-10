@@ -1,7 +1,8 @@
 'use strict'
 
 const baseawsobject = require('./../baseawsobject')
-const resource = require('./../resourceproperty')
+const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
+const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -9,7 +10,7 @@ class Document extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::SSM::Document'
     let properties = {
-      Content: new resource.ResourceProperty('Content', Object, 'Yes', null)
+      Content: new ResourceAttribute('Content', Object, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

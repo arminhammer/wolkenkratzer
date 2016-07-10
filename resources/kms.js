@@ -1,7 +1,8 @@
 'use strict'
 
 const baseawsobject = require('./../baseawsobject')
-const resource = require('./../resourceproperty')
+const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
+const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -9,10 +10,10 @@ class Key extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::KMS::Key'
     let properties = {
-      Description: new resource.ResourceProperty('Description', String, 'No', null),
-      Enabled: new resource.ResourceProperty('Enabled', Boolean, 'No', null),
-      EnableKeyRotation: new resource.ResourceProperty('EnableKeyRotation', Boolean, 'No', null),
-      KeyPolicy: new resource.ResourceProperty('KeyPolicy', Object, 'Yes', null)
+      Description: new ResourceAttribute('Description', String, 'No', null),
+      Enabled: new ResourceAttribute('Enabled', Boolean, 'No', null),
+      EnableKeyRotation: new ResourceAttribute('EnableKeyRotation', Boolean, 'No', null),
+      KeyPolicy: new ResourceAttribute('KeyPolicy', Object, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

@@ -12,8 +12,8 @@ fs
     let result = ''
     result += '\'use strict\'\n\n'
     result += 'const SubPropertyObject = require(\'./baseawsobject\').SubPropertyObject\n'
-    result += 'const ResourceArray = require(\'./resourceproperty\').ResourceArray\n'
-    result += 'const ResourceProperty = require(\'./resourceproperty\').ResourceProperty\n\n'
+    result += 'const ResourceAttributeArray = require(\'./resourceattribute\').ResourceAttributeArray\n'
+    result += 'const ResourceAttribute = require(\'./resourceattribute\').ResourceAttribute\n\n'
     let exportList = []
 
     for (let subType in file) {
@@ -25,10 +25,10 @@ fs
       result += '    let properties = {\n'
       let props = Object.keys(subProp.properties)
       for (let i = 0; i < props.length; i++) {
-        let wkType = 'ResourceProperty'
+        let wkType = 'ResourceAttribute'
         let propType = subProp.properties[ props[ i ] ].Type
         if (Array.isArray(propType)) {
-          wkType = 'ResourceArray'
+          wkType = 'ResourceAttributeArray'
           propType = propType[0]
         }
         if (typeof propType === 'string') {

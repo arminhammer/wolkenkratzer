@@ -1,7 +1,8 @@
 'use strict'
 
 const baseawsobject = require('./../baseawsobject')
-const resource = require('./../resourceproperty')
+const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
+const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -9,27 +10,27 @@ class CacheCluster extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::CacheCluster'
     let properties = {
-      AutoMinorVersionUpgrade: new resource.ResourceProperty('AutoMinorVersionUpgrade', Boolean, 'No', null),
-      AZMode: new resource.ResourceProperty('AZMode', String, 'Conditional', null),
-      CacheNodeType: new resource.ResourceProperty('CacheNodeType', String, 'Yes', null),
-      CacheParameterGroupName: new resource.ResourceProperty('CacheParameterGroupName', String, 'No', null),
-      CacheSecurityGroupNames: new resource.ResourceArray('CacheSecurityGroupNames', String, 'Conditional', null),
-      CacheSubnetGroupName: new resource.ResourceProperty('CacheSubnetGroupName', String, 'Conditional', null),
-      ClusterName: new resource.ResourceProperty('ClusterName', String, 'No', null),
-      Engine: new resource.ResourceProperty('Engine', String, 'Yes', null),
-      EngineVersion: new resource.ResourceProperty('EngineVersion', String, 'No', null),
-      NotificationTopicArn: new resource.ResourceProperty('NotificationTopicArn', String, 'No', null),
-      NumCacheNodes: new resource.ResourceProperty('NumCacheNodes', String, 'Yes', null),
-      Port: new resource.ResourceProperty('Port', Number, 'No', null),
-      PreferredAvailabilityZone: new resource.ResourceProperty('PreferredAvailabilityZone', String, 'No', null),
-      PreferredAvailabilityZones: new resource.ResourceArray('PreferredAvailabilityZones', String, 'No', null),
-      PreferredMaintenanceWindow: new resource.ResourceProperty('PreferredMaintenanceWindow', String, 'No', null),
-      SnapshotArns: new resource.ResourceArray('SnapshotArns', String, 'No', null),
-      SnapshotName: new resource.ResourceProperty('SnapshotName', String, 'No', null),
-      SnapshotRetentionLimit: new resource.ResourceProperty('SnapshotRetentionLimit', Number, 'No', null),
-      SnapshotWindow: new resource.ResourceProperty('SnapshotWindow', String, 'No', null),
+      AutoMinorVersionUpgrade: new ResourceAttribute('AutoMinorVersionUpgrade', Boolean, 'No', null),
+      AZMode: new ResourceAttribute('AZMode', String, 'Conditional', null),
+      CacheNodeType: new ResourceAttribute('CacheNodeType', String, 'Yes', null),
+      CacheParameterGroupName: new ResourceAttribute('CacheParameterGroupName', String, 'No', null),
+      CacheSecurityGroupNames: new ResourceAttributeArray('CacheSecurityGroupNames', String, 'Conditional', null),
+      CacheSubnetGroupName: new ResourceAttribute('CacheSubnetGroupName', String, 'Conditional', null),
+      ClusterName: new ResourceAttribute('ClusterName', String, 'No', null),
+      Engine: new ResourceAttribute('Engine', String, 'Yes', null),
+      EngineVersion: new ResourceAttribute('EngineVersion', String, 'No', null),
+      NotificationTopicArn: new ResourceAttribute('NotificationTopicArn', String, 'No', null),
+      NumCacheNodes: new ResourceAttribute('NumCacheNodes', String, 'Yes', null),
+      Port: new ResourceAttribute('Port', Number, 'No', null),
+      PreferredAvailabilityZone: new ResourceAttribute('PreferredAvailabilityZone', String, 'No', null),
+      PreferredAvailabilityZones: new ResourceAttributeArray('PreferredAvailabilityZones', String, 'No', null),
+      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, 'No', null),
+      SnapshotArns: new ResourceAttributeArray('SnapshotArns', String, 'No', null),
+      SnapshotName: new ResourceAttribute('SnapshotName', String, 'No', null),
+      SnapshotRetentionLimit: new ResourceAttribute('SnapshotRetentionLimit', Number, 'No', null),
+      SnapshotWindow: new ResourceAttribute('SnapshotWindow', String, 'No', null),
       Tags: new tag.TagSet(),
-      VpcSecurityGroupIds: new resource.ResourceArray('VpcSecurityGroupIds', String, 'Conditional', null)
+      VpcSecurityGroupIds: new ResourceAttributeArray('VpcSecurityGroupIds', String, 'Conditional', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -39,9 +40,9 @@ class ParameterGroup extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ParameterGroup'
     let properties = {
-      CacheParameterGroupFamily: new resource.ResourceProperty('CacheParameterGroupFamily', String, 'Yes', null),
-      Description: new resource.ResourceProperty('Description', String, 'Yes', null),
-      Properties: new resource.ResourceProperty('Properties', Object, 'Yes', null)
+      CacheParameterGroupFamily: new ResourceAttribute('CacheParameterGroupFamily', String, 'Yes', null),
+      Description: new ResourceAttribute('Description', String, 'Yes', null),
+      Properties: new ResourceAttribute('Properties', Object, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -51,24 +52,24 @@ class ReplicationGroup extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ReplicationGroup'
     let properties = {
-      AutomaticFailoverEnabled: new resource.ResourceProperty('AutomaticFailoverEnabled', Boolean, 'No', null),
-      AutoMinorVersionUpgrade: new resource.ResourceProperty('AutoMinorVersionUpgrade', Boolean, 'No', null),
-      CacheNodeType: new resource.ResourceProperty('CacheNodeType', String, 'Yes', null),
-      CacheParameterGroupName: new resource.ResourceProperty('CacheParameterGroupName', String, 'No', null),
-      CacheSecurityGroupNames: new resource.ResourceArray('CacheSecurityGroupNames', String, 'No', null),
-      CacheSubnetGroupName: new resource.ResourceProperty('CacheSubnetGroupName', String, 'No', null),
-      Engine: new resource.ResourceProperty('Engine', String, 'Yes', null),
-      EngineVersion: new resource.ResourceProperty('EngineVersion', String, 'No', null),
-      NotificationTopicArn: new resource.ResourceProperty('NotificationTopicArn', String, 'No', null),
-      NumCacheClusters: new resource.ResourceProperty('NumCacheClusters', Number, 'Yes', null),
-      Port: new resource.ResourceProperty('Port', Number, 'No', null),
-      PreferredCacheClusterAZs: new resource.ResourceArray('PreferredCacheClusterAZs', String, 'No', null),
-      PreferredMaintenanceWindow: new resource.ResourceProperty('PreferredMaintenanceWindow', String, 'No', null),
-      ReplicationGroupDescription: new resource.ResourceProperty('ReplicationGroupDescription', String, 'Yes', null),
-      SecurityGroupIds: new resource.ResourceArray('SecurityGroupIds', String, 'No', null),
-      SnapshotArns: new resource.ResourceArray('SnapshotArns', String, 'No', null),
-      SnapshotRetentionLimit: new resource.ResourceProperty('SnapshotRetentionLimit', Number, 'No', null),
-      SnapshotWindow: new resource.ResourceProperty('SnapshotWindow', String, 'No', null)
+      AutomaticFailoverEnabled: new ResourceAttribute('AutomaticFailoverEnabled', Boolean, 'No', null),
+      AutoMinorVersionUpgrade: new ResourceAttribute('AutoMinorVersionUpgrade', Boolean, 'No', null),
+      CacheNodeType: new ResourceAttribute('CacheNodeType', String, 'Yes', null),
+      CacheParameterGroupName: new ResourceAttribute('CacheParameterGroupName', String, 'No', null),
+      CacheSecurityGroupNames: new ResourceAttributeArray('CacheSecurityGroupNames', String, 'No', null),
+      CacheSubnetGroupName: new ResourceAttribute('CacheSubnetGroupName', String, 'No', null),
+      Engine: new ResourceAttribute('Engine', String, 'Yes', null),
+      EngineVersion: new ResourceAttribute('EngineVersion', String, 'No', null),
+      NotificationTopicArn: new ResourceAttribute('NotificationTopicArn', String, 'No', null),
+      NumCacheClusters: new ResourceAttribute('NumCacheClusters', Number, 'Yes', null),
+      Port: new ResourceAttribute('Port', Number, 'No', null),
+      PreferredCacheClusterAZs: new ResourceAttributeArray('PreferredCacheClusterAZs', String, 'No', null),
+      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, 'No', null),
+      ReplicationGroupDescription: new ResourceAttribute('ReplicationGroupDescription', String, 'Yes', null),
+      SecurityGroupIds: new ResourceAttributeArray('SecurityGroupIds', String, 'No', null),
+      SnapshotArns: new ResourceAttributeArray('SnapshotArns', String, 'No', null),
+      SnapshotRetentionLimit: new ResourceAttribute('SnapshotRetentionLimit', Number, 'No', null),
+      SnapshotWindow: new ResourceAttribute('SnapshotWindow', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -78,7 +79,7 @@ class SecurityGroup extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroup'
     let properties = {
-      Description: new resource.ResourceProperty('Description', String, 'No', null)
+      Description: new ResourceAttribute('Description', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -88,9 +89,9 @@ class SecurityGroupIngress extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroupIngress'
     let properties = {
-      CacheSecurityGroupName: new resource.ResourceProperty('CacheSecurityGroupName', String, 'Yes', null),
-      EC2SecurityGroupName: new resource.ResourceProperty('EC2SecurityGroupName', String, 'Yes', null),
-      EC2SecurityGroupOwnerId: new resource.ResourceProperty('EC2SecurityGroupOwnerId', String, 'No', null)
+      CacheSecurityGroupName: new ResourceAttribute('CacheSecurityGroupName', String, 'Yes', null),
+      EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, 'Yes', null),
+      EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -100,8 +101,8 @@ class SubnetGroup extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SubnetGroup'
     let properties = {
-      Description: new resource.ResourceProperty('Description', String, 'Yes', null),
-      SubnetIds: new resource.ResourceProperty('SubnetIds', types.Stringlist, 'Yes', null)
+      Description: new ResourceAttribute('Description', String, 'Yes', null),
+      SubnetIds: new ResourceAttribute('SubnetIds', types.Stringlist, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

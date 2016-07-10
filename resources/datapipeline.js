@@ -1,7 +1,8 @@
 'use strict'
 
 const baseawsobject = require('./../baseawsobject')
-const resource = require('./../resourceproperty')
+const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
+const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -9,13 +10,13 @@ class Pipeline extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::DataPipeline::Pipeline'
     let properties = {
-      Activate: new resource.ResourceProperty('Activate', Boolean, 'No', null),
-      Description: new resource.ResourceProperty('Description', String, 'No', null),
-      Name: new resource.ResourceProperty('Name', String, 'Yes', null),
-      ParameterObjects: new resource.ResourceProperty('ParameterObjects', types.AWSDataPipelinePipelineParameterObjects, 'No', null),
-      ParameterValues: new resource.ResourceProperty('ParameterValues', types.AWSDataPipelinePipelineParameterValues, 'No', null),
-      PipelineObjects: new resource.ResourceArray('PipelineObjects', types.AWSDataPipelinePipelineObjects, 'Yes', null),
-      PipelineTags: new resource.ResourceProperty('PipelineTags', types.AWSDataPipelinePipelinePipelineTags, 'No', null)
+      Activate: new ResourceAttribute('Activate', Boolean, 'No', null),
+      Description: new ResourceAttribute('Description', String, 'No', null),
+      Name: new ResourceAttribute('Name', String, 'Yes', null),
+      ParameterObjects: new ResourceAttribute('ParameterObjects', types.AWSDataPipelinePipelineParameterObjects, 'No', null),
+      ParameterValues: new ResourceAttribute('ParameterValues', types.AWSDataPipelinePipelineParameterValues, 'No', null),
+      PipelineObjects: new ResourceAttributeArray('PipelineObjects', types.AWSDataPipelinePipelineObjects, 'Yes', null),
+      PipelineTags: new ResourceAttribute('PipelineTags', types.AWSDataPipelinePipelinePipelineTags, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

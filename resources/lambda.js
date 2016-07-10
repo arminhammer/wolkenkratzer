@@ -1,7 +1,8 @@
 'use strict'
 
 const baseawsobject = require('./../baseawsobject')
-const resource = require('./../resourceproperty')
+const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
+const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -9,11 +10,11 @@ class EventSourceMapping extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::EventSourceMapping'
     let properties = {
-      BatchSize: new resource.ResourceProperty('BatchSize', Number, 'No', null),
-      Enabled: new resource.ResourceProperty('Enabled', Boolean, 'No', null),
-      EventSourceArn: new resource.ResourceProperty('EventSourceArn', String, 'Yes', null),
-      FunctionName: new resource.ResourceProperty('FunctionName', String, 'Yes', null),
-      StartingPosition: new resource.ResourceProperty('StartingPosition', String, 'Yes', null)
+      BatchSize: new ResourceAttribute('BatchSize', Number, 'No', null),
+      Enabled: new ResourceAttribute('Enabled', Boolean, 'No', null),
+      EventSourceArn: new ResourceAttribute('EventSourceArn', String, 'Yes', null),
+      FunctionName: new ResourceAttribute('FunctionName', String, 'Yes', null),
+      StartingPosition: new ResourceAttribute('StartingPosition', String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -23,10 +24,10 @@ class Alias extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Alias'
     let properties = {
-      Description: new resource.ResourceProperty('Description', String, 'No', null),
-      FunctionName: new resource.ResourceProperty('FunctionName', String, 'Yes', null),
-      FunctionVersion: new resource.ResourceProperty('FunctionVersion', String, 'Yes', null),
-      Name: new resource.ResourceProperty('Name', String, 'Yes', null)
+      Description: new ResourceAttribute('Description', String, 'No', null),
+      FunctionName: new ResourceAttribute('FunctionName', String, 'Yes', null),
+      FunctionVersion: new ResourceAttribute('FunctionVersion', String, 'Yes', null),
+      Name: new ResourceAttribute('Name', String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -36,15 +37,15 @@ class LambdaFunction extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Function'
     let properties = {
-      Code: new resource.ResourceProperty('Code', types.AWSLambdaFunctionCode, 'Yes', null),
-      Description: new resource.ResourceProperty('Description', String, 'No', null),
-      FunctionName: new resource.ResourceProperty('FunctionName', String, 'No', null),
-      Handler: new resource.ResourceProperty('Handler', String, 'Yes', null),
-      MemorySize: new resource.ResourceProperty('MemorySize', Number, 'No', null),
-      Role: new resource.ResourceProperty('Role', String, 'Yes', null),
-      Runtime: new resource.ResourceProperty('Runtime', String, 'Yes', null),
-      Timeout: new resource.ResourceProperty('Timeout', Number, 'No', null),
-      VpcConfig: new resource.ResourceProperty('VpcConfig', types.AWSLambdaFunctionVPCConfig, 'No', null)
+      Code: new ResourceAttribute('Code', types.AWSLambdaFunctionCode, 'Yes', null),
+      Description: new ResourceAttribute('Description', String, 'No', null),
+      FunctionName: new ResourceAttribute('FunctionName', String, 'No', null),
+      Handler: new ResourceAttribute('Handler', String, 'Yes', null),
+      MemorySize: new ResourceAttribute('MemorySize', Number, 'No', null),
+      Role: new ResourceAttribute('Role', String, 'Yes', null),
+      Runtime: new ResourceAttribute('Runtime', String, 'Yes', null),
+      Timeout: new ResourceAttribute('Timeout', Number, 'No', null),
+      VpcConfig: new ResourceAttribute('VpcConfig', types.AWSLambdaFunctionVPCConfig, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -54,11 +55,11 @@ class Permission extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Permission'
     let properties = {
-      Action: new resource.ResourceProperty('Action', String, 'Yes', null),
-      FunctionName: new resource.ResourceProperty('FunctionName', String, 'Yes', null),
-      Principal: new resource.ResourceProperty('Principal', String, 'Yes', null),
-      SourceAccount: new resource.ResourceProperty('SourceAccount', String, 'No', null),
-      SourceArn: new resource.ResourceProperty('SourceArn', String, 'No', null)
+      Action: new ResourceAttribute('Action', String, 'Yes', null),
+      FunctionName: new ResourceAttribute('FunctionName', String, 'Yes', null),
+      Principal: new ResourceAttribute('Principal', String, 'Yes', null),
+      SourceAccount: new ResourceAttribute('SourceAccount', String, 'No', null),
+      SourceArn: new ResourceAttribute('SourceArn', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -68,9 +69,9 @@ class Version extends baseawsobject.BaseAWSObject {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Version'
     let properties = {
-      CodeSha256: new resource.ResourceProperty('CodeSha256', String, 'No', null),
-      Description: new resource.ResourceProperty('Description', String, 'No', null),
-      FunctionName: new resource.ResourceProperty('FunctionName', String, 'Yes', null)
+      CodeSha256: new ResourceAttribute('CodeSha256', String, 'No', null),
+      Description: new ResourceAttribute('Description', String, 'No', null),
+      FunctionName: new ResourceAttribute('FunctionName', String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
