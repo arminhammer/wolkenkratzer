@@ -1,7 +1,7 @@
 {
   "opts": {
     "encoding": "utf8",
-    "destination": "./gh-pages/",
+    "destination": "./docs/",
     "recurse": true
   },
   "tags": {
