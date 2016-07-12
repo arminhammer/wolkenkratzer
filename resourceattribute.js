@@ -55,7 +55,7 @@ class ResourceAttribute {
     if (this.val !== null) {
       if (this.val instanceof Intrinsic) {
         return this.val.toJson()
-      } else if(this.val instanceof ResourceProperty) {
+      } else if (this.val instanceof ResourceProperty) {
         return this.val.toJson()
       }
       return this.val
@@ -104,7 +104,7 @@ class ResourceAttributeArray extends ResourceAttribute {
       valueType = new Number(val)
     }
     if (valueType instanceof this.Type || valueType instanceof Intrinsic) {
-      if(!this.val) {
+      if (!this.val) {
         this.val = []
       }
       this.val.push(val)

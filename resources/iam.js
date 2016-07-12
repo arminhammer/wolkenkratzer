@@ -203,14 +203,14 @@ class User extends WKResource {
 /** @memberof module:IAM
 *   @extends WKResource
 * @property {String} GroupName Required: Yes. The name of group to add users to.Update requires: No interruption
-* @property {users} Users Required: Yes. Update requires: No interruption
+* @property {String} Users Required: Yes. Update requires: No interruption
 */
 class UserToGroupAddition extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::UserToGroupAddition'
     let properties = {
       GroupName: new ResourceAttribute('GroupName', String, 'Yes', null),
-      Users: new ResourceAttributeArray('Users', types.users, 'Yes', null)
+      Users: new ResourceAttributeArray('Users', String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

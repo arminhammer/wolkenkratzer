@@ -25,7 +25,8 @@
   },
   "scripts": {
     "lint": "standard",
-    "test": "istanbul cover ./node_modules/.bin/_mocha 'test/**/*.spec.js'",
+    "test": "./node_modules/.bin/_mocha 'test/**/*.spec.js'",
+    "coverage": "istanbul cover ./node_modules/.bin/_mocha 'test/**/*.spec.js'",
     "builddocs": "./node_modules/.bin/jsdoc -c jsdoc.conf.json -R ./README.md",
     "publishdocs": "git push origin `git subtree split --prefix docs/ master`:gh-pages --force",
     "linecount": "git ls-files | xargs wc -l"

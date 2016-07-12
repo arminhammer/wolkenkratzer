@@ -132,6 +132,9 @@ fs
           case 'DistributionConfigtype':
             propType = 'CloudFrontDistributionConfig'
             break
+          case 'users':
+            propType = 'String'
+            break
           default:
             break
         }

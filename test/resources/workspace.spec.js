@@ -15,29 +15,29 @@ const wk = require(path.join(__dirname, '..', '..', 'index'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
-describe('SSM', () => {
+describe('WorkSpaces', () => {
   let t = new wk.Template()
 
-  let document = new wk.SSM.Document('document')
-  t.addResource(document)
-  document.Content = {
-    Test: 'Test'
-  }
+  let workspace = new wk.WorkSpaces.Workspace('workspace')
+  workspace.BundleId = 'bundleID'
+  workspace.DirectoryId = 'directoryID'
+  workspace.UserName = 'testUser'
+  t.addResource(workspace)
 
-  it('should be able to add a new document to the template', () => {
-    t.Resources['document'].WKResourceType.should.equal('AWS::SSM::Document')
+  it('should be able to add a new workspace to the template', () => {
+    t.Resources['workspace'].WKResourceType.should.equal('AWS::WorkSpaces::Workspace')
   })
 
   it('should generate the expected JSON template', () => {
     let jsonString = JSON.parse(t.toJson())
     jsonString.should.deep.equal({
       "Resources": {
-        "document": {
-          "Type": "AWS::SSM::Document",
+        "workspace": {
+          "Type": "AWS::WorkSpaces::Workspace",
           "Properties": {
-            "Content": {
-              "Test": "Test"
-            }
+            "BundleId": "bundleID",
+            "DirectoryId": "directoryID",
+            "UserName": "testUser"
           }
         }
       },
