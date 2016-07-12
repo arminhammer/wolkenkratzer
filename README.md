@@ -8,6 +8,8 @@ Wolkenkratzer is a Javascript library that helps you programmatically generate C
 
 ## Usage
 
+Full documentation for the project can be found at https://arminhammer.github.io/wolkenkratzer/.
+
 ### General
 The core class is Template, which is instantiated with ```new wolkenkratzer.Template()```. Parameters can be added with the ```addParameter()``` method,
 and Resources can be added with ```addParameter```. The final template can be retrieved with Template.toJson().
@@ -318,4 +320,4 @@ Wolkenkratzer supports all CloudFormation resources. This is made possible by sc
 Wolkenkratzer is still a new library and needs lots of testing. If you run into any problems please open an issue or create a PR. All contributions are welcome!
 
 ## License
-Wolkenkratzer uses the MIT open source license.
+Wolkenkratzer uses the Apache 2.0 open source license.
