@@ -31,17 +31,17 @@ describe('WorkSpaces', () => {
   it('should generate the expected JSON template', () => {
     let jsonString = JSON.parse(t.toJson())
     jsonString.should.deep.equal({
-      "Resources": {
-        "workspace": {
-          "Type": "AWS::WorkSpaces::Workspace",
-          "Properties": {
-            "BundleId": "bundleID",
-            "DirectoryId": "directoryID",
-            "UserName": "testUser"
+      'Resources': {
+        'workspace': {
+          'Type': 'AWS::WorkSpaces::Workspace',
+          'Properties': {
+            'BundleId': 'bundleID',
+            'DirectoryId': 'directoryID',
+            'UserName': 'testUser'
           }
         }
       },
-      "AWSTemplateFormatVersion": "2010-09-09"
+      'AWSTemplateFormatVersion': '2010-09-09'
     })
   })
 

@@ -10,7 +10,7 @@
   },
   "source": {
     "include": [ ".", "resources" ],
-    "exclude": [ "node_modules", "examples", "test" ],
+    "exclude": [ "node_modules", "docs" ],
     "includePattern": ".+\\.js(doc)?$",
     "excludePattern": "(^|\\/|\\\\)_"
   },

@@ -24,7 +24,7 @@
     "x-ray": "^2.3.0"
   },
   "scripts": {
-    "lint": "standard",
+    "lint": "standard test/**/*.js ./*.js",
     "test": "./node_modules/.bin/_mocha 'test/**/*.spec.js'",
     "coverage": "istanbul cover ./node_modules/.bin/_mocha 'test/**/*.spec.js'",
     "builddocs": "./node_modules/.bin/jsdoc -c jsdoc.conf.json -R ./README.md",

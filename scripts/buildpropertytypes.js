@@ -23,7 +23,7 @@ fs
       console.log(subProp)
       exportList.push(subType + ': ' + subType)
       let docHeader = ''
-      docHeader += '/** \n'
+      docHeader += '/**\n'
       let body = ''
       body += 'class ' + subProp.name + ' extends ResourceProperty {\n'
       body += '  constructor (propertiesObject) {\n'
@@ -99,7 +99,12 @@ fs
           body += ',\n'
         }
 
-        docHeader += '* @property ' + name + ' {' + propType + '} Required: ' + subProp.properties[ props[ i ] ].Required + '. ' + subProp.properties[ props[ i ] ].Description + '\n'
+        docHeader += '* @property ' + name + ' {' + propType + '} Required: ' + subProp.properties[ props[ i ] ].Required + '.'
+          if (subProp.properties[ props[ i ] ].Description) {
+            docHeader += ' ' + subProp.properties[ props[ i ] ].Description.replace(/\n/g, ' ').trim() + '\n'
+          } else {
+            docHeader += '\n'
+          }
       }
       body += '    }\n'
       body += '    super(\''+ subProp.name + '\', properties, propertiesObject)\n'

@@ -26,7 +26,7 @@ class ResourceAttribute {
       valueType = new String(value)
     } else if (typeof value === 'boolean') {
       valueType = new Boolean(value)
-    } else if(typeof value == 'number') {
+    } else if (typeof value === 'number') {
       valueType = new Number(value)
     }
     if (valueType instanceof this.Type) {
@@ -66,9 +66,6 @@ class ResourceAttribute {
 }
 
 class ResourceAttributeArray extends ResourceAttribute {
-  constructor(name, type, required, value) {
-    super(name, type, required, value)
-  }
   set (value) {
     if (!Array.isArray(value)) {
       throw new TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type)
@@ -79,7 +76,7 @@ class ResourceAttributeArray extends ResourceAttribute {
         valueType = new String(val)
       } else if (typeof val === 'boolean') {
         valueType = new Boolean(val)
-      } else if(typeof val == 'number') {
+      } else if (typeof val === 'number') {
         valueType = new Number(val)
       }
       if (!(valueType instanceof this.Type)) {
@@ -89,7 +86,7 @@ class ResourceAttributeArray extends ResourceAttribute {
     }
   }
   join (delimiter, values) {
-    if(!this.val) {
+    if (!this.val) {
       this.val = []
     }
     this.val.push(new FnJoin(delimiter, values))
@@ -100,7 +97,7 @@ class ResourceAttributeArray extends ResourceAttribute {
       valueType = new String(val)
     } else if (typeof val === 'boolean') {
       valueType = new Boolean(val)
-    } else if(typeof val == 'number') {
+    } else if (typeof val === 'number') {
       valueType = new Number(val)
     }
     if (valueType instanceof this.Type || valueType instanceof Intrinsic) {
@@ -114,7 +111,7 @@ class ResourceAttributeArray extends ResourceAttribute {
   }
   toJson () {
     if (this.val !== null) {
-      if(this.Type.prototype instanceof ResourceProperty) {
+      if (this.Type.prototype instanceof ResourceProperty) {
         let propArray = []
         for (let prop in this.val) {
           propArray.push(this.val[prop].toJson())
@@ -123,7 +120,7 @@ class ResourceAttributeArray extends ResourceAttribute {
       } else {
         let propArray = []
         for (let prop in this.val) {
-          if(this.val[prop] instanceof Intrinsic) {
+          if (this.val[prop] instanceof Intrinsic) {
             propArray.push(this.val[ prop ].toJson())
           } else {
             propArray.push(this.val[prop])

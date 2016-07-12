@@ -4,22 +4,22 @@
 'use strict'
 
 class Exception {
-  constructor(message) {
+  constructor (message) {
     this.message = message
   }
-  toJson() {
-    return message
+  toJson () {
+    return this.message
   }
 }
 
 class ValueException extends Exception {
-  constructor(message) {
+  constructor (message) {
     super(message)
     this.name = 'ValueError'
   }
 }
 
-function RequiredPropertyException(message) {
+function RequiredPropertyException (message) {
   this.message = message
   this.name = 'RequiredPropertyException'
 }
@@ -32,14 +32,14 @@ function RequiredPropertyException(message) {
 }*/
 
 class TypeException extends Exception {
-  constructor(message) {
+  constructor (message) {
     super(message)
     this.name = 'TypeException'
   }
 }
 
 class ConditionNotMetException extends Exception {
-  constructor(message) {
+  constructor (message) {
     super(message)
     this.name = 'ConditionNotMetException'
   }

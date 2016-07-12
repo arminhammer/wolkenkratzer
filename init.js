@@ -6,7 +6,7 @@
 const TypeException = require('./exceptions').TypeException
 
 class Block {
-  constructor(name) {
+  constructor (name) {
     this.WKName = name
   }
   toJson () {
@@ -19,7 +19,7 @@ class Block {
 class Command extends Block {
   constructor (name, parameter) {
     super(name)
-    if(parameter) {
+    if (parameter) {
       this.command = parameter.command
       this.env = parameter.env
       this.cwd = parameter.cwd
@@ -33,7 +33,7 @@ class Command extends Block {
 class File extends Block {
   constructor (name, parameter) {
     super(name)
-    if(parameter) {
+    if (parameter) {
       this.content = parameter.content
       this.source = parameter.source
       this.encoding = parameter.encoding
@@ -59,7 +59,7 @@ class Packages extends Block {
 class Service extends Block {
   constructor (name, parameter) {
     super(name)
-    if(parameter) {
+    if (parameter) {
       this.ensureRunning = parameter.ensureRunning
       this.enabled = parameter.enabled
       this.files = parameter.files
@@ -92,34 +92,32 @@ class Config {
     this.sources = {}
   }
   add (block) {
-    if(block instanceof Command) {
+    if (block instanceof Command) {
       this.commands[block.WKName] = block
-    } else if(block instanceof File) {
+    } else if (block instanceof File) {
       this.files[block.WKName] = block
-    } else if(block instanceof Packages) {
+    } else if (block instanceof Packages) {
       this.packages[block.WKName] = block
-    } else if(block instanceof Service) {
+    } else if (block instanceof Service) {
       this.services.sysvinit[block.WKName] = block
-    } else if(block instanceof Source) {
+    } else if (block instanceof Source) {
       this.sources[block.WKName] = block
-    }
-    else {
+    } else {
       throw new TypeException(block.WKName + ' is not a proper type for ConfigSet ' + this.Name)
     }
   }
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
     delete p.WKName
-    for(let block in p) {
-      if(Object.keys(p[block]).length === 0) {
+    for (let block in p) {
+      if (Object.keys(p[block]).length === 0) {
         delete p[block]
       } else {
-        if(block === 'services') {
-          if(Object.keys(p[block].sysvinit).length === 0) {
+        if (block === 'services') {
+          if (Object.keys(p[block].sysvinit).length === 0) {
             delete p[block]
           } else {
             for (let sublock in this[block].sysvinit) {
-              let service = p[block].sysvinit[sublock]
               p[block].sysvinit[sublock] = this[block].sysvinit[sublock].toJson()
             }
           }

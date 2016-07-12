@@ -28,13 +28,13 @@ describe('SDB', () => {
   it('should generate the expected JSON template', () => {
     let jsonString = JSON.parse(t.toJson())
     jsonString.should.deep.equal({
-      "Resources": {
-        "domain": {
-          "Type": "AWS::SDB::Domain",
-          "Properties": {}
+      'Resources': {
+        'domain': {
+          'Type': 'AWS::SDB::Domain',
+          'Properties': {}
         }
       },
-      "AWSTemplateFormatVersion": "2010-09-09"
+      'AWSTemplateFormatVersion': '2010-09-09'
     })
   })
 

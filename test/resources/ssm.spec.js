@@ -31,17 +31,17 @@ describe('SSM', () => {
   it('should generate the expected JSON template', () => {
     let jsonString = JSON.parse(t.toJson())
     jsonString.should.deep.equal({
-      "Resources": {
-        "document": {
-          "Type": "AWS::SSM::Document",
-          "Properties": {
-            "Content": {
-              "Test": "Test"
+      'Resources': {
+        'document': {
+          'Type': 'AWS::SSM::Document',
+          'Properties': {
+            'Content': {
+              'Test': 'Test'
             }
           }
         }
       },
-      "AWSTemplateFormatVersion": "2010-09-09"
+      'AWSTemplateFormatVersion': '2010-09-09'
     })
   })
 

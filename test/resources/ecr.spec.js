@@ -22,7 +22,7 @@ describe('ECR', () => {
   repository.RepositoryName = 'test-repository'
   repository.RepositoryPolicyText = {
     'Version': '2008-10-17',
-      'Statement': [
+    'Statement': [
       {
         'Sid': 'AllowPushPull',
         'Effect': 'Allow',
@@ -57,8 +57,8 @@ describe('ECR', () => {
         'repository': {
           'Type': 'AWS::ECR::Repository',
           'Properties': {
-            'RepositoryName' : 'test-repository',
-            'RepositoryPolicyText' : {
+            'RepositoryName': 'test-repository',
+            'RepositoryPolicyText': {
               'Version': '2008-10-17',
               'Statement': [
                 {
