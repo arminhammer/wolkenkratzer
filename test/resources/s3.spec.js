@@ -11,7 +11,6 @@ chai.config.truncateThreshold = 0
 chai.should()
 var should = require('chai').should()
 
-// const _ = require('lodash')
 const wk = require(path.join(__dirname, '..', '..', 'index'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })

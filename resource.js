@@ -10,10 +10,12 @@ const Policy = require('./policy').Policy
 /** @module Core */
 
 /**
+ * A CloudFormation Resource, mapping to those defined at http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html.
  * @memberof module:Core
  * @property {String} WKName
  */
 class WKResource {
+  /** @constructs WKResource */
   constructor (name, resourceType, properties, propertiesObject, conditional) {
     this.WKName = name
     this.WKResourceType = resourceType
@@ -57,9 +59,18 @@ class WKResource {
       }
     }
   }
+
+  /**
+   * Adds a DependsOn dependency for another Resource
+   * @param resource
+   */
   dependsOn (resource) {
     this.dependsOn = resource
   }
+  /**
+   * Adds a Config block to the Metadata AWS::CloudFormation::Init block of an Instance
+   * @param config
+   */
   addConfig (config) {
     if(this instanceof require('./resources/ec2').Instance) {
       if(!this.Metadata) {
@@ -76,6 +87,11 @@ class WKResource {
       throw new TypeException('Not allowed to add ' + config + 'to ' + this.WKName + ' because it is not an Instance or LaunchConfiguration')
     }
   }
+
+  /**
+   * Adds a ConfigSet block to the Metadata AWS::CloudFormation::Init block of an Instance
+   * @param configSet
+   */
   addConfigSet (configSet) {
     if(this instanceof require('./resources/ec2').Instance) {
       if(!this.Metadata) {
@@ -92,6 +108,11 @@ class WKResource {
       throw new TypeException('Not allowed to add ' + configSet + 'to ' + this.WKName + ' because it is not an Instance or LaunchConfiguration')
     }
   }
+
+  /**
+   * Adds a CreationPolicy, UpdatePolicy, or DeletePolic
+   * @param policy
+   */
   addPolicy (policy) {
     if(!this.policies) {
       this.policies = {}
@@ -159,6 +180,7 @@ class WKResource {
 }
 
 /**
+ * A CloudFormation ResourceProperty, mapped to those listed at http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-product-property-reference.html
  * @memberof module:Core
  */
 class ResourceProperty {
@@ -182,6 +204,11 @@ class ResourceProperty {
       }
     }
   }
+
+  /**
+   * Performs validation and returns a pretty-printed JSON object.
+   * @returns {String}
+   */
   toJson() {
     let newProperties = JSON.parse(JSON.stringify(this.properties))
     for (let prop in newProperties) {
