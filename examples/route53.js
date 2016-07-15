@@ -1,7 +1,7 @@
 /**
  * Created by arming on 7/5/16.
  */
-'use strict';
+'use strict'
 
 const wk = require('../index')
 

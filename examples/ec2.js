@@ -1,7 +1,7 @@
 /**
  * Created by arming on 7/5/16.
  */
-'use strict';
+'use strict'
 
 const aws = require('aws-sdk')
 const EC2 = new aws.EC2({ region: 'us-east-1' })
@@ -15,7 +15,7 @@ ec2One.ImageId = 'ami-2a69aa47'
 t.addResource(ec2One)
 
 EC2.describeInstances({}, (err, data) => {
-  if(err) {
+  if (err) {
     console.log(err)
   } else {
     let instance = data.Reservations[0].Instances[0]

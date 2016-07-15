@@ -46,7 +46,7 @@ class ResourceAttribute {
     } else if (typeof value === 'number') {
       valueType = new Number(value)
     }
-    if (valueType instanceof this.Type) {
+    if (valueType instanceof this.Type || valueType instanceof Intrinsic) {
       this.val = value
     } else {
       throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)

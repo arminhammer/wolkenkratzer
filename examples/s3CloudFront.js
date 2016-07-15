@@ -20,18 +20,18 @@ let hostedZoneParam = new wk.Parameter('HostedZone', {
 t.addParameter(hostedZoneParam)
 
 let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
-    'us-east-1'      : { 'Suffix': '.s3-website-us-east-1.amazonaws.com' },
-    'us-west-1'      : { 'Suffix': '.s3-website-us-west-1.amazonaws.com' },
-    'us-west-2'      : { 'Suffix': '.s3-website-us-west-2.amazonaws.com' },
-    'eu-west-1'      : { 'Suffix': '.s3-website-eu-west-1.amazonaws.com' },
-    'ap-northeast-1' : { 'Suffix': '.s3-website-ap-northeast-1.amazonaws.com' },
-    'ap-northeast-2' : { 'Suffix': '.s3-website-ap-northeast-2.amazonaws.com' },
-    'ap-southeast-1' : { 'Suffix': '.s3-website-ap-southeast-1.amazonaws.com' },
-    'ap-southeast-2' : { 'Suffix': '.s3-website-ap-southeast-2.amazonaws.com' },
-    'sa-east-1'      : { 'Suffix': '.s3-website-sa-east-1.amazonaws.com' },
-    'cn-north-1'     : { 'Suffix': '.s3-website.cn-north-1.amazonaws.com.cn' },
-    'eu-central-1'   : { 'Suffix': '.s3-website-eu-central-1.amazonaws.com' }
-  }
+  'us-east-1': { 'Suffix': '.s3-website-us-east-1.amazonaws.com' },
+  'us-west-1': { 'Suffix': '.s3-website-us-west-1.amazonaws.com' },
+  'us-west-2': { 'Suffix': '.s3-website-us-west-2.amazonaws.com' },
+  'eu-west-1': { 'Suffix': '.s3-website-eu-west-1.amazonaws.com' },
+  'ap-northeast-1': { 'Suffix': '.s3-website-ap-northeast-1.amazonaws.com' },
+  'ap-northeast-2': { 'Suffix': '.s3-website-ap-northeast-2.amazonaws.com' },
+  'ap-southeast-1': { 'Suffix': '.s3-website-ap-southeast-1.amazonaws.com' },
+  'ap-southeast-2': { 'Suffix': '.s3-website-ap-southeast-2.amazonaws.com' },
+  'sa-east-1': { 'Suffix': '.s3-website-sa-east-1.amazonaws.com' },
+  'cn-north-1': { 'Suffix': '.s3-website.cn-north-1.amazonaws.com.cn' },
+  'eu-central-1': { 'Suffix': '.s3-website-eu-central-1.amazonaws.com' }
+}
 )
 
 t.addMapping(region2S3WebsiteSuffixMap)
@@ -49,9 +49,9 @@ let websiteDNSName = new wk.Route53.RecordSet('WebsiteDNSName')
 websiteDNSName.Type = 'CNAME'
 websiteDNSName.TTL = '900'
 websiteDNSName.Comment = 'CNAME redirect custom name to CloudFront distribution'
-websiteDNSName.Name.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam)])
-websiteDNSName.ResourceRecords.join('', ['http://', new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName') ])
-websiteDNSName.HostedZoneName.join('', [ new Ref(hostedZoneParam), '.'] )
+websiteDNSName.Name.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ])
+websiteDNSName.ResourceRecords.join('', [ 'http://', new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName') ])
+websiteDNSName.HostedZoneName.join('', [ new Ref(hostedZoneParam), '.' ])
 t.addResource(websiteDNSName)
 
 let websiteCDN = new wk.CloudFront.Distribution('WebsiteCDN')
@@ -76,7 +76,7 @@ defaultCacheBehavior.ViewerProtocolPolicy = 'allow-all'
 
 let distConfig = new wk.Types.CloudFrontDistributionConfig()
 distConfig.Comment = 'CDN for S3-backed website'
-distConfig.Aliases.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam)])
+distConfig.Aliases.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ])
 
 distConfig.Origins.push(distConfigOrigin)
 distConfig.Enabled = true
@@ -88,13 +88,13 @@ websiteCDN.DistributionConfig = distConfig
 t.addResource(websiteCDN)
 
 t.addOutput(new wk.Output('WebsiteURL', {
-  'Value' : new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
-  'Description' : 'The URL of the newly created website'
+  'Value': new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
+  'Description': 'The URL of the newly created website'
 }))
 
 t.addOutput(new wk.Output('BucketName', {
-  'Value' : new Ref(s3BucketForWebsiteContent),
-  'Description' : 'Name of S3 bucket to hold website content'
+  'Value': new Ref(s3BucketForWebsiteContent),
+  'Description': 'Name of S3 bucket to hold website content'
 }))
 
 console.log(t.toJson())
