@@ -151,7 +151,7 @@ Intrinsic functions such as Ref and Fn::GetAtt are supported. Any resource can a
 intrinsic function:
 
 ```javascript
-const wk = require('../index')
+const wk = require('wolkenkratzer')
 const Ref = wk.Intrinsic.Ref
 
 let t = new wk.Template()
@@ -172,7 +172,7 @@ Intrinsic functions are available from wk.Instrinsic.*.
 Convenience methods are available for Resources. For example, you can call .ref():
 
 ```javascript
-const wk = require('../index')
+const wk = require('wolkenkratzer')
 
 let t = new wk.Template()
 
