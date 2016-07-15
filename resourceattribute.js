@@ -13,13 +13,30 @@ const RequiredPropertyException = require('./exceptions').RequiredPropertyExcept
 const TypeException = require('./exceptions').TypeException
 const ResourceProperty = require('./resource').ResourceProperty
 
+/** @module Core */
+
+/**
+ * @memberof module:Core
+ */
 class ResourceAttribute {
+  /**
+   * @constructs ResourceAttribute
+   * @param name
+   * @param type
+   * @param required
+   * @param value
+   */
   constructor (name, type, required, value) {
     this.WKName = name
     this.Type = type
     this.required = required
     this.val = value
   }
+
+  /**
+   * Set the value of the attribute
+   * @param value
+   */
   set (value) {
     let valueType = value
     if (typeof value === 'string') {
@@ -35,22 +52,61 @@ class ResourceAttribute {
       throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)
     }
   }
+
+  /**
+   * Get the value of the attribute
+   * @returns {FnGetAtt|module:Core.FnGetAtt|FnFindInMap|*|Ref|FnJoin}
+   */
   get () { return this.val }
+
+  /**
+   * Add an Fn Ref intrinsic function to link another resource to the attribute
+   * @param resource
+   */
   ref (resource) {
     this.val = new Ref(resource)
   }
+
+  /**
+   * Add an Fn GetAtt intrinsic function to link the attribute of another resource to the attribute
+   * @param resource
+   * @param attribute
+   */
   getAtt (resource, attribute) {
     this.val = new FnGetAtt(resource, attribute)
   }
+
+  /**
+   * Add a Fn FindInMap intrinsic function to set the value of the attribute
+   * @param map
+   * @param top
+   * @param second
+   */
   findInMap (map, top, second) {
     this.val = new FnFindInMap(map, top, second)
   }
+
+  /**
+   * Add an Fn Join intrinsic function to set the value of the attribute
+   * @param delimiter
+   * @param values
+   */
   join (delimiter, values) {
     this.val = new FnJoin(delimiter, values)
   }
+
+  /**
+   * Add an Fn Base64 intrinsic function to set the value of the attribute
+   * @param content
+   */
   base64 (content) {
     this.val = new FnBase64(content)
   }
+
+  /**
+   * Get a JSON representation of the attribute
+   * @returns {*}
+   */
   toJson () {
     if (this.val !== null) {
       if (this.val instanceof Intrinsic) {
@@ -65,7 +121,14 @@ class ResourceAttribute {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class ResourceAttributeArray extends ResourceAttribute {
+  /**
+   * Set the value of the attribute
+   * @param value
+   */
   set (value) {
     if (!Array.isArray(value)) {
       throw new TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type)
@@ -85,12 +148,22 @@ class ResourceAttributeArray extends ResourceAttribute {
       this.val = value
     }
   }
+  /**
+   * Add an Fn Join intrinsic function to set the value of the attribute
+   * @param delimiter
+   * @param values
+   */
   join (delimiter, values) {
     if (!this.val) {
       this.val = []
     }
     this.val.push(new FnJoin(delimiter, values))
   }
+
+  /**
+   * Add a value to the attribute array
+   * @param val
+   */
   push (val) {
     let valueType = val
     if (typeof val === 'string') {
@@ -109,6 +182,10 @@ class ResourceAttributeArray extends ResourceAttribute {
       throw new TypeException(val + ' is the wrong type, was expecting ' + this.Type)
     }
   }
+  /**
+   * Get a JSON representation of the attribute
+   * @returns {*}
+   */
   toJson () {
     if (this.val !== null) {
       if (this.Type.prototype instanceof ResourceProperty) {

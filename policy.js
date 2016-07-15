@@ -5,7 +5,16 @@
 
 const TypeException = require('./exceptions').TypeException
 
+/** @module Core */
+
+/**
+ * @memberof module:Core
+ */
 class Policy {
+  /**
+   * @constructs Policy
+   * @param name
+   */
   constructor (name) {
     this.WKName = name
   }
@@ -16,7 +25,14 @@ class Policy {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class CreationPolicy extends Policy {
+  /**
+   * @constructs CreationPolicy
+   * @param name
+   */
   constructor(parameters) {
     super('CreationPolicy')
     if(parameters) {
@@ -26,7 +42,14 @@ class CreationPolicy extends Policy {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class DeletionPolicy extends Policy {
+  /**
+   * @constructs DeletionPolicy
+   * @param Type
+   */
   constructor(Type) {
     super('DeletionPolicy')
     if(Type === 'Delete' || Type === 'Retain' || Type === 'Snapshot') {
@@ -37,7 +60,14 @@ class DeletionPolicy extends Policy {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class UpdatePolicy extends Policy {
+  /**
+   * @constructs UpdatePolicy
+   * @param parameters
+   */
   constructor(parameters) {
     super('UpdatePolicy')
   }

@@ -3,15 +3,26 @@
  */
 'use strict'
 
+/** @module Core */
+
+/**
+ * @memberof module:Core
+ */
 class Exception {
   constructor (message) {
     this.message = message
   }
+  /**
+   * Returns a JSON string
+   */
   toJson () {
     return this.message
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class ValueException extends Exception {
   constructor (message) {
     super(message)
@@ -19,18 +30,19 @@ class ValueException extends Exception {
   }
 }
 
-function RequiredPropertyException (message) {
-  this.message = message
-  this.name = 'RequiredPropertyException'
-}
-
-/* class RequiredPropertyException extends Exception {
+/**
+ * @memberof module:Core
+ */
+class RequiredPropertyException extends Exception {
   constructor(message) {
     super(message)
     this.name = 'RequiredPropertyException'
   }
-}*/
+}
 
+/**
+ * @memberof module:Core
+ */
 class TypeException extends Exception {
   constructor (message) {
     super(message)
@@ -38,6 +50,9 @@ class TypeException extends Exception {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class ConditionNotMetException extends Exception {
   constructor (message) {
     super(message)

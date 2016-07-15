@@ -3,7 +3,17 @@
  */
 'use strict'
 
+/** @module Core */
+
+/**
+ * @memberof module:Core
+ */
 class Parameter {
+  /**
+   * @constructs Parameter
+   * @param name
+   * @param parameter
+   */
   constructor (name, parameter) {
     this.WKName = name
     this.Type = parameter.Type
@@ -18,6 +28,10 @@ class Parameter {
     this.MinValue = parameter.MinValue
     this.NoEcho = parameter.NoEcho
   }
+
+  /**
+   * Provides a JSON version of the Parameter
+   */
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
     delete p.WKName

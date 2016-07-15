@@ -64,11 +64,6 @@ const SSM = require(path.join(__dirname, 'resources/ssm'))
 const WAF = require(path.join(__dirname, 'resources/waf'))
 const WorkSpaces = require(path.join(__dirname, 'resources/workspaces'))
 
-// constants for DeletionPolicy
-/* const Delete = 'Delete'
-const Retain = 'Retain'
-const Snapshot = 'Snapshot'*/
-
 // Pseudo Parameters
 const Pseudo = {
   AWS_ACCOUNT_ID: 'AWS::AccountId',

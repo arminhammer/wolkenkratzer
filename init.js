@@ -5,10 +5,23 @@
 'use strict'
 const TypeException = require('./exceptions').TypeException
 
+/** @module Core */
+
+/**
+ * @memberof module:Core
+ */
 class Block {
+  /**
+   * @constructs Block
+   * @param name
+   */
   constructor (name) {
     this.WKName = name
   }
+
+  /**
+   * Returns a JSON string version
+   */
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
     delete p.WKName
@@ -16,7 +29,14 @@ class Block {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class Command extends Block {
+  /**
+   * @constructs Command
+   * @param name
+   */
   constructor (name, parameter) {
     super(name)
     if (parameter) {
@@ -30,7 +50,14 @@ class Command extends Block {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class File extends Block {
+  /**
+   * @constructs File
+   * @param name
+   */
   constructor (name, parameter) {
     super(name)
     if (parameter) {
@@ -46,17 +73,36 @@ class File extends Block {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class Packages extends Block {
+  /**
+   * @constructs Packages
+   * @param name
+   */
   constructor (name, body) {
     super(name)
     this.body = body
   }
+
+  /**
+   * Returns a JSON string version
+   * @returns {*}
+   */
   toJson () {
     return this.body
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class Service extends Block {
+  /**
+   * @constructs Service
+   * @param name
+   */
   constructor (name, parameter) {
     super(name)
     if (parameter) {
@@ -70,17 +116,36 @@ class Service extends Block {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class Source extends Block {
+  /**
+   * @constructs Source
+   * @param name
+   */
   constructor (name, body) {
     super(name)
     this.body = body
   }
+
+  /**
+   * Returns a JSON string version
+   * @returns {*}
+   */
   toJson () {
     return this.body
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class Config {
+  /**
+   * @constructs Config
+   * @param name
+   */
   constructor (name) {
     this.WKName = name
     this.commands = {}
@@ -91,6 +156,11 @@ class Config {
     }
     this.sources = {}
   }
+
+  /**
+   *
+   * @param block
+   */
   add (block) {
     if (block instanceof Command) {
       this.commands[block.WKName] = block
@@ -106,6 +176,10 @@ class Config {
       throw new TypeException(block.WKName + ' is not a proper type for ConfigSet ' + this.Name)
     }
   }
+
+  /**
+   * Returns a JSON string version
+   */
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
     delete p.WKName
@@ -132,14 +206,30 @@ class Config {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class ConfigSet {
+  /**
+   * @constructs ConfigSet
+   * @param name
+   */
   constructor (name) {
     this.WKName = name
     this.configs = []
   }
+
+  /**
+   *
+   * @param config
+   */
   add (config) {
     this.configs.push(config.WKName)
   }
+
+  /**
+   * Returns a JSON string version
+   */
   toJson () {
     let p = JSON.parse(JSON.stringify(this))
     delete p.WKName

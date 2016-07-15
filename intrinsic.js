@@ -6,15 +6,35 @@
 const WKResource = require('./resource').WKResource
 const Parameter = require('./parameter').Parameter
 
+/** @module Core */
+
+/**
+ * @memberof module:Core
+ */
 class Intrinsic {
+  /**
+   * Returns a JSON Object
+   */
   toJson () {}
 }
 
+/**
+ * @memberof module:Core
+ */
 class Ref extends Intrinsic {
+  /**
+   * @constructs Ref
+   * @param resource
+   */
   constructor (resource) {
     super()
     this.ref = resource
   }
+
+  /**
+   * Returns a JSON string version
+   * @returns {Object}
+   */
   toJson () {
     return { 'Ref': this.ref.WKName }
   }
@@ -27,12 +47,25 @@ class Ref extends Intrinsic {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class FnGetAtt extends Intrinsic {
+  /**
+   * @constructs FnGetAtt
+   * @param resource
+   * @param attribute
+   */
   constructor (resource, attribute) {
     super()
     this.resource = resource
     this.attribute = attribute
   }
+
+  /**
+   * Returns a JSON string version
+   * @returns {Object}
+   */
   toJson () {
     return { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
   }
@@ -45,11 +78,23 @@ class FnGetAtt extends Intrinsic {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class FnBase64 extends Intrinsic {
+  /**
+   * @constructs FnBase64
+   * @param content
+   */
   constructor (content) {
     super()
     this.content = content
   }
+
+  /**
+   * Returns a JSON string version
+   * @returns {Object}
+   */
   toJson () {
     return { 'Fn::Base64': this.content }
   }
@@ -58,13 +103,27 @@ class FnBase64 extends Intrinsic {
   }
 }
 
+/**
+ * @memberof module:Core
+ */
 class FnFindInMap extends Intrinsic {
+  /**
+   * @constructs FnFindInMap
+   * @param mapName
+   * @param topLevelKey
+   * @param secondLevelKey
+   */
   constructor (mapName, topLevelKey, secondLevelKey) {
     super()
     this.mapName = mapName
     this.topLevelKey = topLevelKey
     this.secondLevelKey = secondLevelKey
   }
+
+  /**
+   * Returns a JSON string version
+   * @returns {Object}
+   */
   toJson () {
     return { 'Fn::FindInMap': [ this.mapName, this.topLevelKey, this.secondLevelKey ] }
   }
@@ -81,12 +140,25 @@ class FnFindInMap extends Intrinsic {
  toJson () {}
  }*/
 
+/**
+ * @memberof module:Core
+ */
 class FnJoin extends Intrinsic {
+  /**
+   * @constructs FnJoin
+   * @param delimiter
+   * @param values
+   */
   constructor (delimiter, values) {
     super()
     this.delimiter = delimiter
     this.values = values
   }
+
+  /**
+   * Returns a JSON string version
+   * @returns {Object}
+   */
   toJson () {
     return { 'Fn::Join': [ this.delimiter, this.values ] }
   }

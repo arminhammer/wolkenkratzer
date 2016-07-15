@@ -6,11 +6,22 @@
 const Intrinsic = require('./intrinsic').Intrinsic
 const TypeException = require('./exceptions').TypeException
 
+/** @module Core */
+
+/**
+ * @memberof module:Core
+ */
 class Tag {
+  /** @constructs WKResource */
   constructor (key, value) {
     this.Key = key
     this.Value = value
   }
+
+  /**
+   * Returns a JSON representation of the Tag
+   * @returns {{Key: module:KMS.Key, Value: *}}
+   */
   toJson () {
     let value = this.Value
     if (value instanceof Intrinsic) {
@@ -21,9 +32,10 @@ class Tag {
 }
 
 /**
- *
+ * @memberof module:Core
  */
 class TagSet {
+  /** @constructs WKResource */
   constructor () {
     this.tags = {}
   }
@@ -57,9 +69,19 @@ class TagSet {
       }
     }
   }
+
+  /**
+   * Removes a Tag object from the TagSet
+   * @param tag
+   */
   remove (tag) {
     delete this.tags(tag)
   }
+
+  /**
+   * Returns a JSON representation of the TagSet
+   * @returns {Array}
+   */
   toJson () {
     if (Object.keys(this.tags).length > 0) {
       let tagArray = []
