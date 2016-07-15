@@ -43,8 +43,11 @@
 
 
     <section>
-        <article><h1>wolkenkratzer</h1><p>Wolkenkratzer is a Javascript library that helps you programmatically generate CloudFormation templates. The scope of the project is similar to the Python library https://github.com/cloudtools/troposphere.</p>
+        <article><h1>wolkenkratzer</h1><p>Wolkenkratzer is a Javascript library that helps you programmatically generate CloudFormation templates. The scope of the project is similar 
+to the Python library https://github.com/cloudtools/troposphere.</p>
 <h2>Installation</h2><p>  <code>$ npm install wolkenkratzer</code></p>
+<p>  It can then be used in any nodejs script with</p>
+<p>  <code>javascript const wk = require('wolkenkratzer')</code></p>
 <h2>Usage</h2><p>Full documentation for the project can be found at https://arminhammer.github.io/wolkenkratzer/.</p>
 <h3>General</h3><p>The core class is Template, which is instantiated with <code>new wolkenkratzer.Template()</code>. Parameters can be added with the <code>addParameter()</code> method,
 and Resources can be added with <code>addParameter</code>. The final template can be retrieved with Template.toJson().</p>
@@ -77,19 +80,9 @@ console.log(t.toJson())</code></pre><p>This results in the template:</p>
     }
   },
   &quot;AWSTemplateFormatVersion&quot;: &quot;2010-09-09&quot;
-}</code></pre><h3>Template class</h3><h4>constructor</h4><p>Template has a no-argument constructor:</p>
-<p><code>javascript let t = new wolkenkratzer.Template()</code></p>
-<h4>addDescription (description)</h4><p>Add a description to the template.</p>
-<h4>addMetadata (metadata)</h4><p>Add a Metadata block to the template.</p>
-<h4>addCondition (name, condition)</h4><p>Add a condition with a name to the template.</p>
-<h4>addOutput (output)</h4><p>Add an output to the template.</p>
-<h4>addMapping (name, mapping)</h4><p>Add a mapping with a name to the template.</p>
-<h4>addParameter (parameter)</h4><p>Add a parameter to the template.</p>
-<h4>addResource (resource)</h4><p>Add a resource to the template.</p>
-<h4>toJson()</h4><p>Returns a JSON CloudFormation template.</p>
-<h3>Resources</h3><h4>constructor (name, properties)</h4><p>Resources must be created with a name parameter, which will be the CloudFormation logical id for the resource:</p>
-<pre class="prettyprint source lang-javascript"><code>let ec2One = new wk.EC2.Instance('ec2One')</code></pre><p>Once you create the resource, you can set the attributes using setters. Although you can use the = operator to set new values, wolkenkratzer overrides
-the setters and does typechecking for you.</p>
+}</code></pre><h3>Resources</h3><h4>constructor (name, properties)</h4><p>Resources must be created with a string name parameter, which will be the CloudFormation logical id for the resource:</p>
+<pre class="prettyprint source lang-javascript"><code>let ec2One = new wk.EC2.Instance('ec2One')</code></pre><p>Once you create the resource, you can set the attributes using setters. Although you can use the = operator to set new values, wolkenkratzer
+ overrides the setters and does typechecking for you.</p>
 <pre class="prettyprint source lang-javascript"><code>ec2One.ImageId = 'ami-2a69aa47'</code></pre><p>You can use the second parameter in case you want to create the resource with a JSON block, instead of setting the attributes one at a time.</p>
 <p>An example of creating a resource with one argument (ec2One), and another (ec2Two) with a JSON object:</p>
 <pre class="prettyprint source lang-javascript"><code>'use strict';
@@ -114,158 +107,1611 @@ EC2.describeInstances({}, (err, data) => {
     t.addResource(ec2Two)
     console.log(t.toJson())
   }
-})</code></pre><h4>dependsOn (resource)</h4><h4>addConfig (config)</h4><h4>addConfigSet (configSet)</h4><h4>addPolicy (policy)</h4><h4>toJson ()</h4><h3>Intrinsic Functions</h3><p>Intrinsic functions such as Ref and Fn::GetAtt are supported. Any resource can associate with other elements by using the corresponding intrinsic function:</p>
-<pre class="prettyprint source lang-javascript"><code>natPubA.SubnetId.ref(publicSubnetPubA)
-natPubA.AllocationId.getAtt(eipPubA, 'AllocationId')</code></pre><p>A more complete example is</p>
-<pre class="prettyprint source lang-javascript"><code>'use strict'
+})</code></pre><p>Output:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;Resources&quot;: {
+    &quot;ec2One&quot;: {
+      &quot;Type&quot;: &quot;AWS::EC2::Instance&quot;,
+      &quot;Properties&quot;: {
+        &quot;ImageId&quot;: &quot;ami-2a69aa47&quot;
+      }
+    },
+    &quot;ec2Two&quot;: {
+      &quot;Type&quot;: &quot;AWS::EC2::Instance&quot;,
+      &quot;Properties&quot;: {
+        &quot;EbsOptimized&quot;: false,
+        &quot;ImageId&quot;: &quot;ami-466da12b&quot;,
+        &quot;InstanceType&quot;: &quot;t2.micro&quot;,
+        &quot;KeyName&quot;: &quot;arminkeypair&quot;,
+        &quot;PrivateIpAddress&quot;: &quot;172.31.0.119&quot;,
+        &quot;SecurityGroups&quot;: [
+          {
+            &quot;GroupName&quot;: &quot;awseb-e-qyaht32vin-stack-AWSEBSecurityGroup-1LXS554OCJIS3&quot;,
+            &quot;GroupId&quot;: &quot;sg-aba882d0&quot;
+          }
+        ],
+        &quot;SourceDestCheck&quot;: true,
+        &quot;SubnetId&quot;: &quot;subnet-bc1d57cb&quot;
+      }
+    }
+  },
+  &quot;AWSTemplateFormatVersion&quot;: &quot;2010-09-09&quot;
+}</code></pre><h4>Resource support</h4><p>Wolkenkratzer supports all CloudFormation resources. This is made possible by scripts that scrape the CloudFormation documentation pages 
+and generate the resource code files. The scrapers can be found in the /scripts folder.</p>
+<h3>Intrinsic Functions</h3><p>Intrinsic functions such as Ref and Fn::GetAtt are supported. Any resource can associate with other elements by using the corresponding 
+intrinsic function:</p>
+<pre class="prettyprint source lang-javascript"><code>const wk = require('../index')
+const Ref = wk.Intrinsic.Ref
+
+let t = new wk.Template()
+
+let bucketName = new wk.Parameter('BucketName', {
+  'Type': 'String'
+})
+
+let bucket = new wk.S3.Bucket('s3Bucket')
+bucket.BucketName = new Ref(bucketName)
+t.addResource(bucket)
+
+console.log(t.toJson())</code></pre><p>Intrinsic functions are available from wk.Instrinsic.*.</p>
+<p>Convenience methods are available for Resources. For example, you can call .ref():</p>
+<pre class="prettyprint source lang-javascript"><code>const wk = require('../index')
+
+let t = new wk.Template()
+
+let bucketName = new wk.Parameter('BucketName', {
+  'Type': 'String'
+})
+
+let bucket = new wk.S3.Bucket('s3Bucket')
+bucket.BucketName.ref(bucketName)
+t.addResource(bucket)
+
+console.log(t.toJson())</code></pre><h3>Parameters</h3><p>Parameters are available at wk.Parameters.</p>
+<h4>constructor</h4><p>Parameters take two parameters: the first parameter is the logical id of the Parameter, and the other is the object that represents
+the attributes of the Paramter:</p>
+<pre class="prettyprint source lang-javascript"><code>let t = new wk.Template()
+
+let hostedZoneParam = new wk.Parameter('HostedZone', {
+  'Type': 'String',
+  'Description': 'The DNS name of an existing Amazon Route 53 hosted zone',
+  'AllowedPattern': '(?!-)[a-zA-Z0-9-.]{1,63}(?&lt;!-)',
+  'ConstraintDescription': 'must be a valid DNS zone name.'
+})
+
+t.addParameter(hostedZoneParam)</code></pre><h3>Mappings</h3><p>Mappings are available at wk.Mapping.</p>
+<h4>constructor</h4><p>Mappings take two parameters: the first parameter is the logical id of the Mapping, and the other is the object that represents
+the attributes of the Mapping:</p>
+<pre class="prettyprint source lang-javascript"><code>let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
+  'us-east-1': { 'Suffix': '.s3-website-us-east-1.amazonaws.com' },
+  'us-west-1': { 'Suffix': '.s3-website-us-west-1.amazonaws.com' },
+  'us-west-2': { 'Suffix': '.s3-website-us-west-2.amazonaws.com' },
+  'eu-west-1': { 'Suffix': '.s3-website-eu-west-1.amazonaws.com' },
+  'ap-northeast-1': { 'Suffix': '.s3-website-ap-northeast-1.amazonaws.com' },
+  'ap-northeast-2': { 'Suffix': '.s3-website-ap-northeast-2.amazonaws.com' },
+  'ap-southeast-1': { 'Suffix': '.s3-website-ap-southeast-1.amazonaws.com' },
+  'ap-southeast-2': { 'Suffix': '.s3-website-ap-southeast-2.amazonaws.com' },
+  'sa-east-1': { 'Suffix': '.s3-website-sa-east-1.amazonaws.com' },
+  'cn-north-1': { 'Suffix': '.s3-website.cn-north-1.amazonaws.com.cn' },
+  'eu-central-1': { 'Suffix': '.s3-website-eu-central-1.amazonaws.com' }
+  }
+)
+
+t.addMapping(region2S3WebsiteSuffixMap)</code></pre><h3>Output</h3><p>Outputs are available at wk.Output.</p>
+<h4>constructor</h4><p>Output take two parameters: the first parameter is the logical id of the Output, and the other is the object that represents
+the attributes of the Mapping:</p>
+<pre class="prettyprint source lang-javascript"><code>t.addOutput(new wk.Output('WebsiteURL', {
+  'Value': new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
+  'Description': 'The URL of the newly created website'
+}))</code></pre><h3>Examples</h3><p>More examples can be found in the /examples folder.</p>
+<h4>S3 CloudFront template example</h4><pre class="prettyprint source lang-javascript"><code>/**
+ * Created by arming on 7/6/16.
+ */
+'use strict'
+
+const wk = require('wolkenkratzer')
+const Ref = wk.Intrinsic.Ref
+
+let t = new wk.Template()
+
+t.addDescription('AWS CloudFormation Sample Template S3_Website_With_CloudFront_Distribution: Sample template showing how to create a website with a custom DNS name, hosted on Amazon S3 and served via Amazone CloudFront. It assumes you already have a Hosted Zone registered with Amazon Route 53. **WARNING** This template creates an Amazon Route 53 DNS record, an S3 bucket and a CloudFront distribution. You will be billed for the AWS resources used if you create a stack from this template.')
+
+let hostedZoneParam = new wk.Parameter('HostedZone', {
+  'Type': 'String',
+  'Description': 'The DNS name of an existing Amazon Route 53 hosted zone',
+  'AllowedPattern': '(?!-)[a-zA-Z0-9-.]{1,63}(?&lt;!-)',
+  'ConstraintDescription': 'must be a valid DNS zone name.'
+})
+
+t.addParameter(hostedZoneParam)
+
+let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
+  'us-east-1': { 'Suffix': '.s3-website-us-east-1.amazonaws.com' },
+  'us-west-1': { 'Suffix': '.s3-website-us-west-1.amazonaws.com' },
+  'us-west-2': { 'Suffix': '.s3-website-us-west-2.amazonaws.com' },
+  'eu-west-1': { 'Suffix': '.s3-website-eu-west-1.amazonaws.com' },
+  'ap-northeast-1': { 'Suffix': '.s3-website-ap-northeast-1.amazonaws.com' },
+  'ap-northeast-2': { 'Suffix': '.s3-website-ap-northeast-2.amazonaws.com' },
+  'ap-southeast-1': { 'Suffix': '.s3-website-ap-southeast-1.amazonaws.com' },
+  'ap-southeast-2': { 'Suffix': '.s3-website-ap-southeast-2.amazonaws.com' },
+  'sa-east-1': { 'Suffix': '.s3-website-sa-east-1.amazonaws.com' },
+  'cn-north-1': { 'Suffix': '.s3-website.cn-north-1.amazonaws.com.cn' },
+  'eu-central-1': { 'Suffix': '.s3-website-eu-central-1.amazonaws.com' }
+}
+)
+
+t.addMapping(region2S3WebsiteSuffixMap)
+
+let s3BucketForWebsiteContent = new wk.S3.Bucket('S3BucketForWebsiteContent')
+s3BucketForWebsiteContent.AccessControl = 'PublicRead'
+let webConfig = new wk.Types.AmazonS3WebsiteConfigurationProperty()
+webConfig.IndexDocument = 'index.html'
+webConfig.ErrorDocument = 'error.html'
+s3BucketForWebsiteContent.WebsiteConfiguration = webConfig
+
+t.addResource(s3BucketForWebsiteContent)
+
+let websiteDNSName = new wk.Route53.RecordSet('WebsiteDNSName')
+websiteDNSName.Type = 'CNAME'
+websiteDNSName.TTL = '900'
+websiteDNSName.Comment = 'CNAME redirect custom name to CloudFront distribution'
+websiteDNSName.Name.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ])
+websiteDNSName.ResourceRecords.join('', [ 'http://', new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName') ])
+websiteDNSName.HostedZoneName.join('', [ new Ref(hostedZoneParam), '.' ])
+t.addResource(websiteDNSName)
+
+let websiteCDN = new wk.CloudFront.Distribution('WebsiteCDN')
+
+let distConfigOrigin = new wk.Types.CloudFrontDistributionConfigOrigin()
+distConfigOrigin.DomainName.join('', [ new Ref(s3BucketForWebsiteContent),
+  new wk.Intrinsic.FnFindInMap('Region2S3WebsiteSuffix', new Ref(wk.Pseudo.AWS_REGION), 'Suffix') ])
+distConfigOrigin.Id = 'only-origin'
+let customOriginConfig = new wk.Types.CloudFrontDistributionConfigOriginCustomOrigin()
+customOriginConfig.HTTPPort = '80'
+customOriginConfig.HTTPSPort = '443'
+customOriginConfig.OriginProtocolPolicy = 'http-only'
+distConfigOrigin.CustomOriginConfig = customOriginConfig
+
+let forwardedValues = new wk.Types.CloudFrontForwardedValues()
+forwardedValues.QueryString = true
+
+let defaultCacheBehavior = new wk.Types.CloudFrontDefaultCacheBehavior()
+defaultCacheBehavior.ForwardedValues = forwardedValues
+defaultCacheBehavior.TargetOriginId = 'only-origin'
+defaultCacheBehavior.ViewerProtocolPolicy = 'allow-all'
+
+let distConfig = new wk.Types.CloudFrontDistributionConfig()
+distConfig.Comment = 'CDN for S3-backed website'
+distConfig.Aliases.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ])
+
+distConfig.Origins.push(distConfigOrigin)
+distConfig.Enabled = true
+distConfig.DefaultRootObject = 'index.html'
+distConfig.DefaultCacheBehavior = defaultCacheBehavior
+
+websiteCDN.DistributionConfig = distConfig
+
+t.addResource(websiteCDN)
+
+t.addOutput(new wk.Output('WebsiteURL', {
+  'Value': new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
+  'Description': 'The URL of the newly created website'
+}))
+
+t.addOutput(new wk.Output('BucketName', {
+  'Value': new Ref(s3BucketForWebsiteContent),
+  'Description': 'Name of S3 bucket to hold website content'
+}))
+
+console.log(t.toJson())</code></pre><p>Output:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;Description&quot;: &quot;AWS CloudFormation Sample Template S3_Website_With_CloudFront_Distribution: Sample template showing how to create a website with a custom DNS name, hosted on Amazon S3 and served via Amazone CloudFront. It assumes you already have a Hosted Zone registered with Amazon Route 53. **WARNING** This template creates an Amazon Route 53 DNS record, an S3 bucket and a CloudFront distribution. You will be billed for the AWS resources used if you create a stack from this template.&quot;,
+  &quot;Mappings&quot;: {
+    &quot;Region2S3WebsiteSuffix&quot;: {
+      &quot;us-east-1&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website-us-east-1.amazonaws.com&quot;
+      },
+      &quot;us-west-1&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website-us-west-1.amazonaws.com&quot;
+      },
+      &quot;us-west-2&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website-us-west-2.amazonaws.com&quot;
+      },
+      &quot;eu-west-1&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website-eu-west-1.amazonaws.com&quot;
+      },
+      &quot;ap-northeast-1&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website-ap-northeast-1.amazonaws.com&quot;
+      },
+      &quot;ap-northeast-2&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website-ap-northeast-2.amazonaws.com&quot;
+      },
+      &quot;ap-southeast-1&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website-ap-southeast-1.amazonaws.com&quot;
+      },
+      &quot;ap-southeast-2&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website-ap-southeast-2.amazonaws.com&quot;
+      },
+      &quot;sa-east-1&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website-sa-east-1.amazonaws.com&quot;
+      },
+      &quot;cn-north-1&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website.cn-north-1.amazonaws.com.cn&quot;
+      },
+      &quot;eu-central-1&quot;: {
+        &quot;Suffix&quot;: &quot;.s3-website-eu-central-1.amazonaws.com&quot;
+      }
+    }
+  },
+  &quot;Outputs&quot;: {
+    &quot;WebsiteURL&quot;: {
+      &quot;Description&quot;: &quot;The URL of the newly created website&quot;,
+      &quot;Value&quot;: {
+        &quot;Fn::Join&quot;: [
+          &quot;&quot;,
+          [
+            &quot;http://&quot;,
+            {
+              &quot;Ref&quot;: &quot;WebsiteDNSName&quot;
+            }
+          ]
+        ]
+      }
+    },
+    &quot;BucketName&quot;: {
+      &quot;Description&quot;: &quot;Name of S3 bucket to hold website content&quot;,
+      &quot;Value&quot;: {
+        &quot;Ref&quot;: &quot;S3BucketForWebsiteContent&quot;
+      }
+    }
+  },
+  &quot;Parameters&quot;: {
+    &quot;HostedZone&quot;: {
+      &quot;Type&quot;: &quot;String&quot;,
+      &quot;AllowedPattern&quot;: &quot;(?!-)[a-zA-Z0-9-.]{1,63}(?&lt;!-)&quot;,
+      &quot;ConstraintDescription&quot;: &quot;must be a valid DNS zone name.&quot;,
+      &quot;Description&quot;: &quot;The DNS name of an existing Amazon Route 53 hosted zone&quot;
+    }
+  },
+  &quot;Resources&quot;: {
+    &quot;S3BucketForWebsiteContent&quot;: {
+      &quot;Type&quot;: &quot;AWS::S3::Bucket&quot;,
+      &quot;Properties&quot;: {
+        &quot;AccessControl&quot;: &quot;PublicRead&quot;,
+        &quot;WebsiteConfiguration&quot;: {
+          &quot;ErrorDocument&quot;: &quot;error.html&quot;,
+          &quot;IndexDocument&quot;: &quot;index.html&quot;
+        }
+      }
+    },
+    &quot;WebsiteDNSName&quot;: {
+      &quot;Type&quot;: &quot;AWS::Route53::RecordSet&quot;,
+      &quot;Properties&quot;: {
+        &quot;Comment&quot;: &quot;CNAME redirect custom name to CloudFront distribution&quot;,
+        &quot;HostedZoneName&quot;: {
+          &quot;Fn::Join&quot;: [
+            &quot;&quot;,
+            [
+              {
+                &quot;Ref&quot;: &quot;HostedZone&quot;
+              },
+              &quot;.&quot;
+            ]
+          ]
+        },
+        &quot;Name&quot;: {
+          &quot;Fn::Join&quot;: [
+            &quot;&quot;,
+            [
+              {
+                &quot;Ref&quot;: &quot;AWS::StackName&quot;
+              },
+              {
+                &quot;Ref&quot;: &quot;AWS::AccountId&quot;
+              },
+              &quot;.&quot;,
+              {
+                &quot;Ref&quot;: &quot;AWS::Region&quot;
+              },
+              &quot;.&quot;,
+              {
+                &quot;Ref&quot;: &quot;HostedZone&quot;
+              }
+            ]
+          ]
+        },
+        &quot;ResourceRecords&quot;: [
+          {
+            &quot;Fn::Join&quot;: [
+              &quot;&quot;,
+              [
+                &quot;http://&quot;,
+                {
+                  &quot;Fn::GetAtt&quot;: [
+                    &quot;WebsiteCDN&quot;,
+                    &quot;DomainName&quot;
+                  ]
+                }
+              ]
+            ]
+          }
+        ],
+        &quot;TTL&quot;: &quot;900&quot;,
+        &quot;Type&quot;: &quot;CNAME&quot;
+      }
+    },
+    &quot;WebsiteCDN&quot;: {
+      &quot;Type&quot;: &quot;AWS::CloudFront::Distribution&quot;,
+      &quot;Properties&quot;: {
+        &quot;DistributionConfig&quot;: {
+          &quot;Aliases&quot;: [
+            {
+              &quot;Fn::Join&quot;: [
+                &quot;&quot;,
+                [
+                  {
+                    &quot;Ref&quot;: &quot;AWS::StackName&quot;
+                  },
+                  {
+                    &quot;Ref&quot;: &quot;AWS::AccountId&quot;
+                  },
+                  &quot;.&quot;,
+                  {
+                    &quot;Ref&quot;: &quot;AWS::Region&quot;
+                  },
+                  &quot;.&quot;,
+                  {
+                    &quot;Ref&quot;: &quot;HostedZone&quot;
+                  }
+                ]
+              ]
+            }
+          ],
+          &quot;Comment&quot;: &quot;CDN for S3-backed website&quot;,
+          &quot;DefaultCacheBehavior&quot;: {
+            &quot;ForwardedValues&quot;: {
+              &quot;QueryString&quot;: true
+            },
+            &quot;TargetOriginId&quot;: &quot;only-origin&quot;,
+            &quot;ViewerProtocolPolicy&quot;: &quot;allow-all&quot;
+          },
+          &quot;DefaultRootObject&quot;: &quot;index.html&quot;,
+          &quot;Enabled&quot;: true,
+          &quot;Origins&quot;: [
+            {
+              &quot;CustomOriginConfig&quot;: {
+                &quot;HTTPPort&quot;: &quot;80&quot;,
+                &quot;HTTPSPort&quot;: &quot;443&quot;,
+                &quot;OriginProtocolPolicy&quot;: &quot;http-only&quot;
+              },
+              &quot;DomainName&quot;: {
+                &quot;Fn::Join&quot;: [
+                  &quot;&quot;,
+                  [
+                    {
+                      &quot;Ref&quot;: &quot;S3BucketForWebsiteContent&quot;
+                    },
+                    {
+                      &quot;Fn::FindInMap&quot;: [
+                        &quot;Region2S3WebsiteSuffix&quot;,
+                        {
+                          &quot;Ref&quot;: &quot;AWS::Region&quot;
+                        },
+                        &quot;Suffix&quot;
+                      ]
+                    }
+                  ]
+                ]
+              },
+              &quot;Id&quot;: &quot;only-origin&quot;
+            }
+          ]
+        }
+      }
+    }
+  },
+  &quot;AWSTemplateFormatVersion&quot;: &quot;2010-09-09&quot;
+}</code></pre><h4>Wordpress single instance site</h4><pre class="prettyprint source lang-javascript"><code>'use strict'
 
 const wk = require('wolkenkratzer')
 
 let t = new wk.Template()
-let vpcCiderParam = new wk.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
-t.addParameter(vpcCiderParam)
-let publicSubnetPubACIDRParam = new wk.Parameter('PublicSubnetPubACIDR', { Type: 'String', Default: '10.0.0.0/24' })
-t.addParameter(publicSubnetPubACIDRParam)
-let publicSubnetPubBCIDRParam = new wk.Parameter('PublicSubnetPubBCIDR', { Type: 'String', Default: '10.0.1.0/24' })
-t.addParameter(publicSubnetPubBCIDRParam)
-let privateSubnetPrivCCIDRParam = new wk.Parameter('PrivateSubnetPrivCCIDR', { Type: 'String', Default: '10.0.2.0/24' })
-t.addParameter(privateSubnetPrivCCIDRParam)
-let privateSubnetPrivDCIDRParam = new wk.Parameter('PrivateSubnetPrivDCIDR', { Type: 'String', Default: '10.0.3.0/24' })
-t.addParameter(privateSubnetPrivDCIDRParam)
-let vPCTagParam = new wk.Parameter('VPCTag', { Type: 'String', Default: 'BaseVPC' })
-t.addParameter(vPCTagParam)
 
-let vpc = new wk.EC2.VPC('VPC')
-vpc.CidrBlock.ref(vpcCiderParam)
-vpc.InstanceTenancy = 'default'
-vpc.EnableDnsSupport = true
-vpc.EnableDnsHostnames = true
-vpc.Tags.add({ Key: 'Name', Value: 'BaseVPC' })
-vpc.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
-t.addResource(vpc)
+t.addDescription('AWS CloudFormation Sample Template WordPress_Single_Instance: WordPress is web software you can use to create a beautiful website or blog. This template installs WordPress with a local MySQL database for storage. It demonstrates using the AWS CloudFormation bootstrap scripts to deploy WordPress. **WARNING** This template creates an Amazon EC2 instance. You will be billed for the AWS resources used if you create a stack from this template.')
 
-let igw = new wk.EC2.InternetGateway('InternetGateway')
-igw.Tags.add({ Key: 'Name', Value: 'InternetGateway' })
-igw.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
-t.addResource(igw)
+let keyNameParam = new wk.Parameter('KeyName', {
+  'Type': 'AWS::EC2::KeyPair::KeyName',
+  'ConstraintDescription': 'must be the name of an existing EC2 KeyPair.',
+  'Description': 'Name of an existing EC2 KeyPair to enable SSH access to the instances'
+})
+t.addParameter(keyNameParam)
 
-let vpcgatewayatt = new wk.EC2.VPCGatewayAttachment('AttachInternetGateway')
-vpcgatewayatt.VpcId.ref(vpc)
-vpcgatewayatt.InternetGatewayId.ref(igw)
+let instanceTypeParam = new wk.Parameter('InstanceType', {
+  'Description': 'WebServer EC2 instance type',
+  'Type': 'String',
+  'Default': 't2.small',
+  'AllowedValues': [ 't1.micro', 't2.nano', 't2.micro', 't2.small', 't2.medium', 't2.large', 'm1.small', 'm1.medium', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge', 'm2.4xlarge', 'm3.medium', 'm3.large', 'm3.xlarge', 'm3.2xlarge', 'm4.large', 'm4.xlarge', 'm4.2xlarge', 'm4.4xlarge', 'm4.10xlarge', 'c1.medium', 'c1.xlarge', 'c3.large', 'c3.xlarge', 'c3.2xlarge', 'c3.4xlarge', 'c3.8xlarge', 'c4.large', 'c4.xlarge', 'c4.2xlarge', 'c4.4xlarge', 'c4.8xlarge', 'g2.2xlarge', 'g2.8xlarge', 'r3.large', 'r3.xlarge', 'r3.2xlarge', 'r3.4xlarge', 'r3.8xlarge', 'i2.xlarge', 'i2.2xlarge', 'i2.4xlarge', 'i2.8xlarge', 'd2.xlarge', 'd2.2xlarge', 'd2.4xlarge', 'd2.8xlarge', 'hi1.4xlarge', 'hs1.8xlarge', 'cr1.8xlarge', 'cc2.8xlarge', 'cg1.4xlarge' ],
+  'ConstraintDescription': 'must be a valid EC2 instance type.'
+})
+t.addParameter(instanceTypeParam)
 
-t.addResource(vpcgatewayatt)
+let sshLocationParam = new wk.Parameter('SSHLocation', {
+  'Description': 'The IP address range that can be used to SSH to the EC2 instances',
+  'Type': 'String',
+  'MinLength': '9',
+  'MaxLength': '18',
+  'Default': '0.0.0.0/0',
+  'AllowedPattern': '(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})',
+  'ConstraintDescription': 'must be a valid IP CIDR range of the form x.x.x.x/x.'
+})
+t.addParameter(sshLocationParam)
 
-let publicSubnetPubA = new wk.EC2.Subnet('PublicSubnetPubA')
-publicSubnetPubA.CidrBlock.ref(publicSubnetPubACIDRParam)
-publicSubnetPubA.VpcId.ref(vpc)
-publicSubnetPubA.MapPublicIpOnLaunch = true
-publicSubnetPubA.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubA' })
-publicSubnetPubA.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
-t.addResource(publicSubnetPubA)
+let dbNameParam = new wk.Parameter('DBName', {
+  'Default': 'wordpressdb',
+  'Description': 'The WordPress database name',
+  'Type': 'String',
+  'MinLength': '1',
+  'MaxLength': '64',
+  'AllowedPattern': '[a-zA-Z][a-zA-Z0-9]*',
+  'ConstraintDescription': 'must begin with a letter and contain only alphanumeric characters.'
+})
+t.addParameter(dbNameParam)
 
-let publicSubnetPubB = new wk.EC2.Subnet('PublicSubnetPubB')
-publicSubnetPubB.CidrBlock.ref(publicSubnetPubBCIDRParam)
-publicSubnetPubB.VpcId.ref(vpc)
-publicSubnetPubB.MapPublicIpOnLaunch = true
-publicSubnetPubB.Tags.add({ Key: 'Name', Value: 'PublicSubnetPubB' })
-publicSubnetPubB.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
-t.addResource(publicSubnetPubB)
+let dbUserParam = new wk.Parameter('DBUser', {
+  'NoEcho': 'true',
+  'Description': 'The WordPress database admin account username',
+  'Type': 'String',
+  'MinLength': '1',
+  'MaxLength': '16',
+  'AllowedPattern': '[a-zA-Z][a-zA-Z0-9]*',
+  'ConstraintDescription': 'must begin with a letter and contain only alphanumeric characters.'
+})
+t.addParameter(dbUserParam)
 
-let eipPubA = new wk.EC2.EIP('EIPPubA')
-eipPubA.Domain = 'vpc'
-t.addResource(eipPubA)
+let dbPasswordParam = new wk.Parameter('DBPassword', {
+  'NoEcho': 'true',
+  'Description': 'The WordPress database admin account password',
+  'Type': 'String',
+  'MinLength': '8',
+  'MaxLength': '41',
+  'AllowedPattern': '[a-zA-Z0-9]*',
+  'ConstraintDescription': 'must contain only alphanumeric characters.'
+})
+t.addParameter(dbPasswordParam)
 
-let natPubA = new wk.EC2.NatGateway('NATPubA')
-natPubA.SubnetId.ref(publicSubnetPubA)
-natPubA.AllocationId.getAtt(eipPubA, 'AllocationId')
-natPubA.dependsOn(igw)
-t.addResource(natPubA)
+let dbRootPasswordParam = new wk.Parameter('DBRootPassword', {
+  'NoEcho': 'true',
+  'Description': 'MySQL root password',
+  'Type': 'String',
+  'MinLength': '8',
+  'MaxLength': '41',
+  'AllowedPattern': '[a-zA-Z0-9]*',
+  'ConstraintDescription': 'must contain only alphanumeric characters.'
+})
+t.addParameter(dbRootPasswordParam)
 
-let eipPubB = new wk.EC2.EIP('EIPPubB')
-eipPubB.Domain = 'vpc'
-t.addResource(eipPubB)
+let webServerSecurityGroup = new wk.EC2.SecurityGroup('WebServerSecurityGroup')
+t.addResource(webServerSecurityGroup)
+webServerSecurityGroup.GroupDescription = 'Enable HTTP access via port 80 locked down to the load balancer + SSH access'
 
-let natPubB = new wk.EC2.NatGateway('NATPubB')
-natPubB.SubnetId.ref(publicSubnetPubB)
-natPubB.AllocationId.getAtt(eipPubB, 'AllocationId')
-natPubB.dependsOn(igw)
-t.addResource(natPubB)
+let rule1 = new wk.Types.EC2SecurityGroupRulePropertyType({'IpProtocol': 'tcp', 'FromPort': 80, 'ToPort': 80, 'CidrIp': '0.0.0.0/0'})
+webServerSecurityGroup.SecurityGroupIngress.push(rule1)
 
-let privateSubnetPrivC = new wk.EC2.Subnet('PrivateSubnetPrivC')
-privateSubnetPrivC.CidrBlock.ref(privateSubnetPrivCCIDRParam)
-privateSubnetPrivC.VpcId.ref(vpc)
-privateSubnetPrivC.MapPublicIpOnLaunch = false
-privateSubnetPrivC.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivC' })
-privateSubnetPrivC.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
-t.addResource(privateSubnetPrivC)
+let rule2 = new wk.Types.EC2SecurityGroupRulePropertyType()
+rule2.IpProtocol = 'tcp'
+rule2.FromPort = 22
+rule2.ToPort = 22
+rule2.CidrIp.ref(sshLocationParam)
+webServerSecurityGroup.SecurityGroupIngress.push(rule2)
 
-let privateSubnetPrivD = new wk.EC2.Subnet('PrivateSubnetPrivD')
-privateSubnetPrivD.CidrBlock.ref(privateSubnetPrivDCIDRParam)
-privateSubnetPrivD.VpcId.ref(vpc)
-privateSubnetPrivD.MapPublicIpOnLaunch = false
-privateSubnetPrivD.Tags.add({ Key: 'Name', Value: 'PrivateSubnetPrivD' })
-privateSubnetPrivD.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
-t.addResource(privateSubnetPrivD)
+t.addMapping('AWSInstanceType2Arch', {
+  't1.micro': { 'Arch': 'PV64' },
+  't2.nano': { 'Arch': 'HVM64' },
+  't2.micro': { 'Arch': 'HVM64' },
+  't2.small': { 'Arch': 'HVM64' },
+  't2.medium': { 'Arch': 'HVM64' },
+  't2.large': { 'Arch': 'HVM64' },
+  'm1.small': { 'Arch': 'PV64' },
+  'm1.medium': { 'Arch': 'PV64' },
+  'm1.large': { 'Arch': 'PV64' },
+  'm1.xlarge': { 'Arch': 'PV64' },
+  'm2.xlarge': { 'Arch': 'PV64' },
+  'm2.2xlarge': { 'Arch': 'PV64' },
+  'm2.4xlarge': { 'Arch': 'PV64' },
+  'm3.medium': { 'Arch': 'HVM64' },
+  'm3.large': { 'Arch': 'HVM64' },
+  'm3.xlarge': { 'Arch': 'HVM64' },
+  'm3.2xlarge': { 'Arch': 'HVM64' },
+  'm4.large': { 'Arch': 'HVM64' },
+  'm4.xlarge': { 'Arch': 'HVM64' },
+  'm4.2xlarge': { 'Arch': 'HVM64' },
+  'm4.4xlarge': { 'Arch': 'HVM64' },
+  'm4.10xlarge': { 'Arch': 'HVM64' },
+  'c1.medium': { 'Arch': 'PV64' },
+  'c1.xlarge': { 'Arch': 'PV64' },
+  'c3.large': { 'Arch': 'HVM64' },
+  'c3.xlarge': { 'Arch': 'HVM64' },
+  'c3.2xlarge': { 'Arch': 'HVM64' },
+  'c3.4xlarge': { 'Arch': 'HVM64' },
+  'c3.8xlarge': { 'Arch': 'HVM64' },
+  'c4.large': { 'Arch': 'HVM64' },
+  'c4.xlarge': { 'Arch': 'HVM64' },
+  'c4.2xlarge': { 'Arch': 'HVM64' },
+  'c4.4xlarge': { 'Arch': 'HVM64' },
+  'c4.8xlarge': { 'Arch': 'HVM64' },
+  'g2.2xlarge': { 'Arch': 'HVMG2' },
+  'g2.8xlarge': { 'Arch': 'HVMG2' },
+  'r3.large': { 'Arch': 'HVM64' },
+  'r3.xlarge': { 'Arch': 'HVM64' },
+  'r3.2xlarge': { 'Arch': 'HVM64' },
+  'r3.4xlarge': { 'Arch': 'HVM64' },
+  'r3.8xlarge': { 'Arch': 'HVM64' },
+  'i2.xlarge': { 'Arch': 'HVM64' },
+  'i2.2xlarge': { 'Arch': 'HVM64' },
+  'i2.4xlarge': { 'Arch': 'HVM64' },
+  'i2.8xlarge': { 'Arch': 'HVM64' },
+  'd2.xlarge': { 'Arch': 'HVM64' },
+  'd2.2xlarge': { 'Arch': 'HVM64' },
+  'd2.4xlarge': { 'Arch': 'HVM64' },
+  'd2.8xlarge': { 'Arch': 'HVM64' },
+  'hi1.4xlarge': { 'Arch': 'HVM64' },
+  'hs1.8xlarge': { 'Arch': 'HVM64' },
+  'cr1.8xlarge': { 'Arch': 'HVM64' },
+  'cc2.8xlarge': { 'Arch': 'HVM64' }
+})
 
-let publicRouteTable = new wk.EC2.RouteTable('PublicRouteTable')
-publicRouteTable.VpcId.ref(vpc)
-publicRouteTable.Tags.add({ Key: 'Name', Value: 'PublicRouteTable' })
-publicRouteTable.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
-t.addResource(publicRouteTable)
+t.addMapping('AWSInstanceType2NATArch', {
+  't1.micro': { 'Arch': 'NATPV64' },
+  't2.nano': { 'Arch': 'NATHVM64' },
+  't2.micro': { 'Arch': 'NATHVM64' },
+  't2.small': { 'Arch': 'NATHVM64' },
+  't2.medium': { 'Arch': 'NATHVM64' },
+  't2.large': { 'Arch': 'NATHVM64' },
+  'm1.small': { 'Arch': 'NATPV64' },
+  'm1.medium': { 'Arch': 'NATPV64' },
+  'm1.large': { 'Arch': 'NATPV64' },
+  'm1.xlarge': { 'Arch': 'NATPV64' },
+  'm2.xlarge': { 'Arch': 'NATPV64' },
+  'm2.2xlarge': { 'Arch': 'NATPV64' },
+  'm2.4xlarge': { 'Arch': 'NATPV64' },
+  'm3.medium': { 'Arch': 'NATHVM64' },
+  'm3.large': { 'Arch': 'NATHVM64' },
+  'm3.xlarge': { 'Arch': 'NATHVM64' },
+  'm3.2xlarge': { 'Arch': 'NATHVM64' },
+  'm4.large': { 'Arch': 'NATHVM64' },
+  'm4.xlarge': { 'Arch': 'NATHVM64' },
+  'm4.2xlarge': { 'Arch': 'NATHVM64' },
+  'm4.4xlarge': { 'Arch': 'NATHVM64' },
+  'm4.10xlarge': { 'Arch': 'NATHVM64' },
+  'c1.medium': { 'Arch': 'NATPV64' },
+  'c1.xlarge': { 'Arch': 'NATPV64' },
+  'c3.large': { 'Arch': 'NATHVM64' },
+  'c3.xlarge': { 'Arch': 'NATHVM64' },
+  'c3.2xlarge': { 'Arch': 'NATHVM64' },
+  'c3.4xlarge': { 'Arch': 'NATHVM64' },
+  'c3.8xlarge': { 'Arch': 'NATHVM64' },
+  'c4.large': { 'Arch': 'NATHVM64' },
+  'c4.xlarge': { 'Arch': 'NATHVM64' },
+  'c4.2xlarge': { 'Arch': 'NATHVM64' },
+  'c4.4xlarge': { 'Arch': 'NATHVM64' },
+  'c4.8xlarge': { 'Arch': 'NATHVM64' },
+  'g2.2xlarge': { 'Arch': 'NATHVMG2' },
+  'g2.8xlarge': { 'Arch': 'NATHVMG2' },
+  'r3.large': { 'Arch': 'NATHVM64' },
+  'r3.xlarge': { 'Arch': 'NATHVM64' },
+  'r3.2xlarge': { 'Arch': 'NATHVM64' },
+  'r3.4xlarge': { 'Arch': 'NATHVM64' },
+  'r3.8xlarge': { 'Arch': 'NATHVM64' },
+  'i2.xlarge': { 'Arch': 'NATHVM64' },
+  'i2.2xlarge': { 'Arch': 'NATHVM64' },
+  'i2.4xlarge': { 'Arch': 'NATHVM64' },
+  'i2.8xlarge': { 'Arch': 'NATHVM64' },
+  'd2.xlarge': { 'Arch': 'NATHVM64' },
+  'd2.2xlarge': { 'Arch': 'NATHVM64' },
+  'd2.4xlarge': { 'Arch': 'NATHVM64' },
+  'd2.8xlarge': { 'Arch': 'NATHVM64' },
+  'hi1.4xlarge': { 'Arch': 'NATHVM64' },
+  'hs1.8xlarge': { 'Arch': 'NATHVM64' },
+  'cr1.8xlarge': { 'Arch': 'NATHVM64' },
+  'cc2.8xlarge': { 'Arch': 'NATHVM64' }
+})
 
-let routeTablePrivC = new wk.EC2.RouteTable('RouteTablePrivC')
-routeTablePrivC.VpcId.ref(vpc)
-routeTablePrivC.Tags.add({ Key: 'Name', Value: 'RouteTablePrivC' })
-routeTablePrivC.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
-t.addResource(routeTablePrivC)
+t.addMapping('AWSRegionArch2AMI', {
+  'us-east-1': {'PV64': 'ami-2a69aa47', 'HVM64': 'ami-6869aa05', 'HVMG2': 'ami-2e5e9c43'},
+  'us-west-2': {'PV64': 'ami-7f77b31f', 'HVM64': 'ami-7172b611', 'HVMG2': 'ami-83b770e3'},
+  'us-west-1': {'PV64': 'ami-a2490dc2', 'HVM64': 'ami-31490d51', 'HVMG2': 'ami-fd76329d'},
+  'eu-west-1': {'PV64': 'ami-4cdd453f', 'HVM64': 'ami-f9dd458a', 'HVMG2': 'ami-b9bd25ca'},
+  'eu-central-1': {'PV64': 'ami-6527cf0a', 'HVM64': 'ami-ea26ce85', 'HVMG2': 'ami-7f04ec10'},
+  'ap-northeast-1': {'PV64': 'ami-3e42b65f', 'HVM64': 'ami-374db956', 'HVMG2': 'ami-e0ee1981'},
+  'ap-northeast-2': {'PV64': 'NOT_SUPPORTED', 'HVM64': 'ami-2b408b45', 'HVMG2': 'NOT_SUPPORTED'},
+  'ap-southeast-1': {'PV64': 'ami-df9e4cbc', 'HVM64': 'ami-a59b49c6', 'HVMG2': 'ami-0cb5676f'},
+  'ap-southeast-2': {'PV64': 'ami-63351d00', 'HVM64': 'ami-dc361ebf', 'HVMG2': 'ami-a71c34c4'},
+  'sa-east-1': {'PV64': 'ami-1ad34676', 'HVM64': 'ami-6dd04501', 'HVMG2': 'NOT_SUPPORTED'},
+  'cn-north-1': {'PV64': 'ami-77559f1a', 'HVM64': 'ami-8e6aa0e3', 'HVMG2': 'NOT_SUPPORTED'}
+})
 
-let routeTablePrivD = new wk.EC2.RouteTable('RouteTablePrivD')
-routeTablePrivD.VpcId.ref(vpc)
-routeTablePrivD.Tags.add({ Key: 'Name', Value: 'RouteTablePrivD' })
-routeTablePrivD.Tags.add({ Key: 'Group', Value: new wk.Ref(vPCTagParam) })
-t.addResource(routeTablePrivD)
+let webServer = new wk.EC2.Instance('WebServer')
+webServer.ImageId.findInMap('AWSRegionArch2AMI', { 'Ref': 'AWS::Region' }, { 'Fn::FindInMap': [ 'AWSInstanceType2Arch', { 'Ref': 'InstanceType' }, 'Arch' ] })
+t.addResource(webServer)
 
-let publicIGWRoute = new wk.EC2.Route('PublicIGWRoute')
-publicIGWRoute.RouteTableId.ref(publicRouteTable)
-publicIGWRoute.DestinationCidrBlock = '0.0.0.0/0'
-publicIGWRoute.GatewayId.ref(igw)
-t.addResource(publicIGWRoute)
+webServer.InstanceType.ref(instanceTypeParam)
+webServer.SecurityGroups.push(new wk.Intrinsic.Ref(webServerSecurityGroup))
+webServer.KeyName.ref(keyNameParam)
+webServer.UserData.base64({ 'Fn::Join': ['', [
+  '#!/bin/bash -xe\n',
+  'yum update -y aws-cfn-bootstrap\n',
 
-let nATRoutePrivC = new wk.EC2.Route('NATRoutePrivC')
-nATRoutePrivC.RouteTableId.ref(routeTablePrivC)
-nATRoutePrivC.DestinationCidrBlock = '0.0.0.0/0'
-nATRoutePrivC.NatGatewayId.ref(natPubA)
-t.addResource(nATRoutePrivC)
+  '/opt/aws/bin/cfn-init -v ',
+  '         --stack ', { 'Ref': 'AWS::StackName' },
+  '         --resource WebServer ',
+  '         --configsets wordpress_install ',
+  '         --region ', { 'Ref': 'AWS::Region' }, '\n',
 
-let nATRoutePrivD = new wk.EC2.Route('NATRoutePrivD')
-nATRoutePrivD.RouteTableId.ref(routeTablePrivD)
-nATRoutePrivD.DestinationCidrBlock = '0.0.0.0/0'
-nATRoutePrivD.NatGatewayId.ref(natPubB)
-t.addResource(nATRoutePrivD)
+  '/opt/aws/bin/cfn-signal -e $? ',
+  '         --stack ', { 'Ref': 'AWS::StackName' },
+  '         --resource WebServer ',
+  '         --region ', { 'Ref': 'AWS::Region' }, '\n'
+]]})
 
-let publicSubnetRouteTableAssociationA = new wk.EC2.SubnetRouteTableAssociation('PublicSubnetRouteTableAssociationA')
-publicSubnetRouteTableAssociationA.SubnetId.ref(publicSubnetPubA)
-publicSubnetRouteTableAssociationA.RouteTableId.ref(publicRouteTable)
-t.addResource(publicSubnetRouteTableAssociationA)
+let webSiteUrlOutput = new wk.Output('WebsiteURL', {
+  'Value': { 'Fn::Join': ['', [ 'http://', { 'Fn::GetAtt': [ 'WebServer', 'PublicDnsName' ] }, '/wordpress' ] ] },
+  'Description': 'WordPress Website'
+})
 
-let publicSubnetRouteTableAssociationB = new wk.EC2.SubnetRouteTableAssociation('PublicSubnetRouteTableAssociationB')
-publicSubnetRouteTableAssociationB.SubnetId.ref(publicSubnetPubB)
-publicSubnetRouteTableAssociationB.RouteTableId.ref(publicRouteTable)
-t.addResource(publicSubnetRouteTableAssociationB)
+let set_mysql_root_password = new wk.Init.Command('01_set_mysql_root_password')
+set_mysql_root_password.command = { 'Fn::Join': [ '', [ 'mysqladmin -u root password \'', { 'Ref': 'DBRootPassword' }, '\'' ] ] }
+set_mysql_root_password.test = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 &lt;/dev/null); (( $? != 0 ))' ] ] }
 
-let privateSubnetRouteTableAssociationPrivC = new wk.EC2.SubnetRouteTableAssociation('PrivateSubnetRouteTableAssociationPrivC')
-privateSubnetRouteTableAssociationPrivC.SubnetId.ref(privateSubnetPrivC)
-privateSubnetRouteTableAssociationPrivC.RouteTableId.ref(routeTablePrivC)
-t.addResource(privateSubnetRouteTableAssociationPrivC)
+let create_database = new wk.Init.Command('02_create_database')
+create_database.command = { 'Fn::Join': [ '', [ 'mysql -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' &lt; /tmp/setup.mysql' ] ] }
+create_database.test = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 &lt;/dev/null); (( $? != 0 ))' ] ] }
 
-let privateSubnetRouteTableAssociationPrivD = new wk.EC2.SubnetRouteTableAssociation('PrivateSubnetRouteTableAssociationPrivD')
-privateSubnetRouteTableAssociationPrivD.SubnetId.ref(privateSubnetPrivD)
-privateSubnetRouteTableAssociationPrivD.RouteTableId.ref(routeTablePrivD)
-t.addResource(privateSubnetRouteTableAssociationPrivD)
+let configure_wordpressCMD = new wk.Init.Command('03_configure_wordpress')
+configure_wordpressCMD.command = '/tmp/create-wp-config'
+configure_wordpressCMD.cwd = '/var/www/html/wordpress'
 
-console.log(t.toJson())</code></pre><p>More examples can be found in the /examples folder.</p>
-<h2>Resource support</h2><p>Wolkenkratzer supports all CloudFormation resources. This is made possible by scripts that scrape the CloudFormation documentation pages and generate the resource code files. The scrapers can be found in the /scripts folder.</p>
-<h2>Contributing</h2><p>Wolkenkratzer is still a new library and needs lots of testing. If you run into any problems please open an issue or create a PR. All contributions are welcome!</p>
+let configure_wordpress = new wk.Init.Config('configure_wordpress')
+configure_wordpress.add(set_mysql_root_password)
+configure_wordpress.add(create_database)
+configure_wordpress.add(configure_wordpressCMD)
+
+webServer.addConfig(configure_wordpress)
+
+let cfnHup = new wk.Init.File('/etc/cfn/cfn-hup.conf')
+cfnHup.content = { 'Fn::Join': ['', [ '[main]\n', 'stack=', { 'Ref': 'AWS::StackId' }, '\n', 'region=', { 'Ref': 'AWS::Region' }, '\n' ]] }
+cfnHup.mode = '000400'
+cfnHup.owner = 'root'
+cfnHup.group = 'root'
+
+let cfnAutoReloader = new wk.Init.File('/etc/cfn/hooks.d/cfn-auto-reloader.conf')
+cfnAutoReloader.content = { 'Fn::Join': [ '', [ '[cfn-auto-reloader-hook]\n', 'triggers=post.update\n', 'path=Resources.WebServer.Metadata.AWS::CloudFormation::Init\n', 'action=/opt/aws/bin/cfn-init -v ', '         --stack ', { 'Ref': 'AWS::StackName' }, '         --resource WebServer ', '         --configsets wordpress_install ', '         --region ', { 'Ref': 'AWS::Region' }, '\n' ] ] }
+cfnAutoReloader.mode = '000400'
+cfnAutoReloader.owner = 'root'
+cfnAutoReloader.group = 'root'
+
+let cfnHupService = new wk.Init.Service('cfn-hup')
+cfnHupService.enabled = 'true'
+cfnHupService.ensureRunning = 'true'
+cfnHupService.files = ['/etc/cfn/cfn-hup.conf', '/etc/cfn/hooks.d/cfn-auto-reloader.conf']
+
+let install_cfn = new wk.Init.Config('install_cfn')
+install_cfn.add(cfnHup)
+install_cfn.add(cfnAutoReloader)
+install_cfn.add(cfnHupService)
+webServer.addConfig(install_cfn)
+
+let createWPConfig = new wk.Init.File('/tmp/create-wp-config')
+createWPConfig.content = { 'Fn::Join': [ '', [ '#!/bin/bash -xe\n', 'cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n', 'sed -i &quot;s/\'database_name_here\'/\'',{ 'Ref': 'DBName' }, '\'/g\&quot; wp-config.php\n', 'sed -i \&quot;s/\'username_here\'/\'',{ 'Ref': 'DBUser' }, '\'/g\&quot; wp-config.php\n', 'sed -i \&quot;s/\'password_here\'/\'',{ 'Ref': 'DBPassword' }, '\'/g\&quot; wp-config.php\n' ]]}
+createWPConfig.mode = '000500'
+createWPConfig.owner = 'root'
+createWPConfig.group = 'root'
+
+let setupMysql = new wk.Init.File('/tmp/setup.mysql')
+setupMysql.content = { 'Fn::Join': ['', [ 'CREATE DATABASE ', { 'Ref': 'DBName' }, ';\n',   'CREATE USER \'', { 'Ref': 'DBUser' }, '\'@\'localhost\' IDENTIFIED BY \'', { 'Ref': 'DBPassword' }, '\';\n',   'GRANT ALL ON ', { 'Ref': 'DBName' }, '.* TO \'', { 'Ref': 'DBUser' }, '\'@\'localhost\';\n', 'FLUSH PRIVILEGES;\n' ]]}
+setupMysql.mode = '000400'
+setupMysql.owner = 'root'
+setupMysql.group = 'root'
+
+let wpPackages = new wk.Init.Packages('yum', {
+  'php': [],
+  'php-mysql': [],
+  'mysql': [],
+  'mysql-server': [],
+  'mysql-devel': [],
+  'mysql-libs': [],
+  'httpd': []
+})
+
+let httpd = new wk.Init.Service('httpd')
+httpd.enabled = 'true'
+httpd.ensureRunning = 'true'
+
+let mysqld = new wk.Init.Service('mysqld')
+mysqld.enabled = 'true'
+mysqld.ensureRunning = 'true'
+
+let htmlSource = new wk.Init.Source('/var/www/html', &quot;http://wordpress.org/latest.tar.gz&quot;)
+
+let install_wordpress = new wk.Init.Config('install_wordpress')
+install_wordpress.add(createWPConfig)
+install_wordpress.add(setupMysql)
+install_wordpress.add(wpPackages)
+install_wordpress.add(httpd)
+install_wordpress.add(mysqld)
+install_wordpress.add(htmlSource)
+webServer.addConfig(install_wordpress)
+
+let wordpress_install = new wk.Init.ConfigSet('wordpress_install')
+wordpress_install.add(install_cfn)
+wordpress_install.add(install_wordpress)
+wordpress_install.add(configure_wordpress)
+webServer.addConfigSet(wordpress_install)
+
+let cPolicy = new wk.Policy.CreationPolicy({
+  'ResourceSignal': {
+    'Timeout': 'PT15M'
+  }
+})
+webServer.addPolicy(cPolicy)
+
+t.addOutput(webSiteUrlOutput)
+console.log(t.toJson())</code></pre><p>Output:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;Description&quot;: &quot;AWS CloudFormation Sample Template WordPress_Single_Instance: WordPress is web software you can use to create a beautiful website or blog. This template installs WordPress with a local MySQL database for storage. It demonstrates using the AWS CloudFormation bootstrap scripts to deploy WordPress. **WARNING** This template creates an Amazon EC2 instance. You will be billed for the AWS resources used if you create a stack from this template.&quot;,
+  &quot;Mappings&quot;: {
+    &quot;AWSInstanceType2Arch&quot;: {
+      &quot;t1.micro&quot;: {
+        &quot;Arch&quot;: &quot;PV64&quot;
+      },
+      &quot;t2.nano&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;t2.micro&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;t2.small&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;t2.medium&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;t2.large&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;m1.small&quot;: {
+        &quot;Arch&quot;: &quot;PV64&quot;
+      },
+      &quot;m1.medium&quot;: {
+        &quot;Arch&quot;: &quot;PV64&quot;
+      },
+      &quot;m1.large&quot;: {
+        &quot;Arch&quot;: &quot;PV64&quot;
+      },
+      &quot;m1.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;PV64&quot;
+      },
+      &quot;m2.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;PV64&quot;
+      },
+      &quot;m2.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;PV64&quot;
+      },
+      &quot;m2.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;PV64&quot;
+      },
+      &quot;m3.medium&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;m3.large&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;m3.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;m3.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;m4.large&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;m4.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;m4.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;m4.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;m4.10xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;c1.medium&quot;: {
+        &quot;Arch&quot;: &quot;PV64&quot;
+      },
+      &quot;c1.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;PV64&quot;
+      },
+      &quot;c3.large&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;c3.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;c3.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;c3.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;c3.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;c4.large&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;c4.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;c4.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;c4.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;c4.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;g2.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVMG2&quot;
+      },
+      &quot;g2.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVMG2&quot;
+      },
+      &quot;r3.large&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;r3.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;r3.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;r3.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;r3.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;i2.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;i2.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;i2.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;i2.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;d2.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;d2.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;d2.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;d2.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;hi1.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;hs1.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;cr1.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      },
+      &quot;cc2.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;HVM64&quot;
+      }
+    },
+    &quot;AWSInstanceType2NATArch&quot;: {
+      &quot;t1.micro&quot;: {
+        &quot;Arch&quot;: &quot;NATPV64&quot;
+      },
+      &quot;t2.nano&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;t2.micro&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;t2.small&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;t2.medium&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;t2.large&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;m1.small&quot;: {
+        &quot;Arch&quot;: &quot;NATPV64&quot;
+      },
+      &quot;m1.medium&quot;: {
+        &quot;Arch&quot;: &quot;NATPV64&quot;
+      },
+      &quot;m1.large&quot;: {
+        &quot;Arch&quot;: &quot;NATPV64&quot;
+      },
+      &quot;m1.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATPV64&quot;
+      },
+      &quot;m2.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATPV64&quot;
+      },
+      &quot;m2.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATPV64&quot;
+      },
+      &quot;m2.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATPV64&quot;
+      },
+      &quot;m3.medium&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;m3.large&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;m3.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;m3.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;m4.large&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;m4.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;m4.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;m4.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;m4.10xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;c1.medium&quot;: {
+        &quot;Arch&quot;: &quot;NATPV64&quot;
+      },
+      &quot;c1.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATPV64&quot;
+      },
+      &quot;c3.large&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;c3.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;c3.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;c3.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;c3.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;c4.large&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;c4.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;c4.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;c4.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;c4.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;g2.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVMG2&quot;
+      },
+      &quot;g2.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVMG2&quot;
+      },
+      &quot;r3.large&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;r3.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;r3.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;r3.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;r3.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;i2.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;i2.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;i2.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;i2.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;d2.xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;d2.2xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;d2.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;d2.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;hi1.4xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;hs1.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;cr1.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      },
+      &quot;cc2.8xlarge&quot;: {
+        &quot;Arch&quot;: &quot;NATHVM64&quot;
+      }
+    },
+    &quot;AWSRegionArch2AMI&quot;: {
+      &quot;us-east-1&quot;: {
+        &quot;PV64&quot;: &quot;ami-2a69aa47&quot;,
+        &quot;HVM64&quot;: &quot;ami-6869aa05&quot;,
+        &quot;HVMG2&quot;: &quot;ami-2e5e9c43&quot;
+      },
+      &quot;us-west-2&quot;: {
+        &quot;PV64&quot;: &quot;ami-7f77b31f&quot;,
+        &quot;HVM64&quot;: &quot;ami-7172b611&quot;,
+        &quot;HVMG2&quot;: &quot;ami-83b770e3&quot;
+      },
+      &quot;us-west-1&quot;: {
+        &quot;PV64&quot;: &quot;ami-a2490dc2&quot;,
+        &quot;HVM64&quot;: &quot;ami-31490d51&quot;,
+        &quot;HVMG2&quot;: &quot;ami-fd76329d&quot;
+      },
+      &quot;eu-west-1&quot;: {
+        &quot;PV64&quot;: &quot;ami-4cdd453f&quot;,
+        &quot;HVM64&quot;: &quot;ami-f9dd458a&quot;,
+        &quot;HVMG2&quot;: &quot;ami-b9bd25ca&quot;
+      },
+      &quot;eu-central-1&quot;: {
+        &quot;PV64&quot;: &quot;ami-6527cf0a&quot;,
+        &quot;HVM64&quot;: &quot;ami-ea26ce85&quot;,
+        &quot;HVMG2&quot;: &quot;ami-7f04ec10&quot;
+      },
+      &quot;ap-northeast-1&quot;: {
+        &quot;PV64&quot;: &quot;ami-3e42b65f&quot;,
+        &quot;HVM64&quot;: &quot;ami-374db956&quot;,
+        &quot;HVMG2&quot;: &quot;ami-e0ee1981&quot;
+      },
+      &quot;ap-northeast-2&quot;: {
+        &quot;PV64&quot;: &quot;NOT_SUPPORTED&quot;,
+        &quot;HVM64&quot;: &quot;ami-2b408b45&quot;,
+        &quot;HVMG2&quot;: &quot;NOT_SUPPORTED&quot;
+      },
+      &quot;ap-southeast-1&quot;: {
+        &quot;PV64&quot;: &quot;ami-df9e4cbc&quot;,
+        &quot;HVM64&quot;: &quot;ami-a59b49c6&quot;,
+        &quot;HVMG2&quot;: &quot;ami-0cb5676f&quot;
+      },
+      &quot;ap-southeast-2&quot;: {
+        &quot;PV64&quot;: &quot;ami-63351d00&quot;,
+        &quot;HVM64&quot;: &quot;ami-dc361ebf&quot;,
+        &quot;HVMG2&quot;: &quot;ami-a71c34c4&quot;
+      },
+      &quot;sa-east-1&quot;: {
+        &quot;PV64&quot;: &quot;ami-1ad34676&quot;,
+        &quot;HVM64&quot;: &quot;ami-6dd04501&quot;,
+        &quot;HVMG2&quot;: &quot;NOT_SUPPORTED&quot;
+      },
+      &quot;cn-north-1&quot;: {
+        &quot;PV64&quot;: &quot;ami-77559f1a&quot;,
+        &quot;HVM64&quot;: &quot;ami-8e6aa0e3&quot;,
+        &quot;HVMG2&quot;: &quot;NOT_SUPPORTED&quot;
+      }
+    }
+  },
+  &quot;Outputs&quot;: {
+    &quot;WebsiteURL&quot;: {
+      &quot;Description&quot;: &quot;WordPress Website&quot;,
+      &quot;Value&quot;: {
+        &quot;Fn::Join&quot;: [
+          &quot;&quot;,
+          [
+            &quot;http://&quot;,
+            {
+              &quot;Fn::GetAtt&quot;: [
+                &quot;WebServer&quot;,
+                &quot;PublicDnsName&quot;
+              ]
+            },
+            &quot;/wordpress&quot;
+          ]
+        ]
+      }
+    }
+  },
+  &quot;Parameters&quot;: {
+    &quot;KeyName&quot;: {
+      &quot;Type&quot;: &quot;AWS::EC2::KeyPair::KeyName&quot;,
+      &quot;ConstraintDescription&quot;: &quot;must be the name of an existing EC2 KeyPair.&quot;,
+      &quot;Description&quot;: &quot;Name of an existing EC2 KeyPair to enable SSH access to the instances&quot;
+    },
+    &quot;InstanceType&quot;: {
+      &quot;Type&quot;: &quot;String&quot;,
+      &quot;AllowedValues&quot;: [
+        &quot;t1.micro&quot;,
+        &quot;t2.nano&quot;,
+        &quot;t2.micro&quot;,
+        &quot;t2.small&quot;,
+        &quot;t2.medium&quot;,
+        &quot;t2.large&quot;,
+        &quot;m1.small&quot;,
+        &quot;m1.medium&quot;,
+        &quot;m1.large&quot;,
+        &quot;m1.xlarge&quot;,
+        &quot;m2.xlarge&quot;,
+        &quot;m2.2xlarge&quot;,
+        &quot;m2.4xlarge&quot;,
+        &quot;m3.medium&quot;,
+        &quot;m3.large&quot;,
+        &quot;m3.xlarge&quot;,
+        &quot;m3.2xlarge&quot;,
+        &quot;m4.large&quot;,
+        &quot;m4.xlarge&quot;,
+        &quot;m4.2xlarge&quot;,
+        &quot;m4.4xlarge&quot;,
+        &quot;m4.10xlarge&quot;,
+        &quot;c1.medium&quot;,
+        &quot;c1.xlarge&quot;,
+        &quot;c3.large&quot;,
+        &quot;c3.xlarge&quot;,
+        &quot;c3.2xlarge&quot;,
+        &quot;c3.4xlarge&quot;,
+        &quot;c3.8xlarge&quot;,
+        &quot;c4.large&quot;,
+        &quot;c4.xlarge&quot;,
+        &quot;c4.2xlarge&quot;,
+        &quot;c4.4xlarge&quot;,
+        &quot;c4.8xlarge&quot;,
+        &quot;g2.2xlarge&quot;,
+        &quot;g2.8xlarge&quot;,
+        &quot;r3.large&quot;,
+        &quot;r3.xlarge&quot;,
+        &quot;r3.2xlarge&quot;,
+        &quot;r3.4xlarge&quot;,
+        &quot;r3.8xlarge&quot;,
+        &quot;i2.xlarge&quot;,
+        &quot;i2.2xlarge&quot;,
+        &quot;i2.4xlarge&quot;,
+        &quot;i2.8xlarge&quot;,
+        &quot;d2.xlarge&quot;,
+        &quot;d2.2xlarge&quot;,
+        &quot;d2.4xlarge&quot;,
+        &quot;d2.8xlarge&quot;,
+        &quot;hi1.4xlarge&quot;,
+        &quot;hs1.8xlarge&quot;,
+        &quot;cr1.8xlarge&quot;,
+        &quot;cc2.8xlarge&quot;,
+        &quot;cg1.4xlarge&quot;
+      ],
+      &quot;ConstraintDescription&quot;: &quot;must be a valid EC2 instance type.&quot;,
+      &quot;Default&quot;: &quot;t2.small&quot;,
+      &quot;Description&quot;: &quot;WebServer EC2 instance type&quot;
+    },
+    &quot;SSHLocation&quot;: {
+      &quot;Type&quot;: &quot;String&quot;,
+      &quot;AllowedPattern&quot;: &quot;(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})&quot;,
+      &quot;ConstraintDescription&quot;: &quot;must be a valid IP CIDR range of the form x.x.x.x/x.&quot;,
+      &quot;Default&quot;: &quot;0.0.0.0/0&quot;,
+      &quot;Description&quot;: &quot;The IP address range that can be used to SSH to the EC2 instances&quot;,
+      &quot;MaxLength&quot;: &quot;18&quot;,
+      &quot;MinLength&quot;: &quot;9&quot;
+    },
+    &quot;DBName&quot;: {
+      &quot;Type&quot;: &quot;String&quot;,
+      &quot;AllowedPattern&quot;: &quot;[a-zA-Z][a-zA-Z0-9]*&quot;,
+      &quot;ConstraintDescription&quot;: &quot;must begin with a letter and contain only alphanumeric characters.&quot;,
+      &quot;Default&quot;: &quot;wordpressdb&quot;,
+      &quot;Description&quot;: &quot;The WordPress database name&quot;,
+      &quot;MaxLength&quot;: &quot;64&quot;,
+      &quot;MinLength&quot;: &quot;1&quot;
+    },
+    &quot;DBUser&quot;: {
+      &quot;Type&quot;: &quot;String&quot;,
+      &quot;AllowedPattern&quot;: &quot;[a-zA-Z][a-zA-Z0-9]*&quot;,
+      &quot;ConstraintDescription&quot;: &quot;must begin with a letter and contain only alphanumeric characters.&quot;,
+      &quot;Description&quot;: &quot;The WordPress database admin account username&quot;,
+      &quot;MaxLength&quot;: &quot;16&quot;,
+      &quot;MinLength&quot;: &quot;1&quot;,
+      &quot;NoEcho&quot;: &quot;true&quot;
+    },
+    &quot;DBPassword&quot;: {
+      &quot;Type&quot;: &quot;String&quot;,
+      &quot;AllowedPattern&quot;: &quot;[a-zA-Z0-9]*&quot;,
+      &quot;ConstraintDescription&quot;: &quot;must contain only alphanumeric characters.&quot;,
+      &quot;Description&quot;: &quot;The WordPress database admin account password&quot;,
+      &quot;MaxLength&quot;: &quot;41&quot;,
+      &quot;MinLength&quot;: &quot;8&quot;,
+      &quot;NoEcho&quot;: &quot;true&quot;
+    },
+    &quot;DBRootPassword&quot;: {
+      &quot;Type&quot;: &quot;String&quot;,
+      &quot;AllowedPattern&quot;: &quot;[a-zA-Z0-9]*&quot;,
+      &quot;ConstraintDescription&quot;: &quot;must contain only alphanumeric characters.&quot;,
+      &quot;Description&quot;: &quot;MySQL root password&quot;,
+      &quot;MaxLength&quot;: &quot;41&quot;,
+      &quot;MinLength&quot;: &quot;8&quot;,
+      &quot;NoEcho&quot;: &quot;true&quot;
+    }
+  },
+  &quot;Resources&quot;: {
+    &quot;WebServerSecurityGroup&quot;: {
+      &quot;Type&quot;: &quot;AWS::EC2::SecurityGroup&quot;,
+      &quot;Properties&quot;: {
+        &quot;GroupDescription&quot;: &quot;Enable HTTP access via port 80 locked down to the load balancer + SSH access&quot;,
+        &quot;SecurityGroupIngress&quot;: [
+          {
+            &quot;CidrIp&quot;: &quot;0.0.0.0/0&quot;,
+            &quot;FromPort&quot;: 80,
+            &quot;IpProtocol&quot;: &quot;tcp&quot;,
+            &quot;ToPort&quot;: 80
+          },
+          {
+            &quot;CidrIp&quot;: {
+              &quot;Ref&quot;: &quot;SSHLocation&quot;
+            },
+            &quot;FromPort&quot;: 22,
+            &quot;IpProtocol&quot;: &quot;tcp&quot;,
+            &quot;ToPort&quot;: 22
+          }
+        ]
+      }
+    },
+    &quot;WebServer&quot;: {
+      &quot;Type&quot;: &quot;AWS::EC2::Instance&quot;,
+      &quot;Properties&quot;: {
+        &quot;ImageId&quot;: {
+          &quot;Fn::FindInMap&quot;: [
+            &quot;AWSRegionArch2AMI&quot;,
+            {
+              &quot;Ref&quot;: &quot;AWS::Region&quot;
+            },
+            {
+              &quot;Fn::FindInMap&quot;: [
+                &quot;AWSInstanceType2Arch&quot;,
+                {
+                  &quot;Ref&quot;: &quot;InstanceType&quot;
+                },
+                &quot;Arch&quot;
+              ]
+            }
+          ]
+        },
+        &quot;InstanceType&quot;: {
+          &quot;Ref&quot;: &quot;InstanceType&quot;
+        },
+        &quot;KeyName&quot;: {
+          &quot;Ref&quot;: &quot;KeyName&quot;
+        },
+        &quot;SecurityGroups&quot;: [
+          {
+            &quot;Ref&quot;: &quot;WebServerSecurityGroup&quot;
+          }
+        ],
+        &quot;UserData&quot;: {
+          &quot;Fn::Base64&quot;: {
+            &quot;Fn::Join&quot;: [
+              &quot;&quot;,
+              [
+                &quot;#!/bin/bash -xe\n&quot;,
+                &quot;yum update -y aws-cfn-bootstrap\n&quot;,
+                &quot;/opt/aws/bin/cfn-init -v &quot;,
+                &quot;         --stack &quot;,
+                {
+                  &quot;Ref&quot;: &quot;AWS::StackName&quot;
+                },
+                &quot;         --resource WebServer &quot;,
+                &quot;         --configsets wordpress_install &quot;,
+                &quot;         --region &quot;,
+                {
+                  &quot;Ref&quot;: &quot;AWS::Region&quot;
+                },
+                &quot;\n&quot;,
+                &quot;/opt/aws/bin/cfn-signal -e $? &quot;,
+                &quot;         --stack &quot;,
+                {
+                  &quot;Ref&quot;: &quot;AWS::StackName&quot;
+                },
+                &quot;         --resource WebServer &quot;,
+                &quot;         --region &quot;,
+                {
+                  &quot;Ref&quot;: &quot;AWS::Region&quot;
+                },
+                &quot;\n&quot;
+              ]
+            ]
+          }
+        }
+      },
+      &quot;Metadata&quot;: {
+        &quot;AWS::CloudFormation::Init&quot;: {
+          &quot;configSets&quot;: {
+            &quot;wordpress_install&quot;: [
+              &quot;install_cfn&quot;,
+              &quot;install_wordpress&quot;,
+              &quot;configure_wordpress&quot;
+            ]
+          },
+          &quot;configure_wordpress&quot;: {
+            &quot;commands&quot;: {
+              &quot;01_set_mysql_root_password&quot;: {
+                &quot;command&quot;: {
+                  &quot;Fn::Join&quot;: [
+                    &quot;&quot;,
+                    [
+                      &quot;mysqladmin -u root password '&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBRootPassword&quot;
+                      },
+                      &quot;'&quot;
+                    ]
+                  ]
+                },
+                &quot;test&quot;: {
+                  &quot;Fn::Join&quot;: [
+                    &quot;&quot;,
+                    [
+                      &quot;$(mysql &quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBName&quot;
+                      },
+                      &quot; -u root --password='&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBRootPassword&quot;
+                      },
+                      &quot;' >/dev/null 2>&1 &lt;/dev/null); (( $? != 0 ))&quot;
+                    ]
+                  ]
+                }
+              },
+              &quot;02_create_database&quot;: {
+                &quot;command&quot;: {
+                  &quot;Fn::Join&quot;: [
+                    &quot;&quot;,
+                    [
+                      &quot;mysql -u root --password='&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBRootPassword&quot;
+                      },
+                      &quot;' &lt; /tmp/setup.mysql&quot;
+                    ]
+                  ]
+                },
+                &quot;test&quot;: {
+                  &quot;Fn::Join&quot;: [
+                    &quot;&quot;,
+                    [
+                      &quot;$(mysql &quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBName&quot;
+                      },
+                      &quot; -u root --password='&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBRootPassword&quot;
+                      },
+                      &quot;' >/dev/null 2>&1 &lt;/dev/null); (( $? != 0 ))&quot;
+                    ]
+                  ]
+                }
+              },
+              &quot;03_configure_wordpress&quot;: {
+                &quot;command&quot;: &quot;/tmp/create-wp-config&quot;,
+                &quot;cwd&quot;: &quot;/var/www/html/wordpress&quot;
+              }
+            }
+          },
+          &quot;install_cfn&quot;: {
+            &quot;files&quot;: {
+              &quot;/etc/cfn/cfn-hup.conf&quot;: {
+                &quot;content&quot;: {
+                  &quot;Fn::Join&quot;: [
+                    &quot;&quot;,
+                    [
+                      &quot;[main]\n&quot;,
+                      &quot;stack=&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;AWS::StackId&quot;
+                      },
+                      &quot;\n&quot;,
+                      &quot;region=&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;AWS::Region&quot;
+                      },
+                      &quot;\n&quot;
+                    ]
+                  ]
+                },
+                &quot;mode&quot;: &quot;000400&quot;,
+                &quot;owner&quot;: &quot;root&quot;,
+                &quot;group&quot;: &quot;root&quot;
+              },
+              &quot;/etc/cfn/hooks.d/cfn-auto-reloader.conf&quot;: {
+                &quot;content&quot;: {
+                  &quot;Fn::Join&quot;: [
+                    &quot;&quot;,
+                    [
+                      &quot;[cfn-auto-reloader-hook]\n&quot;,
+                      &quot;triggers=post.update\n&quot;,
+                      &quot;path=Resources.WebServer.Metadata.AWS::CloudFormation::Init\n&quot;,
+                      &quot;action=/opt/aws/bin/cfn-init -v &quot;,
+                      &quot;         --stack &quot;,
+                      {
+                        &quot;Ref&quot;: &quot;AWS::StackName&quot;
+                      },
+                      &quot;         --resource WebServer &quot;,
+                      &quot;         --configsets wordpress_install &quot;,
+                      &quot;         --region &quot;,
+                      {
+                        &quot;Ref&quot;: &quot;AWS::Region&quot;
+                      },
+                      &quot;\n&quot;
+                    ]
+                  ]
+                },
+                &quot;mode&quot;: &quot;000400&quot;,
+                &quot;owner&quot;: &quot;root&quot;,
+                &quot;group&quot;: &quot;root&quot;
+              }
+            },
+            &quot;services&quot;: {
+              &quot;sysvinit&quot;: {
+                &quot;cfn-hup&quot;: {
+                  &quot;enabled&quot;: &quot;true&quot;,
+                  &quot;ensureRunning&quot;: &quot;true&quot;,
+                  &quot;files&quot;: [
+                    &quot;/etc/cfn/cfn-hup.conf&quot;,
+                    &quot;/etc/cfn/hooks.d/cfn-auto-reloader.conf&quot;
+                  ]
+                }
+              }
+            }
+          },
+          &quot;install_wordpress&quot;: {
+            &quot;files&quot;: {
+              &quot;/tmp/create-wp-config&quot;: {
+                &quot;content&quot;: {
+                  &quot;Fn::Join&quot;: [
+                    &quot;&quot;,
+                    [
+                      &quot;#!/bin/bash -xe\n&quot;,
+                      &quot;cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n&quot;,
+                      &quot;sed -i \&quot;s/'database_name_here'/'&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBName&quot;
+                      },
+                      &quot;'/g\&quot; wp-config.php\n&quot;,
+                      &quot;sed -i \&quot;s/'username_here'/'&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBUser&quot;
+                      },
+                      &quot;'/g\&quot; wp-config.php\n&quot;,
+                      &quot;sed -i \&quot;s/'password_here'/'&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBPassword&quot;
+                      },
+                      &quot;'/g\&quot; wp-config.php\n&quot;
+                    ]
+                  ]
+                },
+                &quot;mode&quot;: &quot;000500&quot;,
+                &quot;owner&quot;: &quot;root&quot;,
+                &quot;group&quot;: &quot;root&quot;
+              },
+              &quot;/tmp/setup.mysql&quot;: {
+                &quot;content&quot;: {
+                  &quot;Fn::Join&quot;: [
+                    &quot;&quot;,
+                    [
+                      &quot;CREATE DATABASE &quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBName&quot;
+                      },
+                      &quot;;\n&quot;,
+                      &quot;CREATE USER '&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBUser&quot;
+                      },
+                      &quot;'@'localhost' IDENTIFIED BY '&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBPassword&quot;
+                      },
+                      &quot;';\n&quot;,
+                      &quot;GRANT ALL ON &quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBName&quot;
+                      },
+                      &quot;.* TO '&quot;,
+                      {
+                        &quot;Ref&quot;: &quot;DBUser&quot;
+                      },
+                      &quot;'@'localhost';\n&quot;,
+                      &quot;FLUSH PRIVILEGES;\n&quot;
+                    ]
+                  ]
+                },
+                &quot;mode&quot;: &quot;000400&quot;,
+                &quot;owner&quot;: &quot;root&quot;,
+                &quot;group&quot;: &quot;root&quot;
+              }
+            },
+            &quot;packages&quot;: {
+              &quot;yum&quot;: {
+                &quot;php&quot;: [],
+                &quot;php-mysql&quot;: [],
+                &quot;mysql&quot;: [],
+                &quot;mysql-server&quot;: [],
+                &quot;mysql-devel&quot;: [],
+                &quot;mysql-libs&quot;: [],
+                &quot;httpd&quot;: []
+              }
+            },
+            &quot;services&quot;: {
+              &quot;sysvinit&quot;: {
+                &quot;httpd&quot;: {
+                  &quot;enabled&quot;: &quot;true&quot;,
+                  &quot;ensureRunning&quot;: &quot;true&quot;
+                },
+                &quot;mysqld&quot;: {
+                  &quot;enabled&quot;: &quot;true&quot;,
+                  &quot;ensureRunning&quot;: &quot;true&quot;
+                }
+              }
+            },
+            &quot;sources&quot;: {
+              &quot;/var/www/html&quot;: &quot;http://wordpress.org/latest.tar.gz&quot;
+            }
+          }
+        }
+      },
+      &quot;CreationPolicy&quot;: {
+        &quot;ResourceSignal&quot;: {
+          &quot;Timeout&quot;: &quot;PT15M&quot;
+        }
+      }
+    }
+  },
+  &quot;AWSTemplateFormatVersion&quot;: &quot;2010-09-09&quot;
+}</code></pre><h2>Contributing</h2><p>Wolkenkratzer is still a new library and needs lots of testing. If you run into any problems please open an issue or create a PR. All 
+contributions are welcome!</p>
 <h2>License</h2><p>Wolkenkratzer uses the Apache 2.0 open source license.</p></article>
     </section>
 
@@ -283,7 +1729,7 @@ console.log(t.toJson())</code></pre><p>More examples can be found in the /exampl
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Jul 14 2016 21:15:55 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Jul 14 2016 22:42:14 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
