@@ -34,4 +34,4 @@ subnetCidrs.forEach((cidr, index) => {
   t.addResource(subnet)
 })
 
-console.log(t.toJson())
+console.log(t.toJson().Template)

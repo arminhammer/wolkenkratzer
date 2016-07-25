@@ -51,7 +51,7 @@ describe('ECR', () => {
   })
 
   it('should generate the expected JSON template', () => {
-    let jsonString = JSON.parse(t.toJson())
+    let jsonString = JSON.parse(t.toJson().Template)
     jsonString.should.deep.equal({
       'Resources': {
         'repository': {
@@ -90,7 +90,7 @@ describe('ECR', () => {
   })
 
   it('CloudFormation should validate the template', () => {
-    let jsonString = t.toJson()
+    let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {

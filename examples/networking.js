@@ -147,4 +147,4 @@ privateSubnetRouteTableAssociationPrivD.SubnetId.ref(privateSubnetPrivD)
 privateSubnetRouteTableAssociationPrivD.RouteTableId.ref(routeTablePrivD)
 t.addResource(privateSubnetRouteTableAssociationPrivD)
 
-console.log(t.toJson())
+console.log(t.toJson().Template)

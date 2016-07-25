@@ -97,4 +97,4 @@ t.addOutput(new wk.Output('BucketName', {
   'Description': 'Name of S3 bucket to hold website content'
 }))
 
-console.log(t.toJson())
+console.log(t.toJson().Template)

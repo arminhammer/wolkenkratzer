@@ -23,7 +23,7 @@ describe('Tags', () => {
     vpc.Tags.add({ Key: 'Key2', Value: 'Value2' })
     t.addResource(vpc)
 
-    let jsonString = JSON.parse(t.toJson())
+    let jsonString = JSON.parse(t.toJson().Template)
     jsonString.should.deep.equal({
       'Resources': {
       'vpc': {

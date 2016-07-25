@@ -1,6 +1,6 @@
 {
   "name": "wolkenkratzer",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Library for generating CloudFormation templates",
   "main": "index.js",
   "directories": {
@@ -30,8 +30,7 @@
     "coverage": "istanbul cover ./node_modules/.bin/_mocha 'test/**/*.spec.js'",
     "builddocs": "./node_modules/.bin/jsdoc -c jsdoc.conf.json -R ./README.md",
     "publishdocs": "git push origin `git subtree split --prefix docs/ master`:gh-pages --force",
-    "linecount": "git ls-files | xargs wc -l",
-    "browser": "browserify index.js -o dist/wk.browser.js"
+    "linecount": "git ls-files | xargs wc -l"
   },
   "repository": {
     "type": "git",

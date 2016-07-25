@@ -21,6 +21,6 @@ EC2.describeInstances({}, (err, data) => {
     let instance = data.Reservations[0].Instances[0]
     let ec2Two = new wk.EC2.Instance('ec2Two', instance)
     t.addResource(ec2Two)
-    console.log(t.toJson())
+    console.log(t.toJson().Template)
   }
 })

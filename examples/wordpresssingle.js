@@ -345,4 +345,4 @@ let cPolicy = new wk.Policy.CreationPolicy({
 webServer.addPolicy(cPolicy)
 
 t.addOutput(webSiteUrlOutput)
-console.log(t.toJson())
+console.log(t.toJson().Template)

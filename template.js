@@ -126,22 +126,39 @@ class Template {
 
   /**
    * Returns a CloudFormation JSON template string
-   * @returns {JSON}
+   * @returns {Object}
    */
   toJson () {
     let j = JSON.parse(JSON.stringify(this))
+    let errors = []
     for (let param in this.Parameters) {
-      j.Parameters[param] = this.Parameters[param].toJson()
+      try {
+        j.Parameters[param] = this.Parameters[param].toJson()
+      } catch (e) {
+        errors.push(e.message)
+      }
     }
     for (let resource in this.Resources) {
-      j.Resources[resource] = this.Resources[resource].toJson()
+      try {
+        j.Resources[resource] = this.Resources[resource].toJson()
+      } catch (e) {
+        errors.push(e.message)
+      }
     }
     for (let output in this.Outputs) {
-      j.Outputs[output] = this.Outputs[output].toJson()
+      try {
+        j.Outputs[output] = this.Outputs[output].toJson()
+      } catch (e) {
+        errors.push(e.message)
+      }
     }
     for (let map in this.Mappings) {
       if (this.Mappings[map] instanceof Mapping) {
-        j.Mappings[map] = this.Mappings[map].toJson()
+        try {
+          j.Mappings[map] = this.Mappings[map].toJson()
+        } catch (e) {
+          errors.push(e.message)
+        }
       } else {
         j.Mappings[map] = this.Mappings[map]
       }
@@ -164,7 +181,34 @@ class Template {
     if (j.Description === '') {
       delete j.Description
     }
-    return JSON.stringify(j, null, 2)
+    if (errors.length === 0) {
+      errors = null
+    }
+    return {
+      Errors: errors,
+      Template: JSON.stringify(j, null, 2)
+    }
+  }
+
+  /**
+   *
+   * @param callback
+   */
+  toJsonAsync(callback) {
+    return new Promise((resolve, reject) => {      // [1]
+      process.nextTick(() => {
+        let result = this.toJson()
+        if (result.Errors) {
+          if (callback) { callback(result.Errors, result.Template) }
+          reject({ Errors: result.Errors, Template: result.Template })
+        } else {
+          if (callback) {
+            callback(null, result.Template)
+          }
+          resolve(result.Template)
+        }
+      })
+    })
   }
 }
 

@@ -13,4 +13,4 @@ recordSet.Type = 'A'
 
 t.addResource(recordSet)
 
-console.log(t.toJson())
+console.log(t.toJson().Template)

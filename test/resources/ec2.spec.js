@@ -30,7 +30,7 @@ describe('EC2', () => {
     })
 
     it('should generate the expected JSON template', () => {
-      let jsonString = JSON.parse(t.toJson())
+      let jsonString = JSON.parse(t.toJson().Template)
       jsonString.should.deep.equal({
         'Resources': {
           'myinstance': {
@@ -46,7 +46,7 @@ describe('EC2', () => {
     })
 
     it('CloudFormation should validate the template', () => {
-      let jsonString = t.toJson()
+      let jsonString = t.toJson().Template
       CloudFormation.validateTemplate({
         TemplateBody: jsonString
       }, (err, data) => {
@@ -59,7 +59,7 @@ describe('EC2', () => {
 
     it('should handle property arrays for things like SecurityGroupIds', () => {
       instance.SecurityGroupIds = ['sg-12345', 'sg-4567']
-      let jsonString = JSON.parse(t.toJson())
+      let jsonString = JSON.parse(t.toJson().Template)
       jsonString.should.deep.equal({
         'Resources': {
           'myinstance': {
@@ -86,7 +86,7 @@ describe('EC2', () => {
       mapping.DeviceName = '/dev/sdc'
       mapping.Ebs = device
       instance.BlockDeviceMappings.push(mapping)
-      let jsonString = JSON.parse(t.toJson())
+      let jsonString = JSON.parse(t.toJson().Template)
       jsonString.should.deep.equal({
         'Resources': {
           'myinstance': {
@@ -131,7 +131,7 @@ describe('EC2', () => {
     })
 
     it('should generate the expected JSON template', () => {
-      let jsonString = JSON.parse(t.toJson())
+      let jsonString = JSON.parse(t.toJson().Template)
       jsonString.should.deep.equal({
         'Resources': {
           'myvpc': {
@@ -171,7 +171,7 @@ describe('EC2', () => {
 
     it('should generate the expected JSON template', () => {
       vpnGateway.Type = 'ipsec.1'
-      let jsonString = JSON.parse(t.toJson())
+      let jsonString = JSON.parse(t.toJson().Template)
       jsonString.should.deep.equal({
         'Resources': {
           'VPNGateway': {
@@ -186,7 +186,7 @@ describe('EC2', () => {
     })
 
     it('CloudFormation should validate the template', () => {
-      let jsonString = t.toJson()
+      let jsonString = t.toJson().Template
       CloudFormation.validateTemplate({
         TemplateBody: jsonString
       }, (err, data) => {
@@ -343,7 +343,7 @@ describe('EC2', () => {
 
     it('Should generate the expected JSON template', () => {
       // t.toJson()
-      let jsonString = JSON.parse(t.toJson())
+      let jsonString = JSON.parse(t.toJson().Template)
       jsonString.should.deep.equal({
         'Parameters': {
           'VPCCIDR': {
@@ -565,7 +565,7 @@ describe('EC2', () => {
     })
 
     it('CloudFormation should validate the template', () => {
-      let jsonString = t.toJson()
+      let jsonString = t.toJson().Template
       CloudFormation.validateTemplate({
         TemplateBody: jsonString
       }, (err, data) => {
