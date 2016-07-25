@@ -3,11 +3,11 @@
  */
 'use strict'
 const path = require('path')
-const Template = require(path.join(__dirname, 'template')).Template
-const Tag = require(path.join(__dirname, 'tag')).Tag
-const TagSet = require(path.join(__dirname, 'tag')).TagSet
-const Intrinsic = require(path.join(__dirname, '/intrinsic'))
-const Ref = require(path.join(__dirname, '/intrinsic')).Ref
+const Template = require('./template').Template
+const Tag = require('./tag').Tag
+const TagSet = require('./tag').TagSet
+const Intrinsic = require('./intrinsic')
+const Ref = require('./intrinsic').Ref
 const FnGetAtt = require(path.join(__dirname, '/intrinsic')).FnGetAtt
 const Parameter = require(path.join(__dirname, '/parameter')).Parameter
 const WKResource = require(path.join(__dirname, '/resource')).WKResource
