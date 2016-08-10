@@ -42,7 +42,7 @@ const ECS = require('./resources/ecs')
 const EFS = require('./resources/efs')
 const ElastiCache = require('./resources/elasticache')
 const ElasticBeanstalk = require('./resources/elasticbeanstalk')
-const ElasticLoadbalancing = require('./resources/elasticloadbalancing')
+const ElasticLoadBalancing = require('./resources/elasticloadbalancing')
 const ElasticSearch = require('./resources/elasticsearch')
 const EMR = require('./resources/emr')
 const Events = require('./resources/events')
@@ -93,7 +93,7 @@ module.exports = {
   EFS: EFS,
   ElastiCache: ElastiCache,
   ElasticBeanstalk: ElasticBeanstalk,
-  ElasticLoadbalancing: ElasticLoadbalancing,
+  ElasticLoadBalancing: ElasticLoadBalancing,
   ElasticSearch: ElasticSearch,
   EMR: EMR,
   Events: Events,

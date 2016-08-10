@@ -16,6 +16,7 @@ const wk = require(path.join(__dirname, '..', '..', 'index'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
+/*
 describe('CodePipeline', () => {
   let t = new wk.Template()
 
@@ -98,3 +99,4 @@ describe('CodePipeline', () => {
     })
   })
 })
+   */

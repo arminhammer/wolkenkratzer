@@ -17,7 +17,8 @@ AWS.config.setPromisesDependency(BPromise)
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
 describe('Examples', () => {
-  it('Should be able to generate the expected template', () => {
+  it('Should be able to generate the expected template', function () {
+    this.timeout(15000)
     return fs
       .readdirAsync(path.join(__dirname, '..', 'examples'))
       .map((file) => {
