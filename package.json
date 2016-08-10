@@ -1,6 +1,6 @@
 {
   "name": "wolkenkratzer",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Library for generating CloudFormation templates",
   "main": "index.js",
   "directories": {
@@ -37,7 +37,10 @@
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
   "keywords": [
-    "CloudFormation"
+    "CloudFormation",
+    "AWS",
+    "Template",
+    "Cloud"
   ],
   "author": "Armin Graf",
   "license": "MIT",
