@@ -27,7 +27,7 @@ You can still do updates that require no or some interruption. If you must repla
                      GreaterThanThreshold |
                      LessThanThreshold |
                      LessThanOrEqualToThresholdUpdate requires: No interruption
-* @property {MetricDimension} Dimensions Required: No. The dimensions for the alarm's associated metric.Update requires: No interruption
+* @property {CloudWatchMetricDimensionPropertyType} Dimensions Required: No. The dimensions for the alarm's associated metric.Update requires: No interruption
 * @property {String} EvaluationPeriods Required: Yes. The number of periods over which data is compared to the specified
                   threshold.Update requires: No interruption
 * @property {String} InsufficientDataActions Required: No. The list of actions to execute when this alarm transitions into an
@@ -64,7 +64,7 @@ class Alarm extends WKResource {
       AlarmDescription: new ResourceAttribute('AlarmDescription', String, 'No', null),
       AlarmName: new ResourceAttribute('AlarmName', String, 'No', null),
       ComparisonOperator: new ResourceAttribute('ComparisonOperator', String, 'Yes', null),
-      Dimensions: new ResourceAttributeArray('Dimensions', types.MetricDimension, 'No', null),
+      Dimensions: new ResourceAttributeArray('Dimensions', types.CloudWatchMetricDimensionPropertyType, 'No', null),
       EvaluationPeriods: new ResourceAttribute('EvaluationPeriods', String, 'Yes', null),
       InsufficientDataActions: new ResourceAttributeArray('InsufficientDataActions', String, 'No', null),
       MetricName: new ResourceAttribute('MetricName', String, 'Yes', null),

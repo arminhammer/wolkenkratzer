@@ -248,14 +248,14 @@ class SecurityGroupIngress extends WKResource {
 /** @memberof module:ElastiCache
 *   @extends WKResource
 * @property {String} Description Required: Yes. The description for the cache subnet group.Update requires: No interruption
-* @property {Stringlist} SubnetIds Required: Yes. The Amazon EC2 subnet IDs for the cache subnet group.Update requires: No interruption
+* @property {String} SubnetIds Required: Yes. The Amazon EC2 subnet IDs for the cache subnet group.Update requires: No interruption
 */
 class SubnetGroup extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SubnetGroup'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'Yes', null),
-      SubnetIds: new ResourceAttribute('SubnetIds', types.Stringlist, 'Yes', null)
+      SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

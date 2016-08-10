@@ -93,7 +93,7 @@ class AutoScalingGroup extends WKResource {
                   the Auto Scaling receives a unique public IP address.NoteIf this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the
 DependsOn attribute to declare a dependency on the VPC-gateway attachment. For more information,
 see DependsOn Attribute.Update requires: Replacement
-* @property {BlockDeviceMappings} BlockDeviceMappings Required: No. Specifies how block devices are exposed to the instance. You can specify
+* @property {AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType} BlockDeviceMappings Required: No. Specifies how block devices are exposed to the instance. You can specify
                   virtual devices and EBS volumes.Update requires: Replacement
 * @property {String} ClassicLinkVPCId Required: No. The ID of a ClassicLink-enabled VPC to link your EC2-Classic instances to. You
                   can specify this property only for EC2-Classic instances. For more information,
@@ -137,7 +137,7 @@ see DependsOn Attribute.Update requires: Replacement
                   launch. Check the kernel requirements for information about whether you need to
                   specify a RAM disk. To find kernel requirements, refer to the AWS Resource Center
                   and search for the kernel ID.Update requires: Replacement
-* @property {EC2securitygroups} SecurityGroups Required: No. A list that contains the EC2 security groups to assign to the Amazon EC2
+* @property {String} SecurityGroups Required: No. A list that contains the EC2 security groups to assign to the Amazon EC2
                   instances in the Auto Scaling group. The list can contain the name of existing EC2
                   security groups or references to AWS::EC2::SecurityGroup resources
                   created in the template. If your instances are launched within VPC, specify Amazon VPC
@@ -158,7 +158,7 @@ class LaunchConfiguration extends WKResource {
     let resourceType = 'AWS::AutoScaling::LaunchConfiguration'
     let properties = {
       AssociatePublicIpAddress: new ResourceAttribute('AssociatePublicIpAddress', Boolean, 'No', null),
-      BlockDeviceMappings: new ResourceAttributeArray('BlockDeviceMappings', types.BlockDeviceMappings, 'No', null),
+      BlockDeviceMappings: new ResourceAttributeArray('BlockDeviceMappings', types.AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType, 'No', null),
       ClassicLinkVPCId: new ResourceAttribute('ClassicLinkVPCId', String, 'No', null),
       ClassicLinkVPCSecurityGroups: new ResourceAttributeArray('ClassicLinkVPCSecurityGroups', String, 'Conditional', null),
       EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, 'Conditional', null),
@@ -171,7 +171,7 @@ class LaunchConfiguration extends WKResource {
       KeyName: new ResourceAttribute('KeyName', String, 'No', null),
       PlacementTenancy: new ResourceAttribute('PlacementTenancy', String, 'No', null),
       RamDiskId: new ResourceAttribute('RamDiskId', String, 'No', null),
-      SecurityGroups: new ResourceAttributeArray('SecurityGroups', types.EC2securitygroups, 'No', null),
+      SecurityGroups: new ResourceAttributeArray('SecurityGroups', String, 'No', null),
       SpotPrice: new ResourceAttribute('SpotPrice', String, 'No', null),
       UserData: new ResourceAttribute('UserData', String, 'No', null)
     }

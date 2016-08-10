@@ -32,7 +32,7 @@ class Application extends WKResource {
 * @property {String} ApplicationName Required: Yes. Name of the Elastic Beanstalk application that is associated with this application
                   version.Update requires: Replacement
 * @property {String} Description Required: No. A description of this application version.Update requires: Some interruptions
-* @property {SourceBundle} SourceBundle Required: Yes. The location of the source bundle for this version.Update requires: Replacement
+* @property {ElasticBeanstalkSourceBundlePropertyType} SourceBundle Required: Yes. The location of the source bundle for this version.Update requires: Replacement
 */
 class ApplicationVersion extends WKResource {
   constructor (name, propertiesObject) {
@@ -40,7 +40,7 @@ class ApplicationVersion extends WKResource {
     let properties = {
       ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
       Description: new ResourceAttribute('Description', String, 'No', null),
-      SourceBundle: new ResourceAttribute('SourceBundle', types.SourceBundle, 'Yes', null)
+      SourceBundle: new ResourceAttribute('SourceBundle', types.ElasticBeanstalkSourceBundlePropertyType, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -55,7 +55,7 @@ class ApplicationVersion extends WKResource {
                   template. You must specify this property if you don't specify the
                      SolutionStackName or SourceConfiguration
                   properties.Update requires: Replacement
-* @property {OptionSettings} OptionSettings Required: No. A list of 
+* @property {ElasticBeanstalkOptionSettingsPropertyType} OptionSettings Required: No. A list of 
                      OptionSettings for this Elastic Beanstalk configuration. For a complete
                   list of Elastic Beanstalk configuration options, see  Option
                      Values, in the AWS Elastic Beanstalk Developer
@@ -81,7 +81,7 @@ class ConfigurationTemplate extends WKResource {
       ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
       Description: new ResourceAttribute('Description', String, 'No', null),
       EnvironmentId: new ResourceAttribute('EnvironmentId', String, 'Conditional', null),
-      OptionSettings: new ResourceAttributeArray('OptionSettings', types.OptionSettings, 'No', null),
+      OptionSettings: new ResourceAttributeArray('OptionSettings', types.ElasticBeanstalkOptionSettingsPropertyType, 'No', null),
       SolutionStackName: new ResourceAttribute('SolutionStackName', String, 'Conditional', null),
       SourceConfiguration: new ResourceAttribute('SourceConfiguration', types.ElasticBeanstalkSourceConfigurationPropertyType, 'Conditional', null)
     }
@@ -98,7 +98,7 @@ class ConfigurationTemplate extends WKResource {
                   a unique physical ID and uses that ID for the environment name. For more
                   information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
 You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement
-* @property {OptionSettings} OptionSettings Required: No. Key-value pairs defining configuration options for this environment. These
+* @property {ElasticBeanstalkOptionSettingsPropertyType} OptionSettings Required: No. Key-value pairs defining configuration options for this environment. These
                   options override the values that are defined in the solution stack or the
                   configuration template. If you remove any options during a stack update, the
                   removed options revert to default values.Update requires: Some interruptions
@@ -126,7 +126,7 @@ class Environment extends WKResource {
       CNAMEPrefix: new ResourceAttribute('CNAMEPrefix', String, 'No', null),
       Description: new ResourceAttribute('Description', String, 'No', null),
       EnvironmentName: new ResourceAttribute('EnvironmentName', String, 'No', null),
-      OptionSettings: new ResourceAttributeArray('OptionSettings', types.OptionSettings, 'No', null),
+      OptionSettings: new ResourceAttributeArray('OptionSettings', types.ElasticBeanstalkOptionSettingsPropertyType, 'No', null),
       SolutionStackName: new ResourceAttribute('SolutionStackName', String, 'No', null),
       Tags: new tag.TagSet(),
       TemplateName: new ResourceAttribute('TemplateName', String, 'No', null),

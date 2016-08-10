@@ -15,25 +15,16 @@ const wk = require(path.join(__dirname, '..', '..', 'index'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
-describe('Directory Services', () => {
+describe('DirectoryService', () => {
   let t = new wk.Template()
 
-  let account = new wk.ApiGateway.Account('account')
-  t.addResource(account)
+  let MicrosoftAD = new wk.DirectoryService.MicrosoftAD('MicrosoftAD')
+  t.addResource(MicrosoftAD)
 
-  let apiKey = new wk.ApiGateway.ApiKey('apiKey')
-  let Authorizer = new wk.ApiGateway.Authorizer('Authorizer')
-  let BasePathMapping = new wk.ApiGateway.BasePathMapping('BasePathMapping')
-  let ClientCertificate = new wk.ApiGateway.ClientCertificate('ClientCertificate')
-  let Deployment = new wk.ApiGateway.Deployment('Deployment')
-  let Method = new wk.ApiGateway.Method('Method')
-  let Model = new wk.ApiGateway.Model('Model')
-  let Resource = new wk.ApiGateway.Resource('Resource')
-  let RestApi = new wk.ApiGateway.RestApi('RestApi')
-  let Stage = new wk.ApiGateway.Stage('Stage')
+  let SimpleAD = new wk.DirectoryService.SimpleAD('SimpleAD')
 
-  it('should be able to add an API Gateway Account to the template', () => {
-    t.Resources['account'].WKResourceType.should.equal('AWS::ApiGateway::Account')
+  it('should be able to add an DirectoryService MicrosoftAD to the template', () => {
+    t.Resources['MicrosoftAD'].WKResourceType.should.equal('AWS::DirectoryService::MicrosoftAD')
   })
 
   it('CloudFormation should validate the template', () => {

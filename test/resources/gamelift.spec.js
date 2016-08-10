@@ -18,22 +18,14 @@ const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 describe('Gamelift', () => {
   let t = new wk.Template()
 
-  let account = new wk.ApiGateway.Account('account')
-  t.addResource(account)
+  let Alias = new wk.GameLift.Alias('Alias')
+  t.addResource(Alias)
 
-  let apiKey = new wk.ApiGateway.ApiKey('apiKey')
-  let Authorizer = new wk.ApiGateway.Authorizer('Authorizer')
-  let BasePathMapping = new wk.ApiGateway.BasePathMapping('BasePathMapping')
-  let ClientCertificate = new wk.ApiGateway.ClientCertificate('ClientCertificate')
-  let Deployment = new wk.ApiGateway.Deployment('Deployment')
-  let Method = new wk.ApiGateway.Method('Method')
-  let Model = new wk.ApiGateway.Model('Model')
-  let Resource = new wk.ApiGateway.Resource('Resource')
-  let RestApi = new wk.ApiGateway.RestApi('RestApi')
-  let Stage = new wk.ApiGateway.Stage('Stage')
+  let Build = new wk.GameLift.Build('Build')
+  let Fleet = new wk.GameLift.Fleet('Fleet')
 
-  it('should be able to add an API Gateway Account to the template', () => {
-    t.Resources['account'].WKResourceType.should.equal('AWS::ApiGateway::Account')
+  it('should be able to add an GameLift Alias to the template', () => {
+    t.Resources['Alias'].WKResourceType.should.equal('AWS::GameLift::Alias')
   })
 
   it('CloudFormation should validate the template', () => {

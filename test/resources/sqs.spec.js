@@ -15,16 +15,16 @@ const wk = require(path.join(__dirname, '..', '..', 'index'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
-describe('EFS', () => {
+describe('SQS', () => {
   let t = new wk.Template()
 
-  let FileSystem = new wk.EFS.FileSystem('FileSystem')
-  t.addResource(FileSystem)
+  let Queue = new wk.SQS.Queue('Queue')
+  t.addResource(Queue)
 
-  let MountTarget = new wk.EFS.MountTarget('MountTarget')
+  let QueuePolicy = new wk.SQS.QueuePolicy('QueuePolicy')
 
-  it('should be able to add an EFS FileSystem to the template', () => {
-    t.Resources['FileSystem'].WKResourceType.should.equal('AWS::EFS::FileSystem')
+  it('should be able to add an SQS Queue to the template', () => {
+    t.Resources['Queue'].WKResourceType.should.equal('AWS::SQS::Queue')
   })
 
   it('CloudFormation should validate the template', () => {

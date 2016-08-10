@@ -19,6 +19,9 @@ describe('IAM', () => {
   let t = new wk.Template()
 
   let accesskey = new wk.IAM.AccessKey('accesskey')
+
+  let ManagedPolicy = new wk.IAM.ManagedPolicy('ManagedPolicy')
+
   accesskey.UserName = 'testUser'
   t.addResource(accesskey)
 

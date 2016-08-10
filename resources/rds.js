@@ -352,7 +352,7 @@ class DBParameterGroup extends WKResource {
 /** @memberof module:RDS
 *   @extends WKResource
 * @property {String} EC2VpcId Required: Conditional. The Id of VPC. Indicates which VPC this DB Security Group should belong to.Update requires: Replacement
-* @property {RDSSecurityGroupRules} DBSecurityGroupIngress Required: Yes. Network ingress authorization for an Amazon EC2 security group or an IP address range.Update requires: No interruption
+* @property {AmazonRDSSecurityGroupRule} DBSecurityGroupIngress Required: Yes. Network ingress authorization for an Amazon EC2 security group or an IP address range.Update requires: No interruption
 * @property {String} GroupDescription Required: Yes. Description of the security group.Update requires: Replacement
 * @property {resourcetags} Tags Required: No. The tags that you want to attach to the Amazon RDS DB security group.Update requires: No interruption
 */
@@ -361,7 +361,7 @@ class DBSecurityGroup extends WKResource {
     let resourceType = 'AWS::RDS::DBSecurityGroup'
     let properties = {
       EC2VpcId: new ResourceAttribute('EC2VpcId', String, 'Conditional', null),
-      DBSecurityGroupIngress: new ResourceAttributeArray('DBSecurityGroupIngress', types.RDSSecurityGroupRules, 'Yes', null),
+      DBSecurityGroupIngress: new ResourceAttributeArray('DBSecurityGroupIngress', types.AmazonRDSSecurityGroupRule, 'Yes', null),
       GroupDescription: new ResourceAttribute('GroupDescription', String, 'Yes', null),
       Tags: new tag.TagSet()
     }

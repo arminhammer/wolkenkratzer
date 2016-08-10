@@ -18,22 +18,18 @@ const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 describe('WAF', () => {
   let t = new wk.Template()
 
-  let account = new wk.ApiGateway.Account('account')
-  t.addResource(account)
+  let ByteMatchSet = new wk.WAF.ByteMatchSet('ByteMatchSet')
+  t.addResource(ByteMatchSet)
 
-  let apiKey = new wk.ApiGateway.ApiKey('apiKey')
-  let Authorizer = new wk.ApiGateway.Authorizer('Authorizer')
-  let BasePathMapping = new wk.ApiGateway.BasePathMapping('BasePathMapping')
-  let ClientCertificate = new wk.ApiGateway.ClientCertificate('ClientCertificate')
-  let Deployment = new wk.ApiGateway.Deployment('Deployment')
-  let Method = new wk.ApiGateway.Method('Method')
-  let Model = new wk.ApiGateway.Model('Model')
-  let Resource = new wk.ApiGateway.Resource('Resource')
-  let RestApi = new wk.ApiGateway.RestApi('RestApi')
-  let Stage = new wk.ApiGateway.Stage('Stage')
+  let IPSet = new wk.WAF.IPSet('IPSet')
+  let Rule = new wk.WAF.Rule('Rule')
+  let SizeConstraintSet = new wk.WAF.SizeConstraintSet('SizeConstraintSet')
+  let SqlInjectionMatchSet = new wk.WAF.SqlInjectionMatchSet('SqlInjectionMatchSet')
+  let WebACL = new wk.WAF.WebACL('WebACL')
+  let XssMatchSet = new wk.WAF.XssMatchSet('XssMatchSet')
 
-  it('should be able to add an API Gateway Account to the template', () => {
-    t.Resources['account'].WKResourceType.should.equal('AWS::ApiGateway::Account')
+  it('should be able to add an WAF ByteMatchSet to the template', () => {
+    t.Resources['ByteMatchSet'].WKResourceType.should.equal('AWS::WAF::ByteMatchSet')
   })
 
   it('CloudFormation should validate the template', () => {

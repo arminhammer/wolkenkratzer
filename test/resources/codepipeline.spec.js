@@ -16,7 +16,7 @@ const wk = require(path.join(__dirname, '..', '..', 'index'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
-/*
+
 describe('CodePipeline', () => {
   let t = new wk.Template()
 
@@ -43,52 +43,15 @@ describe('CodePipeline', () => {
     Type: 'S3'
   })
   pipeline.RoleArn.ref(rolearn)
-  pipeline.Stages.push(stage)
+  //pipeline.Stages.push(stage)
   t.addResource(pipeline)
 
-  console.log(t.toJson())
-
   it('should be able to add a custom action type to the template', () => {
-    t.Resources[ 'customActionType' ].resourceType.should.equal('AWS::CodePipeline::CustomActionType')
-  })
-
-  it('should generate the expected JSON template', () => {
-    let jsonString = JSON.parse(t.toJson())
-    jsonString.should.deep.equal({
-      'Resources': {
-        'newBucket': {
-          'Type': 'AWS::S3::Bucket',
-          'Properties': {
-            'BucketName': 'newBucket'
-          }
-        },
-        'newBucketPolicy': {
-          'Type': 'AWS::S3::BucketPolicy',
-          'Properties': {
-            'Bucket': {
-              'Ref': 'newBucket'
-            },
-            'PolicyDocument': {
-              'Statement': [
-                {
-                  'Action': [
-                    's3:GetObject'
-                  ],
-                  'Effect': 'Allow',
-                  'Resource': '*',
-                  'Principal': '*'
-                }
-              ]
-            }
-          }
-        }
-      },
-      'AWSTemplateFormatVersion': '2010-09-09'
-    })
+    t.Resources[ 'pipeline' ].WKResourceType.should.equal('AWS::CodePipeline::Pipeline')
   })
 
   it('CloudFormation should validate the template', () => {
-    let jsonString = t.toJson()
+    let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
@@ -99,4 +62,3 @@ describe('CodePipeline', () => {
     })
   })
 })
-   */

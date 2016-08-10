@@ -16,7 +16,32 @@ const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
 describe('EC2', () => {
+  let CustomerGateway = new wk.EC2.CustomerGateway('CustomerGateway')
+  let DHCPOptions = new wk.EC2.DHCPOptions('DHCPOptions')
+  let EIPAssociation = new wk.EC2.EIPAssociation('EIPAssociation')
+  let FlowLog = new wk.EC2.FlowLog('FlowLog')
+  let Host = new wk.EC2.Host('Host')
+  let NetworkAcl = new wk.EC2.NetworkAcl('NetworkAcl')
+  let NetworkAclEntry = new wk.EC2.NetworkAclEntry('NetworkAclEntry')
+  let NetworkInterface = new wk.EC2.NetworkInterface('NetworkInterface')
+  let NetworkInterfaceAttachment = new wk.EC2.NetworkInterfaceAttachment('NetworkInterfaceAttachment')
+  let PlacementGroup = new wk.EC2.PlacementGroup('PlacementGroup')
+  let SecurityGroup = new wk.EC2.SecurityGroup('SecurityGroup')
+  let SecurityGroupEgress = new wk.EC2.SecurityGroupEgress('SecurityGroupEgress')
+  let SecurityGroupIngress = new wk.EC2.SecurityGroupIngress('SecurityGroupIngress')
+  let SpotFleet = new wk.EC2.SpotFleet('SpotFleet')
+  let SubnetNetworkAclAssociation = new wk.EC2.SubnetNetworkAclAssociation('SubnetNetworkAclAssociation')
+  let Volume = new wk.EC2.Volume('Volume')
+  let VolumeAttachment = new wk.EC2.VolumeAttachment('VolumeAttachment')
+  let VPCDHCPOptionsAssociation = new wk.EC2.VPCDHCPOptionsAssociation('VPCDHCPOptionsAssociation')
+  let VPCEndpoint = new wk.EC2.VPCEndpoint('VPCEndpoint')
+  let VPCPeeringConnection = new wk.EC2.VPCPeeringConnection('VPCPeeringConnection')
+  let VPNConnection = new wk.EC2. VPNConnection(' VPNConnection')
+  let VPNConnectionRoute = new wk.EC2. VPNConnectionRoute(' VPNConnectionRoute')
+  let VPNGatewayRoutePropagation = new wk.EC2.VPNGatewayRoutePropagation('VPNGatewayRoutePropagation')
+
   describe('Instance', () => {
+
     let t = new wk.Template()
 
     let instance = new wk.EC2.Instance('myinstance')

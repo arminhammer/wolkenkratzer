@@ -18,22 +18,13 @@ const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 describe('SNS', () => {
   let t = new wk.Template()
 
-  let account = new wk.ApiGateway.Account('account')
-  t.addResource(account)
+  let Topic = new wk.SNS.Topic('Topic')
+  t.addResource(Topic)
 
-  let apiKey = new wk.ApiGateway.ApiKey('apiKey')
-  let Authorizer = new wk.ApiGateway.Authorizer('Authorizer')
-  let BasePathMapping = new wk.ApiGateway.BasePathMapping('BasePathMapping')
-  let ClientCertificate = new wk.ApiGateway.ClientCertificate('ClientCertificate')
-  let Deployment = new wk.ApiGateway.Deployment('Deployment')
-  let Method = new wk.ApiGateway.Method('Method')
-  let Model = new wk.ApiGateway.Model('Model')
-  let Resource = new wk.ApiGateway.Resource('Resource')
-  let RestApi = new wk.ApiGateway.RestApi('RestApi')
-  let Stage = new wk.ApiGateway.Stage('Stage')
+  let TopicPolicy = new wk.SNS.TopicPolicy('TopicPolicy')
 
-  it('should be able to add an API Gateway Account to the template', () => {
-    t.Resources['account'].WKResourceType.should.equal('AWS::ApiGateway::Account')
+  it('should be able to add an SNS Topic to the template', () => {
+    t.Resources['Topic'].WKResourceType.should.equal('AWS::SNS::Topic')
   })
 
   it('CloudFormation should validate the template', () => {

@@ -10,7 +10,7 @@ const types = require('./../types')
 
 /** @memberof module:EC2
 *   @extends WKResource
-* @property {NumberBgpAsnisalwaysanintegervalue} BgpAsn Required: Yes. The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN).Update requires: Replacement
+* @property {Number} BgpAsn Required: Yes. The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN).Update requires: Replacement
 * @property {String} IpAddress Required: Yes. The internet-routable IP address for the customer gateway's outside interface. The address must be
                static.Update requires: Replacement
 * @property {AWSCloudFormationResourceTags} Tags Required: No. The tags that you want to attach to the resource.Update requires: No interruption.
@@ -20,7 +20,7 @@ class CustomerGateway extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::CustomerGateway'
     let properties = {
-      BgpAsn: new ResourceAttribute('BgpAsn', types.NumberBgpAsnisalwaysanintegervalue, 'Yes', null),
+      BgpAsn: new ResourceAttribute('BgpAsn', Number, 'Yes', null),
       IpAddress: new ResourceAttribute('IpAddress', String, 'Yes', null),
       Tags: new tag.TagSet(),
       Type: new ResourceAttribute('Type', String, 'Yes', null)
@@ -35,7 +35,7 @@ class CustomerGateway extends WKResource {
 * @property {String} DomainNameServers Required: Conditional. The IP (IPv4) address of a domain name server. You can specify up to four addresses.Update requires: ReplacementExample: "DomainNameServers" : [ "10.0.0.1", "10.0.0.2"
                   ]Example: To preserve the order of IP addresses, specify a comma delimited list as a single string: "DomainNameServers" : [ "10.0.0.1, 10.0.0.2" ]
 * @property {String} NetbiosNameServers Required: Conditional. The IP address (IPv4) of a NetBIOS name server. You can specify up to four addresses.Update requires: ReplacementExample: "NetbiosNameServers" : [ "10.0.0.1", "10.0.0.2" ]Example: To preserve the order of IP addresses, specify a comma delimited list as a single string: "NetbiosNameServers" : [ "10.0.0.1, 10.0.0.2" ]
-* @property {numbers} NetbiosNodeType Required: Conditional. An integer value indicating the NetBIOS node type:1: Broadcast ("B")2: Point-to-point ("P")4: Mixed mode ("M")8: Hybrid ("H")For more information about these values and about NetBIOS node types, see
+* @property {Number} NetbiosNodeType Required: Conditional. An integer value indicating the NetBIOS node type:1: Broadcast ("B")2: Point-to-point ("P")4: Mixed mode ("M")8: Hybrid ("H")For more information about these values and about NetBIOS node types, see
                      RFC 2132, RFC 1001, and RFC 1002. We recommend that
                   you use only the value 2 at this time (broadcast and multicast are
                   not currently supported).Update requires: ReplacementExample: "NetbiosNodeType" : 2
@@ -50,7 +50,7 @@ class DHCPOptions extends WKResource {
       DomainName: new ResourceAttribute('DomainName', String, 'Conditional', null),
       DomainNameServers: new ResourceAttributeArray('DomainNameServers', String, 'Conditional', null),
       NetbiosNameServers: new ResourceAttributeArray('NetbiosNameServers', String, 'Conditional', null),
-      NetbiosNodeType: new ResourceAttributeArray('NetbiosNodeType', types.numbers, 'Conditional', null),
+      NetbiosNodeType: new ResourceAttributeArray('NetbiosNodeType', Number, 'Conditional', null),
       NtpServers: new ResourceAttributeArray('NtpServers', String, 'Conditional', null),
       Tags: new tag.TagSet()
     }
@@ -244,7 +244,7 @@ see DependsOn Attribute.Update requires: Replacement
                               the updated UserData. To update configurations on your
                               instance, use the cfn-hup helper
                               script.Update requires: Replacement for instance store-backed instances.
-* @property {EC2MountPoints} Volumes Required: No. The Amazon EBS volumes to attach to the instance.NoteBefore detaching a volume, unmount any file systems on the device within
+* @property {EC2MountPointPropertyType} Volumes Required: No. The Amazon EBS volumes to attach to the instance.NoteBefore detaching a volume, unmount any file systems on the device within
                         your operating system. If you don't unmount the file system, a volume might
                         get stuck in a busy state while detaching.Update requires: No interruption
 * @property {String} AdditionalInfo Required: No. Reserved.Update requires:
@@ -279,7 +279,7 @@ class Instance extends WKResource {
       Tags: new tag.TagSet(),
       Tenancy: new ResourceAttribute('Tenancy', String, 'No', null),
       UserData: new ResourceAttribute('UserData', String, 'No', null),
-      Volumes: new ResourceAttributeArray('Volumes', types.EC2MountPoints, 'No', null),
+      Volumes: new ResourceAttributeArray('Volumes', types.EC2MountPointPropertyType, 'No', null),
       AdditionalInfo: new ResourceAttribute('AdditionalInfo', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
@@ -633,7 +633,7 @@ class SpotFleet extends WKResource {
 * @property {Boolean} MapPublicIpOnLaunch Required: No. Indicates whether instances that are launched in this subnet receive a public
                   IP address. By default, the value is false.Update requires: No interruption.
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this subnet.Update requires: No interruption.
-* @property {RefID} VpcId Required: Yes. A Ref structure that contains the ID of the VPC on which you want to create the
+* @property {String} VpcId Required: Yes. A Ref structure that contains the ID of the VPC on which you want to create the
                   subnet. The VPC ID is provided as the value of the "Ref" property, as: {
                      "Ref": "VPCID" }.
                   Update requires: Replacement
@@ -649,7 +649,7 @@ class Subnet extends WKResource {
       CidrBlock: new ResourceAttribute('CidrBlock', String, 'Yes', null),
       MapPublicIpOnLaunch: new ResourceAttribute('MapPublicIpOnLaunch', Boolean, 'No', null),
       Tags: new tag.TagSet(),
-      VpcId: new ResourceAttribute('VpcId', types.RefID, 'Yes', null)
+      VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -931,7 +931,7 @@ class VPNGateway extends WKResource {
 
 /** @memberof module:EC2
 *   @extends WKResource
-* @property {routetableIDs} RouteTableIds Required: Yes. A list of routing table IDs that are associated with a VPC. The routing
+* @property {String} RouteTableIds Required: Yes. A list of routing table IDs that are associated with a VPC. The routing
                   tables must be associated with the same VPC that the virtual private gateway is
                   attached to.Update requires: No interruption
 * @property {String} VpnGatewayId Required: Yes. The ID of the virtual private gateway that is attached to a VPC. The virtual
@@ -942,7 +942,7 @@ class VPNGatewayRoutePropagation extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNGatewayRoutePropagation'
     let properties = {
-      RouteTableIds: new ResourceAttributeArray('RouteTableIds', types.routetableIDs, 'Yes', null),
+      RouteTableIds: new ResourceAttributeArray('RouteTableIds', String, 'Yes', null),
       VpnGatewayId: new ResourceAttribute('VpnGatewayId', String, 'Yes', null)
     }
     super(name, resourceType, properties, propertiesObject)

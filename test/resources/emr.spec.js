@@ -18,22 +18,14 @@ const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 describe('EMR', () => {
   let t = new wk.Template()
 
-  let account = new wk.ApiGateway.Account('account')
-  t.addResource(account)
+  let Cluster = new wk.EMR.Cluster('Cluster')
+  t.addResource(Cluster)
 
-  let apiKey = new wk.ApiGateway.ApiKey('apiKey')
-  let Authorizer = new wk.ApiGateway.Authorizer('Authorizer')
-  let BasePathMapping = new wk.ApiGateway.BasePathMapping('BasePathMapping')
-  let ClientCertificate = new wk.ApiGateway.ClientCertificate('ClientCertificate')
-  let Deployment = new wk.ApiGateway.Deployment('Deployment')
-  let Method = new wk.ApiGateway.Method('Method')
-  let Model = new wk.ApiGateway.Model('Model')
-  let Resource = new wk.ApiGateway.Resource('Resource')
-  let RestApi = new wk.ApiGateway.RestApi('RestApi')
-  let Stage = new wk.ApiGateway.Stage('Stage')
+  let InstanceGroupConfig = new wk.EMR.InstanceGroupConfig('InstanceGroupConfig')
+  let Step = new wk.EMR.Step('Step')
 
-  it('should be able to add an API Gateway Account to the template', () => {
-    t.Resources['account'].WKResourceType.should.equal('AWS::ApiGateway::Account')
+  it('should be able to add an EMR Cluster to the template', () => {
+    t.Resources['Cluster'].WKResourceType.should.equal('AWS::EMR::Cluster')
   })
 
   it('CloudFormation should validate the template', () => {

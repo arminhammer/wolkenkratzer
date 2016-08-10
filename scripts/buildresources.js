@@ -135,6 +135,64 @@ fs
           case 'users':
             propType = 'String'
             break
+          case 'AppCookieStickinessPolicyobjects':
+            propType = 'ElasticLoadBalancingAppCookieStickinessPolicyType'
+            break
+          case 'LBCookieStickinessPolicyobjects':
+            propType = 'ElasticLoadBalancingLBCookieStickinessPolicyType'
+            break
+          case 'ElasticLoadBalancingListenerPropertyTypeobjects':
+            propType = 'ElasticLoadBalancingListenerPropertyType'
+            break
+          case 'ElasticLoadBalancingpolicyobjects':
+            propType = 'ElasticLoadBalancingPolicyType'
+            break
+          case 'numbers':
+            propType = 'Number'
+            break
+          case 'SNSSubscriptions':
+            propType = 'AmazonSNSSubscriptionPropertyType'
+            break
+          case 'AmazonSNStopicsARNs':
+            propType = 'String'
+            break
+          case 'RDSSecurityGroupRules':
+            propType = 'AmazonRDSSecurityGroupRule'
+            break
+          case 'OptionSettings':
+            propType = 'ElasticBeanstalkOptionSettingsPropertyType'
+            break
+          case 'SourceBundle':
+            propType = 'ElasticBeanstalkSourceBundlePropertyType'
+            break
+          case 'Stringlist':
+            propType = 'String'
+            wkType = 'ResourceAttributeArray'
+            break
+          case 'routetableIDs':
+            propType = 'String'
+            break
+          case 'RefID':
+            propType = 'String'
+            break
+          case 'EC2MountPoints':
+            propType = 'EC2MountPointPropertyType'
+            break
+          case 'NumberBgpAsnisalwaysanintegervalue':
+            propType = 'Number'
+            break
+          case 'MetricDimension':
+            propType = 'CloudWatchMetricDimensionPropertyType'
+            break
+          case 'EC2securitygroups':
+            propType = 'String'
+            break
+          case 'BlockDeviceMappings':
+            propType = 'AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType'
+            break
+          case 'securitygroupsassignedtoyourloadbalancerwithinyourvirtualprivatecloud(VPC)':
+            propType = 'String'
+            break
           default:
             break
         }
