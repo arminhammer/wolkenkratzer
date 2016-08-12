@@ -119,7 +119,7 @@ class CacheCluster extends WKResource {
 * @property {String} CacheParameterGroupFamily Required: Yes. The name of the cache parameter group family that the cache parameter group can be used
                with.Update requires: Updates are not supported.
 * @property {String} Description Required: Yes. The description for the Cache Parameter Group.Update requires: Updates are not supported.
-* @property {Object} Properties Required: Yes. A comma-delimited list of parameter name/value pairs. For more information, go to ModifyCacheParameterGroup in the Amazon ElastiCache API Reference
+* @property {Map} Properties Required: No. A comma-delimited list of parameter name/value pairs. For more information, go to ModifyCacheParameterGroup in the Amazon ElastiCache API Reference
                      Guide.Example:Update requires: Updates are not supported.
 */
 class ParameterGroup extends WKResource {
@@ -128,7 +128,7 @@ class ParameterGroup extends WKResource {
     let properties = {
       CacheParameterGroupFamily: new ResourceAttribute('CacheParameterGroupFamily', String, 'Yes', null),
       Description: new ResourceAttribute('Description', String, 'Yes', null),
-      Properties: new ResourceAttribute('Properties', Object, 'Yes', null)
+      Properties: new ResourceAttribute('Properties', Map, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

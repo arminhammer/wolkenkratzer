@@ -224,7 +224,7 @@
       "Schema": {
         "Description": "The schema to use to transform data to one or more output formats.Update requires: No interruption",
         "Required": "No",
-        "Type": "String"
+        "Type": "JSONobject"
       }
     }
   },
@@ -252,9 +252,9 @@
     "name": "AWS::ApiGateway::RestApi",
     "properties": {
       "Body": {
-        "Description": "A Swagger specification that defines a set of RESTful APIs in JSON. For specifications in YAML, use the BodyS3Location property.Update requires: No interruption",
+        "Description": "A Swagger specification that defines a set of RESTful APIs in the JSON format. To\n            specify a Swagger file that is in the YAML format, use the BodyS3Location\n            property.Update requires: No interruption",
         "Required": "No",
-        "Type": "String"
+        "Type": "JSONobject"
       },
       "BodyS3Location": {
         "Description": "The Amazon Simple Storage Service (Amazon S3) location that points to a Swagger file, which defines a set of RESTful APIs in JSON or YAML format.Update requires: No interruption",
@@ -278,7 +278,7 @@
       },
       "Name": {
         "Description": "A name for the API Gateway RestApi resource.Update requires: No interruption",
-        "Required": "Yes",
+        "Required": "Conditional",
         "Type": "String"
       },
       "Parameters": {
@@ -340,6 +340,81 @@
       }
     }
   },
+  "AWS::ApplicationAutoScaling::ScalableTarget": {
+    "name": "AWS::ApplicationAutoScaling::ScalableTarget",
+    "properties": {
+      "MaxCapacity": {
+        "Description": "The maximum value that Application Auto Scaling can use to scale a target during a scaling activity.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "Integer"
+      },
+      "MinCapacity": {
+        "Description": "The minimum value that Application Auto Scaling can use to scale a target during a scaling activity.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "Integer"
+      },
+      "ResourceId": {
+        "Description": "The unique resource identifier to associate with this scalable target. For more information, see the ResourceId parameter for the RegisterScalableTarget action in the Application Auto Scaling API Reference.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "RoleARN": {
+        "Description": "The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that allows Application Auto Scaling to modify your scalable target.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "ScalableDimension": {
+        "Description": "The scalable dimension associated with the scalable target. Specify the service namespace, resource type, and scaling property, such as ecs:service:DesiredCount for the desired task count of an Amazon EC2 Container Service service. For valid values, see the ScalableDimension content for the ScalingPolicy data type in the Application Auto Scaling API Reference.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "ServiceNamespace": {
+        "Description": "The AWS service namespace of the scalable target. For a list of service namespaces, see AWS Service Namespaces in the AWS General Reference.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWS::ApplicationAutoScaling::ScalingPolicy": {
+    "name": "AWS::ApplicationAutoScaling::ScalingPolicy",
+    "properties": {
+      "PolicyName": {
+        "Description": "A name for the scaling policy.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "PolicyType": {
+        "Description": "An\n             Application Auto Scaling policy type. For valid values, see the\n              PolicyType parameter for the PutScalingPolicy action in the\n              Application Auto Scaling API Reference.Update requires: No interruption",
+        "Required": "No",
+        "Type": "String"
+      },
+      "ResourceId": {
+        "Description": "The unique resource identifier for the scalable target that this scaling policy applies to. For more information, see the ResourceId parameter for the PutScalingPolicy action in the Application Auto Scaling API Reference.Update requires: Replacement",
+        "Required": "Conditional",
+        "Type": "String"
+      },
+      "ScalableDimension": {
+        "Description": "The scalable dimension of the scalable target that this scaling policy applies to.\n            The scalable dimension contains the service namespace, resource type, and scaling\n            property, such as ecs:service:DesiredCount for the desired task count of an\n            Amazon ECS\n            service.Update requires: Replacement",
+        "Required": "Conditional",
+        "Type": "String"
+      },
+      "ServiceNamespace": {
+        "Description": "The AWS service namespace of the scalable target that this scaling policy applies to. For a list of service namespaces, see AWS Service Namespaces in the AWS General Reference.Update requires: Replacement",
+        "Required": "Conditional",
+        "Type": "String"
+      },
+      "ScalingTargetId": {
+        "Description": "The AWS CloudFormation-generated ID of an Application Auto Scaling scalable target. For more information about\n            the ID, see the Return Value section of the AWS::ApplicationAutoScaling::ScalableTarget resource.Update requires: Replacement",
+        "Required": "Conditional",
+        "Type": "String"
+      },
+      "StepScalingPolicyConfiguration": {
+        "Description": "A step policy that configures when Application Auto Scaling scales resources up or down, and by how much.Update requires: No interruption",
+        "Required": "No",
+        "Type": "ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration"
+      }
+    }
+  },
   "AWS::AutoScaling::AutoScalingGroup": {
     "name": "AWS::AutoScaling::AutoScalingGroup",
     "properties": {
@@ -381,7 +456,7 @@
         "Type": "String"
       },
       "LoadBalancerNames": {
-        "Description": "A list of load balancers associated with this Auto Scaling group.Update requires: ReplacementImportant When you update LoadBalancerNames, the entire Auto Scaling group is replaced. ",
+        "Description": "A list of Classic load balancers associated with this Auto Scaling group. To specify Application load balancers, use TargetGroupARNs.Update requires: ReplacementImportant When you update LoadBalancerNames, the entire Auto Scaling group is replaced. ",
         "Required": "No",
         "Type": [
           "String"
@@ -421,6 +496,13 @@
         "Required": "No",
         "Type": [
           "AutoScalingTags"
+        ]
+      },
+      "TargetGroupARNs": {
+        "Description": "A list of Amazon Resource Names (ARN) of target groups to associate with the Auto Scaling group.Update requires: No interruption",
+        "Required": "No",
+        "Type": [
+          "String"
         ]
       },
       "TerminationPolicies": {
@@ -664,6 +746,30 @@
         "Description": "The time in UTC for this schedule to start. For example,\n                     2010-06-01T00:00:00Z.Update requires: No interruption",
         "Required": "No",
         "Type": "Timestamp"
+      }
+    }
+  },
+  "AWS::CertificateManager::Certificate": {
+    "name": "AWS::CertificateManager::Certificate",
+    "properties": {
+      "DomainName": {
+        "Description": "Fully qualified domain name (FQDN), such as www.example.com, of the site that you want to secure with the ACM certificate. To protect several sites in the same domain, use an asterisk (*) to specify a wildcard. For example, *.example.com protects www.example.com, site.example.com, and images.example.com.For constraints, see the DomainName parameter for the RequestCertificate action in the AWS Certificate Manager API Reference.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "DomainValidationOptions": {
+        "Description": "Domain information that domain name registrars use to verify your identity. For more information and the default values, see Configure Email for Your Domain and Validate Domain Ownership in the AWS Certificate Manager User Guide.Update requires: Replacement",
+        "Required": "No",
+        "Type": [
+          "AWSCertificateManagerCertificateDomainValidationOption"
+        ]
+      },
+      "SubjectAlternativeNames": {
+        "Description": "FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example, you can add www.example.net to a certificate for the www.example.com domain name so that users can reach your site by using either name.Update requires: Replacement",
+        "Required": "No",
+        "Type": [
+          "String"
+        ]
       }
     }
   },
@@ -2137,7 +2243,7 @@
         "Type": "AWSCloudFormationResourceTags"
       },
       "VolumeType": {
-        "Description": "The volume type. You can specify standard, io1, or gp2. If you set the type to io1, you must also set the Iops property. For more information about these values and the default value, see the VolumeType parameter for the CreateVolume action in the Amazon EC2 API Reference.Update requires: Updates are not supported.",
+        "Description": "The volume type. If you set the type to io1, you must also set the Iops property. For valid values, see the VolumeType parameter for the CreateVolume action in the Amazon EC2 API Reference.Update requires: Updates are not supported.",
         "Required": "No",
         "Type": "String"
       }
@@ -2390,7 +2496,7 @@
         "Type": "String"
       },
       "LoadBalancers": {
-        "Description": "A list of load balancer objects to associate with the cluster.Update requires: Replacement",
+        "Description": "A list of load balancer objects to associate with the cluster. For information about the number of load balancers you can specify per service, see Service Load Balancing in the Amazon EC2 Container Service Developer Guide.Update requires: Replacement",
         "Required": "No",
         "Type": [
           "AmazonEC2ContainerServiceServiceLoadBalancers"
@@ -2434,6 +2540,11 @@
         "Description": "Tags to associate with the file system.Update requires: No interruption",
         "Required": "No",
         "Type": "AmazonElasticFileSystemFileSystemFileSystemTags"
+      },
+      "PerformanceMode": {
+        "Description": "The performance mode of the file system. For valid values, see the PerformanceMode parameter for the CreateFileSystem action in the Amazon Elastic File System User Guide.For more information about performance modes, see Amazon EFS Performance in the Amazon Elastic File System User Guide.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
       }
     }
   },
@@ -2597,8 +2708,8 @@
       },
       "Properties": {
         "Description": "A comma-delimited list of parameter name/value pairs. For more information, go to ModifyCacheParameterGroup in the Amazon ElastiCache API Reference\n                     Guide.Example:Update requires: Updates are not supported.",
-        "Required": "Yes",
-        "Type": "JSONobject"
+        "Required": "No",
+        "Type": "Map"
       }
     }
   },
@@ -2936,7 +3047,7 @@
         ]
       },
       "LoadBalancerName": {
-        "Description": "A name for the load balancer. For valid values, see the LoadBalancerName parameter for the CreateLoadBalancer action in the Elastic Load Balancing API Reference.If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the load balancer. The name must be unique within your set of load balancers. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement",
+        "Description": "A name for the load balancer. For valid values, see the LoadBalancerName parameter for the CreateLoadBalancer action in the Elastic Load Balancing API Reference version 2012-06-01.If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the load balancer. The name must be unique within your set of load balancers. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
@@ -2948,7 +3059,7 @@
         ]
       },
       "Policies": {
-        "Description": "A list of elastic load balancing policies to apply to this elastic load balancer. Specify only back-end server policies. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference.Update requires: No interruption",
+        "Description": "A list of elastic load balancing policies to apply to this elastic load balancer. Specify only back-end server policies. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference version 2012-06-01.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "ElasticLoadBalancingpolicyobjects"
@@ -2977,6 +3088,199 @@
         "Description": "An arbitrary set of tags (key-value pairs) for this load balancer.Update requires: No interruption",
         "Required": "No",
         "Type": "AWSCloudFormationResourceTags"
+      }
+    }
+  },
+  "AWS::ElasticLoadBalancingV2::Listener": {
+    "name": "AWS::ElasticLoadBalancingV2::Listener",
+    "properties": {
+      "Certificates": {
+        "Description": "The SSL server certificate for the listener. With a certificate, you can encrypt traffic between the load balancer and the clients that initiate HTTPS sessions, and traffic between the load balancer and your targets.Update requires: No interruption",
+        "Required": "Conditional",
+        "Type": [
+          "ElasticLoadBalancingListenerCertificates"
+        ]
+      },
+      "DefaultActions": {
+        "Description": "The default actions that the listener takes when handling incoming requests.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": [
+          "ElasticLoadBalancingListenerDefaultActions"
+        ]
+      },
+      "LoadBalancerArn": {
+        "Description": "The Amazon Resource Name (ARN) of the load balancer to associate with the listener.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Port": {
+        "Description": "The port on which the listener listens for requests.For valid values, see the Port parameter for the CreateListener action in the Elastic Load Balancing API Reference version 2015-12-01.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "Integer"
+      },
+      "Protocol": {
+        "Description": "The protocol that clients must use to send requests to the listener.For valid values, see the Protocol parameter for the CreateListener action in the Elastic Load Balancing API Reference version 2015-12-01.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "SslPolicy": {
+        "Description": "The security policy that defines the ciphers and protocols that the load balancer supports.Update requires: No interruption",
+        "Required": "No",
+        "Type": "String"
+      }
+    }
+  },
+  "AWS::ElasticLoadBalancingV2::ListenerRule": {
+    "name": "AWS::ElasticLoadBalancingV2::ListenerRule",
+    "properties": {
+      "Actions": {
+        "Description": "The action that the listener takes when a request meets the specified condition.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": [
+          "ElasticLoadBalancingListenerRuleActions"
+        ]
+      },
+      "Conditions": {
+        "Description": "The conditions under which a rule takes effect.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": [
+          "ElasticLoadBalancingListenerRuleConditions"
+        ]
+      },
+      "ListenerArn": {
+        "Description": "The Amazon Resource Name (ARN) of the listener that the rule applies to.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Priority": {
+        "Description": "The priority for the rule. Elastic Load Balancing evaluates rules in priority order, from the lowest value to the highest value. If a request satisfies a rule, Elastic Load Balancing ignores all subsequent rules.NoteA target group can have only one rule with a given priority.For valid values, see the Priority parameter for the CreateRule action in the Elastic Load Balancing API Reference version 2015-12-01.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "Integer"
+      }
+    }
+  },
+  "AWS::ElasticLoadBalancingV2::LoadBalancer": {
+    "name": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+    "properties": {
+      "LoadBalancerAttributes": {
+        "Description": "Load balancer configurations.Update requires: No interruption",
+        "Required": "No",
+        "Type": [
+          "ElasticLoadBalancingLoadBalancerLoadBalancerAttributes"
+        ]
+      },
+      "Name": {
+        "Description": "A name for the load balancer, which must be unique within your AWS account. The name can have a maximum of 32 alphanumeric characters and hyphens. Names can't begin or end with a hyphen.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
+      },
+      "Scheme": {
+        "Description": "Indicates whether the load balancer is Internet-facing or internal. An Internet-facing load balancer routes requests from clients over the Internet to targets in your public subnets. An internal load balancer routes requests to targets using private IP addresses.For valid and default values, see the Scheme parameter for the CreateLoadBalancer action in the Elastic Load Balancing API Reference version 2015-12-01.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
+      },
+      "SecurityGroups": {
+        "Description": "A list of the IDs of the security groups to assign to the load balancer.Update requires: No interruption",
+        "Required": "No",
+        "Type": [
+          "String"
+        ]
+      },
+      "Subnets": {
+        "Description": "A list of at least two IDs of the subnets to associate with the load balancer. Subnets must be in different Availability Zones.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": [
+          "String"
+        ]
+      },
+      "Tags": {
+        "Description": "An arbitrary set of tags (key–value pairs) to associate with this load balancer. Use tags to help manage resources.Update requires: No interruption",
+        "Required": "No",
+        "Type": "AWSCloudFormationResourceTags"
+      }
+    }
+  },
+  "AWS::ElasticLoadBalancingV2::TargetGroup": {
+    "name": "AWS::ElasticLoadBalancingV2::TargetGroup",
+    "properties": {
+      "HealthCheckIntervalSeconds": {
+        "Description": "The approximate number of seconds between health checks for an individual target.Update requires: No interruption",
+        "Required": "No",
+        "Type": "Integer"
+      },
+      "HealthCheckPath": {
+        "Description": "The ping path destination where Elastic Load Balancing sends health check requests.Update requires: No interruption",
+        "Required": "No",
+        "Type": "String"
+      },
+      "HealthCheckPort": {
+        "Description": "The port that the load balancer uses when performing health checks on the targets.For valid and default values, see the HealthCheckPort parameter for the CreateTargetGroup action in the Elastic Load Balancing API Reference version 2015-12-01.Update requires: No interruption",
+        "Required": "No",
+        "Type": "String"
+      },
+      "HealthCheckProtocol": {
+        "Description": "The protocol that the load balancer uses when performing health checks on the targets, such as HTTP or HTTPS.For valid and default values, see the HealthCheckProtocol parameter for the CreateTargetGroup action in the Elastic Load Balancing API Reference version 2015-12-01.Update requires: No interruption",
+        "Required": "No",
+        "Type": "String"
+      },
+      "HealthCheckTimeoutSeconds": {
+        "Description": "The number of seconds to wait for a response before considering that a health check has failed.Update requires: No interruption",
+        "Required": "No",
+        "Type": "Integer"
+      },
+      "HealthyThresholdCount": {
+        "Description": "The number of consecutive successful health checks that are required before an unhealthy target is considered healthy.Update requires: No interruption",
+        "Required": "No",
+        "Type": "Integer"
+      },
+      "Matcher": {
+        "Description": "The HTTP codes that a healthy target uses when responding to a health check.Update requires: No interruption",
+        "Required": "No",
+        "Type": "ElasticLoadBalancingTargetGroupMatcher"
+      },
+      "Name": {
+        "Description": "A name for the target group.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
+      },
+      "Port": {
+        "Description": "The port on which the targets receive traffic.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "Integer"
+      },
+      "Protocol": {
+        "Description": "The protocol to use for routing traffic to the targets.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Tags": {
+        "Description": "An arbitrary set of tags (key–value pairs) for the target group. Use tags to help manage resources.Update requires: No interruption.",
+        "Required": "No",
+        "Type": "AWSCloudFormationResourceTags"
+      },
+      "TargetGroupAttributes": {
+        "Description": "Target group configurations.Update requires: No interruption",
+        "Required": "No",
+        "Type": [
+          "ElasticLoadBalancingTargetGroupTargetGroupAttributes"
+        ]
+      },
+      "Targets": {
+        "Description": "The targets to add to this target group.Update requires: No interruption",
+        "Required": "No",
+        "Type": [
+          "ElasticLoadBalancingTargetGroupTargetDescription"
+        ]
+      },
+      "UnhealthyThresholdCount": {
+        "Description": "The number of consecutive failed health checks that are required before a target is considered unhealthy.Update requires: No interruption",
+        "Required": "No",
+        "Type": "Integer"
+      },
+      "VpcId": {
+        "Description": "The ID of the VPC in which your targets are located.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
       }
     }
   },
@@ -3032,30 +3336,30 @@
         "Description": "The software applications to deploy on the cluster, and the arguments that Amazon EMR\n            passes to those applications.Update requires: Replacement",
         "Required": "No",
         "Type": [
-          "AmazonElasticMapReduceClusterApplication"
+          "AmazonEMRClusterApplication"
         ]
       },
       "BootstrapActions": {
         "Description": "A list of bootstrap actions that Amazon EMR runs before starting applications on the\n            cluster.Update requires: Replacement",
         "Required": "No",
         "Type": [
-          "AmazonElasticMapReduceClusterBootstrapActionConfig"
+          "AmazonEMRClusterBootstrapActionConfig"
         ]
       },
       "Configurations": {
         "Description": "The software configuration of the Amazon EMR cluster.Update requires: Replacement",
         "Required": "No",
         "Type": [
-          "AmazonElasticMapReduceClusterConfiguration"
+          "AmazonEMRClusterConfiguration"
         ]
       },
       "Instances": {
         "Description": "Configures the EC2 instances that will run jobs in the Amazon EMR cluster.Update requires: Replacement",
         "Required": "Yes",
-        "Type": "AmazonElasticMapReduceClusterJobFlowInstancesConfig"
+        "Type": "AmazonEMRClusterJobFlowInstancesConfig"
       },
       "JobFlowRole": {
-        "Description": "An AWS Identity and Access Management (IAM) role for an Amazon EMR cluster. All EC2 instances in the cluster\n            assume this role, which instances use to access AWS services and resources to complete a\n            job. For more information, see Configure IAM Roles for Amazon EMR in the Amazon Elastic MapReduce Management\n              Guide.Update requires: Replacement",
+        "Description": "An AWS Identity and Access Management (IAM) role for an Amazon EMR cluster. All EC2 instances in the cluster\n            assume this role, which instances use to access AWS services and resources to complete a\n            job. For more information, see Configure IAM Roles for Amazon EMR in the Amazon EMR Management\n              Guide.Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
       },
@@ -3070,12 +3374,12 @@
         "Type": "String"
       },
       "ReleaseLabel": {
-        "Description": "The Amazon EMR software release label. A release is a set of software applications and\n            components that you can install and configure on an Amazon EMR cluster. For more information,\n            see About Amazon EMR Releases in the Amazon Elastic MapReduce Release\n              Guide.Currently, AWS CloudFormation supports only Amazon EMR 4.0 and later software releases.Update requires: Replacement",
-        "Required": "No",
+        "Description": "The Amazon EMR software release label. A release is a set of software applications and\n            components that you can install and configure on an Amazon EMR cluster. For more information,\n            see About Amazon EMR Releases in the Amazon EMR Release\n              Guide.Currently, AWS CloudFormation supports only Amazon EMR 4.0 and later software releases.Update requires: Replacement",
+        "Required": "Conditional",
         "Type": "String"
       },
       "ServiceRole": {
-        "Description": "The IAM role that Amazon EMR assumes to access AWS resources on your behalf. For more\n            information, see Configure IAM Roles for Amazon EMR in the Amazon Elastic MapReduce Management\n              Guide.Update requires: Replacement",
+        "Description": "The IAM role that Amazon EMR assumes to access AWS resources on your behalf. For more\n            information, see Configure IAM Roles for Amazon EMR in the Amazon EMR Management\n              Guide.Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
       },
@@ -3100,16 +3404,16 @@
         "Type": "String"
       },
       "Configurations": {
-        "Description": "A list of configurations to apply to this instance group. For more information see,\n              Configuring Applications in the Amazon Elastic MapReduce Release\n              Guide.Update requires: Replacement",
+        "Description": "A list of configurations to apply to this instance group. For more information see,\n              Configuring Applications in the Amazon EMR Release\n              Guide.Update requires: Replacement",
         "Required": "No",
         "Type": [
-          "AmazonElasticMapReduceClusterConfiguration"
+          "AmazonEMRClusterConfiguration"
         ]
       },
       "EbsConfiguration": {
         "Description": "Configures Amazon Elastic Block Store (Amazon EBS) storage volumes to attach to your instances.Update requires: Replacement",
         "Required": "No",
-        "Type": "AmazonElasticMapReduceEbsConfiguration"
+        "Type": "AmazonEMREbsConfiguration"
       },
       "InstanceCount": {
         "Description": "The number of instances to launch in the instance group.Update requires: No interruption",
@@ -3117,12 +3421,12 @@
         "Type": "Integer"
       },
       "InstanceRole": {
-        "Description": "The role of the servers in the Amazon EMR cluster, such as TASK. For more\n            information, see Instance Groups in the Amazon Elastic MapReduce Management\n            Guide.NoteCurrently, the only valid value is TASK. You configure the master and\n              core instance groups as part of the AWS::EMR::Cluster resource.Update requires: Replacement",
+        "Description": "The role of the servers in the Amazon EMR cluster, such as TASK. For more\n            information, see Instance Groups in the Amazon EMR Management\n            Guide.NoteCurrently, the only valid value is TASK. You configure the master and\n              core instance groups as part of the AWS::EMR::Cluster resource.Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
       },
       "InstanceType": {
-        "Description": "The EC2 instance type for all instances in the instance group. For more information,\n            see Instance Configurations in the Amazon Elastic MapReduce Management\n              Guide.Update requires: Replacement",
+        "Description": "The EC2 instance type for all instances in the instance group. For more information,\n            see Instance Configurations in the Amazon EMR Management\n              Guide.Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
       },
@@ -3147,14 +3451,14 @@
     "name": "AWS::EMR::Step",
     "properties": {
       "ActionOnFailure": {
-        "Description": "The action to take if the job flow step fails. Currently, AWS CloudFormation supports CONTINUE and CANCEL_AND_WAIT. For more information, see Managing Cluster Termination in the Amazon Elastic MapReduce Management Guide.Update requires: Replacement",
+        "Description": "The action to take if the job flow step fails. Currently, AWS CloudFormation supports CONTINUE and CANCEL_AND_WAIT. For more information, see Managing Cluster Termination in the Amazon EMR Management Guide.Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
       },
       "HadoopJarStep": {
         "Description": "The JAR file that includes the main function that Amazon EMR executes.Update requires: Replacement",
         "Required": "Yes",
-        "Type": "AmazonElasticMapReduceStepHadoopJarStepConfig"
+        "Type": "AmazonEMRStepHadoopJarStepConfig"
       },
       "JobFlowId": {
         "Description": "The ID of a cluster in which you want to run this job flow step.Update requires: Replacement",
@@ -3332,6 +3636,11 @@
   "AWS::IAM::Group": {
     "name": "AWS::IAM::Group",
     "properties": {
+      "GroupName": {
+        "Description": "A name for the IAM group. For valid values, see the GroupName parameter for the CreateGroup action in the IAM API Reference. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the group name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {\"Fn::Join\": [\"\", [{\"Ref\": \"AWS::Region\"}, {\"Ref\": \"MyResourceName\"}]]}.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
+      },
       "ManagedPolicyArns": {
         "Description": "One or more managed policy ARNs to attach to this group.Update requires: No interruption",
         "Required": "No",
@@ -3340,12 +3649,12 @@
         ]
       },
       "Path": {
-        "Description": "The path to the group. For more information about paths, see Identifiers for IAM Entities in Using IAM.Update requires: No interruption",
+        "Description": "The path to the group. For more information about paths, see IAM Identifiers in the IAM User Guide.Update requires: No interruption",
         "Required": "No",
         "Type": "String"
       },
       "Policies": {
-        "Description": "The policies to associate with this group. For information about policies,\n                  see Overview of Policies in Using IAM.Update requires: No interruption",
+        "Description": "The policies to associate with this group. For information about policies, see Overview of IAM Policies in the IAM User Guide.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "IAMPolicies"
@@ -3451,9 +3760,9 @@
     "name": "AWS::IAM::Role",
     "properties": {
       "AssumeRolePolicyDocument": {
-        "Description": "The IAM assume role policy that is associated with this role.Update requires: No interruptionNoteYou can associate only one assume role policy with a role. For an example of\n                     an assume role policy, see Template Examples.",
+        "Description": "The trust policy that is associated with this role.Update requires: No interruptionNoteYou can associate only one assume role policy with a role. For an example of\n                     an assume role policy, see Template Examples.",
         "Required": "Yes",
-        "Type": "AJSONpolicydocument."
+        "Type": "AJSONpolicydocument"
       },
       "ManagedPolicyArns": {
         "Description": "One or more managed policy ARNs to attach to this role.Update requires: No interruption",
@@ -3468,11 +3777,16 @@
         "Type": "String"
       },
       "Policies": {
-        "Description": "ImportantThe name of each policy for a role, user, or group must be unique. \n\t\tDuplicate policy names can cause the updating of IAM roles to fail.\n\t\tThe policies to associate with this role. Policies can also be specified\n                  externally. For sample templates that demonstrates both embedded and external\n                  policies, see Template\n                     Examples.NoteIf an external policy (such as AWS::IAM::Policy or\n                        AWS::IAM::ManagedPolicy) has a Ref to a role and\n                     if a resource (such as AWS::ECS::Service) also has a\n                        Ref to the same role, add a DependsOn attribute to\n                     the resource so that the resource depends on the external policy. This\n                     dependency ensures that the role's policy is available throughout the\n                     resource's lifecycle. For example, when you delete a stack with an\n                        AWS::ECS::Service resource, the DependsOn\n                     attribute ensures that the AWS::ECS::Service resource can complete\n                     its deletion before its role's policy is deleted.Update requires: No interruption",
+        "Description": "The policies to associate with this role. You can specify a policy inline or reference an external policy, such as a policy declared in an AWS::IAM::Policy or AWS::IAM::ManagedPolicy resource. For sample templates that demonstrates both embedded and external policies, see Template Examples.ImportantThe name of each policy for a role, user, or group must be unique. Duplicate policy names can cause IAM role updates to fail. NoteIf an external policy (such as AWS::IAM::Policy or AWS::IAM::ManagedPolicy) has a Ref to a role and if a resource (such as AWS::ECS::Service) also has a Ref to the same role, add a DependsOn attribute to the resource to make the resource depend on the external policy. This dependency ensures that the role's policy is available throughout the resource's lifecycle. For example, when you delete a\n                     stack with an AWS::ECS::Service resource, the DependsOn attribute ensures that AWS CloudFormation deletes the AWS::ECS::Service resource  before deleting its role's policy.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "IAMPolicies"
         ]
+      },
+      "RoleName": {
+        "Description": "A name for the IAM role. For valid values, see the RoleName parameter for the CreateRole action in the IAM API Reference. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the group name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {\"Fn::Join\": [\"\", [{\"Ref\": \"AWS::Region\"}, {\"Ref\": \"MyResourceName\"}]]}.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
       }
     }
   },
@@ -3499,16 +3813,21 @@
         ]
       },
       "Path": {
-        "Description": "The path for the user name. For more information about paths, see Identifiers\n                  for IAM Entities in Using AWS Identity and Access Management.Update requires: No interruption",
+        "Description": "The path for the user name. For more information about paths, see IAM Identifiers in the IAM User Guide.Update requires: No interruption",
         "Required": "No",
         "Type": "String"
       },
       "Policies": {
-        "Description": "The policies to associate with this user. For information about policies, see\n                     Overview of Policies in [Using IAM].NoteIf you specify multiple polices, specify unique values for the policy name.\n                     If you don't, updates to the IAM user will fail.Update requires: No interruption",
+        "Description": "The policies to associate with this user. For information about policies, see Overview of IAM Policies in the IAM User Guide.NoteIf you specify multiple polices, specify unique values for the policy name.\n                     If you don't, updates to the IAM user will fail.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "IAMPolicies"
         ]
+      },
+      "UserName": {
+        "Description": "A name for the IAM user. For valid values, see the UserName\n            parameter for the CreateUser action in the IAM API Reference.\n            If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for\n            the\n            group\n            name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {\"Fn::Join\": [\"\", [{\"Ref\": \"AWS::Region\"}, {\"Ref\": \"MyResourceName\"}]]}.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
       }
     }
   },
@@ -3526,6 +3845,96 @@
         "Type": [
           "users"
         ]
+      }
+    }
+  },
+  "AWS::IoT::Certificate": {
+    "name": "AWS::IoT::Certificate",
+    "properties": {
+      "CertificateSigningRequest": {
+        "Description": "The certificate signing request (CSR).Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Status": {
+        "Description": "The status of the certificate.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWS::IoT::Policy": {
+    "name": "AWS::IoT::Policy",
+    "properties": {
+      "PolicyDocument": {
+        "Description": "The JSON document that describes the policy.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "JSONobject"
+      },
+      "PolicyName": {
+        "Description": "The name (the physical ID) of the AWS IoT policy.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
+      }
+    }
+  },
+  "AWS::IoT::PolicyPrincipalAttachment": {
+    "name": "AWS::IoT::PolicyPrincipalAttachment",
+    "properties": {
+      "PolicyName": {
+        "Description": "The name of the policy.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Principal": {
+        "Description": "The principal, which can be a certificate ARN (as returned from the\n                     CreateCertificate operation) or an Amazon Cognito ID.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWS::IoT::Thing": {
+    "name": "AWS::IoT::Thing",
+    "properties": {
+      "AttributePayload": {
+        "Description": "A JSON string that contains up to three key-value pairs, for example:\n                     {\\\"attributes\\\":{\\\"string1\\\":\\\"string2\\\"}}.Update requires: No interruption",
+        "Required": "No",
+        "Type": "Stringtostringmap"
+      },
+      "ThingName": {
+        "Description": "The name (the physical ID) of the AWS IoT thing.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
+      }
+    }
+  },
+  "AWS::IoT::ThingPrincipalAttachment": {
+    "name": "AWS::IoT::ThingPrincipalAttachment",
+    "properties": {
+      "Principal": {
+        "Description": "The principal, which can be a certificate ARN (as returned from the\n                     CreateCertificate operation) or an Amazon Cognito ID.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "ThingName": {
+        "Description": "The name of the AWS IoT thing.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWS::IoT::TopicRule": {
+    "name": "AWS::IoT::TopicRule",
+    "properties": {
+      "RuleName": {
+        "Description": "The name (the physical ID) of the AWS IoT rule.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
+      },
+      "TopicRulePayload": {
+        "Description": "The actions associated with the AWS IoT rule.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "TopicRulePayloadobject"
       }
     }
   },
@@ -3593,7 +4002,7 @@
         "Type": "Boolean"
       },
       "KeyPolicy": {
-        "Description": "An AWS Identity and Access Management (IAM) policy to attach to the key. Use a policy to specify who\n                  has permission to use the key and which actions they can perform. For more\n                  information, see Key Policies\n                  in the AWS Key Management Service Developer Guide.Update requires: No interruption",
+        "Description": "An AWS KMS key policy to attach to the key. Use a policy to specify who has permission to use the key and which actions they can perform. For more information, see Key Policies in the AWS Key Management Service Developer Guide.Update requires: No interruption",
         "Required": "Yes",
         "Type": "JSONobject"
       }
@@ -3673,7 +4082,7 @@
         "Type": "String"
       },
       "Handler": {
-        "Description": "The name of the function (within your source code) that Lambda calls to start running\n                  your code. For more information, see the Handler property in the\n                     AWS Lambda Developer Guide.NoteIf you specify your source code as inline text by specifying the\n                        ZipFile property within the Code property, specify\n                        index.handler as the handler.Update requires: No interruption",
+        "Description": "The name of the function (within your source code) that Lambda calls to start running\n                  your code. For more information, see the Handler property in the\n                     AWS Lambda Developer Guide.NoteIf you specify your source code as inline text by specifying the ZipFile property within the Code property, specify index.function_name as the handler.Update requires: No interruption",
         "Required": "Yes",
         "Type": "String"
       },
@@ -4376,7 +4785,7 @@
         "Type": "String"
       },
       "DBParameterGroupName": {
-        "Description": "The name of an existing DB parameter group or a reference to an AWS::RDS::DBParameterGroup\n                  resource created in the template.Update requires: No interruption or some\n                     interruptions. For more information, see ModifyDBInstance in the\n                     Amazon Relational Database Service API Reference. Also, if any of the data members of the\n                  referenced parameter group are changed during an update, the database instance may\n                  need to be restarted, causing some interruption.",
+        "Description": "The name of an existing DB parameter group or a reference to an AWS::RDS::DBParameterGroup\n                  resource created in the template.Update requires: No interruption or some interruptions. If any of the data members of the referenced parameter group are changed during an update, the database instance might need to be restarted, causing some interruption. If the parameter group contains static parameters, whether they were changed or not, an update triggers a reboot.",
         "Required": "No",
         "Type": "String"
       },
@@ -4505,7 +4914,7 @@
         "Type": "String"
       },
       "Parameters": {
-        "Description": "The parameters to set for this RDS parameter group. Changes to dynamic parameters are applied immediately. Changes to static\n                  parameters require a reboot without failover to the DB instance that is associated\n                  with the parameter group before the change can take effect.Update requires: No interruption or Some\n                     interruptions",
+        "Description": "The parameters to set for this RDS parameter group.Update requires: No interruption or Some interruptions. Changes to dynamic parameters are applied immediately. During an update, if you have static parameters (whether they were changed or not), triggers AWS CloudFormation to reboot the associated DB instance without failover.",
         "Required": "No",
         "Type": "AJSONobjectconsistingofstringkey-valuepairs,asshowninthefollowingexample:"
       },
@@ -4609,7 +5018,7 @@
         "Type": "Boolean"
       },
       "EventCategories": {
-        "Description": "A list of event categories that you want to subscribe to for a given source\n                  type. If you don't specify this property, you are notified about all event\n                  categories.Update requires: No interruption",
+        "Description": "A list of event categories that you want to subscribe to for a given source type. If you don't specify this property, you are notified about all event categories. For more information, see  Using Amazon RDS Event Notification in the Amazon Relational Database Service User Guide.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "String"
@@ -4755,7 +5164,7 @@
         "Type": "String"
       },
       "NumberOfNodes": {
-        "Description": "The number of compute nodes in the cluster. If you specify\n                     multi-node for the ClusterType parameter, you must\n                  specify a number greater than 1.Update requires: No interruption",
+        "Description": "The number of compute nodes in the cluster. If you specify\n                     multi-node for the ClusterType parameter, you must\n                  specify a number greater than 1.Update requires: Some interruptions",
         "Required": "Conditional",
         "Type": "Integer"
       },
@@ -5036,7 +5445,7 @@
         "Type": "AmazonS3LoggingConfiguration"
       },
       "NotificationConfiguration": {
-        "Description": "Configuration that defines which Amazon SNS topic to send messages to and what\n                        events to report.Update requires: No interruption",
+        "Description": "Configuration that defines how Amazon S3 handles bucket notifications.Update requires: No interruption",
         "Required": "No",
         "Type": "AmazonS3NotificationConfiguration"
       },

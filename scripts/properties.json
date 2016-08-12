@@ -165,7 +165,7 @@
         "Type": "String"
       },
       "Credentials": {
-        "Description": "The credentials required for the integration. To specify an AWS Identity and Access Management (IAM) role that API Gateway assumes, specify the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify arn:aws:iam::\\*:user/\\*.To use resource-based permissions on the AWS Lambda (Lambda) function, don't specify this property. Use the AWS::Lambda::Permission resource to permit API Gateway to call the function. For more information, see Example 2: Grant Amazon API Gateway Permissions to Invoke Your Lambda Function in the AWS Lambda Developer Guide.",
+        "Description": "The credentials required for the integration. To specify an AWS Identity and Access Management (IAM) role that API Gateway assumes, specify the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify arn:aws:iam::*:user/*.To use resource-based permissions on the AWS Lambda (Lambda) function, don't specify this property. Use the AWS::Lambda::Permission resource to permit API Gateway to call the function. For more information, see Example 2: Grant Amazon API Gateway Permissions to Invoke Your Lambda Function in the AWS Lambda Developer Guide.",
         "Required": "No",
         "Type": "String"
       },
@@ -180,6 +180,11 @@
         "Type": [
           "AmazonAPIGatewayMethodIntegrationIntegrationResponse"
         ]
+      },
+      "PassthroughBehavior": {
+        "Description": "Indicates when API Gateway passes requests to the targeted back end. This behavior depends on the request's Content-Type header and whether you defined a mapping template for it.For more information and valid values, see the passthroughBehavior field in the API Gateway API Reference.",
+        "Required": "No",
+        "Type": "String"
       },
       "RequestParameters": {
         "Description": "The request parameters that API Gateway sends with the back-end request. Specify request parameters as key-value pairs (string-to-string maps), with a destination as the key and a source as the value.Specify the destination using the following pattern integration.request.location.name, where location is  querystring, path, or header, and name is a valid, unique parameter name.The source must be an existing method request parameter or a static value. Static values must be enclosed in single quotation marks and pre-encoded based on their destination in the request.",
@@ -328,6 +333,58 @@
       }
     }
   },
+  "ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration": {
+    "name": "ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration",
+    "properties": {
+      "AdjustmentType": {
+        "Description": "Specifies whether the ScalingAdjustment value in the StepAdjustment property is an absolute number or a percentage of the current capacity. For valid values, see the AdjustmentType content for the StepScalingPolicyConfiguration data type in the Application Auto Scaling API Reference.",
+        "Required": "No",
+        "Type": "String"
+      },
+      "Cooldown": {
+        "Description": "The amount of time, in seconds, after a scaling activity completes before any\n            further trigger-related scaling activities can start. For more information, see the\n              Cooldown content for the StepScalingPolicyConfiguration data type in the\n              Application Auto Scaling API Reference.",
+        "Required": "No",
+        "Type": "Integer"
+      },
+      "MetricAggregationType": {
+        "Description": "The aggregation type for the CloudWatch metrics. You can specify Minimum, Maximum, or Average. By default, AWS CloudFormation specifies Average. For more information, see Aggregation in the Amazon CloudWatch Developer Guide.",
+        "Required": "No",
+        "Type": "String"
+      },
+      "MinAdjustmentMagnitude": {
+        "Description": "The minimum number of resources to adjust when a scaling activity is triggered. If you specify PercentChangeInCapacity for the adjustment type, the scaling policy scales the target by this amount.",
+        "Required": "No",
+        "Type": "Integer"
+      },
+      "StepAdjustments": {
+        "Description": "A set of adjustments that enable you to scale based on the size of the alarm breach.",
+        "Required": "No",
+        "Type": [
+          "ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment"
+        ]
+      }
+    }
+  },
+  "ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment": {
+    "name": "ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment",
+    "properties": {
+      "MetricIntervalLowerBound": {
+        "Description": "The lower bound of the breach size. The lower bound is the difference between the breach threshold and the aggregated CloudWatch metric value. If the metric value is within the lower and upper bounds, Application Auto Scaling triggers this step adjustment.If the metric value is above the breach threshold, the metric must be greater than or equal to the threshold plus the lower bound to trigger this step adjustment (the metric value is inclusive). If the metric value is below the breach threshold, the metric must be greater than the threshold plus the lower bound to trigger this step adjustment (the metric value is exclusive). A null value indicates negative infinity.",
+        "Required": "No",
+        "Type": "Number"
+      },
+      "MetricIntervalUpperBound": {
+        "Description": "The upper bound of the breach size. The upper bound is the difference between the breach threshold and the CloudWatch metric value. If the metric value is within the lower and upper bounds, Application Auto Scaling triggers this step adjustment.If the metric value is above the breach threshold, the metric must be less than the threshold plus the upper bound to trigger this step adjustment (the metric value is exclusive). If the metric value is below the breach threshold, the metric must be less than or equal to the threshold plus the upper bound to trigger this step adjustment (the metric value is inclusive). A null value indicates positive infinity.",
+        "Required": "No",
+        "Type": "Number"
+      },
+      "ScalingAdjustment": {
+        "Description": "The amount by which to scale. The adjustment is based on the value that you specified in the AdjustmentType property (either an absolute number or a percentage). A positive value adds to the current capacity and a negative number subtracts from the current capacity.",
+        "Required": "Yes",
+        "Type": "Integer"
+      }
+    }
+  },
   "AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType": {
     "name": "AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType",
     "properties": {
@@ -426,17 +483,17 @@
     "name": "AutoScalingScalingPolicyStepAdjustments",
     "properties": {
       "MetricIntervalLowerBound": {
-        "Description": "The lower bound for the difference between the breach threshold and the CloudWatch\n                  metric. If the metric value exceeds the breach threshold, the lower bound is\n                  inclusive (the metric must be greater than or equal to the threshold plus the\n                  lower bound). Otherwise, it is exclusive (the metric must be greater than the\n                  threshold plus the lower bound). A null value indicates negative infinity.",
+        "Description": "The lower bound of the breach size. The lower bound is the difference between the breach threshold and the aggregated CloudWatch metric value. If the metric value is within the lower and upper bounds, Auto Scaling triggers this step adjustment.If the metric value is above the breach threshold, the metric must be greater than or equal to the threshold plus the lower bound to trigger this step adjustment (the metric value is inclusive). If the metric value is below the breach threshold, the metric must be greater than the threshold plus the lower bound to trigger this step adjustment (the metric value is exclusive). A null value indicates negative infinity.",
         "Required": "No",
         "Type": "Number"
       },
       "MetricIntervalUpperBound": {
-        "Description": "The upper bound for the difference between the breach threshold and the CloudWatch\n                  metric. If the metric value exceeds the breach threshold, the upper bound is\n                  exclusive (the metric must be less than the threshold plus the upper bound).\n                  Otherwise, it is inclusive (the metric must be less than or equal to the threshold\n                  plus the upper bound). A null value indicates positive infinity.",
+        "Description": "The upper bound of the breach size. The upper bound is the difference between the breach threshold and the CloudWatch metric value. If the metric value is within the lower and upper bounds, Auto Scaling triggers this step adjustment.If the metric value is above the breach threshold, the metric must be less than the threshold plus the upper bound to trigger this step adjustment (the metric value is exclusive). If the metric value is below the breach threshold, the metric must be less than or equal to the threshold plus the upper bound to trigger this step adjustment (the metric value is inclusive). A null value indicates positive infinity.",
         "Required": "No",
         "Type": "Number"
       },
       "ScalingAdjustment": {
-        "Description": "The amount by which to scale, based on the value that you specified in the\n                     AdjustmentType property. A positive value adds to the current\n                  capacity and a negative number subtracts from the current capacity.",
+        "Description": "The amount by which to scale. The adjustment is based on the value that you specified in the AdjustmentType property (either an absolute number or a percentage). A positive value adds to the current capacity and a negative number subtracts from the current capacity.",
         "Required": "Yes",
         "Type": "Integer"
       }
@@ -459,6 +516,21 @@
         "Description": "Set to true if you want AWS CloudFormation to copy the tag to EC2 instances that are launched as\n                  part of the auto scaling group. Set to false if you want the tag attached only to the\n                  auto scaling group and not copied to any instances launched as part of the auto scaling\n                  group.",
         "Required": "Yes",
         "Type": "Boolean"
+      }
+    }
+  },
+  "AWSCertificateManagerCertificateDomainValidationOption": {
+    "name": "AWSCertificateManagerCertificateDomainValidationOption",
+    "properties": {
+      "DomainName": {
+        "Description": "Fully Qualified Domain Name (FQDN) of the Certificate that you are requesting.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "ValidationDomain": {
+        "Description": "The domain that domain name registrars use to send validation emails. Registrars use this value as the email address suffix when sending emails to verify your identity. This value must be the same as the domain name or a superdomain of the domain name. For more information, see the ValidationDomain content for the DomainValidationOption data type in the AWS Certificate Manager API Reference.",
+        "Required": "Yes",
+        "Type": "String"
       }
     }
   },
@@ -781,6 +853,13 @@
         "Required": "Yes",
         "Type": "String"
       },
+      "OriginCustomHeaders": {
+        "Description": "Custom headers that CloudFront includes when it forwards a request to your origin.",
+        "Required": "No",
+        "Type": [
+          "OriginCustomHeadertype"
+        ]
+      },
       "OriginPath": {
         "Description": "The path that CloudFront uses to request content from an S3 bucket or custom origin.\n                  The combination of the DomainName and OriginPath\n                  properties must resolve to a valid path. The value must start with a slash mark\n                     (/) and cannot end with a slash mark.",
         "Required": "No",
@@ -808,6 +887,28 @@
       },
       "OriginProtocolPolicy": {
         "Description": "The origin protocol policy to apply to your origin.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "OriginSSLProtocols": {
+        "Description": "The SSL protocols that CloudFront can use when establishing an HTTPS connection with your origin. By default, AWS CloudFormation specifies the TLSv1 and SSLv3 protocols.",
+        "Required": "No",
+        "Type": [
+          "String"
+        ]
+      }
+    }
+  },
+  "CloudFrontDistributionConfigOriginOriginCustomHeader": {
+    "name": "CloudFrontDistributionConfigOriginOriginCustomHeader",
+    "properties": {
+      "HeaderName": {
+        "Description": "The name of a header that CloudFront forwards to your origin. For more information, see Forwarding Custom Headers to Your Origin (Web Distributions Only) in the Amazon CloudFront Developer Guide.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "HeaderValue": {
+        "Description": "The value for the header that you specified in the HeaderName property.",
         "Required": "Yes",
         "Type": "String"
       }
@@ -862,19 +963,24 @@
   "CloudFrontDistributionConfigurationViewerCertificate": {
     "name": "CloudFrontDistributionConfigurationViewerCertificate",
     "properties": {
+      "AcmCertificateArn": {
+        "Description": "If you're using an alternate domain name, the Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate. Use the ACM service to provision and manage your certificates. For more information, see the AWS Certificate Manager User Guide.",
+        "Required": "Conditional",
+        "Type": "String"
+      },
       "CloudFrontDefaultCertificate": {
         "Description": "Indicates whether to use the default certificate for your CloudFront domain name when\n                  viewers use HTTPS to request your content.",
         "Required": "Conditional",
         "Type": "Boolean"
       },
       "IamCertificateId": {
-        "Description": "If you're using an alternate domain name, the ID of a server certificate. This ID is the ServerCertificateId value, which AWS Identity and Access Management (IAM) returns when you add the certificate to the IAM certificate store, such as ASCACKCEVSQ6CEXAMPLE1.",
+        "Description": "If you're using an alternate domain name, the ID of a server certificate that was purchased from a certificate authority. This ID is the ServerCertificateId value, which AWS Identity and Access Management (IAM) returns when the certificate is added to the IAM certificate store, such as ASCACKCEVSQ6CEXAMPLE1.",
         "Required": "Conditional",
         "Type": "String"
       },
       "MinimumProtocolVersion": {
         "Description": "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS\n                  connections. CloudFront serves your objects only to browsers or devices that support at\n                  least the SSL version that you specify.If you specify the IamCertificateId property and specify SNI only\n                  for the SslSupportMethod property, you must use TLSv1\n                  for the minimum protocol version. If you don't specify a value, AWS CloudFormation specifies\n                     SSLv3.",
-        "Required": "Conditional",
+        "Required": "No",
         "Type": "String"
       },
       "SslSupportMethod": {
@@ -888,19 +994,19 @@
     "name": "CloudFrontForwardedValues",
     "properties": {
       "Cookies": {
-        "Description": "Forwards specified cookies to the origin of the cache behavior.",
+        "Description": "Forwards specified cookies to the origin of the cache behavior. For more information, see Configuring CloudFront to Cache Based on Cookies in the Amazon CloudFront Developer Guide.",
         "Required": "No",
         "Type": "CloudFrontForwardedValuesCookies"
       },
       "Headers": {
-        "Description": "Specifies the headers that you want Amazon CloudFront to forward to the origin for this\n                  cache behavior (whitelisted headers). For the headers that you specify, Amazon CloudFront\n                  also caches separate versions of a specified object that is based on the header\n                  values in viewer requests.If you specify a single asterisk ([\"*\"]), all headers are\n                  forwarded. If you don't specify a value, only the default headers are\n                  forwarded.",
+        "Description": "Specifies the headers that you want Amazon CloudFront to forward to the origin for this\n                  cache behavior (whitelisted headers). For the headers that you specify, Amazon CloudFront\n                  also caches separate versions of a specified object that is based on the header\n                  values in viewer requests.For custom origins, if you specify a single asterisk ([\"*\"]), all headers are forwarded. If you don't specify a value, only the default headers are forwarded. For Amazon S3 origins, you can forward only selected headers; specifying * is not supported. For more information, see Configuring CloudFront to Cache Objects Based on Request Headers in the Amazon CloudFront Developer Guide.",
         "Required": "No",
         "Type": [
           "String"
         ]
       },
       "QueryString": {
-        "Description": "Indicates whether you want CloudFront to forward query strings to the origin that is\n                  associated with this cache behavior. If so, specify true; if not,\n                  specify false.",
+        "Description": "Indicates whether you want CloudFront to forward query strings to the origin that is\n                  associated with this cache behavior. If so, specify true; if not,\n                  specify false. For more information, see Configuring CloudFront to Cache Based on Query String Parameters in the Amazon CloudFront Developer Guide.",
         "Required": "Yes",
         "Type": "Boolean"
       }
@@ -1791,7 +1897,7 @@
         "Type": "String"
       },
       "VolumeType": {
-        "Description": "The volume type. You can specify standard, io1, or\n                     gp2. If you set the type to io1, you must also set\n                  the Iops property. For more information about these values\n                  and the default value, see CreateVolume in\n                  the Amazon EC2 API Reference.",
+        "Description": "The volume type. If you set the type to io1, you must also set the Iops property. For valid values, see the VolumeType parameter for the CreateVolume action in the Amazon EC2 API Reference.",
         "Required": "No",
         "Type": "String"
       }
@@ -2606,6 +2712,11 @@
         "Description": "The host port number on the container instance that you want to reserve for\n                  your container. You can specify a non-reserved host port for your container port\n                  mapping, or you can omit the host port (or set it to 0). If you\n                  specify a container port but no host port, your container port is automatically\n                  assigned a host port in the 49153 to 65535 port\n                  range.Do not specify a host port in the 49153 to 65535 port\n                  range; these ports are reserved for automatic assignment. Other reserved ports\n                  include 22 for SSH, the Docker ports 2375 and\n                     2376, and the Amazon EC2 Container Service container agent port 51678.\n                  In addition, do not specify a host port that is being used for a task; that port\n                  is reserved while the task is running.",
         "Required": "No",
         "Type": "Integer"
+      },
+      "Protocol": {
+        "Description": "The protocol used for the port mapping. For valid values, see the protocol parameter in the Amazon EC2 Container Service Developer Guide. By default, AWS CloudFormation specifies tcp.",
+        "Required": "No",
+        "Type": "String"
       }
     }
   },
@@ -2881,7 +2992,7 @@
         "Type": "String"
       },
       "PolicyNames": {
-        "Description": "A list of ElasticLoadBalancing policy names to associate with the listener. Specify only policies that are compatible with listeners. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference.",
+        "Description": "A list of ElasticLoadBalancing policy names to associate with the listener. Specify only policies that are compatible with listeners. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference version 2012-06-01.",
         "Required": "No",
         "Type": [
           "String"
@@ -2931,6 +3042,118 @@
       "PolicyType": {
         "Description": "The name of the policy type for this policy. This must be one of the types reported by the Elastic Load Balancing\n                     DescribeLoadBalancerPolicyTypes action.",
         "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "ElasticLoadBalancingListenerCertificates": {
+    "name": "ElasticLoadBalancingListenerCertificates",
+    "properties": {
+      "CertificateArn": {
+        "Description": "The Amazon Resource Name (ARN) of the certificate to associate with the listener.",
+        "Required": "No",
+        "Type": "String"
+      }
+    }
+  },
+  "ElasticLoadBalancingListenerDefaultActions": {
+    "name": "ElasticLoadBalancingListenerDefaultActions",
+    "properties": {
+      "TargetGroupArn": {
+        "Description": "The Amazon Resource Name (ARN) of the target group to which Elastic Load Balancing routes the traffic.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Type": {
+        "Description": "The type of action. For valid values, see the Type contents for the\n              Action data type in the\n              Elastic Load Balancing API Reference version 2015-12-01.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "ElasticLoadBalancingListenerRuleActions": {
+    "name": "ElasticLoadBalancingListenerRuleActions",
+    "properties": {
+      "TargetGroupArn": {
+        "Description": "The Amazon Resource Name (ARN) of the target group to which Elastic Load Balancing routes the traffic.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Type": {
+        "Description": "The type of action. For valid values, see the Type contents for the\n              Action data type in the\n              Elastic Load Balancing API Reference version 2015-12-01.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "ElasticLoadBalancingListenerRuleConditions": {
+    "name": "ElasticLoadBalancingListenerRuleConditions",
+    "properties": {
+      "Field": {
+        "Description": "The name of the condition that you want to define, such as path-pattern (which forwards requests based on the URL of the request).For valid values, see the Field contents for the RuleCondition data type in the\n              Elastic Load Balancing API Reference version 2015-12-01.",
+        "Required": "No",
+        "Type": "String"
+      },
+      "Values": {
+        "Description": "The value for the field that you specified in the Field property.",
+        "Required": "No",
+        "Type": [
+          "String"
+        ]
+      }
+    }
+  },
+  "ElasticLoadBalancingLoadBalancerLoadBalancerAttributes": {
+    "name": "ElasticLoadBalancingLoadBalancerLoadBalancerAttributes",
+    "properties": {
+      "Key": {
+        "Description": "The name of an attribute that you want to configure. For the list of attributes that you can configure, see the Key contents for the LoadBalancerAttribute data type in the Elastic Load Balancing API Reference version 2015-12-01.",
+        "Required": "No",
+        "Type": "String"
+      },
+      "Value": {
+        "Description": "A value for the attribute.",
+        "Required": "No",
+        "Type": "String"
+      }
+    }
+  },
+  "ElasticLoadBalancingTargetGroupMatcher": {
+    "name": "ElasticLoadBalancingTargetGroupMatcher",
+    "properties": {
+      "HttpCode": {
+        "Description": "The HTTP codes that a healthy target must use when responding to a health check, such as 200,202 or 200-299. For valid and default values, see the HttpCode contents for the Matcher data type in the Elastic Load Balancing API Reference version 2015-12-01.",
+        "Required": "No",
+        "Type": "String"
+      }
+    }
+  },
+  "ElasticLoadBalancingTargetGroupTargetDescription": {
+    "name": "ElasticLoadBalancingTargetGroupTargetDescription",
+    "properties": {
+      "Id": {
+        "Description": "The ID of the target, such as an EC2 instance ID.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Port": {
+        "Description": "The port number on which the target is listening for traffic.",
+        "Required": "No",
+        "Type": "Integer"
+      }
+    }
+  },
+  "ElasticLoadBalancingTargetGroupTargetGroupAttributes": {
+    "name": "ElasticLoadBalancingTargetGroupTargetGroupAttributes",
+    "properties": {
+      "Key": {
+        "Description": "The name of the attribute that you want to configure. For the list of attributes that you can configure, see the Key contents for the TargetGroupAttribute data type in the Elastic Load Balancing API Reference version 2015-12-01.",
+        "Required": "No",
+        "Type": "String"
+      },
+      "Value": {
+        "Description": "A value for the attribute.",
+        "Required": "No",
         "Type": "String"
       }
     }
@@ -3005,8 +3228,8 @@
       }
     }
   },
-  "AmazonElasticMapReduceClusterApplication": {
-    "name": "AmazonElasticMapReduceClusterApplication",
+  "AmazonEMRClusterApplication": {
+    "name": "AmazonEMRClusterApplication",
     "properties": {
       "AdditionalInfo": {
         "Description": "Metadata about third-party applications that third-party vendors use for testing\n            purposes.",
@@ -3021,7 +3244,7 @@
         ]
       },
       "Name": {
-        "Description": "The name of the application to add to your cluster, such as Hadoop or\n              Hive. For valid values, see the Applications parameter in the Amazon Elastic MapReduce API Reference.",
+        "Description": "The name of the application to add to your cluster, such as Hadoop or\n              Hive. For valid values, see the Applications parameter in the Amazon EMR API Reference.",
         "Required": "No",
         "Type": "String"
       },
@@ -3032,8 +3255,8 @@
       }
     }
   },
-  "AmazonElasticMapReduceClusterBootstrapActionConfig": {
-    "name": "AmazonElasticMapReduceClusterBootstrapActionConfig",
+  "AmazonEMRClusterBootstrapActionConfig": {
+    "name": "AmazonEMRClusterBootstrapActionConfig",
     "properties": {
       "Name": {
         "Description": "The name of the bootstrap action to add to your cluster.",
@@ -3043,12 +3266,12 @@
       "ScriptBootstrapAction": {
         "Description": "The script that the bootstrap action runs.",
         "Required": "Yes",
-        "Type": "AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig"
+        "Type": "AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig"
       }
     }
   },
-  "AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig": {
-    "name": "AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig",
+  "AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig": {
+    "name": "AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig",
     "properties": {
       "Args": {
         "Description": "A list of command line arguments to pass to the bootstrap action script.",
@@ -3064,30 +3287,30 @@
       }
     }
   },
-  "AmazonElasticMapReduceClusterConfiguration": {
-    "name": "AmazonElasticMapReduceClusterConfiguration",
+  "AmazonEMRClusterConfiguration": {
+    "name": "AmazonEMRClusterConfiguration",
     "properties": {
       "Classification": {
-        "Description": "The name of an application-specific configuration file. For more information see,\n              Configuring Applications in the Amazon Elastic MapReduce Release\n              Guide.",
+        "Description": "The name of an application-specific configuration file. For more information see,\n              Configuring Applications in the Amazon EMR Release\n              Guide.",
         "Required": "No",
         "Type": "String"
       },
       "ConfigurationProperties": {
-        "Description": "The settings that you want to change in the application-specific configuration file.\n            For more information see, Configuring Applications in the Amazon Elastic MapReduce Release\n              Guide.",
+        "Description": "The settings that you want to change in the application-specific configuration file.\n            For more information see, Configuring Applications in the Amazon EMR Release\n              Guide.",
         "Required": "No",
         "Type": "String-to-stringmap"
       },
       "Configurations": {
-        "Description": "A list of configurations to apply to this configuration. You can nest configurations\n            so that a single configuration can have its own configurations. In other words, you can\n            configure a configuration. For more information see, Configuring Applications in the Amazon Elastic MapReduce Release\n              Guide.",
+        "Description": "A list of configurations to apply to this configuration. You can nest configurations\n            so that a single configuration can have its own configurations. In other words, you can\n            configure a configuration. For more information see, Configuring Applications in the Amazon EMR Release\n              Guide.",
         "Required": "No",
         "Type": [
-          "AmazonElasticMapReduceClusterConfiguration"
+          "AmazonEMRClusterConfiguration"
         ]
       }
     }
   },
-  "AmazonElasticMapReduceClusterJobFlowInstancesConfig": {
-    "name": "AmazonElasticMapReduceClusterJobFlowInstancesConfig",
+  "AmazonEMRClusterJobFlowInstancesConfig": {
+    "name": "AmazonEMRClusterJobFlowInstancesConfig",
     "properties": {
       "AdditionalMasterSecurityGroups": {
         "Description": "A list of additional EC2 security group IDs to assign to the master instance (master\n            node) in your Amazon EMR cluster. Use this property to supplement the rules specified by the\n            Amazon EMR managed master security group.",
@@ -3106,7 +3329,7 @@
       "CoreInstanceGroup": {
         "Description": "The settings for the core instances in your Amazon EMR cluster.",
         "Required": "Yes",
-        "Type": "AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig"
+        "Type": "AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig"
       },
       "Ec2KeyName": {
         "Description": "The name of an Amazon Elastic Compute Cloud (Amazon EC2) key pair, which you can use to access the instances\n            in your Amazon EMR cluster.",
@@ -3129,19 +3352,19 @@
         "Type": "String"
       },
       "HadoopVersion": {
-        "Description": "The Hadoop version for the job flow. For valid values, see the HadoopVersion parameter in\n            the Amazon Elastic MapReduce API Reference.",
+        "Description": "The Hadoop version for the job flow. For valid values, see the HadoopVersion parameter in\n            the Amazon EMR API Reference.",
         "Required": "No",
         "Type": "String"
       },
       "MasterInstanceGroup": {
         "Description": "The settings for the master instance (master node).",
         "Required": "Yes",
-        "Type": "AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig"
+        "Type": "AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig"
       },
       "Placement": {
         "Description": "The Availability Zone (AZ) in which the job flow runs.",
         "Required": "No",
-        "Type": "AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType"
+        "Type": "AmazonEMRClusterJobFlowInstancesConfigPlacementType"
       },
       "ServiceAccessSecurityGroup": {
         "Description": "The ID of an EC2 security group (managed by Amazon EMR) that services use to access\n            clusters in private subnets.",
@@ -3155,8 +3378,8 @@
       }
     }
   },
-  "AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig": {
-    "name": "AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig",
+  "AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig": {
+    "name": "AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig",
     "properties": {
       "BidPrice": {
         "Description": "When launching instances as Spot Instances, the bid price in USD for each EC2 instance in the instance group.",
@@ -3167,13 +3390,13 @@
         "Description": "A list of configurations to apply to this instance group. For more information see, Configuring Applications in the Amazon EMR Release Guide.",
         "Required": "No",
         "Type": [
-          "AmazonElasticMapReduceClusterConfiguration"
+          "AmazonEMRClusterConfiguration"
         ]
       },
       "EbsConfiguration": {
         "Description": "Configures Amazon Elastic Block Store (Amazon EBS) storage volumes to attach to your instances.Update requires: Replacement",
         "Required": "No",
-        "Type": "AmazonElasticMapReduceEbsConfiguration"
+        "Type": "AmazonEMREbsConfiguration"
       },
       "InstanceCount": {
         "Description": "The number of instances to launch in the instance group.",
@@ -3197,8 +3420,8 @@
       }
     }
   },
-  "AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType": {
-    "name": "AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType",
+  "AmazonEMRClusterJobFlowInstancesConfigPlacementType": {
+    "name": "AmazonEMRClusterJobFlowInstancesConfigPlacementType",
     "properties": {
       "AvailabilityZone": {
         "Description": "The Amazon Elastic Compute Cloud (Amazon EC2) AZ for the job flow. For more information, see http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html in the Amazon EC2 User Guide for Linux Instances.",
@@ -3207,14 +3430,14 @@
       }
     }
   },
-  "AmazonElasticMapReduceEbsConfiguration": {
-    "name": "AmazonElasticMapReduceEbsConfiguration",
+  "AmazonEMREbsConfiguration": {
+    "name": "AmazonEMREbsConfiguration",
     "properties": {
       "EbsBlockDeviceConfigs": {
         "Description": "Configures the block storage devices that are associated with your EMR instances.",
         "Required": "No",
         "Type": [
-          "AmazonElasticMapReduceEbsConfiguration"
+          "AmazonEMREbsConfiguration"
         ]
       },
       "EbsOptimized": {
@@ -3224,13 +3447,13 @@
       }
     }
   },
-  "AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs": {
-    "name": "AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs",
+  "AmazonEMREbsConfigurationEbsBlockDeviceConfigs": {
+    "name": "AmazonEMREbsConfigurationEbsBlockDeviceConfigs",
     "properties": {
       "VolumeSpecification": {
         "Description": "The settings for the Amazon EBS volumes.",
         "Required": "Yes",
-        "Type": "AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification"
+        "Type": "AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification"
       },
       "VolumesPerInstance": {
         "Description": "The number of Amazon EBS volumes that you want to create for each instance in the EMR cluster or instance group.",
@@ -3239,8 +3462,8 @@
       }
     }
   },
-  "AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification": {
-    "name": "AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification",
+  "AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification": {
+    "name": "AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification",
     "properties": {
       "Iops": {
         "Description": "The number of I/O operations per second (IOPS) that the volume supports. For more information, see Iops for the EbsBlockDevice action in the Amazon EC2 API Reference.",
@@ -3259,8 +3482,8 @@
       }
     }
   },
-  "AmazonElasticMapReduceStepHadoopJarStepConfig": {
-    "name": "AmazonElasticMapReduceStepHadoopJarStepConfig",
+  "AmazonEMRStepHadoopJarStepConfig": {
+    "name": "AmazonEMRStepHadoopJarStepConfig",
     "properties": {
       "Args": {
         "Description": "A list of command line arguments passed to the JAR file's main function when the\n            function is executed.",
@@ -3283,13 +3506,13 @@
         "Description": "A list of Java properties that are set when the job flow step runs. You can use\n            these properties to pass key-value pairs to your main function in the JAR file.",
         "Required": "No",
         "Type": [
-          "AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue"
+          "AmazonEMRStepHadoopJarStepConfigKeyValue"
         ]
       }
     }
   },
-  "AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue": {
-    "name": "AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue",
+  "AmazonEMRStepHadoopJarStepConfigKeyValue": {
+    "name": "AmazonEMRStepHadoopJarStepConfigKeyValue",
     "properties": {
       "Key": {
         "Description": "The unique identifier of a key-value pair.",
@@ -3395,6 +3618,346 @@
         "Description": "Specifies whether the user is required to set a new password the next time the\n                  user logs in to the AWS Management Console.",
         "Required": "No",
         "Type": "Boolean"
+      }
+    }
+  },
+  "AWSIoTActions": {
+    "name": "AWSIoTActions",
+    "properties": {
+      "CloudwatchAlarm": {
+        "Description": "Changes the state of a CloudWatch alarm.",
+        "Required": "No",
+        "Type": "CloudWatchAlarmactionobject"
+      },
+      "CloudwatchMetric": {
+        "Description": "Captures a CloudWatch metric.",
+        "Required": "No",
+        "Type": "CloudWatchMetricactionobject"
+      },
+      "DynamoDB": {
+        "Description": "Writes data to a DynamoDB table.",
+        "Required": "No",
+        "Type": "DynamoDBactionobject"
+      },
+      "Elasticsearch": {
+        "Description": "Writes data to an Elasticsearch domain.",
+        "Required": "No",
+        "Type": "Elasticsearchactionobject"
+      },
+      "Firehose": {
+        "Description": "Writes data to a Firehose stream.",
+        "Required": "No",
+        "Type": "Firehoseactionobject"
+      },
+      "Kinesis": {
+        "Description": "Writes data to an Amazon Kinesis stream.",
+        "Required": "No",
+        "Type": "Kinesisactionobject"
+      },
+      "Lambda": {
+        "Description": "Invokes a Lambda function.",
+        "Required": "No",
+        "Type": "Lambdaactionobject"
+      },
+      "Republish": {
+        "Description": "Publishes data to an MQ Telemetry Transport (MQTT) topic different from the one\n                  currently specified.",
+        "Required": "No",
+        "Type": "Republishactionobject"
+      },
+      "S3": {
+        "Description": "Writes data to an S3 bucket.",
+        "Required": "No",
+        "Type": "S3actionobject"
+      },
+      "Sns": {
+        "Description": "Publishes data to an SNS topic.",
+        "Required": "No",
+        "Type": "Snsactionobject"
+      },
+      "Sqs": {
+        "Description": "Publishes data to an SQS queue.",
+        "Required": "No",
+        "Type": "Sqsactionobject"
+      }
+    }
+  },
+  "AWSIoTCloudwatchAlarmAction": {
+    "name": "AWSIoTCloudwatchAlarmAction",
+    "properties": {
+      "AlarmName": {
+        "Description": "The CloudWatch alarm name.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "RoleArn": {
+        "Description": "The IAM role that allows access to the CloudWatch alarm.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "StateReason": {
+        "Description": "The reason for the change of the alarm state.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "StateValue": {
+        "Description": "The value of the alarm state.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTCloudwatchMetricAction": {
+    "name": "AWSIoTCloudwatchMetricAction",
+    "properties": {
+      "MetricName": {
+        "Description": "The name of the CloudWatch metric.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "MetricNamespace": {
+        "Description": "The name of the CloudWatch metric namespace.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "MetricTimestamp": {
+        "Description": "An optional Unix timestamp.",
+        "Required": "No",
+        "Type": "String"
+      },
+      "MetricUnit": {
+        "Description": "The metric unit\n                 supported by Amazon CloudWatch.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "MetricValue": {
+        "Description": "The value to publish to the metric. For example, if you count the occurrences\n                  of a particular term such as Error, the value will be 1\n                  for each occurrence.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "RoleArn": {
+        "Description": "The ARN of the IAM role that grants access to the CloudWatch metric.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTDynamoDBAction": {
+    "name": "AWSIoTDynamoDBAction",
+    "properties": {
+      "HashKeyField": {
+        "Description": "The name of the hash key.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "HashKeyValue": {
+        "Description": "The value of the hash key.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "PayloadField": {
+        "Description": "The name of the column in the DynamoDB table that contains the result of the query. You\n            can customize this name.",
+        "Required": "No",
+        "Type": "String"
+      },
+      "RangeKeyField": {
+        "Description": "The name of the range key.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "RangeKeyValue": {
+        "Description": "The value of the range key.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "RoleArn": {
+        "Description": "The ARN of the IAM role that grants access to the DynamoDB table.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "TableName": {
+        "Description": "The name of the DynamoDB table.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTElasticsearchAction": {
+    "name": "AWSIoTElasticsearchAction",
+    "properties": {
+      "Endpoint": {
+        "Description": "The endpoint of your Elasticsearch domain.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Id": {
+        "Description": "A unique identifier for the stored data.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Index": {
+        "Description": "The Elasticsearch index where the data is stored.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "RoleArn": {
+        "Description": "The ARN of the IAM role that grants access to Elasticsearch.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Type": {
+        "Description": "The type of stored data.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTFirehoseAction": {
+    "name": "AWSIoTFirehoseAction",
+    "properties": {
+      "DeliveryStreamName": {
+        "Description": "The delivery stream name.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "RoleArn": {
+        "Description": "The ARN of the IAM role that grants access to the Firehose stream.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTKinesisAction": {
+    "name": "AWSIoTKinesisAction",
+    "properties": {
+      "PartitionKey": {
+        "Description": "The partition key (the grouping of data by shard within an an Amazon Kinesis\n                  stream).",
+        "Required": "No",
+        "Type": "String"
+      },
+      "RoleArn": {
+        "Description": "The ARN of the IAM role that grants access to an Amazon Kinesis stream.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "StreamName": {
+        "Description": "The name of the Amazon Kinesis stream.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTLambdaAction": {
+    "name": "AWSIoTLambdaAction",
+    "properties": {
+      "FunctionArn": {
+        "Description": "The ARN of the Lambda function.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTRepublishAction": {
+    "name": "AWSIoTRepublishAction",
+    "properties": {
+      "RoleArn": {
+        "Description": "The ARN of the IAM role that grants publishing access.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Topic": {
+        "Description": "The name of the MQTT topic topic different from the one currently\n                  specified.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTS3Action": {
+    "name": "AWSIoTS3Action",
+    "properties": {
+      "BucketName": {
+        "Description": "The name of the S3 bucket.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "Key": {
+        "Description": "The object key (the name of an object in the S3 bucket).",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "RoleArn": {
+        "Description": "The ARN of the IAM role that grants access to Amazon S3.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTSnsAction": {
+    "name": "AWSIoTSnsAction",
+    "properties": {
+      "MessageFormat": {
+        "Description": "The format of the published message.  Amazon SNS uses this setting to determine\n                  whether it should parse the payload and extract the platform-specific bits from\n                  the payload.For more information, see Appendix:\n                     Message and JSON Formats in the\n                  Amazon Simple Notification Service Developer Guide.",
+        "Required": "No",
+        "Type": "String"
+      },
+      "RoleArn": {
+        "Description": "The ARN of the IAM role that grants access to Amazon SNS.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "TargetArn": {
+        "Description": "The ARN of the Amazon SNS topic.",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTSqsAction": {
+    "name": "AWSIoTSqsAction",
+    "properties": {
+      "QueueUrl": {
+        "Description": "The URL of the Amazon Simple Queue Service (Amazon SQS) queue.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "RoleArn": {
+        "Description": "The ARN of the IAM role that grants access to Amazon SQS.",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "UseBase64": {
+        "Description": "Specifies whether Base64 encoding should be used.",
+        "Required": "No",
+        "Type": "String"
+      }
+    }
+  },
+  "AWSIoTTopicRulePayload": {
+    "name": "AWSIoTTopicRulePayload",
+    "properties": {
+      "Actions": {
+        "Description": "The actions associated with the rule.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "ArrayofActionobjects"
+      },
+      "AwsIotSqlVersion": {
+        "Description": "The version of the SQL rules engine to use when evaluating the rule.Update requires: No interruption",
+        "Required": "No",
+        "Type": "String"
+      },
+      "Description": {
+        "Description": "The description of the rule.Update requires: No interruption",
+        "Required": "No",
+        "Type": "String"
+      },
+      "RuleDisabled": {
+        "Description": "Specifies whether the rule is disabled.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "Boolean"
+      },
+      "Sql": {
+        "Description": "The SQL statement that queries the topic. For more information, see Rules for AWS IoT\n                  in the AWS IoT Developer Guide.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "String"
       }
     }
   },
@@ -4018,12 +4581,12 @@
     "name": "AWSCloudFormationResourceTagsType",
     "properties": {
       "Key": {
-        "Description": "The key name of the tag. You can specify a value that is 1 to 128 Unicode\n                  characters in length and cannot be prefixed with aws:. You can use\n                  any of the following characters: the set of Unicode letters, digits, whitespace,\n                     _, ., /, =, +,\n                  and -.",
+        "Description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.",
         "Required": "Yes",
         "Type": "String"
       },
       "Value": {
-        "Description": "The value for the tag. You can specify a value that is 1 to 128 Unicode\n                  characters in length and cannot be prefixed with aws:. You can use\n                  any of the following characters: the set of Unicode letters, digits, whitespace,\n                     _, ., /, =, +,\n                  and -.",
+        "Description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.",
         "Required": "Yes",
         "Type": "String"
       }

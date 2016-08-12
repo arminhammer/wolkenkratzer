@@ -68,9 +68,7 @@ class Alias extends WKResource {
 You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement
 * @property {String} Handler Required: Yes. The name of the function (within your source code) that Lambda calls to start running
                   your code. For more information, see the Handler property in the
-                     AWS Lambda Developer Guide.NoteIf you specify your source code as inline text by specifying the
-                        ZipFile property within the Code property, specify
-                        index.handler as the handler.Update requires: No interruption
+                     AWS Lambda Developer Guide.NoteIf you specify your source code as inline text by specifying the ZipFile property within the Code property, specify index.function_name as the handler.Update requires: No interruption
 * @property {Number} MemorySize Required: No. The amount of memory, in MB, that is allocated to your Lambda function. Lambda
                   uses this value to proportionally allocate the amount of CPU power. For more
                   information, see Resource

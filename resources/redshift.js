@@ -43,7 +43,7 @@ const types = require('./../types')
 * @property {String} NodeType Required: Yes. The node type that is provisioned for this cluster.Update requires: No interruption
 * @property {Number} NumberOfNodes Required: Conditional. The number of compute nodes in the cluster. If you specify
                      multi-node for the ClusterType parameter, you must
-                  specify a number greater than 1.Update requires: No interruption
+                  specify a number greater than 1.Update requires: Some interruptions
 * @property {String} OwnerAccount Required: No. When you restore from a snapshot from another AWS account, the 12-digit AWS
                   account ID that contains that snapshot.Update requires: Replacement
 * @property {Number} Port Required: No. The port number on which the cluster accepts incoming connections.Update requires: Replacement

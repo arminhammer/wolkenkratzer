@@ -717,7 +717,7 @@ class SubnetRouteTableAssociation extends WKResource {
                   will use the size of the snapshot as the volume size.Update requires: Updates are not supported.
 * @property {String} SnapshotId Required: No. The snapshot from which to create the new volume.Update requires: Updates are not supported.
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this volume.Update requires: No interruption
-* @property {String} VolumeType Required: No. The volume type. You can specify standard, io1, or gp2. If you set the type to io1, you must also set the Iops property. For more information about these values and the default value, see the VolumeType parameter for the CreateVolume action in the Amazon EC2 API Reference.Update requires: Updates are not supported.
+* @property {String} VolumeType Required: No. The volume type. If you set the type to io1, you must also set the Iops property. For valid values, see the VolumeType parameter for the CreateVolume action in the Amazon EC2 API Reference.Update requires: Updates are not supported.
 */
 class Volume extends WKResource {
   constructor (name, propertiesObject) {

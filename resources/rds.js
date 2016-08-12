@@ -159,11 +159,7 @@ You can still do updates that require no or some interruption. If you must repla
                   instance.NoteIf you restore from a snapshot, do specify this property for the MySQL or
                      MariaDB engines.Update requires: Replacement
 * @property {String} DBParameterGroupName Required: No. The name of an existing DB parameter group or a reference to an AWS::RDS::DBParameterGroup
-                  resource created in the template.Update requires: No interruption or some
-                     interruptions. For more information, see ModifyDBInstance in the
-                     Amazon Relational Database Service API Reference. Also, if any of the data members of the
-                  referenced parameter group are changed during an update, the database instance may
-                  need to be restarted, causing some interruption.
+                  resource created in the template.Update requires: No interruption or some interruptions. If any of the data members of the referenced parameter group are changed during an update, the database instance might need to be restarted, causing some interruption. If the parameter group contains static parameters, whether they were changed or not, an update triggers a reboot.
 * @property {String} DBSecurityGroups Required: No. A list of the DB security groups to assign to the Amazon RDS instance. The list can
                   include both the name of existing DB security groups or references to AWS::RDS::DBSecurityGroup
                   resources created in the template.If you set DBSecurityGroups, you must not set VPCSecurityGroups, and
@@ -330,10 +326,7 @@ class DBInstance extends WKResource {
 *   @extends WKResource
 * @property {String} Description Required: Yes. A friendly description of the RDS parameter group. For example, "My Parameter Group".Update requires: Updates are not supported.
 * @property {String} Family Required: Yes. The database family of this RDS parameter group. For example, "MySQL5.1".Update requires: Updates are not supported.
-* @property {Object} Parameters Required: No. The parameters to set for this RDS parameter group. Changes to dynamic parameters are applied immediately. Changes to static
-                  parameters require a reboot without failover to the DB instance that is associated
-                  with the parameter group before the change can take effect.Update requires: No interruption or Some
-                     interruptions
+* @property {Object} Parameters Required: No. The parameters to set for this RDS parameter group.Update requires: No interruption or Some interruptions. Changes to dynamic parameters are applied immediately. During an update, if you have static parameters (whether they were changed or not), triggers AWS CloudFormation to reboot the associated DB instance without failover.
 * @property {resourcetags} Tags Required: No. The tags that you want to attach to the RDS parameter group.Update requires: No interruption
 */
 class DBParameterGroup extends WKResource {
@@ -419,9 +412,7 @@ class DBSubnetGroup extends WKResource {
 *   @extends WKResource
 * @property {Boolean} Enabled Required: No. Indicates whether to activate the subscription. If you don't specify this
                   property, AWS CloudFormation activates the subscription.Update requires: No interruption
-* @property {String} EventCategories Required: No. A list of event categories that you want to subscribe to for a given source
-                  type. If you don't specify this property, you are notified about all event
-                  categories.Update requires: No interruption
+* @property {String} EventCategories Required: No. A list of event categories that you want to subscribe to for a given source type. If you don't specify this property, you are notified about all event categories. For more information, see  Using Amazon RDS Event Notification in the Amazon Relational Database Service User Guide.Update requires: No interruption
 * @property {String} SnsTopicArn Required: Yes. The Amazon Resource Name (ARN) of an Amazon SNS topic that you want to send event
                   notifications to.Update requires: Replacement
 * @property {String} SourceIds Required: No. A list of identifiers for which Amazon RDS provides notification events.If you don't specify a value, notifications are provided for all sources. If

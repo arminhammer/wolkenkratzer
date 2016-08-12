@@ -16,10 +16,7 @@ const types = require('./../types')
               true by default.Update requires: No interruption
 * @property {Boolean} EnableKeyRotation Required: No. Indicates whether AWS KMS rotates the key. AWS CloudFormation sets this value to
                      false by default.Update requires: No interruption
-* @property {Object} KeyPolicy Required: Yes. An AWS Identity and Access Management (IAM) policy to attach to the key. Use a policy to specify who
-                  has permission to use the key and which actions they can perform. For more
-                  information, see Key Policies
-                  in the AWS Key Management Service Developer Guide.Update requires: No interruption
+* @property {Object} KeyPolicy Required: Yes. An AWS KMS key policy to attach to the key. Use a policy to specify who has permission to use the key and which actions they can perform. For more information, see Key Policies in the AWS Key Management Service Developer Guide.Update requires: No interruption
 */
 class Key extends WKResource {
   constructor (name, propertiesObject) {

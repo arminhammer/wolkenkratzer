@@ -40,7 +40,7 @@ see DependsOn Attribute.Update requires: No interruptionImportantWhen you update
                      instances continue to run with the configuration that they were originally
                      launched with. To update existing instances, specify an update policy attribute
                      for this Auto Scaling group. For more information, see UpdatePolicy.
-* @property {String} LoadBalancerNames Required: No. A list of load balancers associated with this Auto Scaling group.Update requires: ReplacementImportant When you update LoadBalancerNames, the entire Auto Scaling group is replaced. 
+* @property {String} LoadBalancerNames Required: No. A list of Classic load balancers associated with this Auto Scaling group. To specify Application load balancers, use TargetGroupARNs.Update requires: ReplacementImportant When you update LoadBalancerNames, the entire Auto Scaling group is replaced. 
 * @property {String} MaxSize Required: Yes. The maximum size of the Auto Scaling group.Update requires: No interruption
 * @property {AutoScalingMetricsCollection} MetricsCollection Required: No. Enables the monitoring of group metrics of an Auto Scaling group.Update requires: No interruption
 * @property {String} MinSize Required: Yes. The minimum size of the Auto Scaling group.Update requires: No interruption
@@ -53,6 +53,7 @@ see DependsOn Attribute.Update requires: No interruptionImportantWhen you update
 * @property {AutoScalingTags} Tags Required: No. The tags you want to attach to this resource.For more information about tags, go to  Tagging
                      Auto Scaling Groups and Amazon EC2 Instances in the
                   Auto Scaling User Guide.Update requires: No interruption
+* @property {String} TargetGroupARNs Required: No. A list of Amazon Resource Names (ARN) of target groups to associate with the Auto Scaling group.Update requires: No interruption
 * @property {String} TerminationPolicies Required: No. A policy or a list of policies that are used to select the instances to
                   terminate. The policies are executed in the order that you list them. For more information on configuring a termination policy for your Auto Scaling group, see Instance Termination Policy for Your Auto Scaling Group in the Auto Scaling User Guide. Update requires: No interruption
 * @property {String} VPCZoneIdentifier Required: Conditional. A list of subnet identifiers of Amazon Virtual Private Cloud (Amazon VPCs).If you specify the AvailabilityZones property, the
@@ -79,6 +80,7 @@ class AutoScalingGroup extends WKResource {
       NotificationConfigurations: new ResourceAttributeArray('NotificationConfigurations', types.AutoScalingNotificationConfigurations, 'No', null),
       PlacementGroup: new ResourceAttribute('PlacementGroup', String, 'No', null),
       Tags: new tag.TagSet(),
+      TargetGroupARNs: new ResourceAttributeArray('TargetGroupARNs', String, 'No', null),
       TerminationPolicies: new ResourceAttributeArray('TerminationPolicies', String, 'No', null),
       VPCZoneIdentifier: new ResourceAttributeArray('VPCZoneIdentifier', String, 'Conditional', null)
     }

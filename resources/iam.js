@@ -32,15 +32,17 @@ class AccessKey extends WKResource {
 
 /** @memberof module:IAM
 *   @extends WKResource
+* @property {String} GroupName Required: No. A name for the IAM group. For valid values, see the GroupName parameter for the CreateGroup action in the IAM API Reference. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the group name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
+You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {"Fn::Join": ["", [{"Ref": "AWS::Region"}, {"Ref": "MyResourceName"}]]}.Update requires: Replacement
 * @property {String} ManagedPolicyArns Required: No. One or more managed policy ARNs to attach to this group.Update requires: No interruption
-* @property {String} Path Required: No. The path to the group. For more information about paths, see Identifiers for IAM Entities in Using IAM.Update requires: No interruption
-* @property {IAMPolicies} Policies Required: No. The policies to associate with this group. For information about policies,
-                  see Overview of Policies in Using IAM.Update requires: No interruption
+* @property {String} Path Required: No. The path to the group. For more information about paths, see IAM Identifiers in the IAM User Guide.Update requires: No interruption
+* @property {IAMPolicies} Policies Required: No. The policies to associate with this group. For information about policies, see Overview of IAM Policies in the IAM User Guide.Update requires: No interruption
 */
 class Group extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Group'
     let properties = {
+      GroupName: new ResourceAttribute('GroupName', String, 'No', null),
       ManagedPolicyArns: new ResourceAttributeArray('ManagedPolicyArns', String, 'No', null),
       Path: new ResourceAttribute('Path', String, 'No', null),
       Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null)
@@ -140,27 +142,16 @@ class Policy extends WKResource {
 
 /** @memberof module:IAM
 *   @extends WKResource
-* @property {Object} AssumeRolePolicyDocument Required: Yes. The IAM assume role policy that is associated with this role.Update requires: No interruptionNoteYou can associate only one assume role policy with a role. For an example of
+* @property {Object} AssumeRolePolicyDocument Required: Yes. The trust policy that is associated with this role.Update requires: No interruptionNoteYou can associate only one assume role policy with a role. For an example of
                      an assume role policy, see Template Examples.
 * @property {String} ManagedPolicyArns Required: No. One or more managed policy ARNs to attach to this role.Update requires: No interruption
 * @property {String} Path Required: No. The path associated with this role. For information about IAM paths, see
                      Friendly Names and Paths in
                   IAM User Guide.Update requires: Replacement
-* @property {IAMPolicies} Policies Required: No. ImportantThe name of each policy for a role, user, or group must be unique. 
-		Duplicate policy names can cause the updating of IAM roles to fail.
-		The policies to associate with this role. Policies can also be specified
-                  externally. For sample templates that demonstrates both embedded and external
-                  policies, see Template
-                     Examples.NoteIf an external policy (such as AWS::IAM::Policy or
-                        AWS::IAM::ManagedPolicy) has a Ref to a role and
-                     if a resource (such as AWS::ECS::Service) also has a
-                        Ref to the same role, add a DependsOn attribute to
-                     the resource so that the resource depends on the external policy. This
-                     dependency ensures that the role's policy is available throughout the
-                     resource's lifecycle. For example, when you delete a stack with an
-                        AWS::ECS::Service resource, the DependsOn
-                     attribute ensures that the AWS::ECS::Service resource can complete
-                     its deletion before its role's policy is deleted.Update requires: No interruption
+* @property {IAMPolicies} Policies Required: No. The policies to associate with this role. You can specify a policy inline or reference an external policy, such as a policy declared in an AWS::IAM::Policy or AWS::IAM::ManagedPolicy resource. For sample templates that demonstrates both embedded and external policies, see Template Examples.ImportantThe name of each policy for a role, user, or group must be unique. Duplicate policy names can cause IAM role updates to fail. NoteIf an external policy (such as AWS::IAM::Policy or AWS::IAM::ManagedPolicy) has a Ref to a role and if a resource (such as AWS::ECS::Service) also has a Ref to the same role, add a DependsOn attribute to the resource to make the resource depend on the external policy. This dependency ensures that the role's policy is available throughout the resource's lifecycle. For example, when you delete a
+                     stack with an AWS::ECS::Service resource, the DependsOn attribute ensures that AWS CloudFormation deletes the AWS::ECS::Service resource  before deleting its role's policy.Update requires: No interruption
+* @property {String} RoleName Required: No. A name for the IAM role. For valid values, see the RoleName parameter for the CreateRole action in the IAM API Reference. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the group name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
+You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {"Fn::Join": ["", [{"Ref": "AWS::Region"}, {"Ref": "MyResourceName"}]]}.Update requires: Replacement
 */
 class Role extends WKResource {
   constructor (name, propertiesObject) {
@@ -169,7 +160,8 @@ class Role extends WKResource {
       AssumeRolePolicyDocument: new ResourceAttribute('AssumeRolePolicyDocument', Object, 'Yes', null),
       ManagedPolicyArns: new ResourceAttributeArray('ManagedPolicyArns', String, 'No', null),
       Path: new ResourceAttribute('Path', String, 'No', null),
-      Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null)
+      Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null),
+      RoleName: new ResourceAttribute('RoleName', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -180,11 +172,16 @@ class Role extends WKResource {
 * @property {String} Groups Required: No. A name of a group to which you want to add the user.Update requires: No interruption
 * @property {IAMUserLoginProfile} LoginProfile Required: No. Creates a login profile so that the user can access the AWS Management Console.Update requires: No interruption
 * @property {String} ManagedPolicyArns Required: No. One or more managed policy ARNs to attach to this user.Update requires: No interruption
-* @property {String} Path Required: No. The path for the user name. For more information about paths, see Identifiers
-                  for IAM Entities in Using AWS Identity and Access Management.Update requires: No interruption
-* @property {IAMPolicies} Policies Required: No. The policies to associate with this user. For information about policies, see
-                     Overview of Policies in [Using IAM].NoteIf you specify multiple polices, specify unique values for the policy name.
+* @property {String} Path Required: No. The path for the user name. For more information about paths, see IAM Identifiers in the IAM User Guide.Update requires: No interruption
+* @property {IAMPolicies} Policies Required: No. The policies to associate with this user. For information about policies, see Overview of IAM Policies in the IAM User Guide.NoteIf you specify multiple polices, specify unique values for the policy name.
                      If you don't, updates to the IAM user will fail.Update requires: No interruption
+* @property {String} UserName Required: No. A name for the IAM user. For valid values, see the UserName
+            parameter for the CreateUser action in the IAM API Reference.
+            If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for
+            the
+            group
+            name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
+You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {"Fn::Join": ["", [{"Ref": "AWS::Region"}, {"Ref": "MyResourceName"}]]}.Update requires: Replacement
 */
 class User extends WKResource {
   constructor (name, propertiesObject) {
@@ -194,7 +191,8 @@ class User extends WKResource {
       LoginProfile: new ResourceAttribute('LoginProfile', types.IAMUserLoginProfile, 'No', null),
       ManagedPolicyArns: new ResourceAttributeArray('ManagedPolicyArns', String, 'No', null),
       Path: new ResourceAttribute('Path', String, 'No', null),
-      Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null)
+      Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null),
+      UserName: new ResourceAttribute('UserName', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

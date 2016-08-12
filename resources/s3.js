@@ -32,8 +32,7 @@ You can still do updates that require no or some interruption. If you must repla
                             Lifecycle Management in the
                             Amazon Simple Storage Service Developer Guide.Update requires: No interruption
 * @property {AmazonS3LoggingConfiguration} LoggingConfiguration Required: No. Settings that defines where logs are stored.Update requires: No interruption
-* @property {AmazonS3NotificationConfiguration} NotificationConfiguration Required: No. Configuration that defines which Amazon SNS topic to send messages to and what
-                        events to report.Update requires: No interruption
+* @property {AmazonS3NotificationConfiguration} NotificationConfiguration Required: No. Configuration that defines how Amazon S3 handles bucket notifications.Update requires: No interruption
 * @property {AmazonS3ReplicationConfiguration} ReplicationConfiguration Required: No. Configuration for replicating objects in an S3 bucket. To enable replication, you
             must also enable versioning by using the VersioningConfiguration
             property.Amazon S3 can store replicated objects in only one destination (S3 bucket). You cannot

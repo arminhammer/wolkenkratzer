@@ -175,6 +175,9 @@ fs
           case 'RefID':
             propType = 'String'
             break
+          case 'TopicRulePayloadobject':
+            propType = 'AWSIoTTopicRulePayload'
+            break
           case 'EC2MountPoints':
             propType = 'EC2MountPointPropertyType'
             break

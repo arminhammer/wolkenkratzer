@@ -93,9 +93,10 @@ class AmazonAPIGatewayDeploymentStageDescriptionMethodSetting extends ResourcePr
 /**
 * @property CacheKeyParameters {String} Required: No. A list of request parameters whose values API Gateway will cache.
 * @property CacheNamespace {String} Required: No. An API-specific tag group of related cached parameters.
-* @property Credentials {String} Required: No. The credentials required for the integration. To specify an AWS Identity and Access Management (IAM) role that API Gateway assumes, specify the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify arn:aws:iam::\*:user/\*.To use resource-based permissions on the AWS Lambda (Lambda) function, don't specify this property. Use the AWS::Lambda::Permission resource to permit API Gateway to call the function. For more information, see Example 2: Grant Amazon API Gateway Permissions to Invoke Your Lambda Function in the AWS Lambda Developer Guide.
+* @property Credentials {String} Required: No. The credentials required for the integration. To specify an AWS Identity and Access Management (IAM) role that API Gateway assumes, specify the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify arn:aws:iam::*:user/*.To use resource-based permissions on the AWS Lambda (Lambda) function, don't specify this property. Use the AWS::Lambda::Permission resource to permit API Gateway to call the function. For more information, see Example 2: Grant Amazon API Gateway Permissions to Invoke Your Lambda Function in the AWS Lambda Developer Guide.
 * @property IntegrationHttpMethod {String} Required: Conditional. The integration's HTTP method type.
 * @property IntegrationResponses {AmazonAPIGatewayMethodIntegrationIntegrationResponse} Required: No. The response that API Gateway provides after a method's back end completes processing a request. API Gateway intercepts the back end's response so that you can control how API Gateway surfaces back-end responses. For example, you can map the back-end status codes to codes that you define.
+* @property PassthroughBehavior {String} Required: No. Indicates when API Gateway passes requests to the targeted back end. This behavior depends on the request's Content-Type header and whether you defined a mapping template for it.For more information and valid values, see the passthroughBehavior field in the API Gateway API Reference.
 * @property RequestParameters {Map} Required: No. The request parameters that API Gateway sends with the back-end request. Specify request parameters as key-value pairs (string-to-string maps), with a destination as the key and a source as the value.Specify the destination using the following pattern integration.request.location.name, where location is  querystring, path, or header, and name is a valid, unique parameter name.The source must be an existing method request parameter or a static value. Static values must be enclosed in single quotation marks and pre-encoded based on their destination in the request.
 * @property RequestTemplates {Map} Required: No. A map of Apache Velocity templates that are applied on the request payload. The template that API Gateway uses is based on the value of the Content-Type header sent by the client. The content type value is the key, and the template is the value (specified as a string), such as the following snippet:For more information about templates, see API Gateway API Request and Response Payload-Mapping Template Reference in the API Gateway Developer Guide.
 * @property Type {String} Required: Yes. The type of back end your method is running, such as HTTP, AWS (for Lambda functions), or MOCK.
@@ -109,6 +110,7 @@ class AmazonAPIGatewayMethodIntegration extends ResourceProperty {
       Credentials: new ResourceAttribute('Credentials', String, 'No', null),
       IntegrationHttpMethod: new ResourceAttribute('IntegrationHttpMethod', String, 'Conditional', null),
       IntegrationResponses: new ResourceAttributeArray('IntegrationResponses', AmazonAPIGatewayMethodIntegrationIntegrationResponse, 'No', null),
+      PassthroughBehavior: new ResourceAttribute('PassthroughBehavior', String, 'No', null),
       RequestParameters: new ResourceAttribute('RequestParameters', Map, 'No', null),
       RequestTemplates: new ResourceAttribute('RequestTemplates', Map, 'No', null),
       Type: new ResourceAttribute('Type', String, 'Yes', null),
@@ -201,6 +203,42 @@ class AmazonAPIGatewayStageMethodSetting extends ResourceProperty {
 }
 
 /**
+* @property AdjustmentType {String} Required: No. Specifies whether the ScalingAdjustment value in the StepAdjustment property is an absolute number or a percentage of the current capacity. For valid values, see the AdjustmentType content for the StepScalingPolicyConfiguration data type in the Application Auto Scaling API Reference.
+* @property Cooldown {Number} Required: No. The amount of time, in seconds, after a scaling activity completes before any             further trigger-related scaling activities can start. For more information, see the               Cooldown content for the StepScalingPolicyConfiguration data type in the               Application Auto Scaling API Reference.
+* @property MetricAggregationType {String} Required: No. The aggregation type for the CloudWatch metrics. You can specify Minimum, Maximum, or Average. By default, AWS CloudFormation specifies Average. For more information, see Aggregation in the Amazon CloudWatch Developer Guide.
+* @property MinAdjustmentMagnitude {Number} Required: No. The minimum number of resources to adjust when a scaling activity is triggered. If you specify PercentChangeInCapacity for the adjustment type, the scaling policy scales the target by this amount.
+* @property StepAdjustments {ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment} Required: No. A set of adjustments that enable you to scale based on the size of the alarm breach.
+*/
+class ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      AdjustmentType: new ResourceAttribute('AdjustmentType', String, 'No', null),
+      Cooldown: new ResourceAttribute('Cooldown', Number, 'No', null),
+      MetricAggregationType: new ResourceAttribute('MetricAggregationType', String, 'No', null),
+      MinAdjustmentMagnitude: new ResourceAttribute('MinAdjustmentMagnitude', Number, 'No', null),
+      StepAdjustments: new ResourceAttributeArray('StepAdjustments', ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment, 'No', null)
+    }
+    super('ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration', properties, propertiesObject)
+  }
+}
+
+/**
+* @property MetricIntervalLowerBound {Number} Required: No. The lower bound of the breach size. The lower bound is the difference between the breach threshold and the aggregated CloudWatch metric value. If the metric value is within the lower and upper bounds, Application Auto Scaling triggers this step adjustment.If the metric value is above the breach threshold, the metric must be greater than or equal to the threshold plus the lower bound to trigger this step adjustment (the metric value is inclusive). If the metric value is below the breach threshold, the metric must be greater than the threshold plus the lower bound to trigger this step adjustment (the metric value is exclusive). A null value indicates negative infinity.
+* @property MetricIntervalUpperBound {Number} Required: No. The upper bound of the breach size. The upper bound is the difference between the breach threshold and the CloudWatch metric value. If the metric value is within the lower and upper bounds, Application Auto Scaling triggers this step adjustment.If the metric value is above the breach threshold, the metric must be less than the threshold plus the upper bound to trigger this step adjustment (the metric value is exclusive). If the metric value is below the breach threshold, the metric must be less than or equal to the threshold plus the upper bound to trigger this step adjustment (the metric value is inclusive). A null value indicates positive infinity.
+* @property ScalingAdjustment {Number} Required: Yes. The amount by which to scale. The adjustment is based on the value that you specified in the AdjustmentType property (either an absolute number or a percentage). A positive value adds to the current capacity and a negative number subtracts from the current capacity.
+*/
+class ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      MetricIntervalLowerBound: new ResourceAttribute('MetricIntervalLowerBound', Number, 'No', null),
+      MetricIntervalUpperBound: new ResourceAttribute('MetricIntervalUpperBound', Number, 'No', null),
+      ScalingAdjustment: new ResourceAttribute('ScalingAdjustment', Number, 'Yes', null)
+    }
+    super('ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment', properties, propertiesObject)
+  }
+}
+
+/**
 * @property DeviceName {String} Required: Yes. The name of the device within Amazon EC2.
 * @property Ebs {AWSCloudFormationAutoScalingEBSBlockDevicePropertyType} Required: Conditional. The Amazon Elastic Block Store volume information.
 * @property NoDevice {Boolean} Required: No. Suppresses the device mapping. If NoDevice is set to true for the                   root device, the instance might fail the Amazon EC2 health check. Auto Scaling launches a                   replacement instance if the instance fails the health check.
@@ -269,9 +307,9 @@ class AutoScalingNotificationConfigurations extends ResourceProperty {
 }
 
 /**
-* @property MetricIntervalLowerBound {Number} Required: No. The lower bound for the difference between the breach threshold and the CloudWatch                   metric. If the metric value exceeds the breach threshold, the lower bound is                   inclusive (the metric must be greater than or equal to the threshold plus the                   lower bound). Otherwise, it is exclusive (the metric must be greater than the                   threshold plus the lower bound). A null value indicates negative infinity.
-* @property MetricIntervalUpperBound {Number} Required: No. The upper bound for the difference between the breach threshold and the CloudWatch                   metric. If the metric value exceeds the breach threshold, the upper bound is                   exclusive (the metric must be less than the threshold plus the upper bound).                   Otherwise, it is inclusive (the metric must be less than or equal to the threshold                   plus the upper bound). A null value indicates positive infinity.
-* @property ScalingAdjustment {Number} Required: Yes. The amount by which to scale, based on the value that you specified in the                      AdjustmentType property. A positive value adds to the current                   capacity and a negative number subtracts from the current capacity.
+* @property MetricIntervalLowerBound {Number} Required: No. The lower bound of the breach size. The lower bound is the difference between the breach threshold and the aggregated CloudWatch metric value. If the metric value is within the lower and upper bounds, Auto Scaling triggers this step adjustment.If the metric value is above the breach threshold, the metric must be greater than or equal to the threshold plus the lower bound to trigger this step adjustment (the metric value is inclusive). If the metric value is below the breach threshold, the metric must be greater than the threshold plus the lower bound to trigger this step adjustment (the metric value is exclusive). A null value indicates negative infinity.
+* @property MetricIntervalUpperBound {Number} Required: No. The upper bound of the breach size. The upper bound is the difference between the breach threshold and the CloudWatch metric value. If the metric value is within the lower and upper bounds, Auto Scaling triggers this step adjustment.If the metric value is above the breach threshold, the metric must be less than the threshold plus the upper bound to trigger this step adjustment (the metric value is exclusive). If the metric value is below the breach threshold, the metric must be less than or equal to the threshold plus the upper bound to trigger this step adjustment (the metric value is inclusive). A null value indicates positive infinity.
+* @property ScalingAdjustment {Number} Required: Yes. The amount by which to scale. The adjustment is based on the value that you specified in the AdjustmentType property (either an absolute number or a percentage). A positive value adds to the current capacity and a negative number subtracts from the current capacity.
 */
 class AutoScalingScalingPolicyStepAdjustments extends ResourceProperty {
   constructor (propertiesObject) {
@@ -297,6 +335,20 @@ class AutoScalingTagsPropertyType extends ResourceProperty {
       PropagateAtLaunch: new ResourceAttribute('PropagateAtLaunch', Boolean, 'Yes', null)
     }
     super('AutoScalingTagsPropertyType', properties, propertiesObject)
+  }
+}
+
+/**
+* @property DomainName {String} Required: Yes. Fully Qualified Domain Name (FQDN) of the Certificate that you are requesting.
+* @property ValidationDomain {String} Required: Yes. The domain that domain name registrars use to send validation emails. Registrars use this value as the email address suffix when sending emails to verify your identity. This value must be the same as the domain name or a superdomain of the domain name. For more information, see the ValidationDomain content for the DomainValidationOption data type in the AWS Certificate Manager API Reference.
+*/
+class AWSCertificateManagerCertificateDomainValidationOption extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      DomainName: new ResourceAttribute('DomainName', String, 'Yes', null),
+      ValidationDomain: new ResourceAttribute('ValidationDomain', String, 'Yes', null)
+    }
+    super('AWSCertificateManagerCertificateDomainValidationOption', properties, propertiesObject)
   }
 }
 
@@ -488,6 +540,7 @@ class CloudFrontLogging extends ResourceProperty {
 * @property CustomOriginConfig {CloudFrontDistributionConfigOriginCustomOrigin} Required: Conditional. Origin information to specify a custom origin.
 * @property DomainName {String} Required: Yes. The DNS name of the Amazon Simple Storage Service (S3) bucket or the HTTP server from which you want                   CloudFront to get objects for this origin.
 * @property Id {String} Required: Yes. An identifier for the origin. The value of Id must be unique                   within the distribution.
+* @property OriginCustomHeaders {CloudFrontDistributionConfigOriginOriginCustomHeader} Required: No. Custom headers that CloudFront includes when it forwards a request to your origin.
 * @property OriginPath {String} Required: No. The path that CloudFront uses to request content from an S3 bucket or custom origin.                   The combination of the DomainName and OriginPath                   properties must resolve to a valid path. The value must start with a slash mark                      (/) and cannot end with a slash mark.
 * @property S3OriginConfig {CloudFrontDistributionConfigOriginS3Origin} Required: Conditional. Origin information to specify an S3 origin.
 */
@@ -497,6 +550,7 @@ class CloudFrontDistributionConfigOrigin extends ResourceProperty {
       CustomOriginConfig: new ResourceAttribute('CustomOriginConfig', CloudFrontDistributionConfigOriginCustomOrigin, 'Conditional', null),
       DomainName: new ResourceAttribute('DomainName', String, 'Yes', null),
       Id: new ResourceAttribute('Id', String, 'Yes', null),
+      OriginCustomHeaders: new ResourceAttributeArray('OriginCustomHeaders', CloudFrontDistributionConfigOriginOriginCustomHeader, 'No', null),
       OriginPath: new ResourceAttribute('OriginPath', String, 'No', null),
       S3OriginConfig: new ResourceAttribute('S3OriginConfig', CloudFrontDistributionConfigOriginS3Origin, 'Conditional', null)
     }
@@ -508,15 +562,31 @@ class CloudFrontDistributionConfigOrigin extends ResourceProperty {
 * @property HTTPPort {String} Required: No. The HTTP port the custom origin listens on.
 * @property HTTPSPort {String} Required: No. The HTTPS port the custom origin listens on.
 * @property OriginProtocolPolicy {String} Required: Yes. The origin protocol policy to apply to your origin.
+* @property OriginSSLProtocols {String} Required: No. The SSL protocols that CloudFront can use when establishing an HTTPS connection with your origin. By default, AWS CloudFormation specifies the TLSv1 and SSLv3 protocols.
 */
 class CloudFrontDistributionConfigOriginCustomOrigin extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       HTTPPort: new ResourceAttribute('HTTPPort', String, 'No', null),
       HTTPSPort: new ResourceAttribute('HTTPSPort', String, 'No', null),
-      OriginProtocolPolicy: new ResourceAttribute('OriginProtocolPolicy', String, 'Yes', null)
+      OriginProtocolPolicy: new ResourceAttribute('OriginProtocolPolicy', String, 'Yes', null),
+      OriginSSLProtocols: new ResourceAttributeArray('OriginSSLProtocols', String, 'No', null)
     }
     super('CloudFrontDistributionConfigOriginCustomOrigin', properties, propertiesObject)
+  }
+}
+
+/**
+* @property HeaderName {String} Required: Yes. The name of a header that CloudFront forwards to your origin. For more information, see Forwarding Custom Headers to Your Origin (Web Distributions Only) in the Amazon CloudFront Developer Guide.
+* @property HeaderValue {String} Required: Yes. The value for the header that you specified in the HeaderName property.
+*/
+class CloudFrontDistributionConfigOriginOriginCustomHeader extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      HeaderName: new ResourceAttribute('HeaderName', String, 'Yes', null),
+      HeaderValue: new ResourceAttribute('HeaderValue', String, 'Yes', null)
+    }
+    super('CloudFrontDistributionConfigOriginOriginCustomHeader', properties, propertiesObject)
   }
 }
 
@@ -565,17 +635,19 @@ class CloudFrontDistributionConfigRestrictionsGeoRestriction extends ResourcePro
 }
 
 /**
+* @property AcmCertificateArn {String} Required: Conditional. If you're using an alternate domain name, the Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate. Use the ACM service to provision and manage your certificates. For more information, see the AWS Certificate Manager User Guide.
 * @property CloudFrontDefaultCertificate {Boolean} Required: Conditional. Indicates whether to use the default certificate for your CloudFront domain name when                   viewers use HTTPS to request your content.
-* @property IamCertificateId {String} Required: Conditional. If you're using an alternate domain name, the ID of a server certificate. This ID is the ServerCertificateId value, which AWS Identity and Access Management (IAM) returns when you add the certificate to the IAM certificate store, such as ASCACKCEVSQ6CEXAMPLE1.
-* @property MinimumProtocolVersion {String} Required: Conditional. The minimum version of the SSL protocol that you want CloudFront to use for HTTPS                   connections. CloudFront serves your objects only to browsers or devices that support at                   least the SSL version that you specify.If you specify the IamCertificateId property and specify SNI only                   for the SslSupportMethod property, you must use TLSv1                   for the minimum protocol version. If you don't specify a value, AWS CloudFormation specifies                      SSLv3.
+* @property IamCertificateId {String} Required: Conditional. If you're using an alternate domain name, the ID of a server certificate that was purchased from a certificate authority. This ID is the ServerCertificateId value, which AWS Identity and Access Management (IAM) returns when the certificate is added to the IAM certificate store, such as ASCACKCEVSQ6CEXAMPLE1.
+* @property MinimumProtocolVersion {String} Required: No. The minimum version of the SSL protocol that you want CloudFront to use for HTTPS                   connections. CloudFront serves your objects only to browsers or devices that support at                   least the SSL version that you specify.If you specify the IamCertificateId property and specify SNI only                   for the SslSupportMethod property, you must use TLSv1                   for the minimum protocol version. If you don't specify a value, AWS CloudFormation specifies                      SSLv3.
 * @property SslSupportMethod {String} Required: Conditional. Specifies how CloudFront serves HTTPS requests.
 */
 class CloudFrontDistributionConfigurationViewerCertificate extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
+      AcmCertificateArn: new ResourceAttribute('AcmCertificateArn', String, 'Conditional', null),
       CloudFrontDefaultCertificate: new ResourceAttribute('CloudFrontDefaultCertificate', Boolean, 'Conditional', null),
       IamCertificateId: new ResourceAttribute('IamCertificateId', String, 'Conditional', null),
-      MinimumProtocolVersion: new ResourceAttribute('MinimumProtocolVersion', String, 'Conditional', null),
+      MinimumProtocolVersion: new ResourceAttribute('MinimumProtocolVersion', String, 'No', null),
       SslSupportMethod: new ResourceAttribute('SslSupportMethod', String, 'Conditional', null)
     }
     super('CloudFrontDistributionConfigurationViewerCertificate', properties, propertiesObject)
@@ -583,9 +655,9 @@ class CloudFrontDistributionConfigurationViewerCertificate extends ResourcePrope
 }
 
 /**
-* @property Cookies {CloudFrontForwardedValuesCookies} Required: No. Forwards specified cookies to the origin of the cache behavior.
-* @property Headers {String} Required: No. Specifies the headers that you want Amazon CloudFront to forward to the origin for this                   cache behavior (whitelisted headers). For the headers that you specify, Amazon CloudFront                   also caches separate versions of a specified object that is based on the header                   values in viewer requests.If you specify a single asterisk (["*"]), all headers are                   forwarded. If you don't specify a value, only the default headers are                   forwarded.
-* @property QueryString {Boolean} Required: Yes. Indicates whether you want CloudFront to forward query strings to the origin that is                   associated with this cache behavior. If so, specify true; if not,                   specify false.
+* @property Cookies {CloudFrontForwardedValuesCookies} Required: No. Forwards specified cookies to the origin of the cache behavior. For more information, see Configuring CloudFront to Cache Based on Cookies in the Amazon CloudFront Developer Guide.
+* @property Headers {String} Required: No. Specifies the headers that you want Amazon CloudFront to forward to the origin for this                   cache behavior (whitelisted headers). For the headers that you specify, Amazon CloudFront                   also caches separate versions of a specified object that is based on the header                   values in viewer requests.For custom origins, if you specify a single asterisk (["*"]), all headers are forwarded. If you don't specify a value, only the default headers are forwarded. For Amazon S3 origins, you can forward only selected headers; specifying * is not supported. For more information, see Configuring CloudFront to Cache Objects Based on Request Headers in the Amazon CloudFront Developer Guide.
+* @property QueryString {Boolean} Required: Yes. Indicates whether you want CloudFront to forward query strings to the origin that is                   associated with this cache behavior. If so, specify true; if not,                   specify false. For more information, see Configuring CloudFront to Cache Based on Query String Parameters in the Amazon CloudFront Developer Guide.
 */
 class CloudFrontForwardedValues extends ResourceProperty {
   constructor (propertiesObject) {
@@ -1292,7 +1364,7 @@ class AmazonEC2BlockDeviceMappingProperty extends ResourceProperty {
 * @property Iops {Number} Required: Conditional. The number of I/O operations per second (IOPS) that the volume supports. This can be an integer                from 100 – 2000.
 * @property SnapshotId {String} Required: Conditional. The snapshot ID of the volume to use to create a block device.
 * @property VolumeSize {String} Required: Conditional. The volume size, in gibibytes (GiB). This can be a number from 1 – 1024.                   If the volume type is io1, the minimum value is 10.Update requires: Some interruptions
-* @property VolumeType {String} Required: No. The volume type. You can specify standard, io1, or                      gp2. If you set the type to io1, you must also set                   the Iops property. For more information about these values                   and the default value, see CreateVolume in                   the Amazon EC2 API Reference.
+* @property VolumeType {String} Required: No. The volume type. If you set the type to io1, you must also set the Iops property. For valid values, see the VolumeType parameter for the CreateVolume action in the Amazon EC2 API Reference.
 */
 class AmazonElasticBlockStoreBlockDeviceProperty extends ResourceProperty {
   constructor (propertiesObject) {
@@ -1837,12 +1909,14 @@ class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints ext
 /**
 * @property ContainerPort {Number} Required: Yes. The port number on the container that is bound to the host port.
 * @property HostPort {Number} Required: No. The host port number on the container instance that you want to reserve for                   your container. You can specify a non-reserved host port for your container port                   mapping, or you can omit the host port (or set it to 0). If you                   specify a container port but no host port, your container port is automatically                   assigned a host port in the 49153 to 65535 port                   range.Do not specify a host port in the 49153 to 65535 port                   range; these ports are reserved for automatic assignment. Other reserved ports                   include 22 for SSH, the Docker ports 2375 and                      2376, and the Amazon EC2 Container Service container agent port 51678.                   In addition, do not specify a host port that is being used for a task; that port                   is reserved while the task is running.
+* @property Protocol {String} Required: No. The protocol used for the port mapping. For valid values, see the protocol parameter in the Amazon EC2 Container Service Developer Guide. By default, AWS CloudFormation specifies tcp.
 */
 class AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       ContainerPort: new ResourceAttribute('ContainerPort', Number, 'Yes', null),
-      HostPort: new ResourceAttribute('HostPort', Number, 'No', null)
+      HostPort: new ResourceAttribute('HostPort', Number, 'No', null),
+      Protocol: new ResourceAttribute('Protocol', String, 'No', null)
     }
     super('AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings', properties, propertiesObject)
   }
@@ -2074,7 +2148,7 @@ class ElasticLoadBalancingLBCookieStickinessPolicyType extends ResourceProperty 
 * @property InstancePort {String} Required: Yes. Specifies the TCP port on which the instance server is listening. This property cannot be modified                   for the life of the load balancer.
 * @property InstanceProtocol {String} Required: No. Specifies the protocol to use for routing traffic to back-end instances—HTTP, HTTPS, TCP, or                   SSL. This property cannot be modified for the life of the load balancer.NoteIf the front-end protocol is HTTP or HTTPS, InstanceProtocol has to                            be at the same protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end protocol is                            TCP or SSL, InstanceProtocol has to be TCP or SSL.If there is another listener with the same InstancePort whose                            InstanceProtocol is secure, i.e., HTTPS or SSL, the listener's                            InstanceProtocol has to be secure, i.e., HTTPS or SSL. If there is                            another listener with the same InstancePort whose InstanceProtocol is                            HTTP or TCP, the listener's InstanceProtocol must be either HTTP or                            TCP.
 * @property LoadBalancerPort {String} Required: Yes. Specifies the external load balancer port number. This property cannot be modified for the life of                   the load balancer.
-* @property PolicyNames {String} Required: No. A list of ElasticLoadBalancing policy names to associate with the listener. Specify only policies that are compatible with listeners. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference.
+* @property PolicyNames {String} Required: No. A list of ElasticLoadBalancing policy names to associate with the listener. Specify only policies that are compatible with listeners. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference version 2012-06-01.
 * @property Protocol {String} Required: Yes. Specifies the load balancer transport protocol to use for routing — HTTP, HTTPS, TCP or SSL.                   This property cannot be modified for the life of the load balancer.
 * @property SSLCertificateId {String} Required: No. The ARN of the SSL certificate to use. For more information about SSL certificates, see Managing                      Server Certificates in the AWS Identity and Access Management documentation.
 */
@@ -2109,6 +2183,114 @@ class ElasticLoadBalancingPolicyType extends ResourceProperty {
       PolicyType: new ResourceAttribute('PolicyType', String, 'Yes', null)
     }
     super('ElasticLoadBalancingPolicyType', properties, propertiesObject)
+  }
+}
+
+/**
+* @property CertificateArn {String} Required: No. The Amazon Resource Name (ARN) of the certificate to associate with the listener.
+*/
+class ElasticLoadBalancingListenerCertificates extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      CertificateArn: new ResourceAttribute('CertificateArn', String, 'No', null)
+    }
+    super('ElasticLoadBalancingListenerCertificates', properties, propertiesObject)
+  }
+}
+
+/**
+* @property TargetGroupArn {String} Required: Yes. The Amazon Resource Name (ARN) of the target group to which Elastic Load Balancing routes the traffic.
+* @property Type {String} Required: Yes. The type of action. For valid values, see the Type contents for the               Action data type in the               Elastic Load Balancing API Reference version 2015-12-01.
+*/
+class ElasticLoadBalancingListenerDefaultActions extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      TargetGroupArn: new ResourceAttribute('TargetGroupArn', String, 'Yes', null),
+      Type: new ResourceAttribute('Type', String, 'Yes', null)
+    }
+    super('ElasticLoadBalancingListenerDefaultActions', properties, propertiesObject)
+  }
+}
+
+/**
+* @property TargetGroupArn {String} Required: Yes. The Amazon Resource Name (ARN) of the target group to which Elastic Load Balancing routes the traffic.
+* @property Type {String} Required: Yes. The type of action. For valid values, see the Type contents for the               Action data type in the               Elastic Load Balancing API Reference version 2015-12-01.
+*/
+class ElasticLoadBalancingListenerRuleActions extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      TargetGroupArn: new ResourceAttribute('TargetGroupArn', String, 'Yes', null),
+      Type: new ResourceAttribute('Type', String, 'Yes', null)
+    }
+    super('ElasticLoadBalancingListenerRuleActions', properties, propertiesObject)
+  }
+}
+
+/**
+* @property Field {String} Required: No. The name of the condition that you want to define, such as path-pattern (which forwards requests based on the URL of the request).For valid values, see the Field contents for the RuleCondition data type in the               Elastic Load Balancing API Reference version 2015-12-01.
+* @property Values {String} Required: No. The value for the field that you specified in the Field property.
+*/
+class ElasticLoadBalancingListenerRuleConditions extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      Field: new ResourceAttribute('Field', String, 'No', null),
+      Values: new ResourceAttributeArray('Values', String, 'No', null)
+    }
+    super('ElasticLoadBalancingListenerRuleConditions', properties, propertiesObject)
+  }
+}
+
+/**
+* @property Key {String} Required: No. The name of an attribute that you want to configure. For the list of attributes that you can configure, see the Key contents for the LoadBalancerAttribute data type in the Elastic Load Balancing API Reference version 2015-12-01.
+* @property Value {String} Required: No. A value for the attribute.
+*/
+class ElasticLoadBalancingLoadBalancerLoadBalancerAttributes extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      Key: new ResourceAttribute('Key', String, 'No', null),
+      Value: new ResourceAttribute('Value', String, 'No', null)
+    }
+    super('ElasticLoadBalancingLoadBalancerLoadBalancerAttributes', properties, propertiesObject)
+  }
+}
+
+/**
+* @property HttpCode {String} Required: No. The HTTP codes that a healthy target must use when responding to a health check, such as 200,202 or 200-299. For valid and default values, see the HttpCode contents for the Matcher data type in the Elastic Load Balancing API Reference version 2015-12-01.
+*/
+class ElasticLoadBalancingTargetGroupMatcher extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      HttpCode: new ResourceAttribute('HttpCode', String, 'No', null)
+    }
+    super('ElasticLoadBalancingTargetGroupMatcher', properties, propertiesObject)
+  }
+}
+
+/**
+* @property Id {String} Required: Yes. The ID of the target, such as an EC2 instance ID.
+* @property Port {Number} Required: No. The port number on which the target is listening for traffic.
+*/
+class ElasticLoadBalancingTargetGroupTargetDescription extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      Id: new ResourceAttribute('Id', String, 'Yes', null),
+      Port: new ResourceAttribute('Port', Number, 'No', null)
+    }
+    super('ElasticLoadBalancingTargetGroupTargetDescription', properties, propertiesObject)
+  }
+}
+
+/**
+* @property Key {String} Required: No. The name of the attribute that you want to configure. For the list of attributes that you can configure, see the Key contents for the TargetGroupAttribute data type in the Elastic Load Balancing API Reference version 2015-12-01.
+* @property Value {String} Required: No. A value for the attribute.
+*/
+class ElasticLoadBalancingTargetGroupTargetGroupAttributes extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      Key: new ResourceAttribute('Key', String, 'No', null),
+      Value: new ResourceAttribute('Value', String, 'No', null)
+    }
+    super('ElasticLoadBalancingTargetGroupTargetGroupAttributes', properties, propertiesObject)
   }
 }
 
@@ -2167,10 +2349,10 @@ class AmazonElasticsearchServiceDomainSnapshotOptions extends ResourceProperty {
 /**
 * @property AdditionalInfo {Map} Required: No. Metadata about third-party applications that third-party vendors use for testing             purposes.
 * @property Args {String} Required: No. Arguments that Amazon EMR passes to the application.
-* @property Name {String} Required: No. The name of the application to add to your cluster, such as Hadoop or               Hive. For valid values, see the Applications parameter in the Amazon Elastic MapReduce API Reference.
+* @property Name {String} Required: No. The name of the application to add to your cluster, such as Hadoop or               Hive. For valid values, see the Applications parameter in the Amazon EMR API Reference.
 * @property Version {String} Required: No. The version of the application.
 */
-class AmazonElasticMapReduceClusterApplication extends ResourceProperty {
+class AmazonEMRClusterApplication extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       AdditionalInfo: new ResourceAttribute('AdditionalInfo', Map, 'No', null),
@@ -2178,21 +2360,21 @@ class AmazonElasticMapReduceClusterApplication extends ResourceProperty {
       Name: new ResourceAttribute('Name', String, 'No', null),
       Version: new ResourceAttribute('Version', String, 'No', null)
     }
-    super('AmazonElasticMapReduceClusterApplication', properties, propertiesObject)
+    super('AmazonEMRClusterApplication', properties, propertiesObject)
   }
 }
 
 /**
 * @property Name {String} Required: Yes. The name of the bootstrap action to add to your cluster.
-* @property ScriptBootstrapAction {AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig} Required: Yes. The script that the bootstrap action runs.
+* @property ScriptBootstrapAction {AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig} Required: Yes. The script that the bootstrap action runs.
 */
-class AmazonElasticMapReduceClusterBootstrapActionConfig extends ResourceProperty {
+class AmazonEMRClusterBootstrapActionConfig extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       Name: new ResourceAttribute('Name', String, 'Yes', null),
-      ScriptBootstrapAction: new ResourceAttribute('ScriptBootstrapAction', AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig, 'Yes', null)
+      ScriptBootstrapAction: new ResourceAttribute('ScriptBootstrapAction', AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig, 'Yes', null)
     }
-    super('AmazonElasticMapReduceClusterBootstrapActionConfig', properties, propertiesObject)
+    super('AmazonEMRClusterBootstrapActionConfig', properties, propertiesObject)
   }
 }
 
@@ -2200,127 +2382,127 @@ class AmazonElasticMapReduceClusterBootstrapActionConfig extends ResourcePropert
 * @property Args {String} Required: No. A list of command line arguments to pass to the bootstrap action script.
 * @property Path {String} Required: Yes. The location of the script that Amazon EMR runs during a bootstrap action. Specify a             location in an S3 bucket or your local file system.
 */
-class AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig extends ResourceProperty {
+class AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       Args: new ResourceAttributeArray('Args', String, 'No', null),
       Path: new ResourceAttribute('Path', String, 'Yes', null)
     }
-    super('AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig', properties, propertiesObject)
+    super('AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig', properties, propertiesObject)
   }
 }
 
 /**
-* @property Classification {String} Required: No. The name of an application-specific configuration file. For more information see,               Configuring Applications in the Amazon Elastic MapReduce Release               Guide.
-* @property ConfigurationProperties {Map} Required: No. The settings that you want to change in the application-specific configuration file.             For more information see, Configuring Applications in the Amazon Elastic MapReduce Release               Guide.
-* @property Configurations {AmazonElasticMapReduceClusterConfiguration} Required: No. A list of configurations to apply to this configuration. You can nest configurations             so that a single configuration can have its own configurations. In other words, you can             configure a configuration. For more information see, Configuring Applications in the Amazon Elastic MapReduce Release               Guide.
+* @property Classification {String} Required: No. The name of an application-specific configuration file. For more information see,               Configuring Applications in the Amazon EMR Release               Guide.
+* @property ConfigurationProperties {Map} Required: No. The settings that you want to change in the application-specific configuration file.             For more information see, Configuring Applications in the Amazon EMR Release               Guide.
+* @property Configurations {AmazonEMRClusterConfiguration} Required: No. A list of configurations to apply to this configuration. You can nest configurations             so that a single configuration can have its own configurations. In other words, you can             configure a configuration. For more information see, Configuring Applications in the Amazon EMR Release               Guide.
 */
-class AmazonElasticMapReduceClusterConfiguration extends ResourceProperty {
+class AmazonEMRClusterConfiguration extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       Classification: new ResourceAttribute('Classification', String, 'No', null),
       ConfigurationProperties: new ResourceAttribute('ConfigurationProperties', Map, 'No', null),
-      Configurations: new ResourceAttributeArray('Configurations', AmazonElasticMapReduceClusterConfiguration, 'No', null)
+      Configurations: new ResourceAttributeArray('Configurations', AmazonEMRClusterConfiguration, 'No', null)
     }
-    super('AmazonElasticMapReduceClusterConfiguration', properties, propertiesObject)
+    super('AmazonEMRClusterConfiguration', properties, propertiesObject)
   }
 }
 
 /**
 * @property AdditionalMasterSecurityGroups {String} Required: No. A list of additional EC2 security group IDs to assign to the master instance (master             node) in your Amazon EMR cluster. Use this property to supplement the rules specified by the             Amazon EMR managed master security group.
 * @property AdditionalSlaveSecurityGroups {String} Required: No. A list of additional EC2 security group IDs to assign to the slave instances (slave             nodes) in your Amazon EMR cluster. Use this property to supplement the rules specified by the             Amazon EMR managed slave security group.
-* @property CoreInstanceGroup {AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig} Required: Yes. The settings for the core instances in your Amazon EMR cluster.
+* @property CoreInstanceGroup {AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig} Required: Yes. The settings for the core instances in your Amazon EMR cluster.
 * @property Ec2KeyName {String} Required: No. The name of an Amazon Elastic Compute Cloud (Amazon EC2) key pair, which you can use to access the instances             in your Amazon EMR cluster.
 * @property Ec2SubnetId {String} Required: No. The ID of a subnet where you want to launch your instances.
 * @property EmrManagedMasterSecurityGroup {String} Required: No. The ID of an EC2 security group (managed by Amazon EMR) that is assigned to the master             instance (master node) in your Amazon EMR cluster.
 * @property EmrManagedSlaveSecurityGroup {String} Required: No. The ID of an EC2 security group (managed by Amazon EMR) that is assigned to the slave             instances (slave nodes) in your Amazon EMR cluster.
-* @property HadoopVersion {String} Required: No. The Hadoop version for the job flow. For valid values, see the HadoopVersion parameter in             the Amazon Elastic MapReduce API Reference.
-* @property MasterInstanceGroup {AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig} Required: Yes. The settings for the master instance (master node).
-* @property Placement {AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType} Required: No. The Availability Zone (AZ) in which the job flow runs.
+* @property HadoopVersion {String} Required: No. The Hadoop version for the job flow. For valid values, see the HadoopVersion parameter in             the Amazon EMR API Reference.
+* @property MasterInstanceGroup {AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig} Required: Yes. The settings for the master instance (master node).
+* @property Placement {AmazonEMRClusterJobFlowInstancesConfigPlacementType} Required: No. The Availability Zone (AZ) in which the job flow runs.
 * @property ServiceAccessSecurityGroup {String} Required: No. The ID of an EC2 security group (managed by Amazon EMR) that services use to access             clusters in private subnets.
 * @property TerminationProtected {Boolean} Required: No. Indicates whether to prevent the EC2 instances from being terminated by an API call             or user intervention. If you want to delete a stack with protected instances, update             this value to false before you delete the stack. By default, AWS CloudFormation sets             this property to false.
 */
-class AmazonElasticMapReduceClusterJobFlowInstancesConfig extends ResourceProperty {
+class AmazonEMRClusterJobFlowInstancesConfig extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       AdditionalMasterSecurityGroups: new ResourceAttributeArray('AdditionalMasterSecurityGroups', String, 'No', null),
       AdditionalSlaveSecurityGroups: new ResourceAttributeArray('AdditionalSlaveSecurityGroups', String, 'No', null),
-      CoreInstanceGroup: new ResourceAttribute('CoreInstanceGroup', AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig, 'Yes', null),
+      CoreInstanceGroup: new ResourceAttribute('CoreInstanceGroup', AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig, 'Yes', null),
       Ec2KeyName: new ResourceAttribute('Ec2KeyName', String, 'No', null),
       Ec2SubnetId: new ResourceAttribute('Ec2SubnetId', String, 'No', null),
       EmrManagedMasterSecurityGroup: new ResourceAttribute('EmrManagedMasterSecurityGroup', String, 'No', null),
       EmrManagedSlaveSecurityGroup: new ResourceAttribute('EmrManagedSlaveSecurityGroup', String, 'No', null),
       HadoopVersion: new ResourceAttribute('HadoopVersion', String, 'No', null),
-      MasterInstanceGroup: new ResourceAttribute('MasterInstanceGroup', AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig, 'Yes', null),
-      Placement: new ResourceAttribute('Placement', AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType, 'No', null),
+      MasterInstanceGroup: new ResourceAttribute('MasterInstanceGroup', AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig, 'Yes', null),
+      Placement: new ResourceAttribute('Placement', AmazonEMRClusterJobFlowInstancesConfigPlacementType, 'No', null),
       ServiceAccessSecurityGroup: new ResourceAttribute('ServiceAccessSecurityGroup', String, 'No', null),
       TerminationProtected: new ResourceAttribute('TerminationProtected', Boolean, 'No', null)
     }
-    super('AmazonElasticMapReduceClusterJobFlowInstancesConfig', properties, propertiesObject)
+    super('AmazonEMRClusterJobFlowInstancesConfig', properties, propertiesObject)
   }
 }
 
 /**
 * @property BidPrice {String} Required: No. When launching instances as Spot Instances, the bid price in USD for each EC2 instance in the instance group.
-* @property Configurations {AmazonElasticMapReduceClusterConfiguration} Required: No. A list of configurations to apply to this instance group. For more information see, Configuring Applications in the Amazon EMR Release Guide.
-* @property EbsConfiguration {AmazonElasticMapReduceEbsConfiguration} Required: No. Configures Amazon Elastic Block Store (Amazon EBS) storage volumes to attach to your instances.Update requires: Replacement
+* @property Configurations {AmazonEMRClusterConfiguration} Required: No. A list of configurations to apply to this instance group. For more information see, Configuring Applications in the Amazon EMR Release Guide.
+* @property EbsConfiguration {AmazonEMREbsConfiguration} Required: No. Configures Amazon Elastic Block Store (Amazon EBS) storage volumes to attach to your instances.Update requires: Replacement
 * @property InstanceCount {Number} Required: Yes. The number of instances to launch in the instance group.
 * @property InstanceType {String} Required: Yes. The EC2 instance type for all instances in the instance group. For more information,             see Instance Configurations in the Amazon EMR Management             Guide.
 * @property Market {String} Required: No. The type of marketplace from which your instances are provisioned into this group,             either ON_DEMAND or SPOT. For more information, see Amazon EC2 Purchasing             Options.
 * @property Name {String} Required: No. A name for the instance group.
 */
-class AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig extends ResourceProperty {
+class AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       BidPrice: new ResourceAttribute('BidPrice', String, 'No', null),
-      Configurations: new ResourceAttributeArray('Configurations', AmazonElasticMapReduceClusterConfiguration, 'No', null),
-      EbsConfiguration: new ResourceAttribute('EbsConfiguration', AmazonElasticMapReduceEbsConfiguration, 'No', null),
+      Configurations: new ResourceAttributeArray('Configurations', AmazonEMRClusterConfiguration, 'No', null),
+      EbsConfiguration: new ResourceAttribute('EbsConfiguration', AmazonEMREbsConfiguration, 'No', null),
       InstanceCount: new ResourceAttribute('InstanceCount', Number, 'Yes', null),
       InstanceType: new ResourceAttribute('InstanceType', String, 'Yes', null),
       Market: new ResourceAttribute('Market', String, 'No', null),
       Name: new ResourceAttribute('Name', String, 'No', null)
     }
-    super('AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig', properties, propertiesObject)
+    super('AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig', properties, propertiesObject)
   }
 }
 
 /**
 * @property AvailabilityZone {String} Required: Yes. The Amazon Elastic Compute Cloud (Amazon EC2) AZ for the job flow. For more information, see http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html in the Amazon EC2 User Guide for Linux Instances.
 */
-class AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType extends ResourceProperty {
+class AmazonEMRClusterJobFlowInstancesConfigPlacementType extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'Yes', null)
     }
-    super('AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType', properties, propertiesObject)
+    super('AmazonEMRClusterJobFlowInstancesConfigPlacementType', properties, propertiesObject)
   }
 }
 
 /**
-* @property EbsBlockDeviceConfigs {AmazonElasticMapReduceEbsConfiguration} Required: No. Configures the block storage devices that are associated with your EMR instances.
+* @property EbsBlockDeviceConfigs {AmazonEMREbsConfiguration} Required: No. Configures the block storage devices that are associated with your EMR instances.
 * @property EbsOptimized {Boolean} Required: No. Indicates whether the instances are optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. For more information about fees and supported instance types, see EBS-Optimized Instances in the Amazon EC2 User Guide for Linux Instances.
 */
-class AmazonElasticMapReduceEbsConfiguration extends ResourceProperty {
+class AmazonEMREbsConfiguration extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
-      EbsBlockDeviceConfigs: new ResourceAttributeArray('EbsBlockDeviceConfigs', AmazonElasticMapReduceEbsConfiguration, 'No', null),
+      EbsBlockDeviceConfigs: new ResourceAttributeArray('EbsBlockDeviceConfigs', AmazonEMREbsConfiguration, 'No', null),
       EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, 'No', null)
     }
-    super('AmazonElasticMapReduceEbsConfiguration', properties, propertiesObject)
+    super('AmazonEMREbsConfiguration', properties, propertiesObject)
   }
 }
 
 /**
-* @property VolumeSpecification {AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification} Required: Yes. The settings for the Amazon EBS volumes.
+* @property VolumeSpecification {AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification} Required: Yes. The settings for the Amazon EBS volumes.
 * @property VolumesPerInstance {Number} Required: No. The number of Amazon EBS volumes that you want to create for each instance in the EMR cluster or instance group.
 */
-class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs extends ResourceProperty {
+class AmazonEMREbsConfigurationEbsBlockDeviceConfigs extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
-      VolumeSpecification: new ResourceAttribute('VolumeSpecification', AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification, 'Yes', null),
+      VolumeSpecification: new ResourceAttribute('VolumeSpecification', AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification, 'Yes', null),
       VolumesPerInstance: new ResourceAttribute('VolumesPerInstance', Number, 'No', null)
     }
-    super('AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs', properties, propertiesObject)
+    super('AmazonEMREbsConfigurationEbsBlockDeviceConfigs', properties, propertiesObject)
   }
 }
 
@@ -2329,14 +2511,14 @@ class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs extends Resour
 * @property SizeInGB {Number} Required: Yes. The volume size, in Gibibytes (GiB). For more information about specifying the volume size, see VolumeSize for the EbsBlockDevice action in the Amazon EC2 API Reference.
 * @property VolumeType {String} Required: Yes. The volume type, such as standard or io1. For more information about specifying the volume type, see VolumeType for the EbsBlockDevice action in the Amazon EC2 API Reference.
 */
-class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification extends ResourceProperty {
+class AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       Iops: new ResourceAttribute('Iops', Number, 'No', null),
       SizeInGB: new ResourceAttribute('SizeInGB', Number, 'Yes', null),
       VolumeType: new ResourceAttribute('VolumeType', String, 'Yes', null)
     }
-    super('AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification', properties, propertiesObject)
+    super('AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification', properties, propertiesObject)
   }
 }
 
@@ -2344,17 +2526,17 @@ class AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecificat
 * @property Args {String} Required: No. A list of command line arguments passed to the JAR file's main function when the             function is executed.
 * @property Jar {String} Required: Yes. A path to the JAR file that Amazon EMR runs for the job flow step.
 * @property MainClass {String} Required: No. The name of the main class in the specified JAR file. If you don't specify a value,             you must specify a main class in the JAR file's manifest file.
-* @property StepProperties {AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue} Required: No. A list of Java properties that are set when the job flow step runs. You can use             these properties to pass key-value pairs to your main function in the JAR file.
+* @property StepProperties {AmazonEMRStepHadoopJarStepConfigKeyValue} Required: No. A list of Java properties that are set when the job flow step runs. You can use             these properties to pass key-value pairs to your main function in the JAR file.
 */
-class AmazonElasticMapReduceStepHadoopJarStepConfig extends ResourceProperty {
+class AmazonEMRStepHadoopJarStepConfig extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       Args: new ResourceAttributeArray('Args', String, 'No', null),
       Jar: new ResourceAttribute('Jar', String, 'Yes', null),
       MainClass: new ResourceAttribute('MainClass', String, 'No', null),
-      StepProperties: new ResourceAttributeArray('StepProperties', AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue, 'No', null)
+      StepProperties: new ResourceAttributeArray('StepProperties', AmazonEMRStepHadoopJarStepConfigKeyValue, 'No', null)
     }
-    super('AmazonElasticMapReduceStepHadoopJarStepConfig', properties, propertiesObject)
+    super('AmazonEMRStepHadoopJarStepConfig', properties, propertiesObject)
   }
 }
 
@@ -2362,13 +2544,13 @@ class AmazonElasticMapReduceStepHadoopJarStepConfig extends ResourceProperty {
 * @property Key {String} Required: No. The unique identifier of a key-value pair.
 * @property Value {String} Required: No. The value part of the identified key.
 */
-class AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue extends ResourceProperty {
+class AmazonEMRStepHadoopJarStepConfigKeyValue extends ResourceProperty {
   constructor (propertiesObject) {
     let properties = {
       Key: new ResourceAttribute('Key', String, 'No', null),
       Value: new ResourceAttribute('Value', String, 'No', null)
     }
-    super('AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue', properties, propertiesObject)
+    super('AmazonEMRStepHadoopJarStepConfigKeyValue', properties, propertiesObject)
   }
 }
 
@@ -2447,6 +2629,246 @@ class IAMUserLoginProfile extends ResourceProperty {
       PasswordResetRequired: new ResourceAttribute('PasswordResetRequired', Boolean, 'No', null)
     }
     super('IAMUserLoginProfile', properties, propertiesObject)
+  }
+}
+
+/**
+* @property CloudwatchAlarm {AWSIoTCloudwatchAlarmAction} Required: No. Changes the state of a CloudWatch alarm.
+* @property CloudwatchMetric {AWSIoTCloudwatchMetricAction} Required: No. Captures a CloudWatch metric.
+* @property DynamoDB {AWSIoTDynamoDBAction} Required: No. Writes data to a DynamoDB table.
+* @property Elasticsearch {AWSIoTElasticsearchAction} Required: No. Writes data to an Elasticsearch domain.
+* @property Firehose {AWSIoTFirehoseAction} Required: No. Writes data to a Firehose stream.
+* @property Kinesis {AWSIoTKinesisAction} Required: No. Writes data to an Amazon Kinesis stream.
+* @property Lambda {AWSIoTLambdaAction} Required: No. Invokes a Lambda function.
+* @property Republish {AWSIoTRepublishAction} Required: No. Publishes data to an MQ Telemetry Transport (MQTT) topic different from the one                   currently specified.
+* @property S3 {AWSIoTS3Action} Required: No. Writes data to an S3 bucket.
+* @property Sns {AWSIoTSnsAction} Required: No. Publishes data to an SNS topic.
+* @property Sqs {AWSIoTSqsAction} Required: No. Publishes data to an SQS queue.
+*/
+class AWSIoTActions extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      CloudwatchAlarm: new ResourceAttribute('CloudwatchAlarm', AWSIoTCloudwatchAlarmAction, 'No', null),
+      CloudwatchMetric: new ResourceAttribute('CloudwatchMetric', AWSIoTCloudwatchMetricAction, 'No', null),
+      DynamoDB: new ResourceAttribute('DynamoDB', AWSIoTDynamoDBAction, 'No', null),
+      Elasticsearch: new ResourceAttribute('Elasticsearch', AWSIoTElasticsearchAction, 'No', null),
+      Firehose: new ResourceAttribute('Firehose', AWSIoTFirehoseAction, 'No', null),
+      Kinesis: new ResourceAttribute('Kinesis', AWSIoTKinesisAction, 'No', null),
+      Lambda: new ResourceAttribute('Lambda', AWSIoTLambdaAction, 'No', null),
+      Republish: new ResourceAttribute('Republish', AWSIoTRepublishAction, 'No', null),
+      S3: new ResourceAttribute('S3', AWSIoTS3Action, 'No', null),
+      Sns: new ResourceAttribute('Sns', AWSIoTSnsAction, 'No', null),
+      Sqs: new ResourceAttribute('Sqs', AWSIoTSqsAction, 'No', null)
+    }
+    super('AWSIoTActions', properties, propertiesObject)
+  }
+}
+
+/**
+* @property AlarmName {String} Required: Yes. The CloudWatch alarm name.
+* @property RoleArn {String} Required: Yes. The IAM role that allows access to the CloudWatch alarm.
+* @property StateReason {String} Required: Yes. The reason for the change of the alarm state.
+* @property StateValue {String} Required: Yes. The value of the alarm state.
+*/
+class AWSIoTCloudwatchAlarmAction extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      AlarmName: new ResourceAttribute('AlarmName', String, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
+      StateReason: new ResourceAttribute('StateReason', String, 'Yes', null),
+      StateValue: new ResourceAttribute('StateValue', String, 'Yes', null)
+    }
+    super('AWSIoTCloudwatchAlarmAction', properties, propertiesObject)
+  }
+}
+
+/**
+* @property MetricName {String} Required: Yes. The name of the CloudWatch metric.
+* @property MetricNamespace {String} Required: Yes. The name of the CloudWatch metric namespace.
+* @property MetricTimestamp {String} Required: No. An optional Unix timestamp.
+* @property MetricUnit {String} Required: Yes. The metric unit                  supported by Amazon CloudWatch.
+* @property MetricValue {String} Required: Yes. The value to publish to the metric. For example, if you count the occurrences                   of a particular term such as Error, the value will be 1                   for each occurrence.
+* @property RoleArn {String} Required: Yes. The ARN of the IAM role that grants access to the CloudWatch metric.
+*/
+class AWSIoTCloudwatchMetricAction extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      MetricName: new ResourceAttribute('MetricName', String, 'Yes', null),
+      MetricNamespace: new ResourceAttribute('MetricNamespace', String, 'Yes', null),
+      MetricTimestamp: new ResourceAttribute('MetricTimestamp', String, 'No', null),
+      MetricUnit: new ResourceAttribute('MetricUnit', String, 'Yes', null),
+      MetricValue: new ResourceAttribute('MetricValue', String, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null)
+    }
+    super('AWSIoTCloudwatchMetricAction', properties, propertiesObject)
+  }
+}
+
+/**
+* @property HashKeyField {String} Required: Yes. The name of the hash key.
+* @property HashKeyValue {String} Required: Yes. The value of the hash key.
+* @property PayloadField {String} Required: No. The name of the column in the DynamoDB table that contains the result of the query. You             can customize this name.
+* @property RangeKeyField {String} Required: Yes. The name of the range key.
+* @property RangeKeyValue {String} Required: Yes. The value of the range key.
+* @property RoleArn {String} Required: Yes. The ARN of the IAM role that grants access to the DynamoDB table.
+* @property TableName {String} Required: Yes. The name of the DynamoDB table.
+*/
+class AWSIoTDynamoDBAction extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      HashKeyField: new ResourceAttribute('HashKeyField', String, 'Yes', null),
+      HashKeyValue: new ResourceAttribute('HashKeyValue', String, 'Yes', null),
+      PayloadField: new ResourceAttribute('PayloadField', String, 'No', null),
+      RangeKeyField: new ResourceAttribute('RangeKeyField', String, 'Yes', null),
+      RangeKeyValue: new ResourceAttribute('RangeKeyValue', String, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
+      TableName: new ResourceAttribute('TableName', String, 'Yes', null)
+    }
+    super('AWSIoTDynamoDBAction', properties, propertiesObject)
+  }
+}
+
+/**
+* @property Endpoint {String} Required: Yes. The endpoint of your Elasticsearch domain.
+* @property Id {String} Required: Yes. A unique identifier for the stored data.
+* @property Index {String} Required: Yes. The Elasticsearch index where the data is stored.
+* @property RoleArn {String} Required: Yes. The ARN of the IAM role that grants access to Elasticsearch.
+* @property Type {String} Required: Yes. The type of stored data.
+*/
+class AWSIoTElasticsearchAction extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      Endpoint: new ResourceAttribute('Endpoint', String, 'Yes', null),
+      Id: new ResourceAttribute('Id', String, 'Yes', null),
+      Index: new ResourceAttribute('Index', String, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
+      Type: new ResourceAttribute('Type', String, 'Yes', null)
+    }
+    super('AWSIoTElasticsearchAction', properties, propertiesObject)
+  }
+}
+
+/**
+* @property DeliveryStreamName {String} Required: Yes. The delivery stream name.
+* @property RoleArn {String} Required: Yes. The ARN of the IAM role that grants access to the Firehose stream.
+*/
+class AWSIoTFirehoseAction extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      DeliveryStreamName: new ResourceAttribute('DeliveryStreamName', String, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null)
+    }
+    super('AWSIoTFirehoseAction', properties, propertiesObject)
+  }
+}
+
+/**
+* @property PartitionKey {String} Required: No. The partition key (the grouping of data by shard within an an Amazon Kinesis                   stream).
+* @property RoleArn {String} Required: Yes. The ARN of the IAM role that grants access to an Amazon Kinesis stream.
+* @property StreamName {String} Required: Yes. The name of the Amazon Kinesis stream.
+*/
+class AWSIoTKinesisAction extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      PartitionKey: new ResourceAttribute('PartitionKey', String, 'No', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
+      StreamName: new ResourceAttribute('StreamName', String, 'Yes', null)
+    }
+    super('AWSIoTKinesisAction', properties, propertiesObject)
+  }
+}
+
+/**
+* @property FunctionArn {String} Required: Yes. The ARN of the Lambda function.
+*/
+class AWSIoTLambdaAction extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      FunctionArn: new ResourceAttribute('FunctionArn', String, 'Yes', null)
+    }
+    super('AWSIoTLambdaAction', properties, propertiesObject)
+  }
+}
+
+/**
+* @property RoleArn {String} Required: Yes. The ARN of the IAM role that grants publishing access.
+* @property Topic {String} Required: Yes. The name of the MQTT topic topic different from the one currently                   specified.
+*/
+class AWSIoTRepublishAction extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
+      Topic: new ResourceAttribute('Topic', String, 'Yes', null)
+    }
+    super('AWSIoTRepublishAction', properties, propertiesObject)
+  }
+}
+
+/**
+* @property BucketName {String} Required: Yes. The name of the S3 bucket.
+* @property Key {String} Required: Yes. The object key (the name of an object in the S3 bucket).
+* @property RoleArn {String} Required: Yes. The ARN of the IAM role that grants access to Amazon S3.
+*/
+class AWSIoTS3Action extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      BucketName: new ResourceAttribute('BucketName', String, 'Yes', null),
+      Key: new ResourceAttribute('Key', String, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null)
+    }
+    super('AWSIoTS3Action', properties, propertiesObject)
+  }
+}
+
+/**
+* @property MessageFormat {String} Required: No. The format of the published message.  Amazon SNS uses this setting to determine                   whether it should parse the payload and extract the platform-specific bits from                   the payload.For more information, see Appendix:                      Message and JSON Formats in the                   Amazon Simple Notification Service Developer Guide.
+* @property RoleArn {String} Required: Yes. The ARN of the IAM role that grants access to Amazon SNS.
+* @property TargetArn {String} Required: Yes. The ARN of the Amazon SNS topic.
+*/
+class AWSIoTSnsAction extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      MessageFormat: new ResourceAttribute('MessageFormat', String, 'No', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
+      TargetArn: new ResourceAttribute('TargetArn', String, 'Yes', null)
+    }
+    super('AWSIoTSnsAction', properties, propertiesObject)
+  }
+}
+
+/**
+* @property QueueUrl {String} Required: Yes. The URL of the Amazon Simple Queue Service (Amazon SQS) queue.
+* @property RoleArn {String} Required: Yes. The ARN of the IAM role that grants access to Amazon SQS.
+* @property UseBase64 {String} Required: No. Specifies whether Base64 encoding should be used.
+*/
+class AWSIoTSqsAction extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      QueueUrl: new ResourceAttribute('QueueUrl', String, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
+      UseBase64: new ResourceAttribute('UseBase64', String, 'No', null)
+    }
+    super('AWSIoTSqsAction', properties, propertiesObject)
+  }
+}
+
+/**
+* @property Actions {AWSIoTActions} Required: Yes. The actions associated with the rule.Update requires: No interruption
+* @property AwsIotSqlVersion {String} Required: No. The version of the SQL rules engine to use when evaluating the rule.Update requires: No interruption
+* @property Description {String} Required: No. The description of the rule.Update requires: No interruption
+* @property RuleDisabled {Boolean} Required: Yes. Specifies whether the rule is disabled.Update requires: No interruption
+* @property Sql {String} Required: Yes. The SQL statement that queries the topic. For more information, see Rules for AWS IoT                   in the AWS IoT Developer Guide.Update requires: No interruption
+*/
+class AWSIoTTopicRulePayload extends ResourceProperty {
+  constructor (propertiesObject) {
+    let properties = {
+      Actions: new ResourceAttribute('Actions', AWSIoTActions, 'Yes', null),
+      AwsIotSqlVersion: new ResourceAttribute('AwsIotSqlVersion', String, 'No', null),
+      Description: new ResourceAttribute('Description', String, 'No', null),
+      RuleDisabled: new ResourceAttribute('RuleDisabled', Boolean, 'Yes', null),
+      Sql: new ResourceAttribute('Sql', String, 'Yes', null)
+    }
+    super('AWSIoTTopicRulePayload', properties, propertiesObject)
   }
 }
 
@@ -2905,8 +3327,8 @@ class AmazonRedshiftParameterType extends ResourceProperty {
 }
 
 /**
-* @property Key {String} Required: Yes. The key name of the tag. You can specify a value that is 1 to 128 Unicode                   characters in length and cannot be prefixed with aws:. You can use                   any of the following characters: the set of Unicode letters, digits, whitespace,                      _, ., /, =, +,                   and -.
-* @property Value {String} Required: Yes. The value for the tag. You can specify a value that is 1 to 128 Unicode                   characters in length and cannot be prefixed with aws:. You can use                   any of the following characters: the set of Unicode letters, digits, whitespace,                      _, ., /, =, +,                   and -.
+* @property Key {String} Required: Yes. The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.
+* @property Value {String} Required: Yes. The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.
 */
 class AWSCloudFormationResourceTagsType extends ResourceProperty {
   constructor (propertiesObject) {
@@ -2972,7 +3394,7 @@ class AmazonRDSSecurityGroupRule extends ResourceProperty {
 
 /**
 * @property DNSName {String} Required: Yes. The DNS name of the load balancer, the domain name of the CloudFront distribution, the website endpoint of the Amazon S3 bucket, or another record set in the same hosted zone that is the target of the alias.
-* @property EvaluateTargetHealth {Boolean} Required: No. Whether Amazon Route 53 checks the health of the resource record sets in the alias target                   when responding to DNS queries. For more information about using this property,                   see EvaluateTargetHealth in the                   Amazon Route 53 API Reference.
+* @property EvaluateTargetHealth {Boolean} Required: No. Whether Amazon Route 53 checks the health of the resource record sets in the alias target                   when responding to DNS queries. For more information about using this property,                   see EvaluateTargetHealth in the                   Amazon Route 53 API Reference.
 * @property HostedZoneId {String} Required: Yes. The hosted zone ID. For load balancers, use the canonical hosted zone ID of the                   load balancer. For Amazon S3, use the hosted zone ID for your bucket's website                   endpoint. For CloudFront, use Z2FDTNDATAQYW2. For examples, see Example: Creating Alias Resource                      Record Sets in the Amazon Route 53 API Reference.
 */
 class Route53AliasTargetProperty extends ResourceProperty {
@@ -3659,12 +4081,15 @@ module.exports = {
   AmazonAPIGatewayMethodMethodResponse: AmazonAPIGatewayMethodMethodResponse,
   AmazonAPIGatewayRestApiS3Location: AmazonAPIGatewayRestApiS3Location,
   AmazonAPIGatewayStageMethodSetting: AmazonAPIGatewayStageMethodSetting,
+  ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration: ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration,
+  ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment: ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment,
   AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType: AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType,
   AWSCloudFormationAutoScalingEBSBlockDevicePropertyType: AWSCloudFormationAutoScalingEBSBlockDevicePropertyType,
   AutoScalingMetricsCollection: AutoScalingMetricsCollection,
   AutoScalingNotificationConfigurations: AutoScalingNotificationConfigurations,
   AutoScalingScalingPolicyStepAdjustments: AutoScalingScalingPolicyStepAdjustments,
   AutoScalingTagsPropertyType: AutoScalingTagsPropertyType,
+  AWSCertificateManagerCertificateDomainValidationOption: AWSCertificateManagerCertificateDomainValidationOption,
   CloudFormationStackParametersPropertyType: CloudFormationStackParametersPropertyType,
   AWSCloudFormationInterfaceLabel: AWSCloudFormationInterfaceLabel,
   AWSCloudFormationInterfaceParameterGroup: AWSCloudFormationInterfaceParameterGroup,
@@ -3676,6 +4101,7 @@ module.exports = {
   CloudFrontLogging: CloudFrontLogging,
   CloudFrontDistributionConfigOrigin: CloudFrontDistributionConfigOrigin,
   CloudFrontDistributionConfigOriginCustomOrigin: CloudFrontDistributionConfigOriginCustomOrigin,
+  CloudFrontDistributionConfigOriginOriginCustomHeader: CloudFrontDistributionConfigOriginOriginCustomHeader,
   CloudFrontDistributionConfigOriginS3Origin: CloudFrontDistributionConfigOriginS3Origin,
   CloudFrontDistributionConfigurationRestrictions: CloudFrontDistributionConfigurationRestrictions,
   CloudFrontDistributionConfigRestrictionsGeoRestriction: CloudFrontDistributionConfigRestrictionsGeoRestriction,
@@ -3772,26 +4198,47 @@ module.exports = {
   ElasticLoadBalancingLBCookieStickinessPolicyType: ElasticLoadBalancingLBCookieStickinessPolicyType,
   ElasticLoadBalancingListenerPropertyType: ElasticLoadBalancingListenerPropertyType,
   ElasticLoadBalancingPolicyType: ElasticLoadBalancingPolicyType,
+  ElasticLoadBalancingListenerCertificates: ElasticLoadBalancingListenerCertificates,
+  ElasticLoadBalancingListenerDefaultActions: ElasticLoadBalancingListenerDefaultActions,
+  ElasticLoadBalancingListenerRuleActions: ElasticLoadBalancingListenerRuleActions,
+  ElasticLoadBalancingListenerRuleConditions: ElasticLoadBalancingListenerRuleConditions,
+  ElasticLoadBalancingLoadBalancerLoadBalancerAttributes: ElasticLoadBalancingLoadBalancerLoadBalancerAttributes,
+  ElasticLoadBalancingTargetGroupMatcher: ElasticLoadBalancingTargetGroupMatcher,
+  ElasticLoadBalancingTargetGroupTargetDescription: ElasticLoadBalancingTargetGroupTargetDescription,
+  ElasticLoadBalancingTargetGroupTargetGroupAttributes: ElasticLoadBalancingTargetGroupTargetGroupAttributes,
   AmazonElasticsearchServiceDomainEBSOptions: AmazonElasticsearchServiceDomainEBSOptions,
   AmazonElasticsearchServiceDomainElasticsearchClusterConfig: AmazonElasticsearchServiceDomainElasticsearchClusterConfig,
   AmazonElasticsearchServiceDomainSnapshotOptions: AmazonElasticsearchServiceDomainSnapshotOptions,
-  AmazonElasticMapReduceClusterApplication: AmazonElasticMapReduceClusterApplication,
-  AmazonElasticMapReduceClusterBootstrapActionConfig: AmazonElasticMapReduceClusterBootstrapActionConfig,
-  AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig: AmazonElasticMapReduceClusterBootstrapActionConfigScriptBootstrapActionConfig,
-  AmazonElasticMapReduceClusterConfiguration: AmazonElasticMapReduceClusterConfiguration,
-  AmazonElasticMapReduceClusterJobFlowInstancesConfig: AmazonElasticMapReduceClusterJobFlowInstancesConfig,
-  AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig: AmazonElasticMapReduceClusterJobFlowInstancesConfigInstanceGroupConfig,
-  AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType: AmazonElasticMapReduceClusterJobFlowInstancesConfigPlacementType,
-  AmazonElasticMapReduceEbsConfiguration: AmazonElasticMapReduceEbsConfiguration,
-  AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs: AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigs,
-  AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification: AmazonElasticMapReduceEbsConfigurationEbsBlockDeviceConfigVolumeSpecification,
-  AmazonElasticMapReduceStepHadoopJarStepConfig: AmazonElasticMapReduceStepHadoopJarStepConfig,
-  AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue: AmazonElasticMapReduceStepHadoopJarStepConfigKeyValue,
+  AmazonEMRClusterApplication: AmazonEMRClusterApplication,
+  AmazonEMRClusterBootstrapActionConfig: AmazonEMRClusterBootstrapActionConfig,
+  AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig: AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig,
+  AmazonEMRClusterConfiguration: AmazonEMRClusterConfiguration,
+  AmazonEMRClusterJobFlowInstancesConfig: AmazonEMRClusterJobFlowInstancesConfig,
+  AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig: AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig,
+  AmazonEMRClusterJobFlowInstancesConfigPlacementType: AmazonEMRClusterJobFlowInstancesConfigPlacementType,
+  AmazonEMREbsConfiguration: AmazonEMREbsConfiguration,
+  AmazonEMREbsConfigurationEbsBlockDeviceConfigs: AmazonEMREbsConfigurationEbsBlockDeviceConfigs,
+  AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification: AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification,
+  AmazonEMRStepHadoopJarStepConfig: AmazonEMRStepHadoopJarStepConfig,
+  AmazonEMRStepHadoopJarStepConfigKeyValue: AmazonEMRStepHadoopJarStepConfigKeyValue,
   AmazonGameLiftAliasRoutingStrategy: AmazonGameLiftAliasRoutingStrategy,
   AmazonGameLiftBuildStorageLocation: AmazonGameLiftBuildStorageLocation,
   AmazonGameLiftFleetEC2InboundPermission: AmazonGameLiftFleetEC2InboundPermission,
   IAMPolicies: IAMPolicies,
   IAMUserLoginProfile: IAMUserLoginProfile,
+  AWSIoTActions: AWSIoTActions,
+  AWSIoTCloudwatchAlarmAction: AWSIoTCloudwatchAlarmAction,
+  AWSIoTCloudwatchMetricAction: AWSIoTCloudwatchMetricAction,
+  AWSIoTDynamoDBAction: AWSIoTDynamoDBAction,
+  AWSIoTElasticsearchAction: AWSIoTElasticsearchAction,
+  AWSIoTFirehoseAction: AWSIoTFirehoseAction,
+  AWSIoTKinesisAction: AWSIoTKinesisAction,
+  AWSIoTLambdaAction: AWSIoTLambdaAction,
+  AWSIoTRepublishAction: AWSIoTRepublishAction,
+  AWSIoTS3Action: AWSIoTS3Action,
+  AWSIoTSnsAction: AWSIoTSnsAction,
+  AWSIoTSqsAction: AWSIoTSqsAction,
+  AWSIoTTopicRulePayload: AWSIoTTopicRulePayload,
   AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions: AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions,
   AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration: AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration,
   AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints: AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints,

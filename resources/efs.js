@@ -11,12 +11,14 @@ const types = require('./../types')
 /** @memberof module:EFS
 *   @extends WKResource
 * @property {AmazonElasticFileSystemFileSystemFileSystemTags} FileSystemTags Required: No. Tags to associate with the file system.Update requires: No interruption
+* @property {String} PerformanceMode Required: No. The performance mode of the file system. For valid values, see the PerformanceMode parameter for the CreateFileSystem action in the Amazon Elastic File System User Guide.For more information about performance modes, see Amazon EFS Performance in the Amazon Elastic File System User Guide.Update requires: Replacement
 */
 class FileSystem extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::EFS::FileSystem'
     let properties = {
-      FileSystemTags: new ResourceAttribute('FileSystemTags', types.AmazonElasticFileSystemFileSystemFileSystemTags, 'No', null)
+      FileSystemTags: new ResourceAttribute('FileSystemTags', types.AmazonElasticFileSystemFileSystemFileSystemTags, 'No', null),
+      PerformanceMode: new ResourceAttribute('PerformanceMode', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }

@@ -166,7 +166,7 @@ class Method extends WKResource {
 * @property {String} Name Required: No. A name for the mode. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the model name. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
 You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement
 * @property {String} RestApiId Required: Yes. The ID of a REST API with which to associate this model.Update requires: Replacement
-* @property {String} Schema Required: No. The schema to use to transform data to one or more output formats.Update requires: No interruption
+* @property {Object} Schema Required: No. The schema to use to transform data to one or more output formats.Update requires: No interruption
 */
 class Model extends WKResource {
   constructor (name, propertiesObject) {
@@ -176,7 +176,7 @@ class Model extends WKResource {
       Description: new ResourceAttribute('Description', String, 'No', null),
       Name: new ResourceAttribute('Name', String, 'No', null),
       RestApiId: new ResourceAttribute('RestApiId', String, 'Yes', null),
-      Schema: new ResourceAttribute('Schema', String, 'No', null)
+      Schema: new ResourceAttribute('Schema', Object, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)
   }
@@ -202,24 +202,26 @@ class Resource extends WKResource {
 
 /** @memberof module:ApiGateway
 *   @extends WKResource
-* @property {String} Body Required: No. A Swagger specification that defines a set of RESTful APIs in JSON. For specifications in YAML, use the BodyS3Location property.Update requires: No interruption
+* @property {Object} Body Required: No. A Swagger specification that defines a set of RESTful APIs in the JSON format. To
+            specify a Swagger file that is in the YAML format, use the BodyS3Location
+            property.Update requires: No interruption
 * @property {AmazonAPIGatewayRestApiS3Location} BodyS3Location Required: No. The Amazon Simple Storage Service (Amazon S3) location that points to a Swagger file, which defines a set of RESTful APIs in JSON or YAML format.Update requires: No interruption
 * @property {String} CloneFrom Required: No. The ID of the API Gateway RestApi resource that you want to clone.Update requires: No interruption
 * @property {String} Description Required: No. A description of the purpose of this API Gateway RestApi resource.Update requires: No interruption
 * @property {Boolean} FailOnWarnings Required: No. If a warning occurs while API Gateway is creating the RestApi resource, indicates whether to roll back the resource.Update requires: No interruption
-* @property {String} Name Required: Yes. A name for the API Gateway RestApi resource.Update requires: No interruption
+* @property {String} Name Required: Conditional. A name for the API Gateway RestApi resource.Update requires: No interruption
 * @property {String} Parameters Required: No. Custom header parameters for the request.Update requires: No interruption
 */
 class RestApi extends WKResource {
   constructor (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::RestApi'
     let properties = {
-      Body: new ResourceAttribute('Body', String, 'No', null),
+      Body: new ResourceAttribute('Body', Object, 'No', null),
       BodyS3Location: new ResourceAttribute('BodyS3Location', types.AmazonAPIGatewayRestApiS3Location, 'No', null),
       CloneFrom: new ResourceAttribute('CloneFrom', String, 'No', null),
       Description: new ResourceAttribute('Description', String, 'No', null),
       FailOnWarnings: new ResourceAttribute('FailOnWarnings', Boolean, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
+      Name: new ResourceAttribute('Name', String, 'Conditional', null),
       Parameters: new ResourceAttributeArray('Parameters', String, 'No', null)
     }
     super(name, resourceType, properties, propertiesObject)

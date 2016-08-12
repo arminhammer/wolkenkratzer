@@ -36,7 +36,7 @@ const types = require('./../types')
 * @property {ElasticLoadBalancingLBCookieStickinessPolicyType} LBCookieStickinessPolicy Required: No. Generates a stickiness policy with sticky session lifetimes controlled by the
                   lifetime of the browser (user-agent), or by a specified expiration period. This
                   policy can be associated only with HTTP/HTTPS listeners.Update requires: No interruption
-* @property {String} LoadBalancerName Required: No. A name for the load balancer. For valid values, see the LoadBalancerName parameter for the CreateLoadBalancer action in the Elastic Load Balancing API Reference.If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the load balancer. The name must be unique within your set of load balancers. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
+* @property {String} LoadBalancerName Required: No. A name for the load balancer. For valid values, see the LoadBalancerName parameter for the CreateLoadBalancer action in the Elastic Load Balancing API Reference version 2012-06-01.If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the load balancer. The name must be unique within your set of load balancers. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
 You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement
 * @property {ElasticLoadBalancingListenerPropertyType} Listeners Required: Yes. One or more listeners for this load balancer. Each listener must be registered
                   for a specific port, and you cannot have more than one listener for a given
@@ -45,7 +45,7 @@ You can still do updates that require no or some interruption. If you must repla
                      create a new one with the updated properties. During the time that AWS CloudFormation is
                      performing this action, clients will not be able to connect to the load
                      balancer.Update requires: No interruption
-* @property {ElasticLoadBalancingPolicyType} Policies Required: No. A list of elastic load balancing policies to apply to this elastic load balancer. Specify only back-end server policies. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference.Update requires: No interruption
+* @property {ElasticLoadBalancingPolicyType} Policies Required: No. A list of elastic load balancing policies to apply to this elastic load balancer. Specify only back-end server policies. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference version 2012-06-01.Update requires: No interruption
 * @property {String} Scheme Required: No. For load balancers attached to an Amazon VPC, this parameter can be used to
                   specify the type of load balancer to use. Specify internal to create
                   an internal load balancer with a DNS name that resolves to private IP addresses or

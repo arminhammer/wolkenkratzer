@@ -88,6 +88,45 @@ fs
           case 'Stringtostringmap':
             propType = 'Map'
             break
+          case 'OriginCustomHeadertype':
+            propType = 'CloudFrontDistributionConfigOriginOriginCustomHeader'
+            break
+          case 'CloudWatchAlarmactionobject':
+            propType = 'AWSIoTCloudwatchAlarmAction'
+            break
+          case 'CloudWatchMetricactionobject':
+            propType = 'AWSIoTCloudwatchMetricAction'
+            break
+          case 'DynamoDBactionobject':
+            propType = 'AWSIoTDynamoDBAction'
+            break
+          case 'Elasticsearchactionobject':
+            propType = 'AWSIoTElasticsearchAction'
+            break
+          case 'Firehoseactionobject':
+            propType = 'AWSIoTFirehoseAction'
+            break
+          case 'Kinesisactionobject':
+            propType = 'AWSIoTKinesisAction'
+            break
+          case 'Lambdaactionobject':
+            propType = 'AWSIoTLambdaAction'
+            break
+          case 'Republishactionobject':
+            propType = 'AWSIoTRepublishAction'
+            break
+          case 'S3actionobject':
+            propType = 'AWSIoTS3Action'
+            break
+          case 'Snsactionobject':
+            propType = 'AWSIoTSnsAction'
+            break
+          case 'Sqsactionobject':
+            propType = 'AWSIoTSqsAction'
+            break
+          case 'ArrayofActionobjects':
+            propType = 'AWSIoTActions'
+            break
           default:
             break
         }

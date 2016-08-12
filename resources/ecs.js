@@ -29,7 +29,7 @@ class Cluster extends WKResource {
 * @property {String} DesiredCount Required: Yes. The number of simultaneous tasks, which you specify by using the
                      TaskDefinition property, that you want to run on the
                   cluster.Update requires: No interruption
-* @property {AmazonEC2ContainerServiceServiceLoadBalancers} LoadBalancers Required: No. A list of load balancer objects to associate with the cluster.Update requires: Replacement
+* @property {AmazonEC2ContainerServiceServiceLoadBalancers} LoadBalancers Required: No. A list of load balancer objects to associate with the cluster. For information about the number of load balancers you can specify per service, see Service Load Balancing in the Amazon EC2 Container Service Developer Guide.Update requires: Replacement
 * @property {String} Role Required: Conditional. The name or ARN of an AWS Identity and Access Management (IAM) role that allows your Amazon ECS container
                   agent to make calls to your load balancer.NoteIn some cases, you might need to add a dependency on the service role's
                      policy. For more information, see IAM role policy in DependsOn Attribute.Update requires: Replacement

@@ -24,9 +24,10 @@ const Policy = require('./policy')
 const Mapping = require('./mapping').Mapping
 
 const ApiGateway = require('./resources/apigateway')
+const ApplicationAutoScaling = require('./resources/applicationautoscaling')
 const AutoScaling = require('./resources/autoscaling')
+const CertificateManager = require('./resources/certificatemanager')
 const CloudFormation = require('./resources/cloudformation')
-
 const CloudFront = require('./resources/cloudfront')
 const CloudTrail = require('./resources/cloudtrail')
 const CloudWatch = require('./resources/cloudwatch')
@@ -43,11 +44,13 @@ const EFS = require('./resources/efs')
 const ElastiCache = require('./resources/elasticache')
 const ElasticBeanstalk = require('./resources/elasticbeanstalk')
 const ElasticLoadBalancing = require('./resources/elasticloadbalancing')
+const ElasticLoadBalancingV2 = require('./resources/elasticloadbalancingv2')
 const ElasticSearch = require('./resources/elasticsearch')
 const EMR = require('./resources/emr')
 const Events = require('./resources/events')
 const GameLift = require('./resources/gamelift')
 const IAM = require('./resources/iam')
+const IoT = require('./resources/iot')
 const Kinesis = require('./resources/kinesis')
 const KMS = require('./resources/kms')
 const Lambda = require('./resources/lambda')
@@ -76,7 +79,9 @@ const Pseudo = {
 
 module.exports = {
   ApiGateway: ApiGateway,
+  ApplicationAutoScaling: ApplicationAutoScaling,
   AutoScaling: AutoScaling,
+  CertificateManager: CertificateManager,
   CloudFormation: CloudFormation,
   CloudFront: CloudFront,
   CloudTrail: CloudTrail,
@@ -94,11 +99,13 @@ module.exports = {
   ElastiCache: ElastiCache,
   ElasticBeanstalk: ElasticBeanstalk,
   ElasticLoadBalancing: ElasticLoadBalancing,
+  ElasticLoadBalancingV2: ElasticLoadBalancingV2,
   ElasticSearch: ElasticSearch,
   EMR: EMR,
   Events: Events,
   GameLift: GameLift,
   IAM: IAM,
+  IoT: IoT,
   Kinesis: Kinesis,
   KMS: KMS,
   Lambda: Lambda,
