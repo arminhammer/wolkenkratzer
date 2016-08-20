@@ -8,57 +8,51 @@
 /**
  * @memberof module:Core
  */
-class Exception {
-  constructor (message) {
-    this.message = message
-  }
-  /**
-   * Returns a JSON string
-   */
-  toJson () {
-    return this.message
-  }
+function Exception (message) {
+  this.message = message
+}
+/**
+ * Returns a JSON string
+ */
+Exception.prototype.toJson = function () {
+  return this.message
 }
 
 /**
  * @memberof module:Core
  */
-class ValueException extends Exception {
-  constructor (message) {
-    super(message)
-    this.name = 'ValueError'
-  }
+function ValueException (message) {
+  Exception.call(message)
+  this.name = 'ValueError'
 }
+ValueException.prototype = Exception
 
 /**
  * @memberof module:Core
  */
-class RequiredPropertyException extends Exception {
-  constructor(message) {
-    super(message)
-    this.name = 'RequiredPropertyException'
-  }
+function RequiredPropertyException (message) {
+  Exception.call(message)
+  this.name = 'RequiredPropertyException'
 }
+RequiredPropertyException.prototype = Exception
 
 /**
  * @memberof module:Core
  */
-class TypeException extends Exception {
-  constructor (message) {
-    super(message)
-    this.name = 'TypeException'
-  }
+function TypeException (message) {
+  Exception.call(message)
+  this.name = 'TypeException'
 }
+TypeException.prototype = Exception
 
 /**
  * @memberof module:Core
  */
-class ConditionNotMetException extends Exception {
-  constructor (message) {
-    super(message)
-    this.name = 'ConditionNotMetException'
-  }
+function ConditionNotMetException (message) {
+  Exception.call(message)
+  this.name = 'ConditionNotMetException'
 }
+ConditionNotMetException.prototype = Exception
 
 module.exports = {
   TypeException: TypeException,
