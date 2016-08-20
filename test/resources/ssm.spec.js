@@ -19,7 +19,7 @@ describe('SSM', () => {
   let t = new wk.Template()
 
   let document = new wk.SSM.Document('document')
-  t.addResource(document)
+  t.add(document)
   document.Content = {
     Test: 'Test'
   }

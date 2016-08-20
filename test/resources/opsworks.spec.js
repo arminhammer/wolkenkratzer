@@ -19,7 +19,7 @@ describe('OpsWorks', () => {
   let t = new wk.Template()
 
   let App = new wk.OpsWorks.App('App')
-  t.addResource(App)
+  t.add(App)
 
   let ElasticLoadBalancerAttachment = new wk.OpsWorks.ElasticLoadBalancerAttachment('ElasticLoadBalancerAttachment')
   let Instance = new wk.OpsWorks.Instance('Instance')

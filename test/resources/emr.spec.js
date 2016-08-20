@@ -19,7 +19,7 @@ describe('EMR', () => {
   let t = new wk.Template()
 
   let Cluster = new wk.EMR.Cluster('Cluster')
-  t.addResource(Cluster)
+  t.add(Cluster)
 
   let InstanceGroupConfig = new wk.EMR.InstanceGroupConfig('InstanceGroupConfig')
   let Step = new wk.EMR.Step('Step')

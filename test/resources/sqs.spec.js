@@ -19,7 +19,7 @@ describe('SQS', () => {
   let t = new wk.Template()
 
   let Queue = new wk.SQS.Queue('Queue')
-  t.addResource(Queue)
+  t.add(Queue)
 
   let QueuePolicy = new wk.SQS.QueuePolicy('QueuePolicy')
 

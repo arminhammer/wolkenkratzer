@@ -19,7 +19,7 @@ describe('API Gateway', () => {
   let t = new wk.Template()
 
   let account = new wk.ApiGateway.Account('account')
-  t.addResource(account)
+  t.add(account)
 
   let apiKey = new wk.ApiGateway.ApiKey('apiKey')
   let Authorizer = new wk.ApiGateway.Authorizer('Authorizer')

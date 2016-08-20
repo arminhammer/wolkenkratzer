@@ -19,7 +19,7 @@ describe('WAF', () => {
   let t = new wk.Template()
 
   let ByteMatchSet = new wk.WAF.ByteMatchSet('ByteMatchSet')
-  t.addResource(ByteMatchSet)
+  t.add(ByteMatchSet)
 
   let IPSet = new wk.WAF.IPSet('IPSet')
   let Rule = new wk.WAF.Rule('Rule')

@@ -19,7 +19,7 @@ describe('Kinesis', () => {
   let t = new wk.Template()
 
   let Stream = new wk.Kinesis.Stream('Stream')
-  t.addResource(Stream)
+  t.add(Stream)
 
   it('should be able to add an API Gateway Stream to the template', () => {
     t.Resources['Stream'].WKResourceType.should.equal('AWS::Kinesis::Stream')

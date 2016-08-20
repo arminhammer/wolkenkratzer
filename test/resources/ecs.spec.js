@@ -19,7 +19,7 @@ describe('ECS', () => {
   let t = new wk.Template()
 
   let Cluster = new wk.ECS.Cluster('Cluster')
-  t.addResource(Cluster)
+  t.add(Cluster)
 
   let Service = new wk.ECS.Service('Service')
   let TaskDefinition = new wk.ECS.TaskDefinition('TaskDefinition')

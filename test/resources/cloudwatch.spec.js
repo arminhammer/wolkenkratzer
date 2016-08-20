@@ -19,7 +19,7 @@ describe('CloudWatch', () => {
   let t = new wk.Template()
 
   let Alarm = new wk.CloudWatch.Alarm('Alarm')
-  t.addResource(Alarm)
+  t.add(Alarm)
 
   it('should be able to add a CloudWatch Alarm to the template', () => {
     t.Resources['Alarm'].WKResourceType.should.equal('AWS::CloudWatch::Alarm')

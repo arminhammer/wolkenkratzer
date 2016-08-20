@@ -21,17 +21,17 @@ describe('CodePipeline', () => {
   let t = new wk.Template()
 
   let s3location = new wk.Parameter('s3bucketlocation', { Type: 'String' })
-  t.addParameter(s3location)
+  t.add(s3location)
 
   let rolearn = new wk.Parameter('rolearn', { Type: 'String' })
-  t.addParameter(rolearn)
+  t.add(rolearn)
 
   let customActionType = new wk.CodePipeline.CustomActionType('customActionType')
   customActionType.Category = 'Source'
   customActionType.InputArtifactDetails = new wk.Types.AWSCodePipelineCustomActionTypeArtifactDetails({ MaximumCount: 1, MinimumCount: 0 })
   customActionType.OutputArtifactDetails = new wk.Types.AWSCodePipelineCustomActionTypeArtifactDetails({ MaximumCount: 1, MinimumCount: 0 })
   customActionType.Provider = 'Provider'
-  t.addResource(customActionType)
+  t.add(customActionType)
 
   let stage = new wk.Types.AWSCodePipelinePipelineStages()
   stage.Name = 'stage0'
@@ -44,7 +44,7 @@ describe('CodePipeline', () => {
   })
   pipeline.RoleArn.ref(rolearn)
   //pipeline.Stages.push(stage)
-  t.addResource(pipeline)
+  t.add(pipeline)
 
   it('should be able to add a custom action type to the template', () => {
     t.Resources[ 'pipeline' ].WKResourceType.should.equal('AWS::CodePipeline::Pipeline')

@@ -19,7 +19,7 @@ describe('ElasticBeanstalk', () => {
   let t = new wk.Template()
 
   let Application = new wk.ElasticBeanstalk.Application('Application')
-  t.addResource(Application)
+  t.add(Application)
 
   let ApplicationVersion = new wk.ElasticBeanstalk.ApplicationVersion('ApplicationVersion')
   let ConfigurationTemplate = new wk.ElasticBeanstalk.ConfigurationTemplate('ConfigurationTemplate')

@@ -19,7 +19,7 @@ describe('IoT', () => {
   let t = new wk.Template()
 
   let Certificate = new wk.IoT.Certificate('Certificate')
-  t.addResource(Certificate)
+  t.add(Certificate)
 
   let Policy = new wk.IoT.Policy('Policy')
   let PolicyPrincipalAttachment = new wk.IoT.PolicyPrincipalAttachment('PolicyPrincipalAttachment')

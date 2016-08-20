@@ -22,7 +22,7 @@ describe('WorkSpaces', () => {
   workspace.BundleId = 'bundleID'
   workspace.DirectoryId = 'directoryID'
   workspace.UserName = 'testUser'
-  t.addResource(workspace)
+  t.add(workspace)
 
   it('should be able to add a new workspace to the template', () => {
     t.Resources['workspace'].WKResourceType.should.equal('AWS::WorkSpaces::Workspace')

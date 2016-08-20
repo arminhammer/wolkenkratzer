@@ -19,7 +19,7 @@ describe('Redshift', () => {
   let t = new wk.Template()
 
   let Cluster = new wk.Redshift.Cluster('Cluster')
-  t.addResource(Cluster)
+  t.add(Cluster)
 
   let ClusterParameterGroup = new wk.Redshift.ClusterParameterGroup('ClusterParameterGroup')
   let ClusterSecurityGroup = new wk.Redshift.ClusterSecurityGroup('ClusterSecurityGroup')

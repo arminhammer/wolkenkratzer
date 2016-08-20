@@ -19,7 +19,7 @@ describe('EFS', () => {
   let t = new wk.Template()
 
   let FileSystem = new wk.EFS.FileSystem('FileSystem')
-  t.addResource(FileSystem)
+  t.add(FileSystem)
 
   let MountTarget = new wk.EFS.MountTarget('MountTarget')
 

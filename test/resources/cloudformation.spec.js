@@ -19,7 +19,7 @@ describe('CloudFormation', () => {
   let t = new wk.Template()
 
   let Authentication = new wk.CloudFormation.Authentication('Authentication')
-  t.addResource(Authentication)
+  t.add(Authentication)
   let CustomResource = new wk.CloudFormation.CustomResource('CustomResource')
   let Init = new wk.CloudFormation.Init('Init')
   let Interface = new wk.CloudFormation.Interface('Interface')
@@ -28,7 +28,7 @@ describe('CloudFormation', () => {
   let WaitConditionHandle = new wk.CloudFormation.WaitConditionHandle('WaitConditionHandle')
 
   let account = new wk.ApiGateway.Account('account')
-  t.addResource(account)
+  t.add(account)
 
   it('should be able to add an CloudFormation Authentication to the template', () => {
     t.Resources['Authentication'].WKResourceType.should.equal('AWS::CloudFormation::Authentication')

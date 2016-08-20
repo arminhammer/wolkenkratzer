@@ -19,7 +19,7 @@ describe('CloudFront', () => {
   let t = new wk.Template()
 
   let Distribution = new wk.CloudFront.Distribution('Distribution')
-  t.addResource(Distribution)
+  t.add(Distribution)
 
   it('should be able to add a Distribution to the template', () => {
     t.Resources['Distribution'].WKResourceType.should.equal('AWS::CloudFront::Distribution')

@@ -19,7 +19,7 @@ describe('CertificateManager', () => {
   let t = new wk.Template()
 
   let Certificate = new wk.CertificateManager.Certificate('Certificate')
-  t.addResource(Certificate)
+  t.add(Certificate)
 
   it('should be able to add an CertificateManager Certificate to the template', () => {
     t.Resources['Certificate'].WKResourceType.should.equal('AWS::CertificateManager::Certificate')

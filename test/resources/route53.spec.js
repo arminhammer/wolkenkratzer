@@ -19,7 +19,7 @@ describe('Route53', () => {
   let t = new wk.Template()
 
   let HealthCheck = new wk.Route53.HealthCheck('HealthCheck')
-  t.addResource(HealthCheck)
+  t.add(HealthCheck)
 
   let HostedZone = new wk.Route53.HostedZone('HostedZone')
   let RecordSet = new wk.Route53.RecordSet('RecordSet')

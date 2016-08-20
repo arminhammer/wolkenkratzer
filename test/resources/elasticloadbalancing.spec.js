@@ -19,7 +19,7 @@ describe('Elastic Load Balancing', () => {
   let t = new wk.Template()
 
   let LoadBalancer = new wk.ElasticLoadBalancing.LoadBalancer('LoadBalancer')
-  t.addResource(LoadBalancer)
+  t.add(LoadBalancer)
 
   it('should be able to add an ElasticLoadBalancing LoadBalancer to the template', () => {
     t.Resources['LoadBalancer'].WKResourceType.should.equal('AWS::ElasticLoadBalancing::LoadBalancer')

@@ -19,7 +19,7 @@ describe('DynamoDB', () => {
   let t = new wk.Template()
 
   let Table = new wk.DynamoDB.Table('Table')
-  t.addResource(Table)
+  t.add(Table)
 
   it('should be able to add a DynamoDB Table to the template', () => {
     t.Resources['Table'].WKResourceType.should.equal('AWS::DynamoDB::Table')

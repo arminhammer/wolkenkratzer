@@ -19,7 +19,7 @@ describe('CodeDeploy', () => {
   let t = new wk.Template()
 
   let Application = new wk.CodeDeploy.Application('Application')
-  t.addResource(Application)
+  t.add(Application)
 
   let DeploymentConfig = new wk.CodeDeploy.DeploymentConfig('DeploymentConfig')
   let DeploymentGroup = new wk.CodeDeploy.DeploymentGroup('DeploymentGroup')

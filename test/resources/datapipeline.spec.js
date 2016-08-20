@@ -19,7 +19,7 @@ describe('DataPipeline', () => {
   let t = new wk.Template()
 
   let Pipeline = new wk.DataPipeline.Pipeline('Pipeline')
-  t.addResource(Pipeline)
+  t.add(Pipeline)
 
   it('should be able to add a DataPipeline to the template', () => {
     t.Resources['Pipeline'].WKResourceType.should.equal('AWS::DataPipeline::Pipeline')

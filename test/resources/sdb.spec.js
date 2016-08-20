@@ -19,7 +19,7 @@ describe('SDB', () => {
   let t = new wk.Template()
 
   let domain = new wk.SDB.Domain('domain')
-  t.addResource(domain)
+  t.add(domain)
 
   it('should be able to add a new domain to the template', () => {
     t.Resources['domain'].WKResourceType.should.equal('AWS::SDB::Domain')

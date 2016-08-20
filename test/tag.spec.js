@@ -21,7 +21,7 @@ describe('Tags', () => {
     let tag = new wk.Tag('Key1', 'Value1')
     vpc.Tags.add(tag)
     vpc.Tags.add({ Key: 'Key2', Value: 'Value2' })
-    t.addResource(vpc)
+    t.add(vpc)
 
     let jsonString = JSON.parse(t.toJson().Template)
     jsonString.should.deep.equal({

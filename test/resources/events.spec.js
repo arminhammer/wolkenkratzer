@@ -19,7 +19,7 @@ describe('Events', () => {
   let t = new wk.Template()
 
   let Rule = new wk.Events.Rule('Rule')
-  t.addResource(Rule)
+  t.add(Rule)
 
   it('should be able to add an Events Rule to the template', () => {
     t.Resources['Rule'].WKResourceType.should.equal('AWS::Events::Rule')

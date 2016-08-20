@@ -19,7 +19,7 @@ describe('DirectoryService', () => {
   let t = new wk.Template()
 
   let MicrosoftAD = new wk.DirectoryService.MicrosoftAD('MicrosoftAD')
-  t.addResource(MicrosoftAD)
+  t.add(MicrosoftAD)
 
   let SimpleAD = new wk.DirectoryService.SimpleAD('SimpleAD')
 

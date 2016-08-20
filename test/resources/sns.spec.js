@@ -19,7 +19,7 @@ describe('SNS', () => {
   let t = new wk.Template()
 
   let Topic = new wk.SNS.Topic('Topic')
-  t.addResource(Topic)
+  t.add(Topic)
 
   let TopicPolicy = new wk.SNS.TopicPolicy('TopicPolicy')
 

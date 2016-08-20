@@ -19,7 +19,7 @@ describe('AutoScaling', () => {
   let t = new wk.Template()
 
   let AutoScalingGroup = new wk.AutoScaling.AutoScalingGroup('AutoScalingGroup')
-  t.addResource(AutoScalingGroup)
+  t.add(AutoScalingGroup)
   let LaunchConfiguration = new wk.AutoScaling.LaunchConfiguration('LaunchConfiguration')
   let LifecycleHook = new wk.AutoScaling.LifecycleHook('LifecycleHook')
   let ScalingPolicy = new wk.AutoScaling.ScalingPolicy('ScalingPolicy')

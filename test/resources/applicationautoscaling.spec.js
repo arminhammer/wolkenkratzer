@@ -19,7 +19,7 @@ describe('ApplicationAutoScaling', () => {
   let t = new wk.Template()
 
   let ScalableTarget = new wk.ApplicationAutoScaling.ScalableTarget('ScalableTarget')
-  t.addResource(ScalableTarget)
+  t.add(ScalableTarget)
 
   let ScalingPolicy = new wk.ApplicationAutoScaling.ScalingPolicy('ScalingPolicy')
 

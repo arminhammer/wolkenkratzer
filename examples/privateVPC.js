@@ -14,16 +14,16 @@ let t = new wk.Template()
 let vpc = new wk.EC2.VPC('vpc')
 vpc.CidrBlock = vpcCidr
 vpc.Tags.add({ Key: 'Name', Value: 'Private' })
-t.addResource(vpc)
+t.add(vpc)
 
 let routeTable = new wk.EC2.RouteTable('routeTable')
 routeTable.VpcId.ref(vpc)
-t.addResource(routeTable)
+t.add(routeTable)
 
 let localRoute = new wk.EC2.Route('localRoute')
 localRoute.DestinationCidrBlock = '172.50.0.0/16'
 localRoute.RouteTableId.ref(routeTable)
-t.addResource(localRoute)
+t.add(localRoute)
 
 subnetCidrs.forEach((cidr, index) => {
   let subnet = new wk.EC2.Subnet('Subnet' + index)
@@ -31,7 +31,7 @@ subnetCidrs.forEach((cidr, index) => {
   subnet.VpcId.ref(vpc)
   subnet.MapPublicIpOnLaunch = false
   subnet.Tags.add('Name', 'Private' + index)
-  t.addResource(subnet)
+  t.add(subnet)
 })
 
 console.log(t.toJson().Template)

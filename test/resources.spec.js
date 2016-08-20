@@ -16,27 +16,27 @@ describe('Resource', () => {
     let t = new wk.Template()
 
     let vpcCiderParam = new wk.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
-    t.addParameter(vpcCiderParam)
+    t.add(vpcCiderParam)
 
     let vpc = new wk.EC2.VPC('VPC')
     vpc.CidrBlock.ref(vpcCiderParam)
     vpc.InstanceTenancy = 'default'
     vpc.EnableDnsSupport = true
     vpc.EnableDnsHostnames = true
-    t.addResource(vpc)
+    t.add(vpc)
 
     let vpnGateway = new wk.EC2.VPNGateway('VPNGateway')
     vpnGateway.Type = 'ipsec.1'
-    t.addResource(vpnGateway)
+    t.add(vpnGateway)
 
     let igwGateway = new wk.EC2.InternetGateway('InternetGateway')
-    t.addResource(igwGateway)
+    t.add(igwGateway)
 
     let vpcGatewayAttachment = new wk.EC2.VPCGatewayAttachment('VPCGatewayAttachment')
     vpcGatewayAttachment.InternetGatewayId.ref(igwGateway)
     vpcGatewayAttachment.VpcId.ref(vpc)
     vpcGatewayAttachment.VpnGatewayId.ref(vpnGateway)
-    t.addResource(vpcGatewayAttachment)
+    t.add(vpcGatewayAttachment)
     it('Conditional should be tested, You must specify either InternetGatewayId or VpnGatewayId, but not both.', () => {
       try {
         t.toJson()

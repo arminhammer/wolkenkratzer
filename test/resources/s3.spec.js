@@ -21,7 +21,7 @@ describe('S3', () => {
   let bucket = new wk.S3.Bucket('newBucket')
   bucket.BucketName = 'newBucket'
 
-  t.addResource(bucket)
+  t.add(bucket)
 
   let bucketPolicy = new wk.S3.BucketPolicy('newBucketPolicy')
   bucketPolicy.PolicyDocument = {
@@ -34,7 +34,7 @@ describe('S3', () => {
   }
   bucketPolicy.Bucket.ref(bucket)
 
-  t.addResource(bucketPolicy)
+  t.add(bucketPolicy)
 
   it('should be able to add a bucket to the template', () => {
     t.Resources['newBucket'].WKResourceType.should.equal('AWS::S3::Bucket')

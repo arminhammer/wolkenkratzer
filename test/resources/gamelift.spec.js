@@ -19,7 +19,7 @@ describe('Gamelift', () => {
   let t = new wk.Template()
 
   let Alias = new wk.GameLift.Alias('Alias')
-  t.addResource(Alias)
+  t.add(Alias)
 
   let Build = new wk.GameLift.Build('Build')
   let Fleet = new wk.GameLift.Fleet('Fleet')

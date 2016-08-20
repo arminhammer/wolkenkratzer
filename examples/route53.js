@@ -11,6 +11,6 @@ let recordSet = new wk.Route53.RecordSet('RecordSet')
 recordSet.Name = 'localdomain'
 recordSet.Type = 'A'
 
-t.addResource(recordSet)
+t.add(recordSet)
 
 console.log(t.toJson().Template)

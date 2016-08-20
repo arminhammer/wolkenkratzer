@@ -19,7 +19,7 @@ describe('Config', () => {
   let t = new wk.Template()
 
   let ConfigRule = new wk.Config.ConfigRule('ConfigRule')
-  t.addResource(ConfigRule)
+  t.add(ConfigRule)
 
   let ConfigurationRecorder = new wk.Config.ConfigurationRecorder('ConfigurationRecorder')
   let DeliveryChannel = new wk.Config.DeliveryChannel('DeliveryChannel')

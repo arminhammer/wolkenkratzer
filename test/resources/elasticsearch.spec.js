@@ -19,7 +19,7 @@ describe('ElasticSearch', () => {
   let t = new wk.Template()
 
   let Domain = new wk.ElasticSearch.Domain('Domain')
-  t.addResource(Domain)
+  t.add(Domain)
 
   it('should be able to add an ElasticSearch Domain to the template', () => {
     t.Resources['Domain'].WKResourceType.should.equal('AWS::Elasticsearch::Domain')

@@ -33,7 +33,7 @@ t.addParameter(vpcCiderParam)
 
 let vpnGateway = new wk.EC2.VPNGateway('VPNGateway')
 vpnGateway.Type = 'ipsec.1'
-t.addResource(vpnGateway)
+t.add(vpnGateway)
 
 console.log(t.toJson().Template)
 ```
@@ -93,7 +93,7 @@ let t = new wk.Template()
 let ec2One = new wk.EC2.Instance('ec2One')
 ec2One.ImageId = 'ami-2a69aa47'
 
-t.addResource(ec2One)
+t.add(ec2One)
 
 EC2.describeInstances({}, (err, data) => {
   if(err) {
@@ -101,7 +101,7 @@ EC2.describeInstances({}, (err, data) => {
   } else {
     let instance = data.Reservations[0].Instances[0]
     let ec2Two = new wk.EC2.Instance('ec2Two', instance)
-    t.addResource(ec2Two)
+    t.add(ec2Two)
     console.log(t.toJson().Template)
   }
 })
@@ -164,7 +164,7 @@ let bucketName = new wk.Parameter('BucketName', {
 
 let bucket = new wk.S3.Bucket('s3Bucket')
 bucket.BucketName = new Ref(bucketName)
-t.addResource(bucket)
+t.add(bucket)
 
 console.log(t.toJson().Template)
 ```
@@ -184,7 +184,7 @@ let bucketName = new wk.Parameter('BucketName', {
 
 let bucket = new wk.S3.Bucket('s3Bucket')
 bucket.BucketName.ref(bucketName)
-t.addResource(bucket)
+t.add(bucket)
 
 console.log(t.toJson().Template)
 ```
@@ -308,7 +308,7 @@ webConfig.IndexDocument = 'index.html'
 webConfig.ErrorDocument = 'error.html'
 s3BucketForWebsiteContent.WebsiteConfiguration = webConfig
 
-t.addResource(s3BucketForWebsiteContent)
+t.add(s3BucketForWebsiteContent)
 
 let websiteDNSName = new wk.Route53.RecordSet('WebsiteDNSName')
 websiteDNSName.Type = 'CNAME'
@@ -317,7 +317,7 @@ websiteDNSName.Comment = 'CNAME redirect custom name to CloudFront distribution'
 websiteDNSName.Name.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ])
 websiteDNSName.ResourceRecords.join('', [ 'http://', new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName') ])
 websiteDNSName.HostedZoneName.join('', [ new Ref(hostedZoneParam), '.' ])
-t.addResource(websiteDNSName)
+t.add(websiteDNSName)
 
 let websiteCDN = new wk.CloudFront.Distribution('WebsiteCDN')
 
@@ -350,7 +350,7 @@ distConfig.DefaultCacheBehavior = defaultCacheBehavior
 
 websiteCDN.DistributionConfig = distConfig
 
-t.addResource(websiteCDN)
+t.add(websiteCDN)
 
 t.addOutput(new wk.Output('WebsiteURL', {
   'Value': new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
@@ -448,7 +448,7 @@ let dbRootPasswordParam = new wk.Parameter('DBRootPassword', {
 t.addParameter(dbRootPasswordParam)
 
 let webServerSecurityGroup = new wk.EC2.SecurityGroup('WebServerSecurityGroup')
-t.addResource(webServerSecurityGroup)
+t.add(webServerSecurityGroup)
 webServerSecurityGroup.GroupDescription = 'Enable HTTP access via port 80 locked down to the load balancer + SSH access'
 
 let rule1 = new wk.Types.EC2SecurityGroupRulePropertyType({'IpProtocol': 'tcp', 'FromPort': 80, 'ToPort': 80, 'CidrIp': '0.0.0.0/0'})
@@ -589,7 +589,7 @@ t.addMapping('AWSRegionArch2AMI', {
 
 let webServer = new wk.EC2.Instance('WebServer')
 webServer.ImageId.findInMap('AWSRegionArch2AMI', { 'Ref': 'AWS::Region' }, { 'Fn::FindInMap': [ 'AWSInstanceType2Arch', { 'Ref': 'InstanceType' }, 'Arch' ] })
-t.addResource(webServer)
+t.add(webServer)
 
 webServer.InstanceType.ref(instanceTypeParam)
 webServer.SecurityGroups.push(new wk.Intrinsic.Ref(webServerSecurityGroup))

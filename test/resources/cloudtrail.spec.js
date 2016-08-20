@@ -19,7 +19,7 @@ describe('CloudTrail', () => {
   let t = new wk.Template()
 
   let Trail = new wk.CloudTrail.Trail('Trail')
-  t.addResource(Trail)
+  t.add(Trail)
 
   it('should be able to add a CloudTrail to the template', () => {
     t.Resources['Trail'].WKResourceType.should.equal('AWS::CloudTrail::Trail')

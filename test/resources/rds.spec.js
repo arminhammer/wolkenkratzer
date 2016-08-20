@@ -19,7 +19,7 @@ describe('RDS', () => {
   let t = new wk.Template()
 
   let DBCluster = new wk.RDS.DBCluster('DBCluster')
-  t.addResource(DBCluster)
+  t.add(DBCluster)
 
   let DBClusterParameterGroup = new wk.RDS.DBClusterParameterGroup('DBClusterParameterGroup')
   let DBInstance = new wk.RDS.DBInstance('DBInstance')

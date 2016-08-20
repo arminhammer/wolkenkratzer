@@ -17,7 +17,7 @@ let hostedZoneParam = new wk.Parameter('HostedZone', {
   'ConstraintDescription': 'must be a valid DNS zone name.'
 })
 
-t.addParameter(hostedZoneParam)
+t.add(hostedZoneParam)
 
 let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
   'us-east-1': { 'Suffix': '.s3-website-us-east-1.amazonaws.com' },
@@ -43,7 +43,7 @@ webConfig.IndexDocument = 'index.html'
 webConfig.ErrorDocument = 'error.html'
 s3BucketForWebsiteContent.WebsiteConfiguration = webConfig
 
-t.addResource(s3BucketForWebsiteContent)
+t.add(s3BucketForWebsiteContent)
 
 let websiteDNSName = new wk.Route53.RecordSet('WebsiteDNSName')
 websiteDNSName.Type = 'CNAME'
@@ -52,7 +52,7 @@ websiteDNSName.Comment = 'CNAME redirect custom name to CloudFront distribution'
 websiteDNSName.Name.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ])
 websiteDNSName.ResourceRecords.join('', [ 'http://', new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName') ])
 websiteDNSName.HostedZoneName.join('', [ new Ref(hostedZoneParam), '.' ])
-t.addResource(websiteDNSName)
+t.add(websiteDNSName)
 
 let websiteCDN = new wk.CloudFront.Distribution('WebsiteCDN')
 
@@ -85,14 +85,14 @@ distConfig.DefaultCacheBehavior = defaultCacheBehavior
 
 websiteCDN.DistributionConfig = distConfig
 
-t.addResource(websiteCDN)
+t.add(websiteCDN)
 
-t.addOutput(new wk.Output('WebsiteURL', {
+t.add(new wk.Output('WebsiteURL', {
   'Value': new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
   'Description': 'The URL of the newly created website'
 }))
 
-t.addOutput(new wk.Output('BucketName', {
+t.add(new wk.Output('BucketName', {
   'Value': new Ref(s3BucketForWebsiteContent),
   'Description': 'Name of S3 bucket to hold website content'
 }))

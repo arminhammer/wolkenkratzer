@@ -19,7 +19,7 @@ describe('ElastiCache', () => {
   let t = new wk.Template()
 
   let CacheCluster = new wk.ElastiCache.CacheCluster('CacheCluster')
-  t.addResource(CacheCluster)
+  t.add(CacheCluster)
 
   let ParameterGroup = new wk.ElastiCache.ParameterGroup('ParameterGroup')
   let ReplicationGroup = new wk.ElastiCache.ReplicationGroup('ReplicationGroup')

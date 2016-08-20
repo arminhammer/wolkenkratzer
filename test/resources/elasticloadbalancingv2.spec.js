@@ -19,7 +19,7 @@ describe('ElasticLoadBalancingV2', () => {
   let t = new wk.Template()
 
   let Listener = new wk.ElasticLoadBalancingV2.Listener('Listener')
-  t.addResource(Listener)
+  t.add(Listener)
 
   let ListenerRule = new wk.ElasticLoadBalancingV2.ListenerRule('ListenerRule')
   let LoadBalancer = new wk.ElasticLoadBalancingV2.LoadBalancer('LoadBalancer')

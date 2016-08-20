@@ -14,7 +14,7 @@ let keyNameParam = new wk.Parameter('KeyName', {
   'ConstraintDescription': 'must be the name of an existing EC2 KeyPair.',
   'Description': 'Name of an existing EC2 KeyPair to enable SSH access to the instances'
 })
-t.addParameter(keyNameParam)
+t.add(keyNameParam)
 
 let instanceTypeParam = new wk.Parameter('InstanceType', {
   'Description': 'WebServer EC2 instance type',
@@ -23,7 +23,7 @@ let instanceTypeParam = new wk.Parameter('InstanceType', {
   'AllowedValues': [ 't1.micro', 't2.nano', 't2.micro', 't2.small', 't2.medium', 't2.large', 'm1.small', 'm1.medium', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge', 'm2.4xlarge', 'm3.medium', 'm3.large', 'm3.xlarge', 'm3.2xlarge', 'm4.large', 'm4.xlarge', 'm4.2xlarge', 'm4.4xlarge', 'm4.10xlarge', 'c1.medium', 'c1.xlarge', 'c3.large', 'c3.xlarge', 'c3.2xlarge', 'c3.4xlarge', 'c3.8xlarge', 'c4.large', 'c4.xlarge', 'c4.2xlarge', 'c4.4xlarge', 'c4.8xlarge', 'g2.2xlarge', 'g2.8xlarge', 'r3.large', 'r3.xlarge', 'r3.2xlarge', 'r3.4xlarge', 'r3.8xlarge', 'i2.xlarge', 'i2.2xlarge', 'i2.4xlarge', 'i2.8xlarge', 'd2.xlarge', 'd2.2xlarge', 'd2.4xlarge', 'd2.8xlarge', 'hi1.4xlarge', 'hs1.8xlarge', 'cr1.8xlarge', 'cc2.8xlarge', 'cg1.4xlarge' ],
   'ConstraintDescription': 'must be a valid EC2 instance type.'
 })
-t.addParameter(instanceTypeParam)
+t.add(instanceTypeParam)
 
 let sshLocationParam = new wk.Parameter('SSHLocation', {
   'Description': 'The IP address range that can be used to SSH to the EC2 instances',
@@ -34,7 +34,7 @@ let sshLocationParam = new wk.Parameter('SSHLocation', {
   'AllowedPattern': '(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})',
   'ConstraintDescription': 'must be a valid IP CIDR range of the form x.x.x.x/x.'
 })
-t.addParameter(sshLocationParam)
+t.add(sshLocationParam)
 
 let dbNameParam = new wk.Parameter('DBName', {
   'Default': 'wordpressdb',
@@ -45,7 +45,7 @@ let dbNameParam = new wk.Parameter('DBName', {
   'AllowedPattern': '[a-zA-Z][a-zA-Z0-9]*',
   'ConstraintDescription': 'must begin with a letter and contain only alphanumeric characters.'
 })
-t.addParameter(dbNameParam)
+t.add(dbNameParam)
 
 let dbUserParam = new wk.Parameter('DBUser', {
   'NoEcho': 'true',
@@ -56,7 +56,7 @@ let dbUserParam = new wk.Parameter('DBUser', {
   'AllowedPattern': '[a-zA-Z][a-zA-Z0-9]*',
   'ConstraintDescription': 'must begin with a letter and contain only alphanumeric characters.'
 })
-t.addParameter(dbUserParam)
+t.add(dbUserParam)
 
 let dbPasswordParam = new wk.Parameter('DBPassword', {
   'NoEcho': 'true',
@@ -67,7 +67,7 @@ let dbPasswordParam = new wk.Parameter('DBPassword', {
   'AllowedPattern': '[a-zA-Z0-9]*',
   'ConstraintDescription': 'must contain only alphanumeric characters.'
 })
-t.addParameter(dbPasswordParam)
+t.add(dbPasswordParam)
 
 let dbRootPasswordParam = new wk.Parameter('DBRootPassword', {
   'NoEcho': 'true',
@@ -78,10 +78,10 @@ let dbRootPasswordParam = new wk.Parameter('DBRootPassword', {
   'AllowedPattern': '[a-zA-Z0-9]*',
   'ConstraintDescription': 'must contain only alphanumeric characters.'
 })
-t.addParameter(dbRootPasswordParam)
+t.add(dbRootPasswordParam)
 
 let webServerSecurityGroup = new wk.EC2.SecurityGroup('WebServerSecurityGroup')
-t.addResource(webServerSecurityGroup)
+t.add(webServerSecurityGroup)
 webServerSecurityGroup.GroupDescription = 'Enable HTTP access via port 80 locked down to the load balancer + SSH access'
 
 let rule1 = new wk.Types.EC2SecurityGroupRulePropertyType({'IpProtocol': 'tcp', 'FromPort': 80, 'ToPort': 80, 'CidrIp': '0.0.0.0/0'})
@@ -222,7 +222,7 @@ t.addMapping('AWSRegionArch2AMI', {
 
 let webServer = new wk.EC2.Instance('WebServer')
 webServer.ImageId.findInMap('AWSRegionArch2AMI', { 'Ref': 'AWS::Region' }, { 'Fn::FindInMap': [ 'AWSInstanceType2Arch', { 'Ref': 'InstanceType' }, 'Arch' ] })
-t.addResource(webServer)
+t.add(webServer)
 
 webServer.InstanceType.ref(instanceTypeParam)
 webServer.SecurityGroups.push(new wk.Intrinsic.Ref(webServerSecurityGroup))
@@ -344,5 +344,5 @@ let cPolicy = new wk.Policy.CreationPolicy({
 })
 webServer.addPolicy(cPolicy)
 
-t.addOutput(webSiteUrlOutput)
+t.add(webSiteUrlOutput)
 console.log(t.toJson().Template)

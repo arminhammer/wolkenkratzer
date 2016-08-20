@@ -19,7 +19,7 @@ describe('Logs', () => {
   let t = new wk.Template()
 
   let Destination = new wk.Logs.Destination('Destination')
-  t.addResource(Destination)
+  t.add(Destination)
 
   let LogGroup = new wk.Logs.LogGroup('LogGroup')
   let LogStream = new wk.Logs.LogStream('LogStream')

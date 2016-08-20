@@ -23,10 +23,10 @@ describe('IAM', () => {
   let ManagedPolicy = new wk.IAM.ManagedPolicy('ManagedPolicy')
 
   accesskey.UserName = 'testUser'
-  t.addResource(accesskey)
+  t.add(accesskey)
 
   let group = new wk.IAM.Group('group')
-  t.addResource(group)
+  t.add(group)
 
   let role = new wk.IAM.Role('role')
   role.AssumeRolePolicyDocument = {
@@ -39,12 +39,12 @@ describe('IAM', () => {
       Action: [ 'sts:AssumeRole' ]
     } ]
   }
-  t.addResource(role)
+  t.add(role)
 
   let instanceProfile = new wk.IAM.InstanceProfile('instanceProfile')
   instanceProfile.Path = '/'
   instanceProfile.Roles.push(new wk.Intrinsic.Ref(role))
-  t.addResource(instanceProfile)
+  t.add(instanceProfile)
 
   let policy = new wk.IAM.Policy('policy')
   policy.PolicyName = 'CFNUsers'
@@ -60,15 +60,15 @@ describe('IAM', () => {
       Resource: '*'
     } ]
   }
-  t.addResource(policy)
+  t.add(policy)
 
   let user = new wk.IAM.User('user')
-  t.addResource(user)
+  t.add(user)
 
   let userToGroupAddition = new wk.IAM.UserToGroupAddition('userToGroupAddition')
   userToGroupAddition.GroupName = 'group'
   userToGroupAddition.Users.push('user')
-  t.addResource(userToGroupAddition)
+  t.add(userToGroupAddition)
 
   it('should be able to add a new repository to the template', () => {
     t.Resources['accesskey'].WKResourceType.should.equal('AWS::IAM::AccessKey')

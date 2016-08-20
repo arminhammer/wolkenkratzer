@@ -44,7 +44,7 @@ describe('ECR', () => {
       }
     ]
   }
-  t.addResource(repository)
+  t.add(repository)
 
   it('should be able to add a new repository to the template', () => {
     t.Resources['repository'].WKResourceType.should.equal('AWS::ECR::Repository')

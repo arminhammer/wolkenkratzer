@@ -19,7 +19,7 @@ describe('Lambda', () => {
   let t = new wk.Template()
 
   let EventSourceMapping = new wk.Lambda.EventSourceMapping('EventSourceMapping')
-  t.addResource(EventSourceMapping)
+  t.add(EventSourceMapping)
 
   let Alias = new wk.Lambda.Alias('Alias')
   let LambdaFunction = new wk.Lambda.LambdaFunction('LambdaFunction')
