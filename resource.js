@@ -33,21 +33,21 @@ class WKResource {
     }
     if (propertiesObject) {
       for (let prop in propertiesObject) {
-        if(this.properties[prop]) {
+        if (this.properties[prop]) {
           let property = propertiesObject[prop]
-          if(typeof property === 'string') {
+          if (typeof property === 'string') {
             property = new String(property)
-          } else if(typeof property === 'boolean') {
+          } else if (typeof property === 'boolean') {
             property = new Boolean(property)
-          } else if(typeof property === 'number') {
+          } else if (typeof property === 'number') {
             property = new Number(property)
           }
-          if(this.properties[prop].Type) {
-            if(property instanceof this.properties[prop].Type) {
+          if (this.properties[prop].Type) {
+            if (property instanceof this.properties[prop].Type) {
             } else {
               try {
                 property = new this.properties[prop].Type(property)
-              } catch(e) {
+              } catch (e) {
               }
             }
             try {
@@ -93,12 +93,12 @@ class WKResource {
    * @param configSet
    */
   addConfigSet (configSet) {
-    if(this instanceof require('./resources/ec2').Instance) {
-      if(!this.Metadata) {
+    if (this instanceof require('./resources/ec2').Instance) {
+      if (!this.Metadata) {
         this.Metadata = {
         }
       }
-      if(!this.Metadata['AWS::CloudFormation::Init']) {
+      if (!this.Metadata['AWS::CloudFormation::Init']) {
         this.Metadata['AWS::CloudFormation::Init'] = {
           configSets: {}
         }
@@ -114,10 +114,10 @@ class WKResource {
    * @param policy
    */
   addPolicy (policy) {
-    if(!this.policies) {
+    if (!this.policies) {
       this.policies = {}
     }
-    if(policy instanceof Policy) {
+    if (policy instanceof Policy) {
       this.policies[policy.WKName] = policy
     } else {
       throw new TypeException(policy + ' must be of type Policy')

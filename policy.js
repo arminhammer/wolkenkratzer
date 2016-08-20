@@ -10,68 +10,48 @@ const TypeException = require('./exceptions').TypeException
 /**
  * @memberof module:Core
  */
-class Policy {
-  /**
-   * @constructs Policy
-   * @param name
-   */
-  constructor (name) {
-    this.WKName = name
-  }
-  toJson () {
-    let p = JSON.parse(JSON.stringify(this))
-    delete p.WKName
-    return p
-  }
+function Policy (name) {
+  this.WKName = name
+}
+
+Policy.prototype.toJson = function () {
+  let p = JSON.parse(JSON.stringify(this))
+  delete p.WKName
+  return p
 }
 
 /**
  * @memberof module:Core
  */
-class CreationPolicy extends Policy {
-  /**
-   * @constructs CreationPolicy
-   * @param name
-   */
-  constructor(parameters) {
-    super('CreationPolicy')
-    if(parameters) {
-      this.AutoScalingCreationPolicy = parameters.AutoScalingCreationPolicy
-      this.ResourceSignal = parameters.ResourceSignal
-    }
+function CreationPolicy (parameters) {
+  Policy.call(this, 'CreationPolicy')
+  if (parameters) {
+    this.AutoScalingCreationPolicy = parameters.AutoScalingCreationPolicy
+    this.ResourceSignal = parameters.ResourceSignal
   }
 }
+CreationPolicy.prototype = Object.create(Policy.prototype)
 
 /**
  * @memberof module:Core
  */
-class DeletionPolicy extends Policy {
-  /**
-   * @constructs DeletionPolicy
-   * @param Type
-   */
-  constructor(Type) {
-    super('DeletionPolicy')
-    if(Type === 'Delete' || Type === 'Retain' || Type === 'Snapshot') {
-      this.Type = Type
-    } else {
-      throw new TypeException(Type + ' in DeletionPolicy must be Delete, Retain, or Snapshot')
-    }
+function DeletionPolicy (Type) {
+  Policy.call(this, 'DeletionPolicy')
+  if (Type === 'Delete' || Type === 'Retain' || Type === 'Snapshot') {
+    this.Type = Type
+  } else {
+    throw new TypeException(Type + ' in DeletionPolicy must be Delete, Retain, or Snapshot')
   }
 }
+DeletionPolicy.prototype = Object.create(Policy.prototype)
 
 /**
  * @memberof module:Core
  */
-class UpdatePolicy extends Policy {
-  /**
-   * @constructs UpdatePolicy
-   * @param parameters
-   */
-  constructor(parameters) {
-    super('UpdatePolicy')
-  }
+function UpdatePolicy (parameters) {
+  Policy.call(this, 'UpdatePolicy')
 }
+UpdatePolicy.prototype = Object.create(Policy.prototype)
 
 module.exports = {
   Policy: Policy,

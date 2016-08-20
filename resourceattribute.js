@@ -118,7 +118,7 @@ ResourceAttribute.prototype.toJson = function () {
 function ResourceAttributeArray (name, type, required, value) {
   ResourceAttribute.call(this, name, type, required, value)
 }
-ResourceAttributeArray.prototype = ResourceAttribute
+ResourceAttributeArray.prototype = Object.create(ResourceAttribute.prototype)
 
 /**
  * Set the value of the attribute

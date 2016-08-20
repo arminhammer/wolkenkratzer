@@ -12,26 +12,19 @@
 /**
  * @memberof module:Core
  */
-class Mapping {
-  /**
-   * @constructs Mapping
-   * @param name
-   * @param body
-   */
-  constructor (name, body) {
-    this.WKName = name
-    this.body = body
-  }
+function Mapping (name, body) {
+  this.WKName = name
+  this.body = body
+}
 
-  /**
-   * Provides a JSON version of the Mapping
-   * @returns {*}
-   */
-  toJson () {
-    let p = JSON.parse(JSON.stringify(this))
-    delete p.WKName
-    return p.body
-  }
+/**
+ * Provides a JSON version of the Mapping
+ * @returns {*}
+ */
+Mapping.prototype.toJson = function () {
+  let p = JSON.parse(JSON.stringify(this))
+  delete p.WKName
+  return p.body
 }
 
 module.exports = {

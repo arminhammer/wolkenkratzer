@@ -25,7 +25,7 @@ function ValueException (message) {
   Exception.call(message)
   this.name = 'ValueError'
 }
-ValueException.prototype = Exception
+ValueException.prototype = Object.create(Exception.prototype)
 
 /**
  * @memberof module:Core
@@ -34,7 +34,7 @@ function RequiredPropertyException (message) {
   Exception.call(message)
   this.name = 'RequiredPropertyException'
 }
-RequiredPropertyException.prototype = Exception
+RequiredPropertyException.prototype = Object.create(Exception.prototype)
 
 /**
  * @memberof module:Core
@@ -43,7 +43,7 @@ function TypeException (message) {
   Exception.call(message)
   this.name = 'TypeException'
 }
-TypeException.prototype = Exception
+TypeException.prototype = Object.create(Exception.prototype)
 
 /**
  * @memberof module:Core
@@ -52,7 +52,7 @@ function ConditionNotMetException (message) {
   Exception.call(message)
   this.name = 'ConditionNotMetException'
 }
-ConditionNotMetException.prototype = Exception
+ConditionNotMetException.prototype = Object.create(Exception.prototype)
 
 module.exports = {
   TypeException: TypeException,
