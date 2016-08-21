@@ -1,6 +1,6 @@
 {
   "name": "wolkenkratzer",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Library for generating CloudFormation templates",
   "main": "index.js",
   "directories": {
