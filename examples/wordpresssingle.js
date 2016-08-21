@@ -244,7 +244,7 @@ webServer.UserData.base64({ 'Fn::Join': ['', [
 ]]})
 
 let webSiteUrlOutput = new wk.Output('WebsiteURL', {
-  'Value': { 'Fn::Join': ['', [ 'http://', { 'Fn::GetAtt': [ 'WebServer', 'PublicDnsName' ] }, '/wordpress' ] ] },
+  'Value': { 'Fn::Join': [ '', [ 'http://', { 'Fn::GetAtt': [ 'WebServer', 'PublicDnsName' ] }, '/wordpress' ] ] },
   'Description': 'WordPress Website'
 })
 
@@ -291,7 +291,7 @@ install_cfn.add(cfnHupService)
 webServer.addConfig(install_cfn)
 
 let createWPConfig = new wk.Init.File('/tmp/create-wp-config')
-createWPConfig.content = { 'Fn::Join': [ '', [ '#!/bin/bash -xe\n', 'cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n', 'sed -i "s/\'database_name_here\'/\'',{ 'Ref': 'DBName' }, '\'/g\" wp-config.php\n', 'sed -i \"s/\'username_here\'/\'',{ 'Ref': 'DBUser' }, '\'/g\" wp-config.php\n', 'sed -i \"s/\'password_here\'/\'',{ 'Ref': 'DBPassword' }, '\'/g\" wp-config.php\n' ]]}
+createWPConfig.content = { 'Fn::Join': [ '', [ '#!/bin/bash -xe\n', 'cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n', 'sed -i "s/\'database_name_here\'/\'', { 'Ref': 'DBName' }, '\'/g\" wp-config.php\n', 'sed -i \"s/\'username_here\'/\'',{ 'Ref': 'DBUser' }, '\'/g\" wp-config.php\n', 'sed -i \"s/\'password_here\'/\'',{ 'Ref': 'DBPassword' }, '\'/g\" wp-config.php\n' ]]}
 createWPConfig.mode = '000500'
 createWPConfig.owner = 'root'
 createWPConfig.group = 'root'

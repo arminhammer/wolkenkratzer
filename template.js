@@ -51,7 +51,7 @@ function Template () {
  * Add an element to the Template
  * @param element
  */
-Template.prototype.add = function(element) {
+Template.prototype.add = function (element) {
   if (element instanceof Parameter) {
     _update(this.Parameters, element)
   } else if (element instanceof WKResource) {
@@ -67,7 +67,7 @@ Template.prototype.add = function(element) {
  * Set the metadata value of the template
  * @param metadata
  */
-Template.prototype.setMetadata = function(metadata) {
+Template.prototype.setMetadata = function (metadata) {
   this.Metadata = metadata
 }
 
@@ -75,7 +75,7 @@ Template.prototype.setMetadata = function(metadata) {
  * Set the version value of the template
  * @param version
  */
-Template.prototype.setVersion = function(version) {
+Template.prototype.setVersion = function (version) {
   this.Version = version
 }
 
@@ -83,7 +83,7 @@ Template.prototype.setVersion = function(version) {
  * Add a description to the template
  * @param description
  */
-Template.prototype.setDescription = function(description) {
+Template.prototype.setDescription = function (description) {
   this.Description = description
 }
 
@@ -92,7 +92,7 @@ Template.prototype.setDescription = function(description) {
  * @param name
  * @param condition
  */
-Template.prototype.addCondition = function(name, condition) {
+Template.prototype.addCondition = function (name, condition) {
   this.Conditions[name] = condition
 }
 
@@ -101,7 +101,7 @@ Template.prototype.addCondition = function(name, condition) {
  * @param map
  * @param mapping
  */
-Template.prototype.addMapping = function(map, mapping) {
+Template.prototype.addMapping = function (map, mapping) {
   // If the first parameter is a Mapping, add it
   if (map instanceof Mapping) {
     this.Mappings[map.WKName] = map
@@ -115,7 +115,7 @@ Template.prototype.addMapping = function(map, mapping) {
  *
  * @param callback
  */
-Template.prototype.toJsonAsync = function(callback) {
+Template.prototype.toJsonAsync = function (callback) {
   return new Promise((resolve, reject) => {      // [1]
     process.nextTick(() => {
       let result = this.toJson()
@@ -136,7 +136,7 @@ Template.prototype.toJsonAsync = function(callback) {
  * Returns a CloudFormation JSON template string
  * @returns {Object}
  */
-Template.prototype.toJson = function() {
+Template.prototype.toJson = function () {
   let j = JSON.parse(JSON.stringify(this))
   let errors = []
   for (let param in this.Parameters) {

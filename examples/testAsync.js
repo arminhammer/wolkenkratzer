@@ -1,7 +1,7 @@
 /**
  * Created by arming on 6/2/16.
  */
-'use strict';
+'use strict'
 
 const wk = require('./../index')
 
@@ -14,29 +14,11 @@ let vpnGateway = new wk.EC2.VPNGateway('VPNGateway')
 vpnGateway.Type = 'ipsec.1'
 t.add(vpnGateway)
 
-/* let result = t.toJson()
-console.log('errors:')
-console.error(result.Errors)
-console.log('template:')
-console.log(result.Template)
-*/
-
 t.toJsonAsync((errors, template) => {
-  if(errors) {
+  if (errors) {
     console.log(errors)
     console.log(template)
   } else {
     console.log(template)
   }
 })
-
-/*
-t.toJsonAsync()
-.then((template) => {
-  console.log(template)
-})
-.catch((e) => {
-  console.log(e.Errors)
-  console.log(e.Template)
-})
-*/

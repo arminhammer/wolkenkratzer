@@ -27,7 +27,7 @@ fs
       let body = ''
       body += 'function ' + subProp.name + ' (propertiesObject) {\n'
       // body += '  constructor (propertiesObject) {\n'
-      body += '    let properties = {\n'
+      body += '  let properties = {\n'
       let props = Object.keys(subProp.properties)
       for (let i = 0; i < props.length; i++) {
         let wkType = 'ResourceAttribute'
@@ -131,7 +131,7 @@ fs
             break
         }
         let name = props[i].replace(/ \(.+\)/g, '')
-        body += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
+        body += '    ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
         if (i === (props.length - 1)) {
           body += '\n'
         } else {
@@ -145,8 +145,8 @@ fs
             docHeader += '\n'
           }
       }
-      body += '    }\n'
-      body += '    ResourceProperty.call(this, \'' + subProp.name + '\', properties, propertiesObject)\n'
+      body += '  }\n'
+      body += '  ResourceProperty.call(this, \'' + subProp.name + '\', properties, propertiesObject)\n'
       // body += '  }\n'
       body += '}\n'
       body += subProp.name + '.prototype = Object.create(ResourceProperty.prototype)\n\n'

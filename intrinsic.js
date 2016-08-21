@@ -91,7 +91,6 @@ FnBase64.prototype.toJSON = function () {
   return { 'Fn::Base64': this.content }
 }
 
-
 /**
  * @memberof module:Core
  */
