@@ -65,6 +65,15 @@ function WKResource (name, resourceType, properties, propertiesObject, condition
 WKResource.prototype.dependsOn = function (resource) {
   this.dependsOn = resource
 }
+
+/**
+ * Get the logical name of the resource
+ * @returns {String}
+ */
+WKResource.prototype.getName = function () {
+  return this.WKName
+}
+
 /**
  * Adds a Config block to the Metadata AWS::CloudFormation::Init block of an Instance
  * @param config
