@@ -119,6 +119,7 @@ function ResourceAttributeArray (name, type, required, value) {
   ResourceAttribute.call(this, name, type, required, value)
 }
 ResourceAttributeArray.prototype = Object.create(ResourceAttribute.prototype)
+ResourceAttributeArray.prototype.constructor = ResourceAttributeArray
 
 /**
  * Set the value of the attribute
@@ -130,19 +131,19 @@ ResourceAttributeArray.prototype.set = function (value) {
   } else if (!Array.isArray(value)) {
     throw new TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type)
   } else {
-    for (let val in value) {
-      let valueType = val
-      if (typeof val === 'string') {
-        valueType = new String(val)
-      } else if (typeof val === 'boolean') {
-        valueType = new Boolean(val)
-      } else if (typeof val === 'number') {
-        valueType = new Number(val)
-      }
-      if (!(valueType instanceof this.Type)) {
+    this.val = []
+    for (let val of value) {
+      if ((typeof val === 'string') && (this.Type.prototype === String.prototype)) {
+        this.val.push(val)
+      } else if ((typeof val === 'boolean') && (this.Type.prototype === Boolean.prototype)) {
+        this.val.push(val)
+      } else if ((typeof val === 'number') && (this.Type.prototype === Number.prototype)) {
+        this.val.push(val)
+      } else if (val instanceof this.Type) {
+        this.val.push(val)
+      } else {
         throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
       }
-      this.val = value
     }
   }
 }
