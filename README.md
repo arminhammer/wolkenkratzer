@@ -16,8 +16,8 @@ to the Python library https://github.com/cloudtools/troposphere.
 Full documentation for the project can be found at https://arminhammer.github.io/wolkenkratzer/.
 
 ### General
-The core class is Template, which is instantiated with ```new wolkenkratzer.Template()```. Parameters can be added with the ```addParameter()``` method,
-and Resources can be added with ```addParameter```. The final template can be retrieved with Template.toJson().
+The core class is Template, which is instantiated with ```new wolkenkratzer.Template()```. Parameters can be added with the ```add()``` method,
+and Resources can be added with ```add```. The final template can be retrieved with Template.toJson().
 
 Template.toJson() returns an object ```json { Errors: [], Template: {} }```. Any validation errors found in the Template will be added to the Errors array. If there are no validation errors, Errors will be ```null```. ```Template``` is the JSON template.
 
@@ -29,7 +29,7 @@ const wk = require('wolkenkratzer')
 let t = new wk.Template()
 
 let vpcCiderParam = new wk.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
-t.addParameter(vpcCiderParam)
+t.add(vpcCiderParam)
 
 let vpnGateway = new wk.EC2.VPNGateway('VPNGateway')
 vpnGateway.Type = 'ipsec.1'
@@ -208,7 +208,7 @@ let hostedZoneParam = new wk.Parameter('HostedZone', {
   'ConstraintDescription': 'must be a valid DNS zone name.'
 })
 
-t.addParameter(hostedZoneParam)
+t.add(hostedZoneParam)
 
 ```
 
@@ -250,7 +250,7 @@ Output take two parameters: the first parameter is the logical id of the Output,
 the attributes of the Mapping:
 
 ```javascript
-t.addOutput(new wk.Output('WebsiteURL', {
+t.add(new wk.Output('WebsiteURL', {
   'Value': new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
   'Description': 'The URL of the newly created website'
 }))
@@ -282,7 +282,7 @@ let hostedZoneParam = new wk.Parameter('HostedZone', {
   'ConstraintDescription': 'must be a valid DNS zone name.'
 })
 
-t.addParameter(hostedZoneParam)
+t.add(hostedZoneParam)
 
 let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
   'us-east-1': { 'Suffix': '.s3-website-us-east-1.amazonaws.com' },
@@ -352,12 +352,12 @@ websiteCDN.DistributionConfig = distConfig
 
 t.add(websiteCDN)
 
-t.addOutput(new wk.Output('WebsiteURL', {
+t.add(new wk.Output('WebsiteURL', {
   'Value': new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
   'Description': 'The URL of the newly created website'
 }))
 
-t.addOutput(new wk.Output('BucketName', {
+t.add(new wk.Output('BucketName', {
   'Value': new Ref(s3BucketForWebsiteContent),
   'Description': 'Name of S3 bucket to hold website content'
 }))
@@ -381,7 +381,7 @@ let keyNameParam = new wk.Parameter('KeyName', {
   'ConstraintDescription': 'must be the name of an existing EC2 KeyPair.',
   'Description': 'Name of an existing EC2 KeyPair to enable SSH access to the instances'
 })
-t.addParameter(keyNameParam)
+t.add(keyNameParam)
 
 let instanceTypeParam = new wk.Parameter('InstanceType', {
   'Description': 'WebServer EC2 instance type',
@@ -390,7 +390,7 @@ let instanceTypeParam = new wk.Parameter('InstanceType', {
   'AllowedValues': [ 't1.micro', 't2.nano', 't2.micro', 't2.small', 't2.medium', 't2.large', 'm1.small', 'm1.medium', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge', 'm2.4xlarge', 'm3.medium', 'm3.large', 'm3.xlarge', 'm3.2xlarge', 'm4.large', 'm4.xlarge', 'm4.2xlarge', 'm4.4xlarge', 'm4.10xlarge', 'c1.medium', 'c1.xlarge', 'c3.large', 'c3.xlarge', 'c3.2xlarge', 'c3.4xlarge', 'c3.8xlarge', 'c4.large', 'c4.xlarge', 'c4.2xlarge', 'c4.4xlarge', 'c4.8xlarge', 'g2.2xlarge', 'g2.8xlarge', 'r3.large', 'r3.xlarge', 'r3.2xlarge', 'r3.4xlarge', 'r3.8xlarge', 'i2.xlarge', 'i2.2xlarge', 'i2.4xlarge', 'i2.8xlarge', 'd2.xlarge', 'd2.2xlarge', 'd2.4xlarge', 'd2.8xlarge', 'hi1.4xlarge', 'hs1.8xlarge', 'cr1.8xlarge', 'cc2.8xlarge', 'cg1.4xlarge' ],
   'ConstraintDescription': 'must be a valid EC2 instance type.'
 })
-t.addParameter(instanceTypeParam)
+t.add(instanceTypeParam)
 
 let sshLocationParam = new wk.Parameter('SSHLocation', {
   'Description': 'The IP address range that can be used to SSH to the EC2 instances',
@@ -401,7 +401,7 @@ let sshLocationParam = new wk.Parameter('SSHLocation', {
   'AllowedPattern': '(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})',
   'ConstraintDescription': 'must be a valid IP CIDR range of the form x.x.x.x/x.'
 })
-t.addParameter(sshLocationParam)
+t.add(sshLocationParam)
 
 let dbNameParam = new wk.Parameter('DBName', {
   'Default': 'wordpressdb',
@@ -412,7 +412,7 @@ let dbNameParam = new wk.Parameter('DBName', {
   'AllowedPattern': '[a-zA-Z][a-zA-Z0-9]*',
   'ConstraintDescription': 'must begin with a letter and contain only alphanumeric characters.'
 })
-t.addParameter(dbNameParam)
+t.add(dbNameParam)
 
 let dbUserParam = new wk.Parameter('DBUser', {
   'NoEcho': 'true',
@@ -423,7 +423,7 @@ let dbUserParam = new wk.Parameter('DBUser', {
   'AllowedPattern': '[a-zA-Z][a-zA-Z0-9]*',
   'ConstraintDescription': 'must begin with a letter and contain only alphanumeric characters.'
 })
-t.addParameter(dbUserParam)
+t.add(dbUserParam)
 
 let dbPasswordParam = new wk.Parameter('DBPassword', {
   'NoEcho': 'true',
@@ -434,7 +434,7 @@ let dbPasswordParam = new wk.Parameter('DBPassword', {
   'AllowedPattern': '[a-zA-Z0-9]*',
   'ConstraintDescription': 'must contain only alphanumeric characters.'
 })
-t.addParameter(dbPasswordParam)
+t.add(dbPasswordParam)
 
 let dbRootPasswordParam = new wk.Parameter('DBRootPassword', {
   'NoEcho': 'true',
@@ -445,7 +445,7 @@ let dbRootPasswordParam = new wk.Parameter('DBRootPassword', {
   'AllowedPattern': '[a-zA-Z0-9]*',
   'ConstraintDescription': 'must contain only alphanumeric characters.'
 })
-t.addParameter(dbRootPasswordParam)
+t.add(dbRootPasswordParam)
 
 let webServerSecurityGroup = new wk.EC2.SecurityGroup('WebServerSecurityGroup')
 t.add(webServerSecurityGroup)
@@ -711,7 +711,7 @@ let cPolicy = new wk.Policy.CreationPolicy({
 })
 webServer.addPolicy(cPolicy)
 
-t.addOutput(webSiteUrlOutput)
+t.add(webSiteUrlOutput)
 console.log(t.toJson().Template)
 ```
 
