@@ -25,8 +25,8 @@ fs
       let docHeader = ''
       docHeader += '/**\n'
       let body = ''
-      body += 'class ' + subProp.name + ' extends ResourceProperty {\n'
-      body += '  constructor (propertiesObject) {\n'
+      body += 'function ' + subProp.name + ' (propertiesObject) {\n'
+      // body += '  constructor (propertiesObject) {\n'
       body += '    let properties = {\n'
       let props = Object.keys(subProp.properties)
       for (let i = 0; i < props.length; i++) {
@@ -146,10 +146,10 @@ fs
           }
       }
       body += '    }\n'
-      body += '    super(\''+ subProp.name + '\', properties, propertiesObject)\n'
-      body += '  }\n'
-      body += '}\n\n'
-
+      body += '    ResourceProperty.call(this, \'' + subProp.name + '\', properties, propertiesObject)\n'
+      // body += '  }\n'
+      body += '}\n'
+      body += subProp.name + '.prototype = Object.create(ResourceProperty.prototype)\n\n'
       docHeader += '*/\n'
       result += docHeader
       result += body
