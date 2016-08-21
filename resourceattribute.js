@@ -30,7 +30,6 @@ function ResourceAttribute (name, type, required, value) {
  * @param value
  */
 ResourceAttribute.prototype.set = function (value) {
-
   if (value instanceof Intrinsic) {
     this.val = value
   } else {
