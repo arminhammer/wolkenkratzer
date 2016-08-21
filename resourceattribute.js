@@ -110,7 +110,9 @@ ResourceAttribute.prototype.toJson = function () {
     }
     return this.val
   } else {
-    if (this.required === 'Yes') { throw new RequiredPropertyException('this value is required') }
+    if (this.required === 'Yes') {
+      throw new RequiredPropertyException('this value is required')
+    }
   }
 }
 

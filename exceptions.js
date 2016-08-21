@@ -22,7 +22,7 @@ Exception.prototype.toJson = function () {
  * @memberof module:Core
  */
 function ValueException (message) {
-  Exception.call(message)
+  Exception.call(this, message)
   this.name = 'ValueError'
 }
 ValueException.prototype = Object.create(Exception.prototype)
@@ -31,7 +31,7 @@ ValueException.prototype = Object.create(Exception.prototype)
  * @memberof module:Core
  */
 function RequiredPropertyException (message) {
-  Exception.call(message)
+  Exception.call(this, message)
   this.name = 'RequiredPropertyException'
 }
 RequiredPropertyException.prototype = Object.create(Exception.prototype)
@@ -40,7 +40,7 @@ RequiredPropertyException.prototype = Object.create(Exception.prototype)
  * @memberof module:Core
  */
 function TypeException (message) {
-  Exception.call(message)
+  Exception.call(this, message)
   this.name = 'TypeException'
 }
 TypeException.prototype = Object.create(Exception.prototype)
@@ -49,7 +49,7 @@ TypeException.prototype = Object.create(Exception.prototype)
  * @memberof module:Core
  */
 function ConditionNotMetException (message) {
-  Exception.call(message)
+  Exception.call(this, message)
   this.name = 'ConditionNotMetException'
 }
 ConditionNotMetException.prototype = Object.create(Exception.prototype)

@@ -59,7 +59,13 @@ FnGetAtt.prototype = Object.create(Intrinsic.prototype)
  * @returns {Object}
  */
 FnGetAtt.prototype.toJson = function () {
-  return { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
+  let resourceString
+  if (this.resource instanceof WKResource) {
+    resourceString = this.resource.getName()
+  } else {
+    resourceString = this.resource
+  }
+  return { 'Fn::GetAtt': [resourceString, this.attribute] }
 }
 
 FnGetAtt.prototype.toJSON = function () {

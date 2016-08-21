@@ -169,7 +169,7 @@ WKResource.prototype.toJson = function () {
   }
   let returnObject = {
     Type: this.WKResourceType,
-    Properties: newProperties,
+    Properties: newProperties
   }
   if (this.Metadata) {
     returnObject.Metadata = newMetadata
