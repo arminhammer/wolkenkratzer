@@ -13,16 +13,15 @@ const types = require('./../types')
 * @property {AmazonRoute53HealthCheckConfig} HealthCheckConfig Required: Yes. An Amazon Route 53 health check.Update requires: No interruption
 * @property {AmazonRoute53HealthCheckTags} HealthCheckTags Required: No. An arbitrary set of tags (key–value pairs) for this health check.Update requires: No interruption
 */
-class HealthCheck extends WKResource {
-  constructor (name, propertiesObject) {
+function HealthCheck (name, propertiesObject) {
     let resourceType = 'AWS::Route53::HealthCheck'
     let properties = {
       HealthCheckConfig: new ResourceAttribute('HealthCheckConfig', types.AmazonRoute53HealthCheckConfig, 'Yes', null),
       HealthCheckTags: new ResourceAttributeArray('HealthCheckTags', types.AmazonRoute53HealthCheckTags, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+HealthCheck.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Route53
 *   @extends WKResource
@@ -36,8 +35,7 @@ class HealthCheck extends WKResource {
                   property wasn't specified and you add values, updates require replacement. Also, if this property was
                   specified and you remove all values, updates require replacement.
 */
-class HostedZone extends WKResource {
-  constructor (name, propertiesObject) {
+function HostedZone (name, propertiesObject) {
     let resourceType = 'AWS::Route53::HostedZone'
     let properties = {
       HostedZoneConfig: new ResourceAttribute('HostedZoneConfig', types.AmazonRoute53HostedZoneConfigProperty, 'No', null),
@@ -45,9 +43,9 @@ class HostedZone extends WKResource {
       Name: new ResourceAttribute('Name', String, 'Yes', null),
       VPCs: new ResourceAttributeArray('VPCs', types.AmazonRoute53HostedZoneVPCs, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+HostedZone.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Route53
 *   @extends WKResource
@@ -105,8 +103,7 @@ class HostedZone extends WKResource {
                   associated location.For more information about weighted resource record sets, see Setting Up Weighted Resource Record Sets in the Amazon Route 53
                      Developer Guide.Update requires: No interruption
 */
-class RecordSet extends WKResource {
-  constructor (name, propertiesObject) {
+function RecordSet (name, propertiesObject) {
     let resourceType = 'AWS::Route53::RecordSet'
     let properties = {
       AliasTarget: new ResourceAttribute('AliasTarget', types.Route53AliasTargetProperty, 'Conditional', null),
@@ -123,9 +120,9 @@ class RecordSet extends WKResource {
       Type: new ResourceAttribute('Type', String, 'Yes', null),
       Weight: new ResourceAttribute('Weight', Number, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+RecordSet.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Route53
 *   @extends WKResource
@@ -139,8 +136,7 @@ class RecordSet extends WKResource {
                   hosted zone using HostedZoneId.Update requires: Replacement
 * @property {RecordSet} RecordSets Required: Yes. List of resource record sets to add.Update requires: No interruption
 */
-class RecordSetGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function RecordSetGroup (name, propertiesObject) {
     let resourceType = 'AWS::Route53::RecordSetGroup'
     let properties = {
       Comment: new ResourceAttribute('Comment', String, 'No', null),
@@ -148,9 +144,9 @@ class RecordSetGroup extends WKResource {
       HostedZoneName: new ResourceAttribute('HostedZoneName', String, 'Conditional', null),
       RecordSets: new ResourceAttributeArray('RecordSets', RecordSet, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+RecordSetGroup.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  HealthCheck: HealthCheck,
   HostedZone: HostedZone,

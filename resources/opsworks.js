@@ -26,8 +26,7 @@ const types = require('./../types')
 * @property {String} Type Required: Yes. The app type. Each supported type is associated with a particular layer. For
                   more information, see CreateApp in the AWS OpsWorks API Reference.Update requires: No interruption
 */
-class App extends WKResource {
-  constructor (name, propertiesObject) {
+function App (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::App'
     let properties = {
       AppSource: new ResourceAttribute('AppSource', types.AWSOpsWorksSourceType, 'No', null),
@@ -42,25 +41,24 @@ class App extends WKResource {
       StackId: new ResourceAttribute('StackId', String, 'Yes', null),
       Type: new ResourceAttribute('Type', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+App.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:OpsWorks
 *   @extends WKResource
 * @property {String} ElasticLoadBalancerName Required: Yes. Elastic Load Balancing load balancer name.Update requires: No interruption
 * @property {String} LayerId Required: Yes. The AWS OpsWorks layer ID that the Elastic Load Balancing load balancer will be attached to.Update requires: No interruption
 */
-class ElasticLoadBalancerAttachment extends WKResource {
-  constructor (name, propertiesObject) {
+function ElasticLoadBalancerAttachment (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::ElasticLoadBalancerAttachment'
     let properties = {
       ElasticLoadBalancerName: new ResourceAttribute('ElasticLoadBalancerName', String, 'Yes', null),
       LayerId: new ResourceAttribute('LayerId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ElasticLoadBalancerAttachment.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:OpsWorks
 *   @extends WKResource
@@ -97,8 +95,7 @@ class ElasticLoadBalancerAttachment extends WKResource {
                   launch the instance in a different subnet. Update requires: Replacement
 * @property {AWSOpsWorksTimeBasedAutoScalingType} TimeBasedAutoScaling Required: No. The time-based scaling configuration for the instance.Update requires: Replacement
 */
-class Instance extends WKResource {
-  constructor (name, propertiesObject) {
+function Instance (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Instance'
     let properties = {
       AmiId: new ResourceAttribute('AmiId', String, 'No', null),
@@ -116,9 +113,9 @@ class Instance extends WKResource {
       SubnetId: new ResourceAttribute('SubnetId', String, 'No', null),
       TimeBasedAutoScaling: new ResourceAttribute('TimeBasedAutoScaling', types.AWSOpsWorksTimeBasedAutoScalingType, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Instance.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:OpsWorks
 *   @extends WKResource
@@ -153,8 +150,7 @@ class Instance extends WKResource {
                      number of custom types.Update requires: Replacement
 * @property {AWSOpsWorksVolumeConfigurationType} VolumeConfigurations Required: No. Describes the Amazon EBS volumes for this layer.Update requires: Replacement
 */
-class Layer extends WKResource {
-  constructor (name, propertiesObject) {
+function Layer (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Layer'
     let properties = {
       Attributes: new ResourceAttributeArray('Attributes', Map, 'No', null),
@@ -174,9 +170,9 @@ class Layer extends WKResource {
       Type: new ResourceAttribute('Type', String, 'Yes', null),
       VolumeConfigurations: new ResourceAttributeArray('VolumeConfigurations', types.AWSOpsWorksVolumeConfigurationType, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Layer.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:OpsWorks
 *   @extends WKResource
@@ -230,8 +226,7 @@ class Layer extends WKResource {
                   specified region. All instances are launched into this VPC. If you specify this
                   property, you must specify the DefaultSubnetId property.Update requires: Replacement
 */
-class Stack extends WKResource {
-  constructor (name, propertiesObject) {
+function Stack (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Stack'
     let properties = {
       AgentVersion: new ResourceAttribute('AgentVersion', String, 'No', null),
@@ -253,9 +248,9 @@ class Stack extends WKResource {
       UseOpsworksSecurityGroups: new ResourceAttribute('UseOpsworksSecurityGroups', Boolean, 'No', null),
       VpcId: new ResourceAttribute('VpcId', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Stack.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  App: App,
   ElasticLoadBalancerAttachment: ElasticLoadBalancerAttachment,

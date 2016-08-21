@@ -36,8 +36,7 @@ const types = require('./../types')
                   published.Update requires: No interruption
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this trail.Update requires: No interruption.
 */
-class Trail extends WKResource {
-  constructor (name, propertiesObject) {
+function Trail (name, propertiesObject) {
     let resourceType = 'AWS::CloudTrail::Trail'
     let properties = {
       CloudWatchLogsLogGroupArn: new ResourceAttribute('CloudWatchLogsLogGroupArn', String, 'Conditional', null),
@@ -52,9 +51,9 @@ class Trail extends WKResource {
       SnsTopicName: new ResourceAttribute('SnsTopicName', String, 'No', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Trail.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Trail: Trail
 }

@@ -33,8 +33,7 @@ const types = require('./../types')
                             Pipelines and Resources in the
                             AWS Data Pipeline Developer Guide.Update requires: No interruption
 */
-class Pipeline extends WKResource {
-  constructor (name, propertiesObject) {
+function Pipeline (name, propertiesObject) {
     let resourceType = 'AWS::DataPipeline::Pipeline'
     let properties = {
       Activate: new ResourceAttribute('Activate', Boolean, 'No', null),
@@ -45,9 +44,9 @@ class Pipeline extends WKResource {
       PipelineObjects: new ResourceAttributeArray('PipelineObjects', types.AWSDataPipelinePipelineObjects, 'Yes', null),
       PipelineTags: new ResourceAttribute('PipelineTags', types.AWSDataPipelinePipelinePipelineTags, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Pipeline.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Pipeline: Pipeline
 }

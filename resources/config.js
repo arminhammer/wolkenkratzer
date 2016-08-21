@@ -28,8 +28,7 @@ const types = require('./../types')
 * @property {AWSConfigConfigRuleSource} Source Required: Yes. Specifies the rule owner, the rule identifier, and the events that cause the
             function to evaluate your AWS resources.Update requires: No interruption
 */
-class ConfigRule extends WKResource {
-  constructor (name, propertiesObject) {
+function ConfigRule (name, propertiesObject) {
     let resourceType = 'AWS::Config::ConfigRule'
     let properties = {
       ConfigRuleName: new ResourceAttribute('ConfigRuleName', String, 'No', null),
@@ -39,9 +38,9 @@ class ConfigRule extends WKResource {
       Scope: new ResourceAttribute('Scope', types.AWSConfigConfigRuleScope, 'No', null),
       Source: new ResourceAttribute('Source', types.AWSConfigConfigRuleSource, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ConfigRule.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Config
 *   @extends WKResource
@@ -57,17 +56,16 @@ class ConfigRule extends WKResource {
             details for supported AWS resources. For more information, see Permissions for the AWS Config IAM
               Role in the AWS Config Developer Guide.Update requires: No interruption
 */
-class ConfigurationRecorder extends WKResource {
-  constructor (name, propertiesObject) {
+function ConfigurationRecorder (name, propertiesObject) {
     let resourceType = 'AWS::Config::ConfigurationRecorder'
     let properties = {
       Name: new ResourceAttribute('Name', String, 'No', null),
       RecordingGroup: new ResourceAttribute('RecordingGroup', types.AWSConfigConfigurationRecorderRecordingGroup, 'No', null),
       RoleARN: new ResourceAttribute('RoleARN', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ConfigurationRecorder.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Config
 *   @extends WKResource
@@ -84,8 +82,7 @@ class ConfigurationRecorder extends WKResource {
 * @property {String} SnsTopicARN Required: No. The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (Amazon SNS) topic that AWS Config delivers
             notifications to.Update requires: No interruption
 */
-class DeliveryChannel extends WKResource {
-  constructor (name, propertiesObject) {
+function DeliveryChannel (name, propertiesObject) {
     let resourceType = 'AWS::Config::DeliveryChannel'
     let properties = {
       ConfigSnapshotDeliveryProperties: new ResourceAttribute('ConfigSnapshotDeliveryProperties', types.AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties, 'No', null),
@@ -94,9 +91,9 @@ class DeliveryChannel extends WKResource {
       S3KeyPrefix: new ResourceAttribute('S3KeyPrefix', String, 'No', null),
       SnsTopicARN: new ResourceAttribute('SnsTopicARN', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DeliveryChannel.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  ConfigRule: ConfigRule,
   ConfigurationRecorder: ConfigurationRecorder,

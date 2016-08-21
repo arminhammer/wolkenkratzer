@@ -20,8 +20,7 @@ const types = require('./../types')
 * @property {AWSCodePipelineCustomActionTypeSettings} Settings Required: No. URLs that provide users information about this custom action.Update requires: Replacement
 * @property {String} Version Required: No. The version number of this custom action.Update requires: Replacement
 */
-class CustomActionType extends WKResource {
-  constructor (name, propertiesObject) {
+function CustomActionType (name, propertiesObject) {
     let resourceType = 'AWS::CodePipeline::CustomActionType'
     let properties = {
       Category: new ResourceAttribute('Category', String, 'Yes', null),
@@ -32,9 +31,9 @@ class CustomActionType extends WKResource {
       Settings: new ResourceAttribute('Settings', types.AWSCodePipelineCustomActionTypeSettings, 'No', null),
       Version: new ResourceAttribute('Version', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+CustomActionType.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:CodePipeline
 *   @extends WKResource
@@ -50,8 +49,7 @@ class CustomActionType extends WKResource {
                      Reference in the AWS CodePipeline User Guide.Update requires: No interruption
 * @property {AWSCodePipelinePipelineStages} Stages Required: Yes. Defines the AWS CodePipeline pipeline stages.Update requires: No interruption
 */
-class Pipeline extends WKResource {
-  constructor (name, propertiesObject) {
+function Pipeline (name, propertiesObject) {
     let resourceType = 'AWS::CodePipeline::Pipeline'
     let properties = {
       ArtifactStore: new ResourceAttribute('ArtifactStore', types.AWSCodePipelinePipelineArtifactStore, 'Yes', null),
@@ -61,9 +59,9 @@ class Pipeline extends WKResource {
       RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
       Stages: new ResourceAttribute('Stages', types.AWSCodePipelinePipelineStages, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Pipeline.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  CustomActionType: CustomActionType,
   Pipeline: Pipeline

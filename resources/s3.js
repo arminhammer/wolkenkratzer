@@ -45,8 +45,7 @@ You can still do updates that require no or some interruption. If you must repla
 * @property {AmazonS3WebsiteConfigurationProperty} WebsiteConfiguration Required: No. Information used to configure the bucket as a static website. For more information, see Hosting Websites on Amazon
                   S3.Update requires: No interruption
 */
-class Bucket extends WKResource {
-  constructor (name, propertiesObject) {
+function Bucket (name, propertiesObject) {
     let resourceType = 'AWS::S3::Bucket'
     let properties = {
       AccessControl: new ResourceAttribute('AccessControl', String, 'No', null),
@@ -60,9 +59,9 @@ class Bucket extends WKResource {
       VersioningConfiguration: new ResourceAttribute('VersioningConfiguration', types.AmazonS3VersioningConfiguration, 'No', null),
       WebsiteConfiguration: new ResourceAttribute('WebsiteConfiguration', types.AmazonS3WebsiteConfigurationProperty, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Bucket.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:S3
 *   @extends WKResource
@@ -74,16 +73,15 @@ class Bucket extends WKResource {
             more information, see Access Policy Language Overview in the
             Amazon Simple Storage Service Developer Guide.Update requires: No interruption
 */
-class BucketPolicy extends WKResource {
-  constructor (name, propertiesObject) {
+function BucketPolicy (name, propertiesObject) {
     let resourceType = 'AWS::S3::BucketPolicy'
     let properties = {
       Bucket: new ResourceAttribute('Bucket', String, 'Yes', null),
       PolicyDocument: new ResourceAttribute('PolicyDocument', Object, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+BucketPolicy.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Bucket: Bucket,
   BucketPolicy: BucketPolicy

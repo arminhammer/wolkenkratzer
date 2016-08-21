@@ -14,15 +14,14 @@ const types = require('./../types')
                   see SSM Documents in the
                      Amazon EC2 Simple Systems Manager API Reference.Update requires: Replacement
 */
-class Document extends WKResource {
-  constructor (name, propertiesObject) {
+function Document (name, propertiesObject) {
     let resourceType = 'AWS::SSM::Document'
     let properties = {
       Content: new ResourceAttribute('Content', Object, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Document.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Document: Document
 }

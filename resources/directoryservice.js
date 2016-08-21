@@ -30,8 +30,7 @@ const types = require('./../types')
 * @property {AWSDirectoryServiceMicrosoftADVpcSettings} VpcSettings Required: Yes. Specifies the VPC settings of the Microsoft Active Directory server in
                   AWS.Update requires: Replacement
 */
-class MicrosoftAD extends WKResource {
-  constructor (name, propertiesObject) {
+function MicrosoftAD (name, propertiesObject) {
     let resourceType = 'AWS::DirectoryService::MicrosoftAD'
     let properties = {
       CreateAlias: new ResourceAttribute('CreateAlias', Boolean, 'No', null),
@@ -41,9 +40,9 @@ class MicrosoftAD extends WKResource {
       ShortName: new ResourceAttribute('ShortName', String, 'No', null),
       VpcSettings: new ResourceAttribute('VpcSettings', types.AWSDirectoryServiceMicrosoftADVpcSettings, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+MicrosoftAD.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:DirectoryService
 *   @extends WKResource
@@ -65,8 +64,7 @@ class MicrosoftAD extends WKResource {
                      AWS Directory Service API Reference.Update requires: Replacement
 * @property {AWSDirectoryServiceSimpleADVpcSettings} VpcSettings Required: Yes. Specifies the VPC settings of the directory server.Update requires: Replacement
 */
-class SimpleAD extends WKResource {
-  constructor (name, propertiesObject) {
+function SimpleAD (name, propertiesObject) {
     let resourceType = 'AWS::DirectoryService::SimpleAD'
     let properties = {
       CreateAlias: new ResourceAttribute('CreateAlias', Boolean, 'No', null),
@@ -78,9 +76,9 @@ class SimpleAD extends WKResource {
       Size: new ResourceAttribute('Size', String, 'Yes', null),
       VpcSettings: new ResourceAttribute('VpcSettings', types.AWSDirectoryServiceSimpleADVpcSettings, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SimpleAD.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  MicrosoftAD: MicrosoftAD,
   SimpleAD: SimpleAD

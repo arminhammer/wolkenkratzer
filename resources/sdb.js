@@ -11,14 +11,13 @@ const types = require('./../types')
 /** @memberof module:SDB
 *   @extends WKResource
 */
-class Domain extends WKResource {
-  constructor (name, propertiesObject) {
+function Domain (name, propertiesObject) {
     let resourceType = 'AWS::SDB::Domain'
     let properties = {
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Domain.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Domain: Domain
 }

@@ -20,17 +20,16 @@ You can still do updates that require no or some interruption. If you must repla
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) to associate with the Amazon Kinesis
                   stream.Update requires: No interruption
 */
-class Stream extends WKResource {
-  constructor (name, propertiesObject) {
+function Stream (name, propertiesObject) {
     let resourceType = 'AWS::Kinesis::Stream'
     let properties = {
       Name: new ResourceAttribute('Name', String, 'No', null),
       ShardCount: new ResourceAttribute('ShardCount', Number, 'Yes', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Stream.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Stream: Stream
 }

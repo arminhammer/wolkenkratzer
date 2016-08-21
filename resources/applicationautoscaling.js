@@ -17,8 +17,7 @@ const types = require('./../types')
 * @property {String} ScalableDimension Required: Yes. The scalable dimension associated with the scalable target. Specify the service namespace, resource type, and scaling property, such as ecs:service:DesiredCount for the desired task count of an Amazon EC2 Container Service service. For valid values, see the ScalableDimension content for the ScalingPolicy data type in the Application Auto Scaling API Reference.Update requires: Replacement
 * @property {String} ServiceNamespace Required: Yes. The AWS service namespace of the scalable target. For a list of service namespaces, see AWS Service Namespaces in the AWS General Reference.Update requires: Replacement
 */
-class ScalableTarget extends WKResource {
-  constructor (name, propertiesObject) {
+function ScalableTarget (name, propertiesObject) {
     let resourceType = 'AWS::ApplicationAutoScaling::ScalableTarget'
     let properties = {
       MaxCapacity: new ResourceAttribute('MaxCapacity', Number, 'Yes', null),
@@ -28,9 +27,9 @@ class ScalableTarget extends WKResource {
       ScalableDimension: new ResourceAttribute('ScalableDimension', String, 'Yes', null),
       ServiceNamespace: new ResourceAttribute('ServiceNamespace', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ScalableTarget.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ApplicationAutoScaling
 *   @extends WKResource
@@ -50,8 +49,7 @@ class ScalableTarget extends WKResource {
             the ID, see the Return Value section of the AWS::ApplicationAutoScaling::ScalableTarget resource.Update requires: Replacement
 * @property {ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration} StepScalingPolicyConfiguration Required: No. A step policy that configures when Application Auto Scaling scales resources up or down, and by how much.Update requires: No interruption
 */
-class ScalingPolicy extends WKResource {
-  constructor (name, propertiesObject) {
+function ScalingPolicy (name, propertiesObject) {
     let resourceType = 'AWS::ApplicationAutoScaling::ScalingPolicy'
     let properties = {
       PolicyName: new ResourceAttribute('PolicyName', String, 'Yes', null),
@@ -62,9 +60,9 @@ class ScalingPolicy extends WKResource {
       ScalingTargetId: new ResourceAttribute('ScalingTargetId', String, 'Conditional', null),
       StepScalingPolicyConfiguration: new ResourceAttribute('StepScalingPolicyConfiguration', types.ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ScalingPolicy.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  ScalableTarget: ScalableTarget,
   ScalingPolicy: ScalingPolicy

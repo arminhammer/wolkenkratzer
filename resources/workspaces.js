@@ -34,8 +34,7 @@ const types = require('./../types')
                   property that triggers a replacement, such as the UserName
                   property.
 */
-class Workspace extends WKResource {
-  constructor (name, propertiesObject) {
+function Workspace (name, propertiesObject) {
     let resourceType = 'AWS::WorkSpaces::Workspace'
     let properties = {
       BundleId: new ResourceAttribute('BundleId', String, 'Yes', null),
@@ -45,9 +44,9 @@ class Workspace extends WKResource {
       UserVolumeEncryptionEnabled: new ResourceAttribute('UserVolumeEncryptionEnabled', Boolean, 'No', null),
       VolumeEncryptionKey: new ResourceAttribute('VolumeEncryptionKey', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Workspace.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Workspace: Workspace
 }

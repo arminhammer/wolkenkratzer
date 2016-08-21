@@ -57,8 +57,7 @@ const types = require('./../types')
 * @property {resourcetags} Tags Required: No. The tags that you want to attach to this DB cluster.Update requires: Updates are not supported.
 * @property {String} VpcSecurityGroupIds Required: No. A list of VPC security groups to associate with this DB cluster.Update requires: No interruption
 */
-class DBCluster extends WKResource {
-  constructor (name, propertiesObject) {
+function DBCluster (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBCluster'
     let properties = {
       AvailabilityZones: new ResourceAttribute('AvailabilityZones', String, 'No', null),
@@ -79,9 +78,9 @@ class DBCluster extends WKResource {
       Tags: new tag.TagSet(),
       VpcSecurityGroupIds: new ResourceAttributeArray('VpcSecurityGroupIds', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DBCluster.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:RDS
 *   @extends WKResource
@@ -97,8 +96,7 @@ class DBCluster extends WKResource {
                      interruptions, depending on the parameters that you update.
 * @property {resourcetags} Tags Required: No. The tags that you want to attach to this parameter group.Update requires: Updates are not supported.
 */
-class DBClusterParameterGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function DBClusterParameterGroup (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBClusterParameterGroup'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'Yes', null),
@@ -106,9 +104,9 @@ class DBClusterParameterGroup extends WKResource {
       Parameters: new ResourceAttribute('Parameters', Object, 'Yes', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DBClusterParameterGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:RDS
 *   @extends WKResource
@@ -281,8 +279,7 @@ see DependsOn Attribute.NoteCurrently, if you specify DBSecurityGroups, this pro
                      groups when that is the only change in your stack
                      template.Update requires: No interruption.
 */
-class DBInstance extends WKResource {
-  constructor (name, propertiesObject) {
+function DBInstance (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBInstance'
     let properties = {
       AllocatedStorage: new ResourceAttribute('AllocatedStorage', String, 'Conditional', null),
@@ -318,9 +315,9 @@ class DBInstance extends WKResource {
       Tags: new tag.TagSet(),
       VPCSecurityGroups: new ResourceAttributeArray('VPCSecurityGroups', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DBInstance.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:RDS
 *   @extends WKResource
@@ -329,8 +326,7 @@ class DBInstance extends WKResource {
 * @property {Object} Parameters Required: No. The parameters to set for this RDS parameter group.Update requires: No interruption or Some interruptions. Changes to dynamic parameters are applied immediately. During an update, if you have static parameters (whether they were changed or not), triggers AWS CloudFormation to reboot the associated DB instance without failover.
 * @property {resourcetags} Tags Required: No. The tags that you want to attach to the RDS parameter group.Update requires: No interruption
 */
-class DBParameterGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function DBParameterGroup (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBParameterGroup'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'Yes', null),
@@ -338,9 +334,9 @@ class DBParameterGroup extends WKResource {
       Parameters: new ResourceAttribute('Parameters', Object, 'No', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DBParameterGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:RDS
 *   @extends WKResource
@@ -349,8 +345,7 @@ class DBParameterGroup extends WKResource {
 * @property {String} GroupDescription Required: Yes. Description of the security group.Update requires: Replacement
 * @property {resourcetags} Tags Required: No. The tags that you want to attach to the Amazon RDS DB security group.Update requires: No interruption
 */
-class DBSecurityGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function DBSecurityGroup (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSecurityGroup'
     let properties = {
       EC2VpcId: new ResourceAttribute('EC2VpcId', String, 'Conditional', null),
@@ -358,9 +353,9 @@ class DBSecurityGroup extends WKResource {
       GroupDescription: new ResourceAttribute('GroupDescription', String, 'Yes', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DBSecurityGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:RDS
 *   @extends WKResource
@@ -376,8 +371,7 @@ class DBSecurityGroup extends WKResource {
                   parameter. The AWS Access Key ID is not an acceptable value.For VPC DB security groups, use EC2SecurityGroupId. For EC2 security groups, use
                   EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId.Update requires: No interruption
 */
-class DBSecurityGroupIngress extends WKResource {
-  constructor (name, propertiesObject) {
+function DBSecurityGroupIngress (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSecurityGroupIngress'
     let properties = {
       CIDRIP: new ResourceAttribute('CIDRIP', String, 'undefined', null),
@@ -386,9 +380,9 @@ class DBSecurityGroupIngress extends WKResource {
       EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, 'No', null),
       EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DBSecurityGroupIngress.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:RDS
 *   @extends WKResource
@@ -396,17 +390,16 @@ class DBSecurityGroupIngress extends WKResource {
 * @property {String} SubnetIds Required: Yes. The EC2 Subnet IDs for the DB Subnet Group.Update requires: No interruption
 * @property {resourcetags} Tags Required: No. The tags that you want to attach to the RDS database subnet group.Update requires: No interruption
 */
-class DBSubnetGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function DBSubnetGroup (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSubnetGroup'
     let properties = {
       DBSubnetGroupDescription: new ResourceAttribute('DBSubnetGroupDescription', String, 'Yes', null),
       SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DBSubnetGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:RDS
 *   @extends WKResource
@@ -424,8 +417,7 @@ class DBSubnetGroup extends WKResource {
                   specified. All other updates require no
                      interruption.
 */
-class EventSubscription extends WKResource {
-  constructor (name, propertiesObject) {
+function EventSubscription (name, propertiesObject) {
     let resourceType = 'AWS::RDS::EventSubscription'
     let properties = {
       Enabled: new ResourceAttribute('Enabled', Boolean, 'No', null),
@@ -434,9 +426,9 @@ class EventSubscription extends WKResource {
       SourceIds: new ResourceAttributeArray('SourceIds', String, 'No', null),
       SourceType: new ResourceAttribute('SourceType', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+EventSubscription.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:RDS
 *   @extends WKResource
@@ -448,8 +440,7 @@ class EventSubscription extends WKResource {
 * @property {AmazonRDSOptionGroupOptionConfigurations} OptionConfigurations Required: Yes. The configurations for this option group.Update requires: Replacement
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this option group.Update requires: No interruption
 */
-class OptionGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function OptionGroup (name, propertiesObject) {
     let resourceType = 'AWS::RDS::OptionGroup'
     let properties = {
       EngineName: new ResourceAttribute('EngineName', String, 'Yes', null),
@@ -458,9 +449,9 @@ class OptionGroup extends WKResource {
       OptionConfigurations: new ResourceAttribute('OptionConfigurations', types.AmazonRDSOptionGroupOptionConfigurations, 'Yes', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+OptionGroup.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  DBCluster: DBCluster,
   DBClusterParameterGroup: DBClusterParameterGroup,

@@ -55,8 +55,7 @@ You can still do updates that require no or some interruption. If you must repla
                   Kilobits/Second | Megabits/Second | Gigabits/Second | Terabits/Second |
                   Count/Second | NoneUpdate requires: No interruption
 */
-class Alarm extends WKResource {
-  constructor (name, propertiesObject) {
+function Alarm (name, propertiesObject) {
     let resourceType = 'AWS::CloudWatch::Alarm'
     let properties = {
       ActionsEnabled: new ResourceAttribute('ActionsEnabled', Boolean, 'No', null),
@@ -75,9 +74,9 @@ class Alarm extends WKResource {
       Threshold: new ResourceAttribute('Threshold', String, 'Yes', null),
       Unit: new ResourceAttribute('Unit', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Alarm.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Alarm: Alarm
 }

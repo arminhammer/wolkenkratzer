@@ -18,16 +18,15 @@ You can still do updates that require no or some interruption. If you must repla
             perform on it. For more information, see Amazon ECR Repository Policies in the
               Amazon EC2 Container Registry User Guide.Update requires: No interruption
 */
-class Repository extends WKResource {
-  constructor (name, propertiesObject) {
+function Repository (name, propertiesObject) {
     let resourceType = 'AWS::ECR::Repository'
     let properties = {
       RepositoryName: new ResourceAttribute('RepositoryName', String, 'No', null),
       RepositoryPolicyText: new ResourceAttribute('RepositoryPolicyText', Object, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Repository.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Repository: Repository
 }

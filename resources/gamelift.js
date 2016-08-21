@@ -16,17 +16,16 @@ const types = require('./../types')
 * @property {AmazonGameLiftAliasRoutingStrategy} RoutingStrategy Required: Yes. A routing configuration that specifies where traffic is directed for this alias,
             such as to a fleet or to a message.Update requires: No interruption
 */
-class Alias extends WKResource {
-  constructor (name, propertiesObject) {
+function Alias (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Alias'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'No', null),
       Name: new ResourceAttribute('Name', String, 'Yes', null),
       RoutingStrategy: new ResourceAttribute('RoutingStrategy', types.AmazonGameLiftAliasRoutingStrategy, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Alias.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:GameLift
 *   @extends WKResource
@@ -36,17 +35,16 @@ class Alias extends WKResource {
 * @property {String} Version Required: No. A version to associate with this build. Version is useful if you want to track
             updates to your build package files. Versions don't need to be unique.Update requires: No interruption
 */
-class Build extends WKResource {
-  constructor (name, propertiesObject) {
+function Build (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Build'
     let properties = {
       Name: new ResourceAttribute('Name', String, 'No', null),
       StorageLocation: new ResourceAttribute('StorageLocation', types.AmazonGameLiftBuildStorageLocation, 'Conditional', null),
       Version: new ResourceAttribute('Version', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Build.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:GameLift
 *   @extends WKResource
@@ -76,8 +74,7 @@ class Build extends WKResource {
             if your game server files are in the MyGame folder, the path should be
               C:\\game\\MyGame\\server.exe.Update requires: Replacement
 */
-class Fleet extends WKResource {
-  constructor (name, propertiesObject) {
+function Fleet (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Fleet'
     let properties = {
       BuildId: new ResourceAttribute('BuildId', String, 'Yes', null),
@@ -92,9 +89,9 @@ class Fleet extends WKResource {
       ServerLaunchParameters: new ResourceAttribute('ServerLaunchParameters', String, 'No', null),
       ServerLaunchPath: new ResourceAttribute('ServerLaunchPath', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Fleet.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Alias: Alias,
   Build: Build,

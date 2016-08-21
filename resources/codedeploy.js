@@ -13,15 +13,14 @@ const types = require('./../types')
 * @property {String} ApplicationName Required: No. A name for the application. If you don't specify a name, AWS CloudFormation generates a unique
             physical ID and uses that ID for the application name. For more information, see Name Type.Update requires: Updates are not supported.
 */
-class Application extends WKResource {
-  constructor (name, propertiesObject) {
+function Application (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::Application'
     let properties = {
       ApplicationName: new ResourceAttribute('ApplicationName', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Application.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:CodeDeploy
 *   @extends WKResource
@@ -37,16 +36,15 @@ You can still do updates that require no or some interruption. If you must repla
                   instances; otherwise, the deployment fails.For more information about instance health, see AWS CodeDeploy Instance Health in the
                      AWS CodeDeploy User Guide.Update requires: Replacement
 */
-class DeploymentConfig extends WKResource {
-  constructor (name, propertiesObject) {
+function DeploymentConfig (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::DeploymentConfig'
     let properties = {
       DeploymentConfigName: new ResourceAttribute('DeploymentConfigName', String, 'No', null),
       MinimumHealthyHosts: new ResourceAttribute('MinimumHealthyHosts', types.AWSCodeDeployDeploymentConfigMinimumHealthyHosts, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DeploymentConfig.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:CodeDeploy
 *   @extends WKResource
@@ -76,8 +74,7 @@ You can still do updates that require no or some interruption. If you must repla
                      AWS CodeDeploy in the AWS CodeDeploy User Guide.NoteIn some cases, you might need to add a dependency on the service role's
                      policy. For more information, see IAM role policy in DependsOn Attribute.Update requires: No interruption
 */
-class DeploymentGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function DeploymentGroup (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::DeploymentGroup'
     let properties = {
       ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
@@ -89,9 +86,9 @@ class DeploymentGroup extends WKResource {
       OnPremisesInstanceTagFilters: new ResourceAttribute('OnPremisesInstanceTagFilters', types.AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters, 'No', null),
       ServiceRoleArn: new ResourceAttribute('ServiceRoleArn', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DeploymentGroup.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Application: Application,
   DeploymentConfig: DeploymentConfig,

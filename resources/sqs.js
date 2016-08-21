@@ -35,8 +35,7 @@ You can still do updates that require no or some interruption. If you must repla
                   30 seconds will be used.For more information about SQS Queue visibility timeouts, see Visibility Timeout in the Amazon Simple Queue Service Developer
                      Guide.Update requires: No interruption
 */
-class Queue extends WKResource {
-  constructor (name, propertiesObject) {
+function Queue (name, propertiesObject) {
     let resourceType = 'AWS::SQS::Queue'
     let properties = {
       DelaySeconds: new ResourceAttribute('DelaySeconds', Number, 'No', null),
@@ -47,25 +46,24 @@ class Queue extends WKResource {
       RedrivePolicy: new ResourceAttribute('RedrivePolicy', types.AmazonSQSRedrivePolicy, 'No', null),
       VisibilityTimeout: new ResourceAttribute('VisibilityTimeout', Number, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Queue.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:SQS
 *   @extends WKResource
 * @property {Object} PolicyDocument Required: Yes. A policy document containing permissions to add to the specified SQS queues.Update requires: No interruption
 * @property {String} Queues Required: Yes. The URLs of the queues to which you want to add the policy. You can use the Ref function to specify an AWS::SQS::Queue resource.Update requires: No interruption
 */
-class QueuePolicy extends WKResource {
-  constructor (name, propertiesObject) {
+function QueuePolicy (name, propertiesObject) {
     let resourceType = 'AWS::SQS::QueuePolicy'
     let properties = {
       PolicyDocument: new ResourceAttribute('PolicyDocument', Object, 'Yes', null),
       Queues: new ResourceAttributeArray('Queues', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+QueuePolicy.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Queue: Queue,
   QueuePolicy: QueuePolicy

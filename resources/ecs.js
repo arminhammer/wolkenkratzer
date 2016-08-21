@@ -11,14 +11,13 @@ const types = require('./../types')
 /** @memberof module:ECS
 *   @extends WKResource
 */
-class Cluster extends WKResource {
-  constructor (name, propertiesObject) {
+function Cluster (name, propertiesObject) {
     let resourceType = 'AWS::ECS::Cluster'
     let properties = {
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Cluster.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ECS
 *   @extends WKResource
@@ -35,8 +34,7 @@ class Cluster extends WKResource {
                      policy. For more information, see IAM role policy in DependsOn Attribute.Update requires: Replacement
 * @property {String} TaskDefinition Required: Yes. The ARN of the task definition that you want to run on the cluster.Update requires: Some interruptions
 */
-class Service extends WKResource {
-  constructor (name, propertiesObject) {
+function Service (name, propertiesObject) {
     let resourceType = 'AWS::ECS::Service'
     let properties = {
       Cluster: new ResourceAttribute('Cluster', String, 'No', null),
@@ -46,9 +44,9 @@ class Service extends WKResource {
       Role: new ResourceAttribute('Role', String, 'Conditional', null),
       TaskDefinition: new ResourceAttribute('TaskDefinition', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Service.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ECS
 *   @extends WKResource
@@ -57,16 +55,15 @@ class Service extends WKResource {
 * @property {AmazonEC2ContainerServiceTaskDefinitionVolumes} Volumes Required: Yes. A list of volume definitions in JSON format for volumes that you can use in
             your container definitions.Update requires: Replacement
 */
-class TaskDefinition extends WKResource {
-  constructor (name, propertiesObject) {
+function TaskDefinition (name, propertiesObject) {
     let resourceType = 'AWS::ECS::TaskDefinition'
     let properties = {
       ContainerDefinitions: new ResourceAttributeArray('ContainerDefinitions', types.AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions, 'Yes', null),
       Volumes: new ResourceAttributeArray('Volumes', types.AmazonEC2ContainerServiceTaskDefinitionVolumes, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+TaskDefinition.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Cluster: Cluster,
   Service: Service,

@@ -18,8 +18,7 @@ const types = require('./../types')
 * @property {String} TargetArn Required: Yes. The ARN of the AWS resource that receives log events. Currently, you can
                   specify only an Amazon Kinesis stream.Update requires: No interruption
 */
-class Destination extends WKResource {
-  constructor (name, propertiesObject) {
+function Destination (name, propertiesObject) {
     let resourceType = 'AWS::Logs::Destination'
     let properties = {
       DestinationName: new ResourceAttribute('DestinationName', String, 'Yes', null),
@@ -27,9 +26,9 @@ class Destination extends WKResource {
       RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
       TargetArn: new ResourceAttribute('TargetArn', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Destination.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Logs
 *   @extends WKResource
@@ -37,15 +36,14 @@ class Destination extends WKResource {
                   CloudWatch Logs automatically deletes it. For valid values, see PutRetentionPolicy in
                   the Amazon CloudWatch Logs API Reference.Update requires: No interruption
 */
-class LogGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function LogGroup (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogGroup'
     let properties = {
       RetentionInDays: new ResourceAttribute('RetentionInDays', Number, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+LogGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Logs
 *   @extends WKResource
@@ -53,16 +51,15 @@ class LogGroup extends WKResource {
 * @property {String} LogStreamName Required: No. The name of the log stream to create. The name must be unique within the log
                   group.Update requires: Replacement
 */
-class LogStream extends WKResource {
-  constructor (name, propertiesObject) {
+function LogStream (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogStream'
     let properties = {
       LogGroupName: new ResourceAttribute('LogGroupName', String, 'Yes', null),
       LogStreamName: new ResourceAttribute('LogStreamName', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+LogStream.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Logs
 *   @extends WKResource
@@ -78,17 +75,16 @@ class LogStream extends WKResource {
                         filter. If you want to specify multiple metric transformations, you must
                         specify multiple metric filters.Update requires: No interruption
 */
-class MetricFilter extends WKResource {
-  constructor (name, propertiesObject) {
+function MetricFilter (name, propertiesObject) {
     let resourceType = 'AWS::Logs::MetricFilter'
     let properties = {
       FilterPattern: new ResourceAttributeArray('FilterPattern', String, 'Yes', null),
       LogGroupName: new ResourceAttribute('LogGroupName', String, 'Yes', null),
       MetricTransformations: new ResourceAttributeArray('MetricTransformations', types.CloudWatchLogsMetricFilterMetricTransformationProperty, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+MetricFilter.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Logs
 *   @extends WKResource
@@ -104,8 +100,7 @@ class MetricFilter extends WKResource {
                   stream. For Lambda and CloudWatch Logs destinations, don't specify this property because
                   CloudWatch Logs gets the necessary permissions from the destination resource.Update requires: Replacement
 */
-class SubscriptionFilter extends WKResource {
-  constructor (name, propertiesObject) {
+function SubscriptionFilter (name, propertiesObject) {
     let resourceType = 'AWS::Logs::SubscriptionFilter'
     let properties = {
       DestinationArn: new ResourceAttribute('DestinationArn', String, 'Yes', null),
@@ -113,9 +108,9 @@ class SubscriptionFilter extends WKResource {
       LogGroupName: new ResourceAttribute('LogGroupName', String, 'Yes', null),
       RoleArn: new ResourceAttribute('RoleArn', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SubscriptionFilter.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Destination: Destination,
   LogGroup: LogGroup,

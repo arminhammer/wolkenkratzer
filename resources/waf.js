@@ -15,16 +15,15 @@ const types = require('./../types')
             requests.Update requires: No interruption
 * @property {String} Name Required: Yes. A friendly name or description of the ByteMatchSet.Update requires: Replacement
 */
-class ByteMatchSet extends WKResource {
-  constructor (name, propertiesObject) {
+function ByteMatchSet (name, propertiesObject) {
     let resourceType = 'AWS::WAF::ByteMatchSet'
     let properties = {
       ByteMatchTuples: new ResourceAttributeArray('ByteMatchTuples', types.AWSWAFByteMatchSetByteMatchTuples, 'No', null),
       Name: new ResourceAttribute('Name', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ByteMatchSet.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:WAF
 *   @extends WKResource
@@ -36,16 +35,15 @@ class ByteMatchSet extends WKResource {
                     requestUpdate requires: No interruption
 * @property {String} Name Required: Yes. A friendly name or description of the IPSet.Update requires: Replacement
 */
-class IPSet extends WKResource {
-  constructor (name, propertiesObject) {
+function IPSet (name, propertiesObject) {
     let resourceType = 'AWS::WAF::IPSet'
     let properties = {
       IPSetDescriptors: new ResourceAttributeArray('IPSetDescriptors', types.AWSWAFIPSetIPSetDescriptors, 'No', null),
       Name: new ResourceAttribute('Name', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+IPSet.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:WAF
 *   @extends WKResource
@@ -53,33 +51,31 @@ class IPSet extends WKResource {
 * @property {String} Name Required: Yes. A friendly name or description of the rule.Update requires: Replacement
 * @property {AWSWAFRulePredicates} Predicates Required: No. The ByteMatchSet, IPSet, SizeConstraintSet, SqlInjectionMatchSet, or XssMatchSet objects to include in a rule. If you add more than one predicate to a rule, a request must match all conditions in order to be allowed or blocked.Update requires: No interruption
 */
-class Rule extends WKResource {
-  constructor (name, propertiesObject) {
+function Rule (name, propertiesObject) {
     let resourceType = 'AWS::WAF::Rule'
     let properties = {
       MetricName: new ResourceAttribute('MetricName', String, 'Yes', null),
       Name: new ResourceAttribute('Name', String, 'Yes', null),
       Predicates: new ResourceAttributeArray('Predicates', types.AWSWAFRulePredicates, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Rule.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:WAF
 *   @extends WKResource
 * @property {String} Name Required: Yes. A friendly name or description for the SizeConstraintSet.Update requires: Replacement
 * @property {AWSWAFSizeConstraintSetSizeConstraint} SizeConstraints Required: Yes. The size constraint and the part of the web request to check.Update requires: No interruption
 */
-class SizeConstraintSet extends WKResource {
-  constructor (name, propertiesObject) {
+function SizeConstraintSet (name, propertiesObject) {
     let resourceType = 'AWS::WAF::SizeConstraintSet'
     let properties = {
       Name: new ResourceAttribute('Name', String, 'Yes', null),
       SizeConstraints: new ResourceAttributeArray('SizeConstraints', types.AWSWAFSizeConstraintSetSizeConstraint, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SizeConstraintSet.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:WAF
 *   @extends WKResource
@@ -87,16 +83,15 @@ class SizeConstraintSet extends WKResource {
 * @property {AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples} SqlInjectionMatchTuples Required: No. The parts of web requests that you want AWS WAF to inspect for malicious SQL code
             and, if you want AWS WAF to inspect a header, the name of the header.Update requires: No interruption
 */
-class SqlInjectionMatchSet extends WKResource {
-  constructor (name, propertiesObject) {
+function SqlInjectionMatchSet (name, propertiesObject) {
     let resourceType = 'AWS::WAF::SqlInjectionMatchSet'
     let properties = {
       Name: new ResourceAttribute('Name', String, 'Yes', null),
       SqlInjectionMatchTuples: new ResourceAttributeArray('SqlInjectionMatchTuples', types.AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SqlInjectionMatchSet.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:WAF
 *   @extends WKResource
@@ -106,8 +101,7 @@ class SqlInjectionMatchSet extends WKResource {
 * @property {String} Name Required: Yes. A friendly name or description of the web ACL.Update requires: Replacement
 * @property {AWSWAFWebACLRules} Rules Required: No. The rules to associate with the web ACL and the settings for each rule.Update requires: No interruption
 */
-class WebACL extends WKResource {
-  constructor (name, propertiesObject) {
+function WebACL (name, propertiesObject) {
     let resourceType = 'AWS::WAF::WebACL'
     let properties = {
       DefaultAction: new ResourceAttribute('DefaultAction', types.AWSWAFWebACLAction, 'Yes', null),
@@ -115,25 +109,24 @@ class WebACL extends WKResource {
       Name: new ResourceAttribute('Name', String, 'Yes', null),
       Rules: new ResourceAttributeArray('Rules', types.AWSWAFWebACLRules, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+WebACL.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:WAF
 *   @extends WKResource
 * @property {String} Name Required: Yes. A friendly name or description for the XssMatchSet.Update requires: Replacement
 * @property {AWSWAFXssMatchSetXssMatchTuple} XssMatchTuples Required: No. The parts of web requests that you want to inspect for cross-site scripting attacks.Update requires: No interruption
 */
-class XssMatchSet extends WKResource {
-  constructor (name, propertiesObject) {
+function XssMatchSet (name, propertiesObject) {
     let resourceType = 'AWS::WAF::XssMatchSet'
     let properties = {
       Name: new ResourceAttribute('Name', String, 'Yes', null),
       XssMatchTuples: new ResourceAttributeArray('XssMatchTuples', types.AWSWAFXssMatchSetXssMatchTuple, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+XssMatchSet.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  ByteMatchSet: ByteMatchSet,
   IPSet: IPSet,

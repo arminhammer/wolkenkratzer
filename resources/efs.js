@@ -13,16 +13,15 @@ const types = require('./../types')
 * @property {AmazonElasticFileSystemFileSystemFileSystemTags} FileSystemTags Required: No. Tags to associate with the file system.Update requires: No interruption
 * @property {String} PerformanceMode Required: No. The performance mode of the file system. For valid values, see the PerformanceMode parameter for the CreateFileSystem action in the Amazon Elastic File System User Guide.For more information about performance modes, see Amazon EFS Performance in the Amazon Elastic File System User Guide.Update requires: Replacement
 */
-class FileSystem extends WKResource {
-  constructor (name, propertiesObject) {
+function FileSystem (name, propertiesObject) {
     let resourceType = 'AWS::EFS::FileSystem'
     let properties = {
       FileSystemTags: new ResourceAttribute('FileSystemTags', types.AmazonElasticFileSystemFileSystemFileSystemTags, 'No', null),
       PerformanceMode: new ResourceAttribute('PerformanceMode', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+FileSystem.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EFS
 *   @extends WKResource
@@ -56,8 +55,7 @@ class FileSystem extends WKResource {
                   using those mounts might be disrupted when the mount target is deleted
                   (uncommitted writes might be lost).
 */
-class MountTarget extends WKResource {
-  constructor (name, propertiesObject) {
+function MountTarget (name, propertiesObject) {
     let resourceType = 'AWS::EFS::MountTarget'
     let properties = {
       FileSystemId: new ResourceAttribute('FileSystemId', String, 'Yes', null),
@@ -65,9 +63,9 @@ class MountTarget extends WKResource {
       SecurityGroups: new ResourceAttributeArray('SecurityGroups', String, 'Yes', null),
       SubnetId: new ResourceAttribute('SubnetId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+MountTarget.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  FileSystem: FileSystem,
   MountTarget: MountTarget

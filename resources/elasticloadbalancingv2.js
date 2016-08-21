@@ -17,8 +17,7 @@ const types = require('./../types')
 * @property {String} Protocol Required: Yes. The protocol that clients must use to send requests to the listener.For valid values, see the Protocol parameter for the CreateListener action in the Elastic Load Balancing API Reference version 2015-12-01.Update requires: No interruption
 * @property {String} SslPolicy Required: No. The security policy that defines the ciphers and protocols that the load balancer supports.Update requires: No interruption
 */
-class Listener extends WKResource {
-  constructor (name, propertiesObject) {
+function Listener (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancingV2::Listener'
     let properties = {
       Certificates: new ResourceAttributeArray('Certificates', types.ElasticLoadBalancingListenerCertificates, 'Conditional', null),
@@ -28,9 +27,9 @@ class Listener extends WKResource {
       Protocol: new ResourceAttribute('Protocol', String, 'Yes', null),
       SslPolicy: new ResourceAttribute('SslPolicy', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Listener.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElasticLoadBalancingV2
 *   @extends WKResource
@@ -39,8 +38,7 @@ class Listener extends WKResource {
 * @property {String} ListenerArn Required: Yes. The Amazon Resource Name (ARN) of the listener that the rule applies to.Update requires: Replacement
 * @property {Number} Priority Required: Yes. The priority for the rule. Elastic Load Balancing evaluates rules in priority order, from the lowest value to the highest value. If a request satisfies a rule, Elastic Load Balancing ignores all subsequent rules.NoteA target group can have only one rule with a given priority.For valid values, see the Priority parameter for the CreateRule action in the Elastic Load Balancing API Reference version 2015-12-01.Update requires: No interruption
 */
-class ListenerRule extends WKResource {
-  constructor (name, propertiesObject) {
+function ListenerRule (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancingV2::ListenerRule'
     let properties = {
       Actions: new ResourceAttributeArray('Actions', types.ElasticLoadBalancingListenerRuleActions, 'Yes', null),
@@ -48,9 +46,9 @@ class ListenerRule extends WKResource {
       ListenerArn: new ResourceAttribute('ListenerArn', String, 'Yes', null),
       Priority: new ResourceAttribute('Priority', Number, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ListenerRule.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElasticLoadBalancingV2
 *   @extends WKResource
@@ -61,8 +59,7 @@ class ListenerRule extends WKResource {
 * @property {String} Subnets Required: Yes. A list of at least two IDs of the subnets to associate with the load balancer. Subnets must be in different Availability Zones.Update requires: No interruption
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) to associate with this load balancer. Use tags to help manage resources.Update requires: No interruption
 */
-class LoadBalancer extends WKResource {
-  constructor (name, propertiesObject) {
+function LoadBalancer (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancingV2::LoadBalancer'
     let properties = {
       LoadBalancerAttributes: new ResourceAttributeArray('LoadBalancerAttributes', types.ElasticLoadBalancingLoadBalancerLoadBalancerAttributes, 'No', null),
@@ -72,9 +69,9 @@ class LoadBalancer extends WKResource {
       Subnets: new ResourceAttributeArray('Subnets', String, 'Yes', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+LoadBalancer.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElasticLoadBalancingV2
 *   @extends WKResource
@@ -94,8 +91,7 @@ class LoadBalancer extends WKResource {
 * @property {Number} UnhealthyThresholdCount Required: No. The number of consecutive failed health checks that are required before a target is considered unhealthy.Update requires: No interruption
 * @property {String} VpcId Required: Yes. The ID of the VPC in which your targets are located.Update requires: Replacement
 */
-class TargetGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function TargetGroup (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancingV2::TargetGroup'
     let properties = {
       HealthCheckIntervalSeconds: new ResourceAttribute('HealthCheckIntervalSeconds', Number, 'No', null),
@@ -114,9 +110,9 @@ class TargetGroup extends WKResource {
       UnhealthyThresholdCount: new ResourceAttribute('UnhealthyThresholdCount', Number, 'No', null),
       VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+TargetGroup.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Listener: Listener,
   ListenerRule: ListenerRule,

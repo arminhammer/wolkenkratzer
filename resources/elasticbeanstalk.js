@@ -16,16 +16,15 @@ const types = require('./../types')
 You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement
 * @property {String} Description Required: No. An optional description of this application.Update requires: No interruption
 */
-class Application extends WKResource {
-  constructor (name, propertiesObject) {
+function Application (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::Application'
     let properties = {
       ApplicationName: new ResourceAttribute('ApplicationName', String, 'No', null),
       Description: new ResourceAttribute('Description', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Application.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElasticBeanstalk
 *   @extends WKResource
@@ -34,17 +33,16 @@ class Application extends WKResource {
 * @property {String} Description Required: No. A description of this application version.Update requires: Some interruptions
 * @property {ElasticBeanstalkSourceBundlePropertyType} SourceBundle Required: Yes. The location of the source bundle for this version.Update requires: Replacement
 */
-class ApplicationVersion extends WKResource {
-  constructor (name, propertiesObject) {
+function ApplicationVersion (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::ApplicationVersion'
     let properties = {
       ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
       Description: new ResourceAttribute('Description', String, 'No', null),
       SourceBundle: new ResourceAttribute('SourceBundle', types.ElasticBeanstalkSourceBundlePropertyType, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ApplicationVersion.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElasticBeanstalk
 *   @extends WKResource
@@ -74,8 +72,7 @@ class ApplicationVersion extends WKResource {
                      SolutionStackName property.You must specify this property if you don't specify the
                      EnvironmentId or SolutionStackName properties.Update requires: Replacement
 */
-class ConfigurationTemplate extends WKResource {
-  constructor (name, propertiesObject) {
+function ConfigurationTemplate (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::ConfigurationTemplate'
     let properties = {
       ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
@@ -85,9 +82,9 @@ class ConfigurationTemplate extends WKResource {
       SolutionStackName: new ResourceAttribute('SolutionStackName', String, 'Conditional', null),
       SourceConfiguration: new ResourceAttribute('SourceConfiguration', types.ElasticBeanstalkSourceConfigurationPropertyType, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ConfigurationTemplate.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElasticBeanstalk
 *   @extends WKResource
@@ -118,8 +115,7 @@ You can still do updates that require no or some interruption. If you must repla
       Type
 * @property {String} VersionLabel Required: No. The version to associate with the environment.Update requires: Some interruptions
 */
-class Environment extends WKResource {
-  constructor (name, propertiesObject) {
+function Environment (name, propertiesObject) {
     let resourceType = 'AWS::ElasticBeanstalk::Environment'
     let properties = {
       ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
@@ -133,9 +129,9 @@ class Environment extends WKResource {
       Tier: new ResourceAttribute('Tier', types.ElasticBeanstalkEnvironmentTierPropertyType, 'No', null),
       VersionLabel: new ResourceAttribute('VersionLabel', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Environment.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Application: Application,
   ApplicationVersion: ApplicationVersion,

@@ -24,8 +24,7 @@ const types = require('./../types')
 * @property {String} username Required: Conditional. Specifies the user name for basic authentication.
 * @property {String} roleName Required: Conditional. Describes the role for role-based authentication.
 */
-class Authentication extends WKResource {
-  constructor (name, propertiesObject) {
+function Authentication (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Authentication'
     let properties = {
       accessKeyId: new ResourceAttribute('accessKeyId', String, 'Conditional', null),
@@ -37,9 +36,9 @@ class Authentication extends WKResource {
       username: new ResourceAttribute('username', String, 'Conditional', null),
       roleName: new ResourceAttribute('roleName', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Authentication.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:CloudFormation
 *   @extends WKResource
@@ -48,27 +47,25 @@ class Authentication extends WKResource {
                   service token must be from the same region in which you are creating the
                   stack.Update requires: Updates are not supported.
 */
-class CustomResource extends WKResource {
-  constructor (name, propertiesObject) {
+function CustomResource (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::CustomResource'
     let properties = {
       ServiceToken: new ResourceAttribute('ServiceToken', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+CustomResource.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:CloudFormation
 *   @extends WKResource
 */
-class Init extends WKResource {
-  constructor (name, propertiesObject) {
+function Init (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Init'
     let properties = {
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Init.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:CloudFormation
 *   @extends WKResource
@@ -77,16 +74,15 @@ class Init extends WKResource {
 * @property {AWSCloudFormationInterfaceParameterLabel} ParameterLabels Required: No. A list of parameters and their friendly names that the AWS CloudFormation console shows when
             a stack is created or updated.Update requires: No interruption
 */
-class Interface extends WKResource {
-  constructor (name, propertiesObject) {
+function Interface (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Interface'
     let properties = {
       ParameterGroups: new ResourceAttribute('ParameterGroups', types.AWSCloudFormationInterfaceParameterGroup, 'No', null),
       ParameterLabels: new ResourceAttribute('ParameterLabels', types.AWSCloudFormationInterfaceParameterLabel, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Interface.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:CloudFormation
 *   @extends WKResource
@@ -114,8 +110,7 @@ class Interface extends WKResource {
                   CREATE_COMPLETE, AWS CloudFormation marks the nested stack as failed and rolls back both the
                   nested stack and parent stack.Update requires: Updates are not supported.
 */
-class Stack extends WKResource {
-  constructor (name, propertiesObject) {
+function Stack (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Stack'
     let properties = {
       NotificationARNs: new ResourceAttributeArray('NotificationARNs', String, 'No', null),
@@ -124,9 +119,9 @@ class Stack extends WKResource {
       TemplateURL: new ResourceAttribute('TemplateURL', String, 'Yes', null),
       TimeoutInMinutes: new ResourceAttribute('TimeoutInMinutes', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Stack.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:CloudFormation
 *   @extends WKResource
@@ -149,29 +144,27 @@ class Stack extends WKResource {
                         you specify, but can occur shortly thereafter. The maximum time that can be
                         specified for this property is 12 hours (43200 seconds).Update requires: Updates are not supported.
 */
-class WaitCondition extends WKResource {
-  constructor (name, propertiesObject) {
+function WaitCondition (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitCondition'
     let properties = {
       Count: new ResourceAttribute('Count', String, 'No', null),
       Handle: new ResourceAttribute('Handle', String, 'Yes', null),
       Timeout: new ResourceAttribute('Timeout', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+WaitCondition.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:CloudFormation
 *   @extends WKResource
 */
-class WaitConditionHandle extends WKResource {
-  constructor (name, propertiesObject) {
+function WaitConditionHandle (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitConditionHandle'
     let properties = {
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+WaitConditionHandle.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Authentication: Authentication,
   CustomResource: CustomResource,

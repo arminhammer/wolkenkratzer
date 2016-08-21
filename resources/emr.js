@@ -39,8 +39,7 @@ const types = require('./../types')
             IAM user that created the cluster can view and manage it. By default, AWS CloudFormation sets this
             property to false.Update requires: No interruption
 */
-class Cluster extends WKResource {
-  constructor (name, propertiesObject) {
+function Cluster (name, propertiesObject) {
     let resourceType = 'AWS::EMR::Cluster'
     let properties = {
       AdditionalInfo: new ResourceAttribute('AdditionalInfo', Object, 'No', null),
@@ -56,9 +55,9 @@ class Cluster extends WKResource {
       Tags: new tag.TagSet(),
       VisibleToAllUsers: new ResourceAttribute('VisibleToAllUsers', Boolean, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Cluster.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EMR
 *   @extends WKResource
@@ -82,8 +81,7 @@ class Cluster extends WKResource {
             either ON_DEMAND or SPOT. For more information, see Amazon EC2 Purchasing Options.Update requires: Replacement
 * @property {String} Name Required: No. A name for the instance group.Update requires: Replacement
 */
-class InstanceGroupConfig extends WKResource {
-  constructor (name, propertiesObject) {
+function InstanceGroupConfig (name, propertiesObject) {
     let resourceType = 'AWS::EMR::InstanceGroupConfig'
     let properties = {
       BidPrice: new ResourceAttribute('BidPrice', String, 'No', null),
@@ -96,9 +94,9 @@ class InstanceGroupConfig extends WKResource {
       Market: new ResourceAttribute('Market', String, 'No', null),
       Name: new ResourceAttribute('Name', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+InstanceGroupConfig.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EMR
 *   @extends WKResource
@@ -107,8 +105,7 @@ class InstanceGroupConfig extends WKResource {
 * @property {String} JobFlowId Required: Yes. The ID of a cluster in which you want to run this job flow step.Update requires: Replacement
 * @property {String} Name Required: Yes. A name for the job flow step.Update requires: Replacement
 */
-class Step extends WKResource {
-  constructor (name, propertiesObject) {
+function Step (name, propertiesObject) {
     let resourceType = 'AWS::EMR::Step'
     let properties = {
       ActionOnFailure: new ResourceAttribute('ActionOnFailure', String, 'Yes', null),
@@ -116,9 +113,9 @@ class Step extends WKResource {
       JobFlowId: new ResourceAttribute('JobFlowId', String, 'Yes', null),
       Name: new ResourceAttribute('Name', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Step.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Cluster: Cluster,
   InstanceGroupConfig: InstanceGroupConfig,

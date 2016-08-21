@@ -35,8 +35,8 @@ fs
       docHeader += '*   @extends WKResource\n'
 
       let resourceBody = ''
-      resourceBody += 'class ' + resourceName + ' extends WKResource {\n'
-      resourceBody += '  constructor (name, propertiesObject) {\n'
+      resourceBody += 'function ' + resourceName + ' (name, propertiesObject) {\n'
+      // resourceBody += '  constructor  {\n'
       resourceBody += '    let resourceType = \'' + subProp.name + '\'\n'
       resourceBody += '    let properties = {\n'
       let props = Object.keys(subProp.properties)
@@ -226,10 +226,10 @@ fs
         }
       }
       resourceBody += '    }\n'
-      resourceBody += '    super(name, resourceType, properties, propertiesObject)\n'
-      resourceBody += '  }\n'
-      resourceBody += '}\n\n'
-
+      resourceBody += '    WKResource.call(this, name, resourceType, properties, propertiesObject)\n'
+      // resourceBody += '  }\n'
+      resourceBody += '}\n'
+      resourceBody += resourceName + '.prototype = Object.create(WKResource.prototype)\n\n'
       docHeader += '*/\n'
 
       if (groups[groupName]) {

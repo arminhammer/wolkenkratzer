@@ -62,8 +62,7 @@ see DependsOn Attribute.Update requires: No interruptionImportantWhen you update
                      Auto Scaling User Guide.Update requires: Some interruptionsNoteWhen you update VPCZoneIdentifier, the instances are replaced, but not the
                      Auto Scaling group.
 */
-class AutoScalingGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function AutoScalingGroup (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::AutoScalingGroup'
     let properties = {
       AvailabilityZones: new ResourceAttributeArray('AvailabilityZones', String, 'Conditional', null),
@@ -84,9 +83,9 @@ class AutoScalingGroup extends WKResource {
       TerminationPolicies: new ResourceAttributeArray('TerminationPolicies', String, 'No', null),
       VPCZoneIdentifier: new ResourceAttributeArray('VPCZoneIdentifier', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+AutoScalingGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:AutoScaling
 *   @extends WKResource
@@ -155,8 +154,7 @@ see DependsOn Attribute.Update requires: Replacement
                      running instances is higher than the current Spot price.
 * @property {String} UserData Required: No. The user data available to the launched EC2 instances.Update requires: Replacement
 */
-class LaunchConfiguration extends WKResource {
-  constructor (name, propertiesObject) {
+function LaunchConfiguration (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::LaunchConfiguration'
     let properties = {
       AssociatePublicIpAddress: new ResourceAttribute('AssociatePublicIpAddress', Boolean, 'No', null),
@@ -177,9 +175,9 @@ class LaunchConfiguration extends WKResource {
       SpotPrice: new ResourceAttribute('SpotPrice', String, 'No', null),
       UserData: new ResourceAttribute('UserData', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+LaunchConfiguration.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:AutoScaling
 *   @extends WKResource
@@ -203,8 +201,7 @@ class LaunchConfiguration extends WKResource {
                   specified notification target. The role requires permissions to Amazon SNS and
                   Amazon SQS.Update requires: No interruption
 */
-class LifecycleHook extends WKResource {
-  constructor (name, propertiesObject) {
+function LifecycleHook (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::LifecycleHook'
     let properties = {
       AutoScalingGroupName: new ResourceAttribute('AutoScalingGroupName', String, 'Yes', null),
@@ -215,9 +212,9 @@ class LifecycleHook extends WKResource {
       NotificationTargetARN: new ResourceAttribute('NotificationTargetARN', String, 'Yes', null),
       RoleARN: new ResourceAttribute('RoleARN', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+LifecycleHook.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:AutoScaling
 *   @extends WKResource
@@ -256,8 +253,7 @@ class LifecycleHook extends WKResource {
 * @property {AutoScalingScalingPolicyStepAdjustments} StepAdjustments Required: Conditional. A set of adjustments that enable you to scale based on the size of the alarm
                   breach.Update requires: No interruption
 */
-class ScalingPolicy extends WKResource {
-  constructor (name, propertiesObject) {
+function ScalingPolicy (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::ScalingPolicy'
     let properties = {
       AdjustmentType: new ResourceAttribute('AdjustmentType', String, 'Yes', null),
@@ -270,9 +266,9 @@ class ScalingPolicy extends WKResource {
       ScalingAdjustment: new ResourceAttribute('ScalingAdjustment', Number, 'Conditional', null),
       StepAdjustments: new ResourceAttributeArray('StepAdjustments', types.AutoScalingScalingPolicyStepAdjustments, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ScalingPolicy.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:AutoScaling
 *   @extends WKResource
@@ -290,8 +286,7 @@ class ScalingPolicy extends WKResource {
 * @property {Date} StartTime Required: No. The time in UTC for this schedule to start. For example,
                      2010-06-01T00:00:00Z.Update requires: No interruption
 */
-class ScheduledAction extends WKResource {
-  constructor (name, propertiesObject) {
+function ScheduledAction (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::ScheduledAction'
     let properties = {
       AutoScalingGroupName: new ResourceAttribute('AutoScalingGroupName', String, 'Yes', null),
@@ -302,9 +297,9 @@ class ScheduledAction extends WKResource {
       Recurrence: new ResourceAttribute('Recurrence', String, 'No', null),
       StartTime: new ResourceAttribute('StartTime', Date, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ScheduledAction.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  AutoScalingGroup: AutoScalingGroup,
   LaunchConfiguration: LaunchConfiguration,

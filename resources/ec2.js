@@ -16,8 +16,7 @@ const types = require('./../types')
 * @property {AWSCloudFormationResourceTags} Tags Required: No. The tags that you want to attach to the resource.Update requires: No interruption.
 * @property {String} Type Required: Yes. The type of VPN connection that this customer gateway supports.Update requires: ReplacementExample: ipsec.1
 */
-class CustomerGateway extends WKResource {
-  constructor (name, propertiesObject) {
+function CustomerGateway (name, propertiesObject) {
     let resourceType = 'AWS::EC2::CustomerGateway'
     let properties = {
       BgpAsn: new ResourceAttribute('BgpAsn', Number, 'Yes', null),
@@ -25,9 +24,9 @@ class CustomerGateway extends WKResource {
       Tags: new tag.TagSet(),
       Type: new ResourceAttribute('Type', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+CustomerGateway.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -43,8 +42,7 @@ class CustomerGateway extends WKResource {
                   addresses.Update requires: ReplacementExample: "NtpServers" : [ "10.0.0.1" ]Example: To preserve the order of IP addresses, specify a comma delimited list as a single string: "NtpServers" : [ "10.0.0.1, 10.0.0.2" ]
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this resource.Update requires: No interruption.
 */
-class DHCPOptions extends WKResource {
-  constructor (name, propertiesObject) {
+function DHCPOptions (name, propertiesObject) {
     let resourceType = 'AWS::EC2::DHCPOptions'
     let properties = {
       DomainName: new ResourceAttribute('DomainName', String, 'Conditional', null),
@@ -54,9 +52,9 @@ class DHCPOptions extends WKResource {
       NtpServers: new ResourceAttributeArray('NtpServers', String, 'Conditional', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DHCPOptions.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -70,16 +68,15 @@ class DHCPOptions extends WKResource {
                   information about Elastic IP Addresses in VPC, go to IP Addressing in Your VPC in the Amazon VPC User
                      Guide.Update requires: Replacement
 */
-class EIP extends WKResource {
-  constructor (name, propertiesObject) {
+function EIP (name, propertiesObject) {
     let resourceType = 'AWS::EC2::EIP'
     let properties = {
       InstanceId: new ResourceAttribute('InstanceId', String, 'No', null),
       Domain: new ResourceAttribute('Domain', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+EIP.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -102,8 +99,7 @@ class EIP extends WKResource {
                   IP address that is associated with the EIP is the primary private IP address of
                   the network interface.Update requires: No interruption
 */
-class EIPAssociation extends WKResource {
-  constructor (name, propertiesObject) {
+function EIPAssociation (name, propertiesObject) {
     let resourceType = 'AWS::EC2::EIPAssociation'
     let properties = {
       AllocationId: new ResourceAttribute('AllocationId', String, 'Conditional', null),
@@ -112,9 +108,9 @@ class EIPAssociation extends WKResource {
       NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, 'No', null),
       PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+EIPAssociation.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -124,8 +120,7 @@ class EIPAssociation extends WKResource {
 * @property {String} ResourceType Required: Yes. The type of resource that you specified in the ResourceId property. For example, if you specified a VPC ID for the ResourceId property, specify VPC for this property. For valid values, see the ResourceType parameter for the CreateFlowLogs action in the Amazon EC2 API Reference.Update requires: Replacement
 * @property {String} TrafficType Required: Yes. The type of traffic to log. You can log traffic that the resource accepts or rejects, or all traffic. For valid values, see the TrafficType parameter for the CreateFlowLogs action in the Amazon EC2 API Reference.Update requires: Replacement
 */
-class FlowLog extends WKResource {
-  constructor (name, propertiesObject) {
+function FlowLog (name, propertiesObject) {
     let resourceType = 'AWS::EC2::FlowLog'
     let properties = {
       DeliverLogsPermissionArn: new ResourceAttribute('DeliverLogsPermissionArn', String, 'Yes', null),
@@ -134,9 +129,9 @@ class FlowLog extends WKResource {
       ResourceType: new ResourceAttribute('ResourceType', String, 'Yes', null),
       TrafficType: new ResourceAttribute('TrafficType', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+FlowLog.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -149,17 +144,16 @@ class FlowLog extends WKResource {
 * @property {String} AvailabilityZone Required: Yes. The Availability Zone (AZ) in which to launch the dedicated host.Update requires: Replacement
 * @property {String} InstanceType Required: Yes. The instance type that the dedicated host accepts. Only instances of this type can be launched onto the host. For more information, see Supported Instance Types in the Amazon EC2 User Guide for Linux Instances.Update requires: Replacement
 */
-class Host extends WKResource {
-  constructor (name, propertiesObject) {
+function Host (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Host'
     let properties = {
       AutoPlacement: new ResourceAttribute('AutoPlacement', String, 'No', null),
       AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'Yes', null),
       InstanceType: new ResourceAttribute('InstanceType', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Host.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -250,8 +244,7 @@ see DependsOn Attribute.Update requires: Replacement
 * @property {String} AdditionalInfo Required: No. Reserved.Update requires:
     Update requires: Some interruptions for Amazon EBS-backed instancesUpdate requires: Replacement for instance store-backed instances
 */
-class Instance extends WKResource {
-  constructor (name, propertiesObject) {
+function Instance (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Instance'
     let properties = {
       Affinity: new ResourceAttribute('Affinity', String, 'No', null),
@@ -282,23 +275,22 @@ class Instance extends WKResource {
       Volumes: new ResourceAttributeArray('Volumes', types.EC2MountPointPropertyType, 'No', null),
       AdditionalInfo: new ResourceAttribute('AdditionalInfo', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Instance.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this resource.Update requires: No interruption.
 */
-class InternetGateway extends WKResource {
-  constructor (name, propertiesObject) {
+function InternetGateway (name, propertiesObject) {
     let resourceType = 'AWS::EC2::InternetGateway'
     let properties = {
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+InternetGateway.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -307,32 +299,30 @@ class InternetGateway extends WKResource {
             it.Update requires: Replacement
 * @property {String} SubnetId Required: Yes. The public subnet in which to create the NAT gateway.Update requires: Replacement
 */
-class NatGateway extends WKResource {
-  constructor (name, propertiesObject) {
+function NatGateway (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NatGateway'
     let properties = {
       AllocationId: new ResourceAttribute('AllocationId', String, 'Yes', null),
       SubnetId: new ResourceAttribute('SubnetId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+NatGateway.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this ACL.Update requires: No interruption.
 * @property {String} VpcId Required: Yes. The ID of the VPC where the network ACL will be created.Update requires: Replacement
 */
-class NetworkAcl extends WKResource {
-  constructor (name, propertiesObject) {
+function NetworkAcl (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkAcl'
     let properties = {
       Tags: new tag.TagSet(),
       VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+NetworkAcl.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -351,8 +341,7 @@ class NetworkAcl extends WKResource {
 * @property {Number} RuleNumber Required: Yes. Rule number to assign to the entry (e.g., 100). This must be a positive integer
                   from 1 to 32766.Update requires: Replacement.
 */
-class NetworkAclEntry extends WKResource {
-  constructor (name, propertiesObject) {
+function NetworkAclEntry (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkAclEntry'
     let properties = {
       CidrBlock: new ResourceAttribute('CidrBlock', String, 'Yes', null),
@@ -364,9 +353,9 @@ class NetworkAclEntry extends WKResource {
       RuleAction: new ResourceAttribute('RuleAction', String, 'Yes', null),
       RuleNumber: new ResourceAttribute('RuleNumber', Number, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+NetworkAclEntry.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -399,8 +388,7 @@ class NetworkAclEntry extends WKResource {
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this network
                   interface.Update requires: No interruption.
 */
-class NetworkInterface extends WKResource {
-  constructor (name, propertiesObject) {
+function NetworkInterface (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkInterface'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'No', null),
@@ -412,9 +400,9 @@ class NetworkInterface extends WKResource {
       SubnetId: new ResourceAttribute('SubnetId', String, 'Yes', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+NetworkInterface.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -426,8 +414,7 @@ class NetworkInterface extends WKResource {
 * @property {String} InstanceId Required: Conditional. The ID of the instance to which you will attach the ENI.Update requires: No interruption
 * @property {String} NetworkInterfaceId Required: Conditional. The ID of the ENI that you want to attach.Update requires: No interruption
 */
-class NetworkInterfaceAttachment extends WKResource {
-  constructor (name, propertiesObject) {
+function NetworkInterfaceAttachment (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkInterfaceAttachment'
     let properties = {
       DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, 'No', null),
@@ -435,9 +422,9 @@ class NetworkInterfaceAttachment extends WKResource {
       InstanceId: new ResourceAttribute('InstanceId', String, 'Conditional', null),
       NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+NetworkInterfaceAttachment.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -447,15 +434,14 @@ class NetworkInterfaceAttachment extends WKResource {
               Amazon EC2 API Reference. By default, AWS CloudFormation sets the value of this
             property to cluster.Update requires: Replacement
 */
-class PlacementGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function PlacementGroup (name, propertiesObject) {
     let resourceType = 'AWS::EC2::PlacementGroup'
     let properties = {
       Strategy: new ResourceAttribute('Strategy', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+PlacementGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -474,8 +460,7 @@ class PlacementGroup extends WKResource {
                   be added.Update requires: Replacement
 * @property {String} VpcPeeringConnectionId Required: Conditional. The ID of a VPC peering connection.Update requires: No interruption
 */
-class Route extends WKResource {
-  constructor (name, propertiesObject) {
+function Route (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Route'
     let properties = {
       DestinationCidrBlock: new ResourceAttribute('DestinationCidrBlock', String, 'Yes', null),
@@ -486,25 +471,24 @@ class Route extends WKResource {
       RouteTableId: new ResourceAttribute('RouteTableId', String, 'Yes', null),
       VpcPeeringConnectionId: new ResourceAttribute('VpcPeeringConnectionId', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Route.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
 * @property {String} VpcId Required: Yes. The ID of the VPC where the route table will be created.Example: vpc-11ad4878Update requires: Replacement
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this route table.Update requires: No interruption.
 */
-class RouteTable extends WKResource {
-  constructor (name, propertiesObject) {
+function RouteTable (name, propertiesObject) {
     let resourceType = 'AWS::EC2::RouteTable'
     let properties = {
       VpcId: new ResourceAttribute('VpcId', String, 'Yes', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+RouteTable.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -514,8 +498,7 @@ class RouteTable extends WKResource {
 * @property {AWSCloudFormationResourceTags} Tags Required: No. The tags that you want to attach to the resource.Update requires: No interruption.
 * @property {String} VpcId Required: Conditional. The physical ID of the VPC. Can be obtained by using a reference to an AWS::EC2::VPC, such as: { "Ref" : "myVPC" }.For more information about using the Ref function, see Ref.Update requires: ReplacementNoteFor more information about VPC security groups, go to Security Groups in the Amazon VPC User Guide.
 */
-class SecurityGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function SecurityGroup (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroup'
     let properties = {
       GroupDescription: new ResourceAttribute('GroupDescription', String, 'Yes', null),
@@ -524,9 +507,9 @@ class SecurityGroup extends WKResource {
       Tags: new tag.TagSet(),
       VpcId: new ResourceAttribute('VpcId', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SecurityGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -542,8 +525,7 @@ class SecurityGroup extends WKResource {
                   specify icmp for the IpProtocol property, you can
                   specify -1 as a wildcard (i.e., any ICMP code).Update requires: Replacement
 */
-class SecurityGroupEgress extends WKResource {
-  constructor (name, propertiesObject) {
+function SecurityGroupEgress (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroupEgress'
     let properties = {
       CidrIp: new ResourceAttribute('CidrIp', String, 'Conditional', null),
@@ -553,9 +535,9 @@ class SecurityGroupEgress extends WKResource {
       IpProtocol: new ResourceAttribute('IpProtocol', String, 'Yes', null),
       ToPort: new ResourceAttribute('ToPort', Number, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SecurityGroupEgress.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -584,8 +566,7 @@ class SecurityGroupEgress extends WKResource {
                   specify icmp for the IpProtocol property, you can
                   specify -1 as a wildcard (i.e., any ICMP code).Update requires: Replacement
 */
-class SecurityGroupIngress extends WKResource {
-  constructor (name, propertiesObject) {
+function SecurityGroupIngress (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroupIngress'
     let properties = {
       CidrIp: new ResourceAttribute('CidrIp', String, 'Conditional', null),
@@ -598,23 +579,22 @@ class SecurityGroupIngress extends WKResource {
       SourceSecurityGroupOwnerId: new ResourceAttribute('SourceSecurityGroupOwnerId', String, 'Conditional', null),
       ToPort: new ResourceAttribute('ToPort', Number, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SecurityGroupIngress.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
 * @property {AmazonEC2SpotFleetSpotFleetRequestConfigData} SpotFleetRequestConfigData Required: Yes. The configuration for a Spot fleet request.Update requires: Replacement
 */
-class SpotFleet extends WKResource {
-  constructor (name, propertiesObject) {
+function SpotFleet (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SpotFleet'
     let properties = {
       SpotFleetRequestConfigData: new ResourceAttribute('SpotFleetRequestConfigData', types.AmazonEC2SpotFleetSpotFleetRequestConfigData, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SpotFleet.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -641,8 +621,7 @@ class SpotFleet extends WKResource {
                            CidrBlock property.
                
 */
-class Subnet extends WKResource {
-  constructor (name, propertiesObject) {
+function Subnet (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Subnet'
     let properties = {
       AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'No', null),
@@ -651,25 +630,24 @@ class Subnet extends WKResource {
       Tags: new tag.TagSet(),
       VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Subnet.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
 * @property {String} SubnetId Required: Yes. The ID representing the current association between the original network ACL and the subnet.Update requires: Replacement
 * @property {String} NetworkAclId Required: Yes. The ID of the new ACL to associate with the subnet.Update requires: Replacement
 */
-class SubnetNetworkAclAssociation extends WKResource {
-  constructor (name, propertiesObject) {
+function SubnetNetworkAclAssociation (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SubnetNetworkAclAssociation'
     let properties = {
       SubnetId: new ResourceAttribute('SubnetId', String, 'Yes', null),
       NetworkAclId: new ResourceAttribute('NetworkAclId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SubnetNetworkAclAssociation.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -678,16 +656,15 @@ class SubnetNetworkAclAssociation extends WKResource {
 * @property {String} SubnetId Required: Yes. The ID of the subnet. This is commonly written as a reference to a subnet declared elsewhere in the
                   template. For example:Update requires: Replacement
 */
-class SubnetRouteTableAssociation extends WKResource {
-  constructor (name, propertiesObject) {
+function SubnetRouteTableAssociation (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SubnetRouteTableAssociation'
     let properties = {
       RouteTableId: new ResourceAttribute('RouteTableId', String, 'Yes', null),
       SubnetId: new ResourceAttribute('SubnetId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SubnetRouteTableAssociation.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -719,8 +696,7 @@ class SubnetRouteTableAssociation extends WKResource {
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this volume.Update requires: No interruption
 * @property {String} VolumeType Required: No. The volume type. If you set the type to io1, you must also set the Iops property. For valid values, see the VolumeType parameter for the CreateVolume action in the Amazon EC2 API Reference.Update requires: Updates are not supported.
 */
-class Volume extends WKResource {
-  constructor (name, propertiesObject) {
+function Volume (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Volume'
     let properties = {
       AutoEnableIO: new ResourceAttribute('AutoEnableIO', Boolean, 'No', null),
@@ -733,9 +709,9 @@ class Volume extends WKResource {
       Tags: new tag.TagSet(),
       VolumeType: new ResourceAttribute('VolumeType', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Volume.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -747,17 +723,16 @@ class Volume extends WKResource {
                   Availability Zone. This value can be a reference to an AWS::EC2::Volume resource, or it can be the
                   volume ID of an existing Amazon EBS volume.Update requires: Updates are not supported.
 */
-class VolumeAttachment extends WKResource {
-  constructor (name, propertiesObject) {
+function VolumeAttachment (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VolumeAttachment'
     let properties = {
       Device: new ResourceAttribute('Device', String, 'Yes', null),
       InstanceId: new ResourceAttribute('InstanceId', String, 'Yes', null),
       VolumeId: new ResourceAttribute('VolumeId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+VolumeAttachment.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -777,8 +752,7 @@ class VolumeAttachment extends WKResource {
                      "dedicated"Update requires: Replacement
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this VPC. To name a VPC resource, specify a value for the Name key.Update requires: No interruption.
 */
-class VPC extends WKResource {
-  constructor (name, propertiesObject) {
+function VPC (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPC'
     let properties = {
       CidrBlock: new ResourceAttribute('CidrBlock', String, 'Yes', null),
@@ -787,9 +761,9 @@ class VPC extends WKResource {
       InstanceTenancy: new ResourceAttribute('InstanceTenancy', String, 'No', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+VPC.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -797,16 +771,15 @@ class VPC extends WKResource {
                      default if you want the VPC to use no DHCP options.Update requires: No interruption
 * @property {String} VpcId Required: Yes. The ID of the VPC to associate with this DHCP options set.Update requires: Replacement
 */
-class VPCDHCPOptionsAssociation extends WKResource {
-  constructor (name, propertiesObject) {
+function VPCDHCPOptionsAssociation (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCDHCPOptionsAssociation'
     let properties = {
       DhcpOptionsId: new ResourceAttribute('DhcpOptionsId', String, 'Yes', null),
       VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+VPCDHCPOptionsAssociation.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -821,8 +794,7 @@ class VPCDHCPOptionsAssociation extends WKResource {
                         com.amazonaws.region.service.Update requires: Replacement
 * @property {String} VpcId Required: Yes. The ID of the VPC in which the endpoint is used.Update requires: Replacement
 */
-class VPCEndpoint extends WKResource {
-  constructor (name, propertiesObject) {
+function VPCEndpoint (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCEndpoint'
     let properties = {
       PolicyDocument: new ResourceAttribute('PolicyDocument', Object, 'No', null),
@@ -830,9 +802,9 @@ class VPCEndpoint extends WKResource {
       ServiceName: new ResourceAttribute('ServiceName', String, 'Yes', null),
       VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+VPCEndpoint.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -840,17 +812,16 @@ class VPCEndpoint extends WKResource {
 * @property {String} VpcId Required: Yes. The ID of the VPC to associate with this gateway.Update requires: No interruption
 * @property {String} VpnGatewayId Required: Conditional. The ID of the virtual private network (VPN) gateway to attach to the VPC.Update requires: No interruption
 */
-class VPCGatewayAttachment extends WKResource {
-  constructor (name, propertiesObject) {
+function VPCGatewayAttachment (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCGatewayAttachment'
     let properties = {
       InternetGatewayId: new ResourceAttribute('InternetGatewayId', String, 'Conditional', null),
       VpcId: new ResourceAttribute('VpcId', String, 'Yes', null),
       VpnGatewayId: new ResourceAttribute('VpnGatewayId', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+VPCGatewayAttachment.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -859,17 +830,16 @@ class VPCGatewayAttachment extends WKResource {
                         resource.Update requires: No interruption.
 * @property {String} VpcId Required: Yes. The ID of the VPC that is requesting a peering connection.Update requires: Replacement
 */
-class VPCPeeringConnection extends WKResource {
-  constructor (name, propertiesObject) {
+function VPCPeeringConnection (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCPeeringConnection'
     let properties = {
       PeerVpcId: new ResourceAttribute('PeerVpcId', String, 'Yes', null),
       Tags: new tag.TagSet(),
       VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+VPCPeeringConnection.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -881,8 +851,7 @@ class VPCPeeringConnection extends WKResource {
 * @property {String} VpnGatewayId Required: Yes. The ID of the virtual private gateway. This can either be an embedded JSON
                   object or a reference to a Gateway ID.
 */
-class VPNConnection extends WKResource {
-  constructor (name, propertiesObject) {
+function VPNConnection (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNConnection'
     let properties = {
       Type: new ResourceAttribute('Type', String, 'Yes', null),
@@ -891,9 +860,9 @@ class VPNConnection extends WKResource {
       Tags: new tag.TagSet(),
       VpnGatewayId: new ResourceAttribute('VpnGatewayId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+VPNConnection.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -901,16 +870,15 @@ class VPNConnection extends WKResource {
                   network.Update requires: Replacement
 * @property {String} VpnConnectionId Required: Conditional. The ID of the VPN connection.Update requires: Replacement
 */
-class VPNConnectionRoute extends WKResource {
-  constructor (name, propertiesObject) {
+function VPNConnectionRoute (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNConnectionRoute'
     let properties = {
       DestinationCidrBlock: new ResourceAttribute('DestinationCidrBlock', String, 'Conditional', null),
       VpnConnectionId: new ResourceAttribute('VpnConnectionId', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+VPNConnectionRoute.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -918,16 +886,15 @@ class VPNConnectionRoute extends WKResource {
                "ipsec.1".Update requires: Replacement
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this resource.Update requires: No interruption.
 */
-class VPNGateway extends WKResource {
-  constructor (name, propertiesObject) {
+function VPNGateway (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNGateway'
     let properties = {
       Type: new ResourceAttribute('Type', String, 'Yes', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+VPNGateway.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:EC2
 *   @extends WKResource
@@ -938,16 +905,15 @@ class VPNGateway extends WKResource {
                   private gateway must be attached to the same VPC that the routing tables are
                   associated with.Update requires: No interruption
 */
-class VPNGatewayRoutePropagation extends WKResource {
-  constructor (name, propertiesObject) {
+function VPNGatewayRoutePropagation (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNGatewayRoutePropagation'
     let properties = {
       RouteTableIds: new ResourceAttributeArray('RouteTableIds', String, 'Yes', null),
       VpnGatewayId: new ResourceAttribute('VpnGatewayId', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+VPNGatewayRoutePropagation.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  CustomerGateway: CustomerGateway,
   DHCPOptions: DHCPOptions,

@@ -54,8 +54,7 @@ const types = require('./../types')
 * @property {String} SnapshotIdentifier Required: Conditional. The name of the snapshot from which to create a new cluster.Update requires: Replacement
 * @property {String} VpcSecurityGroupIds Required: No. A list of VPC security groups that are associated with this cluster.Update requires: No interruption
 */
-class Cluster extends WKResource {
-  constructor (name, propertiesObject) {
+function Cluster (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::Cluster'
     let properties = {
       AllowVersionUpgrade: new ResourceAttribute('AllowVersionUpgrade', Boolean, 'No', null),
@@ -83,9 +82,9 @@ class Cluster extends WKResource {
       SnapshotIdentifier: new ResourceAttribute('SnapshotIdentifier', String, 'Conditional', null),
       VpcSecurityGroupIds: new ResourceAttributeArray('VpcSecurityGroupIds', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Cluster.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Redshift
 *   @extends WKResource
@@ -98,31 +97,29 @@ class Cluster extends WKResource {
                   more information, see Amazon Redshift Parameter Groups in the
                   Amazon Redshift Cluster Management Guide.Update requires: No interruption
 */
-class ClusterParameterGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function ClusterParameterGroup (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterParameterGroup'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'Yes', null),
       ParameterGroupFamily: new ResourceAttribute('ParameterGroupFamily', String, 'Yes', null),
       Parameters: new ResourceAttribute('Parameters', types.AmazonRedshiftParameterType, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ClusterParameterGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Redshift
 *   @extends WKResource
 * @property {String} Description Required: Yes. A description of the security group.Update requires: Replacement
 */
-class ClusterSecurityGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function ClusterSecurityGroup (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSecurityGroup'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ClusterSecurityGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Redshift
 *   @extends WKResource
@@ -133,8 +130,7 @@ class ClusterSecurityGroup extends WKResource {
 * @property {String} EC2SecurityGroupOwnerId Required: Conditional. The 12-digit AWS account number of the owner of the Amazon EC2 security group that
                   is specified by the EC2SecurityGroupName parameter.Update requires: Replacement
 */
-class ClusterSecurityGroupIngress extends WKResource {
-  constructor (name, propertiesObject) {
+function ClusterSecurityGroupIngress (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSecurityGroupIngress'
     let properties = {
       ClusterSecurityGroupName: new ResourceAttribute('ClusterSecurityGroupName', String, 'Yes', null),
@@ -142,25 +138,24 @@ class ClusterSecurityGroupIngress extends WKResource {
       EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, 'No', null),
       EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ClusterSecurityGroupIngress.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Redshift
 *   @extends WKResource
 * @property {String} Description Required: Yes. A description of the subnet group.Update requires: No interruption
 * @property {String} SubnetIds Required: Yes. A list of VPC subnet IDs. You can modify a maximum of 20 subnets.Update requires: No interruption
 */
-class ClusterSubnetGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function ClusterSubnetGroup (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSubnetGroup'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'Yes', null),
       SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ClusterSubnetGroup.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Cluster: Cluster,
   ClusterParameterGroup: ClusterParameterGroup,

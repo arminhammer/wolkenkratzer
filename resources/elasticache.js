@@ -84,8 +84,7 @@ You can still do updates that require no or some interruption. If you must repla
                         Snippet section.
                Update requires: No interruption
 */
-class CacheCluster extends WKResource {
-  constructor (name, propertiesObject) {
+function CacheCluster (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::CacheCluster'
     let properties = {
       AutoMinorVersionUpgrade: new ResourceAttribute('AutoMinorVersionUpgrade', Boolean, 'No', null),
@@ -110,9 +109,9 @@ class CacheCluster extends WKResource {
       Tags: new tag.TagSet(),
       VpcSecurityGroupIds: new ResourceAttributeArray('VpcSecurityGroupIds', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+CacheCluster.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElastiCache
 *   @extends WKResource
@@ -122,17 +121,16 @@ class CacheCluster extends WKResource {
 * @property {Map} Properties Required: No. A comma-delimited list of parameter name/value pairs. For more information, go to ModifyCacheParameterGroup in the Amazon ElastiCache API Reference
                      Guide.Example:Update requires: Updates are not supported.
 */
-class ParameterGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function ParameterGroup (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ParameterGroup'
     let properties = {
       CacheParameterGroupFamily: new ResourceAttribute('CacheParameterGroupFamily', String, 'Yes', null),
       Description: new ResourceAttribute('Description', String, 'Yes', null),
       Properties: new ResourceAttribute('Properties', Map, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ParameterGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElastiCache
 *   @extends WKResource
@@ -184,8 +182,7 @@ class ParameterGroup extends WKResource {
 * @property {String} SnapshotWindow Required: No. The time range (in UTC) when ElastiCache takes a daily snapshot of your node group.
                   For example, you can specify 05:00-09:00.Update requires: No interruption
 */
-class ReplicationGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function ReplicationGroup (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ReplicationGroup'
     let properties = {
       AutomaticFailoverEnabled: new ResourceAttribute('AutomaticFailoverEnabled', Boolean, 'No', null),
@@ -207,23 +204,22 @@ class ReplicationGroup extends WKResource {
       SnapshotRetentionLimit: new ResourceAttribute('SnapshotRetentionLimit', Number, 'No', null),
       SnapshotWindow: new ResourceAttribute('SnapshotWindow', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ReplicationGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElastiCache
 *   @extends WKResource
 * @property {String} Description Required: No. A description for the cache security group.Update requires: Updates are not supported.
 */
-class SecurityGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function SecurityGroup (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroup'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SecurityGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElastiCache
 *   @extends WKResource
@@ -233,33 +229,31 @@ class SecurityGroup extends WKResource {
                   in the EC2SecurityGroupName property. The AWS access key ID is not an acceptable
                   value.Update requires: Updates are not supported.
 */
-class SecurityGroupIngress extends WKResource {
-  constructor (name, propertiesObject) {
+function SecurityGroupIngress (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroupIngress'
     let properties = {
       CacheSecurityGroupName: new ResourceAttribute('CacheSecurityGroupName', String, 'Yes', null),
       EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, 'Yes', null),
       EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SecurityGroupIngress.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElastiCache
 *   @extends WKResource
 * @property {String} Description Required: Yes. The description for the cache subnet group.Update requires: No interruption
 * @property {String} SubnetIds Required: Yes. The Amazon EC2 subnet IDs for the cache subnet group.Update requires: No interruption
 */
-class SubnetGroup extends WKResource {
-  constructor (name, propertiesObject) {
+function SubnetGroup (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SubnetGroup'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'Yes', null),
       SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+SubnetGroup.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  CacheCluster: CacheCluster,
   ParameterGroup: ParameterGroup,

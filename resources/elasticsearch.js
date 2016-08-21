@@ -28,8 +28,7 @@ You can still do updates that require no or some interruption. If you must repla
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) to associate with the Amazon ES
             domain.Update requires: No interruption
 */
-class Domain extends WKResource {
-  constructor (name, propertiesObject) {
+function Domain (name, propertiesObject) {
     let resourceType = 'AWS::Elasticsearch::Domain'
     let properties = {
       AccessPolicies: new ResourceAttribute('AccessPolicies', Object, 'No', null),
@@ -40,9 +39,9 @@ class Domain extends WKResource {
       SnapshotOptions: new ResourceAttribute('SnapshotOptions', types.AmazonElasticsearchServiceDomainSnapshotOptions, 'No', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Domain.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Domain: Domain
 }

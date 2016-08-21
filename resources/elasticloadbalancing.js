@@ -67,8 +67,7 @@ You can still do updates that require no or some interruption. If you must repla
                   the new subnet that is in the original Availability Zone.
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key-value pairs) for this load balancer.Update requires: No interruption
 */
-class LoadBalancer extends WKResource {
-  constructor (name, propertiesObject) {
+function LoadBalancer (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancing::LoadBalancer'
     let properties = {
       AccessLoggingPolicy: new ResourceAttribute('AccessLoggingPolicy', types.ElasticLoadBalancingAccessLoggingPolicy, 'No', null),
@@ -88,9 +87,9 @@ class LoadBalancer extends WKResource {
       Subnets: new ResourceAttributeArray('Subnets', String, 'No', null),
       Tags: new tag.TagSet()
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+LoadBalancer.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  LoadBalancer: LoadBalancer
 }

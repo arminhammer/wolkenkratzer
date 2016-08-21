@@ -18,8 +18,7 @@ You can still do updates that require no or some interruption. If you must repla
 * @property {String} State Required: No. Indicates whether the rule is enabled. For valid values, see the State parameter for the PutRule action in the Amazon CloudWatch Events API Reference.Update requires: No interruption
 * @property {AmazonCloudWatchEventsRuleTarget} Targets Required: No. The resources, such as Lambda functions or Amazon Kinesis streams, that CloudWatch Events routes events to and invokes when the rule is triggered.  For information about valid targets, see the PutTargets action in the Amazon CloudWatch Events API Reference.Update requires: No interruption
 */
-class Rule extends WKResource {
-  constructor (name, propertiesObject) {
+function Rule (name, propertiesObject) {
     let resourceType = 'AWS::Events::Rule'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'No', null),
@@ -29,9 +28,9 @@ class Rule extends WKResource {
       State: new ResourceAttribute('State', String, 'No', null),
       Targets: new ResourceAttributeArray('Targets', types.AmazonCloudWatchEventsRuleTarget, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Rule.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Rule: Rule
 }

@@ -14,17 +14,16 @@ const types = require('./../types')
 * @property {AWSCertificateManagerCertificateDomainValidationOption} DomainValidationOptions Required: No. Domain information that domain name registrars use to verify your identity. For more information and the default values, see Configure Email for Your Domain and Validate Domain Ownership in the AWS Certificate Manager User Guide.Update requires: Replacement
 * @property {String} SubjectAlternativeNames Required: No. FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example, you can add www.example.net to a certificate for the www.example.com domain name so that users can reach your site by using either name.Update requires: Replacement
 */
-class Certificate extends WKResource {
-  constructor (name, propertiesObject) {
+function Certificate (name, propertiesObject) {
     let resourceType = 'AWS::CertificateManager::Certificate'
     let properties = {
       DomainName: new ResourceAttribute('DomainName', String, 'Yes', null),
       DomainValidationOptions: new ResourceAttributeArray('DomainValidationOptions', types.AWSCertificateManagerCertificateDomainValidationOption, 'No', null),
       SubjectAlternativeNames: new ResourceAttributeArray('SubjectAlternativeNames', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Certificate.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Certificate: Certificate
 }

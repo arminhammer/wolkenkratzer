@@ -18,8 +18,7 @@ const types = require('./../types')
                      false by default.Update requires: No interruption
 * @property {Object} KeyPolicy Required: Yes. An AWS KMS key policy to attach to the key. Use a policy to specify who has permission to use the key and which actions they can perform. For more information, see Key Policies in the AWS Key Management Service Developer Guide.Update requires: No interruption
 */
-class Key extends WKResource {
-  constructor (name, propertiesObject) {
+function Key (name, propertiesObject) {
     let resourceType = 'AWS::KMS::Key'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'No', null),
@@ -27,9 +26,9 @@ class Key extends WKResource {
       EnableKeyRotation: new ResourceAttribute('EnableKeyRotation', Boolean, 'No', null),
       KeyPolicy: new ResourceAttribute('KeyPolicy', Object, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Key.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Key: Key
 }

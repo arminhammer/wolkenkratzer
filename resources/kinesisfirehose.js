@@ -15,8 +15,7 @@ const types = require('./../types')
 * @property {AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration} RedshiftDestinationConfiguration Required: Conditional. An Amazon Redshift destination for the delivery stream.Update requires: No interruption. If you change the delivery stream destination from an Amazon Redshift destination to an Amazon ES destination, update requires some interruptions.
 * @property {AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration} S3DestinationConfiguration Required: Conditional. An Amazon S3 destination for the delivery stream.Update requires: No interruption. If you change the delivery stream destination from an Amazon S3 destination to an Amazon ES destination, update requires some interruptions.
 */
-class DeliveryStream extends WKResource {
-  constructor (name, propertiesObject) {
+function DeliveryStream (name, propertiesObject) {
     let resourceType = 'AWS::KinesisFirehose::DeliveryStream'
     let properties = {
       DeliveryStreamName: new ResourceAttribute('DeliveryStreamName', String, 'No', null),
@@ -24,9 +23,9 @@ class DeliveryStream extends WKResource {
       RedshiftDestinationConfiguration: new ResourceAttribute('RedshiftDestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration, 'Conditional', null),
       S3DestinationConfiguration: new ResourceAttribute('S3DestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+DeliveryStream.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  DeliveryStream: DeliveryStream
 }

@@ -43,8 +43,7 @@ const types = require('./../types')
             physical ID and uses that ID for the table name. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
 You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement
 */
-class Table extends WKResource {
-  constructor (name, propertiesObject) {
+function Table (name, propertiesObject) {
     let resourceType = 'AWS::DynamoDB::Table'
     let properties = {
       AttributeDefinitions: new ResourceAttributeArray('AttributeDefinitions', types.DynamoDBAttributeDefinitions, 'Yes', null),
@@ -55,9 +54,9 @@ class Table extends WKResource {
       StreamSpecification: new ResourceAttribute('StreamSpecification', types.DynamoDBTableStreamSpecification, 'No', null),
       TableName: new ResourceAttribute('TableName', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Table.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  Table: Table
 }

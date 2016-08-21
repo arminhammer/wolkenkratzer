@@ -25,8 +25,7 @@ const types = require('./../types')
                      CreateEventSourceMapping in the
                   AWS Lambda Developer Guide.Update requires: Replacement
 */
-class EventSourceMapping extends WKResource {
-  constructor (name, propertiesObject) {
+function EventSourceMapping (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::EventSourceMapping'
     let properties = {
       BatchSize: new ResourceAttribute('BatchSize', Number, 'No', null),
@@ -35,9 +34,9 @@ class EventSourceMapping extends WKResource {
       FunctionName: new ResourceAttribute('FunctionName', String, 'Yes', null),
       StartingPosition: new ResourceAttribute('StartingPosition', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+EventSourceMapping.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Lambda
 *   @extends WKResource
@@ -46,8 +45,7 @@ class EventSourceMapping extends WKResource {
 * @property {String} FunctionVersion Required: Yes. The version of the Lambda function that you want to associate with this alias.Update requires: No interruption
 * @property {String} Name Required: Yes. A name for the alias.Update requires: Replacement
 */
-class Alias extends WKResource {
-  constructor (name, propertiesObject) {
+function Alias (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Alias'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'No', null),
@@ -55,9 +53,9 @@ class Alias extends WKResource {
       FunctionVersion: new ResourceAttribute('FunctionVersion', String, 'Yes', null),
       Name: new ResourceAttribute('Name', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Alias.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Lambda
 *   @extends WKResource
@@ -87,8 +85,7 @@ You can still do updates that require no or some interruption. If you must repla
 * @property {AWSLambdaFunctionVPCConfig} VpcConfig Required: No. If the Lambda function requires access to resources in a VPC, specify a VPC configuration that Lambda uses to set up an elastic network interface (ENI). The ENI enables your function to connect to other resources in your VPC, but it doesn't provide public Internet access. If your function requires Internet access (for example, to access AWS services that don't have VPC endpoints), configure a Network Address Translation (NAT) instance inside your VPC or use an Amazon Virtual Private Cloud
                   (Amazon VPC) NAT gateway. For more information, see NAT Gateways in the Amazon VPC User Guide.Update requires: No interruption
 */
-class LambdaFunction extends WKResource {
-  constructor (name, propertiesObject) {
+function LambdaFunction (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Function'
     let properties = {
       Code: new ResourceAttribute('Code', types.AWSLambdaFunctionCode, 'Yes', null),
@@ -101,9 +98,9 @@ class LambdaFunction extends WKResource {
       Timeout: new ResourceAttribute('Timeout', Number, 'No', null),
       VpcConfig: new ResourceAttribute('VpcConfig', types.AWSLambdaFunctionVPCConfig, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+LambdaFunction.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Lambda
 *   @extends WKResource
@@ -131,8 +128,7 @@ class LambdaFunction extends WKResource {
                   bucket, not just any bucket from any AWS account that creates a mapping to your
                   function, can invoke the function.ImportantThis property is not supported by all event sources. For more information, see the SourceArn parameter for the AddPermission action in the AWS Lambda Developer Guide.Update requires: Replacement
 */
-class Permission extends WKResource {
-  constructor (name, propertiesObject) {
+function Permission (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Permission'
     let properties = {
       Action: new ResourceAttribute('Action', String, 'Yes', null),
@@ -141,9 +137,9 @@ class Permission extends WKResource {
       SourceAccount: new ResourceAttribute('SourceAccount', String, 'No', null),
       SourceArn: new ResourceAttribute('SourceArn', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Permission.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Lambda
 *   @extends WKResource
@@ -151,17 +147,16 @@ class Permission extends WKResource {
 * @property {String} Description Required: No. A description of the version you are publishing. If you don't specify a value, Lambda copies the description from the $LATEST version of the function.Update requires: Updates are not supported.
 * @property {String} FunctionName Required: Yes. The Lambda function for which you want to publish a version. You can specify the function's name or its Amazon Resource Name (ARN).Update requires: Replacement
 */
-class Version extends WKResource {
-  constructor (name, propertiesObject) {
+function Version (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Version'
     let properties = {
       CodeSha256: new ResourceAttribute('CodeSha256', String, 'No', null),
       Description: new ResourceAttribute('Description', String, 'No', null),
       FunctionName: new ResourceAttribute('FunctionName', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Version.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  EventSourceMapping: EventSourceMapping,
   Alias: Alias,

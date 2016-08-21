@@ -18,17 +18,16 @@ const types = require('./../types')
                   Active or InactiveUpdate requires: No interruption
 * @property {String} UserName Required: Yes. The name of the user that the new key will belong to.Update requires: Replacement
 */
-class AccessKey extends WKResource {
-  constructor (name, propertiesObject) {
+function AccessKey (name, propertiesObject) {
     let resourceType = 'AWS::IAM::AccessKey'
     let properties = {
       Serial: new ResourceAttribute('Serial', Number, 'No', null),
       Status: new ResourceAttribute('Status', String, 'No', null),
       UserName: new ResourceAttribute('UserName', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+AccessKey.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:IAM
 *   @extends WKResource
@@ -38,8 +37,7 @@ You can still do updates that require no or some interruption. If you must repla
 * @property {String} Path Required: No. The path to the group. For more information about paths, see IAM Identifiers in the IAM User Guide.Update requires: No interruption
 * @property {IAMPolicies} Policies Required: No. The policies to associate with this group. For information about policies, see Overview of IAM Policies in the IAM User Guide.Update requires: No interruption
 */
-class Group extends WKResource {
-  constructor (name, propertiesObject) {
+function Group (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Group'
     let properties = {
       GroupName: new ResourceAttribute('GroupName', String, 'No', null),
@@ -47,9 +45,9 @@ class Group extends WKResource {
       Path: new ResourceAttribute('Path', String, 'No', null),
       Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Group.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:IAM
 *   @extends WKResource
@@ -57,16 +55,15 @@ class Group extends WKResource {
                      Guide.Update requires: Replacement
 * @property {String} Roles Required: Yes. The roles associated with this IAM instance profile.Update requires: No interruption
 */
-class InstanceProfile extends WKResource {
-  constructor (name, propertiesObject) {
+function InstanceProfile (name, propertiesObject) {
     let resourceType = 'AWS::IAM::InstanceProfile'
     let properties = {
       Path: new ResourceAttribute('Path', String, 'Yes', null),
       Roles: new ResourceAttributeArray('Roles', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+InstanceProfile.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:IAM
 *   @extends WKResource
@@ -91,8 +88,7 @@ class InstanceProfile extends WKResource {
                      role's policy is deleted.Update requires: No interruption
 * @property {String} Users Required: No. The names of users to attach to this policy.Update requires: No interruption
 */
-class ManagedPolicy extends WKResource {
-  constructor (name, propertiesObject) {
+function ManagedPolicy (name, propertiesObject) {
     let resourceType = 'AWS::IAM::ManagedPolicy'
     let properties = {
       Description: new ResourceAttribute('Description', String, 'No', null),
@@ -102,9 +98,9 @@ class ManagedPolicy extends WKResource {
       Roles: new ResourceAttributeArray('Roles', String, 'No', null),
       Users: new ResourceAttributeArray('Users', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+ManagedPolicy.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:IAM
 *   @extends WKResource
@@ -126,8 +122,7 @@ class ManagedPolicy extends WKResource {
                      role's policy is deleted.Update requires: No interruption
 * @property {String} Users Required: Conditional. The names of users for whom you want to add the policy.Update requires: No interruption
 */
-class Policy extends WKResource {
-  constructor (name, propertiesObject) {
+function Policy (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Policy'
     let properties = {
       Groups: new ResourceAttributeArray('Groups', String, 'Conditional', null),
@@ -136,9 +131,9 @@ class Policy extends WKResource {
       Roles: new ResourceAttributeArray('Roles', String, 'Conditional', null),
       Users: new ResourceAttributeArray('Users', String, 'Conditional', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Policy.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:IAM
 *   @extends WKResource
@@ -153,8 +148,7 @@ class Policy extends WKResource {
 * @property {String} RoleName Required: No. A name for the IAM role. For valid values, see the RoleName parameter for the CreateRole action in the IAM API Reference. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the group name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
 You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {"Fn::Join": ["", [{"Ref": "AWS::Region"}, {"Ref": "MyResourceName"}]]}.Update requires: Replacement
 */
-class Role extends WKResource {
-  constructor (name, propertiesObject) {
+function Role (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Role'
     let properties = {
       AssumeRolePolicyDocument: new ResourceAttribute('AssumeRolePolicyDocument', Object, 'Yes', null),
@@ -163,9 +157,9 @@ class Role extends WKResource {
       Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null),
       RoleName: new ResourceAttribute('RoleName', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+Role.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:IAM
 *   @extends WKResource
@@ -183,8 +177,7 @@ class Role extends WKResource {
             name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
 You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {"Fn::Join": ["", [{"Ref": "AWS::Region"}, {"Ref": "MyResourceName"}]]}.Update requires: Replacement
 */
-class User extends WKResource {
-  constructor (name, propertiesObject) {
+function User (name, propertiesObject) {
     let resourceType = 'AWS::IAM::User'
     let properties = {
       Groups: new ResourceAttributeArray('Groups', String, 'No', null),
@@ -194,25 +187,24 @@ class User extends WKResource {
       Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null),
       UserName: new ResourceAttribute('UserName', String, 'No', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+User.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:IAM
 *   @extends WKResource
 * @property {String} GroupName Required: Yes. The name of group to add users to.Update requires: No interruption
 * @property {String} Users Required: Yes. Update requires: No interruption
 */
-class UserToGroupAddition extends WKResource {
-  constructor (name, propertiesObject) {
+function UserToGroupAddition (name, propertiesObject) {
     let resourceType = 'AWS::IAM::UserToGroupAddition'
     let properties = {
       GroupName: new ResourceAttribute('GroupName', String, 'Yes', null),
       Users: new ResourceAttributeArray('Users', String, 'Yes', null)
     }
-    super(name, resourceType, properties, propertiesObject)
-  }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
+UserToGroupAddition.prototype = Object.create(WKResource.prototype)
 
 module.exports = {  AccessKey: AccessKey,
   Group: Group,
