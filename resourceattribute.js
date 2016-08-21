@@ -125,22 +125,25 @@ ResourceAttributeArray.prototype = Object.create(ResourceAttribute.prototype)
  * @param value
  */
 ResourceAttributeArray.prototype.set = function (value) {
-  if (!Array.isArray(value)) {
-    throw new TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type)
-  }
-  for (let val in value) {
-    let valueType = val
-    if (typeof val === 'string') {
-      valueType = new String(val)
-    } else if (typeof val === 'boolean') {
-      valueType = new Boolean(val)
-    } else if (typeof val === 'number') {
-      valueType = new Number(val)
-    }
-    if (!(valueType instanceof this.Type)) {
-      throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
-    }
+  if (value instanceof Intrinsic) {
     this.val = value
+  } else if (!Array.isArray(value)) {
+    throw new TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type)
+  } else {
+    for (let val in value) {
+      let valueType = val
+      if (typeof val === 'string') {
+        valueType = new String(val)
+      } else if (typeof val === 'boolean') {
+        valueType = new Boolean(val)
+      } else if (typeof val === 'number') {
+        valueType = new Number(val)
+      }
+      if (!(valueType instanceof this.Type)) {
+        throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
+      }
+      this.val = value
+    }
   }
 }
 /**
@@ -183,7 +186,9 @@ ResourceAttributeArray.prototype.push = function (val) {
  */
 ResourceAttributeArray.prototype.toJson = function () {
   if (this.val !== null) {
-    if (this.Type.prototype instanceof ResourceProperty) {
+    if (this.val instanceof Intrinsic) {
+      return this.val.toJson()
+    } else if (this.Type.prototype instanceof ResourceProperty) {
       let propArray = []
       for (let prop in this.val) {
         propArray.push(this.val[prop].toJson())
