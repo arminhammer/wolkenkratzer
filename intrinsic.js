@@ -114,13 +114,27 @@ FnFindInMap.prototype.toJSON = function () {
   return { 'Fn::FindInMap': [ this.mapName, this.topLevelKey, this.secondLevelKey ] }
 }
 
-/* function FnGetAZs extends Intrinsic {
- constructor (region) {
- super()
- this.region = region
- }
- toJson () {}
- }*/
+function FnGetAZs (region) {
+  Intrinsic.call(this)
+  if (region) {
+    this.region = region
+  } else {
+    this.region = { Ref: 'AWS::Region' }
+  }
+}
+FnGetAZs.prototype = Object.create(Intrinsic.prototype)
+
+/**
+ *
+ * @returns {Object}
+ */
+FnGetAZs.prototype.toJson = function () {
+  return { 'Fn::GetAZs': this.region }
+}
+
+FnGetAZs.prototype.toJSON = function () {
+  return { 'Fn::GetAZs': this.region }
+}
 
 /**
  * @memberof module:Core
@@ -131,6 +145,7 @@ function FnJoin (delimiter, values) {
   this.values = values
 }
 FnJoin.prototype = Object.create(Intrinsic.prototype)
+
 /**
  * Returns a JSON string version
  * @returns {Object}
@@ -143,55 +158,104 @@ FnJoin.prototype.toJSON = function () {
   return { 'Fn::Join': [ this.delimiter, this.values ] }
 }
 
-/* function FnSelect extends Intrinsic {
- constructor (index, list) {
- super()
- this.index = index
- this.list = list
- }
- toJson () {}
- }*/
+function FnSelect (index, list) {
+  Intrinsic.call(this)
+  this.index = index
+  this.list = list
+}
+FnSelect.prototype = Object.create(Intrinsic.prototype)
 
-/* function Conditional extends Intrinsic {
- constructor () {
- super()
- }
- toJson () {}
- }*/
+FnSelect.prototype.toJson = function () {
+  return { 'Fn::Select': [ this.index, this.list ] }
+}
 
-/* function FnIf extends Conditional {
- constructor () {
- super()
- }
- toJson () {}
- }*/
+FnSelect.prototype.toJSON = function () {
+  return { 'Fn::Select': [ this.index, this.list ] }
+}
 
-/* function FnEquals extends Conditional {
- constructor () {
- super()
- }
- toJson () {}
- }*/
+function FnAnd (condition, body) {
+  Intrinsic.call(this)
+  this.condition = condition
+  this.body = body
+}
+FnAnd.prototype = Object.create(Intrinsic.prototype)
 
-/* function FnNot extends Conditional {
- constructor () {
- super()
- }
- toJson () {}
- }*/
+FnAnd.prototype.toJson = function () {
+  return { 'Fn::And': [ this.condition, this.body ] }
+}
 
-/* function FnOr extends Conditional {
- constructor () {
- super()
- }
- toJson () {}
- }*/
+FnAnd.prototype.toJSON = function () {
+  return { 'Fn::And': [ this.condition, this.body ] }
+}
+
+function FnEquals (first, second) {
+  Intrinsic.call(this)
+  this.first = first
+  this.second = second
+}
+FnEquals.prototype = Object.create(Intrinsic.prototype)
+
+FnEquals.prototype.toJson = function () {
+  return { 'Fn::Equals': [ this.first, this.second ] }
+}
+
+FnEquals.prototype.toJSON = function () {
+  return { 'Fn::Equals': [ this.first, this.second ] }
+}
+
+function FnIf (condition, ifTrue, ifFalse) {
+  Intrinsic.call(this)
+  this.condition = condition
+  this.ifTrue = ifTrue
+  this.ifFalse = ifFalse
+}
+FnIf.prototype = Object.create(Intrinsic.prototype)
+
+FnIf.prototype.toJson = function () {
+  return { 'Fn::If': [ this.condition, this.ifTrue, this.ifFalse ] }
+}
+
+FnIf.prototype.toJSON = function () {
+  return { 'Fn::If': [ this.condition, this.ifTrue, this.ifFalse ] }
+}
+
+function FnNot (condition) {
+  Intrinsic.call(this)
+  this.condition = condition
+}
+FnNot.prototype = Object.create(Intrinsic.prototype)
+
+FnNot.prototype.toJson = function () {
+  return { 'Fn::Not': [ this.condition ] }
+}
+
+function FnOr (condition, body) {
+  Intrinsic.call(this)
+  this.condition = condition
+  this.body = body
+}
+FnOr.prototype = Object.create(Intrinsic.prototype)
+
+FnOr.prototype.toJson = function () {
+  return { 'Fn::Or': [ this.condition, this.body ] }
+}
+
+FnOr.prototype.toJSON = function () {
+  return { 'Fn::Or': [ this.condition, this.body ] }
+}
 
 module.exports = {
   Ref: Ref,
   Intrinsic: Intrinsic,
   FnGetAtt: FnGetAtt,
+  FnGetAZs: FnGetAZs,
   FnBase64: FnBase64,
   FnFindInMap: FnFindInMap,
-  FnJoin: FnJoin
+  FnJoin: FnJoin,
+  FnSelect: FnSelect,
+  FnAnd: FnAnd,
+  FnEquals: FnEquals,
+  FnIf: FnIf,
+  FnNot: FnNot,
+  FnOr: FnOr
 }
