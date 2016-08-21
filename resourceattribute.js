@@ -30,18 +30,21 @@ function ResourceAttribute (name, type, required, value) {
  * @param value
  */
 ResourceAttribute.prototype.set = function (value) {
-  let valueType = value
-  if (typeof value === 'string') {
-    valueType = new String(value)
-  } else if (typeof value === 'boolean') {
-    valueType = new Boolean(value)
-  } else if (typeof value === 'number') {
-    valueType = new Number(value)
-  }
-  if (valueType instanceof this.Type || valueType instanceof Intrinsic) {
+
+  if (value instanceof Intrinsic) {
     this.val = value
   } else {
-    throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)
+    if ((typeof value === 'string') && (this.Type.prototype === String.prototype)) {
+      this.val = value
+    } else if ((typeof value === 'boolean') && (this.Type.prototype === Boolean.prototype)) {
+      this.val = value
+    } else if ((typeof value === 'number') && (this.Type.prototype === Number.prototype)) {
+      this.val = value
+    } else if (value instanceof this.Type) {
+      this.val = value
+    } else {
+      throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)
+    }
   }
 }
 
@@ -119,7 +122,6 @@ function ResourceAttributeArray (name, type, required, value) {
   ResourceAttribute.call(this, name, type, required, value)
 }
 ResourceAttributeArray.prototype = Object.create(ResourceAttribute.prototype)
-ResourceAttributeArray.prototype.constructor = ResourceAttributeArray
 
 /**
  * Set the value of the attribute
@@ -142,11 +144,12 @@ ResourceAttributeArray.prototype.set = function (value) {
       } else if (val instanceof this.Type) {
         this.val.push(val)
       } else {
-        throw new TypeException(value + ' is the wrong type, was expecting ' + this.Type)
+        throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)
       }
     }
   }
 }
+
 /**
  * Add an Fn Join intrinsic function to set the value of the attribute
  * @param delimiter
