@@ -586,17 +586,14 @@ CloudFrontDistributionConfigurationRestrictions.prototype = Object.create(Resour
 /**
 * @property Locations {String} Required: Conditional. The two-letter, uppercase country code for a country that you want to include                   in your blacklist or whitelist.
 * @property RestrictionType {String} Required: Yes. The method to restrict distribution of your content:Prevents viewers in the countries that you specified from accessing                               your content.Allows viewers in the countries that you specified to access your                               content.No distribution restrictions by country.
-* @property blacklist {undefined} Required: undefined. Prevents viewers in the countries that you specified from accessing                               your content.
-* @property whitelist {undefined} Required: undefined. Allows viewers in the countries that you specified to access your                               content.
-* @property none {undefined} Required: undefined. No distribution restrictions by country.
+* @property blacklist {undefined} Required: No. Prevents viewers in the countries that you specified from accessing                               your content.
+* @property whitelist {undefined} Required: No. Allows viewers in the countries that you specified to access your                               content.
+* @property none {undefined} Required: No. No distribution restrictions by country.
 */
 function CloudFrontDistributionConfigRestrictionsGeoRestriction (propertiesObject) {
   let properties = {
     Locations: new ResourceAttributeArray('Locations', String, 'Conditional', null),
     RestrictionType: new ResourceAttribute('RestrictionType', String, 'Yes', null),
-    blacklist: new ResourceAttribute('blacklist', undefined, 'undefined', null),
-    whitelist: new ResourceAttribute('whitelist', undefined, 'undefined', null),
-    none: new ResourceAttribute('none', undefined, 'undefined', null)
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfigRestrictionsGeoRestriction', properties, propertiesObject)
 }
@@ -1223,17 +1220,14 @@ DynamoDBLocalSecondaryIndexes.prototype = Object.create(ResourceProperty.prototy
 /**
 * @property NonKeyAttributes {String} Required: No. The non-key attribute names that are projected into the index.For local secondary indexes, the total count of NonKeyAttributes                   summed across all of the local secondary indexes must not exceed 20. If you                   project the same attribute into two different indexes, this counts as two distinct                   attributes in determining the total.
 * @property ProjectionType {String} Required: No. The set of attributes that are projected into the index:Only the index and primary keys are projected into the                               index.Only the specified table attributes are projected into the index.                               The list of projected attributes are in                               NonKeyAttributes.All of the table attributes are projected into the index.
-* @property KEYS_ONLY {undefined} Required: undefined. Only the index and primary keys are projected into the                               index.
-* @property INCLUDE {undefined} Required: undefined. Only the specified table attributes are projected into the index.                               The list of projected attributes are in                               NonKeyAttributes.
-* @property ALL {undefined} Required: undefined. All of the table attributes are projected into the index.
+* @property KEYS_ONLY {undefined} Required: No. Only the index and primary keys are projected into the                               index.
+* @property INCLUDE {undefined} Required: No. Only the specified table attributes are projected into the index.                               The list of projected attributes are in                               NonKeyAttributes.
+* @property ALL {undefined} Required: No. All of the table attributes are projected into the index.
 */
 function DynamoDBProjectionObject (propertiesObject) {
   let properties = {
     NonKeyAttributes: new ResourceAttributeArray('NonKeyAttributes', String, 'No', null),
     ProjectionType: new ResourceAttribute('ProjectionType', String, 'No', null),
-    KEYS_ONLY: new ResourceAttribute('KEYS_ONLY', undefined, 'undefined', null),
-    INCLUDE: new ResourceAttribute('INCLUDE', undefined, 'undefined', null),
-    ALL: new ResourceAttribute('ALL', undefined, 'undefined', null)
   }
   ResourceProperty.call(this, 'DynamoDBProjectionObject', properties, propertiesObject)
 }
@@ -2010,12 +2004,12 @@ ElasticLoadBalancingHealthCheckType.prototype = Object.create(ResourceProperty.p
 
 /**
 * @property CookieExpirationPeriod {String} Required: No. The time period, in seconds, after which the cookie should be considered stale. If this parameter                   isn't specified, the sticky session will last for the duration of the browser session.
-* @property PolicyName {undefined} Required: undefined. The name of the policy being created. The name must be unique within the set of                   policies for this load balancer.NoteTo associate this policy with a listener, include the policy name in the                      listener's PolicyNames                      property.
+* @property PolicyName {String} Required: No. The name of the policy being created. The name must be unique within the set of                   policies for this load balancer.NoteTo associate this policy with a listener, include the policy name in the                      listener's PolicyNames                      property.
 */
 function ElasticLoadBalancingLBCookieStickinessPolicyType (propertiesObject) {
   let properties = {
     CookieExpirationPeriod: new ResourceAttribute('CookieExpirationPeriod', String, 'No', null),
-    PolicyName: new ResourceAttribute('PolicyName', undefined, 'undefined', null)
+    PolicyName: new ResourceAttribute('PolicyName', String, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingLBCookieStickinessPolicyType', properties, propertiesObject)
 }
@@ -2727,10 +2721,10 @@ AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions.prototype
 * @property DomainARN {String} Required: Yes. The Amazon Resource Name (ARN) of the Amazon ES domain that Firehose delivers data to.
 * @property IndexName {String} Required: Yes. The name of the Elasticsearch index to which Firehose adds data for indexing.
 * @property IndexRotationPeriod {String} Required: Yes. The frequency of Elasticsearch index rotation. If you enable index rotation, Firehose appends a portion of the UTC arrival timestamp to the specified index name, and rotates the appended timestamp accordingly. For more information, see Index Rotation for the Amazon ES Destination in the Amazon Kinesis Firehose Developer Guide.
-* @property RetryOptions {String} Required: undefined. The retry behavior when Firehose is unable to deliver data to Amazon ES.
+* @property RetryOptions {String} Required: No. The retry behavior when Firehose is unable to deliver data to Amazon ES.
 * @property RoleARN {String} Required: Yes. The ARN of the AWS Identity and Access Management (IAM) role that grants Firehose access to your S3 bucket, AWS KMS (if you enable data encryption), and Amazon CloudWatch Logs (if you enable logging).For more information, see Grant Firehose Access to an Amazon Elasticsearch Service Destination  in the Amazon Kinesis Firehose Developer Guide.
 * @property S3BackupMode {String} Required: Yes. The condition under which Firehose delivers data to Amazon Simple Storage Service (Amazon S3). You can send Amazon S3 all documents (all data) or only the documents that Firehose could not deliver to the Amazon ES destination. For more information and valid values, see the S3BackupMode content for the ElasticsearchDestinationConfiguration data type in the Amazon Kinesis Firehose API Reference.
-* @property S3Configuration {String} Required: undefined. The S3 bucket where Firehose backs up incoming data.
+* @property S3Configuration {String} Required: No. The S3 bucket where Firehose backs up incoming data.
 * @property TypeName {String} Required: Yes. The Elasticsearch type name that Amazon ES adds to documents when indexing data.
 */
 function AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration (propertiesObject) {
@@ -2740,10 +2734,10 @@ function AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguratio
     DomainARN: new ResourceAttribute('DomainARN', String, 'Yes', null),
     IndexName: new ResourceAttribute('IndexName', String, 'Yes', null),
     IndexRotationPeriod: new ResourceAttribute('IndexRotationPeriod', String, 'Yes', null),
-    RetryOptions: new ResourceAttribute('RetryOptions', String, 'undefined', null),
+    RetryOptions: new ResourceAttribute('RetryOptions', String, 'No', null),
     RoleARN: new ResourceAttribute('RoleARN', String, 'Yes', null),
     S3BackupMode: new ResourceAttribute('S3BackupMode', String, 'Yes', null),
-    S3Configuration: new ResourceAttribute('S3Configuration', String, 'undefined', null),
+    S3Configuration: new ResourceAttribute('S3Configuration', String, 'No', null),
     TypeName: new ResourceAttribute('TypeName', String, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration', properties, propertiesObject)
@@ -2877,11 +2871,11 @@ AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigura
 * @property S3Key {String} Required: Conditional. The location and name of the .zip file that contains your source code. If you specify this property, you must also specify the S3Bucket property.
 * @property S3ObjectVersion {String} Required: No. If you have S3 versioning enabled, the version ID of the.zip file that contains your source code. You can specify this property only if you specify the S3Bucket and S3Key properties.
 * @property ZipFile {String} Required: Conditional. For nodejs, nodejs4.3, and python2.7 runtime environments, the source code of your Lambda function. You can't use this property with other runtime environments.You can specify up to 4096 characters. You must precede certain special characters in your source code, such as quotation marks ("), newlines (\n), and tabs (\t), with a backslash (\). For a list of special characters, see http://json.org/.If you specify a function that interacts with an AWS CloudFormation custom resource, you don't have to write your own functions to send responses to the custom resource that invoked the function. AWS CloudFormation provides a response module that simplifies sending responses. For more information, see cfn-response Module.
-* @property event {undefined} Required: undefined. The fields in a custom resource request.
-* @property context {undefined} Required: undefined. An object, specific to Lambda functions, that you can use to specify when the function and any callbacks have completed execution or to access information from within the Lambda execution environment. For more information, see Programming Model (Node.js) in the AWS Lambda Developer Guide.
-* @property responseStatus {undefined} Required: undefined. Whether the function successfully completed. Use the cfnresponse module constants to specify the status: SUCCESS for successful executions and FAILED for failed executions.
-* @property responseData {undefined} Required: undefined. The Data field of a custom resource response object. The data is a list of name-value pairs.
-* @property physicalResourceId {undefined} Required: undefined. Optional. The unique identifier of the custom resource that invoked the function. By default, the module uses the name of the Amazon CloudWatch Logs log stream that is associated with the Lambda function.
+* @property event {undefined} Required: No. The fields in a custom resource request.
+* @property context {undefined} Required: No. An object, specific to Lambda functions, that you can use to specify when the function and any callbacks have completed execution or to access information from within the Lambda execution environment. For more information, see Programming Model (Node.js) in the AWS Lambda Developer Guide.
+* @property responseStatus {undefined} Required: No. Whether the function successfully completed. Use the cfnresponse module constants to specify the status: SUCCESS for successful executions and FAILED for failed executions.
+* @property responseData {undefined} Required: No. The Data field of a custom resource response object. The data is a list of name-value pairs.
+* @property physicalResourceId {undefined} Required: No. Optional. The unique identifier of the custom resource that invoked the function. By default, the module uses the name of the Amazon CloudWatch Logs log stream that is associated with the Lambda function.
 */
 function AWSLambdaFunctionCode (propertiesObject) {
   let properties = {
@@ -2889,11 +2883,6 @@ function AWSLambdaFunctionCode (propertiesObject) {
     S3Key: new ResourceAttribute('S3Key', String, 'Conditional', null),
     S3ObjectVersion: new ResourceAttribute('S3ObjectVersion', String, 'No', null),
     ZipFile: new ResourceAttribute('ZipFile', String, 'Conditional', null),
-    event: new ResourceAttribute('event', undefined, 'undefined', null),
-    context: new ResourceAttribute('context', undefined, 'undefined', null),
-    responseStatus: new ResourceAttribute('responseStatus', undefined, 'undefined', null),
-    responseData: new ResourceAttribute('responseData', undefined, 'undefined', null),
-    physicalResourceId: new ResourceAttribute('physicalResourceId', undefined, 'undefined', null)
   }
   ResourceProperty.call(this, 'AWSLambdaFunctionCode', properties, propertiesObject)
 }

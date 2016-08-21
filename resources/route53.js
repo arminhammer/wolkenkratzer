@@ -81,7 +81,7 @@ HostedZone.prototype = Object.create(WKResource.prototype)
 * @property {String} Name Required: Yes. The name of the domain. You must specify a fully qualified domain name that
                   ends with a period as the last label indication. If you omit the final period,
                   AWS CloudFormation adds it.Update requires: No interruption
-* @property {String} ResourceRecords Required: undefined. List of resource records to add. Each record should be in the format
+* @property {String} ResourceRecords Required: No. List of resource records to add. Each record should be in the format
                   appropriate for the record type specified by the Type
                   property. For information about different record types and their record formats,
                   see Appendix: Domain Name Format in the Amazon Route 53 Developer
@@ -114,7 +114,7 @@ function RecordSet (name, propertiesObject) {
       HostedZoneId: new ResourceAttribute('HostedZoneId', String, 'Conditional', null),
       HostedZoneName: new ResourceAttribute('HostedZoneName', String, 'Conditional', null),
       Name: new ResourceAttribute('Name', String, 'Yes', null),
-      ResourceRecords: new ResourceAttributeArray('ResourceRecords', String, 'undefined', null),
+      ResourceRecords: new ResourceAttributeArray('ResourceRecords', String, 'No', null),
       SetIdentifier: new ResourceAttribute('SetIdentifier', String, 'Conditional', null),
       TTL: new ResourceAttribute('TTL', String, 'Conditional', null),
       Type: new ResourceAttribute('Type', String, 'Yes', null),

@@ -359,7 +359,7 @@ DBSecurityGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:RDS
 *   @extends WKResource
-* @property {String} CIDRIP Required: undefined. The IP range to authorize.For an overview of CIDR ranges, go to the Wikipedia
+* @property {String} CIDRIP Required: No. The IP range to authorize.For an overview of CIDR ranges, go to the Wikipedia
                   Tutorial.Update requires: No interruption
 * @property {String} DBSecurityGroupName Required: Yes. The name (ARN) of the AWS::RDS::DBSecurityGroup to which this ingress
                   will be added.Update requires: No interruption
@@ -374,7 +374,7 @@ DBSecurityGroup.prototype = Object.create(WKResource.prototype)
 function DBSecurityGroupIngress (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSecurityGroupIngress'
     let properties = {
-      CIDRIP: new ResourceAttribute('CIDRIP', String, 'undefined', null),
+      CIDRIP: new ResourceAttribute('CIDRIP', String, 'No', null),
       DBSecurityGroupName: new ResourceAttribute('DBSecurityGroupName', String, 'Yes', null),
       EC2SecurityGroupId: new ResourceAttribute('EC2SecurityGroupId', String, 'No', null),
       EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, 'No', null),

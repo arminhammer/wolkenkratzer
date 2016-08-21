@@ -211,13 +211,18 @@ fs
           propType = 'types.' + propType
         }
         let name = props[i].replace(/ \(.+\)/g, '')
+        let required = subProp.properties[ props[ i ] ].Required
+        if (!required) {
+          // If not determined, default to No
+          required = 'No'
+        }
         if (name === 'Tags') {
           resourceBody += '      ' + name + ': new tag.TagSet()'
         } else {
-          resourceBody += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + subProp.properties[ props[ i ] ].Required + '\', null)'
+          resourceBody += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + required + '\', null)'
         }
 
-        docHeader += '* @property {' + docType + '} ' + name + ' Required: ' + subProp.properties[ props[ i ] ].Required + '. ' + subProp.properties[ props[ i ] ].Description + '\n'
+        docHeader += '* @property {' + docType + '} ' + name + ' Required: ' + required + '. ' + subProp.properties[ props[ i ] ].Description + '\n'
 
         if (i === (props.length - 1)) {
           resourceBody += '\n'
