@@ -1,7 +1,6 @@
 # wolkenkratzer
 
-Wolkenkratzer is a Javascript library that helps you programmatically generate CloudFormation templates. The scope of the project is similar 
-to the Python library https://github.com/cloudtools/troposphere.
+Wolkenkratzer is a Javascript library that helps you programmatically generate CloudFormation templates.
 
 ## Installation
 

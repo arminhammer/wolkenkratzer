@@ -79,7 +79,7 @@ WKResource.prototype.getName = function () {
  * @param config
  */
 WKResource.prototype.addConfig = function (config) {
-  if (this instanceof require('./resources/ec2').Instance) {
+  if ((this instanceof require('./resources/ec2').Instance) || (this instanceof require('./resources/autoscaling').LaunchConfiguration)) {
     if (!this.Metadata) {
       this.Metadata = {
       }
@@ -91,7 +91,7 @@ WKResource.prototype.addConfig = function (config) {
     }
     this.Metadata['AWS::CloudFormation::Init'][config.WKName] = config
   } else {
-    throw new TypeException('Not allowed to add ' + config + 'to ' + this.WKName + ' because it is not an Instance or LaunchConfiguration')
+    throw new TypeException('Not allowed to add ' + config.WKName + ' to ' + this.WKName + ' because it is not an Instance or LaunchConfiguration')
   }
 }
 
@@ -100,7 +100,7 @@ WKResource.prototype.addConfig = function (config) {
  * @param configSet
  */
 WKResource.prototype.addConfigSet = function (configSet) {
-  if (this instanceof require('./resources/ec2').Instance) {
+  if ((this instanceof require('./resources/ec2').Instance) || (this instanceof require('./resources/autoscaling').LaunchConfiguration)) {
     if (!this.Metadata) {
       this.Metadata = {
       }
@@ -112,7 +112,7 @@ WKResource.prototype.addConfigSet = function (configSet) {
     }
     this.Metadata['AWS::CloudFormation::Init'].configSets[configSet.WKName] = configSet.configs
   } else {
-    throw new TypeException('Not allowed to add ' + configSet + 'to ' + this.WKName + ' because it is not an Instance or LaunchConfiguration')
+    throw new TypeException('Not allowed to add ' + configSet.WKName + ' to ' + this.WKName + ' because it is not an Instance or LaunchConfiguration')
   }
 }
 
