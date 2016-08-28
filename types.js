@@ -3412,9 +3412,9 @@ AmazonS3LoggingConfiguration.prototype = Object.create(ResourceProperty.prototyp
 */
 function AmazonS3NotificationConfiguration (propertiesObject) {
   let properties = {
-    LambdaConfigurations: new ResourceAttribute('LambdaConfigurations', AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations, 'No', null),
-    QueueConfigurations: new ResourceAttribute('QueueConfigurations', AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations, 'No', null),
-    TopicConfigurations: new ResourceAttribute('TopicConfigurations', AmazonS3NotificationConfigurationTopicConfigurations, 'No', null)
+    LambdaConfigurations: new ResourceAttributeArray('LambdaConfigurations', AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations, 'No', null),
+    QueueConfigurations: new ResourceAttributeArray('QueueConfigurations', AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations, 'No', null),
+    TopicConfigurations: new ResourceAttributeArray('TopicConfigurations', AmazonS3NotificationConfigurationTopicConfigurations, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonS3NotificationConfiguration', properties, propertiesObject)
 }

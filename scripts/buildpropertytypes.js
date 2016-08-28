@@ -35,6 +35,11 @@ fs
         wkType = 'ResourceAttributeArray'
         propType = propType[0]
       }
+      if ((props[i] === 'LambdaConfigurations') || (props[i] === 'QueueConfigurations') || (props[i] === 'TopicConfigurations')) {
+        console.log(props[i])
+        wkType = 'ResourceAttributeArray'
+        // propType = propType[0]
+      }
       if (typeof propType === 'string') {
         propType = propType.replace(/\./g, '')
         if (propType.includes('JSON')) {
