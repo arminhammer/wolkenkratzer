@@ -29,9 +29,7 @@ You can still do updates that require no or some interruption. If you must repla
             or when you specify 0 for this property. For more information, see Amazon SQS Long Poll.Update requires: No interruption
 * @property {AmazonSQSRedrivePolicy} RedrivePolicy Required: No. Specifies an existing dead letter queue to receive messages after the source queue
             (this queue) fails to process a message a specified number of times.Update requires: No interruption
-* @property {Number} VisibilityTimeout Required: No. The length of time during which the queue will be unavailable once a message is delivered from the
-                  queue. This blocks other components from receiving the same message and gives the initial component
-                  time to process and delete the message from the queue.Values must be from 0 to 43200 seconds (12 hours). If no value is specified, the default value of
+* @property {Number} VisibilityTimeout Required: No. The length of time during which a message will be unavailable once a message is delivered from the queue. This blocks other components from receiving the same message and gives the initial component time to process and delete the message from the queue.Values must be from 0 to 43200 seconds (12 hours). If no value is specified, the default value of
                   30 seconds will be used.For more information about SQS Queue visibility timeouts, see Visibility Timeout in the Amazon Simple Queue Service Developer
                      Guide.Update requires: No interruption
 */

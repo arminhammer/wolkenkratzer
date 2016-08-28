@@ -190,8 +190,10 @@ Host.prototype = Object.create(WKResource.prototype)
 * @property {String} KernelId Required: No. The kernel ID.Update requires:Update requires: Some interruptions for Amazon EBS-backed instancesUpdate requires: Replacement for instance store-backed instances
 * @property {String} KeyName Required: No. Provides the name of the Amazon EC2 key pair.Update requires: Replacement
 * @property {Boolean} Monitoring Required: No. Specifies whether monitoring is enabled for the instance.Update requires: No interruption
-* @property {EC2NetworkInterfaceEmbeddedPropertyType} NetworkInterfaces Required: No. A list of embedded objects that describe the network interfaces to associate
-                  with this instance.NoteIf this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the
+* @property {EC2NetworkInterfaceEmbeddedPropertyType} NetworkInterfaces Required: No. A list of embedded objects that describes the network interfaces to associate
+                  with this instance.NoteIf you use this property to point to a network interface, you must terminate
+                     the original interface before attaching a new one to allow the update of the
+                     instance to succeed.If this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the
 DependsOn attribute to declare a dependency on the VPC-gateway attachment. For more information,
 see DependsOn Attribute.Update requires: Replacement
 * @property {String} PlacementGroupName Required: No. The name of an existing placement group that you want to launch the instance

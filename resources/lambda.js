@@ -104,11 +104,7 @@ LambdaFunction.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Lambda
 *   @extends WKResource
-* @property {String} Action Required: Yes. The Lambda actions that you want to allow in this statement. For example, you
-                  can specify lambda:CreateFunction to specify a certain action, or use
-                  a wildcard (lambda:*) to grant permission to all Lambda actions. For a
-                  list of actions, see Actions
-                  in the AWS Lambda Developer Guide.Update requires: Replacement
+* @property {String} Action Required: Yes. The Lambda actions that you want to allow in this statement. For example, you can specify lambda:CreateFunction to specify a certain action, or use a wildcard (lambda:*) to grant permission to all Lambda actions. For a list of actions, see Actions and Condition Context Keys for AWS Lambda in the IAM User Guide.Update requires: Replacement
 * @property {String} FunctionName Required: Yes. The name (physical ID) or Amazon Resource Name (ARN) of the Lambda function that
                   you want to associate with this statement. Lambda adds this statement to the
                   function's access policy.Update requires: Replacement

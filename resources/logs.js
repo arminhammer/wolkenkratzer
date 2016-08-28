@@ -32,6 +32,8 @@ Destination.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Logs
 *   @extends WKResource
+* @property {String} LogGroupName Required: No. A name for the log group. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the table name. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
+You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement
 * @property {Number} RetentionInDays Required: No. The number of days log events are kept in CloudWatch Logs. When a log event expires,
                   CloudWatch Logs automatically deletes it. For valid values, see PutRetentionPolicy in
                   the Amazon CloudWatch Logs API Reference.Update requires: No interruption
@@ -39,6 +41,7 @@ Destination.prototype = Object.create(WKResource.prototype)
 function LogGroup (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogGroup'
     let properties = {
+      LogGroupName: new ResourceAttribute('LogGroupName', String, 'No', null),
       RetentionInDays: new ResourceAttribute('RetentionInDays', Number, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)

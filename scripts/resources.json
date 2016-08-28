@@ -696,7 +696,7 @@
         "Type": "String"
       },
       "ScalingAdjustment": {
-        "Description": "The number of instances by which to scale. The AdjustmentType\n                  property determines whether AWS CloudFormation interprets this number as an absolute number\n                  (when the ExactCapacityvalue is specified) or as a\n                  percentage of the existing Auto Scaling group size (when the\n                     PercentChangeInCapacity value is specified). A positive\n                  value adds to the current capacity and a negative value subtracts from the current\n                  capacity.Update requires: No interruption",
+        "Description": "The number of instances by which to scale. The AdjustmentType property determines if AWS CloudFormation interprets this number as an absolute number (when the ExactCapacity value is specified), increase or decrease capacity by a specified number (when the ChangeInCapacity value is specified), or increase or decrease capacity as a percentage of the existing Auto Scaling group size (when the PercentChangeInCapacity value is\n                  specified). A positive value adds to the current capacity and a negative value subtracts from the current capacity. For exact capacity, you must specify a positive value.Update requires: No interruption",
         "Required": "Conditional",
         "Type": "Integer"
       },
@@ -770,6 +770,11 @@
         "Type": [
           "String"
         ]
+      },
+      "Tags": {
+        "Description": "An arbitrary set of tags (key–value pairs) for this ACM certificate.Update requires: No interruption.",
+        "Required": "No",
+        "Type": "AWSCloudFormationResourceTags"
       }
     }
   },
@@ -1705,7 +1710,7 @@
         "Type": "Boolean"
       },
       "NetworkInterfaces": {
-        "Description": "A list of embedded objects that describe the network interfaces to associate\n                  with this instance.NoteIf this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the\nDependsOn attribute to declare a dependency on the VPC-gateway attachment. For more information,\nsee DependsOn Attribute.Update requires: Replacement",
+        "Description": "A list of embedded objects that describes the network interfaces to associate\n                  with this instance.NoteIf you use this property to point to a network interface, you must terminate\n                     the original interface before attaching a new one to allow the update of the\n                     instance to succeed.If this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the\nDependsOn attribute to declare a dependency on the VPC-gateway attachment. For more information,\nsee DependsOn Attribute.Update requires: Replacement",
         "Required": "No",
         "Type": [
           "EC2NetworkInterfaceEmbeddedPropertyType"
@@ -3495,6 +3500,11 @@
         "Required": "No",
         "Type": "String"
       },
+      "ScheduleExpression": {
+        "Description": "The schedule or rate (frequency) that determines when CloudWatch Events runs the rule. For more information, see Schedule Expression Syntax for Rules in the Amazon CloudWatch Developer Guide.Update requires: No interruption",
+        "Required": "Conditional",
+        "Type": "String"
+      },
       "State": {
         "Description": "Indicates whether the rule is enabled. For valid values, see the State parameter for the PutRule action in the Amazon CloudWatch Events API Reference.Update requires: No interruption",
         "Required": "No",
@@ -3777,7 +3787,7 @@
         "Type": "String"
       },
       "Policies": {
-        "Description": "The policies to associate with this role. You can specify a policy inline or reference an external policy, such as a policy declared in an AWS::IAM::Policy or AWS::IAM::ManagedPolicy resource. For sample templates that demonstrates both embedded and external policies, see Template Examples.ImportantThe name of each policy for a role, user, or group must be unique. Duplicate policy names can cause IAM role updates to fail. NoteIf an external policy (such as AWS::IAM::Policy or AWS::IAM::ManagedPolicy) has a Ref to a role and if a resource (such as AWS::ECS::Service) also has a Ref to the same role, add a DependsOn attribute to the resource to make the resource depend on the external policy. This dependency ensures that the role's policy is available throughout the resource's lifecycle. For example, when you delete a\n                     stack with an AWS::ECS::Service resource, the DependsOn attribute ensures that AWS CloudFormation deletes the AWS::ECS::Service resource  before deleting its role's policy.Update requires: No interruption",
+        "Description": "The policies to associate with this role. For sample templates, see Template Examples.ImportantThe name of each policy for a role, user, or group must be unique. If you don't, updates to the IAM role will fail. NoteIf an external policy (such as AWS::IAM::Policy or AWS::IAM::ManagedPolicy) has a Ref to a role and if a resource (such as AWS::ECS::Service) also has a Ref to the same role, add a DependsOn attribute to the resource to make the resource depend on the external policy. This dependency ensures that the role's policy is available throughout the resource's lifecycle. For example, when you delete a\n                     stack with an AWS::ECS::Service resource, the DependsOn attribute ensures that AWS CloudFormation deletes the AWS::ECS::Service resource  before deleting its role's policy.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "IAMPolicies"
@@ -4117,7 +4127,7 @@
     "name": "AWS::Lambda::Permission",
     "properties": {
       "Action": {
-        "Description": "The Lambda actions that you want to allow in this statement. For example, you\n                  can specify lambda:CreateFunction to specify a certain action, or use\n                  a wildcard (lambda:*) to grant permission to all Lambda actions. For a\n                  list of actions, see Actions\n                  in the AWS Lambda Developer Guide.Update requires: Replacement",
+        "Description": "The Lambda actions that you want to allow in this statement. For example, you can specify lambda:CreateFunction to specify a certain action, or use a wildcard (lambda:*) to grant permission to all Lambda actions. For a list of actions, see Actions and Condition Context Keys for AWS Lambda in the IAM User Guide.Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
       },
@@ -4191,6 +4201,11 @@
   "AWS::Logs::LogGroup": {
     "name": "AWS::Logs::LogGroup",
     "properties": {
+      "LogGroupName": {
+        "Description": "A name for the log group. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the table name. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
+      },
       "RetentionInDays": {
         "Description": "The number of days log events are kept in CloudWatch Logs. When a log event expires,\n                  CloudWatch Logs automatically deletes it. For valid values, see PutRetentionPolicy in\n                  the Amazon CloudWatch Logs API Reference.Update requires: No interruption",
         "Required": "No",
@@ -5359,7 +5374,7 @@
         "Type": "String"
       },
       "Name": {
-        "Description": "The name of the domain. You must specify a fully qualified domain name that\n                  ends with a period as the last label indication. If you omit the final period,\n                  AWS CloudFormation adds it.Update requires: No interruption",
+        "Description": "The name of the domain. You must specify a fully qualified domain name that\n                  ends with a period as the last label indication. If you omit the final period,\n                  AWS CloudFormation adds it.Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
       },
@@ -5450,7 +5465,7 @@
         "Type": "AmazonS3NotificationConfiguration"
       },
       "ReplicationConfiguration": {
-        "Description": "Configuration for replicating objects in an S3 bucket. To enable replication, you\n            must also enable versioning by using the VersioningConfiguration\n            property.Amazon S3 can store replicated objects in only one destination (S3 bucket). You cannot\n            send replicated objects to multiple S3 buckets.Update requires: No interruption",
+        "Description": "Configuration for replicating objects in an S3 bucket. To enable replication, you must also enable versioning by using the VersioningConfiguration property.Amazon S3 can store replicated objects in only one destination (S3 bucket). The destination bucket must already exist and be in a different region than your source bucket.Update requires: No interruption",
         "Required": "No",
         "Type": "AmazonS3ReplicationConfiguration"
       },
@@ -5563,7 +5578,7 @@
         "Type": "AmazonSQSRedrivePolicy"
       },
       "VisibilityTimeout": {
-        "Description": "The length of time during which the queue will be unavailable once a message is delivered from the\n                  queue. This blocks other components from receiving the same message and gives the initial component\n                  time to process and delete the message from the queue.Values must be from 0 to 43200 seconds (12 hours). If no value is specified, the default value of\n                  30 seconds will be used.For more information about SQS Queue visibility timeouts, see Visibility Timeout in the Amazon Simple Queue Service Developer\n                     Guide.Update requires: No interruption",
+        "Description": "The length of time during which a message will be unavailable once a message is delivered from the queue. This blocks other components from receiving the same message and gives the initial component time to process and delete the message from the queue.Values must be from 0 to 43200 seconds (12 hours). If no value is specified, the default value of\n                  30 seconds will be used.For more information about SQS Queue visibility timeouts, see Visibility Timeout in the Amazon Simple Queue Service Developer\n                     Guide.Update requires: No interruption",
         "Required": "No",
         "Type": "Integer"
       }

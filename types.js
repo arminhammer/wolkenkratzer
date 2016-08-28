@@ -600,10 +600,10 @@ function CloudFrontDistributionConfigRestrictionsGeoRestriction (propertiesObjec
 CloudFrontDistributionConfigRestrictionsGeoRestriction.prototype = Object.create(ResourceProperty.prototype)
 
 /**
-* @property AcmCertificateArn {String} Required: Conditional. If you're using an alternate domain name, the Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate. Use the ACM service to provision and manage your certificates. For more information, see the AWS Certificate Manager User Guide.
+* @property AcmCertificateArn {String} Required: Conditional. If you're using an alternate domain name, the Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate. Use the ACM service to provision and manage your certificates. For more information, see the AWS Certificate Manager User Guide.NoteCurrently, you can specify only certificates that are in the US East (N. Virginia) region.
 * @property CloudFrontDefaultCertificate {Boolean} Required: Conditional. Indicates whether to use the default certificate for your CloudFront domain name when                   viewers use HTTPS to request your content.
 * @property IamCertificateId {String} Required: Conditional. If you're using an alternate domain name, the ID of a server certificate that was purchased from a certificate authority. This ID is the ServerCertificateId value, which AWS Identity and Access Management (IAM) returns when the certificate is added to the IAM certificate store, such as ASCACKCEVSQ6CEXAMPLE1.
-* @property MinimumProtocolVersion {String} Required: No. The minimum version of the SSL protocol that you want CloudFront to use for HTTPS                   connections. CloudFront serves your objects only to browsers or devices that support at                   least the SSL version that you specify.If you specify the IamCertificateId property and specify SNI only                   for the SslSupportMethod property, you must use TLSv1                   for the minimum protocol version. If you don't specify a value, AWS CloudFormation specifies                      SSLv3.
+* @property MinimumProtocolVersion {String} Required: No. The minimum version of the SSL protocol that you want CloudFront to use for HTTPS                   connections. CloudFront serves your objects only to browsers or devices that support at                   least the SSL version that you specify.AWS CloudFormation specifies SSLv3 by default. However, if you specify the IamCertificateId or AcmCertificateArn property and specify SNI only for the SslSupportMethod property, AWS CloudFormation specifies TLSv1 for the minimum protocol version.
 * @property SslSupportMethod {String} Required: Conditional. Specifies how CloudFront serves HTTPS requests.
 */
 function CloudFrontDistributionConfigurationViewerCertificate (propertiesObject) {
@@ -1589,7 +1589,7 @@ function AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitor
 AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring.prototype = Object.create(ResourceProperty.prototype)
 
 /**
-* @property AssociatePublicIpAddress {Boolean} Required: No. Indicates whether monitoring is enabled for the instances.
+* @property AssociatePublicIpAddress {Boolean} Required: No. Indicates whether to assign a public IP address to an instance that you launch in a VPC. The public IP address can only be assigned to a network interface for eth0, and can only be assigned to a new network interface, not an existing one.
 * @property DeleteOnTermination {Boolean} Required: No. Indicates whether to delete the network interface when the instance                   terminates.
 * @property Description {String} Required: No. The description of this network interface.
 * @property DeviceIndex {Number} Required: Yes. The network interface's position in the attachment order.
@@ -1668,13 +1668,15 @@ AmazonEC2ContainerServiceServiceDeploymentConfiguration.prototype = Object.creat
 /**
 * @property ContainerName {String} Required: No. The name of a container to use with the load balancer.
 * @property ContainerPort {Number} Required: Yes. The port number on the container to direct load balancer traffic to. Your                   container instances must allow ingress traffic on this port.
-* @property LoadBalancerName {String} Required: No. The name of the load balancer to associated with the Amazon ECS service.
+* @property LoadBalancerName {String} Required: No. The name of a Classic Load Balancer to associate with the Amazon ECS service.
+* @property TargetGroupArn {String} Required: No. An Application load balancer target group Amazon Resource Name (ARN) to associate with the Amazon ECS service.
 */
 function AmazonEC2ContainerServiceServiceLoadBalancers (propertiesObject) {
   let properties = {
     ContainerName: new ResourceAttribute('ContainerName', String, 'No', null),
     ContainerPort: new ResourceAttribute('ContainerPort', Number, 'Yes', null),
-    LoadBalancerName: new ResourceAttribute('LoadBalancerName', String, 'No', null)
+    LoadBalancerName: new ResourceAttribute('LoadBalancerName', String, 'No', null),
+    TargetGroupArn: new ResourceAttribute('TargetGroupArn', String, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceServiceLoadBalancers', properties, propertiesObject)
 }
@@ -2017,7 +2019,7 @@ ElasticLoadBalancingLBCookieStickinessPolicyType.prototype = Object.create(Resou
 
 /**
 * @property InstancePort {String} Required: Yes. Specifies the TCP port on which the instance server is listening. This property cannot be modified                   for the life of the load balancer.
-* @property InstanceProtocol {String} Required: No. Specifies the protocol to use for routing traffic to back-end instances—HTTP, HTTPS, TCP, or                   SSL. This property cannot be modified for the life of the load balancer.NoteIf the front-end protocol is HTTP or HTTPS, InstanceProtocol has to                            be at the same protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end protocol is                            TCP or SSL, InstanceProtocol has to be TCP or SSL.If there is another listener with the same InstancePort whose                            InstanceProtocol is secure, i.e., HTTPS or SSL, the listener's                            InstanceProtocol has to be secure, i.e., HTTPS or SSL. If there is                            another listener with the same InstancePort whose InstanceProtocol is                            HTTP or TCP, the listener's InstanceProtocol must be either HTTP or                            TCP.
+* @property InstanceProtocol {String} Required: No. Specifies the protocol to use for routing traffic to back-end instances—HTTP, HTTPS, TCP, or SSL. This property cannot be modified for the life of the load balancer.NoteIf the front-end protocol is HTTP or HTTPS, InstanceProtocol has to be at the same protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. By default, Elastic Load Balancing sets the instance protocol to HTTP or TCP.If there is another listener with the same InstancePort whose                            InstanceProtocol is secure, i.e., HTTPS or SSL, the listener's                            InstanceProtocol has to be secure, i.e., HTTPS or SSL. If there is                            another listener with the same InstancePort whose InstanceProtocol is                            HTTP or TCP, the listener's InstanceProtocol must be either HTTP or                            TCP.
 * @property LoadBalancerPort {String} Required: Yes. Specifies the external load balancer port number. This property cannot be modified for the life of                   the load balancer.
 * @property PolicyNames {String} Required: No. A list of ElasticLoadBalancing policy names to associate with the listener. Specify only policies that are compatible with listeners. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference version 2012-06-01.
 * @property Protocol {String} Required: Yes. Specifies the load balancer transport protocol to use for routing — HTTP, HTTPS, TCP or SSL.                   This property cannot be modified for the life of the load balancer.

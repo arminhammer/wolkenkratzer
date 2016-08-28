@@ -243,13 +243,8 @@ LifecycleHook.prototype = Object.create(WKResource.prototype)
                      StepScaling. By default, AWS CloudFormation specifies
                      SimpleScaling. For more information, see Scaling Policy
                      Types in the Auto Scaling User Guide.Update requires: No interruption
-* @property {Number} ScalingAdjustment Required: Conditional. The number of instances by which to scale. The AdjustmentType
-                  property determines whether AWS CloudFormation interprets this number as an absolute number
-                  (when the ExactCapacityvalue is specified) or as a
-                  percentage of the existing Auto Scaling group size (when the
-                     PercentChangeInCapacity value is specified). A positive
-                  value adds to the current capacity and a negative value subtracts from the current
-                  capacity.Update requires: No interruption
+* @property {Number} ScalingAdjustment Required: Conditional. The number of instances by which to scale. The AdjustmentType property determines if AWS CloudFormation interprets this number as an absolute number (when the ExactCapacity value is specified), increase or decrease capacity by a specified number (when the ChangeInCapacity value is specified), or increase or decrease capacity as a percentage of the existing Auto Scaling group size (when the PercentChangeInCapacity value is
+                  specified). A positive value adds to the current capacity and a negative value subtracts from the current capacity. For exact capacity, you must specify a positive value.Update requires: No interruption
 * @property {AutoScalingScalingPolicyStepAdjustments} StepAdjustments Required: Conditional. A set of adjustments that enable you to scale based on the size of the alarm
                   breach.Update requires: No interruption
 */

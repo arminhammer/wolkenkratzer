@@ -80,7 +80,7 @@ HostedZone.prototype = Object.create(WKResource.prototype)
                   HostedZoneId.Update requires: Replacement
 * @property {String} Name Required: Yes. The name of the domain. You must specify a fully qualified domain name that
                   ends with a period as the last label indication. If you omit the final period,
-                  AWS CloudFormation adds it.Update requires: No interruption
+                  AWS CloudFormation adds it.Update requires: Replacement
 * @property {String} ResourceRecords Required: No. List of resource records to add. Each record should be in the format
                   appropriate for the record type specified by the Type
                   property. For information about different record types and their record formats,

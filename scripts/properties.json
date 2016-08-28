@@ -964,7 +964,7 @@
     "name": "CloudFrontDistributionConfigurationViewerCertificate",
     "properties": {
       "AcmCertificateArn": {
-        "Description": "If you're using an alternate domain name, the Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate. Use the ACM service to provision and manage your certificates. For more information, see the AWS Certificate Manager User Guide.",
+        "Description": "If you're using an alternate domain name, the Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate. Use the ACM service to provision and manage your certificates. For more information, see the AWS Certificate Manager User Guide.NoteCurrently, you can specify only certificates that are in the US East (N. Virginia) region.",
         "Required": "Conditional",
         "Type": "String"
       },
@@ -979,7 +979,7 @@
         "Type": "String"
       },
       "MinimumProtocolVersion": {
-        "Description": "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS\n                  connections. CloudFront serves your objects only to browsers or devices that support at\n                  least the SSL version that you specify.If you specify the IamCertificateId property and specify SNI only\n                  for the SslSupportMethod property, you must use TLSv1\n                  for the minimum protocol version. If you don't specify a value, AWS CloudFormation specifies\n                     SSLv3.",
+        "Description": "The minimum version of the SSL protocol that you want CloudFront to use for HTTPS\n                  connections. CloudFront serves your objects only to browsers or devices that support at\n                  least the SSL version that you specify.AWS CloudFormation specifies SSLv3 by default. However, if you specify the IamCertificateId or AcmCertificateArn property and specify SNI only for the SslSupportMethod property, AWS CloudFormation specifies TLSv1 for the minimum protocol version.",
         "Required": "No",
         "Type": "String"
       },
@@ -2356,7 +2356,7 @@
     "name": "AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces",
     "properties": {
       "AssociatePublicIpAddress": {
-        "Description": "Indicates whether monitoring is enabled for the instances.",
+        "Description": "Indicates whether to assign a public IP address to an instance that you launch in a VPC. The public IP address can only be assigned to a network interface for eth0, and can only be assigned to a new network interface, not an existing one.",
         "Required": "No",
         "Type": "Boolean"
       },
@@ -2475,7 +2475,12 @@
         "Type": "Integer"
       },
       "LoadBalancerName": {
-        "Description": "The name of the load balancer to associated with the Amazon ECS service.",
+        "Description": "The name of a Classic Load Balancer to associate with the Amazon ECS service.",
+        "Required": "No",
+        "Type": "String"
+      },
+      "TargetGroupArn": {
+        "Description": "An Application load balancer target group Amazon Resource Name (ARN) to associate with the Amazon ECS service.",
         "Required": "No",
         "Type": "String"
       }
@@ -2982,7 +2987,7 @@
         "Type": "String"
       },
       "InstanceProtocol": {
-        "Description": "Specifies the protocol to use for routing traffic to back-end instances—HTTP, HTTPS, TCP, or\n                  SSL. This property cannot be modified for the life of the load balancer.NoteIf the front-end protocol is HTTP or HTTPS, InstanceProtocol has to\n                           be at the same protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end protocol is\n                           TCP or SSL, InstanceProtocol has to be TCP or SSL.If there is another listener with the same InstancePort whose\n                           InstanceProtocol is secure, i.e., HTTPS or SSL, the listener's\n                           InstanceProtocol has to be secure, i.e., HTTPS or SSL. If there is\n                           another listener with the same InstancePort whose InstanceProtocol is\n                           HTTP or TCP, the listener's InstanceProtocol must be either HTTP or\n                           TCP.",
+        "Description": "Specifies the protocol to use for routing traffic to back-end instances—HTTP, HTTPS, TCP, or SSL. This property cannot be modified for the life of the load balancer.NoteIf the front-end protocol is HTTP or HTTPS, InstanceProtocol has to be at the same protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. By default, Elastic Load Balancing sets the instance protocol to HTTP or TCP.If there is another listener with the same InstancePort whose\n                           InstanceProtocol is secure, i.e., HTTPS or SSL, the listener's\n                           InstanceProtocol has to be secure, i.e., HTTPS or SSL. If there is\n                           another listener with the same InstancePort whose InstanceProtocol is\n                           HTTP or TCP, the listener's InstanceProtocol must be either HTTP or\n                           TCP.",
         "Required": "No",
         "Type": "String"
       },
