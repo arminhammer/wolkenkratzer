@@ -15,25 +15,30 @@ const wk = require(path.join(__dirname, '..', '..', 'index'))
 const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
-describe('CloudTrail', () => {
+describe ('CloudTrail', () => {
   let t = new wk.Template()
 
   let Trail = new wk.CloudTrail.Trail('Trail')
+  Trail.IsLogging = true
+  Trail.S3BucketName = 'testBucket'
   t.add(Trail)
 
-  it('should be able to add a CloudTrail to the template', () => {
+  it ('should be able to add a CloudTrail to the template', () => {
     t.Resources['Trail'].WKResourceType.should.equal('AWS::CloudTrail::Trail')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
-    CloudFormation.validateTemplate({
+    return CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
+        should.fail(err)
       }
       should.exist(data)
+      done()
     })
   })
 })

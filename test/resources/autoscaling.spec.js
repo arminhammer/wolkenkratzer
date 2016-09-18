@@ -19,6 +19,8 @@ describe('AutoScaling', () => {
   let t = new wk.Template()
 
   let AutoScalingGroup = new wk.AutoScaling.AutoScalingGroup('AutoScalingGroup')
+  AutoScalingGroup.MaxSize = 3
+  AutoScalingGroup.MinSize = 1
   t.add(AutoScalingGroup)
   let LaunchConfiguration = new wk.AutoScaling.LaunchConfiguration('LaunchConfiguration')
   let LifecycleHook = new wk.AutoScaling.LifecycleHook('LifecycleHook')
@@ -29,15 +31,17 @@ describe('AutoScaling', () => {
     t.Resources['AutoScalingGroup'].WKResourceType.should.equal('AWS::AutoScaling::AutoScalingGroup')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })
