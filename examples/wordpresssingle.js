@@ -94,7 +94,7 @@ rule2.ToPort = 22
 rule2.CidrIp.ref(sshLocationParam)
 webServerSecurityGroup.SecurityGroupIngress.push(rule2)
 
-t.addMapping('AWSInstanceType2Arch', {
+let AWSInstanceType2ArchMap = new wk.Mapping('AWSInstanceType2Arch', {
   't1.micro': { 'Arch': 'PV64' },
   't2.nano': { 'Arch': 'HVM64' },
   't2.micro': { 'Arch': 'HVM64' },
@@ -149,8 +149,9 @@ t.addMapping('AWSInstanceType2Arch', {
   'cr1.8xlarge': { 'Arch': 'HVM64' },
   'cc2.8xlarge': { 'Arch': 'HVM64' }
 })
+t.add(AWSInstanceType2ArchMap)
 
-t.addMapping('AWSInstanceType2NATArch', {
+let AWSInstanceType2NATArchMap = new wk.Mapping('AWSInstanceType2NATArch', {
   't1.micro': { 'Arch': 'NATPV64' },
   't2.nano': { 'Arch': 'NATHVM64' },
   't2.micro': { 'Arch': 'NATHVM64' },
@@ -205,8 +206,9 @@ t.addMapping('AWSInstanceType2NATArch', {
   'cr1.8xlarge': { 'Arch': 'NATHVM64' },
   'cc2.8xlarge': { 'Arch': 'NATHVM64' }
 })
+t.add(AWSInstanceType2NATArchMap)
 
-t.addMapping('AWSRegionArch2AMI', {
+let AWSRegionArch2AMIMap = new wk.Mapping('AWSRegionArch2AMI', {
   'us-east-1': {'PV64': 'ami-2a69aa47', 'HVM64': 'ami-6869aa05', 'HVMG2': 'ami-2e5e9c43'},
   'us-west-2': {'PV64': 'ami-7f77b31f', 'HVM64': 'ami-7172b611', 'HVMG2': 'ami-83b770e3'},
   'us-west-1': {'PV64': 'ami-a2490dc2', 'HVM64': 'ami-31490d51', 'HVMG2': 'ami-fd76329d'},
@@ -219,6 +221,7 @@ t.addMapping('AWSRegionArch2AMI', {
   'sa-east-1': {'PV64': 'ami-1ad34676', 'HVM64': 'ami-6dd04501', 'HVMG2': 'NOT_SUPPORTED'},
   'cn-north-1': {'PV64': 'ami-77559f1a', 'HVM64': 'ami-8e6aa0e3', 'HVMG2': 'NOT_SUPPORTED'}
 })
+t.add(AWSRegionArch2AMIMap)
 
 let webServer = new wk.EC2.Instance('WebServer')
 webServer.ImageId.findInMap('AWSRegionArch2AMI', { 'Ref': 'AWS::Region' }, { 'Fn::FindInMap': [ 'AWSInstanceType2Arch', { 'Ref': 'InstanceType' }, 'Arch' ] })

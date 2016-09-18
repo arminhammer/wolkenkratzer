@@ -34,7 +34,7 @@ let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
 }
 )
 
-t.addMapping(region2S3WebsiteSuffixMap)
+t.add(region2S3WebsiteSuffixMap)
 
 let s3BucketForWebsiteContent = new wk.S3.Bucket('S3BucketForWebsiteContent')
 s3BucketForWebsiteContent.AccessControl = 'PublicRead'

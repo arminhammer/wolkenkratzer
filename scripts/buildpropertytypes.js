@@ -154,7 +154,7 @@ fs
           break
       }
       let required = subProp.properties[ props[ i ] ].Required
-      if (!required) {
+      if (!required || name === 'IndexDocument') {
         // If not determined, default to No
         required = 'No'
       }

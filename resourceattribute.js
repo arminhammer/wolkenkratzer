@@ -3,12 +3,12 @@
  */
 'use strict'
 
-const Ref = require('./intrinsic').Ref
-const Intrinsic = require('./intrinsic').Intrinsic
-const FnGetAtt = require('./intrinsic').FnGetAtt
-const FnFindInMap = require('./intrinsic').FnFindInMap
-const FnBase64 = require('./intrinsic').FnBase64
-const FnJoin = require('./intrinsic').FnJoin
+const Intrinsic = require('./intrinsic')
+const Ref = Intrinsic.Ref
+const FnGetAtt = Intrinsic.FnGetAtt
+const FnFindInMap = Intrinsic.FnFindInMap
+const FnBase64 = Intrinsic.FnBase64
+const FnJoin = Intrinsic.FnJoin
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException
 const TypeException = require('./exceptions').TypeException
 const ResourceProperty = require('./resource').ResourceProperty
@@ -30,7 +30,11 @@ function ResourceAttribute (name, type, required, value) {
  * @param value
  */
 ResourceAttribute.prototype.set = function (value) {
-  if (value instanceof Intrinsic) {
+  let instrinsicValue = Intrinsic.makeIntrinsic(value)
+  if (instrinsicValue) {
+    value = instrinsicValue
+  }
+  if (value instanceof Intrinsic.Intrinsic) {
     this.val = value
   } else {
     if ((typeof value === 'string') && (this.Type.prototype === String.prototype)) {
@@ -41,6 +45,8 @@ ResourceAttribute.prototype.set = function (value) {
       this.val = value
     } else if (value instanceof this.Type) {
       this.val = value
+    } else if (new this.Type(value) instanceof this.Type) {
+      this.val = new this.Type(value)
     } else {
       throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)
     }
@@ -103,7 +109,7 @@ ResourceAttribute.prototype.base64 = function (content) {
  */
 ResourceAttribute.prototype.toJson = function () {
   if (this.val !== null) {
-    if (this.val instanceof Intrinsic) {
+    if (this.val instanceof Intrinsic.Intrinsic) {
       return this.val.toJson()
     } else if (this.val instanceof ResourceProperty) {
       return this.val.toJson()
@@ -129,13 +135,18 @@ ResourceAttributeArray.prototype = Object.create(ResourceAttribute.prototype)
  * @param value
  */
 ResourceAttributeArray.prototype.set = function (value) {
-  if (value instanceof Intrinsic) {
+  let instrinsicValue = Intrinsic.makeIntrinsic(value)
+  if (instrinsicValue) {
+    value = instrinsicValue
+  }
+  if (value instanceof Intrinsic.Intrinsic) {
     this.val = value
   } else if (!Array.isArray(value)) {
     throw new TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type)
   } else {
     this.val = []
     for (let val of value) {
+      val = new this.Type(val)
       if ((typeof val === 'string') && (this.Type.prototype === String.prototype)) {
         this.val.push(val)
       } else if ((typeof val === 'boolean') && (this.Type.prototype === Boolean.prototype)) {
@@ -176,7 +187,7 @@ ResourceAttributeArray.prototype.push = function (val) {
   } else if (typeof val === 'number') {
     valueType = new Number(val)
   }
-  if (valueType instanceof this.Type || valueType instanceof Intrinsic) {
+  if (valueType instanceof this.Type || valueType instanceof Intrinsic.Intrinsic) {
     if (!this.val) {
       this.val = []
     }
@@ -191,7 +202,7 @@ ResourceAttributeArray.prototype.push = function (val) {
  */
 ResourceAttributeArray.prototype.toJson = function () {
   if (this.val !== null) {
-    if (this.val instanceof Intrinsic) {
+    if (this.val instanceof Intrinsic.Intrinsic) {
       return this.val.toJson()
     } else if (this.Type.prototype instanceof ResourceProperty) {
       let propArray = []
@@ -202,7 +213,7 @@ ResourceAttributeArray.prototype.toJson = function () {
     } else {
       let propArray = []
       for (let prop in this.val) {
-        if (this.val[prop] instanceof Intrinsic) {
+        if (this.val[prop] instanceof Intrinsic.Intrinsic) {
           propArray.push(this.val[ prop ].toJson())
         } else {
           propArray.push(this.val[prop])

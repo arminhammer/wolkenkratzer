@@ -41,17 +41,10 @@ function WKResource (name, resourceType, properties, propertiesObject, condition
           property = new Number(property)
         }
         if (this.properties[prop].Type) {
-          if (property instanceof this.properties[prop].Type) {
-          } else {
             try {
-              property = new this.properties[prop].Type(property)
+              this.properties[prop].set(property)
             } catch (e) {
             }
-          }
-          try {
-            this.properties[prop].set(propertiesObject[prop])
-          } catch (e) {
-          }
         }
       }
     }
@@ -225,7 +218,7 @@ ResourceProperty.prototype.toJson = function () {
       }
     }
   }
-  if(this.conditional) {
+  if (this.conditional) {
     try {
       this.conditional(this.properties)
     } catch (e) {

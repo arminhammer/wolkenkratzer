@@ -8,6 +8,7 @@ const Mapping = require('./mapping').Mapping
 const Output = require('./output').Output
 const Parameter = require('./parameter').Parameter
 const WKResource = require('./resource').WKResource
+const path = require('path')
 
 /** @module Core */
 
@@ -33,10 +34,43 @@ function _update (d, values) {
   return values
 }
 
+function _populateFromExisting(newTemplate, existingTemplate) {
+  for (let param in existingTemplate.Parameters) {
+    let newParam = new Parameter(param, existingTemplate.Parameters[param])
+    newTemplate.add(newParam)
+  }
+  for (let output in existingTemplate.Outputs) {
+    let newOutput = new Output(output, existingTemplate.Outputs[output])
+    newTemplate.add(newOutput)
+  }
+  for (let mapping in existingTemplate.Mappings) {
+    let newMapping = new Mapping(mapping, existingTemplate.Mappings[mapping])
+    newTemplate.add(newMapping)
+  }
+  for (let resource in existingTemplate.Resources) {
+    let typeSplit = existingTemplate.Resources[resource].Type.split('::')
+    let resourceGroupName = typeSplit[1]
+    let resourceGroup
+    let resourceName = typeSplit[2]
+    if (typeSplit[0] === 'Custom') {
+      resourceGroup = require(path.join(__dirname, 'resources', 'cloudformation'))
+      resourceName = 'CustomResource'
+    } else {
+      resourceGroup = require(path.join(__dirname, 'resources', resourceGroupName.toLowerCase()))
+      if (resourceGroupName === 'Lambda' && resourceName === 'Function') {
+        resourceName = 'LambdaFunction'
+      }
+    }
+    let temp = Object.create(resourceGroup[resourceName].prototype)
+    let newResource = Reflect.construct(resourceGroup[resourceName], [resource, existingTemplate.Resources[resource].Properties])
+    newTemplate.add(newResource)
+  }
+}
+
 /**
  * @memberof module:Core
  */
-function Template () {
+function Template (template) {
   this.Description = ''
   this.Metadata = {}
   this.Conditions = {}
@@ -45,6 +79,10 @@ function Template () {
   this.Parameters = {}
   this.Resources = {}
   this.AWSTemplateFormatVersion = '2010-09-09'
+  if (template) {
+    //console.log('Existing template detected!')
+    _populateFromExisting(this, template)
+  }
 }
 
 /**
@@ -58,6 +96,8 @@ Template.prototype.add = function (element) {
     _update(this.Resources, element)
   } else if (element instanceof Output) {
     _update(this.Outputs, element)
+  } else if (element instanceof Mapping) {
+    _update(this.Mappings, element)
   } else {
     throw new TypeException(element + ' is not a valid type and cannot be added to the template.')
   }
@@ -94,21 +134,6 @@ Template.prototype.setDescription = function (description) {
  */
 Template.prototype.addCondition = function (name, condition) {
   this.Conditions[name] = condition
-}
-
-/**
- * Add a Mapping block to the template
- * @param map
- * @param mapping
- */
-Template.prototype.addMapping = function (map, mapping) {
-  // If the first parameter is a Mapping, add it
-  if (map instanceof Mapping) {
-    this.Mappings[map.WKName] = map
-  } else {
-    // Support pure JSON with two parameters
-    this.Mappings[map] = mapping
-  }
 }
 
 /**

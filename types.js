@@ -3556,14 +3556,14 @@ AmazonS3VersioningConfiguration.prototype = Object.create(ResourceProperty.proto
 
 /**
 * @property ErrorDocument {String} Required: No. The name of the error document for the website.
-* @property IndexDocument {String} Required: Yes. The name of the index document for the website.
+* @property IndexDocument {String} Required: No. The name of the index document for the website.
 * @property RedirectAllRequestsTo {AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty} Required: No. The redirect behavior for every request to this bucket's website endpoint.ImportantIf you specify this property, you cannot specify any other                         property.
 * @property RoutingRules {AmazonS3WebsiteConfigurationRoutingRulesProperty} Required: No. Rules that define when a redirect is applied and the redirect behavior.
 */
 function AmazonS3WebsiteConfigurationProperty (propertiesObject) {
   let properties = {
     ErrorDocument: new ResourceAttribute('ErrorDocument', String, 'No', null),
-    IndexDocument: new ResourceAttribute('IndexDocument', String, 'Yes', null),
+    IndexDocument: new ResourceAttribute('IndexDocument', String, 'No', null),
     RedirectAllRequestsTo: new ResourceAttribute('RedirectAllRequestsTo', AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty, 'No', null),
     RoutingRules: new ResourceAttributeArray('RoutingRules', AmazonS3WebsiteConfigurationRoutingRulesProperty, 'No', null)
   }

@@ -8,6 +8,19 @@ const Parameter = require('./parameter').Parameter
 
 /** @module Core */
 
+function makeIntrinsic (obj) {
+  if (obj['Ref']) {
+    return new Ref(obj['Ref'])
+  } else if (obj['Fn::FindInMap']) {
+    return new FnFindInMap(obj['Fn::FindInMap'])
+  } else if (obj['Fn::GetAtt']) {
+    return new FnGetAtt(obj['Fn::GetAtt'])
+  } else if (obj['Fn::Join']) {
+    return new FnJoin(obj['Fn::Join'][0], obj['Fn::Join'][1])
+  }
+  return null
+}
+
 /**
  * @memberof module:Core
  */
@@ -33,7 +46,11 @@ Ref.prototype = Object.create(Intrinsic.prototype)
  * @returns {Object}
  */
 Ref.prototype.toJson = function () {
-  return { 'Ref': this.ref.WKName }
+  if (this.ref instanceof WKResource || this.ref instanceof Parameter) {
+    return { 'Ref': this.ref.WKName }
+  } else {
+    return { 'Ref': this.ref }
+  }
 }
 
 Ref.prototype.toJSON = function () {
@@ -263,5 +280,6 @@ module.exports = {
   FnEquals: FnEquals,
   FnIf: FnIf,
   FnNot: FnNot,
-  FnOr: FnOr
+  FnOr: FnOr,
+  makeIntrinsic: makeIntrinsic
 }
