@@ -19,7 +19,7 @@ AWS.config.setPromisesDependency(BPromise)
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
 describe('Examples', () => {
-  it('Should be able to generate the expected template', function () {
+  it ('Should be able to generate the expected template', function () {
     this.timeout(15000)
     return fs
       .readdirAsync(path.join(__dirname, '..', 'examples'))
@@ -46,7 +46,7 @@ describe('Examples', () => {
       })
   })
 
-  it('Should correctly create the wordpress template', () => {
+  it ('Should correctly create the wordpress template', () => {
     let file = ''
     return fs
       .readJsonAsync(path.join(__dirname, 'templates', 'wordpressSingle.json'))
@@ -69,7 +69,7 @@ describe('Examples', () => {
       })
   })
 
-  it('Should correctly create the s3CloudFront template', () => {
+  it ('Should correctly create the s3CloudFront template', () => {
     let file = ''
     return fs
       .readJsonAsync(path.join(__dirname, 'templates', 's3CloudFront.json'))

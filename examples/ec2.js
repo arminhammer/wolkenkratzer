@@ -19,6 +19,7 @@ EC2.describeInstances({}, (err, data) => {
     console.log(err)
   } else {
     let instance = data.Reservations[0].Instances[0]
+    delete instance.NetworkInterfaces
     let ec2Two = new wk.EC2.Instance('ec2Two', instance)
     t.add(ec2Two)
     console.log(t.toJson().Template)

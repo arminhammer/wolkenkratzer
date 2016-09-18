@@ -287,33 +287,25 @@ describe('Resource', () => {
       let t = new wk.Template()
       let bucket = new wk.S3.Bucket('bucket')
       t.add(bucket)
-
       let config = new wk.Init.Config('config')
-
       try {
         bucket.addConfig(config)
       } catch (error) {
         done()
       }
-
     })
 
     it ('Should not be able to add a Config to an S3 Bucket', (done) => {
-
       let t = new wk.Template()
       let bucket = new wk.S3.Bucket('bucket')
       t.add(bucket)
-
       let configSet = new wk.Init.ConfigSet('configSet')
-
       try {
         bucket.addConfigSet(configSet)
       } catch (error) {
         done()
       }
-
     })
-
   })
 
   describe('Test supporting and modifying existing templates', () => {
@@ -448,7 +440,6 @@ describe('Resource', () => {
     })*/
 
     it ('Should be able to load an existing Static S3 template', () => {
-
       return fs
       .readJSONAsync(path.join(__dirname, 'templates', 's3static.json'))
       .then((data) => {
@@ -457,6 +448,5 @@ describe('Resource', () => {
         jsonString.should.deep.equal(data)
       })
     })
-
   })
 })
