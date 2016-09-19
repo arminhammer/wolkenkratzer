@@ -19,6 +19,11 @@ describe('Redshift', () => {
   let t = new wk.Template()
 
   let Cluster = new wk.Redshift.Cluster('Cluster')
+  Cluster.ClusterType = 'single-node'
+  Cluster.DBName = 'name'
+  Cluster.MasterUsername = 'user'
+  Cluster.MasterUserPassword = 'password'
+  Cluster.NodeType = 't2.micro'
   t.add(Cluster)
 
   let ClusterParameterGroup = new wk.Redshift.ClusterParameterGroup('ClusterParameterGroup')
@@ -30,15 +35,17 @@ describe('Redshift', () => {
     t.Resources['Cluster'].WKResourceType.should.equal('AWS::Redshift::Cluster')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

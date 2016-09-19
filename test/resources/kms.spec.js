@@ -19,21 +19,24 @@ describe('KMS', () => {
   let t = new wk.Template()
 
   let Key = new wk.KMS.Key('Key')
+  Key.KeyPolicy = 'policy'
   t.add(Key)
 
   it('should be able to add an KMS Key to the template', () => {
     t.Resources['Key'].WKResourceType.should.equal('AWS::KMS::Key')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

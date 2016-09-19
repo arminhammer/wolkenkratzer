@@ -18,7 +18,11 @@ const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 describe('Route53', () => {
   let t = new wk.Template()
 
+  let AmazonRoute53HealthCheckConfig = new wk.Types.AmazonRoute53HealthCheckConfig()
+  AmazonRoute53HealthCheckConfig.Type = 'HTTP'
+
   let HealthCheck = new wk.Route53.HealthCheck('HealthCheck')
+  HealthCheck.HealthCheckConfig = AmazonRoute53HealthCheckConfig
   t.add(HealthCheck)
 
   let HostedZone = new wk.Route53.HostedZone('HostedZone')
@@ -30,15 +34,17 @@ describe('Route53', () => {
     t.Resources['HealthCheck'].WKResourceType.should.equal('AWS::Route53::HealthCheck')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

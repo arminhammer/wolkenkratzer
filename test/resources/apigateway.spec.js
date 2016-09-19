@@ -38,7 +38,7 @@ describe('API Gateway', () => {
 
   it('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
-    CloudFormation.validateTemplate({
+    return CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {

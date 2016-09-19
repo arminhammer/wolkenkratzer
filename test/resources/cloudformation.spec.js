@@ -18,12 +18,14 @@ const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 describe('CloudFormation', () => {
   let t = new wk.Template()
 
-  let Authentication = new wk.CloudFormation.Authentication('Authentication')
-  t.add(Authentication)
+  let Stack = new wk.CloudFormation.Stack('Stack')
+  Stack.TemplateURL = 'url'
+  t.add(Stack)
+
   let CustomResource = new wk.CloudFormation.CustomResource('CustomResource')
   let Init = new wk.CloudFormation.Init('Init')
   let Interface = new wk.CloudFormation.Interface('Interface')
-  let Stack = new wk.CloudFormation.Stack('Stack')
+  let Authentication = new wk.CloudFormation.Authentication('Authentication')
   let WaitCondition = new wk.CloudFormation.WaitCondition('WaitCondition')
   let WaitConditionHandle = new wk.CloudFormation.WaitConditionHandle('WaitConditionHandle')
 
@@ -31,18 +33,20 @@ describe('CloudFormation', () => {
   t.add(account)
 
   it('should be able to add an CloudFormation Authentication to the template', () => {
-    t.Resources['Authentication'].WKResourceType.should.equal('AWS::CloudFormation::Authentication')
+    t.Resources['Stack'].WKResourceType.should.equal('AWS::CloudFormation::Stack')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
-    CloudFormation.validateTemplate({
+    return CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

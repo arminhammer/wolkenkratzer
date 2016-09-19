@@ -19,6 +19,10 @@ describe('Logs', () => {
   let t = new wk.Template()
 
   let Destination = new wk.Logs.Destination('Destination')
+  Destination.DestinationName = 'name'
+  Destination.DestinationPolicy = 'policy'
+  Destination.RoleArn = 'dummyARN'
+  Destination.TargetArn = 'targetARN'
   t.add(Destination)
 
   let LogGroup = new wk.Logs.LogGroup('LogGroup')
@@ -30,15 +34,17 @@ describe('Logs', () => {
     t.Resources['Destination'].WKResourceType.should.equal('AWS::Logs::Destination')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

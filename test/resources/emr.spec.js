@@ -18,7 +18,18 @@ const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 describe('EMR', () => {
   let t = new wk.Template()
 
+  let AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig = new wk.Types.AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig()
+  AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig.InstanceCount = 1
+  AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig.InstanceType = 't2.micro'
+  let AmazonEMRClusterJobFlowInstancesConfig = new wk.Types.AmazonEMRClusterJobFlowInstancesConfig()
+  AmazonEMRClusterJobFlowInstancesConfig.CoreInstanceGroup = AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig
+  AmazonEMRClusterJobFlowInstancesConfig.MasterInstanceGroup = AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig
+
   let Cluster = new wk.EMR.Cluster('Cluster')
+  Cluster.Instances = AmazonEMRClusterJobFlowInstancesConfig
+  Cluster.JobFlowRole = 'dummyArn'
+  Cluster.Name = 'name'
+  Cluster.ServiceRole = 'dummyRole'
   t.add(Cluster)
 
   let InstanceGroupConfig = new wk.EMR.InstanceGroupConfig('InstanceGroupConfig')
@@ -28,15 +39,17 @@ describe('EMR', () => {
     t.Resources['Cluster'].WKResourceType.should.equal('AWS::EMR::Cluster')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

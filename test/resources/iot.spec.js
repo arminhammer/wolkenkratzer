@@ -19,6 +19,8 @@ describe('IoT', () => {
   let t = new wk.Template()
 
   let Certificate = new wk.IoT.Certificate('Certificate')
+  Certificate.CertificateSigningRequest = 'request'
+  Certificate.Status = 'dummystatus'
   t.add(Certificate)
 
   let Policy = new wk.IoT.Policy('Policy')
@@ -31,15 +33,17 @@ describe('IoT', () => {
     t.Resources['Certificate'].WKResourceType.should.equal('AWS::IoT::Certificate')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

@@ -19,6 +19,9 @@ describe('Lambda', () => {
   let t = new wk.Template()
 
   let EventSourceMapping = new wk.Lambda.EventSourceMapping('EventSourceMapping')
+  EventSourceMapping.EventSourceArn = 'dummyArn'
+  EventSourceMapping.FunctionName = 'name'
+  EventSourceMapping.StartingPosition = 0
   t.add(EventSourceMapping)
 
   let Alias = new wk.Lambda.Alias('Alias')
@@ -30,15 +33,17 @@ describe('Lambda', () => {
     t.Resources['EventSourceMapping'].WKResourceType.should.equal('AWS::Lambda::EventSourceMapping')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

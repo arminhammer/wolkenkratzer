@@ -33,9 +33,19 @@ describe('CodePipeline', () => {
   customActionType.Provider = 'Provider'
   t.add(customActionType)
 
+  let AWSCodePipelinePipelineStagesActionsActionTypeId = new wk.Types.AWSCodePipelinePipelineStagesActionsActionTypeId()
+  AWSCodePipelinePipelineStagesActionsActionTypeId.Category = 'cat'
+  AWSCodePipelinePipelineStagesActionsActionTypeId.Owner = 'me'
+  AWSCodePipelinePipelineStagesActionsActionTypeId.Provider = 'provider'
+  AWSCodePipelinePipelineStagesActionsActionTypeId.Version = 0
+
+  let AWSCodePipelinePipelineStagesActions = new wk.Types.AWSCodePipelinePipelineStagesActions()
+  AWSCodePipelinePipelineStagesActions.ActionTypeId = AWSCodePipelinePipelineStagesActionsActionTypeId
+  AWSCodePipelinePipelineStagesActions.Name = 'name'
+
   let stage = new wk.Types.AWSCodePipelinePipelineStages()
   stage.Name = 'stage0'
-  stage.Actions.push(new wk.Types.AWSCodePipelinePipelineStagesActions())
+  stage.Actions.push(AWSCodePipelinePipelineStagesActions)
 
   let pipeline = new wk.CodePipeline.Pipeline('pipeline')
   pipeline.ArtifactStore = new wk.Types.AWSCodePipelinePipelineArtifactStore({
@@ -43,22 +53,24 @@ describe('CodePipeline', () => {
     Type: 'S3'
   })
   pipeline.RoleArn.ref(rolearn)
-  //pipeline.Stages.push(stage)
+  pipeline.Stages = stage
   t.add(pipeline)
 
   it('should be able to add a custom action type to the template', () => {
     t.Resources[ 'pipeline' ].WKResourceType.should.equal('AWS::CodePipeline::Pipeline')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

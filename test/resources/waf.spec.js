@@ -19,6 +19,7 @@ describe('WAF', () => {
   let t = new wk.Template()
 
   let ByteMatchSet = new wk.WAF.ByteMatchSet('ByteMatchSet')
+  ByteMatchSet.Name = 'dummyName'
   t.add(ByteMatchSet)
 
   let IPSet = new wk.WAF.IPSet('IPSet')
@@ -32,15 +33,17 @@ describe('WAF', () => {
     t.Resources['ByteMatchSet'].WKResourceType.should.equal('AWS::WAF::ByteMatchSet')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
-    CloudFormation.validateTemplate({
+    return CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

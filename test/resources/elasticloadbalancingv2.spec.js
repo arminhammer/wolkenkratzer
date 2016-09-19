@@ -18,7 +18,15 @@ const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 describe('ElasticLoadBalancingV2', () => {
   let t = new wk.Template()
 
+  let ElasticLoadBalancingListenerDefaultActions = new wk.Types.ElasticLoadBalancingListenerDefaultActions()
+  ElasticLoadBalancingListenerDefaultActions.TargetGroupArn = 'dummyArn'
+  ElasticLoadBalancingListenerDefaultActions.Type = 'forward'
+
   let Listener = new wk.ElasticLoadBalancingV2.Listener('Listener')
+  Listener.DefaultActions.push(ElasticLoadBalancingListenerDefaultActions)
+  Listener.LoadBalancerArn = 'dummyarn'
+  Listener.Port = 80
+  Listener.Protocol = 'http'
   t.add(Listener)
 
   let ListenerRule = new wk.ElasticLoadBalancingV2.ListenerRule('ListenerRule')
@@ -29,15 +37,17 @@ describe('ElasticLoadBalancingV2', () => {
     t.Resources['Listener'].WKResourceType.should.equal('AWS::ElasticLoadBalancingV2::Listener')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

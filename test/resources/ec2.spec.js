@@ -589,15 +589,17 @@ describe('EC2', () => {
       })
     })
 
-    it('CloudFormation should validate the template', () => {
+    it ('CloudFormation should validate the template', (done) => {
       let jsonString = t.toJson().Template
       CloudFormation.validateTemplate({
         TemplateBody: jsonString
       }, (err, data) => {
         if (err) {
           console.error(err)
+          console.log(t.toJson().Errors)
         }
         should.exist(data)
+        done()
       })
     })
   })

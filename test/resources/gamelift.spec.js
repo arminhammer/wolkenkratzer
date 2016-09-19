@@ -18,7 +18,12 @@ const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 describe('Gamelift', () => {
   let t = new wk.Template()
 
+  let AmazonGameLiftAliasRoutingStrategy = new wk.Types.AmazonGameLiftAliasRoutingStrategy()
+  AmazonGameLiftAliasRoutingStrategy.Type = 'dummytype'
+
   let Alias = new wk.GameLift.Alias('Alias')
+  Alias.Name = 'name'
+  Alias.RoutingStrategy = AmazonGameLiftAliasRoutingStrategy
   t.add(Alias)
 
   let Build = new wk.GameLift.Build('Build')
@@ -28,15 +33,17 @@ describe('Gamelift', () => {
     t.Resources['Alias'].WKResourceType.should.equal('AWS::GameLift::Alias')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

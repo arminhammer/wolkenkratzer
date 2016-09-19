@@ -122,8 +122,6 @@ describe ('Intrinsics', () => {
     it ('FnGetAtt should generate JSON correctly when part of a resource', () => {
 
       let jsonString = JSON.parse(t.toJson().Template)
-      console.log('Errors:')
-      console.log(t.toJson().Errors)
       jsonString.should.deep.equal({
         'Resources': {
           'ElasticLoadBalancer': {

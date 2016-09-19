@@ -18,7 +18,14 @@ const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 describe('DirectoryService', () => {
   let t = new wk.Template()
 
+  let AWSDirectoryServiceMicrosoftADVpcSettings = new wk.Types.AWSDirectoryServiceMicrosoftADVpcSettings()
+  AWSDirectoryServiceMicrosoftADVpcSettings.SubnetIds.push('subnet0')
+  AWSDirectoryServiceMicrosoftADVpcSettings.VpcId = 'vpc0'
+
   let MicrosoftAD = new wk.DirectoryService.MicrosoftAD('MicrosoftAD')
+  MicrosoftAD.Name = 'name'
+  MicrosoftAD.Password = 'password'
+  MicrosoftAD.VpcSettings = AWSDirectoryServiceMicrosoftADVpcSettings
   t.add(MicrosoftAD)
 
   let SimpleAD = new wk.DirectoryService.SimpleAD('SimpleAD')
@@ -27,15 +34,17 @@ describe('DirectoryService', () => {
     t.Resources['MicrosoftAD'].WKResourceType.should.equal('AWS::DirectoryService::MicrosoftAD')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

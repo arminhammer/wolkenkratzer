@@ -19,6 +19,7 @@ describe('RDS', () => {
   let t = new wk.Template()
 
   let DBCluster = new wk.RDS.DBCluster('DBCluster')
+  DBCluster.Engine = 'mysql'
   t.add(DBCluster)
 
   let DBClusterParameterGroup = new wk.RDS.DBClusterParameterGroup('DBClusterParameterGroup')
@@ -34,15 +35,17 @@ describe('RDS', () => {
     t.Resources['DBCluster'].WKResourceType.should.equal('AWS::RDS::DBCluster')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

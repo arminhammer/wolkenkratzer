@@ -19,6 +19,9 @@ describe('ElastiCache', () => {
   let t = new wk.Template()
 
   let CacheCluster = new wk.ElastiCache.CacheCluster('CacheCluster')
+  CacheCluster.CacheNodeType = 't2.micro'
+  CacheCluster.Engine = 'redis'
+  CacheCluster.NumCacheNodes = 0
   t.add(CacheCluster)
 
   let ParameterGroup = new wk.ElastiCache.ParameterGroup('ParameterGroup')
@@ -31,15 +34,17 @@ describe('ElastiCache', () => {
     t.Resources['CacheCluster'].WKResourceType.should.equal('AWS::ElastiCache::CacheCluster')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

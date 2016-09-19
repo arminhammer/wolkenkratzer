@@ -19,21 +19,24 @@ describe('Kinesis', () => {
   let t = new wk.Template()
 
   let Stream = new wk.Kinesis.Stream('Stream')
+  Stream.ShardCount = 1
   t.add(Stream)
 
   it('should be able to add an API Gateway Stream to the template', () => {
     t.Resources['Stream'].WKResourceType.should.equal('AWS::Kinesis::Stream')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it ('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
     CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })

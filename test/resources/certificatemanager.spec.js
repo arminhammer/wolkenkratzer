@@ -19,21 +19,25 @@ describe('CertificateManager', () => {
   let t = new wk.Template()
 
   let Certificate = new wk.CertificateManager.Certificate('Certificate')
+  Certificate.DomainName = 'domain'
+
   t.add(Certificate)
 
   it('should be able to add an CertificateManager Certificate to the template', () => {
     t.Resources['Certificate'].WKResourceType.should.equal('AWS::CertificateManager::Certificate')
   })
 
-  it('CloudFormation should validate the template', () => {
+  it('CloudFormation should validate the template', (done) => {
     let jsonString = t.toJson().Template
-    CloudFormation.validateTemplate({
+    return CloudFormation.validateTemplate({
       TemplateBody: jsonString
     }, (err, data) => {
       if (err) {
         console.error(err)
+        console.log(t.toJson().Errors)
       }
       should.exist(data)
+      done()
     })
   })
 })
