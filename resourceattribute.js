@@ -141,13 +141,7 @@ ResourceAttributeArray.prototype.set = function (value) {
     this.val = []
     for (let val of value) {
       val = new this.Type(val)
-      if ((typeof val === 'string') && (this.Type.prototype === String.prototype)) {
-        this.val.push(val)
-      } else if ((typeof val === 'boolean') && (this.Type.prototype === Boolean.prototype)) {
-        this.val.push(val)
-      } else if ((typeof val === 'number') && (this.Type.prototype === Number.prototype)) {
-        this.val.push(val)
-      } else if (val instanceof this.Type) {
+      if (((typeof val === 'string') && (this.Type.prototype === String.prototype)) || ((typeof val === 'boolean') && (this.Type.prototype === Boolean.prototype)) || ((typeof val === 'number') && (this.Type.prototype === Number.prototype)) || (val instanceof this.Type)) {
         this.val.push(val)
       } else {
         throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)

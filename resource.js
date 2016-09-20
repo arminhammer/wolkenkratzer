@@ -33,13 +33,6 @@ function WKResource (name, resourceType, properties, propertiesObject, condition
     for (let prop in propertiesObject) {
       if (this.properties[prop]) {
         let property = propertiesObject[prop]
-        if (typeof property === 'string') {
-          property = new String(property)
-        } else if (typeof property === 'boolean') {
-          property = new Boolean(property)
-        } else if (typeof property === 'number') {
-          property = new Number(property)
-        }
         if (this.properties[prop].Type) {
             try {
               this.properties[prop].set(property)
