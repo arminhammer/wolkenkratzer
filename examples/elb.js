@@ -10,10 +10,10 @@ let t = new wk.Template()
 let ElasticLoadBalancer = new wk.ElasticLoadBalancing.LoadBalancer('ElasticLoadBalancer')
 ElasticLoadBalancer.AvailabilityZones = new wk.Intrinsic.FnGetAZs()
 ElasticLoadBalancer.CrossZone = true
-let cookieStickinessPolicy = new wk.Types.ElasticLoadBalancingLBCookieStickinessPolicyType()
-cookieStickinessPolicy.PolicyName = 'CookieBasedPolicy'
-cookieStickinessPolicy.CookieExpirationPeriod = '30'
-ElasticLoadBalancer.LBCookieStickinessPolicy.push(cookieStickinessPolicy)
+ElasticLoadBalancer.LBCookieStickinessPolicy.push({
+  'CookieExpirationPeriod': '30',
+  'PolicyName': 'CookieBasedPolicy'
+})
 
 let listener = new wk.Types.ElasticLoadBalancingListenerPropertyType()
 listener.LoadBalancerPort = '80'

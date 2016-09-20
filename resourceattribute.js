@@ -193,7 +193,15 @@ ResourceAttributeArray.prototype.push = function (val) {
     }
     this.val.push(val)
   } else {
-    throw new TypeException(val + ' is the wrong type, was expecting ' + this.Type)
+    try {
+      if (!this.val) {
+        this.val = []
+      }
+      let newObject = new this.Type(val)
+      this.val.push(newObject)
+    } catch (e) {
+      throw new TypeException(val + ' is the wrong type, was expecting ' + this.Type + ', reporting: ' + e)
+    }
   }
 }
 /**
