@@ -37,13 +37,7 @@ ResourceAttribute.prototype.set = function (value) {
   if (value instanceof Intrinsic.Intrinsic) {
     this.val = value
   } else {
-    if ((typeof value === 'string') && (this.Type.prototype === String.prototype)) {
-      this.val = value
-    } else if ((typeof value === 'boolean') && (this.Type.prototype === Boolean.prototype)) {
-      this.val = value
-    } else if ((typeof value === 'number') && (this.Type.prototype === Number.prototype)) {
-      this.val = value
-    } else if (value instanceof this.Type) {
+    if (((typeof value === 'string') && (this.Type.prototype === String.prototype)) || ((typeof value === 'boolean') && (this.Type.prototype === Boolean.prototype)) || ((typeof value === 'number') && (this.Type.prototype === Number.prototype)) || (value instanceof this.Type)) {
       this.val = value
     } else if (new this.Type(value) instanceof this.Type) {
       this.val = new this.Type(value)
@@ -179,15 +173,12 @@ ResourceAttributeArray.prototype.join = function (delimiter, values) {
  * @param val
  */
 ResourceAttributeArray.prototype.push = function (val) {
-  let valueType = val
-  if (typeof val === 'string') {
-    valueType = new String(val)
-  } else if (typeof val === 'boolean') {
-    valueType = new Boolean(val)
-  } else if (typeof val === 'number') {
-    valueType = new Number(val)
+  let value = val
+  let instrinsicValue = Intrinsic.makeIntrinsic(value)
+  if (instrinsicValue) {
+    value = instrinsicValue
   }
-  if (valueType instanceof this.Type || valueType instanceof Intrinsic.Intrinsic) {
+  if ((value instanceof Intrinsic.Intrinsic) || ((typeof value === 'string') && (this.Type.prototype === String.prototype)) || ((typeof value === 'boolean') && (this.Type.prototype === Boolean.prototype)) || ((typeof value === 'number') && (this.Type.prototype === Number.prototype)) || (value instanceof this.Type)) {
     if (!this.val) {
       this.val = []
     }
