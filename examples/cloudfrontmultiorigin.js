@@ -15,15 +15,15 @@ distro.DistributionConfig = {
       OriginAccessIdentity: 'origin-access-identity/cloudfront/E127EXAMPLE51Z'
     }
   },
-    {
-      Id: 'myCustomOrigin',
-      DomainName: 'www.example.com',
-      CustomOriginConfig: {
-        HTTPPort: '80',
-        HTTPSPort: '443',
-        OriginProtocolPolicy: 'http-only'
-      }
+  {
+    Id: 'myCustomOrigin',
+    DomainName: 'www.example.com',
+    CustomOriginConfig: {
+      HTTPPort: '80',
+      HTTPSPort: '443',
+      OriginProtocolPolicy: 'http-only'
     }
+  }
   ],
   Enabled: 'true',
   Comment: 'Some comment',
@@ -40,7 +40,7 @@ distro.DistributionConfig = {
       QueryString: 'false',
       Cookies: { Forward: 'all' }
     },
-    TrustedSigners: [ '1234567890EX', '1234567891EX'  ],
+    TrustedSigners: [ '1234567890EX', '1234567891EX' ],
     ViewerProtocolPolicy: 'allow-all',
     MinTTL: '100',
     SmoothStreaming: 'true'
@@ -57,18 +57,18 @@ distro.DistributionConfig = {
     MinTTL: '50',
     PathPattern: 'images1/*.jpg'
   },
-    {
-      AllowedMethods: [ 'DELETE', 'GET', 'HEAD', 'OPTIONS', 'PATCH', 'POST', 'PUT' ],
-      TargetOriginId: 'myCustomOrigin',
-      ForwardedValues: {
-        QueryString: 'true',
-        Cookies: { 'Forward': 'none' }
-      },
-      TrustedSigners: [ '1234567890EX', '1234567891EX'  ],
-      ViewerProtocolPolicy: 'allow-all',
-      MinTTL: '50',
-      PathPattern: 'images2/*.jpg'
-    }
+  {
+    AllowedMethods: [ 'DELETE', 'GET', 'HEAD', 'OPTIONS', 'PATCH', 'POST', 'PUT' ],
+    TargetOriginId: 'myCustomOrigin',
+    ForwardedValues: {
+      QueryString: 'true',
+      Cookies: { 'Forward': 'none' }
+    },
+    TrustedSigners: [ '1234567890EX', '1234567891EX' ],
+    ViewerProtocolPolicy: 'allow-all',
+    MinTTL: '50',
+    PathPattern: 'images2/*.jpg'
+  }
   ],
   CustomErrorResponses: [ {
     ErrorCode: '404',

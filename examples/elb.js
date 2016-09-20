@@ -23,10 +23,10 @@ listener.PolicyNames.push('CookieBasedPolicy')
 ElasticLoadBalancer.Listeners.push(listener)
 
 let elbHealthCheck = new wk.Types.ElasticLoadBalancingHealthCheckType()
-elbHealthCheck.Target = 'HTTP:80/',
-elbHealthCheck.HealthyThreshold = '2',
-elbHealthCheck.UnhealthyThreshold = '5',
-elbHealthCheck.Interval = '10',
+elbHealthCheck.Target = 'HTTP:80/'
+elbHealthCheck.HealthyThreshold = '2'
+elbHealthCheck.UnhealthyThreshold = '5'
+elbHealthCheck.Interval = '10'
 elbHealthCheck.Timeout = '5'
 ElasticLoadBalancer.HealthCheck = elbHealthCheck
 

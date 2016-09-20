@@ -480,9 +480,9 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "wordpress_install": ["install_cfn", "install_wordpress", "configure_wordpress"]
+            "wordpressInstall": ["installCfn", "installWordpress", "configureWordpress"]
           },
-          "install_cfn": {
+          "installCfn": {
             "files": {
               "/etc/cfn/cfn-hup.conf": {
                 "content": {
@@ -511,7 +511,7 @@
                       "Ref": "AWS::StackName"
                     },
                     "         --resource WebServer ",
-                    "         --configsets wordpress_install ",
+                    "         --configsets wordpressInstall ",
                     "         --region ", {
                       "Ref": "AWS::Region"
                     }, "\n"
@@ -533,7 +533,7 @@
             }
           },
 
-          "install_wordpress": {
+          "installWordpress": {
             "packages": {
               "yum": {
                 "php": [],
@@ -608,9 +608,9 @@
             }
           },
 
-          "configure_wordpress": {
+          "configureWordpress": {
             "commands": {
-              "01_set_mysql_root_password": {
+              "01_setMysqlRootPassword": {
                 "command": {
                   "Fn::Join": ["", ["mysqladmin -u root password '", {
                     "Ref": "DBRootPassword"
@@ -624,7 +624,7 @@
                   }, "' >/dev/null 2>&1 </dev/null); (( $? != 0 ))"]]
                 }
               },
-              "02_create_database": {
+              "02_createDatabase": {
                 "command": {
                   "Fn::Join": ["", ["mysql -u root --password='", {
                     "Ref": "DBRootPassword"
@@ -638,7 +638,7 @@
                   }, "' >/dev/null 2>&1 </dev/null); (( $? != 0 ))"]]
                 }
               },
-              "03_configure_wordpress": {
+              "03_configureWordpress": {
                 "command": "/tmp/create-wp-config",
                 "cwd": "/var/www/html/wordpress"
               }
@@ -676,7 +676,7 @@
                 "Ref": "AWS::StackName"
               },
               "         --resource WebServer ",
-              "         --configsets wordpress_install ",
+              "         --configsets wordpressInstall ",
               "         --region ", {
                 "Ref": "AWS::Region"
               }, "\n",

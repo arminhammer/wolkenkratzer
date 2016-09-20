@@ -237,7 +237,7 @@ webServer.UserData.base64({ 'Fn::Join': ['', [
   '/opt/aws/bin/cfn-init -v ',
   '         --stack ', { 'Ref': 'AWS::StackName' },
   '         --resource WebServer ',
-  '         --configsets wordpress_install ',
+  '         --configsets wordpressInstall ',
   '         --region ', { 'Ref': 'AWS::Region' }, '\n',
 
   '/opt/aws/bin/cfn-signal -e $? ',
@@ -251,24 +251,24 @@ let webSiteUrlOutput = new wk.Output('WebsiteURL', {
   'Description': 'WordPress Website'
 })
 
-let set_mysql_root_password = new wk.Init.Command('01_set_mysql_root_password')
-set_mysql_root_password.command = { 'Fn::Join': [ '', [ 'mysqladmin -u root password \'', { 'Ref': 'DBRootPassword' }, '\'' ] ] }
-set_mysql_root_password.test = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))' ] ] }
+let setMysqlRootPassword = new wk.Init.Command('01_setMysqlRootPassword')
+setMysqlRootPassword.command = { 'Fn::Join': [ '', [ 'mysqladmin -u root password \'', { 'Ref': 'DBRootPassword' }, '\'' ] ] }
+setMysqlRootPassword.test = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))' ] ] }
 
-let create_database = new wk.Init.Command('02_create_database')
-create_database.command = { 'Fn::Join': [ '', [ 'mysql -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' < /tmp/setup.mysql' ] ] }
-create_database.test = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))' ] ] }
+let createDatabase = new wk.Init.Command('02_createDatabase')
+createDatabase.command = { 'Fn::Join': [ '', [ 'mysql -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' < /tmp/setup.mysql' ] ] }
+createDatabase.test = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))' ] ] }
 
-let configure_wordpressCMD = new wk.Init.Command('03_configure_wordpress')
-configure_wordpressCMD.command = '/tmp/create-wp-config'
-configure_wordpressCMD.cwd = '/var/www/html/wordpress'
+let configureWordpressCMD = new wk.Init.Command('03_configureWordpress')
+configureWordpressCMD.command = '/tmp/create-wp-config'
+configureWordpressCMD.cwd = '/var/www/html/wordpress'
 
-let configure_wordpress = new wk.Init.Config('configure_wordpress')
-configure_wordpress.add(set_mysql_root_password)
-configure_wordpress.add(create_database)
-configure_wordpress.add(configure_wordpressCMD)
+let configureWordpress = new wk.Init.Config('configureWordpress')
+configureWordpress.add(setMysqlRootPassword)
+configureWordpress.add(createDatabase)
+configureWordpress.add(configureWordpressCMD)
 
-webServer.addConfig(configure_wordpress)
+webServer.addConfig(configureWordpress)
 
 let cfnHup = new wk.Init.File('/etc/cfn/cfn-hup.conf')
 cfnHup.content = { 'Fn::Join': ['', [ '[main]\n', 'stack=', { 'Ref': 'AWS::StackId' }, '\n', 'region=', { 'Ref': 'AWS::Region' }, '\n' ]] }
@@ -277,7 +277,7 @@ cfnHup.owner = 'root'
 cfnHup.group = 'root'
 
 let cfnAutoReloader = new wk.Init.File('/etc/cfn/hooks.d/cfn-auto-reloader.conf')
-cfnAutoReloader.content = { 'Fn::Join': [ '', [ '[cfn-auto-reloader-hook]\n', 'triggers=post.update\n', 'path=Resources.WebServer.Metadata.AWS::CloudFormation::Init\n', 'action=/opt/aws/bin/cfn-init -v ', '         --stack ', { 'Ref': 'AWS::StackName' }, '         --resource WebServer ', '         --configsets wordpress_install ', '         --region ', { 'Ref': 'AWS::Region' }, '\n' ] ] }
+cfnAutoReloader.content = { 'Fn::Join': [ '', [ '[cfn-auto-reloader-hook]\n', 'triggers=post.update\n', 'path=Resources.WebServer.Metadata.AWS::CloudFormation::Init\n', 'action=/opt/aws/bin/cfn-init -v ', '         --stack ', { 'Ref': 'AWS::StackName' }, '         --resource WebServer ', '         --configsets wordpressInstall ', '         --region ', { 'Ref': 'AWS::Region' }, '\n' ] ] }
 cfnAutoReloader.mode = '000400'
 cfnAutoReloader.owner = 'root'
 cfnAutoReloader.group = 'root'
@@ -287,20 +287,20 @@ cfnHupService.enabled = 'true'
 cfnHupService.ensureRunning = 'true'
 cfnHupService.files = ['/etc/cfn/cfn-hup.conf', '/etc/cfn/hooks.d/cfn-auto-reloader.conf']
 
-let install_cfn = new wk.Init.Config('install_cfn')
-install_cfn.add(cfnHup)
-install_cfn.add(cfnAutoReloader)
-install_cfn.add(cfnHupService)
-webServer.addConfig(install_cfn)
+let installCfn = new wk.Init.Config('installCfn')
+installCfn.add(cfnHup)
+installCfn.add(cfnAutoReloader)
+installCfn.add(cfnHupService)
+webServer.addConfig(installCfn)
 
 let createWPConfig = new wk.Init.File('/tmp/create-wp-config')
-createWPConfig.content = { 'Fn::Join': [ '', [ '#!/bin/bash -xe\n', 'cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n', 'sed -i "s/\'database_name_here\'/\'', { 'Ref': 'DBName' }, '\'/g\" wp-config.php\n', 'sed -i \"s/\'username_here\'/\'',{ 'Ref': 'DBUser' }, '\'/g\" wp-config.php\n', 'sed -i \"s/\'password_here\'/\'',{ 'Ref': 'DBPassword' }, '\'/g\" wp-config.php\n' ]]}
+createWPConfig.content = { 'Fn::Join': [ '', [ '#!/bin/bash -xe\n', 'cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n', 'sed -i "s/\'database_name_here\'/\'', { 'Ref': 'DBName' }, '\'/g" wp-config.php\n', 'sed -i "s/\'username_here\'/\'', { 'Ref': 'DBUser' }, '\'/g" wp-config.php\n', 'sed -i "s/\'password_here\'/\'', { 'Ref': 'DBPassword' }, '\'/g" wp-config.php\n' ] ] }
 createWPConfig.mode = '000500'
 createWPConfig.owner = 'root'
 createWPConfig.group = 'root'
 
 let setupMysql = new wk.Init.File('/tmp/setup.mysql')
-setupMysql.content = { 'Fn::Join': ['', [ 'CREATE DATABASE ', { 'Ref': 'DBName' }, ';\n',   'CREATE USER \'', { 'Ref': 'DBUser' }, '\'@\'localhost\' IDENTIFIED BY \'', { 'Ref': 'DBPassword' }, '\';\n',   'GRANT ALL ON ', { 'Ref': 'DBName' }, '.* TO \'', { 'Ref': 'DBUser' }, '\'@\'localhost\';\n', 'FLUSH PRIVILEGES;\n' ]]}
+setupMysql.content = { 'Fn::Join': ['', [ 'CREATE DATABASE ', { 'Ref': 'DBName' }, ';\n', 'CREATE USER \'', { 'Ref': 'DBUser' }, '\'@\'localhost\' IDENTIFIED BY \'', { 'Ref': 'DBPassword' }, '\';\n', 'GRANT ALL ON ', { 'Ref': 'DBName' }, '.* TO \'', { 'Ref': 'DBUser' }, '\'@\'localhost\';\n', 'FLUSH PRIVILEGES;\n' ]] }
 setupMysql.mode = '000400'
 setupMysql.owner = 'root'
 setupMysql.group = 'root'
@@ -323,22 +323,22 @@ let mysqld = new wk.Init.Service('mysqld')
 mysqld.enabled = 'true'
 mysqld.ensureRunning = 'true'
 
-let htmlSource = new wk.Init.Source('/var/www/html', "http://wordpress.org/latest.tar.gz")
+let htmlSource = new wk.Init.Source('/var/www/html', 'http://wordpress.org/latest.tar.gz')
 
-let install_wordpress = new wk.Init.Config('install_wordpress')
-install_wordpress.add(createWPConfig)
-install_wordpress.add(setupMysql)
-install_wordpress.add(wpPackages)
-install_wordpress.add(httpd)
-install_wordpress.add(mysqld)
-install_wordpress.add(htmlSource)
-webServer.addConfig(install_wordpress)
+let installWordpress = new wk.Init.Config('installWordpress')
+installWordpress.add(createWPConfig)
+installWordpress.add(setupMysql)
+installWordpress.add(wpPackages)
+installWordpress.add(httpd)
+installWordpress.add(mysqld)
+installWordpress.add(htmlSource)
+webServer.addConfig(installWordpress)
 
-let wordpress_install = new wk.Init.ConfigSet('wordpress_install')
-wordpress_install.add(install_cfn)
-wordpress_install.add(install_wordpress)
-wordpress_install.add(configure_wordpress)
-webServer.addConfigSet(wordpress_install)
+let wordpressInstall = new wk.Init.ConfigSet('wordpressInstall')
+wordpressInstall.add(installCfn)
+wordpressInstall.add(installWordpress)
+wordpressInstall.add(configureWordpress)
+webServer.addConfigSet(wordpressInstall)
 
 let cPolicy = new wk.Policy.CreationPolicy({
   'ResourceSignal': {
