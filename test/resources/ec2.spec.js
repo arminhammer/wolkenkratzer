@@ -12,8 +12,7 @@ chai.should()
 var should = require('chai').should()
 
 const wk = require(path.join(__dirname, '..', '..', 'index'))
-const AWS = require('aws-sdk')
-const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
+const util = require('../util')
 
 describe('EC2', () => {
   let CustomerGateway = new wk.EC2.CustomerGateway('CustomerGateway')
@@ -36,8 +35,8 @@ describe('EC2', () => {
   let VPCDHCPOptionsAssociation = new wk.EC2.VPCDHCPOptionsAssociation('VPCDHCPOptionsAssociation')
   let VPCEndpoint = new wk.EC2.VPCEndpoint('VPCEndpoint')
   let VPCPeeringConnection = new wk.EC2.VPCPeeringConnection('VPCPeeringConnection')
-  let VPNConnection = new wk.EC2. VPNConnection(' VPNConnection')
-  let VPNConnectionRoute = new wk.EC2. VPNConnectionRoute(' VPNConnectionRoute')
+  let VPNConnection = new wk.EC2.VPNConnection(' VPNConnection')
+  let VPNConnectionRoute = new wk.EC2.VPNConnectionRoute(' VPNConnectionRoute')
   let VPNGatewayRoutePropagation = new wk.EC2.VPNGatewayRoutePropagation('VPNGatewayRoutePropagation')
 
   describe('Instance', () => {
@@ -70,20 +69,12 @@ describe('EC2', () => {
       })
     })
 
-    it('CloudFormation should validate the template', () => {
-      let jsonString = t.toJson().Template
-      CloudFormation.validateTemplate({
-        TemplateBody: jsonString
-      }, (err, data) => {
-        if (err) {
-          console.error(err)
-        }
-        should.exist(data)
-      })
+    it('CloudFormation should validate the template NetworkTest', (done) => {
+      util.validateTemplate(t, done)
     })
 
     it('should handle property arrays for things like SecurityGroupIds', () => {
-      instance.SecurityGroupIds = ['sg-12345', 'sg-4567']
+      instance.SecurityGroupIds = [ 'sg-12345', 'sg-4567' ]
       let jsonString = JSON.parse(t.toJson().Template)
       jsonString.should.deep.equal({
         'Resources': {
@@ -92,7 +83,7 @@ describe('EC2', () => {
             'Properties': {
               'ImageId': 'ami-951945d0',
               'InstanceType': 't2.micro',
-              'SecurityGroupIds': ['sg-12345', 'sg-4567']
+              'SecurityGroupIds': [ 'sg-12345', 'sg-4567' ]
             }
           }
         },
@@ -119,7 +110,7 @@ describe('EC2', () => {
             'Properties': {
               'ImageId': 'ami-951945d0',
               'InstanceType': 't2.micro',
-              'SecurityGroupIds': ['sg-12345', 'sg-4567'],
+              'SecurityGroupIds': [ 'sg-12345', 'sg-4567' ],
               'BlockDeviceMappings': [
                 {
                   'DeviceName': '/dev/sdc',
@@ -182,7 +173,7 @@ describe('EC2', () => {
     t.add(vpnGateway)
 
     it('should be able to add a VPN Gateway to the template', () => {
-      t.Resources['VPNGateway'].WKResourceType.should.equal('AWS::EC2::VPNGateway')
+      t.Resources[ 'VPNGateway' ].WKResourceType.should.equal('AWS::EC2::VPNGateway')
     })
 
     it('conditional should be tested, only ipsec.1 can be allowed as the type', () => {
@@ -210,16 +201,8 @@ describe('EC2', () => {
       })
     })
 
-    it('CloudFormation should validate the template', () => {
-      let jsonString = t.toJson().Template
-      CloudFormation.validateTemplate({
-        TemplateBody: jsonString
-      }, (err, data) => {
-        if (err) {
-          console.error(err)
-        }
-        should.exist(data)
-      })
+    it('CloudFormation should validate the template NetworkTest', (done) => {
+      util.validateTemplate(t, done)
     })
   })
 
@@ -231,9 +214,15 @@ describe('EC2', () => {
     t.add(publicSubnetPubACIDRParam)
     let publicSubnetPubBCIDRParam = new wk.Parameter('PublicSubnetPubBCIDR', { Type: 'String', Default: '10.0.1.0/24' })
     t.add(publicSubnetPubBCIDRParam)
-    let privateSubnetPrivCCIDRParam = new wk.Parameter('PrivateSubnetPrivCCIDR', { Type: 'String', Default: '10.0.2.0/24' })
+    let privateSubnetPrivCCIDRParam = new wk.Parameter('PrivateSubnetPrivCCIDR', {
+      Type: 'String',
+      Default: '10.0.2.0/24'
+    })
     t.add(privateSubnetPrivCCIDRParam)
-    let privateSubnetPrivDCIDRParam = new wk.Parameter('PrivateSubnetPrivDCIDR', { Type: 'String', Default: '10.0.3.0/24' })
+    let privateSubnetPrivDCIDRParam = new wk.Parameter('PrivateSubnetPrivDCIDR', {
+      Type: 'String',
+      Default: '10.0.3.0/24'
+    })
     t.add(privateSubnetPrivDCIDRParam)
     let vPCTagParam = new wk.Parameter('VPCTag', { Type: 'String', Default: 'BaseVPC' })
     t.add(vPCTagParam)
@@ -459,7 +448,7 @@ describe('EC2', () => {
           'NATPubA': {
             'Type': 'AWS::EC2::NatGateway',
             'Properties': {
-              'AllocationId': { 'Fn::GetAtt': ['EIPPubA', 'AllocationId'] },
+              'AllocationId': { 'Fn::GetAtt': [ 'EIPPubA', 'AllocationId' ] },
               'SubnetId': { 'Ref': 'PublicSubnetPubA' }
             },
             'DependsOn': 'InternetGateway'
@@ -499,7 +488,7 @@ describe('EC2', () => {
           'NATPubB': {
             'Type': 'AWS::EC2::NatGateway',
             'Properties': {
-              'AllocationId': { 'Fn::GetAtt': ['EIPPubB', 'AllocationId'] },
+              'AllocationId': { 'Fn::GetAtt': [ 'EIPPubB', 'AllocationId' ] },
               'SubnetId': { 'Ref': 'PublicSubnetPubB' }
             },
             'DependsOn': 'InternetGateway'
@@ -589,18 +578,8 @@ describe('EC2', () => {
       })
     })
 
-    it ('CloudFormation should validate the template', (done) => {
-      let jsonString = t.toJson().Template
-      CloudFormation.validateTemplate({
-        TemplateBody: jsonString
-      }, (err, data) => {
-        if (err) {
-          console.error(err)
-          console.log(t.toJson().Errors)
-        }
-        should.exist(data)
-        done()
-      })
+    it('CloudFormation should validate the template NetworkTest', (done) => {
+      util.validateTemplate(t, done)
     })
   })
 })

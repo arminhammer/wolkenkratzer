@@ -80,7 +80,6 @@ function Template (template) {
   this.Resources = {}
   this.AWSTemplateFormatVersion = '2010-09-09'
   if (template) {
-    //console.log('Existing template detected!')
     _populateFromExisting(this, template)
   }
 }
@@ -221,6 +220,10 @@ Template.prototype.toJson = function () {
     Errors: errors,
     Template: JSON.stringify(j, null, 2)
   }
+}
+
+Template.prototype.toYAML = function () {
+
 }
 
 module.exports = {

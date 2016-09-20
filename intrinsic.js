@@ -54,11 +54,7 @@ Ref.prototype.toJson = function () {
 }
 
 Ref.prototype.toJSON = function () {
-  if (this.ref instanceof WKResource || this.ref instanceof Parameter) {
-    return { 'Ref': this.ref.WKName }
-  } else {
-    return { 'Ref': this.ref }
-  }
+  return this.toJson()
 }
 
 /**

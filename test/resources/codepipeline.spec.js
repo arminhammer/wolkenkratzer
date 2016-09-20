@@ -13,9 +13,7 @@ var should = require('chai').should()
 
 // const _ = require('lodash')
 const wk = require(path.join(__dirname, '..', '..', 'index'))
-const AWS = require('aws-sdk')
-const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
-
+const util = require('../util')
 
 describe('CodePipeline', () => {
   let t = new wk.Template()
@@ -60,17 +58,7 @@ describe('CodePipeline', () => {
     t.Resources[ 'pipeline' ].WKResourceType.should.equal('AWS::CodePipeline::Pipeline')
   })
 
-  it ('CloudFormation should validate the template', (done) => {
-    let jsonString = t.toJson().Template
-    CloudFormation.validateTemplate({
-      TemplateBody: jsonString
-    }, (err, data) => {
-      if (err) {
-        console.error(err)
-        console.log(t.toJson().Errors)
-      }
-      should.exist(data)
-      done()
-    })
+  it ('CloudFormation should validate the template NetworkTest', (done) => {
+    util.validateTemplate(t, done)
   })
 })
