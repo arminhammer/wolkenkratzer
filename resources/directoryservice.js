@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -33,12 +32,12 @@ const types = require('./../types')
 function MicrosoftAD (name, propertiesObject) {
     let resourceType = 'AWS::DirectoryService::MicrosoftAD'
     let properties = {
-      CreateAlias: new ResourceAttribute('CreateAlias', Boolean, 'No', null),
-      EnableSso: new ResourceAttribute('EnableSso', Boolean, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      Password: new ResourceAttribute('Password', String, 'Yes', null),
-      ShortName: new ResourceAttribute('ShortName', String, 'No', null),
-      VpcSettings: new ResourceAttribute('VpcSettings', types.AWSDirectoryServiceMicrosoftADVpcSettings, 'Yes', null)
+      CreateAlias: new ResourceAttribute('CreateAlias', Boolean, false, 'No', null),
+      EnableSso: new ResourceAttribute('EnableSso', Boolean, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      Password: new ResourceAttribute('Password', String, false, 'Yes', null),
+      ShortName: new ResourceAttribute('ShortName', String, false, 'No', null),
+      VpcSettings: new ResourceAttribute('VpcSettings', types.AWSDirectoryServiceMicrosoftADVpcSettings, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -67,14 +66,14 @@ MicrosoftAD.prototype = Object.create(WKResource.prototype)
 function SimpleAD (name, propertiesObject) {
     let resourceType = 'AWS::DirectoryService::SimpleAD'
     let properties = {
-      CreateAlias: new ResourceAttribute('CreateAlias', Boolean, 'No', null),
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      EnableSso: new ResourceAttribute('EnableSso', Boolean, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      Password: new ResourceAttribute('Password', String, 'Yes', null),
-      ShortName: new ResourceAttribute('ShortName', String, 'No', null),
-      Size: new ResourceAttribute('Size', String, 'Yes', null),
-      VpcSettings: new ResourceAttribute('VpcSettings', types.AWSDirectoryServiceSimpleADVpcSettings, 'Yes', null)
+      CreateAlias: new ResourceAttribute('CreateAlias', Boolean, false, 'No', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      EnableSso: new ResourceAttribute('EnableSso', Boolean, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      Password: new ResourceAttribute('Password', String, false, 'Yes', null),
+      ShortName: new ResourceAttribute('ShortName', String, false, 'No', null),
+      Size: new ResourceAttribute('Size', String, false, 'Yes', null),
+      VpcSettings: new ResourceAttribute('VpcSettings', types.AWSDirectoryServiceSimpleADVpcSettings, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

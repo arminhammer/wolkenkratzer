@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -29,17 +28,17 @@ const types = require('./../types')
 function App (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::App'
     let properties = {
-      AppSource: new ResourceAttribute('AppSource', types.AWSOpsWorksSourceType, 'No', null),
-      Attributes: new ResourceAttributeArray('Attributes', Map, 'No', null),
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      Domains: new ResourceAttributeArray('Domains', String, 'No', null),
-      EnableSsl: new ResourceAttribute('EnableSsl', Boolean, 'No', null),
-      Environment: new ResourceAttributeArray('Environment', types.AWSOpsWorksAppEnvironment, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      Shortname: new ResourceAttribute('Shortname', String, 'No', null),
-      SslConfiguration: new ResourceAttribute('SslConfiguration', types.AWSOpsWorksSslConfigurationType, 'No', null),
-      StackId: new ResourceAttribute('StackId', String, 'Yes', null),
-      Type: new ResourceAttribute('Type', String, 'Yes', null)
+      AppSource: new ResourceAttribute('AppSource', types.AWSOpsWorksSourceType, false, 'No', null),
+      Attributes: new ResourceAttribute('Attributes', Map, true, 'No', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      Domains: new ResourceAttribute('Domains', String, true, 'No', null),
+      EnableSsl: new ResourceAttribute('EnableSsl', Boolean, false, 'No', null),
+      Environment: new ResourceAttribute('Environment', types.AWSOpsWorksAppEnvironment, true, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      Shortname: new ResourceAttribute('Shortname', String, false, 'No', null),
+      SslConfiguration: new ResourceAttribute('SslConfiguration', types.AWSOpsWorksSslConfigurationType, false, 'No', null),
+      StackId: new ResourceAttribute('StackId', String, false, 'Yes', null),
+      Type: new ResourceAttribute('Type', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -53,8 +52,8 @@ App.prototype = Object.create(WKResource.prototype)
 function ElasticLoadBalancerAttachment (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::ElasticLoadBalancerAttachment'
     let properties = {
-      ElasticLoadBalancerName: new ResourceAttribute('ElasticLoadBalancerName', String, 'Yes', null),
-      LayerId: new ResourceAttribute('LayerId', String, 'Yes', null)
+      ElasticLoadBalancerName: new ResourceAttribute('ElasticLoadBalancerName', String, false, 'Yes', null),
+      LayerId: new ResourceAttribute('LayerId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -98,20 +97,20 @@ ElasticLoadBalancerAttachment.prototype = Object.create(WKResource.prototype)
 function Instance (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Instance'
     let properties = {
-      AmiId: new ResourceAttribute('AmiId', String, 'No', null),
-      Architecture: new ResourceAttribute('Architecture', String, 'No', null),
-      AutoScalingType: new ResourceAttribute('AutoScalingType', String, 'No', null),
-      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'No', null),
-      EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, 'No', null),
-      InstallUpdatesOnBoot: new ResourceAttribute('InstallUpdatesOnBoot', Boolean, 'No', null),
-      InstanceType: new ResourceAttribute('InstanceType', String, 'Yes', null),
-      LayerIds: new ResourceAttributeArray('LayerIds', String, 'Yes', null),
-      Os: new ResourceAttribute('Os', String, 'No', null),
-      RootDeviceType: new ResourceAttribute('RootDeviceType', String, 'No', null),
-      SshKeyName: new ResourceAttribute('SshKeyName', String, 'No', null),
-      StackId: new ResourceAttribute('StackId', String, 'Yes', null),
-      SubnetId: new ResourceAttribute('SubnetId', String, 'No', null),
-      TimeBasedAutoScaling: new ResourceAttribute('TimeBasedAutoScaling', types.AWSOpsWorksTimeBasedAutoScalingType, 'No', null)
+      AmiId: new ResourceAttribute('AmiId', String, false, 'No', null),
+      Architecture: new ResourceAttribute('Architecture', String, false, 'No', null),
+      AutoScalingType: new ResourceAttribute('AutoScalingType', String, false, 'No', null),
+      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, false, 'No', null),
+      EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, false, 'No', null),
+      InstallUpdatesOnBoot: new ResourceAttribute('InstallUpdatesOnBoot', Boolean, false, 'No', null),
+      InstanceType: new ResourceAttribute('InstanceType', String, false, 'Yes', null),
+      LayerIds: new ResourceAttribute('LayerIds', String, true, 'Yes', null),
+      Os: new ResourceAttribute('Os', String, false, 'No', null),
+      RootDeviceType: new ResourceAttribute('RootDeviceType', String, false, 'No', null),
+      SshKeyName: new ResourceAttribute('SshKeyName', String, false, 'No', null),
+      StackId: new ResourceAttribute('StackId', String, false, 'Yes', null),
+      SubnetId: new ResourceAttribute('SubnetId', String, false, 'No', null),
+      TimeBasedAutoScaling: new ResourceAttribute('TimeBasedAutoScaling', types.AWSOpsWorksTimeBasedAutoScalingType, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -153,22 +152,22 @@ Instance.prototype = Object.create(WKResource.prototype)
 function Layer (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Layer'
     let properties = {
-      Attributes: new ResourceAttributeArray('Attributes', Map, 'No', null),
-      AutoAssignElasticIps: new ResourceAttribute('AutoAssignElasticIps', Boolean, 'Yes', null),
-      AutoAssignPublicIps: new ResourceAttribute('AutoAssignPublicIps', Boolean, 'Yes', null),
-      CustomInstanceProfileArn: new ResourceAttribute('CustomInstanceProfileArn', String, 'No', null),
-      CustomRecipes: new ResourceAttribute('CustomRecipes', types.AWSOpsWorksRecipesType, 'No', null),
-      CustomSecurityGroupIds: new ResourceAttributeArray('CustomSecurityGroupIds', String, 'No', null),
-      EnableAutoHealing: new ResourceAttribute('EnableAutoHealing', Boolean, 'Yes', null),
-      InstallUpdatesOnBoot: new ResourceAttribute('InstallUpdatesOnBoot', Boolean, 'No', null),
-      LifecycleEventConfiguration: new ResourceAttribute('LifecycleEventConfiguration', types.AWSOpsWorksLayerLifeCycleConfiguration, 'No', null),
-      LoadBasedAutoScaling: new ResourceAttribute('LoadBasedAutoScaling', types.AWSOpsWorksLoadBasedAutoScalingType, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      Packages: new ResourceAttributeArray('Packages', String, 'No', null),
-      Shortname: new ResourceAttribute('Shortname', String, 'Yes', null),
-      StackId: new ResourceAttribute('StackId', String, 'Yes', null),
-      Type: new ResourceAttribute('Type', String, 'Yes', null),
-      VolumeConfigurations: new ResourceAttributeArray('VolumeConfigurations', types.AWSOpsWorksVolumeConfigurationType, 'No', null)
+      Attributes: new ResourceAttribute('Attributes', Map, true, 'No', null),
+      AutoAssignElasticIps: new ResourceAttribute('AutoAssignElasticIps', Boolean, false, 'Yes', null),
+      AutoAssignPublicIps: new ResourceAttribute('AutoAssignPublicIps', Boolean, false, 'Yes', null),
+      CustomInstanceProfileArn: new ResourceAttribute('CustomInstanceProfileArn', String, false, 'No', null),
+      CustomRecipes: new ResourceAttribute('CustomRecipes', types.AWSOpsWorksRecipesType, false, 'No', null),
+      CustomSecurityGroupIds: new ResourceAttribute('CustomSecurityGroupIds', String, true, 'No', null),
+      EnableAutoHealing: new ResourceAttribute('EnableAutoHealing', Boolean, false, 'Yes', null),
+      InstallUpdatesOnBoot: new ResourceAttribute('InstallUpdatesOnBoot', Boolean, false, 'No', null),
+      LifecycleEventConfiguration: new ResourceAttribute('LifecycleEventConfiguration', types.AWSOpsWorksLayerLifeCycleConfiguration, false, 'No', null),
+      LoadBasedAutoScaling: new ResourceAttribute('LoadBasedAutoScaling', types.AWSOpsWorksLoadBasedAutoScalingType, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      Packages: new ResourceAttribute('Packages', String, true, 'No', null),
+      Shortname: new ResourceAttribute('Shortname', String, false, 'Yes', null),
+      StackId: new ResourceAttribute('StackId', String, false, 'Yes', null),
+      Type: new ResourceAttribute('Type', String, false, 'Yes', null),
+      VolumeConfigurations: new ResourceAttribute('VolumeConfigurations', types.AWSOpsWorksVolumeConfigurationType, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -229,24 +228,24 @@ Layer.prototype = Object.create(WKResource.prototype)
 function Stack (name, propertiesObject) {
     let resourceType = 'AWS::OpsWorks::Stack'
     let properties = {
-      AgentVersion: new ResourceAttribute('AgentVersion', String, 'No', null),
-      Attributes: new ResourceAttributeArray('Attributes', Map, 'No', null),
-      ChefConfiguration: new ResourceAttribute('ChefConfiguration', types.AWSOpsWorksChefConfigurationType, 'No', null),
-      ConfigurationManager: new ResourceAttribute('ConfigurationManager', types.AWSOpsWorksStackConfigurationManagerType, 'No', null),
-      CustomCookbooksSource: new ResourceAttribute('CustomCookbooksSource', types.AWSOpsWorksSourceType, 'No', null),
-      CustomJson: new ResourceAttribute('CustomJson', Object, 'No', null),
-      DefaultAvailabilityZone: new ResourceAttribute('DefaultAvailabilityZone', String, 'No', null),
-      DefaultInstanceProfileArn: new ResourceAttribute('DefaultInstanceProfileArn', String, 'Yes', null),
-      DefaultOs: new ResourceAttribute('DefaultOs', String, 'No', null),
-      DefaultRootDeviceType: new ResourceAttribute('DefaultRootDeviceType', String, 'No', null),
-      DefaultSshKeyName: new ResourceAttribute('DefaultSshKeyName', String, 'No', null),
-      DefaultSubnetId: new ResourceAttribute('DefaultSubnetId', String, 'Conditional', null),
-      HostnameTheme: new ResourceAttribute('HostnameTheme', String, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      ServiceRoleArn: new ResourceAttribute('ServiceRoleArn', String, 'Yes', null),
-      UseCustomCookbooks: new ResourceAttribute('UseCustomCookbooks', Boolean, 'No', null),
-      UseOpsworksSecurityGroups: new ResourceAttribute('UseOpsworksSecurityGroups', Boolean, 'No', null),
-      VpcId: new ResourceAttribute('VpcId', String, 'No', null)
+      AgentVersion: new ResourceAttribute('AgentVersion', String, false, 'No', null),
+      Attributes: new ResourceAttribute('Attributes', Map, true, 'No', null),
+      ChefConfiguration: new ResourceAttribute('ChefConfiguration', types.AWSOpsWorksChefConfigurationType, false, 'No', null),
+      ConfigurationManager: new ResourceAttribute('ConfigurationManager', types.AWSOpsWorksStackConfigurationManagerType, false, 'No', null),
+      CustomCookbooksSource: new ResourceAttribute('CustomCookbooksSource', types.AWSOpsWorksSourceType, false, 'No', null),
+      CustomJson: new ResourceAttribute('CustomJson', Object, false, 'No', null),
+      DefaultAvailabilityZone: new ResourceAttribute('DefaultAvailabilityZone', String, false, 'No', null),
+      DefaultInstanceProfileArn: new ResourceAttribute('DefaultInstanceProfileArn', String, false, 'Yes', null),
+      DefaultOs: new ResourceAttribute('DefaultOs', String, false, 'No', null),
+      DefaultRootDeviceType: new ResourceAttribute('DefaultRootDeviceType', String, false, 'No', null),
+      DefaultSshKeyName: new ResourceAttribute('DefaultSshKeyName', String, false, 'No', null),
+      DefaultSubnetId: new ResourceAttribute('DefaultSubnetId', String, false, 'Conditional', null),
+      HostnameTheme: new ResourceAttribute('HostnameTheme', String, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      ServiceRoleArn: new ResourceAttribute('ServiceRoleArn', String, false, 'Yes', null),
+      UseCustomCookbooks: new ResourceAttribute('UseCustomCookbooks', Boolean, false, 'No', null),
+      UseOpsworksSecurityGroups: new ResourceAttribute('UseOpsworksSecurityGroups', Boolean, false, 'No', null),
+      VpcId: new ResourceAttribute('VpcId', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

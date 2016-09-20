@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -21,10 +20,10 @@ const types = require('./../types')
 function Destination (name, propertiesObject) {
     let resourceType = 'AWS::Logs::Destination'
     let properties = {
-      DestinationName: new ResourceAttribute('DestinationName', String, 'Yes', null),
-      DestinationPolicy: new ResourceAttribute('DestinationPolicy', String, 'Yes', null),
-      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
-      TargetArn: new ResourceAttribute('TargetArn', String, 'Yes', null)
+      DestinationName: new ResourceAttribute('DestinationName', String, false, 'Yes', null),
+      DestinationPolicy: new ResourceAttribute('DestinationPolicy', String, false, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null),
+      TargetArn: new ResourceAttribute('TargetArn', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -41,8 +40,8 @@ You can still do updates that require no or some interruption. If you must repla
 function LogGroup (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogGroup'
     let properties = {
-      LogGroupName: new ResourceAttribute('LogGroupName', String, 'No', null),
-      RetentionInDays: new ResourceAttribute('RetentionInDays', Number, 'No', null)
+      LogGroupName: new ResourceAttribute('LogGroupName', String, false, 'No', null),
+      RetentionInDays: new ResourceAttribute('RetentionInDays', Number, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -57,8 +56,8 @@ LogGroup.prototype = Object.create(WKResource.prototype)
 function LogStream (name, propertiesObject) {
     let resourceType = 'AWS::Logs::LogStream'
     let properties = {
-      LogGroupName: new ResourceAttribute('LogGroupName', String, 'Yes', null),
-      LogStreamName: new ResourceAttribute('LogStreamName', String, 'No', null)
+      LogGroupName: new ResourceAttribute('LogGroupName', String, false, 'Yes', null),
+      LogStreamName: new ResourceAttribute('LogStreamName', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -81,9 +80,9 @@ LogStream.prototype = Object.create(WKResource.prototype)
 function MetricFilter (name, propertiesObject) {
     let resourceType = 'AWS::Logs::MetricFilter'
     let properties = {
-      FilterPattern: new ResourceAttributeArray('FilterPattern', String, 'Yes', null),
-      LogGroupName: new ResourceAttribute('LogGroupName', String, 'Yes', null),
-      MetricTransformations: new ResourceAttributeArray('MetricTransformations', types.CloudWatchLogsMetricFilterMetricTransformationProperty, 'Yes', null)
+      FilterPattern: new ResourceAttribute('FilterPattern', String, true, 'Yes', null),
+      LogGroupName: new ResourceAttribute('LogGroupName', String, false, 'Yes', null),
+      MetricTransformations: new ResourceAttribute('MetricTransformations', types.CloudWatchLogsMetricFilterMetricTransformationProperty, true, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -106,10 +105,10 @@ MetricFilter.prototype = Object.create(WKResource.prototype)
 function SubscriptionFilter (name, propertiesObject) {
     let resourceType = 'AWS::Logs::SubscriptionFilter'
     let properties = {
-      DestinationArn: new ResourceAttribute('DestinationArn', String, 'Yes', null),
-      FilterPattern: new ResourceAttribute('FilterPattern', String, 'Yes', null),
-      LogGroupName: new ResourceAttribute('LogGroupName', String, 'Yes', null),
-      RoleArn: new ResourceAttribute('RoleArn', String, 'No', null)
+      DestinationArn: new ResourceAttribute('DestinationArn', String, false, 'Yes', null),
+      FilterPattern: new ResourceAttribute('FilterPattern', String, false, 'Yes', null),
+      LogGroupName: new ResourceAttribute('LogGroupName', String, false, 'Yes', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

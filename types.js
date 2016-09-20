@@ -1,7 +1,6 @@
 'use strict'
 
 const ResourceProperty = require('./resource').ResourceProperty
-const ResourceAttributeArray = require('./resourceattribute').ResourceAttributeArray
 const ResourceAttribute = require('./resourceattribute').ResourceAttribute
 
 /** @module Types */
@@ -12,8 +11,8 @@ const ResourceAttribute = require('./resourceattribute').ResourceAttribute
 */
 function AmazonAPIGatewayApiKeyStageKey (propertiesObject) {
   let properties = {
-    RestApiId: new ResourceAttribute('RestApiId', String, 'No', null),
-    StageName: new ResourceAttribute('StageName', String, 'No', null)
+    RestApiId: new ResourceAttribute('RestApiId', String, false, 'No', null),
+    StageName: new ResourceAttribute('StageName', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonAPIGatewayApiKeyStageKey', properties, propertiesObject)
 }
@@ -38,21 +37,21 @@ AmazonAPIGatewayApiKeyStageKey.prototype = Object.create(ResourceProperty.protot
 */
 function AmazonAPIGatewayDeploymentStageDescription (propertiesObject) {
   let properties = {
-    CacheClusterEnabled: new ResourceAttribute('CacheClusterEnabled', Boolean, 'No', null),
-    CacheClusterSize: new ResourceAttribute('CacheClusterSize', String, 'No', null),
-    CacheDataEncrypted: new ResourceAttribute('CacheDataEncrypted', Boolean, 'No', null),
-    CacheTtlInSeconds: new ResourceAttribute('CacheTtlInSeconds', Number, 'No', null),
-    CachingEnabled: new ResourceAttribute('CachingEnabled', Boolean, 'No', null),
-    ClientCertificateId: new ResourceAttribute('ClientCertificateId', String, 'No', null),
-    DataTraceEnabled: new ResourceAttribute('DataTraceEnabled', Boolean, 'No', null),
-    Description: new ResourceAttribute('Description', String, 'No', null),
-    LoggingLevel: new ResourceAttribute('LoggingLevel', String, 'No', null),
-    MethodSettings: new ResourceAttribute('MethodSettings', AmazonAPIGatewayDeploymentStageDescriptionMethodSetting, 'No', null),
-    MetricsEnabled: new ResourceAttribute('MetricsEnabled', Boolean, 'No', null),
-    StageName: new ResourceAttribute('StageName', String, 'No', null),
-    ThrottlingBurstLimit: new ResourceAttribute('ThrottlingBurstLimit', Number, 'No', null),
-    ThrottlingRateLimit: new ResourceAttribute('ThrottlingRateLimit', Number, 'No', null),
-    Variables: new ResourceAttribute('Variables', Map, 'No', null)
+    CacheClusterEnabled: new ResourceAttribute('CacheClusterEnabled', Boolean, false, 'No', null),
+    CacheClusterSize: new ResourceAttribute('CacheClusterSize', String, false, 'No', null),
+    CacheDataEncrypted: new ResourceAttribute('CacheDataEncrypted', Boolean, false, 'No', null),
+    CacheTtlInSeconds: new ResourceAttribute('CacheTtlInSeconds', Number, false, 'No', null),
+    CachingEnabled: new ResourceAttribute('CachingEnabled', Boolean, false, 'No', null),
+    ClientCertificateId: new ResourceAttribute('ClientCertificateId', String, false, 'No', null),
+    DataTraceEnabled: new ResourceAttribute('DataTraceEnabled', Boolean, false, 'No', null),
+    Description: new ResourceAttribute('Description', String, false, 'No', null),
+    LoggingLevel: new ResourceAttribute('LoggingLevel', String, false, 'No', null),
+    MethodSettings: new ResourceAttribute('MethodSettings', AmazonAPIGatewayDeploymentStageDescriptionMethodSetting, false, 'No', null),
+    MetricsEnabled: new ResourceAttribute('MetricsEnabled', Boolean, false, 'No', null),
+    StageName: new ResourceAttribute('StageName', String, false, 'No', null),
+    ThrottlingBurstLimit: new ResourceAttribute('ThrottlingBurstLimit', Number, false, 'No', null),
+    ThrottlingRateLimit: new ResourceAttribute('ThrottlingRateLimit', Number, false, 'No', null),
+    Variables: new ResourceAttribute('Variables', Map, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonAPIGatewayDeploymentStageDescription', properties, propertiesObject)
 }
@@ -72,16 +71,16 @@ AmazonAPIGatewayDeploymentStageDescription.prototype = Object.create(ResourcePro
 */
 function AmazonAPIGatewayDeploymentStageDescriptionMethodSetting (propertiesObject) {
   let properties = {
-    CacheDataEncrypted: new ResourceAttribute('CacheDataEncrypted', Boolean, 'No', null),
-    CacheTtlInSeconds: new ResourceAttribute('CacheTtlInSeconds', Number, 'No', null),
-    CachingEnabled: new ResourceAttribute('CachingEnabled', Boolean, 'No', null),
-    DataTraceEnabled: new ResourceAttribute('DataTraceEnabled', Boolean, 'No', null),
-    HttpMethod: new ResourceAttribute('HttpMethod', String, 'No', null),
-    LoggingLevel: new ResourceAttribute('LoggingLevel', String, 'No', null),
-    MetricsEnabled: new ResourceAttribute('MetricsEnabled', Boolean, 'No', null),
-    ResourcePath: new ResourceAttribute('ResourcePath', String, 'No', null),
-    ThrottlingBurstLimit: new ResourceAttribute('ThrottlingBurstLimit', Number, 'No', null),
-    ThrottlingRateLimit: new ResourceAttribute('ThrottlingRateLimit', Number, 'No', null)
+    CacheDataEncrypted: new ResourceAttribute('CacheDataEncrypted', Boolean, false, 'No', null),
+    CacheTtlInSeconds: new ResourceAttribute('CacheTtlInSeconds', Number, false, 'No', null),
+    CachingEnabled: new ResourceAttribute('CachingEnabled', Boolean, false, 'No', null),
+    DataTraceEnabled: new ResourceAttribute('DataTraceEnabled', Boolean, false, 'No', null),
+    HttpMethod: new ResourceAttribute('HttpMethod', String, false, 'No', null),
+    LoggingLevel: new ResourceAttribute('LoggingLevel', String, false, 'No', null),
+    MetricsEnabled: new ResourceAttribute('MetricsEnabled', Boolean, false, 'No', null),
+    ResourcePath: new ResourceAttribute('ResourcePath', String, false, 'No', null),
+    ThrottlingBurstLimit: new ResourceAttribute('ThrottlingBurstLimit', Number, false, 'No', null),
+    ThrottlingRateLimit: new ResourceAttribute('ThrottlingRateLimit', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonAPIGatewayDeploymentStageDescriptionMethodSetting', properties, propertiesObject)
 }
@@ -101,16 +100,16 @@ AmazonAPIGatewayDeploymentStageDescriptionMethodSetting.prototype = Object.creat
 */
 function AmazonAPIGatewayMethodIntegration (propertiesObject) {
   let properties = {
-    CacheKeyParameters: new ResourceAttributeArray('CacheKeyParameters', String, 'No', null),
-    CacheNamespace: new ResourceAttribute('CacheNamespace', String, 'No', null),
-    Credentials: new ResourceAttribute('Credentials', String, 'No', null),
-    IntegrationHttpMethod: new ResourceAttribute('IntegrationHttpMethod', String, 'Conditional', null),
-    IntegrationResponses: new ResourceAttributeArray('IntegrationResponses', AmazonAPIGatewayMethodIntegrationIntegrationResponse, 'No', null),
-    PassthroughBehavior: new ResourceAttribute('PassthroughBehavior', String, 'No', null),
-    RequestParameters: new ResourceAttribute('RequestParameters', Map, 'No', null),
-    RequestTemplates: new ResourceAttribute('RequestTemplates', Map, 'No', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null),
-    Uri: new ResourceAttribute('Uri', String, 'Conditional', null)
+    CacheKeyParameters: new ResourceAttribute('CacheKeyParameters', String, true, 'No', null),
+    CacheNamespace: new ResourceAttribute('CacheNamespace', String, false, 'No', null),
+    Credentials: new ResourceAttribute('Credentials', String, false, 'No', null),
+    IntegrationHttpMethod: new ResourceAttribute('IntegrationHttpMethod', String, false, 'Conditional', null),
+    IntegrationResponses: new ResourceAttribute('IntegrationResponses', AmazonAPIGatewayMethodIntegrationIntegrationResponse, true, 'No', null),
+    PassthroughBehavior: new ResourceAttribute('PassthroughBehavior', String, false, 'No', null),
+    RequestParameters: new ResourceAttribute('RequestParameters', Map, false, 'No', null),
+    RequestTemplates: new ResourceAttribute('RequestTemplates', Map, false, 'No', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null),
+    Uri: new ResourceAttribute('Uri', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AmazonAPIGatewayMethodIntegration', properties, propertiesObject)
 }
@@ -124,10 +123,10 @@ AmazonAPIGatewayMethodIntegration.prototype = Object.create(ResourceProperty.pro
 */
 function AmazonAPIGatewayMethodIntegrationIntegrationResponse (propertiesObject) {
   let properties = {
-    ResponseParameters: new ResourceAttribute('ResponseParameters', Map, 'No', null),
-    ResponseTemplates: new ResourceAttribute('ResponseTemplates', Map, 'No', null),
-    SelectionPattern: new ResourceAttribute('SelectionPattern', String, 'No', null),
-    StatusCode: new ResourceAttribute('StatusCode', String, 'No', null)
+    ResponseParameters: new ResourceAttribute('ResponseParameters', Map, false, 'No', null),
+    ResponseTemplates: new ResourceAttribute('ResponseTemplates', Map, false, 'No', null),
+    SelectionPattern: new ResourceAttribute('SelectionPattern', String, false, 'No', null),
+    StatusCode: new ResourceAttribute('StatusCode', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonAPIGatewayMethodIntegrationIntegrationResponse', properties, propertiesObject)
 }
@@ -140,9 +139,9 @@ AmazonAPIGatewayMethodIntegrationIntegrationResponse.prototype = Object.create(R
 */
 function AmazonAPIGatewayMethodMethodResponse (propertiesObject) {
   let properties = {
-    ResponseModels: new ResourceAttribute('ResponseModels', Map, 'No', null),
-    ResponseParameters: new ResourceAttribute('ResponseParameters', Map, 'No', null),
-    StatusCode: new ResourceAttribute('StatusCode', String, 'Yes', null)
+    ResponseModels: new ResourceAttribute('ResponseModels', Map, false, 'No', null),
+    ResponseParameters: new ResourceAttribute('ResponseParameters', Map, false, 'No', null),
+    StatusCode: new ResourceAttribute('StatusCode', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonAPIGatewayMethodMethodResponse', properties, propertiesObject)
 }
@@ -156,10 +155,10 @@ AmazonAPIGatewayMethodMethodResponse.prototype = Object.create(ResourceProperty.
 */
 function AmazonAPIGatewayRestApiS3Location (propertiesObject) {
   let properties = {
-    Bucket: new ResourceAttribute('Bucket', String, 'No', null),
-    ETag: new ResourceAttribute('ETag', String, 'No', null),
-    Key: new ResourceAttribute('Key', String, 'No', null),
-    Version: new ResourceAttribute('Version', String, 'No', null)
+    Bucket: new ResourceAttribute('Bucket', String, false, 'No', null),
+    ETag: new ResourceAttribute('ETag', String, false, 'No', null),
+    Key: new ResourceAttribute('Key', String, false, 'No', null),
+    Version: new ResourceAttribute('Version', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonAPIGatewayRestApiS3Location', properties, propertiesObject)
 }
@@ -179,16 +178,16 @@ AmazonAPIGatewayRestApiS3Location.prototype = Object.create(ResourceProperty.pro
 */
 function AmazonAPIGatewayStageMethodSetting (propertiesObject) {
   let properties = {
-    CacheDataEncrypted: new ResourceAttribute('CacheDataEncrypted', Boolean, 'No', null),
-    CacheTtlInSeconds: new ResourceAttribute('CacheTtlInSeconds', Number, 'No', null),
-    CachingEnabled: new ResourceAttribute('CachingEnabled', Boolean, 'No', null),
-    DataTraceEnabled: new ResourceAttribute('DataTraceEnabled', Boolean, 'No', null),
-    HttpMethod: new ResourceAttribute('HttpMethod', String, 'Yes', null),
-    LoggingLevel: new ResourceAttribute('LoggingLevel', String, 'No', null),
-    MetricsEnabled: new ResourceAttribute('MetricsEnabled', Boolean, 'No', null),
-    ResourcePath: new ResourceAttribute('ResourcePath', String, 'Yes', null),
-    ThrottlingBurstLimit: new ResourceAttribute('ThrottlingBurstLimit', Number, 'No', null),
-    ThrottlingRateLimit: new ResourceAttribute('ThrottlingRateLimit', Number, 'No', null)
+    CacheDataEncrypted: new ResourceAttribute('CacheDataEncrypted', Boolean, false, 'No', null),
+    CacheTtlInSeconds: new ResourceAttribute('CacheTtlInSeconds', Number, false, 'No', null),
+    CachingEnabled: new ResourceAttribute('CachingEnabled', Boolean, false, 'No', null),
+    DataTraceEnabled: new ResourceAttribute('DataTraceEnabled', Boolean, false, 'No', null),
+    HttpMethod: new ResourceAttribute('HttpMethod', String, false, 'Yes', null),
+    LoggingLevel: new ResourceAttribute('LoggingLevel', String, false, 'No', null),
+    MetricsEnabled: new ResourceAttribute('MetricsEnabled', Boolean, false, 'No', null),
+    ResourcePath: new ResourceAttribute('ResourcePath', String, false, 'Yes', null),
+    ThrottlingBurstLimit: new ResourceAttribute('ThrottlingBurstLimit', Number, false, 'No', null),
+    ThrottlingRateLimit: new ResourceAttribute('ThrottlingRateLimit', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonAPIGatewayStageMethodSetting', properties, propertiesObject)
 }
@@ -203,11 +202,11 @@ AmazonAPIGatewayStageMethodSetting.prototype = Object.create(ResourceProperty.pr
 */
 function ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration (propertiesObject) {
   let properties = {
-    AdjustmentType: new ResourceAttribute('AdjustmentType', String, 'No', null),
-    Cooldown: new ResourceAttribute('Cooldown', Number, 'No', null),
-    MetricAggregationType: new ResourceAttribute('MetricAggregationType', String, 'No', null),
-    MinAdjustmentMagnitude: new ResourceAttribute('MinAdjustmentMagnitude', Number, 'No', null),
-    StepAdjustments: new ResourceAttributeArray('StepAdjustments', ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment, 'No', null)
+    AdjustmentType: new ResourceAttribute('AdjustmentType', String, false, 'No', null),
+    Cooldown: new ResourceAttribute('Cooldown', Number, false, 'No', null),
+    MetricAggregationType: new ResourceAttribute('MetricAggregationType', String, false, 'No', null),
+    MinAdjustmentMagnitude: new ResourceAttribute('MinAdjustmentMagnitude', Number, false, 'No', null),
+    StepAdjustments: new ResourceAttribute('StepAdjustments', ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment, true, 'No', null)
   }
   ResourceProperty.call(this, 'ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration', properties, propertiesObject)
 }
@@ -220,9 +219,9 @@ ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration.prototype = Ob
 */
 function ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment (propertiesObject) {
   let properties = {
-    MetricIntervalLowerBound: new ResourceAttribute('MetricIntervalLowerBound', Number, 'No', null),
-    MetricIntervalUpperBound: new ResourceAttribute('MetricIntervalUpperBound', Number, 'No', null),
-    ScalingAdjustment: new ResourceAttribute('ScalingAdjustment', Number, 'Yes', null)
+    MetricIntervalLowerBound: new ResourceAttribute('MetricIntervalLowerBound', Number, false, 'No', null),
+    MetricIntervalUpperBound: new ResourceAttribute('MetricIntervalUpperBound', Number, false, 'No', null),
+    ScalingAdjustment: new ResourceAttribute('ScalingAdjustment', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment', properties, propertiesObject)
 }
@@ -236,10 +235,10 @@ ApplicationAutoScalingScalingPolicyStepScalingPolicyConfigurationStepAdjustment.
 */
 function AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType (propertiesObject) {
   let properties = {
-    DeviceName: new ResourceAttribute('DeviceName', String, 'Yes', null),
-    Ebs: new ResourceAttribute('Ebs', AWSCloudFormationAutoScalingEBSBlockDevicePropertyType, 'Conditional', null),
-    NoDevice: new ResourceAttribute('NoDevice', Boolean, 'No', null),
-    VirtualName: new ResourceAttribute('VirtualName', String, 'Conditional', null)
+    DeviceName: new ResourceAttribute('DeviceName', String, false, 'Yes', null),
+    Ebs: new ResourceAttribute('Ebs', AWSCloudFormationAutoScalingEBSBlockDevicePropertyType, false, 'Conditional', null),
+    NoDevice: new ResourceAttribute('NoDevice', Boolean, false, 'No', null),
+    VirtualName: new ResourceAttribute('VirtualName', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType', properties, propertiesObject)
 }
@@ -255,12 +254,12 @@ AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType.prototype = Object.cr
 */
 function AWSCloudFormationAutoScalingEBSBlockDevicePropertyType (propertiesObject) {
   let properties = {
-    DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, 'No', null),
-    Encrypted: new ResourceAttribute('Encrypted', Boolean, 'No', null),
-    Iops: new ResourceAttribute('Iops', Number, 'No', null),
-    SnapshotId: new ResourceAttribute('SnapshotId', String, 'Conditional', null),
-    VolumeSize: new ResourceAttribute('VolumeSize', Number, 'Conditional', null),
-    VolumeType: new ResourceAttribute('VolumeType', String, 'No', null)
+    DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, false, 'No', null),
+    Encrypted: new ResourceAttribute('Encrypted', Boolean, false, 'No', null),
+    Iops: new ResourceAttribute('Iops', Number, false, 'No', null),
+    SnapshotId: new ResourceAttribute('SnapshotId', String, false, 'Conditional', null),
+    VolumeSize: new ResourceAttribute('VolumeSize', Number, false, 'Conditional', null),
+    VolumeType: new ResourceAttribute('VolumeType', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCloudFormationAutoScalingEBSBlockDevicePropertyType', properties, propertiesObject)
 }
@@ -272,8 +271,8 @@ AWSCloudFormationAutoScalingEBSBlockDevicePropertyType.prototype = Object.create
 */
 function AutoScalingMetricsCollection (propertiesObject) {
   let properties = {
-    Granularity: new ResourceAttribute('Granularity', String, 'Yes', null),
-    Metrics: new ResourceAttributeArray('Metrics', String, 'No', null)
+    Granularity: new ResourceAttribute('Granularity', String, false, 'Yes', null),
+    Metrics: new ResourceAttribute('Metrics', String, true, 'No', null)
   }
   ResourceProperty.call(this, 'AutoScalingMetricsCollection', properties, propertiesObject)
 }
@@ -285,8 +284,8 @@ AutoScalingMetricsCollection.prototype = Object.create(ResourceProperty.prototyp
 */
 function AutoScalingNotificationConfigurations (propertiesObject) {
   let properties = {
-    NotificationTypes: new ResourceAttributeArray('NotificationTypes', String, 'Yes', null),
-    TopicARN: new ResourceAttribute('TopicARN', String, 'Yes', null)
+    NotificationTypes: new ResourceAttribute('NotificationTypes', String, true, 'Yes', null),
+    TopicARN: new ResourceAttribute('TopicARN', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AutoScalingNotificationConfigurations', properties, propertiesObject)
 }
@@ -299,9 +298,9 @@ AutoScalingNotificationConfigurations.prototype = Object.create(ResourceProperty
 */
 function AutoScalingScalingPolicyStepAdjustments (propertiesObject) {
   let properties = {
-    MetricIntervalLowerBound: new ResourceAttribute('MetricIntervalLowerBound', Number, 'No', null),
-    MetricIntervalUpperBound: new ResourceAttribute('MetricIntervalUpperBound', Number, 'No', null),
-    ScalingAdjustment: new ResourceAttribute('ScalingAdjustment', Number, 'Yes', null)
+    MetricIntervalLowerBound: new ResourceAttribute('MetricIntervalLowerBound', Number, false, 'No', null),
+    MetricIntervalUpperBound: new ResourceAttribute('MetricIntervalUpperBound', Number, false, 'No', null),
+    ScalingAdjustment: new ResourceAttribute('ScalingAdjustment', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AutoScalingScalingPolicyStepAdjustments', properties, propertiesObject)
 }
@@ -314,9 +313,9 @@ AutoScalingScalingPolicyStepAdjustments.prototype = Object.create(ResourceProper
 */
 function AutoScalingTagsPropertyType (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null),
-    PropagateAtLaunch: new ResourceAttribute('PropagateAtLaunch', Boolean, 'Yes', null)
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null),
+    PropagateAtLaunch: new ResourceAttribute('PropagateAtLaunch', Boolean, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AutoScalingTagsPropertyType', properties, propertiesObject)
 }
@@ -328,8 +327,8 @@ AutoScalingTagsPropertyType.prototype = Object.create(ResourceProperty.prototype
 */
 function AWSCertificateManagerCertificateDomainValidationOption (propertiesObject) {
   let properties = {
-    DomainName: new ResourceAttribute('DomainName', String, 'Yes', null),
-    ValidationDomain: new ResourceAttribute('ValidationDomain', String, 'Yes', null)
+    DomainName: new ResourceAttribute('DomainName', String, false, 'Yes', null),
+    ValidationDomain: new ResourceAttribute('ValidationDomain', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCertificateManagerCertificateDomainValidationOption', properties, propertiesObject)
 }
@@ -349,7 +348,7 @@ CloudFormationStackParametersPropertyType.prototype = Object.create(ResourceProp
 */
 function AWSCloudFormationInterfaceLabel (propertiesObject) {
   let properties = {
-    default: new ResourceAttribute('default', String, 'No', null)
+    default: new ResourceAttribute('default', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCloudFormationInterfaceLabel', properties, propertiesObject)
 }
@@ -361,8 +360,8 @@ AWSCloudFormationInterfaceLabel.prototype = Object.create(ResourceProperty.proto
 */
 function AWSCloudFormationInterfaceParameterGroup (propertiesObject) {
   let properties = {
-    Label: new ResourceAttribute('Label', AWSCloudFormationInterfaceLabel, 'No', null),
-    Parameters: new ResourceAttributeArray('Parameters', String, 'No', null)
+    Label: new ResourceAttribute('Label', AWSCloudFormationInterfaceLabel, false, 'No', null),
+    Parameters: new ResourceAttribute('Parameters', String, true, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCloudFormationInterfaceParameterGroup', properties, propertiesObject)
 }
@@ -373,7 +372,7 @@ AWSCloudFormationInterfaceParameterGroup.prototype = Object.create(ResourcePrope
 */
 function AWSCloudFormationInterfaceParameterLabel (propertiesObject) {
   let properties = {
-    ParameterLogicalID: new ResourceAttribute('ParameterLogicalID', AWSCloudFormationInterfaceLabel, 'No', null)
+    ParameterLogicalID: new ResourceAttribute('ParameterLogicalID', AWSCloudFormationInterfaceLabel, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCloudFormationInterfaceParameterLabel', properties, propertiesObject)
 }
@@ -396,19 +395,19 @@ AWSCloudFormationInterfaceParameterLabel.prototype = Object.create(ResourcePrope
 */
 function CloudFrontDistributionConfig (propertiesObject) {
   let properties = {
-    Aliases: new ResourceAttributeArray('Aliases', String, 'No', null),
-    CacheBehaviors: new ResourceAttributeArray('CacheBehaviors', CloudFrontDistributionConfigCacheBehavior, 'No', null),
-    Comment: new ResourceAttribute('Comment', String, 'No', null),
-    CustomErrorResponses: new ResourceAttributeArray('CustomErrorResponses', CloudFrontDistributionConfigCustomErrorResponse, 'No', null),
-    DefaultCacheBehavior: new ResourceAttribute('DefaultCacheBehavior', CloudFrontDefaultCacheBehavior, 'Yes', null),
-    DefaultRootObject: new ResourceAttribute('DefaultRootObject', String, 'No', null),
-    Enabled: new ResourceAttribute('Enabled', Boolean, 'Yes', null),
-    Logging: new ResourceAttribute('Logging', CloudFrontLogging, 'No', null),
-    Origins: new ResourceAttributeArray('Origins', CloudFrontDistributionConfigOrigin, 'Yes', null),
-    PriceClass: new ResourceAttribute('PriceClass', String, 'No', null),
-    Restrictions: new ResourceAttribute('Restrictions', CloudFrontDistributionConfigurationRestrictions, 'No', null),
-    ViewerCertificate: new ResourceAttribute('ViewerCertificate', CloudFrontDistributionConfigurationViewerCertificate, 'No', null),
-    WebACLId: new ResourceAttribute('WebACLId', String, 'No', null)
+    Aliases: new ResourceAttribute('Aliases', String, true, 'No', null),
+    CacheBehaviors: new ResourceAttribute('CacheBehaviors', CloudFrontDistributionConfigCacheBehavior, true, 'No', null),
+    Comment: new ResourceAttribute('Comment', String, false, 'No', null),
+    CustomErrorResponses: new ResourceAttribute('CustomErrorResponses', CloudFrontDistributionConfigCustomErrorResponse, true, 'No', null),
+    DefaultCacheBehavior: new ResourceAttribute('DefaultCacheBehavior', CloudFrontDefaultCacheBehavior, false, 'Yes', null),
+    DefaultRootObject: new ResourceAttribute('DefaultRootObject', String, false, 'No', null),
+    Enabled: new ResourceAttribute('Enabled', Boolean, false, 'Yes', null),
+    Logging: new ResourceAttribute('Logging', CloudFrontLogging, false, 'No', null),
+    Origins: new ResourceAttribute('Origins', CloudFrontDistributionConfigOrigin, true, 'Yes', null),
+    PriceClass: new ResourceAttribute('PriceClass', String, false, 'No', null),
+    Restrictions: new ResourceAttribute('Restrictions', CloudFrontDistributionConfigurationRestrictions, false, 'No', null),
+    ViewerCertificate: new ResourceAttribute('ViewerCertificate', CloudFrontDistributionConfigurationViewerCertificate, false, 'No', null),
+    WebACLId: new ResourceAttribute('WebACLId', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfig', properties, propertiesObject)
 }
@@ -430,18 +429,18 @@ CloudFrontDistributionConfig.prototype = Object.create(ResourceProperty.prototyp
 */
 function CloudFrontDistributionConfigCacheBehavior (propertiesObject) {
   let properties = {
-    AllowedMethods: new ResourceAttributeArray('AllowedMethods', String, 'No', null),
-    CachedMethods: new ResourceAttributeArray('CachedMethods', String, 'No', null),
-    Compress: new ResourceAttribute('Compress', Boolean, 'No', null),
-    DefaultTTL: new ResourceAttribute('DefaultTTL', Number, 'No', null),
-    ForwardedValues: new ResourceAttribute('ForwardedValues', CloudFrontForwardedValues, 'Yes', null),
-    MaxTTL: new ResourceAttribute('MaxTTL', Number, 'No', null),
-    MinTTL: new ResourceAttribute('MinTTL', Number, 'No', null),
-    PathPattern: new ResourceAttribute('PathPattern', String, 'Yes', null),
-    SmoothStreaming: new ResourceAttribute('SmoothStreaming', Boolean, 'No', null),
-    TargetOriginId: new ResourceAttribute('TargetOriginId', String, 'Yes', null),
-    TrustedSigners: new ResourceAttributeArray('TrustedSigners', String, 'No', null),
-    ViewerProtocolPolicy: new ResourceAttribute('ViewerProtocolPolicy', String, 'Yes', null)
+    AllowedMethods: new ResourceAttribute('AllowedMethods', String, true, 'No', null),
+    CachedMethods: new ResourceAttribute('CachedMethods', String, true, 'No', null),
+    Compress: new ResourceAttribute('Compress', Boolean, false, 'No', null),
+    DefaultTTL: new ResourceAttribute('DefaultTTL', Number, false, 'No', null),
+    ForwardedValues: new ResourceAttribute('ForwardedValues', CloudFrontForwardedValues, false, 'Yes', null),
+    MaxTTL: new ResourceAttribute('MaxTTL', Number, false, 'No', null),
+    MinTTL: new ResourceAttribute('MinTTL', Number, false, 'No', null),
+    PathPattern: new ResourceAttribute('PathPattern', String, false, 'Yes', null),
+    SmoothStreaming: new ResourceAttribute('SmoothStreaming', Boolean, false, 'No', null),
+    TargetOriginId: new ResourceAttribute('TargetOriginId', String, false, 'Yes', null),
+    TrustedSigners: new ResourceAttribute('TrustedSigners', String, true, 'No', null),
+    ViewerProtocolPolicy: new ResourceAttribute('ViewerProtocolPolicy', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfigCacheBehavior', properties, propertiesObject)
 }
@@ -455,10 +454,10 @@ CloudFrontDistributionConfigCacheBehavior.prototype = Object.create(ResourceProp
 */
 function CloudFrontDistributionConfigCustomErrorResponse (propertiesObject) {
   let properties = {
-    ErrorCachingMinTTL: new ResourceAttribute('ErrorCachingMinTTL', Number, 'No', null),
-    ErrorCode: new ResourceAttribute('ErrorCode', Number, 'Yes', null),
-    ResponseCode: new ResourceAttribute('ResponseCode', Number, 'Conditional', null),
-    ResponsePagePath: new ResourceAttribute('ResponsePagePath', String, 'Conditional', null)
+    ErrorCachingMinTTL: new ResourceAttribute('ErrorCachingMinTTL', Number, false, 'No', null),
+    ErrorCode: new ResourceAttribute('ErrorCode', Number, false, 'Yes', null),
+    ResponseCode: new ResourceAttribute('ResponseCode', Number, false, 'Conditional', null),
+    ResponsePagePath: new ResourceAttribute('ResponsePagePath', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfigCustomErrorResponse', properties, propertiesObject)
 }
@@ -479,17 +478,17 @@ CloudFrontDistributionConfigCustomErrorResponse.prototype = Object.create(Resour
 */
 function CloudFrontDefaultCacheBehavior (propertiesObject) {
   let properties = {
-    AllowedMethods: new ResourceAttributeArray('AllowedMethods', String, 'No', null),
-    CachedMethods: new ResourceAttributeArray('CachedMethods', String, 'No', null),
-    Compress: new ResourceAttribute('Compress', Boolean, 'No', null),
-    DefaultTTL: new ResourceAttribute('DefaultTTL', Number, 'No', null),
-    ForwardedValues: new ResourceAttribute('ForwardedValues', CloudFrontForwardedValues, 'Yes', null),
-    MaxTTL: new ResourceAttribute('MaxTTL', Number, 'No', null),
-    MinTTL: new ResourceAttribute('MinTTL', String, 'No', null),
-    SmoothStreaming: new ResourceAttribute('SmoothStreaming', Boolean, 'No', null),
-    TargetOriginId: new ResourceAttribute('TargetOriginId', String, 'Yes', null),
-    TrustedSigners: new ResourceAttributeArray('TrustedSigners', String, 'No', null),
-    ViewerProtocolPolicy: new ResourceAttribute('ViewerProtocolPolicy', String, 'Yes', null)
+    AllowedMethods: new ResourceAttribute('AllowedMethods', String, true, 'No', null),
+    CachedMethods: new ResourceAttribute('CachedMethods', String, true, 'No', null),
+    Compress: new ResourceAttribute('Compress', Boolean, false, 'No', null),
+    DefaultTTL: new ResourceAttribute('DefaultTTL', Number, false, 'No', null),
+    ForwardedValues: new ResourceAttribute('ForwardedValues', CloudFrontForwardedValues, false, 'Yes', null),
+    MaxTTL: new ResourceAttribute('MaxTTL', Number, false, 'No', null),
+    MinTTL: new ResourceAttribute('MinTTL', String, false, 'No', null),
+    SmoothStreaming: new ResourceAttribute('SmoothStreaming', Boolean, false, 'No', null),
+    TargetOriginId: new ResourceAttribute('TargetOriginId', String, false, 'Yes', null),
+    TrustedSigners: new ResourceAttribute('TrustedSigners', String, true, 'No', null),
+    ViewerProtocolPolicy: new ResourceAttribute('ViewerProtocolPolicy', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'CloudFrontDefaultCacheBehavior', properties, propertiesObject)
 }
@@ -502,9 +501,9 @@ CloudFrontDefaultCacheBehavior.prototype = Object.create(ResourceProperty.protot
 */
 function CloudFrontLogging (propertiesObject) {
   let properties = {
-    Bucket: new ResourceAttribute('Bucket', String, 'Yes', null),
-    IncludeCookies: new ResourceAttribute('IncludeCookies', Boolean, 'No', null),
-    Prefix: new ResourceAttribute('Prefix', String, 'No', null)
+    Bucket: new ResourceAttribute('Bucket', String, false, 'Yes', null),
+    IncludeCookies: new ResourceAttribute('IncludeCookies', Boolean, false, 'No', null),
+    Prefix: new ResourceAttribute('Prefix', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'CloudFrontLogging', properties, propertiesObject)
 }
@@ -520,12 +519,12 @@ CloudFrontLogging.prototype = Object.create(ResourceProperty.prototype)
 */
 function CloudFrontDistributionConfigOrigin (propertiesObject) {
   let properties = {
-    CustomOriginConfig: new ResourceAttribute('CustomOriginConfig', CloudFrontDistributionConfigOriginCustomOrigin, 'Conditional', null),
-    DomainName: new ResourceAttribute('DomainName', String, 'Yes', null),
-    Id: new ResourceAttribute('Id', String, 'Yes', null),
-    OriginCustomHeaders: new ResourceAttributeArray('OriginCustomHeaders', CloudFrontDistributionConfigOriginOriginCustomHeader, 'No', null),
-    OriginPath: new ResourceAttribute('OriginPath', String, 'No', null),
-    S3OriginConfig: new ResourceAttribute('S3OriginConfig', CloudFrontDistributionConfigOriginS3Origin, 'Conditional', null)
+    CustomOriginConfig: new ResourceAttribute('CustomOriginConfig', CloudFrontDistributionConfigOriginCustomOrigin, false, 'Conditional', null),
+    DomainName: new ResourceAttribute('DomainName', String, false, 'Yes', null),
+    Id: new ResourceAttribute('Id', String, false, 'Yes', null),
+    OriginCustomHeaders: new ResourceAttribute('OriginCustomHeaders', CloudFrontDistributionConfigOriginOriginCustomHeader, true, 'No', null),
+    OriginPath: new ResourceAttribute('OriginPath', String, false, 'No', null),
+    S3OriginConfig: new ResourceAttribute('S3OriginConfig', CloudFrontDistributionConfigOriginS3Origin, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfigOrigin', properties, propertiesObject)
 }
@@ -539,10 +538,10 @@ CloudFrontDistributionConfigOrigin.prototype = Object.create(ResourceProperty.pr
 */
 function CloudFrontDistributionConfigOriginCustomOrigin (propertiesObject) {
   let properties = {
-    HTTPPort: new ResourceAttribute('HTTPPort', String, 'No', null),
-    HTTPSPort: new ResourceAttribute('HTTPSPort', String, 'No', null),
-    OriginProtocolPolicy: new ResourceAttribute('OriginProtocolPolicy', String, 'Yes', null),
-    OriginSSLProtocols: new ResourceAttributeArray('OriginSSLProtocols', String, 'No', null)
+    HTTPPort: new ResourceAttribute('HTTPPort', String, false, 'No', null),
+    HTTPSPort: new ResourceAttribute('HTTPSPort', String, false, 'No', null),
+    OriginProtocolPolicy: new ResourceAttribute('OriginProtocolPolicy', String, false, 'Yes', null),
+    OriginSSLProtocols: new ResourceAttribute('OriginSSLProtocols', String, true, 'No', null)
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfigOriginCustomOrigin', properties, propertiesObject)
 }
@@ -554,8 +553,8 @@ CloudFrontDistributionConfigOriginCustomOrigin.prototype = Object.create(Resourc
 */
 function CloudFrontDistributionConfigOriginOriginCustomHeader (propertiesObject) {
   let properties = {
-    HeaderName: new ResourceAttribute('HeaderName', String, 'Yes', null),
-    HeaderValue: new ResourceAttribute('HeaderValue', String, 'Yes', null)
+    HeaderName: new ResourceAttribute('HeaderName', String, false, 'Yes', null),
+    HeaderValue: new ResourceAttribute('HeaderValue', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfigOriginOriginCustomHeader', properties, propertiesObject)
 }
@@ -566,7 +565,7 @@ CloudFrontDistributionConfigOriginOriginCustomHeader.prototype = Object.create(R
 */
 function CloudFrontDistributionConfigOriginS3Origin (propertiesObject) {
   let properties = {
-    OriginAccessIdentity: new ResourceAttribute('OriginAccessIdentity', String, 'No', null)
+    OriginAccessIdentity: new ResourceAttribute('OriginAccessIdentity', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfigOriginS3Origin', properties, propertiesObject)
 }
@@ -577,7 +576,7 @@ CloudFrontDistributionConfigOriginS3Origin.prototype = Object.create(ResourcePro
 */
 function CloudFrontDistributionConfigurationRestrictions (propertiesObject) {
   let properties = {
-    GeoRestriction: new ResourceAttribute('GeoRestriction', CloudFrontDistributionConfigRestrictionsGeoRestriction, 'Yes', null)
+    GeoRestriction: new ResourceAttribute('GeoRestriction', CloudFrontDistributionConfigRestrictionsGeoRestriction, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfigurationRestrictions', properties, propertiesObject)
 }
@@ -592,8 +591,8 @@ CloudFrontDistributionConfigurationRestrictions.prototype = Object.create(Resour
 */
 function CloudFrontDistributionConfigRestrictionsGeoRestriction (propertiesObject) {
   let properties = {
-    Locations: new ResourceAttributeArray('Locations', String, 'Conditional', null),
-    RestrictionType: new ResourceAttribute('RestrictionType', String, 'Yes', null),
+    Locations: new ResourceAttribute('Locations', String, true, 'Conditional', null),
+    RestrictionType: new ResourceAttribute('RestrictionType', String, false, 'Yes', null),
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfigRestrictionsGeoRestriction', properties, propertiesObject)
 }
@@ -608,11 +607,11 @@ CloudFrontDistributionConfigRestrictionsGeoRestriction.prototype = Object.create
 */
 function CloudFrontDistributionConfigurationViewerCertificate (propertiesObject) {
   let properties = {
-    AcmCertificateArn: new ResourceAttribute('AcmCertificateArn', String, 'Conditional', null),
-    CloudFrontDefaultCertificate: new ResourceAttribute('CloudFrontDefaultCertificate', Boolean, 'Conditional', null),
-    IamCertificateId: new ResourceAttribute('IamCertificateId', String, 'Conditional', null),
-    MinimumProtocolVersion: new ResourceAttribute('MinimumProtocolVersion', String, 'No', null),
-    SslSupportMethod: new ResourceAttribute('SslSupportMethod', String, 'Conditional', null)
+    AcmCertificateArn: new ResourceAttribute('AcmCertificateArn', String, false, 'Conditional', null),
+    CloudFrontDefaultCertificate: new ResourceAttribute('CloudFrontDefaultCertificate', Boolean, false, 'Conditional', null),
+    IamCertificateId: new ResourceAttribute('IamCertificateId', String, false, 'Conditional', null),
+    MinimumProtocolVersion: new ResourceAttribute('MinimumProtocolVersion', String, false, 'No', null),
+    SslSupportMethod: new ResourceAttribute('SslSupportMethod', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'CloudFrontDistributionConfigurationViewerCertificate', properties, propertiesObject)
 }
@@ -625,9 +624,9 @@ CloudFrontDistributionConfigurationViewerCertificate.prototype = Object.create(R
 */
 function CloudFrontForwardedValues (propertiesObject) {
   let properties = {
-    Cookies: new ResourceAttribute('Cookies', CloudFrontForwardedValuesCookies, 'No', null),
-    Headers: new ResourceAttributeArray('Headers', String, 'No', null),
-    QueryString: new ResourceAttribute('QueryString', Boolean, 'Yes', null)
+    Cookies: new ResourceAttribute('Cookies', CloudFrontForwardedValuesCookies, false, 'No', null),
+    Headers: new ResourceAttribute('Headers', String, true, 'No', null),
+    QueryString: new ResourceAttribute('QueryString', Boolean, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'CloudFrontForwardedValues', properties, propertiesObject)
 }
@@ -639,8 +638,8 @@ CloudFrontForwardedValues.prototype = Object.create(ResourceProperty.prototype)
 */
 function CloudFrontForwardedValuesCookies (propertiesObject) {
   let properties = {
-    Forward: new ResourceAttribute('Forward', String, 'Yes', null),
-    WhitelistedNames: new ResourceAttributeArray('WhitelistedNames', String, 'Conditional', null)
+    Forward: new ResourceAttribute('Forward', String, false, 'Yes', null),
+    WhitelistedNames: new ResourceAttribute('WhitelistedNames', String, true, 'Conditional', null)
   }
   ResourceProperty.call(this, 'CloudFrontForwardedValuesCookies', properties, propertiesObject)
 }
@@ -652,8 +651,8 @@ CloudFrontForwardedValuesCookies.prototype = Object.create(ResourceProperty.prot
 */
 function CloudWatchMetricDimensionPropertyType (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'CloudWatchMetricDimensionPropertyType', properties, propertiesObject)
 }
@@ -667,10 +666,10 @@ CloudWatchMetricDimensionPropertyType.prototype = Object.create(ResourceProperty
 */
 function AmazonCloudWatchEventsRuleTarget (propertiesObject) {
   let properties = {
-    Arn: new ResourceAttribute('Arn', String, 'Yes', null),
-    Id: new ResourceAttribute('Id', String, 'Yes', null),
-    Input: new ResourceAttribute('Input', String, 'Conditional', null),
-    InputPath: new ResourceAttribute('InputPath', String, 'Conditional', null)
+    Arn: new ResourceAttribute('Arn', String, false, 'Yes', null),
+    Id: new ResourceAttribute('Id', String, false, 'Yes', null),
+    Input: new ResourceAttribute('Input', String, false, 'Conditional', null),
+    InputPath: new ResourceAttribute('InputPath', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AmazonCloudWatchEventsRuleTarget', properties, propertiesObject)
 }
@@ -683,9 +682,9 @@ AmazonCloudWatchEventsRuleTarget.prototype = Object.create(ResourceProperty.prot
 */
 function CloudWatchLogsMetricFilterMetricTransformationProperty (propertiesObject) {
   let properties = {
-    MetricName: new ResourceAttribute('MetricName', String, 'Yes', null),
-    MetricNamespace: new ResourceAttribute('MetricNamespace', String, 'Yes', null),
-    MetricValue: new ResourceAttribute('MetricValue', String, 'Yes', null)
+    MetricName: new ResourceAttribute('MetricName', String, false, 'Yes', null),
+    MetricNamespace: new ResourceAttribute('MetricNamespace', String, false, 'Yes', null),
+    MetricValue: new ResourceAttribute('MetricValue', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'CloudWatchLogsMetricFilterMetricTransformationProperty', properties, propertiesObject)
 }
@@ -697,8 +696,8 @@ CloudWatchLogsMetricFilterMetricTransformationProperty.prototype = Object.create
 */
 function AWSCodeDeployDeploymentConfigMinimumHealthyHosts (propertiesObject) {
   let properties = {
-    Type: new ResourceAttribute('Type', String, 'No', null),
-    Value: new ResourceAttribute('Value', Number, 'No', null)
+    Type: new ResourceAttribute('Type', String, false, 'No', null),
+    Value: new ResourceAttribute('Value', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCodeDeployDeploymentConfigMinimumHealthyHosts', properties, propertiesObject)
 }
@@ -711,9 +710,9 @@ AWSCodeDeployDeploymentConfigMinimumHealthyHosts.prototype = Object.create(Resou
 */
 function AWSCodeDeployDeploymentGroupDeployment (propertiesObject) {
   let properties = {
-    Description: new ResourceAttribute('Description', String, 'No', null),
-    IgnoreApplicationStopFailures: new ResourceAttribute('IgnoreApplicationStopFailures', Boolean, 'No', null),
-    Revision: new ResourceAttribute('Revision', AWSCodeDeployDeploymentGroupDeploymentRevision, 'Yes', null)
+    Description: new ResourceAttribute('Description', String, false, 'No', null),
+    IgnoreApplicationStopFailures: new ResourceAttribute('IgnoreApplicationStopFailures', Boolean, false, 'No', null),
+    Revision: new ResourceAttribute('Revision', AWSCodeDeployDeploymentGroupDeploymentRevision, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodeDeployDeploymentGroupDeployment', properties, propertiesObject)
 }
@@ -726,9 +725,9 @@ AWSCodeDeployDeploymentGroupDeployment.prototype = Object.create(ResourcePropert
 */
 function AWSCodeDeployDeploymentGroupDeploymentRevision (propertiesObject) {
   let properties = {
-    GitHubLocation: new ResourceAttribute('GitHubLocation', AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation, 'No', null),
-    RevisionType: new ResourceAttribute('RevisionType', String, 'No', null),
-    S3Location: new ResourceAttribute('S3Location', AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location, 'No', null)
+    GitHubLocation: new ResourceAttribute('GitHubLocation', AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation, false, 'No', null),
+    RevisionType: new ResourceAttribute('RevisionType', String, false, 'No', null),
+    S3Location: new ResourceAttribute('S3Location', AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCodeDeployDeploymentGroupDeploymentRevision', properties, propertiesObject)
 }
@@ -740,8 +739,8 @@ AWSCodeDeployDeploymentGroupDeploymentRevision.prototype = Object.create(Resourc
 */
 function AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation (propertiesObject) {
   let properties = {
-    CommitId: new ResourceAttribute('CommitId', String, 'Yes', null),
-    Repository: new ResourceAttribute('Repository', String, 'Yes', null)
+    CommitId: new ResourceAttribute('CommitId', String, false, 'Yes', null),
+    Repository: new ResourceAttribute('Repository', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation', properties, propertiesObject)
 }
@@ -756,11 +755,11 @@ AWSCodeDeployDeploymentGroupDeploymentRevisionGitHubLocation.prototype = Object.
 */
 function AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location (propertiesObject) {
   let properties = {
-    Bucket: new ResourceAttribute('Bucket', String, 'Yes', null),
-    BundleType: new ResourceAttribute('BundleType', String, 'Yes', null),
-    ETag: new ResourceAttribute('ETag', String, 'No', null),
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    Version: new ResourceAttribute('Version', String, 'No', null)
+    Bucket: new ResourceAttribute('Bucket', String, false, 'Yes', null),
+    BundleType: new ResourceAttribute('BundleType', String, false, 'Yes', null),
+    ETag: new ResourceAttribute('ETag', String, false, 'No', null),
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    Version: new ResourceAttribute('Version', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location', properties, propertiesObject)
 }
@@ -773,9 +772,9 @@ AWSCodeDeployDeploymentGroupDeploymentRevisionS3Location.prototype = Object.crea
 */
 function AWSCodeDeployDeploymentGroupEc2TagFilters (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'No', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'No', null)
+    Key: new ResourceAttribute('Key', String, false, 'No', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCodeDeployDeploymentGroupEc2TagFilters', properties, propertiesObject)
 }
@@ -788,9 +787,9 @@ AWSCodeDeployDeploymentGroupEc2TagFilters.prototype = Object.create(ResourceProp
 */
 function AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'No', null),
-    Type: new ResourceAttribute('Type', String, 'No', null),
-    Value: new ResourceAttribute('Value', String, 'No', null)
+    Key: new ResourceAttribute('Key', String, false, 'No', null),
+    Type: new ResourceAttribute('Type', String, false, 'No', null),
+    Value: new ResourceAttribute('Value', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters', properties, propertiesObject)
 }
@@ -802,8 +801,8 @@ AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters.prototype = Object.crea
 */
 function AWSCodePipelineCustomActionTypeArtifactDetails (propertiesObject) {
   let properties = {
-    MaximumCount: new ResourceAttribute('MaximumCount', Number, 'Yes', null),
-    MinimumCount: new ResourceAttribute('MinimumCount', Number, 'Yes', null)
+    MaximumCount: new ResourceAttribute('MaximumCount', Number, false, 'Yes', null),
+    MinimumCount: new ResourceAttribute('MinimumCount', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelineCustomActionTypeArtifactDetails', properties, propertiesObject)
 }
@@ -820,13 +819,13 @@ AWSCodePipelineCustomActionTypeArtifactDetails.prototype = Object.create(Resourc
 */
 function AWSCodePipelineCustomActionTypeConfigurationProperties (propertiesObject) {
   let properties = {
-    Description: new ResourceAttribute('Description', String, 'No', null),
-    Key: new ResourceAttribute('Key', Boolean, 'Yes', null),
-    Name: new ResourceAttribute('Name', String, 'Yes', null),
-    Queryable: new ResourceAttribute('Queryable', Boolean, 'No', null),
-    Required: new ResourceAttribute('Required', Boolean, 'Yes', null),
-    Secret: new ResourceAttribute('Secret', Boolean, 'Yes', null),
-    Type: new ResourceAttribute('Type', String, 'No', null)
+    Description: new ResourceAttribute('Description', String, false, 'No', null),
+    Key: new ResourceAttribute('Key', Boolean, false, 'Yes', null),
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+    Queryable: new ResourceAttribute('Queryable', Boolean, false, 'No', null),
+    Required: new ResourceAttribute('Required', Boolean, false, 'Yes', null),
+    Secret: new ResourceAttribute('Secret', Boolean, false, 'Yes', null),
+    Type: new ResourceAttribute('Type', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelineCustomActionTypeConfigurationProperties', properties, propertiesObject)
 }
@@ -840,10 +839,10 @@ AWSCodePipelineCustomActionTypeConfigurationProperties.prototype = Object.create
 */
 function AWSCodePipelineCustomActionTypeSettings (propertiesObject) {
   let properties = {
-    EntityUrlTemplate: new ResourceAttribute('EntityUrlTemplate', String, 'No', null),
-    ExecutionUrlTemplate: new ResourceAttribute('ExecutionUrlTemplate', String, 'No', null),
-    RevisionUrlTemplate: new ResourceAttribute('RevisionUrlTemplate', String, 'No', null),
-    ThirdPartyConfigurationUrl: new ResourceAttribute('ThirdPartyConfigurationUrl', String, 'No', null)
+    EntityUrlTemplate: new ResourceAttribute('EntityUrlTemplate', String, false, 'No', null),
+    ExecutionUrlTemplate: new ResourceAttribute('ExecutionUrlTemplate', String, false, 'No', null),
+    RevisionUrlTemplate: new ResourceAttribute('RevisionUrlTemplate', String, false, 'No', null),
+    ThirdPartyConfigurationUrl: new ResourceAttribute('ThirdPartyConfigurationUrl', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelineCustomActionTypeSettings', properties, propertiesObject)
 }
@@ -856,9 +855,9 @@ AWSCodePipelineCustomActionTypeSettings.prototype = Object.create(ResourceProper
 */
 function AWSCodePipelinePipelineArtifactStore (propertiesObject) {
   let properties = {
-    EncryptionKey: new ResourceAttribute('EncryptionKey', AWSCodePipelinePipelineArtifactStoreEncryptionKey, 'No', null),
-    Location: new ResourceAttribute('Location', String, 'Yes', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    EncryptionKey: new ResourceAttribute('EncryptionKey', AWSCodePipelinePipelineArtifactStoreEncryptionKey, false, 'No', null),
+    Location: new ResourceAttribute('Location', String, false, 'Yes', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelinePipelineArtifactStore', properties, propertiesObject)
 }
@@ -870,8 +869,8 @@ AWSCodePipelinePipelineArtifactStore.prototype = Object.create(ResourceProperty.
 */
 function AWSCodePipelinePipelineArtifactStoreEncryptionKey (propertiesObject) {
   let properties = {
-    Id: new ResourceAttribute('Id', String, 'Yes', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    Id: new ResourceAttribute('Id', String, false, 'Yes', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelinePipelineArtifactStoreEncryptionKey', properties, propertiesObject)
 }
@@ -883,8 +882,8 @@ AWSCodePipelinePipelineArtifactStoreEncryptionKey.prototype = Object.create(Reso
 */
 function AWSCodePipelinePipelineDisableInboundStageTransitions (propertiesObject) {
   let properties = {
-    Reason: new ResourceAttribute('Reason', String, 'Yes', null),
-    StageName: new ResourceAttribute('StageName', String, 'Yes', null)
+    Reason: new ResourceAttribute('Reason', String, false, 'Yes', null),
+    StageName: new ResourceAttribute('StageName', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelinePipelineDisableInboundStageTransitions', properties, propertiesObject)
 }
@@ -897,9 +896,9 @@ AWSCodePipelinePipelineDisableInboundStageTransitions.prototype = Object.create(
 */
 function AWSCodePipelinePipelineStages (propertiesObject) {
   let properties = {
-    Actions: new ResourceAttributeArray('Actions', AWSCodePipelinePipelineStagesActions, 'Yes', null),
-    Blockers: new ResourceAttributeArray('Blockers', AWSCodePipelinePipelineStagesBlockers, 'No', null),
-    Name: new ResourceAttribute('Name', String, 'Yes', null)
+    Actions: new ResourceAttribute('Actions', AWSCodePipelinePipelineStagesActions, true, 'Yes', null),
+    Blockers: new ResourceAttribute('Blockers', AWSCodePipelinePipelineStagesBlockers, true, 'No', null),
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelinePipelineStages', properties, propertiesObject)
 }
@@ -916,13 +915,13 @@ AWSCodePipelinePipelineStages.prototype = Object.create(ResourceProperty.prototy
 */
 function AWSCodePipelinePipelineStagesActions (propertiesObject) {
   let properties = {
-    ActionTypeId: new ResourceAttribute('ActionTypeId', AWSCodePipelinePipelineStagesActionsActionTypeId, 'Yes', null),
-    Configuration: new ResourceAttribute('Configuration', Object, 'No', null),
-    InputArtifacts: new ResourceAttributeArray('InputArtifacts', AWSCodePipelinePipelineStagesActionsInputArtifacts, 'No', null),
-    Name: new ResourceAttribute('Name', String, 'Yes', null),
-    OutputArtifacts: new ResourceAttributeArray('OutputArtifacts', AWSCodePipelinePipelineStagesActionsOutputArtifacts, 'No', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'No', null),
-    RunOrder: new ResourceAttribute('RunOrder', Number, 'No', null)
+    ActionTypeId: new ResourceAttribute('ActionTypeId', AWSCodePipelinePipelineStagesActionsActionTypeId, false, 'Yes', null),
+    Configuration: new ResourceAttribute('Configuration', Object, false, 'No', null),
+    InputArtifacts: new ResourceAttribute('InputArtifacts', AWSCodePipelinePipelineStagesActionsInputArtifacts, true, 'No', null),
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+    OutputArtifacts: new ResourceAttribute('OutputArtifacts', AWSCodePipelinePipelineStagesActionsOutputArtifacts, true, 'No', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'No', null),
+    RunOrder: new ResourceAttribute('RunOrder', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelinePipelineStagesActions', properties, propertiesObject)
 }
@@ -936,10 +935,10 @@ AWSCodePipelinePipelineStagesActions.prototype = Object.create(ResourceProperty.
 */
 function AWSCodePipelinePipelineStagesActionsActionTypeId (propertiesObject) {
   let properties = {
-    Category: new ResourceAttribute('Category', String, 'Yes', null),
-    Owner: new ResourceAttribute('Owner', String, 'Yes', null),
-    Provider: new ResourceAttribute('Provider', String, 'Yes', null),
-    Version: new ResourceAttribute('Version', String, 'Yes', null)
+    Category: new ResourceAttribute('Category', String, false, 'Yes', null),
+    Owner: new ResourceAttribute('Owner', String, false, 'Yes', null),
+    Provider: new ResourceAttribute('Provider', String, false, 'Yes', null),
+    Version: new ResourceAttribute('Version', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelinePipelineStagesActionsActionTypeId', properties, propertiesObject)
 }
@@ -950,7 +949,7 @@ AWSCodePipelinePipelineStagesActionsActionTypeId.prototype = Object.create(Resou
 */
 function AWSCodePipelinePipelineStagesActionsInputArtifacts (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'Yes', null)
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelinePipelineStagesActionsInputArtifacts', properties, propertiesObject)
 }
@@ -961,7 +960,7 @@ AWSCodePipelinePipelineStagesActionsInputArtifacts.prototype = Object.create(Res
 */
 function AWSCodePipelinePipelineStagesActionsOutputArtifacts (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'Yes', null)
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelinePipelineStagesActionsOutputArtifacts', properties, propertiesObject)
 }
@@ -973,8 +972,8 @@ AWSCodePipelinePipelineStagesActionsOutputArtifacts.prototype = Object.create(Re
 */
 function AWSCodePipelinePipelineStagesBlockers (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'Yes', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCodePipelinePipelineStagesBlockers', properties, propertiesObject)
 }
@@ -988,10 +987,10 @@ AWSCodePipelinePipelineStagesBlockers.prototype = Object.create(ResourceProperty
 */
 function AWSConfigConfigRuleScope (propertiesObject) {
   let properties = {
-    ComplianceResourceId: new ResourceAttribute('ComplianceResourceId', String, 'No', null),
-    ComplianceResourceTypes: new ResourceAttributeArray('ComplianceResourceTypes', String, 'Conditional', null),
-    TagKey: new ResourceAttribute('TagKey', String, 'Conditional', null),
-    TagValue: new ResourceAttribute('TagValue', String, 'Conditional', null)
+    ComplianceResourceId: new ResourceAttribute('ComplianceResourceId', String, false, 'No', null),
+    ComplianceResourceTypes: new ResourceAttribute('ComplianceResourceTypes', String, true, 'Conditional', null),
+    TagKey: new ResourceAttribute('TagKey', String, false, 'Conditional', null),
+    TagValue: new ResourceAttribute('TagValue', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AWSConfigConfigRuleScope', properties, propertiesObject)
 }
@@ -1004,9 +1003,9 @@ AWSConfigConfigRuleScope.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSConfigConfigRuleSource (propertiesObject) {
   let properties = {
-    Owner: new ResourceAttribute('Owner', String, 'Yes', null),
-    SourceDetails: new ResourceAttributeArray('SourceDetails', AWSConfigConfigRuleSourceSourceDetails, 'No', null),
-    SourceIdentifier: new ResourceAttribute('SourceIdentifier', String, 'Yes', null)
+    Owner: new ResourceAttribute('Owner', String, false, 'Yes', null),
+    SourceDetails: new ResourceAttribute('SourceDetails', AWSConfigConfigRuleSourceSourceDetails, true, 'No', null),
+    SourceIdentifier: new ResourceAttribute('SourceIdentifier', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSConfigConfigRuleSource', properties, propertiesObject)
 }
@@ -1018,8 +1017,8 @@ AWSConfigConfigRuleSource.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSConfigConfigRuleSourceSourceDetails (propertiesObject) {
   let properties = {
-    EventSource: new ResourceAttribute('EventSource', String, 'Yes', null),
-    MessageType: new ResourceAttribute('MessageType', String, 'Yes', null)
+    EventSource: new ResourceAttribute('EventSource', String, false, 'Yes', null),
+    MessageType: new ResourceAttribute('MessageType', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSConfigConfigRuleSourceSourceDetails', properties, propertiesObject)
 }
@@ -1032,9 +1031,9 @@ AWSConfigConfigRuleSourceSourceDetails.prototype = Object.create(ResourcePropert
 */
 function AWSConfigConfigurationRecorderRecordingGroup (propertiesObject) {
   let properties = {
-    AllSupported: new ResourceAttribute('AllSupported', Boolean, 'No', null),
-    IncludeGlobalResourceTypes: new ResourceAttribute('IncludeGlobalResourceTypes', Boolean, 'No', null),
-    ResourceTypes: new ResourceAttributeArray('ResourceTypes', String, 'No', null)
+    AllSupported: new ResourceAttribute('AllSupported', Boolean, false, 'No', null),
+    IncludeGlobalResourceTypes: new ResourceAttribute('IncludeGlobalResourceTypes', Boolean, false, 'No', null),
+    ResourceTypes: new ResourceAttribute('ResourceTypes', String, true, 'No', null)
   }
   ResourceProperty.call(this, 'AWSConfigConfigurationRecorderRecordingGroup', properties, propertiesObject)
 }
@@ -1045,7 +1044,7 @@ AWSConfigConfigurationRecorderRecordingGroup.prototype = Object.create(ResourceP
 */
 function AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties (propertiesObject) {
   let properties = {
-    DeliveryFrequency: new ResourceAttribute('DeliveryFrequency', String, 'No', null)
+    DeliveryFrequency: new ResourceAttribute('DeliveryFrequency', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties', properties, propertiesObject)
 }
@@ -1057,8 +1056,8 @@ AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties.prototype = Object.crea
 */
 function AWSDataPipelinePipelineParameterObjects (propertiesObject) {
   let properties = {
-    Attributes: new ResourceAttribute('Attributes', AWSDataPipelineParameterObjectsAttributes, 'Yes', null),
-    Id: new ResourceAttribute('Id', String, 'Yes', null)
+    Attributes: new ResourceAttribute('Attributes', AWSDataPipelineParameterObjectsAttributes, false, 'Yes', null),
+    Id: new ResourceAttribute('Id', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSDataPipelinePipelineParameterObjects', properties, propertiesObject)
 }
@@ -1070,8 +1069,8 @@ AWSDataPipelinePipelineParameterObjects.prototype = Object.create(ResourceProper
 */
 function AWSDataPipelineParameterObjectsAttributes (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    StringValue: new ResourceAttribute('StringValue', String, 'Conditional', null)
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    StringValue: new ResourceAttribute('StringValue', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AWSDataPipelineParameterObjectsAttributes', properties, propertiesObject)
 }
@@ -1083,8 +1082,8 @@ AWSDataPipelineParameterObjectsAttributes.prototype = Object.create(ResourceProp
 */
 function AWSDataPipelinePipelineParameterValues (propertiesObject) {
   let properties = {
-    Id: new ResourceAttribute('Id', String, 'Yes', null),
-    StringValue: new ResourceAttribute('StringValue', String, 'Yes', null)
+    Id: new ResourceAttribute('Id', String, false, 'Yes', null),
+    StringValue: new ResourceAttribute('StringValue', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSDataPipelinePipelineParameterValues', properties, propertiesObject)
 }
@@ -1097,9 +1096,9 @@ AWSDataPipelinePipelineParameterValues.prototype = Object.create(ResourcePropert
 */
 function AWSDataPipelinePipelineObjects (propertiesObject) {
   let properties = {
-    Fields: new ResourceAttribute('Fields', AWSDataPipelineDataPipelineObjectFields, 'Yes', null),
-    Id: new ResourceAttribute('Id', String, 'Yes', null),
-    Name: new ResourceAttribute('Name', String, 'Yes', null)
+    Fields: new ResourceAttribute('Fields', AWSDataPipelineDataPipelineObjectFields, false, 'Yes', null),
+    Id: new ResourceAttribute('Id', String, false, 'Yes', null),
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSDataPipelinePipelineObjects', properties, propertiesObject)
 }
@@ -1112,9 +1111,9 @@ AWSDataPipelinePipelineObjects.prototype = Object.create(ResourceProperty.protot
 */
 function AWSDataPipelineDataPipelineObjectFields (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    RefValue: new ResourceAttribute('RefValue', String, 'Conditional', null),
-    StringValue: new ResourceAttribute('StringValue', String, 'Conditional', null)
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    RefValue: new ResourceAttribute('RefValue', String, false, 'Conditional', null),
+    StringValue: new ResourceAttribute('StringValue', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AWSDataPipelineDataPipelineObjectFields', properties, propertiesObject)
 }
@@ -1126,8 +1125,8 @@ AWSDataPipelineDataPipelineObjectFields.prototype = Object.create(ResourceProper
 */
 function AWSDataPipelinePipelinePipelineTags (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSDataPipelinePipelinePipelineTags', properties, propertiesObject)
 }
@@ -1139,8 +1138,8 @@ AWSDataPipelinePipelinePipelineTags.prototype = Object.create(ResourceProperty.p
 */
 function AWSDirectoryServiceMicrosoftADVpcSettings (propertiesObject) {
   let properties = {
-    SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null),
-    VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
+    SubnetIds: new ResourceAttribute('SubnetIds', String, true, 'Yes', null),
+    VpcId: new ResourceAttribute('VpcId', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSDirectoryServiceMicrosoftADVpcSettings', properties, propertiesObject)
 }
@@ -1152,8 +1151,8 @@ AWSDirectoryServiceMicrosoftADVpcSettings.prototype = Object.create(ResourceProp
 */
 function AWSDirectoryServiceSimpleADVpcSettings (propertiesObject) {
   let properties = {
-    SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null),
-    VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
+    SubnetIds: new ResourceAttribute('SubnetIds', String, true, 'Yes', null),
+    VpcId: new ResourceAttribute('VpcId', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSDirectoryServiceSimpleADVpcSettings', properties, propertiesObject)
 }
@@ -1165,8 +1164,8 @@ AWSDirectoryServiceSimpleADVpcSettings.prototype = Object.create(ResourcePropert
 */
 function DynamoDBAttributeDefinitions (propertiesObject) {
   let properties = {
-    AttributeName: new ResourceAttribute('AttributeName', String, 'Yes', null),
-    AttributeType: new ResourceAttribute('AttributeType', String, 'Yes', null)
+    AttributeName: new ResourceAttribute('AttributeName', String, false, 'Yes', null),
+    AttributeType: new ResourceAttribute('AttributeType', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'DynamoDBAttributeDefinitions', properties, propertiesObject)
 }
@@ -1180,10 +1179,10 @@ DynamoDBAttributeDefinitions.prototype = Object.create(ResourceProperty.prototyp
 */
 function DynamoDBGlobalSecondaryIndexes (propertiesObject) {
   let properties = {
-    IndexName: new ResourceAttribute('IndexName', String, 'Yes', null),
-    KeySchema: new ResourceAttribute('KeySchema', DynamoDBKeySchema, 'Yes', null),
-    Projection: new ResourceAttribute('Projection', DynamoDBProjectionObject, 'Yes', null),
-    ProvisionedThroughput: new ResourceAttribute('ProvisionedThroughput', DynamoDBProvisionedThroughput, 'Yes', null)
+    IndexName: new ResourceAttribute('IndexName', String, false, 'Yes', null),
+    KeySchema: new ResourceAttribute('KeySchema', DynamoDBKeySchema, false, 'Yes', null),
+    Projection: new ResourceAttribute('Projection', DynamoDBProjectionObject, false, 'Yes', null),
+    ProvisionedThroughput: new ResourceAttribute('ProvisionedThroughput', DynamoDBProvisionedThroughput, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'DynamoDBGlobalSecondaryIndexes', properties, propertiesObject)
 }
@@ -1195,8 +1194,8 @@ DynamoDBGlobalSecondaryIndexes.prototype = Object.create(ResourceProperty.protot
 */
 function DynamoDBKeySchema (propertiesObject) {
   let properties = {
-    AttributeName: new ResourceAttribute('AttributeName', String, 'Yes', null),
-    KeyType: new ResourceAttribute('KeyType', String, 'Yes', null)
+    AttributeName: new ResourceAttribute('AttributeName', String, false, 'Yes', null),
+    KeyType: new ResourceAttribute('KeyType', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'DynamoDBKeySchema', properties, propertiesObject)
 }
@@ -1209,9 +1208,9 @@ DynamoDBKeySchema.prototype = Object.create(ResourceProperty.prototype)
 */
 function DynamoDBLocalSecondaryIndexes (propertiesObject) {
   let properties = {
-    IndexName: new ResourceAttribute('IndexName', String, 'Yes', null),
-    KeySchema: new ResourceAttribute('KeySchema', DynamoDBKeySchema, 'Yes', null),
-    Projection: new ResourceAttribute('Projection', DynamoDBProjectionObject, 'Yes', null)
+    IndexName: new ResourceAttribute('IndexName', String, false, 'Yes', null),
+    KeySchema: new ResourceAttribute('KeySchema', DynamoDBKeySchema, false, 'Yes', null),
+    Projection: new ResourceAttribute('Projection', DynamoDBProjectionObject, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'DynamoDBLocalSecondaryIndexes', properties, propertiesObject)
 }
@@ -1226,8 +1225,8 @@ DynamoDBLocalSecondaryIndexes.prototype = Object.create(ResourceProperty.prototy
 */
 function DynamoDBProjectionObject (propertiesObject) {
   let properties = {
-    NonKeyAttributes: new ResourceAttributeArray('NonKeyAttributes', String, 'No', null),
-    ProjectionType: new ResourceAttribute('ProjectionType', String, 'No', null),
+    NonKeyAttributes: new ResourceAttribute('NonKeyAttributes', String, true, 'No', null),
+    ProjectionType: new ResourceAttribute('ProjectionType', String, false, 'No', null),
   }
   ResourceProperty.call(this, 'DynamoDBProjectionObject', properties, propertiesObject)
 }
@@ -1239,8 +1238,8 @@ DynamoDBProjectionObject.prototype = Object.create(ResourceProperty.prototype)
 */
 function DynamoDBProvisionedThroughput (propertiesObject) {
   let properties = {
-    ReadCapacityUnits: new ResourceAttribute('ReadCapacityUnits', Number, 'Yes', null),
-    WriteCapacityUnits: new ResourceAttribute('WriteCapacityUnits', Number, 'Yes', null)
+    ReadCapacityUnits: new ResourceAttribute('ReadCapacityUnits', Number, false, 'Yes', null),
+    WriteCapacityUnits: new ResourceAttribute('WriteCapacityUnits', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'DynamoDBProvisionedThroughput', properties, propertiesObject)
 }
@@ -1251,7 +1250,7 @@ DynamoDBProvisionedThroughput.prototype = Object.create(ResourceProperty.prototy
 */
 function DynamoDBTableStreamSpecification (propertiesObject) {
   let properties = {
-    StreamViewType: new ResourceAttribute('StreamViewType', String, 'Yes', null)
+    StreamViewType: new ResourceAttribute('StreamViewType', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'DynamoDBTableStreamSpecification', properties, propertiesObject)
 }
@@ -1265,10 +1264,10 @@ DynamoDBTableStreamSpecification.prototype = Object.create(ResourceProperty.prot
 */
 function AmazonEC2BlockDeviceMappingProperty (propertiesObject) {
   let properties = {
-    DeviceName: new ResourceAttribute('DeviceName', String, 'Yes', null),
-    Ebs: new ResourceAttribute('Ebs', AmazonElasticBlockStoreBlockDeviceProperty, 'Conditional', null),
-    NoDevice: new ResourceAttribute('NoDevice', Map, 'No', null),
-    VirtualName: new ResourceAttribute('VirtualName', String, 'Conditional', null)
+    DeviceName: new ResourceAttribute('DeviceName', String, false, 'Yes', null),
+    Ebs: new ResourceAttribute('Ebs', AmazonElasticBlockStoreBlockDeviceProperty, false, 'Conditional', null),
+    NoDevice: new ResourceAttribute('NoDevice', Map, false, 'No', null),
+    VirtualName: new ResourceAttribute('VirtualName', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AmazonEC2BlockDeviceMappingProperty', properties, propertiesObject)
 }
@@ -1284,12 +1283,12 @@ AmazonEC2BlockDeviceMappingProperty.prototype = Object.create(ResourceProperty.p
 */
 function AmazonElasticBlockStoreBlockDeviceProperty (propertiesObject) {
   let properties = {
-    DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, 'No', null),
-    Encrypted: new ResourceAttribute('Encrypted', Boolean, 'No', null),
-    Iops: new ResourceAttribute('Iops', Number, 'Conditional', null),
-    SnapshotId: new ResourceAttribute('SnapshotId', String, 'Conditional', null),
-    VolumeSize: new ResourceAttribute('VolumeSize', String, 'Conditional', null),
-    VolumeType: new ResourceAttribute('VolumeType', String, 'No', null)
+    DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, false, 'No', null),
+    Encrypted: new ResourceAttribute('Encrypted', Boolean, false, 'No', null),
+    Iops: new ResourceAttribute('Iops', Number, false, 'Conditional', null),
+    SnapshotId: new ResourceAttribute('SnapshotId', String, false, 'Conditional', null),
+    VolumeSize: new ResourceAttribute('VolumeSize', String, false, 'Conditional', null),
+    VolumeType: new ResourceAttribute('VolumeType', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonElasticBlockStoreBlockDeviceProperty', properties, propertiesObject)
 }
@@ -1310,8 +1309,8 @@ EC2ICMPPropertyType.prototype = Object.create(ResourceProperty.prototype)
 */
 function AmazonEC2InstanceSsmAssociations (propertiesObject) {
   let properties = {
-    AssociationParameters: new ResourceAttributeArray('AssociationParameters', AmazonEC2InstanceSsmAssociationsAssociationParameters, 'No', null),
-    DocumentName: new ResourceAttribute('DocumentName', String, 'Yes', null)
+    AssociationParameters: new ResourceAttribute('AssociationParameters', AmazonEC2InstanceSsmAssociationsAssociationParameters, true, 'No', null),
+    DocumentName: new ResourceAttribute('DocumentName', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonEC2InstanceSsmAssociations', properties, propertiesObject)
 }
@@ -1323,8 +1322,8 @@ AmazonEC2InstanceSsmAssociations.prototype = Object.create(ResourceProperty.prot
 */
 function AmazonEC2InstanceSsmAssociationsAssociationParameters (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    Value: new ResourceAttributeArray('Value', String, 'Yes', null)
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, true, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonEC2InstanceSsmAssociationsAssociationParameters', properties, propertiesObject)
 }
@@ -1336,8 +1335,8 @@ AmazonEC2InstanceSsmAssociationsAssociationParameters.prototype = Object.create(
 */
 function EC2MountPointPropertyType (propertiesObject) {
   let properties = {
-    Device: new ResourceAttribute('Device', String, 'Yes', null),
-    VolumeId: new ResourceAttribute('VolumeId', String, 'Yes', null)
+    Device: new ResourceAttribute('Device', String, false, 'Yes', null),
+    VolumeId: new ResourceAttribute('VolumeId', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'EC2MountPointPropertyType', properties, propertiesObject)
 }
@@ -1357,16 +1356,16 @@ EC2MountPointPropertyType.prototype = Object.create(ResourceProperty.prototype)
 */
 function EC2NetworkInterfaceEmbeddedPropertyType (propertiesObject) {
   let properties = {
-    AssociatePublicIpAddress: new ResourceAttribute('AssociatePublicIpAddress', Boolean, 'No', null),
-    DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, 'No', null),
-    Description: new ResourceAttribute('Description', String, 'No', null),
-    DeviceIndex: new ResourceAttribute('DeviceIndex', String, 'Yes', null),
-    GroupSet: new ResourceAttributeArray('GroupSet', String, 'No', null),
-    NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, 'Conditional', null),
-    PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, 'No', null),
-    PrivateIpAddresses: new ResourceAttributeArray('PrivateIpAddresses', EC2NetworkInterfacePrivateIPSpecification, 'No', null),
-    SecondaryPrivateIpAddressCount: new ResourceAttribute('SecondaryPrivateIpAddressCount', Number, 'No', null),
-    SubnetId: new ResourceAttribute('SubnetId', String, 'Conditional', null)
+    AssociatePublicIpAddress: new ResourceAttribute('AssociatePublicIpAddress', Boolean, false, 'No', null),
+    DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, false, 'No', null),
+    Description: new ResourceAttribute('Description', String, false, 'No', null),
+    DeviceIndex: new ResourceAttribute('DeviceIndex', String, false, 'Yes', null),
+    GroupSet: new ResourceAttribute('GroupSet', String, true, 'No', null),
+    NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, false, 'Conditional', null),
+    PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, false, 'No', null),
+    PrivateIpAddresses: new ResourceAttribute('PrivateIpAddresses', EC2NetworkInterfacePrivateIPSpecification, true, 'No', null),
+    SecondaryPrivateIpAddressCount: new ResourceAttribute('SecondaryPrivateIpAddressCount', Number, false, 'No', null),
+    SubnetId: new ResourceAttribute('SubnetId', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'EC2NetworkInterfaceEmbeddedPropertyType', properties, propertiesObject)
 }
@@ -1380,10 +1379,10 @@ EC2NetworkInterfaceEmbeddedPropertyType.prototype = Object.create(ResourceProper
 */
 function EC2NetworkInterfaceAssociation (propertiesObject) {
   let properties = {
-    AttachmentID: new ResourceAttribute('AttachmentID', String, 'Yes', null),
-    InstanceID: new ResourceAttribute('InstanceID', String, 'Yes', null),
-    PublicIp: new ResourceAttribute('PublicIp', String, 'Yes', null),
-    IpOwnerId: new ResourceAttribute('IpOwnerId', String, 'Yes', null)
+    AttachmentID: new ResourceAttribute('AttachmentID', String, false, 'Yes', null),
+    InstanceID: new ResourceAttribute('InstanceID', String, false, 'Yes', null),
+    PublicIp: new ResourceAttribute('PublicIp', String, false, 'Yes', null),
+    IpOwnerId: new ResourceAttribute('IpOwnerId', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'EC2NetworkInterfaceAssociation', properties, propertiesObject)
 }
@@ -1395,8 +1394,8 @@ EC2NetworkInterfaceAssociation.prototype = Object.create(ResourceProperty.protot
 */
 function EC2NetworkInterfaceAttachment (propertiesObject) {
   let properties = {
-    AttachmentID: new ResourceAttribute('AttachmentID', String, 'Yes', null),
-    InstanceID: new ResourceAttribute('InstanceID', String, 'Yes', null)
+    AttachmentID: new ResourceAttribute('AttachmentID', String, false, 'Yes', null),
+    InstanceID: new ResourceAttribute('InstanceID', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'EC2NetworkInterfaceAttachment', properties, propertiesObject)
 }
@@ -1408,8 +1407,8 @@ EC2NetworkInterfaceAttachment.prototype = Object.create(ResourceProperty.prototy
 */
 function EC2NetworkInterfaceGroupItem (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'EC2NetworkInterfaceGroupItem', properties, propertiesObject)
 }
@@ -1421,8 +1420,8 @@ EC2NetworkInterfaceGroupItem.prototype = Object.create(ResourceProperty.prototyp
 */
 function EC2NetworkInterfacePrivateIPSpecification (propertiesObject) {
   let properties = {
-    PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, 'Yes', null),
-    Primary: new ResourceAttribute('Primary', Boolean, 'Yes', null)
+    PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, false, 'Yes', null),
+    Primary: new ResourceAttribute('Primary', Boolean, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'EC2NetworkInterfacePrivateIPSpecification', properties, propertiesObject)
 }
@@ -1449,14 +1448,14 @@ EC2PortRangePropertyType.prototype = Object.create(ResourceProperty.prototype)
 */
 function EC2SecurityGroupRulePropertyType (propertiesObject) {
   let properties = {
-    CidrIp: new ResourceAttribute('CidrIp', String, 'Conditional', null),
-    DestinationSecurityGroupId: new ResourceAttribute('DestinationSecurityGroupId', String, 'Conditional', null),
-    FromPort: new ResourceAttribute('FromPort', Number, 'No', null),
-    IpProtocol: new ResourceAttribute('IpProtocol', String, 'Yes', null),
-    SourceSecurityGroupId: new ResourceAttribute('SourceSecurityGroupId', String, 'Conditional', null),
-    SourceSecurityGroupName: new ResourceAttribute('SourceSecurityGroupName', String, 'Conditional', null),
-    SourceSecurityGroupOwnerId: new ResourceAttribute('SourceSecurityGroupOwnerId', String, 'Conditional', null),
-    ToPort: new ResourceAttribute('ToPort', Number, 'No', null)
+    CidrIp: new ResourceAttribute('CidrIp', String, false, 'Conditional', null),
+    DestinationSecurityGroupId: new ResourceAttribute('DestinationSecurityGroupId', String, false, 'Conditional', null),
+    FromPort: new ResourceAttribute('FromPort', Number, false, 'No', null),
+    IpProtocol: new ResourceAttribute('IpProtocol', String, false, 'Yes', null),
+    SourceSecurityGroupId: new ResourceAttribute('SourceSecurityGroupId', String, false, 'Conditional', null),
+    SourceSecurityGroupName: new ResourceAttribute('SourceSecurityGroupName', String, false, 'Conditional', null),
+    SourceSecurityGroupOwnerId: new ResourceAttribute('SourceSecurityGroupOwnerId', String, false, 'Conditional', null),
+    ToPort: new ResourceAttribute('ToPort', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'EC2SecurityGroupRulePropertyType', properties, propertiesObject)
 }
@@ -1475,15 +1474,15 @@ EC2SecurityGroupRulePropertyType.prototype = Object.create(ResourceProperty.prot
 */
 function AmazonEC2SpotFleetSpotFleetRequestConfigData (propertiesObject) {
   let properties = {
-    AllocationStrategy: new ResourceAttribute('AllocationStrategy', String, 'No', null),
-    ExcessCapacityTerminationPolicy: new ResourceAttribute('ExcessCapacityTerminationPolicy', String, 'No', null),
-    IamFleetRole: new ResourceAttribute('IamFleetRole', String, 'Yes', null),
-    LaunchSpecifications: new ResourceAttributeArray('LaunchSpecifications', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications, 'Yes', null),
-    SpotPrice: new ResourceAttribute('SpotPrice', String, 'Yes', null),
-    TargetCapacity: new ResourceAttribute('TargetCapacity', Number, 'Yes', null),
-    TerminateInstancesWithExpiration: new ResourceAttribute('TerminateInstancesWithExpiration', Boolean, 'No', null),
-    ValidFrom: new ResourceAttribute('ValidFrom', String, 'No', null),
-    ValidUntil: new ResourceAttribute('ValidUntil', String, 'No', null)
+    AllocationStrategy: new ResourceAttribute('AllocationStrategy', String, false, 'No', null),
+    ExcessCapacityTerminationPolicy: new ResourceAttribute('ExcessCapacityTerminationPolicy', String, false, 'No', null),
+    IamFleetRole: new ResourceAttribute('IamFleetRole', String, false, 'Yes', null),
+    LaunchSpecifications: new ResourceAttribute('LaunchSpecifications', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications, true, 'Yes', null),
+    SpotPrice: new ResourceAttribute('SpotPrice', String, false, 'Yes', null),
+    TargetCapacity: new ResourceAttribute('TargetCapacity', Number, false, 'Yes', null),
+    TerminateInstancesWithExpiration: new ResourceAttribute('TerminateInstancesWithExpiration', Boolean, false, 'No', null),
+    ValidFrom: new ResourceAttribute('ValidFrom', String, false, 'No', null),
+    ValidUntil: new ResourceAttribute('ValidUntil', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2SpotFleetSpotFleetRequestConfigData', properties, propertiesObject)
 }
@@ -1508,21 +1507,21 @@ AmazonEC2SpotFleetSpotFleetRequestConfigData.prototype = Object.create(ResourceP
 */
 function AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications (propertiesObject) {
   let properties = {
-    BlockDeviceMappings: new ResourceAttributeArray('BlockDeviceMappings', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings, 'No', null),
-    EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, 'No', null),
-    IamInstanceProfile: new ResourceAttribute('IamInstanceProfile', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile, 'No', null),
-    ImageId: new ResourceAttribute('ImageId', String, 'Yes', null),
-    InstanceType: new ResourceAttribute('InstanceType', String, 'Yes', null),
-    KernelId: new ResourceAttribute('KernelId', String, 'No', null),
-    KeyName: new ResourceAttribute('KeyName', String, 'No', null),
-    Monitoring: new ResourceAttribute('Monitoring', AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring, 'No', null),
-    NetworkInterfaces: new ResourceAttributeArray('NetworkInterfaces', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces, 'No', null),
-    Placement: new ResourceAttribute('Placement', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement, 'No', null),
-    RamdiskId: new ResourceAttribute('RamdiskId', String, 'No', null),
-    SecurityGroups: new ResourceAttributeArray('SecurityGroups', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups, 'No', null),
-    SubnetId: new ResourceAttribute('SubnetId', String, 'No', null),
-    UserData: new ResourceAttribute('UserData', String, 'No', null),
-    WeightedCapacity: new ResourceAttribute('WeightedCapacity', Number, 'No', null)
+    BlockDeviceMappings: new ResourceAttribute('BlockDeviceMappings', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings, true, 'No', null),
+    EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, false, 'No', null),
+    IamInstanceProfile: new ResourceAttribute('IamInstanceProfile', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile, false, 'No', null),
+    ImageId: new ResourceAttribute('ImageId', String, false, 'Yes', null),
+    InstanceType: new ResourceAttribute('InstanceType', String, false, 'Yes', null),
+    KernelId: new ResourceAttribute('KernelId', String, false, 'No', null),
+    KeyName: new ResourceAttribute('KeyName', String, false, 'No', null),
+    Monitoring: new ResourceAttribute('Monitoring', AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring, false, 'No', null),
+    NetworkInterfaces: new ResourceAttribute('NetworkInterfaces', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces, true, 'No', null),
+    Placement: new ResourceAttribute('Placement', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement, false, 'No', null),
+    RamdiskId: new ResourceAttribute('RamdiskId', String, false, 'No', null),
+    SecurityGroups: new ResourceAttribute('SecurityGroups', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups, true, 'No', null),
+    SubnetId: new ResourceAttribute('SubnetId', String, false, 'No', null),
+    UserData: new ResourceAttribute('UserData', String, false, 'No', null),
+    WeightedCapacity: new ResourceAttribute('WeightedCapacity', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications', properties, propertiesObject)
 }
@@ -1536,10 +1535,10 @@ AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications
 */
 function AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings (propertiesObject) {
   let properties = {
-    DeviceName: new ResourceAttribute('DeviceName', String, 'Yes', null),
-    Ebs: new ResourceAttribute('Ebs', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs, 'Conditional', null),
-    NoDevice: new ResourceAttribute('NoDevice', Boolean, 'No', null),
-    VirtualName: new ResourceAttribute('VirtualName', String, 'Conditional', null)
+    DeviceName: new ResourceAttribute('DeviceName', String, false, 'Yes', null),
+    Ebs: new ResourceAttribute('Ebs', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs, false, 'Conditional', null),
+    NoDevice: new ResourceAttribute('NoDevice', Boolean, false, 'No', null),
+    VirtualName: new ResourceAttribute('VirtualName', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappings', properties, propertiesObject)
 }
@@ -1555,12 +1554,12 @@ AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications
 */
 function AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs (propertiesObject) {
   let properties = {
-    DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, 'No', null),
-    Encrypted: new ResourceAttribute('Encrypted', Boolean, 'No', null),
-    Iops: new ResourceAttribute('Iops', Number, 'No', null),
-    SnapshotId: new ResourceAttribute('SnapshotId', String, 'Conditional', null),
-    VolumeSize: new ResourceAttribute('VolumeSize', Number, 'Conditional', null),
-    VolumeType: new ResourceAttribute('VolumeType', String, 'No', null)
+    DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, false, 'No', null),
+    Encrypted: new ResourceAttribute('Encrypted', Boolean, false, 'No', null),
+    Iops: new ResourceAttribute('Iops', Number, false, 'No', null),
+    SnapshotId: new ResourceAttribute('SnapshotId', String, false, 'Conditional', null),
+    VolumeSize: new ResourceAttribute('VolumeSize', Number, false, 'Conditional', null),
+    VolumeType: new ResourceAttribute('VolumeType', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsBlockDeviceMappingsEbs', properties, propertiesObject)
 }
@@ -1571,7 +1570,7 @@ AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications
 */
 function AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile (propertiesObject) {
   let properties = {
-    Arn: new ResourceAttribute('Arn', String, 'No', null)
+    Arn: new ResourceAttribute('Arn', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsIamInstanceProfile', properties, propertiesObject)
 }
@@ -1582,7 +1581,7 @@ AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications
 */
 function AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring (propertiesObject) {
   let properties = {
-    Enabled: new ResourceAttribute('Enabled', Boolean, 'No', null)
+    Enabled: new ResourceAttribute('Enabled', Boolean, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring', properties, propertiesObject)
 }
@@ -1601,15 +1600,15 @@ AmazonEC2SpotFleetSpotFleetRequestConfigDataLaunchSpecificationsMonitoring.proto
 */
 function AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces (propertiesObject) {
   let properties = {
-    AssociatePublicIpAddress: new ResourceAttribute('AssociatePublicIpAddress', Boolean, 'No', null),
-    DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, 'No', null),
-    Description: new ResourceAttribute('Description', String, 'No', null),
-    DeviceIndex: new ResourceAttribute('DeviceIndex', Number, 'Yes', null),
-    Groups: new ResourceAttributeArray('Groups', String, 'No', null),
-    NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, 'No', null),
-    PrivateIpAddresses: new ResourceAttributeArray('PrivateIpAddresses', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses, 'No', null),
-    SecondaryPrivateIpAddressCount: new ResourceAttribute('SecondaryPrivateIpAddressCount', Number, 'No', null),
-    SubnetId: new ResourceAttribute('SubnetId', String, 'Conditional', null)
+    AssociatePublicIpAddress: new ResourceAttribute('AssociatePublicIpAddress', Boolean, false, 'No', null),
+    DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, false, 'No', null),
+    Description: new ResourceAttribute('Description', String, false, 'No', null),
+    DeviceIndex: new ResourceAttribute('DeviceIndex', Number, false, 'Yes', null),
+    Groups: new ResourceAttribute('Groups', String, true, 'No', null),
+    NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, false, 'No', null),
+    PrivateIpAddresses: new ResourceAttribute('PrivateIpAddresses', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses, true, 'No', null),
+    SecondaryPrivateIpAddressCount: new ResourceAttribute('SecondaryPrivateIpAddressCount', Number, false, 'No', null),
+    SubnetId: new ResourceAttribute('SubnetId', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfaces', properties, propertiesObject)
 }
@@ -1621,8 +1620,8 @@ AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications
 */
 function AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses (propertiesObject) {
   let properties = {
-    Primary: new ResourceAttribute('Primary', Boolean, 'No', null),
-    PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, 'Yes', null)
+    Primary: new ResourceAttribute('Primary', Boolean, false, 'No', null),
+    PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsNetworkInterfacesPrivateIpAddresses', properties, propertiesObject)
 }
@@ -1634,8 +1633,8 @@ AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications
 */
 function AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement (propertiesObject) {
   let properties = {
-    AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'No', null),
-    GroupName: new ResourceAttribute('GroupName', String, 'No', null)
+    AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, false, 'No', null),
+    GroupName: new ResourceAttribute('GroupName', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement', properties, propertiesObject)
 }
@@ -1646,7 +1645,7 @@ AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications
 */
 function AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups (propertiesObject) {
   let properties = {
-    GroupId: new ResourceAttribute('GroupId', String, 'No', null)
+    GroupId: new ResourceAttribute('GroupId', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups', properties, propertiesObject)
 }
@@ -1658,8 +1657,8 @@ AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications
 */
 function AmazonEC2ContainerServiceServiceDeploymentConfiguration (propertiesObject) {
   let properties = {
-    MaximumPercent: new ResourceAttribute('MaximumPercent', Number, 'No', null),
-    MinimumHealthyPercent: new ResourceAttribute('MinimumHealthyPercent', Number, 'No', null)
+    MaximumPercent: new ResourceAttribute('MaximumPercent', Number, false, 'No', null),
+    MinimumHealthyPercent: new ResourceAttribute('MinimumHealthyPercent', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceServiceDeploymentConfiguration', properties, propertiesObject)
 }
@@ -1673,10 +1672,10 @@ AmazonEC2ContainerServiceServiceDeploymentConfiguration.prototype = Object.creat
 */
 function AmazonEC2ContainerServiceServiceLoadBalancers (propertiesObject) {
   let properties = {
-    ContainerName: new ResourceAttribute('ContainerName', String, 'No', null),
-    ContainerPort: new ResourceAttribute('ContainerPort', Number, 'Yes', null),
-    LoadBalancerName: new ResourceAttribute('LoadBalancerName', String, 'No', null),
-    TargetGroupArn: new ResourceAttribute('TargetGroupArn', String, 'No', null)
+    ContainerName: new ResourceAttribute('ContainerName', String, false, 'No', null),
+    ContainerPort: new ResourceAttribute('ContainerPort', Number, false, 'Yes', null),
+    LoadBalancerName: new ResourceAttribute('LoadBalancerName', String, false, 'No', null),
+    TargetGroupArn: new ResourceAttribute('TargetGroupArn', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceServiceLoadBalancers', properties, propertiesObject)
 }
@@ -1711,31 +1710,31 @@ AmazonEC2ContainerServiceServiceLoadBalancers.prototype = Object.create(Resource
 */
 function AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions (propertiesObject) {
   let properties = {
-    Command: new ResourceAttributeArray('Command', String, 'No', null),
-    Cpu: new ResourceAttribute('Cpu', Number, 'No', null),
-    DisableNetworking: new ResourceAttribute('DisableNetworking', Boolean, 'No', null),
-    DnsSearchDomains: new ResourceAttributeArray('DnsSearchDomains', String, 'No', null),
-    DnsServers: new ResourceAttributeArray('DnsServers', String, 'No', null),
-    DockerLabels: new ResourceAttribute('DockerLabels', Map, 'No', null),
-    DockerSecurityOptions: new ResourceAttributeArray('DockerSecurityOptions', String, 'No', null),
-    EntryPoint: new ResourceAttributeArray('EntryPoint', String, 'No', null),
-    Environment: new ResourceAttributeArray('Environment', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment, 'No', null),
-    Essential: new ResourceAttribute('Essential', Boolean, 'No', null),
-    ExtraHosts: new ResourceAttributeArray('ExtraHosts', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry, 'No', null),
-    Hostname: new ResourceAttribute('Hostname', String, 'No', null),
-    Image: new ResourceAttribute('Image', String, 'Yes', null),
-    Links: new ResourceAttributeArray('Links', String, 'No', null),
-    LogConfiguration: new ResourceAttribute('LogConfiguration', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration, 'No', null),
-    Memory: new ResourceAttribute('Memory', Number, 'Yes', null),
-    MountPoints: new ResourceAttributeArray('MountPoints', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints, 'No', null),
-    Name: new ResourceAttribute('Name', String, 'Yes', null),
-    PortMappings: new ResourceAttributeArray('PortMappings', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings, 'No', null),
-    Privileged: new ResourceAttribute('Privileged', Boolean, 'No', null),
-    ReadonlyRootFilesystem: new ResourceAttribute('ReadonlyRootFilesystem', Boolean, 'No', null),
-    Ulimits: new ResourceAttributeArray('Ulimits', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit, 'No', null),
-    User: new ResourceAttribute('User', String, 'No', null),
-    VolumesFrom: new ResourceAttributeArray('VolumesFrom', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom, 'No', null),
-    WorkingDirectory: new ResourceAttribute('WorkingDirectory', String, 'No', null)
+    Command: new ResourceAttribute('Command', String, true, 'No', null),
+    Cpu: new ResourceAttribute('Cpu', Number, false, 'No', null),
+    DisableNetworking: new ResourceAttribute('DisableNetworking', Boolean, false, 'No', null),
+    DnsSearchDomains: new ResourceAttribute('DnsSearchDomains', String, true, 'No', null),
+    DnsServers: new ResourceAttribute('DnsServers', String, true, 'No', null),
+    DockerLabels: new ResourceAttribute('DockerLabels', Map, false, 'No', null),
+    DockerSecurityOptions: new ResourceAttribute('DockerSecurityOptions', String, true, 'No', null),
+    EntryPoint: new ResourceAttribute('EntryPoint', String, true, 'No', null),
+    Environment: new ResourceAttribute('Environment', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment, true, 'No', null),
+    Essential: new ResourceAttribute('Essential', Boolean, false, 'No', null),
+    ExtraHosts: new ResourceAttribute('ExtraHosts', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry, true, 'No', null),
+    Hostname: new ResourceAttribute('Hostname', String, false, 'No', null),
+    Image: new ResourceAttribute('Image', String, false, 'Yes', null),
+    Links: new ResourceAttribute('Links', String, true, 'No', null),
+    LogConfiguration: new ResourceAttribute('LogConfiguration', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration, false, 'No', null),
+    Memory: new ResourceAttribute('Memory', Number, false, 'Yes', null),
+    MountPoints: new ResourceAttribute('MountPoints', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints, true, 'No', null),
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+    PortMappings: new ResourceAttribute('PortMappings', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings, true, 'No', null),
+    Privileged: new ResourceAttribute('Privileged', Boolean, false, 'No', null),
+    ReadonlyRootFilesystem: new ResourceAttribute('ReadonlyRootFilesystem', Boolean, false, 'No', null),
+    Ulimits: new ResourceAttribute('Ulimits', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit, true, 'No', null),
+    User: new ResourceAttribute('User', String, false, 'No', null),
+    VolumesFrom: new ResourceAttribute('VolumesFrom', AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom, true, 'No', null),
+    WorkingDirectory: new ResourceAttribute('WorkingDirectory', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions', properties, propertiesObject)
 }
@@ -1747,8 +1746,8 @@ AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions.prototype = Object.c
 */
 function AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment', properties, propertiesObject)
 }
@@ -1760,8 +1759,8 @@ AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsEnvironment.prototype
 */
 function AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry (propertiesObject) {
   let properties = {
-    Hostname: new ResourceAttribute('Hostname', String, 'Yes', null),
-    IpAddress: new ResourceAttribute('IpAddress', String, 'Yes', null)
+    Hostname: new ResourceAttribute('Hostname', String, false, 'Yes', null),
+    IpAddress: new ResourceAttribute('IpAddress', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry', properties, propertiesObject)
 }
@@ -1773,8 +1772,8 @@ AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsHostEntry.prototype =
 */
 function AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration (propertiesObject) {
   let properties = {
-    LogDriver: new ResourceAttribute('LogDriver', String, 'Yes', null),
-    Options: new ResourceAttribute('Options', Map, 'No', null)
+    LogDriver: new ResourceAttribute('LogDriver', String, false, 'Yes', null),
+    Options: new ResourceAttribute('Options', Map, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration', properties, propertiesObject)
 }
@@ -1787,9 +1786,9 @@ AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsLogConfiguration.prot
 */
 function AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints (propertiesObject) {
   let properties = {
-    ContainerPath: new ResourceAttribute('ContainerPath', String, 'Yes', null),
-    SourceVolume: new ResourceAttribute('SourceVolume', String, 'Yes', null),
-    ReadOnly: new ResourceAttribute('ReadOnly', Boolean, 'No', null)
+    ContainerPath: new ResourceAttribute('ContainerPath', String, false, 'Yes', null),
+    SourceVolume: new ResourceAttribute('SourceVolume', String, false, 'Yes', null),
+    ReadOnly: new ResourceAttribute('ReadOnly', Boolean, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints', properties, propertiesObject)
 }
@@ -1802,9 +1801,9 @@ AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsMountPoints.prototype
 */
 function AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings (propertiesObject) {
   let properties = {
-    ContainerPort: new ResourceAttribute('ContainerPort', Number, 'Yes', null),
-    HostPort: new ResourceAttribute('HostPort', Number, 'No', null),
-    Protocol: new ResourceAttribute('Protocol', String, 'No', null)
+    ContainerPort: new ResourceAttribute('ContainerPort', Number, false, 'Yes', null),
+    HostPort: new ResourceAttribute('HostPort', Number, false, 'No', null),
+    Protocol: new ResourceAttribute('Protocol', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings', properties, propertiesObject)
 }
@@ -1817,9 +1816,9 @@ AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsPortMappings.prototyp
 */
 function AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit (propertiesObject) {
   let properties = {
-    HardLimit: new ResourceAttribute('HardLimit', Number, 'Yes', null),
-    Name: new ResourceAttribute('Name', String, 'No', null),
-    SoftLimit: new ResourceAttribute('SoftLimit', Number, 'Yes', null)
+    HardLimit: new ResourceAttribute('HardLimit', Number, false, 'Yes', null),
+    Name: new ResourceAttribute('Name', String, false, 'No', null),
+    SoftLimit: new ResourceAttribute('SoftLimit', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit', properties, propertiesObject)
 }
@@ -1831,8 +1830,8 @@ AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsUlimit.prototype = Ob
 */
 function AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom (propertiesObject) {
   let properties = {
-    SourceContainer: new ResourceAttribute('SourceContainer', String, 'Yes', null),
-    ReadOnly: new ResourceAttribute('ReadOnly', Boolean, 'No', null)
+    SourceContainer: new ResourceAttribute('SourceContainer', String, false, 'Yes', null),
+    ReadOnly: new ResourceAttribute('ReadOnly', Boolean, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom', properties, propertiesObject)
 }
@@ -1844,8 +1843,8 @@ AmazonEC2ContainerServiceTaskDefinitionContainerDefinitionsVolumesFrom.prototype
 */
 function AmazonEC2ContainerServiceTaskDefinitionVolumes (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'Yes', null),
-    Host: new ResourceAttribute('Host', AmazonEC2ContainerServiceTaskDefinitionVolumesHost, 'No', null)
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+    Host: new ResourceAttribute('Host', AmazonEC2ContainerServiceTaskDefinitionVolumesHost, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceTaskDefinitionVolumes', properties, propertiesObject)
 }
@@ -1856,7 +1855,7 @@ AmazonEC2ContainerServiceTaskDefinitionVolumes.prototype = Object.create(Resourc
 */
 function AmazonEC2ContainerServiceTaskDefinitionVolumesHost (propertiesObject) {
   let properties = {
-    SourcePath: new ResourceAttribute('SourcePath', String, 'No', null)
+    SourcePath: new ResourceAttribute('SourcePath', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEC2ContainerServiceTaskDefinitionVolumesHost', properties, propertiesObject)
 }
@@ -1868,8 +1867,8 @@ AmazonEC2ContainerServiceTaskDefinitionVolumesHost.prototype = Object.create(Res
 */
 function AmazonElasticFileSystemFileSystemFileSystemTags (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'No', null),
-    Value: new ResourceAttribute('Value', String, 'No', null)
+    Key: new ResourceAttribute('Key', String, false, 'No', null),
+    Value: new ResourceAttribute('Value', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonElasticFileSystemFileSystemFileSystemTags', properties, propertiesObject)
 }
@@ -1882,9 +1881,9 @@ AmazonElasticFileSystemFileSystemFileSystemTags.prototype = Object.create(Resour
 */
 function ElasticBeanstalkEnvironmentTierPropertyType (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'No', null),
-    Type: new ResourceAttribute('Type', String, 'No', null),
-    Version: new ResourceAttribute('Version', String, 'No', null)
+    Name: new ResourceAttribute('Name', String, false, 'No', null),
+    Type: new ResourceAttribute('Type', String, false, 'No', null),
+    Version: new ResourceAttribute('Version', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticBeanstalkEnvironmentTierPropertyType', properties, propertiesObject)
 }
@@ -1897,9 +1896,9 @@ ElasticBeanstalkEnvironmentTierPropertyType.prototype = Object.create(ResourcePr
 */
 function ElasticBeanstalkOptionSettingsPropertyType (propertiesObject) {
   let properties = {
-    Namespace: new ResourceAttribute('Namespace', String, 'Yes', null),
-    OptionName: new ResourceAttribute('OptionName', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Namespace: new ResourceAttribute('Namespace', String, false, 'Yes', null),
+    OptionName: new ResourceAttribute('OptionName', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'ElasticBeanstalkOptionSettingsPropertyType', properties, propertiesObject)
 }
@@ -1911,8 +1910,8 @@ ElasticBeanstalkOptionSettingsPropertyType.prototype = Object.create(ResourcePro
 */
 function ElasticBeanstalkSourceBundlePropertyType (propertiesObject) {
   let properties = {
-    S3Bucket: new ResourceAttribute('S3Bucket', String, 'Yes', null),
-    S3Key: new ResourceAttribute('S3Key', String, 'Yes', null)
+    S3Bucket: new ResourceAttribute('S3Bucket', String, false, 'Yes', null),
+    S3Key: new ResourceAttribute('S3Key', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'ElasticBeanstalkSourceBundlePropertyType', properties, propertiesObject)
 }
@@ -1924,8 +1923,8 @@ ElasticBeanstalkSourceBundlePropertyType.prototype = Object.create(ResourcePrope
 */
 function ElasticBeanstalkSourceConfigurationPropertyType (propertiesObject) {
   let properties = {
-    ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
-    TemplateName: new ResourceAttribute('TemplateName', String, 'Yes', null)
+    ApplicationName: new ResourceAttribute('ApplicationName', String, false, 'Yes', null),
+    TemplateName: new ResourceAttribute('TemplateName', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'ElasticBeanstalkSourceConfigurationPropertyType', properties, propertiesObject)
 }
@@ -1939,10 +1938,10 @@ ElasticBeanstalkSourceConfigurationPropertyType.prototype = Object.create(Resour
 */
 function ElasticLoadBalancingAccessLoggingPolicy (propertiesObject) {
   let properties = {
-    EmitInterval: new ResourceAttribute('EmitInterval', Number, 'No', null),
-    Enabled: new ResourceAttribute('Enabled', Boolean, 'Yes', null),
-    S3BucketName: new ResourceAttribute('S3BucketName', String, 'Yes', null),
-    S3BucketPrefix: new ResourceAttribute('S3BucketPrefix', String, 'No', null)
+    EmitInterval: new ResourceAttribute('EmitInterval', Number, false, 'No', null),
+    Enabled: new ResourceAttribute('Enabled', Boolean, false, 'Yes', null),
+    S3BucketName: new ResourceAttribute('S3BucketName', String, false, 'Yes', null),
+    S3BucketPrefix: new ResourceAttribute('S3BucketPrefix', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingAccessLoggingPolicy', properties, propertiesObject)
 }
@@ -1954,8 +1953,8 @@ ElasticLoadBalancingAccessLoggingPolicy.prototype = Object.create(ResourceProper
 */
 function ElasticLoadBalancingAppCookieStickinessPolicyType (propertiesObject) {
   let properties = {
-    CookieName: new ResourceAttribute('CookieName', String, 'Yes', null),
-    PolicyName: new ResourceAttribute('PolicyName', String, 'Yes', null)
+    CookieName: new ResourceAttribute('CookieName', String, false, 'Yes', null),
+    PolicyName: new ResourceAttribute('PolicyName', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingAppCookieStickinessPolicyType', properties, propertiesObject)
 }
@@ -1967,8 +1966,8 @@ ElasticLoadBalancingAppCookieStickinessPolicyType.prototype = Object.create(Reso
 */
 function ElasticLoadBalancingConnectionDrainingPolicy (propertiesObject) {
   let properties = {
-    Enabled: new ResourceAttribute('Enabled', Boolean, 'Yes', null),
-    Timeout: new ResourceAttribute('Timeout', Number, 'No', null)
+    Enabled: new ResourceAttribute('Enabled', Boolean, false, 'Yes', null),
+    Timeout: new ResourceAttribute('Timeout', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingConnectionDrainingPolicy', properties, propertiesObject)
 }
@@ -1979,7 +1978,7 @@ ElasticLoadBalancingConnectionDrainingPolicy.prototype = Object.create(ResourceP
 */
 function ElasticLoadBalancingConnectionSettings (propertiesObject) {
   let properties = {
-    IdleTimeout: new ResourceAttribute('IdleTimeout', Number, 'Yes', null)
+    IdleTimeout: new ResourceAttribute('IdleTimeout', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingConnectionSettings', properties, propertiesObject)
 }
@@ -1994,11 +1993,11 @@ ElasticLoadBalancingConnectionSettings.prototype = Object.create(ResourcePropert
 */
 function ElasticLoadBalancingHealthCheckType (propertiesObject) {
   let properties = {
-    HealthyThreshold: new ResourceAttribute('HealthyThreshold', String, 'Yes', null),
-    Interval: new ResourceAttribute('Interval', String, 'Yes', null),
-    Target: new ResourceAttribute('Target', String, 'Yes', null),
-    Timeout: new ResourceAttribute('Timeout', String, 'Yes', null),
-    UnhealthyThreshold: new ResourceAttribute('UnhealthyThreshold', String, 'Yes', null)
+    HealthyThreshold: new ResourceAttribute('HealthyThreshold', String, false, 'Yes', null),
+    Interval: new ResourceAttribute('Interval', String, false, 'Yes', null),
+    Target: new ResourceAttribute('Target', String, false, 'Yes', null),
+    Timeout: new ResourceAttribute('Timeout', String, false, 'Yes', null),
+    UnhealthyThreshold: new ResourceAttribute('UnhealthyThreshold', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingHealthCheckType', properties, propertiesObject)
 }
@@ -2010,8 +2009,8 @@ ElasticLoadBalancingHealthCheckType.prototype = Object.create(ResourceProperty.p
 */
 function ElasticLoadBalancingLBCookieStickinessPolicyType (propertiesObject) {
   let properties = {
-    CookieExpirationPeriod: new ResourceAttribute('CookieExpirationPeriod', String, 'No', null),
-    PolicyName: new ResourceAttribute('PolicyName', String, 'No', null)
+    CookieExpirationPeriod: new ResourceAttribute('CookieExpirationPeriod', String, false, 'No', null),
+    PolicyName: new ResourceAttribute('PolicyName', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingLBCookieStickinessPolicyType', properties, propertiesObject)
 }
@@ -2027,12 +2026,12 @@ ElasticLoadBalancingLBCookieStickinessPolicyType.prototype = Object.create(Resou
 */
 function ElasticLoadBalancingListenerPropertyType (propertiesObject) {
   let properties = {
-    InstancePort: new ResourceAttribute('InstancePort', String, 'Yes', null),
-    InstanceProtocol: new ResourceAttribute('InstanceProtocol', String, 'No', null),
-    LoadBalancerPort: new ResourceAttribute('LoadBalancerPort', String, 'Yes', null),
-    PolicyNames: new ResourceAttributeArray('PolicyNames', String, 'No', null),
-    Protocol: new ResourceAttribute('Protocol', String, 'Yes', null),
-    SSLCertificateId: new ResourceAttribute('SSLCertificateId', String, 'No', null)
+    InstancePort: new ResourceAttribute('InstancePort', String, false, 'Yes', null),
+    InstanceProtocol: new ResourceAttribute('InstanceProtocol', String, false, 'No', null),
+    LoadBalancerPort: new ResourceAttribute('LoadBalancerPort', String, false, 'Yes', null),
+    PolicyNames: new ResourceAttribute('PolicyNames', String, true, 'No', null),
+    Protocol: new ResourceAttribute('Protocol', String, false, 'Yes', null),
+    SSLCertificateId: new ResourceAttribute('SSLCertificateId', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingListenerPropertyType', properties, propertiesObject)
 }
@@ -2047,11 +2046,11 @@ ElasticLoadBalancingListenerPropertyType.prototype = Object.create(ResourcePrope
 */
 function ElasticLoadBalancingPolicyType (propertiesObject) {
   let properties = {
-    Attributes: new ResourceAttributeArray('Attributes', Object, 'Yes', null),
-    InstancePorts: new ResourceAttributeArray('InstancePorts', String, 'No', null),
-    LoadBalancerPorts: new ResourceAttributeArray('LoadBalancerPorts', String, 'Conditional', null),
-    PolicyName: new ResourceAttribute('PolicyName', String, 'Yes', null),
-    PolicyType: new ResourceAttribute('PolicyType', String, 'Yes', null)
+    Attributes: new ResourceAttribute('Attributes', Object, true, 'Yes', null),
+    InstancePorts: new ResourceAttribute('InstancePorts', String, true, 'No', null),
+    LoadBalancerPorts: new ResourceAttribute('LoadBalancerPorts', String, true, 'Conditional', null),
+    PolicyName: new ResourceAttribute('PolicyName', String, false, 'Yes', null),
+    PolicyType: new ResourceAttribute('PolicyType', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingPolicyType', properties, propertiesObject)
 }
@@ -2062,7 +2061,7 @@ ElasticLoadBalancingPolicyType.prototype = Object.create(ResourceProperty.protot
 */
 function ElasticLoadBalancingListenerCertificates (propertiesObject) {
   let properties = {
-    CertificateArn: new ResourceAttribute('CertificateArn', String, 'No', null)
+    CertificateArn: new ResourceAttribute('CertificateArn', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingListenerCertificates', properties, propertiesObject)
 }
@@ -2074,8 +2073,8 @@ ElasticLoadBalancingListenerCertificates.prototype = Object.create(ResourcePrope
 */
 function ElasticLoadBalancingListenerDefaultActions (propertiesObject) {
   let properties = {
-    TargetGroupArn: new ResourceAttribute('TargetGroupArn', String, 'Yes', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    TargetGroupArn: new ResourceAttribute('TargetGroupArn', String, false, 'Yes', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingListenerDefaultActions', properties, propertiesObject)
 }
@@ -2087,8 +2086,8 @@ ElasticLoadBalancingListenerDefaultActions.prototype = Object.create(ResourcePro
 */
 function ElasticLoadBalancingListenerRuleActions (propertiesObject) {
   let properties = {
-    TargetGroupArn: new ResourceAttribute('TargetGroupArn', String, 'Yes', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    TargetGroupArn: new ResourceAttribute('TargetGroupArn', String, false, 'Yes', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingListenerRuleActions', properties, propertiesObject)
 }
@@ -2100,8 +2099,8 @@ ElasticLoadBalancingListenerRuleActions.prototype = Object.create(ResourceProper
 */
 function ElasticLoadBalancingListenerRuleConditions (propertiesObject) {
   let properties = {
-    Field: new ResourceAttribute('Field', String, 'No', null),
-    Values: new ResourceAttributeArray('Values', String, 'No', null)
+    Field: new ResourceAttribute('Field', String, false, 'No', null),
+    Values: new ResourceAttribute('Values', String, true, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingListenerRuleConditions', properties, propertiesObject)
 }
@@ -2113,8 +2112,8 @@ ElasticLoadBalancingListenerRuleConditions.prototype = Object.create(ResourcePro
 */
 function ElasticLoadBalancingLoadBalancerLoadBalancerAttributes (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'No', null),
-    Value: new ResourceAttribute('Value', String, 'No', null)
+    Key: new ResourceAttribute('Key', String, false, 'No', null),
+    Value: new ResourceAttribute('Value', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingLoadBalancerLoadBalancerAttributes', properties, propertiesObject)
 }
@@ -2125,7 +2124,7 @@ ElasticLoadBalancingLoadBalancerLoadBalancerAttributes.prototype = Object.create
 */
 function ElasticLoadBalancingTargetGroupMatcher (propertiesObject) {
   let properties = {
-    HttpCode: new ResourceAttribute('HttpCode', String, 'No', null)
+    HttpCode: new ResourceAttribute('HttpCode', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingTargetGroupMatcher', properties, propertiesObject)
 }
@@ -2137,8 +2136,8 @@ ElasticLoadBalancingTargetGroupMatcher.prototype = Object.create(ResourcePropert
 */
 function ElasticLoadBalancingTargetGroupTargetDescription (propertiesObject) {
   let properties = {
-    Id: new ResourceAttribute('Id', String, 'Yes', null),
-    Port: new ResourceAttribute('Port', Number, 'No', null)
+    Id: new ResourceAttribute('Id', String, false, 'Yes', null),
+    Port: new ResourceAttribute('Port', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingTargetGroupTargetDescription', properties, propertiesObject)
 }
@@ -2150,8 +2149,8 @@ ElasticLoadBalancingTargetGroupTargetDescription.prototype = Object.create(Resou
 */
 function ElasticLoadBalancingTargetGroupTargetGroupAttributes (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'No', null),
-    Value: new ResourceAttribute('Value', String, 'No', null)
+    Key: new ResourceAttribute('Key', String, false, 'No', null),
+    Value: new ResourceAttribute('Value', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'ElasticLoadBalancingTargetGroupTargetGroupAttributes', properties, propertiesObject)
 }
@@ -2165,10 +2164,10 @@ ElasticLoadBalancingTargetGroupTargetGroupAttributes.prototype = Object.create(R
 */
 function AmazonElasticsearchServiceDomainEBSOptions (propertiesObject) {
   let properties = {
-    EBSEnabled: new ResourceAttribute('EBSEnabled', Boolean, 'No', null),
-    Iops: new ResourceAttribute('Iops', Number, 'No', null),
-    VolumeSize: new ResourceAttribute('VolumeSize', Number, 'No', null),
-    VolumeType: new ResourceAttribute('VolumeType', String, 'No', null)
+    EBSEnabled: new ResourceAttribute('EBSEnabled', Boolean, false, 'No', null),
+    Iops: new ResourceAttribute('Iops', Number, false, 'No', null),
+    VolumeSize: new ResourceAttribute('VolumeSize', Number, false, 'No', null),
+    VolumeType: new ResourceAttribute('VolumeType', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonElasticsearchServiceDomainEBSOptions', properties, propertiesObject)
 }
@@ -2184,12 +2183,12 @@ AmazonElasticsearchServiceDomainEBSOptions.prototype = Object.create(ResourcePro
 */
 function AmazonElasticsearchServiceDomainElasticsearchClusterConfig (propertiesObject) {
   let properties = {
-    DedicatedMasterCount: new ResourceAttribute('DedicatedMasterCount', Number, 'No', null),
-    DedicatedMasterEnabled: new ResourceAttribute('DedicatedMasterEnabled', Boolean, 'No', null),
-    DedicatedMasterType: new ResourceAttribute('DedicatedMasterType', String, 'No', null),
-    InstanceCount: new ResourceAttribute('InstanceCount', Number, 'No', null),
-    InstanceType: new ResourceAttribute('InstanceType', String, 'No', null),
-    ZoneAwarenessEnabled: new ResourceAttribute('ZoneAwarenessEnabled', Boolean, 'No', null)
+    DedicatedMasterCount: new ResourceAttribute('DedicatedMasterCount', Number, false, 'No', null),
+    DedicatedMasterEnabled: new ResourceAttribute('DedicatedMasterEnabled', Boolean, false, 'No', null),
+    DedicatedMasterType: new ResourceAttribute('DedicatedMasterType', String, false, 'No', null),
+    InstanceCount: new ResourceAttribute('InstanceCount', Number, false, 'No', null),
+    InstanceType: new ResourceAttribute('InstanceType', String, false, 'No', null),
+    ZoneAwarenessEnabled: new ResourceAttribute('ZoneAwarenessEnabled', Boolean, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonElasticsearchServiceDomainElasticsearchClusterConfig', properties, propertiesObject)
 }
@@ -2200,7 +2199,7 @@ AmazonElasticsearchServiceDomainElasticsearchClusterConfig.prototype = Object.cr
 */
 function AmazonElasticsearchServiceDomainSnapshotOptions (propertiesObject) {
   let properties = {
-    AutomatedSnapshotStartHour: new ResourceAttribute('AutomatedSnapshotStartHour', Number, 'No', null)
+    AutomatedSnapshotStartHour: new ResourceAttribute('AutomatedSnapshotStartHour', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonElasticsearchServiceDomainSnapshotOptions', properties, propertiesObject)
 }
@@ -2214,10 +2213,10 @@ AmazonElasticsearchServiceDomainSnapshotOptions.prototype = Object.create(Resour
 */
 function AmazonEMRClusterApplication (propertiesObject) {
   let properties = {
-    AdditionalInfo: new ResourceAttribute('AdditionalInfo', Map, 'No', null),
-    Args: new ResourceAttributeArray('Args', String, 'No', null),
-    Name: new ResourceAttribute('Name', String, 'No', null),
-    Version: new ResourceAttribute('Version', String, 'No', null)
+    AdditionalInfo: new ResourceAttribute('AdditionalInfo', Map, false, 'No', null),
+    Args: new ResourceAttribute('Args', String, true, 'No', null),
+    Name: new ResourceAttribute('Name', String, false, 'No', null),
+    Version: new ResourceAttribute('Version', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEMRClusterApplication', properties, propertiesObject)
 }
@@ -2229,8 +2228,8 @@ AmazonEMRClusterApplication.prototype = Object.create(ResourceProperty.prototype
 */
 function AmazonEMRClusterBootstrapActionConfig (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'Yes', null),
-    ScriptBootstrapAction: new ResourceAttribute('ScriptBootstrapAction', AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig, 'Yes', null)
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+    ScriptBootstrapAction: new ResourceAttribute('ScriptBootstrapAction', AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonEMRClusterBootstrapActionConfig', properties, propertiesObject)
 }
@@ -2242,8 +2241,8 @@ AmazonEMRClusterBootstrapActionConfig.prototype = Object.create(ResourceProperty
 */
 function AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig (propertiesObject) {
   let properties = {
-    Args: new ResourceAttributeArray('Args', String, 'No', null),
-    Path: new ResourceAttribute('Path', String, 'Yes', null)
+    Args: new ResourceAttribute('Args', String, true, 'No', null),
+    Path: new ResourceAttribute('Path', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig', properties, propertiesObject)
 }
@@ -2256,9 +2255,9 @@ AmazonEMRClusterBootstrapActionConfigScriptBootstrapActionConfig.prototype = Obj
 */
 function AmazonEMRClusterConfiguration (propertiesObject) {
   let properties = {
-    Classification: new ResourceAttribute('Classification', String, 'No', null),
-    ConfigurationProperties: new ResourceAttribute('ConfigurationProperties', Map, 'No', null),
-    Configurations: new ResourceAttributeArray('Configurations', AmazonEMRClusterConfiguration, 'No', null)
+    Classification: new ResourceAttribute('Classification', String, false, 'No', null),
+    ConfigurationProperties: new ResourceAttribute('ConfigurationProperties', Map, false, 'No', null),
+    Configurations: new ResourceAttribute('Configurations', AmazonEMRClusterConfiguration, true, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEMRClusterConfiguration', properties, propertiesObject)
 }
@@ -2280,18 +2279,18 @@ AmazonEMRClusterConfiguration.prototype = Object.create(ResourceProperty.prototy
 */
 function AmazonEMRClusterJobFlowInstancesConfig (propertiesObject) {
   let properties = {
-    AdditionalMasterSecurityGroups: new ResourceAttributeArray('AdditionalMasterSecurityGroups', String, 'No', null),
-    AdditionalSlaveSecurityGroups: new ResourceAttributeArray('AdditionalSlaveSecurityGroups', String, 'No', null),
-    CoreInstanceGroup: new ResourceAttribute('CoreInstanceGroup', AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig, 'Yes', null),
-    Ec2KeyName: new ResourceAttribute('Ec2KeyName', String, 'No', null),
-    Ec2SubnetId: new ResourceAttribute('Ec2SubnetId', String, 'No', null),
-    EmrManagedMasterSecurityGroup: new ResourceAttribute('EmrManagedMasterSecurityGroup', String, 'No', null),
-    EmrManagedSlaveSecurityGroup: new ResourceAttribute('EmrManagedSlaveSecurityGroup', String, 'No', null),
-    HadoopVersion: new ResourceAttribute('HadoopVersion', String, 'No', null),
-    MasterInstanceGroup: new ResourceAttribute('MasterInstanceGroup', AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig, 'Yes', null),
-    Placement: new ResourceAttribute('Placement', AmazonEMRClusterJobFlowInstancesConfigPlacementType, 'No', null),
-    ServiceAccessSecurityGroup: new ResourceAttribute('ServiceAccessSecurityGroup', String, 'No', null),
-    TerminationProtected: new ResourceAttribute('TerminationProtected', Boolean, 'No', null)
+    AdditionalMasterSecurityGroups: new ResourceAttribute('AdditionalMasterSecurityGroups', String, true, 'No', null),
+    AdditionalSlaveSecurityGroups: new ResourceAttribute('AdditionalSlaveSecurityGroups', String, true, 'No', null),
+    CoreInstanceGroup: new ResourceAttribute('CoreInstanceGroup', AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig, false, 'Yes', null),
+    Ec2KeyName: new ResourceAttribute('Ec2KeyName', String, false, 'No', null),
+    Ec2SubnetId: new ResourceAttribute('Ec2SubnetId', String, false, 'No', null),
+    EmrManagedMasterSecurityGroup: new ResourceAttribute('EmrManagedMasterSecurityGroup', String, false, 'No', null),
+    EmrManagedSlaveSecurityGroup: new ResourceAttribute('EmrManagedSlaveSecurityGroup', String, false, 'No', null),
+    HadoopVersion: new ResourceAttribute('HadoopVersion', String, false, 'No', null),
+    MasterInstanceGroup: new ResourceAttribute('MasterInstanceGroup', AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig, false, 'Yes', null),
+    Placement: new ResourceAttribute('Placement', AmazonEMRClusterJobFlowInstancesConfigPlacementType, false, 'No', null),
+    ServiceAccessSecurityGroup: new ResourceAttribute('ServiceAccessSecurityGroup', String, false, 'No', null),
+    TerminationProtected: new ResourceAttribute('TerminationProtected', Boolean, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEMRClusterJobFlowInstancesConfig', properties, propertiesObject)
 }
@@ -2308,13 +2307,13 @@ AmazonEMRClusterJobFlowInstancesConfig.prototype = Object.create(ResourcePropert
 */
 function AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig (propertiesObject) {
   let properties = {
-    BidPrice: new ResourceAttribute('BidPrice', String, 'No', null),
-    Configurations: new ResourceAttributeArray('Configurations', AmazonEMRClusterConfiguration, 'No', null),
-    EbsConfiguration: new ResourceAttribute('EbsConfiguration', AmazonEMREbsConfiguration, 'No', null),
-    InstanceCount: new ResourceAttribute('InstanceCount', Number, 'Yes', null),
-    InstanceType: new ResourceAttribute('InstanceType', String, 'Yes', null),
-    Market: new ResourceAttribute('Market', String, 'No', null),
-    Name: new ResourceAttribute('Name', String, 'No', null)
+    BidPrice: new ResourceAttribute('BidPrice', String, false, 'No', null),
+    Configurations: new ResourceAttribute('Configurations', AmazonEMRClusterConfiguration, true, 'No', null),
+    EbsConfiguration: new ResourceAttribute('EbsConfiguration', AmazonEMREbsConfiguration, false, 'No', null),
+    InstanceCount: new ResourceAttribute('InstanceCount', Number, false, 'Yes', null),
+    InstanceType: new ResourceAttribute('InstanceType', String, false, 'Yes', null),
+    Market: new ResourceAttribute('Market', String, false, 'No', null),
+    Name: new ResourceAttribute('Name', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig', properties, propertiesObject)
 }
@@ -2325,7 +2324,7 @@ AmazonEMRClusterJobFlowInstancesConfigInstanceGroupConfig.prototype = Object.cre
 */
 function AmazonEMRClusterJobFlowInstancesConfigPlacementType (propertiesObject) {
   let properties = {
-    AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'Yes', null)
+    AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonEMRClusterJobFlowInstancesConfigPlacementType', properties, propertiesObject)
 }
@@ -2337,8 +2336,8 @@ AmazonEMRClusterJobFlowInstancesConfigPlacementType.prototype = Object.create(Re
 */
 function AmazonEMREbsConfiguration (propertiesObject) {
   let properties = {
-    EbsBlockDeviceConfigs: new ResourceAttributeArray('EbsBlockDeviceConfigs', AmazonEMREbsConfiguration, 'No', null),
-    EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, 'No', null)
+    EbsBlockDeviceConfigs: new ResourceAttribute('EbsBlockDeviceConfigs', AmazonEMREbsConfiguration, true, 'No', null),
+    EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEMREbsConfiguration', properties, propertiesObject)
 }
@@ -2350,8 +2349,8 @@ AmazonEMREbsConfiguration.prototype = Object.create(ResourceProperty.prototype)
 */
 function AmazonEMREbsConfigurationEbsBlockDeviceConfigs (propertiesObject) {
   let properties = {
-    VolumeSpecification: new ResourceAttribute('VolumeSpecification', AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification, 'Yes', null),
-    VolumesPerInstance: new ResourceAttribute('VolumesPerInstance', Number, 'No', null)
+    VolumeSpecification: new ResourceAttribute('VolumeSpecification', AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification, false, 'Yes', null),
+    VolumesPerInstance: new ResourceAttribute('VolumesPerInstance', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEMREbsConfigurationEbsBlockDeviceConfigs', properties, propertiesObject)
 }
@@ -2364,9 +2363,9 @@ AmazonEMREbsConfigurationEbsBlockDeviceConfigs.prototype = Object.create(Resourc
 */
 function AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification (propertiesObject) {
   let properties = {
-    Iops: new ResourceAttribute('Iops', Number, 'No', null),
-    SizeInGB: new ResourceAttribute('SizeInGB', Number, 'Yes', null),
-    VolumeType: new ResourceAttribute('VolumeType', String, 'Yes', null)
+    Iops: new ResourceAttribute('Iops', Number, false, 'No', null),
+    SizeInGB: new ResourceAttribute('SizeInGB', Number, false, 'Yes', null),
+    VolumeType: new ResourceAttribute('VolumeType', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification', properties, propertiesObject)
 }
@@ -2380,10 +2379,10 @@ AmazonEMREbsConfigurationEbsBlockDeviceConfigVolumeSpecification.prototype = Obj
 */
 function AmazonEMRStepHadoopJarStepConfig (propertiesObject) {
   let properties = {
-    Args: new ResourceAttributeArray('Args', String, 'No', null),
-    Jar: new ResourceAttribute('Jar', String, 'Yes', null),
-    MainClass: new ResourceAttribute('MainClass', String, 'No', null),
-    StepProperties: new ResourceAttributeArray('StepProperties', AmazonEMRStepHadoopJarStepConfigKeyValue, 'No', null)
+    Args: new ResourceAttribute('Args', String, true, 'No', null),
+    Jar: new ResourceAttribute('Jar', String, false, 'Yes', null),
+    MainClass: new ResourceAttribute('MainClass', String, false, 'No', null),
+    StepProperties: new ResourceAttribute('StepProperties', AmazonEMRStepHadoopJarStepConfigKeyValue, true, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEMRStepHadoopJarStepConfig', properties, propertiesObject)
 }
@@ -2395,8 +2394,8 @@ AmazonEMRStepHadoopJarStepConfig.prototype = Object.create(ResourceProperty.prot
 */
 function AmazonEMRStepHadoopJarStepConfigKeyValue (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'No', null),
-    Value: new ResourceAttribute('Value', String, 'No', null)
+    Key: new ResourceAttribute('Key', String, false, 'No', null),
+    Value: new ResourceAttribute('Value', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonEMRStepHadoopJarStepConfigKeyValue', properties, propertiesObject)
 }
@@ -2409,9 +2408,9 @@ AmazonEMRStepHadoopJarStepConfigKeyValue.prototype = Object.create(ResourcePrope
 */
 function AmazonGameLiftAliasRoutingStrategy (propertiesObject) {
   let properties = {
-    FleetId: new ResourceAttribute('FleetId', String, 'Conditional', null),
-    Message: new ResourceAttribute('Message', String, 'Conditional', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    FleetId: new ResourceAttribute('FleetId', String, false, 'Conditional', null),
+    Message: new ResourceAttribute('Message', String, false, 'Conditional', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonGameLiftAliasRoutingStrategy', properties, propertiesObject)
 }
@@ -2424,9 +2423,9 @@ AmazonGameLiftAliasRoutingStrategy.prototype = Object.create(ResourceProperty.pr
 */
 function AmazonGameLiftBuildStorageLocation (propertiesObject) {
   let properties = {
-    Bucket: new ResourceAttribute('Bucket', String, 'Yes', null),
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null)
+    Bucket: new ResourceAttribute('Bucket', String, false, 'Yes', null),
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonGameLiftBuildStorageLocation', properties, propertiesObject)
 }
@@ -2440,10 +2439,10 @@ AmazonGameLiftBuildStorageLocation.prototype = Object.create(ResourceProperty.pr
 */
 function AmazonGameLiftFleetEC2InboundPermission (propertiesObject) {
   let properties = {
-    FromPort: new ResourceAttribute('FromPort', Number, 'Yes', null),
-    IpRange: new ResourceAttribute('IpRange', String, 'Yes', null),
-    Protocol: new ResourceAttribute('Protocol', String, 'Yes', null),
-    ToPort: new ResourceAttribute('ToPort', Number, 'Yes', null)
+    FromPort: new ResourceAttribute('FromPort', Number, false, 'Yes', null),
+    IpRange: new ResourceAttribute('IpRange', String, false, 'Yes', null),
+    Protocol: new ResourceAttribute('Protocol', String, false, 'Yes', null),
+    ToPort: new ResourceAttribute('ToPort', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonGameLiftFleetEC2InboundPermission', properties, propertiesObject)
 }
@@ -2455,8 +2454,8 @@ AmazonGameLiftFleetEC2InboundPermission.prototype = Object.create(ResourceProper
 */
 function IAMPolicies (propertiesObject) {
   let properties = {
-    PolicyDocument: new ResourceAttribute('PolicyDocument', Object, 'Yes', null),
-    PolicyName: new ResourceAttribute('PolicyName', String, 'Yes', null)
+    PolicyDocument: new ResourceAttribute('PolicyDocument', Object, false, 'Yes', null),
+    PolicyName: new ResourceAttribute('PolicyName', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'IAMPolicies', properties, propertiesObject)
 }
@@ -2468,8 +2467,8 @@ IAMPolicies.prototype = Object.create(ResourceProperty.prototype)
 */
 function IAMUserLoginProfile (propertiesObject) {
   let properties = {
-    Password: new ResourceAttribute('Password', String, 'Yes', null),
-    PasswordResetRequired: new ResourceAttribute('PasswordResetRequired', Boolean, 'No', null)
+    Password: new ResourceAttribute('Password', String, false, 'Yes', null),
+    PasswordResetRequired: new ResourceAttribute('PasswordResetRequired', Boolean, false, 'No', null)
   }
   ResourceProperty.call(this, 'IAMUserLoginProfile', properties, propertiesObject)
 }
@@ -2490,17 +2489,17 @@ IAMUserLoginProfile.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTActions (propertiesObject) {
   let properties = {
-    CloudwatchAlarm: new ResourceAttribute('CloudwatchAlarm', AWSIoTCloudwatchAlarmAction, 'No', null),
-    CloudwatchMetric: new ResourceAttribute('CloudwatchMetric', AWSIoTCloudwatchMetricAction, 'No', null),
-    DynamoDB: new ResourceAttribute('DynamoDB', AWSIoTDynamoDBAction, 'No', null),
-    Elasticsearch: new ResourceAttribute('Elasticsearch', AWSIoTElasticsearchAction, 'No', null),
-    Firehose: new ResourceAttribute('Firehose', AWSIoTFirehoseAction, 'No', null),
-    Kinesis: new ResourceAttribute('Kinesis', AWSIoTKinesisAction, 'No', null),
-    Lambda: new ResourceAttribute('Lambda', AWSIoTLambdaAction, 'No', null),
-    Republish: new ResourceAttribute('Republish', AWSIoTRepublishAction, 'No', null),
-    S3: new ResourceAttribute('S3', AWSIoTS3Action, 'No', null),
-    Sns: new ResourceAttribute('Sns', AWSIoTSnsAction, 'No', null),
-    Sqs: new ResourceAttribute('Sqs', AWSIoTSqsAction, 'No', null)
+    CloudwatchAlarm: new ResourceAttribute('CloudwatchAlarm', AWSIoTCloudwatchAlarmAction, false, 'No', null),
+    CloudwatchMetric: new ResourceAttribute('CloudwatchMetric', AWSIoTCloudwatchMetricAction, false, 'No', null),
+    DynamoDB: new ResourceAttribute('DynamoDB', AWSIoTDynamoDBAction, false, 'No', null),
+    Elasticsearch: new ResourceAttribute('Elasticsearch', AWSIoTElasticsearchAction, false, 'No', null),
+    Firehose: new ResourceAttribute('Firehose', AWSIoTFirehoseAction, false, 'No', null),
+    Kinesis: new ResourceAttribute('Kinesis', AWSIoTKinesisAction, false, 'No', null),
+    Lambda: new ResourceAttribute('Lambda', AWSIoTLambdaAction, false, 'No', null),
+    Republish: new ResourceAttribute('Republish', AWSIoTRepublishAction, false, 'No', null),
+    S3: new ResourceAttribute('S3', AWSIoTS3Action, false, 'No', null),
+    Sns: new ResourceAttribute('Sns', AWSIoTSnsAction, false, 'No', null),
+    Sqs: new ResourceAttribute('Sqs', AWSIoTSqsAction, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSIoTActions', properties, propertiesObject)
 }
@@ -2514,10 +2513,10 @@ AWSIoTActions.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTCloudwatchAlarmAction (propertiesObject) {
   let properties = {
-    AlarmName: new ResourceAttribute('AlarmName', String, 'Yes', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
-    StateReason: new ResourceAttribute('StateReason', String, 'Yes', null),
-    StateValue: new ResourceAttribute('StateValue', String, 'Yes', null)
+    AlarmName: new ResourceAttribute('AlarmName', String, false, 'Yes', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null),
+    StateReason: new ResourceAttribute('StateReason', String, false, 'Yes', null),
+    StateValue: new ResourceAttribute('StateValue', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTCloudwatchAlarmAction', properties, propertiesObject)
 }
@@ -2533,12 +2532,12 @@ AWSIoTCloudwatchAlarmAction.prototype = Object.create(ResourceProperty.prototype
 */
 function AWSIoTCloudwatchMetricAction (propertiesObject) {
   let properties = {
-    MetricName: new ResourceAttribute('MetricName', String, 'Yes', null),
-    MetricNamespace: new ResourceAttribute('MetricNamespace', String, 'Yes', null),
-    MetricTimestamp: new ResourceAttribute('MetricTimestamp', String, 'No', null),
-    MetricUnit: new ResourceAttribute('MetricUnit', String, 'Yes', null),
-    MetricValue: new ResourceAttribute('MetricValue', String, 'Yes', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null)
+    MetricName: new ResourceAttribute('MetricName', String, false, 'Yes', null),
+    MetricNamespace: new ResourceAttribute('MetricNamespace', String, false, 'Yes', null),
+    MetricTimestamp: new ResourceAttribute('MetricTimestamp', String, false, 'No', null),
+    MetricUnit: new ResourceAttribute('MetricUnit', String, false, 'Yes', null),
+    MetricValue: new ResourceAttribute('MetricValue', String, false, 'Yes', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTCloudwatchMetricAction', properties, propertiesObject)
 }
@@ -2555,13 +2554,13 @@ AWSIoTCloudwatchMetricAction.prototype = Object.create(ResourceProperty.prototyp
 */
 function AWSIoTDynamoDBAction (propertiesObject) {
   let properties = {
-    HashKeyField: new ResourceAttribute('HashKeyField', String, 'Yes', null),
-    HashKeyValue: new ResourceAttribute('HashKeyValue', String, 'Yes', null),
-    PayloadField: new ResourceAttribute('PayloadField', String, 'No', null),
-    RangeKeyField: new ResourceAttribute('RangeKeyField', String, 'Yes', null),
-    RangeKeyValue: new ResourceAttribute('RangeKeyValue', String, 'Yes', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
-    TableName: new ResourceAttribute('TableName', String, 'Yes', null)
+    HashKeyField: new ResourceAttribute('HashKeyField', String, false, 'Yes', null),
+    HashKeyValue: new ResourceAttribute('HashKeyValue', String, false, 'Yes', null),
+    PayloadField: new ResourceAttribute('PayloadField', String, false, 'No', null),
+    RangeKeyField: new ResourceAttribute('RangeKeyField', String, false, 'Yes', null),
+    RangeKeyValue: new ResourceAttribute('RangeKeyValue', String, false, 'Yes', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null),
+    TableName: new ResourceAttribute('TableName', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTDynamoDBAction', properties, propertiesObject)
 }
@@ -2576,11 +2575,11 @@ AWSIoTDynamoDBAction.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTElasticsearchAction (propertiesObject) {
   let properties = {
-    Endpoint: new ResourceAttribute('Endpoint', String, 'Yes', null),
-    Id: new ResourceAttribute('Id', String, 'Yes', null),
-    Index: new ResourceAttribute('Index', String, 'Yes', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    Endpoint: new ResourceAttribute('Endpoint', String, false, 'Yes', null),
+    Id: new ResourceAttribute('Id', String, false, 'Yes', null),
+    Index: new ResourceAttribute('Index', String, false, 'Yes', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTElasticsearchAction', properties, propertiesObject)
 }
@@ -2592,8 +2591,8 @@ AWSIoTElasticsearchAction.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTFirehoseAction (propertiesObject) {
   let properties = {
-    DeliveryStreamName: new ResourceAttribute('DeliveryStreamName', String, 'Yes', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null)
+    DeliveryStreamName: new ResourceAttribute('DeliveryStreamName', String, false, 'Yes', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTFirehoseAction', properties, propertiesObject)
 }
@@ -2606,9 +2605,9 @@ AWSIoTFirehoseAction.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTKinesisAction (propertiesObject) {
   let properties = {
-    PartitionKey: new ResourceAttribute('PartitionKey', String, 'No', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
-    StreamName: new ResourceAttribute('StreamName', String, 'Yes', null)
+    PartitionKey: new ResourceAttribute('PartitionKey', String, false, 'No', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null),
+    StreamName: new ResourceAttribute('StreamName', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTKinesisAction', properties, propertiesObject)
 }
@@ -2619,7 +2618,7 @@ AWSIoTKinesisAction.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTLambdaAction (propertiesObject) {
   let properties = {
-    FunctionArn: new ResourceAttribute('FunctionArn', String, 'Yes', null)
+    FunctionArn: new ResourceAttribute('FunctionArn', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTLambdaAction', properties, propertiesObject)
 }
@@ -2631,8 +2630,8 @@ AWSIoTLambdaAction.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTRepublishAction (propertiesObject) {
   let properties = {
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
-    Topic: new ResourceAttribute('Topic', String, 'Yes', null)
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null),
+    Topic: new ResourceAttribute('Topic', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTRepublishAction', properties, propertiesObject)
 }
@@ -2645,9 +2644,9 @@ AWSIoTRepublishAction.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTS3Action (propertiesObject) {
   let properties = {
-    BucketName: new ResourceAttribute('BucketName', String, 'Yes', null),
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null)
+    BucketName: new ResourceAttribute('BucketName', String, false, 'Yes', null),
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTS3Action', properties, propertiesObject)
 }
@@ -2660,9 +2659,9 @@ AWSIoTS3Action.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTSnsAction (propertiesObject) {
   let properties = {
-    MessageFormat: new ResourceAttribute('MessageFormat', String, 'No', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
-    TargetArn: new ResourceAttribute('TargetArn', String, 'Yes', null)
+    MessageFormat: new ResourceAttribute('MessageFormat', String, false, 'No', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null),
+    TargetArn: new ResourceAttribute('TargetArn', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTSnsAction', properties, propertiesObject)
 }
@@ -2675,9 +2674,9 @@ AWSIoTSnsAction.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTSqsAction (propertiesObject) {
   let properties = {
-    QueueUrl: new ResourceAttribute('QueueUrl', String, 'Yes', null),
-    RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
-    UseBase64: new ResourceAttribute('UseBase64', String, 'No', null)
+    QueueUrl: new ResourceAttribute('QueueUrl', String, false, 'Yes', null),
+    RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null),
+    UseBase64: new ResourceAttribute('UseBase64', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSIoTSqsAction', properties, propertiesObject)
 }
@@ -2692,11 +2691,11 @@ AWSIoTSqsAction.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSIoTTopicRulePayload (propertiesObject) {
   let properties = {
-    Actions: new ResourceAttribute('Actions', AWSIoTActions, 'Yes', null),
-    AwsIotSqlVersion: new ResourceAttribute('AwsIotSqlVersion', String, 'No', null),
-    Description: new ResourceAttribute('Description', String, 'No', null),
-    RuleDisabled: new ResourceAttribute('RuleDisabled', Boolean, 'Yes', null),
-    Sql: new ResourceAttribute('Sql', String, 'Yes', null)
+    Actions: new ResourceAttribute('Actions', AWSIoTActions, false, 'Yes', null),
+    AwsIotSqlVersion: new ResourceAttribute('AwsIotSqlVersion', String, false, 'No', null),
+    Description: new ResourceAttribute('Description', String, false, 'No', null),
+    RuleDisabled: new ResourceAttribute('RuleDisabled', Boolean, false, 'Yes', null),
+    Sql: new ResourceAttribute('Sql', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSIoTTopicRulePayload', properties, propertiesObject)
 }
@@ -2709,9 +2708,9 @@ AWSIoTTopicRulePayload.prototype = Object.create(ResourceProperty.prototype)
 */
 function AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions (propertiesObject) {
   let properties = {
-    Enabled: new ResourceAttribute('Enabled', Boolean, 'No', null),
-    LogGroupName: new ResourceAttribute('LogGroupName', String, 'Conditional', null),
-    LogStreamName: new ResourceAttribute('LogStreamName', String, 'Conditional', null)
+    Enabled: new ResourceAttribute('Enabled', Boolean, false, 'No', null),
+    LogGroupName: new ResourceAttribute('LogGroupName', String, false, 'Conditional', null),
+    LogStreamName: new ResourceAttribute('LogStreamName', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions', properties, propertiesObject)
 }
@@ -2731,16 +2730,16 @@ AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions.prototype
 */
 function AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration (propertiesObject) {
   let properties = {
-    BufferingHints: new ResourceAttribute('BufferingHints', AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints, 'Yes', null),
-    CloudWatchLoggingOptions: new ResourceAttribute('CloudWatchLoggingOptions', AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
-    DomainARN: new ResourceAttribute('DomainARN', String, 'Yes', null),
-    IndexName: new ResourceAttribute('IndexName', String, 'Yes', null),
-    IndexRotationPeriod: new ResourceAttribute('IndexRotationPeriod', String, 'Yes', null),
-    RetryOptions: new ResourceAttribute('RetryOptions', String, 'No', null),
-    RoleARN: new ResourceAttribute('RoleARN', String, 'Yes', null),
-    S3BackupMode: new ResourceAttribute('S3BackupMode', String, 'Yes', null),
-    S3Configuration: new ResourceAttribute('S3Configuration', String, 'No', null),
-    TypeName: new ResourceAttribute('TypeName', String, 'Yes', null)
+    BufferingHints: new ResourceAttribute('BufferingHints', AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints, false, 'Yes', null),
+    CloudWatchLoggingOptions: new ResourceAttribute('CloudWatchLoggingOptions', AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, false, 'No', null),
+    DomainARN: new ResourceAttribute('DomainARN', String, false, 'Yes', null),
+    IndexName: new ResourceAttribute('IndexName', String, false, 'Yes', null),
+    IndexRotationPeriod: new ResourceAttribute('IndexRotationPeriod', String, false, 'Yes', null),
+    RetryOptions: new ResourceAttribute('RetryOptions', String, false, 'No', null),
+    RoleARN: new ResourceAttribute('RoleARN', String, false, 'Yes', null),
+    S3BackupMode: new ResourceAttribute('S3BackupMode', String, false, 'Yes', null),
+    S3Configuration: new ResourceAttribute('S3Configuration', String, false, 'No', null),
+    TypeName: new ResourceAttribute('TypeName', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration', properties, propertiesObject)
 }
@@ -2752,8 +2751,8 @@ AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration.prototy
 */
 function AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints (propertiesObject) {
   let properties = {
-    IntervalInSeconds: new ResourceAttribute('IntervalInSeconds', Number, 'Yes', null),
-    SizeInMBs: new ResourceAttribute('SizeInMBs', Number, 'Yes', null)
+    IntervalInSeconds: new ResourceAttribute('IntervalInSeconds', Number, false, 'Yes', null),
+    SizeInMBs: new ResourceAttribute('SizeInMBs', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferingHints', properties, propertiesObject)
 }
@@ -2764,7 +2763,7 @@ AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationBufferin
 */
 function AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions (propertiesObject) {
   let properties = {
-    DurationInSeconds: new ResourceAttribute('DurationInSeconds', Number, 'Yes', null)
+    DurationInSeconds: new ResourceAttribute('DurationInSeconds', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOptions', properties, propertiesObject)
 }
@@ -2781,13 +2780,13 @@ AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfigurationRetryOpt
 */
 function AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration (propertiesObject) {
   let properties = {
-    CloudWatchLoggingOptions: new ResourceAttribute('CloudWatchLoggingOptions', AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
-    ClusterJDBCURL: new ResourceAttribute('ClusterJDBCURL', String, 'Yes', null),
-    CopyCommand: new ResourceAttribute('CopyCommand', AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand, 'Yes', null),
-    Password: new ResourceAttribute('Password', String, 'Yes', null),
-    RoleARN: new ResourceAttribute('RoleARN', String, 'Yes', null),
-    S3Configuration: new ResourceAttribute('S3Configuration', AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration, 'Yes', null),
-    Username: new ResourceAttribute('Username', String, 'Yes', null)
+    CloudWatchLoggingOptions: new ResourceAttribute('CloudWatchLoggingOptions', AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, false, 'No', null),
+    ClusterJDBCURL: new ResourceAttribute('ClusterJDBCURL', String, false, 'Yes', null),
+    CopyCommand: new ResourceAttribute('CopyCommand', AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand, false, 'Yes', null),
+    Password: new ResourceAttribute('Password', String, false, 'Yes', null),
+    RoleARN: new ResourceAttribute('RoleARN', String, false, 'Yes', null),
+    S3Configuration: new ResourceAttribute('S3Configuration', AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration, false, 'Yes', null),
+    Username: new ResourceAttribute('Username', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration', properties, propertiesObject)
 }
@@ -2800,9 +2799,9 @@ AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration.prototype = 
 */
 function AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand (propertiesObject) {
   let properties = {
-    CopyOptions: new ResourceAttribute('CopyOptions', String, 'No', null),
-    DataTableColumns: new ResourceAttribute('DataTableColumns', String, 'No', null),
-    DataTableName: new ResourceAttribute('DataTableName', String, 'Yes', null)
+    CopyOptions: new ResourceAttribute('CopyOptions', String, false, 'No', null),
+    DataTableColumns: new ResourceAttribute('DataTableColumns', String, false, 'No', null),
+    DataTableName: new ResourceAttribute('DataTableName', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand', properties, propertiesObject)
 }
@@ -2819,13 +2818,13 @@ AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfigurationCopyCommand.p
 */
 function AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration (propertiesObject) {
   let properties = {
-    BucketARN: new ResourceAttribute('BucketARN', String, 'Yes', null),
-    BufferingHints: new ResourceAttribute('BufferingHints', AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints, 'Yes', null),
-    CloudWatchLoggingOptions: new ResourceAttribute('CloudWatchLoggingOptions', AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, 'No', null),
-    CompressionFormat: new ResourceAttribute('CompressionFormat', String, 'Yes', null),
-    EncryptionConfiguration: new ResourceAttribute('EncryptionConfiguration', AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration, 'No', null),
-    Prefix: new ResourceAttribute('Prefix', String, 'Yes', null),
-    RoleARN: new ResourceAttribute('RoleARN', String, 'Yes', null)
+    BucketARN: new ResourceAttribute('BucketARN', String, false, 'Yes', null),
+    BufferingHints: new ResourceAttribute('BufferingHints', AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints, false, 'Yes', null),
+    CloudWatchLoggingOptions: new ResourceAttribute('CloudWatchLoggingOptions', AmazonKinesisFirehoseDeliveryStreamDestinationCloudWatchLoggingOptions, false, 'No', null),
+    CompressionFormat: new ResourceAttribute('CompressionFormat', String, false, 'Yes', null),
+    EncryptionConfiguration: new ResourceAttribute('EncryptionConfiguration', AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration, false, 'No', null),
+    Prefix: new ResourceAttribute('Prefix', String, false, 'Yes', null),
+    RoleARN: new ResourceAttribute('RoleARN', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration', properties, propertiesObject)
 }
@@ -2837,8 +2836,8 @@ AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration.prototype = Object
 */
 function AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints (propertiesObject) {
   let properties = {
-    IntervalInSeconds: new ResourceAttribute('IntervalInSeconds', Number, 'Yes', null),
-    SizeInMBs: new ResourceAttribute('SizeInMBs', Number, 'Yes', null)
+    IntervalInSeconds: new ResourceAttribute('IntervalInSeconds', Number, false, 'Yes', null),
+    SizeInMBs: new ResourceAttribute('SizeInMBs', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints', properties, propertiesObject)
 }
@@ -2849,7 +2848,7 @@ AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationBufferingHints.prot
 */
 function AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig (propertiesObject) {
   let properties = {
-    AWSKMSKeyARN: new ResourceAttribute('AWSKMSKeyARN', String, 'Yes', null)
+    AWSKMSKeyARN: new ResourceAttribute('AWSKMSKeyARN', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig', properties, propertiesObject)
 }
@@ -2861,8 +2860,8 @@ AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigura
 */
 function AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration (propertiesObject) {
   let properties = {
-    KMSEncryptionConfig: new ResourceAttribute('KMSEncryptionConfig', AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig, 'No', null),
-    NoEncryptionConfig: new ResourceAttribute('NoEncryptionConfig', String, 'No', null)
+    KMSEncryptionConfig: new ResourceAttribute('KMSEncryptionConfig', AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigurationKMSEncryptionConfig, false, 'No', null),
+    NoEncryptionConfig: new ResourceAttribute('NoEncryptionConfig', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfiguration', properties, propertiesObject)
 }
@@ -2881,10 +2880,10 @@ AmazonKinesisFirehoseDeliveryStreamS3DestinationConfigurationEncryptionConfigura
 */
 function AWSLambdaFunctionCode (propertiesObject) {
   let properties = {
-    S3Bucket: new ResourceAttribute('S3Bucket', String, 'Conditional', null),
-    S3Key: new ResourceAttribute('S3Key', String, 'Conditional', null),
-    S3ObjectVersion: new ResourceAttribute('S3ObjectVersion', String, 'No', null),
-    ZipFile: new ResourceAttribute('ZipFile', String, 'Conditional', null),
+    S3Bucket: new ResourceAttribute('S3Bucket', String, false, 'Conditional', null),
+    S3Key: new ResourceAttribute('S3Key', String, false, 'Conditional', null),
+    S3ObjectVersion: new ResourceAttribute('S3ObjectVersion', String, false, 'No', null),
+    ZipFile: new ResourceAttribute('ZipFile', String, false, 'Conditional', null),
   }
   ResourceProperty.call(this, 'AWSLambdaFunctionCode', properties, propertiesObject)
 }
@@ -2896,8 +2895,8 @@ AWSLambdaFunctionCode.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSLambdaFunctionVPCConfig (propertiesObject) {
   let properties = {
-    SecurityGroupIds: new ResourceAttributeArray('SecurityGroupIds', String, 'Yes', null),
-    SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null)
+    SecurityGroupIds: new ResourceAttribute('SecurityGroupIds', String, true, 'Yes', null),
+    SubnetIds: new ResourceAttribute('SubnetIds', String, true, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSLambdaFunctionVPCConfig', properties, propertiesObject)
 }
@@ -2922,12 +2921,12 @@ NameType.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSOpsWorksAutoScalingThresholdsType (propertiesObject) {
   let properties = {
-    CpuThreshold: new ResourceAttribute('CpuThreshold', Number, 'No', null),
-    IgnoreMetricsTime: new ResourceAttribute('IgnoreMetricsTime', Number, 'No', null),
-    InstanceCount: new ResourceAttribute('InstanceCount', Number, 'No', null),
-    LoadThreshold: new ResourceAttribute('LoadThreshold', Number, 'No', null),
-    MemoryThreshold: new ResourceAttribute('MemoryThreshold', Number, 'No', null),
-    ThresholdsWaitTime: new ResourceAttribute('ThresholdsWaitTime', Number, 'No', null)
+    CpuThreshold: new ResourceAttribute('CpuThreshold', Number, false, 'No', null),
+    IgnoreMetricsTime: new ResourceAttribute('IgnoreMetricsTime', Number, false, 'No', null),
+    InstanceCount: new ResourceAttribute('InstanceCount', Number, false, 'No', null),
+    LoadThreshold: new ResourceAttribute('LoadThreshold', Number, false, 'No', null),
+    MemoryThreshold: new ResourceAttribute('MemoryThreshold', Number, false, 'No', null),
+    ThresholdsWaitTime: new ResourceAttribute('ThresholdsWaitTime', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksAutoScalingThresholdsType', properties, propertiesObject)
 }
@@ -2939,8 +2938,8 @@ AWSOpsWorksAutoScalingThresholdsType.prototype = Object.create(ResourceProperty.
 */
 function AWSOpsWorksChefConfigurationType (propertiesObject) {
   let properties = {
-    BerkshelfVersion: new ResourceAttribute('BerkshelfVersion', String, 'No', null),
-    ManageBerkshelf: new ResourceAttribute('ManageBerkshelf', Boolean, 'No', null)
+    BerkshelfVersion: new ResourceAttribute('BerkshelfVersion', String, false, 'No', null),
+    ManageBerkshelf: new ResourceAttribute('ManageBerkshelf', Boolean, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksChefConfigurationType', properties, propertiesObject)
 }
@@ -2951,7 +2950,7 @@ AWSOpsWorksChefConfigurationType.prototype = Object.create(ResourceProperty.prot
 */
 function AWSOpsWorksLayerLifeCycleConfiguration (propertiesObject) {
   let properties = {
-    ShutdownEventConfiguration: new ResourceAttribute('ShutdownEventConfiguration', AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration, 'No', null)
+    ShutdownEventConfiguration: new ResourceAttribute('ShutdownEventConfiguration', AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksLayerLifeCycleConfiguration', properties, propertiesObject)
 }
@@ -2963,8 +2962,8 @@ AWSOpsWorksLayerLifeCycleConfiguration.prototype = Object.create(ResourcePropert
 */
 function AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration (propertiesObject) {
   let properties = {
-    DelayUntilElbConnectionsDrained: new ResourceAttribute('DelayUntilElbConnectionsDrained', Boolean, 'No', null),
-    ExecutionTimeout: new ResourceAttribute('ExecutionTimeout', Number, 'No', null)
+    DelayUntilElbConnectionsDrained: new ResourceAttribute('DelayUntilElbConnectionsDrained', Boolean, false, 'No', null),
+    ExecutionTimeout: new ResourceAttribute('ExecutionTimeout', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration', properties, propertiesObject)
 }
@@ -2977,9 +2976,9 @@ AWSOpsWorksLayerLifeCycleConfigurationShutdownEventConfiguration.prototype = Obj
 */
 function AWSOpsWorksLoadBasedAutoScalingType (propertiesObject) {
   let properties = {
-    DownScaling: new ResourceAttribute('DownScaling', AWSOpsWorksAutoScalingThresholdsType, 'No', null),
-    Enable: new ResourceAttribute('Enable', Boolean, 'No', null),
-    UpScaling: new ResourceAttribute('UpScaling', AWSOpsWorksAutoScalingThresholdsType, 'No', null)
+    DownScaling: new ResourceAttribute('DownScaling', AWSOpsWorksAutoScalingThresholdsType, false, 'No', null),
+    Enable: new ResourceAttribute('Enable', Boolean, false, 'No', null),
+    UpScaling: new ResourceAttribute('UpScaling', AWSOpsWorksAutoScalingThresholdsType, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksLoadBasedAutoScalingType', properties, propertiesObject)
 }
@@ -2994,11 +2993,11 @@ AWSOpsWorksLoadBasedAutoScalingType.prototype = Object.create(ResourceProperty.p
 */
 function AWSOpsWorksRecipesType (propertiesObject) {
   let properties = {
-    Configure: new ResourceAttributeArray('Configure', String, 'No', null),
-    Deploy: new ResourceAttributeArray('Deploy', String, 'No', null),
-    Setup: new ResourceAttributeArray('Setup', String, 'No', null),
-    Shutdown: new ResourceAttributeArray('Shutdown', String, 'No', null),
-    Undeploy: new ResourceAttributeArray('Undeploy', String, 'No', null)
+    Configure: new ResourceAttribute('Configure', String, true, 'No', null),
+    Deploy: new ResourceAttribute('Deploy', String, true, 'No', null),
+    Setup: new ResourceAttribute('Setup', String, true, 'No', null),
+    Shutdown: new ResourceAttribute('Shutdown', String, true, 'No', null),
+    Undeploy: new ResourceAttribute('Undeploy', String, true, 'No', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksRecipesType', properties, propertiesObject)
 }
@@ -3014,12 +3013,12 @@ AWSOpsWorksRecipesType.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSOpsWorksSourceType (propertiesObject) {
   let properties = {
-    Password: new ResourceAttribute('Password', String, 'No', null),
-    Revision: new ResourceAttribute('Revision', String, 'No', null),
-    SshKey: new ResourceAttribute('SshKey', String, 'No', null),
-    Type: new ResourceAttribute('Type', String, 'No', null),
-    Url: new ResourceAttribute('Url', String, 'No', null),
-    Username: new ResourceAttribute('Username', String, 'No', null)
+    Password: new ResourceAttribute('Password', String, false, 'No', null),
+    Revision: new ResourceAttribute('Revision', String, false, 'No', null),
+    SshKey: new ResourceAttribute('SshKey', String, false, 'No', null),
+    Type: new ResourceAttribute('Type', String, false, 'No', null),
+    Url: new ResourceAttribute('Url', String, false, 'No', null),
+    Username: new ResourceAttribute('Username', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksSourceType', properties, propertiesObject)
 }
@@ -3032,9 +3031,9 @@ AWSOpsWorksSourceType.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSOpsWorksAppEnvironment (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    Secure: new ResourceAttribute('Secure', Boolean, 'No', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    Secure: new ResourceAttribute('Secure', Boolean, false, 'No', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksAppEnvironment', properties, propertiesObject)
 }
@@ -3047,9 +3046,9 @@ AWSOpsWorksAppEnvironment.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSOpsWorksSslConfigurationType (propertiesObject) {
   let properties = {
-    Certificate: new ResourceAttribute('Certificate', String, 'Yes', null),
-    Chain: new ResourceAttribute('Chain', String, 'No', null),
-    PrivateKey: new ResourceAttribute('PrivateKey', String, 'Yes', null)
+    Certificate: new ResourceAttribute('Certificate', String, false, 'Yes', null),
+    Chain: new ResourceAttribute('Chain', String, false, 'No', null),
+    PrivateKey: new ResourceAttribute('PrivateKey', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksSslConfigurationType', properties, propertiesObject)
 }
@@ -3061,8 +3060,8 @@ AWSOpsWorksSslConfigurationType.prototype = Object.create(ResourceProperty.proto
 */
 function AWSOpsWorksStackConfigurationManagerType (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'No', null),
-    Version: new ResourceAttribute('Version', String, 'No', null)
+    Name: new ResourceAttribute('Name', String, false, 'No', null),
+    Version: new ResourceAttribute('Version', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksStackConfigurationManagerType', properties, propertiesObject)
 }
@@ -3079,13 +3078,13 @@ AWSOpsWorksStackConfigurationManagerType.prototype = Object.create(ResourcePrope
 */
 function AWSOpsWorksTimeBasedAutoScalingType (propertiesObject) {
   let properties = {
-    Friday: new ResourceAttribute('Friday', Map, 'No', null),
-    Monday: new ResourceAttribute('Monday', Map, 'No', null),
-    Saturday: new ResourceAttribute('Saturday', Map, 'No', null),
-    Sunday: new ResourceAttribute('Sunday', Map, 'No', null),
-    Thursday: new ResourceAttribute('Thursday', Map, 'No', null),
-    Tuesday: new ResourceAttribute('Tuesday', Map, 'No', null),
-    Wednesday: new ResourceAttribute('Wednesday', Map, 'No', null)
+    Friday: new ResourceAttribute('Friday', Map, false, 'No', null),
+    Monday: new ResourceAttribute('Monday', Map, false, 'No', null),
+    Saturday: new ResourceAttribute('Saturday', Map, false, 'No', null),
+    Sunday: new ResourceAttribute('Sunday', Map, false, 'No', null),
+    Thursday: new ResourceAttribute('Thursday', Map, false, 'No', null),
+    Tuesday: new ResourceAttribute('Tuesday', Map, false, 'No', null),
+    Wednesday: new ResourceAttribute('Wednesday', Map, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksTimeBasedAutoScalingType', properties, propertiesObject)
 }
@@ -3101,12 +3100,12 @@ AWSOpsWorksTimeBasedAutoScalingType.prototype = Object.create(ResourceProperty.p
 */
 function AWSOpsWorksVolumeConfigurationType (propertiesObject) {
   let properties = {
-    Iops: new ResourceAttribute('Iops', Number, 'Conditional', null),
-    MountPoint: new ResourceAttribute('MountPoint', String, 'Yes', null),
-    NumberOfDisks: new ResourceAttribute('NumberOfDisks', Number, 'Yes', null),
-    RaidLevel: new ResourceAttribute('RaidLevel', Number, 'No', null),
-    Size: new ResourceAttribute('Size', Number, 'Yes', null),
-    VolumeType: new ResourceAttribute('VolumeType', String, 'No', null)
+    Iops: new ResourceAttribute('Iops', Number, false, 'Conditional', null),
+    MountPoint: new ResourceAttribute('MountPoint', String, false, 'Yes', null),
+    NumberOfDisks: new ResourceAttribute('NumberOfDisks', Number, false, 'Yes', null),
+    RaidLevel: new ResourceAttribute('RaidLevel', Number, false, 'No', null),
+    Size: new ResourceAttribute('Size', Number, false, 'Yes', null),
+    VolumeType: new ResourceAttribute('VolumeType', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AWSOpsWorksVolumeConfigurationType', properties, propertiesObject)
 }
@@ -3118,8 +3117,8 @@ AWSOpsWorksVolumeConfigurationType.prototype = Object.create(ResourceProperty.pr
 */
 function AmazonRedshiftParameterType (propertiesObject) {
   let properties = {
-    ParameterName: new ResourceAttribute('ParameterName', String, 'Yes', null),
-    ParameterValue: new ResourceAttribute('ParameterValue', String, 'Yes', null)
+    ParameterName: new ResourceAttribute('ParameterName', String, false, 'Yes', null),
+    ParameterValue: new ResourceAttribute('ParameterValue', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonRedshiftParameterType', properties, propertiesObject)
 }
@@ -3131,8 +3130,8 @@ AmazonRedshiftParameterType.prototype = Object.create(ResourceProperty.prototype
 */
 function AWSCloudFormationResourceTagsType (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSCloudFormationResourceTagsType', properties, propertiesObject)
 }
@@ -3147,11 +3146,11 @@ AWSCloudFormationResourceTagsType.prototype = Object.create(ResourceProperty.pro
 */
 function AmazonRDSOptionGroupOptionConfigurations (propertiesObject) {
   let properties = {
-    DBSecurityGroupMemberships: new ResourceAttributeArray('DBSecurityGroupMemberships', String, 'No', null),
-    OptionName: new ResourceAttribute('OptionName', String, 'Yes', null),
-    OptionSettings: new ResourceAttribute('OptionSettings', AmazonRDSOptionGroupOptionConfigurationsOptionSettings, 'No', null),
-    Port: new ResourceAttribute('Port', Number, 'No', null),
-    VpcSecurityGroupMemberships: new ResourceAttributeArray('VpcSecurityGroupMemberships', String, 'No', null)
+    DBSecurityGroupMemberships: new ResourceAttribute('DBSecurityGroupMemberships', String, true, 'No', null),
+    OptionName: new ResourceAttribute('OptionName', String, false, 'Yes', null),
+    OptionSettings: new ResourceAttribute('OptionSettings', AmazonRDSOptionGroupOptionConfigurationsOptionSettings, false, 'No', null),
+    Port: new ResourceAttribute('Port', Number, false, 'No', null),
+    VpcSecurityGroupMemberships: new ResourceAttribute('VpcSecurityGroupMemberships', String, true, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonRDSOptionGroupOptionConfigurations', properties, propertiesObject)
 }
@@ -3163,8 +3162,8 @@ AmazonRDSOptionGroupOptionConfigurations.prototype = Object.create(ResourcePrope
 */
 function AmazonRDSOptionGroupOptionConfigurationsOptionSettings (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'No', null),
-    Value: new ResourceAttribute('Value', String, 'No', null)
+    Name: new ResourceAttribute('Name', String, false, 'No', null),
+    Value: new ResourceAttribute('Value', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonRDSOptionGroupOptionConfigurationsOptionSettings', properties, propertiesObject)
 }
@@ -3178,10 +3177,10 @@ AmazonRDSOptionGroupOptionConfigurationsOptionSettings.prototype = Object.create
 */
 function AmazonRDSSecurityGroupRule (propertiesObject) {
   let properties = {
-    CIDRIP: new ResourceAttribute('CIDRIP', String, 'No', null),
-    EC2SecurityGroupId: new ResourceAttribute('EC2SecurityGroupId', String, 'No', null),
-    EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, 'No', null),
-    EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, 'No', null)
+    CIDRIP: new ResourceAttribute('CIDRIP', String, false, 'No', null),
+    EC2SecurityGroupId: new ResourceAttribute('EC2SecurityGroupId', String, false, 'No', null),
+    EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, false, 'No', null),
+    EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonRDSSecurityGroupRule', properties, propertiesObject)
 }
@@ -3194,9 +3193,9 @@ AmazonRDSSecurityGroupRule.prototype = Object.create(ResourceProperty.prototype)
 */
 function Route53AliasTargetProperty (propertiesObject) {
   let properties = {
-    DNSName: new ResourceAttribute('DNSName', String, 'Yes', null),
-    EvaluateTargetHealth: new ResourceAttribute('EvaluateTargetHealth', Boolean, 'No', null),
-    HostedZoneId: new ResourceAttribute('HostedZoneId', String, 'Yes', null)
+    DNSName: new ResourceAttribute('DNSName', String, false, 'Yes', null),
+    EvaluateTargetHealth: new ResourceAttribute('EvaluateTargetHealth', Boolean, false, 'No', null),
+    HostedZoneId: new ResourceAttribute('HostedZoneId', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'Route53AliasTargetProperty', properties, propertiesObject)
 }
@@ -3209,9 +3208,9 @@ Route53AliasTargetProperty.prototype = Object.create(ResourceProperty.prototype)
 */
 function AmazonRoute53RecordSetGeoLocationProperty (propertiesObject) {
   let properties = {
-    ContinentCode: new ResourceAttribute('ContinentCode', String, 'Conditional', null),
-    CountryCode: new ResourceAttribute('CountryCode', String, 'Conditional', null),
-    SubdivisionCode: new ResourceAttribute('SubdivisionCode', String, 'No', null)
+    ContinentCode: new ResourceAttribute('ContinentCode', String, false, 'Conditional', null),
+    CountryCode: new ResourceAttribute('CountryCode', String, false, 'Conditional', null),
+    SubdivisionCode: new ResourceAttribute('SubdivisionCode', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonRoute53RecordSetGeoLocationProperty', properties, propertiesObject)
 }
@@ -3229,14 +3228,14 @@ AmazonRoute53RecordSetGeoLocationProperty.prototype = Object.create(ResourceProp
 */
 function AmazonRoute53HealthCheckConfig (propertiesObject) {
   let properties = {
-    FailureThreshold: new ResourceAttribute('FailureThreshold', Number, 'No', null),
-    FullyQualifiedDomainName: new ResourceAttribute('FullyQualifiedDomainName', String, 'Conditional', null),
-    IPAddress: new ResourceAttribute('IPAddress', String, 'No', null),
-    Port: new ResourceAttribute('Port', Number, 'Conditional', null),
-    RequestInterval: new ResourceAttribute('RequestInterval', Number, 'No', null),
-    ResourcePath: new ResourceAttribute('ResourcePath', String, 'No', null),
-    SearchString: new ResourceAttribute('SearchString', String, 'No', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    FailureThreshold: new ResourceAttribute('FailureThreshold', Number, false, 'No', null),
+    FullyQualifiedDomainName: new ResourceAttribute('FullyQualifiedDomainName', String, false, 'Conditional', null),
+    IPAddress: new ResourceAttribute('IPAddress', String, false, 'No', null),
+    Port: new ResourceAttribute('Port', Number, false, 'Conditional', null),
+    RequestInterval: new ResourceAttribute('RequestInterval', Number, false, 'No', null),
+    ResourcePath: new ResourceAttribute('ResourcePath', String, false, 'No', null),
+    SearchString: new ResourceAttribute('SearchString', String, false, 'No', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonRoute53HealthCheckConfig', properties, propertiesObject)
 }
@@ -3248,8 +3247,8 @@ AmazonRoute53HealthCheckConfig.prototype = Object.create(ResourceProperty.protot
 */
 function AmazonRoute53HealthCheckTags (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonRoute53HealthCheckTags', properties, propertiesObject)
 }
@@ -3260,7 +3259,7 @@ AmazonRoute53HealthCheckTags.prototype = Object.create(ResourceProperty.prototyp
 */
 function AmazonRoute53HostedZoneConfigProperty (propertiesObject) {
   let properties = {
-    Comment: new ResourceAttribute('Comment', String, 'No', null)
+    Comment: new ResourceAttribute('Comment', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonRoute53HostedZoneConfigProperty', properties, propertiesObject)
 }
@@ -3272,8 +3271,8 @@ AmazonRoute53HostedZoneConfigProperty.prototype = Object.create(ResourceProperty
 */
 function AmazonRoute53HostedZoneTags (propertiesObject) {
   let properties = {
-    Key: new ResourceAttribute('Key', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonRoute53HostedZoneTags', properties, propertiesObject)
 }
@@ -3285,8 +3284,8 @@ AmazonRoute53HostedZoneTags.prototype = Object.create(ResourceProperty.prototype
 */
 function AmazonRoute53HostedZoneVPCs (propertiesObject) {
   let properties = {
-    VPCId: new ResourceAttribute('VPCId', String, 'Yes', null),
-    VPCRegion: new ResourceAttribute('VPCRegion', String, 'Yes', null)
+    VPCId: new ResourceAttribute('VPCId', String, false, 'Yes', null),
+    VPCRegion: new ResourceAttribute('VPCRegion', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonRoute53HostedZoneVPCs', properties, propertiesObject)
 }
@@ -3297,7 +3296,7 @@ AmazonRoute53HostedZoneVPCs.prototype = Object.create(ResourceProperty.prototype
 */
 function AmazonS3CorsConfiguration (propertiesObject) {
   let properties = {
-    CorsRules: new ResourceAttribute('CorsRules', AmazonS3CorsConfigurationRule, 'Yes', null)
+    CorsRules: new ResourceAttribute('CorsRules', AmazonS3CorsConfigurationRule, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonS3CorsConfiguration', properties, propertiesObject)
 }
@@ -3313,12 +3312,12 @@ AmazonS3CorsConfiguration.prototype = Object.create(ResourceProperty.prototype)
 */
 function AmazonS3CorsConfigurationRule (propertiesObject) {
   let properties = {
-    AllowedHeaders: new ResourceAttributeArray('AllowedHeaders', String, 'No', null),
-    AllowedMethods: new ResourceAttributeArray('AllowedMethods', String, 'Yes', null),
-    AllowedOrigins: new ResourceAttributeArray('AllowedOrigins', String, 'Yes', null),
-    ExposedHeaders: new ResourceAttributeArray('ExposedHeaders', String, 'No', null),
-    Id: new ResourceAttribute('Id', String, 'No', null),
-    MaxAge: new ResourceAttribute('MaxAge', Number, 'No', null)
+    AllowedHeaders: new ResourceAttribute('AllowedHeaders', String, true, 'No', null),
+    AllowedMethods: new ResourceAttribute('AllowedMethods', String, true, 'Yes', null),
+    AllowedOrigins: new ResourceAttribute('AllowedOrigins', String, true, 'Yes', null),
+    ExposedHeaders: new ResourceAttribute('ExposedHeaders', String, true, 'No', null),
+    Id: new ResourceAttribute('Id', String, false, 'No', null),
+    MaxAge: new ResourceAttribute('MaxAge', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonS3CorsConfigurationRule', properties, propertiesObject)
 }
@@ -3329,7 +3328,7 @@ AmazonS3CorsConfigurationRule.prototype = Object.create(ResourceProperty.prototy
 */
 function AmazonS3LifecycleConfiguration (propertiesObject) {
   let properties = {
-    Rules: new ResourceAttribute('Rules', AmazonS3LifecycleRule, 'Yes', null)
+    Rules: new ResourceAttribute('Rules', AmazonS3LifecycleRule, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonS3LifecycleConfiguration', properties, propertiesObject)
 }
@@ -3349,16 +3348,16 @@ AmazonS3LifecycleConfiguration.prototype = Object.create(ResourceProperty.protot
 */
 function AmazonS3LifecycleRule (propertiesObject) {
   let properties = {
-    ExpirationDate: new ResourceAttribute('ExpirationDate', String, 'Conditional', null),
-    ExpirationInDays: new ResourceAttribute('ExpirationInDays', Number, 'Conditional', null),
-    Id: new ResourceAttribute('Id', String, 'No', null),
-    NoncurrentVersionExpirationInDays: new ResourceAttribute('NoncurrentVersionExpirationInDays', Number, 'Conditional', null),
-    NoncurrentVersionTransition: new ResourceAttribute('NoncurrentVersionTransition', AmazonS3LifecycleRuleNoncurrentVersionTransition, 'Conditional', null),
-    NoncurrentVersionTransitions: new ResourceAttributeArray('NoncurrentVersionTransitions', AmazonS3LifecycleRuleNoncurrentVersionTransition, 'Conditional', null),
-    Prefix: new ResourceAttribute('Prefix', String, 'No', null),
-    Status: new ResourceAttribute('Status', String, 'Yes', null),
-    Transition: new ResourceAttribute('Transition', AmazonS3LifecycleRuleTransition, 'Conditional', null),
-    Transitions: new ResourceAttributeArray('Transitions', AmazonS3LifecycleRuleTransition, 'Conditional', null)
+    ExpirationDate: new ResourceAttribute('ExpirationDate', String, false, 'Conditional', null),
+    ExpirationInDays: new ResourceAttribute('ExpirationInDays', Number, false, 'Conditional', null),
+    Id: new ResourceAttribute('Id', String, false, 'No', null),
+    NoncurrentVersionExpirationInDays: new ResourceAttribute('NoncurrentVersionExpirationInDays', Number, false, 'Conditional', null),
+    NoncurrentVersionTransition: new ResourceAttribute('NoncurrentVersionTransition', AmazonS3LifecycleRuleNoncurrentVersionTransition, false, 'Conditional', null),
+    NoncurrentVersionTransitions: new ResourceAttribute('NoncurrentVersionTransitions', AmazonS3LifecycleRuleNoncurrentVersionTransition, true, 'Conditional', null),
+    Prefix: new ResourceAttribute('Prefix', String, false, 'No', null),
+    Status: new ResourceAttribute('Status', String, false, 'Yes', null),
+    Transition: new ResourceAttribute('Transition', AmazonS3LifecycleRuleTransition, false, 'Conditional', null),
+    Transitions: new ResourceAttribute('Transitions', AmazonS3LifecycleRuleTransition, true, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AmazonS3LifecycleRule', properties, propertiesObject)
 }
@@ -3370,8 +3369,8 @@ AmazonS3LifecycleRule.prototype = Object.create(ResourceProperty.prototype)
 */
 function AmazonS3LifecycleRuleNoncurrentVersionTransition (propertiesObject) {
   let properties = {
-    StorageClass: new ResourceAttribute('StorageClass', String, 'Yes', null),
-    TransitionInDays: new ResourceAttribute('TransitionInDays', Number, 'Yes', null)
+    StorageClass: new ResourceAttribute('StorageClass', String, false, 'Yes', null),
+    TransitionInDays: new ResourceAttribute('TransitionInDays', Number, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonS3LifecycleRuleNoncurrentVersionTransition', properties, propertiesObject)
 }
@@ -3384,9 +3383,9 @@ AmazonS3LifecycleRuleNoncurrentVersionTransition.prototype = Object.create(Resou
 */
 function AmazonS3LifecycleRuleTransition (propertiesObject) {
   let properties = {
-    StorageClass: new ResourceAttribute('StorageClass', String, 'Yes', null),
-    TransitionDate: new ResourceAttribute('TransitionDate', String, 'Conditional', null),
-    TransitionInDays: new ResourceAttribute('TransitionInDays', Number, 'Conditional', null)
+    StorageClass: new ResourceAttribute('StorageClass', String, false, 'Yes', null),
+    TransitionDate: new ResourceAttribute('TransitionDate', String, false, 'Conditional', null),
+    TransitionInDays: new ResourceAttribute('TransitionInDays', Number, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AmazonS3LifecycleRuleTransition', properties, propertiesObject)
 }
@@ -3398,8 +3397,8 @@ AmazonS3LifecycleRuleTransition.prototype = Object.create(ResourceProperty.proto
 */
 function AmazonS3LoggingConfiguration (propertiesObject) {
   let properties = {
-    DestinationBucketName: new ResourceAttribute('DestinationBucketName', String, 'No', null),
-    LogFilePrefix: new ResourceAttribute('LogFilePrefix', String, 'No', null)
+    DestinationBucketName: new ResourceAttribute('DestinationBucketName', String, false, 'No', null),
+    LogFilePrefix: new ResourceAttribute('LogFilePrefix', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonS3LoggingConfiguration', properties, propertiesObject)
 }
@@ -3412,9 +3411,9 @@ AmazonS3LoggingConfiguration.prototype = Object.create(ResourceProperty.prototyp
 */
 function AmazonS3NotificationConfiguration (propertiesObject) {
   let properties = {
-    LambdaConfigurations: new ResourceAttributeArray('LambdaConfigurations', AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations, 'No', null),
-    QueueConfigurations: new ResourceAttributeArray('QueueConfigurations', AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations, 'No', null),
-    TopicConfigurations: new ResourceAttributeArray('TopicConfigurations', AmazonS3NotificationConfigurationTopicConfigurations, 'No', null)
+    LambdaConfigurations: new ResourceAttributeArray('LambdaConfigurations', AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations, false, 'No', null),
+    QueueConfigurations: new ResourceAttributeArray('QueueConfigurations', AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations, false, 'No', null),
+    TopicConfigurations: new ResourceAttributeArray('TopicConfigurations', AmazonS3NotificationConfigurationTopicConfigurations, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonS3NotificationConfiguration', properties, propertiesObject)
 }
@@ -3425,7 +3424,7 @@ AmazonS3NotificationConfiguration.prototype = Object.create(ResourceProperty.pro
 */
 function AmazonS3NotificationConfigurationConfigFilter (propertiesObject) {
   let properties = {
-    S3Key: new ResourceAttribute('S3Key', AmazonS3NotificationConfigurationConfigFilterS3Key, 'Yes', null)
+    S3Key: new ResourceAttribute('S3Key', AmazonS3NotificationConfigurationConfigFilterS3Key, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonS3NotificationConfigurationConfigFilter', properties, propertiesObject)
 }
@@ -3436,7 +3435,7 @@ AmazonS3NotificationConfigurationConfigFilter.prototype = Object.create(Resource
 */
 function AmazonS3NotificationConfigurationConfigFilterS3Key (propertiesObject) {
   let properties = {
-    Rules: new ResourceAttributeArray('Rules', AmazonS3NotificationConfigurationConfigFilterS3KeyRules, 'Yes', null)
+    Rules: new ResourceAttribute('Rules', AmazonS3NotificationConfigurationConfigFilterS3KeyRules, true, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonS3NotificationConfigurationConfigFilterS3Key', properties, propertiesObject)
 }
@@ -3448,8 +3447,8 @@ AmazonS3NotificationConfigurationConfigFilterS3Key.prototype = Object.create(Res
 */
 function AmazonS3NotificationConfigurationConfigFilterS3KeyRules (propertiesObject) {
   let properties = {
-    Name: new ResourceAttribute('Name', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonS3NotificationConfigurationConfigFilterS3KeyRules', properties, propertiesObject)
 }
@@ -3462,9 +3461,9 @@ AmazonS3NotificationConfigurationConfigFilterS3KeyRules.prototype = Object.creat
 */
 function AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations (propertiesObject) {
   let properties = {
-    Event: new ResourceAttribute('Event', String, 'Yes', null),
-    Filter: new ResourceAttribute('Filter', AmazonS3NotificationConfigurationConfigFilter, 'No', null),
-    Function: new ResourceAttribute('Function', String, 'Yes', null)
+    Event: new ResourceAttribute('Event', String, false, 'Yes', null),
+    Filter: new ResourceAttribute('Filter', AmazonS3NotificationConfigurationConfigFilter, false, 'No', null),
+    Function: new ResourceAttribute('Function', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations', properties, propertiesObject)
 }
@@ -3477,9 +3476,9 @@ AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations.prototyp
 */
 function AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations (propertiesObject) {
   let properties = {
-    Event: new ResourceAttribute('Event', String, 'Yes', null),
-    Filter: new ResourceAttribute('Filter', AmazonS3NotificationConfigurationConfigFilter, 'No', null),
-    Queue: new ResourceAttribute('Queue', String, 'Yes', null)
+    Event: new ResourceAttribute('Event', String, false, 'Yes', null),
+    Filter: new ResourceAttribute('Filter', AmazonS3NotificationConfigurationConfigFilter, false, 'No', null),
+    Queue: new ResourceAttribute('Queue', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations', properties, propertiesObject)
 }
@@ -3492,9 +3491,9 @@ AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations.prototype
 */
 function AmazonS3NotificationConfigurationTopicConfigurations (propertiesObject) {
   let properties = {
-    Event: new ResourceAttribute('Event', String, 'Yes', null),
-    Filter: new ResourceAttribute('Filter', AmazonS3NotificationConfigurationConfigFilter, 'No', null),
-    Topic: new ResourceAttribute('Topic', String, 'Yes', null)
+    Event: new ResourceAttribute('Event', String, false, 'Yes', null),
+    Filter: new ResourceAttribute('Filter', AmazonS3NotificationConfigurationConfigFilter, false, 'No', null),
+    Topic: new ResourceAttribute('Topic', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonS3NotificationConfigurationTopicConfigurations', properties, propertiesObject)
 }
@@ -3506,8 +3505,8 @@ AmazonS3NotificationConfigurationTopicConfigurations.prototype = Object.create(R
 */
 function AmazonS3ReplicationConfiguration (propertiesObject) {
   let properties = {
-    Role: new ResourceAttribute('Role', String, 'Yes', null),
-    Rules: new ResourceAttributeArray('Rules', AmazonS3ReplicationConfigurationRules, 'Yes', null)
+    Role: new ResourceAttribute('Role', String, false, 'Yes', null),
+    Rules: new ResourceAttribute('Rules', AmazonS3ReplicationConfigurationRules, true, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonS3ReplicationConfiguration', properties, propertiesObject)
 }
@@ -3521,10 +3520,10 @@ AmazonS3ReplicationConfiguration.prototype = Object.create(ResourceProperty.prot
 */
 function AmazonS3ReplicationConfigurationRules (propertiesObject) {
   let properties = {
-    Destination: new ResourceAttribute('Destination', AmazonS3ReplicationConfigurationRulesDestination, 'Yes', null),
-    Id: new ResourceAttribute('Id', String, 'No', null),
-    Prefix: new ResourceAttribute('Prefix', String, 'Yes', null),
-    Status: new ResourceAttribute('Status', String, 'Yes', null)
+    Destination: new ResourceAttribute('Destination', AmazonS3ReplicationConfigurationRulesDestination, false, 'Yes', null),
+    Id: new ResourceAttribute('Id', String, false, 'No', null),
+    Prefix: new ResourceAttribute('Prefix', String, false, 'Yes', null),
+    Status: new ResourceAttribute('Status', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonS3ReplicationConfigurationRules', properties, propertiesObject)
 }
@@ -3536,8 +3535,8 @@ AmazonS3ReplicationConfigurationRules.prototype = Object.create(ResourceProperty
 */
 function AmazonS3ReplicationConfigurationRulesDestination (propertiesObject) {
   let properties = {
-    Bucket: new ResourceAttribute('Bucket', String, 'Yes', null),
-    StorageClass: new ResourceAttribute('StorageClass', String, 'No', null)
+    Bucket: new ResourceAttribute('Bucket', String, false, 'Yes', null),
+    StorageClass: new ResourceAttribute('StorageClass', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonS3ReplicationConfigurationRulesDestination', properties, propertiesObject)
 }
@@ -3548,7 +3547,7 @@ AmazonS3ReplicationConfigurationRulesDestination.prototype = Object.create(Resou
 */
 function AmazonS3VersioningConfiguration (propertiesObject) {
   let properties = {
-    Status: new ResourceAttribute('Status', String, 'Yes', null)
+    Status: new ResourceAttribute('Status', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonS3VersioningConfiguration', properties, propertiesObject)
 }
@@ -3562,10 +3561,10 @@ AmazonS3VersioningConfiguration.prototype = Object.create(ResourceProperty.proto
 */
 function AmazonS3WebsiteConfigurationProperty (propertiesObject) {
   let properties = {
-    ErrorDocument: new ResourceAttribute('ErrorDocument', String, 'No', null),
-    IndexDocument: new ResourceAttribute('IndexDocument', String, 'No', null),
-    RedirectAllRequestsTo: new ResourceAttribute('RedirectAllRequestsTo', AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty, 'No', null),
-    RoutingRules: new ResourceAttributeArray('RoutingRules', AmazonS3WebsiteConfigurationRoutingRulesProperty, 'No', null)
+    ErrorDocument: new ResourceAttribute('ErrorDocument', String, false, 'No', null),
+    IndexDocument: new ResourceAttribute('IndexDocument', String, false, 'No', null),
+    RedirectAllRequestsTo: new ResourceAttribute('RedirectAllRequestsTo', AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty, false, 'No', null),
+    RoutingRules: new ResourceAttribute('RoutingRules', AmazonS3WebsiteConfigurationRoutingRulesProperty, true, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonS3WebsiteConfigurationProperty', properties, propertiesObject)
 }
@@ -3577,8 +3576,8 @@ AmazonS3WebsiteConfigurationProperty.prototype = Object.create(ResourceProperty.
 */
 function AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty (propertiesObject) {
   let properties = {
-    HostName: new ResourceAttribute('HostName', String, 'Yes', null),
-    Protocol: new ResourceAttribute('Protocol', String, 'No', null)
+    HostName: new ResourceAttribute('HostName', String, false, 'Yes', null),
+    Protocol: new ResourceAttribute('Protocol', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty', properties, propertiesObject)
 }
@@ -3590,8 +3589,8 @@ AmazonS3WebsiteConfigurationRedirectAllRequestsToProperty.prototype = Object.cre
 */
 function AmazonS3WebsiteConfigurationRoutingRulesProperty (propertiesObject) {
   let properties = {
-    RedirectRule: new ResourceAttribute('RedirectRule', AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty, 'Yes', null),
-    RoutingRuleCondition: new ResourceAttribute('RoutingRuleCondition', AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty, 'No', null)
+    RedirectRule: new ResourceAttribute('RedirectRule', AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty, false, 'Yes', null),
+    RoutingRuleCondition: new ResourceAttribute('RoutingRuleCondition', AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonS3WebsiteConfigurationRoutingRulesProperty', properties, propertiesObject)
 }
@@ -3606,11 +3605,11 @@ AmazonS3WebsiteConfigurationRoutingRulesProperty.prototype = Object.create(Resou
 */
 function AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty (propertiesObject) {
   let properties = {
-    HostName: new ResourceAttribute('HostName', String, 'No', null),
-    HttpRedirectCode: new ResourceAttribute('HttpRedirectCode', String, 'No', null),
-    Protocol: new ResourceAttribute('Protocol', String, 'No', null),
-    ReplaceKeyPrefixWith: new ResourceAttribute('ReplaceKeyPrefixWith', String, 'No', null),
-    ReplaceKeyWith: new ResourceAttribute('ReplaceKeyWith', String, 'No', null)
+    HostName: new ResourceAttribute('HostName', String, false, 'No', null),
+    HttpRedirectCode: new ResourceAttribute('HttpRedirectCode', String, false, 'No', null),
+    Protocol: new ResourceAttribute('Protocol', String, false, 'No', null),
+    ReplaceKeyPrefixWith: new ResourceAttribute('ReplaceKeyPrefixWith', String, false, 'No', null),
+    ReplaceKeyWith: new ResourceAttribute('ReplaceKeyWith', String, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty', properties, propertiesObject)
 }
@@ -3622,8 +3621,8 @@ AmazonS3WebsiteConfigurationRoutingRulesRedirectRuleProperty.prototype = Object.
 */
 function AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty (propertiesObject) {
   let properties = {
-    HttpErrorCodeReturnedEquals: new ResourceAttribute('HttpErrorCodeReturnedEquals', String, 'Conditional', null),
-    KeyPrefixEquals: new ResourceAttribute('KeyPrefixEquals', String, 'Conditional', null)
+    HttpErrorCodeReturnedEquals: new ResourceAttribute('HttpErrorCodeReturnedEquals', String, false, 'Conditional', null),
+    KeyPrefixEquals: new ResourceAttribute('KeyPrefixEquals', String, false, 'Conditional', null)
   }
   ResourceProperty.call(this, 'AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty', properties, propertiesObject)
 }
@@ -3635,8 +3634,8 @@ AmazonS3WebsiteConfigurationRoutingRulesRoutingRuleConditionProperty.prototype =
 */
 function AmazonSNSSubscriptionPropertyType (propertiesObject) {
   let properties = {
-    Endpoint: new ResourceAttribute('Endpoint', String, 'Yes', null),
-    Protocol: new ResourceAttribute('Protocol', String, 'Yes', null)
+    Endpoint: new ResourceAttribute('Endpoint', String, false, 'Yes', null),
+    Protocol: new ResourceAttribute('Protocol', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AmazonSNSSubscriptionPropertyType', properties, propertiesObject)
 }
@@ -3648,8 +3647,8 @@ AmazonSNSSubscriptionPropertyType.prototype = Object.create(ResourceProperty.pro
 */
 function AmazonSQSRedrivePolicy (propertiesObject) {
   let properties = {
-    deadLetterTargetArn: new ResourceAttribute('deadLetterTargetArn', String, 'No', null),
-    maxReceiveCount: new ResourceAttribute('maxReceiveCount', Number, 'No', null)
+    deadLetterTargetArn: new ResourceAttribute('deadLetterTargetArn', String, false, 'No', null),
+    maxReceiveCount: new ResourceAttribute('maxReceiveCount', Number, false, 'No', null)
   }
   ResourceProperty.call(this, 'AmazonSQSRedrivePolicy', properties, propertiesObject)
 }
@@ -3664,11 +3663,11 @@ AmazonSQSRedrivePolicy.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSWAFByteMatchSetByteMatchTuples (propertiesObject) {
   let properties = {
-    FieldToMatch: new ResourceAttribute('FieldToMatch', AWSWAFByteMatchSetByteMatchTuplesFieldToMatch, 'Yes', null),
-    PositionalConstraint: new ResourceAttribute('PositionalConstraint', String, 'Yes', null),
-    TargetString: new ResourceAttribute('TargetString', String, 'Conditional', null),
-    TargetStringBase64: new ResourceAttribute('TargetStringBase64', String, 'Conditional', null),
-    TextTransformation: new ResourceAttribute('TextTransformation', String, 'Yes', null)
+    FieldToMatch: new ResourceAttribute('FieldToMatch', AWSWAFByteMatchSetByteMatchTuplesFieldToMatch, false, 'Yes', null),
+    PositionalConstraint: new ResourceAttribute('PositionalConstraint', String, false, 'Yes', null),
+    TargetString: new ResourceAttribute('TargetString', String, false, 'Conditional', null),
+    TargetStringBase64: new ResourceAttribute('TargetStringBase64', String, false, 'Conditional', null),
+    TextTransformation: new ResourceAttribute('TextTransformation', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFByteMatchSetByteMatchTuples', properties, propertiesObject)
 }
@@ -3680,8 +3679,8 @@ AWSWAFByteMatchSetByteMatchTuples.prototype = Object.create(ResourceProperty.pro
 */
 function AWSWAFByteMatchSetByteMatchTuplesFieldToMatch (propertiesObject) {
   let properties = {
-    Data: new ResourceAttribute('Data', String, 'Conditional', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    Data: new ResourceAttribute('Data', String, false, 'Conditional', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFByteMatchSetByteMatchTuplesFieldToMatch', properties, propertiesObject)
 }
@@ -3693,8 +3692,8 @@ AWSWAFByteMatchSetByteMatchTuplesFieldToMatch.prototype = Object.create(Resource
 */
 function AWSWAFIPSetIPSetDescriptors (propertiesObject) {
   let properties = {
-    Type: new ResourceAttribute('Type', String, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, 'Yes', null)
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null),
+    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFIPSetIPSetDescriptors', properties, propertiesObject)
 }
@@ -3707,9 +3706,9 @@ AWSWAFIPSetIPSetDescriptors.prototype = Object.create(ResourceProperty.prototype
 */
 function AWSWAFRulePredicates (propertiesObject) {
   let properties = {
-    DataId: new ResourceAttribute('DataId', String, 'Yes', null),
-    Negated: new ResourceAttribute('Negated', Boolean, 'Yes', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    DataId: new ResourceAttribute('DataId', String, false, 'Yes', null),
+    Negated: new ResourceAttribute('Negated', Boolean, false, 'Yes', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFRulePredicates', properties, propertiesObject)
 }
@@ -3723,10 +3722,10 @@ AWSWAFRulePredicates.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSWAFSizeConstraintSetSizeConstraint (propertiesObject) {
   let properties = {
-    ComparisonOperator: new ResourceAttribute('ComparisonOperator', String, 'Yes', null),
-    FieldToMatch: new ResourceAttribute('FieldToMatch', AWSWAFSizeConstraintSetSizeConstraintFieldToMatch, 'Yes', null),
-    Size: new ResourceAttribute('Size', Number, 'Yes', null),
-    TextTransformation: new ResourceAttribute('TextTransformation', String, 'Yes', null)
+    ComparisonOperator: new ResourceAttribute('ComparisonOperator', String, false, 'Yes', null),
+    FieldToMatch: new ResourceAttribute('FieldToMatch', AWSWAFSizeConstraintSetSizeConstraintFieldToMatch, false, 'Yes', null),
+    Size: new ResourceAttribute('Size', Number, false, 'Yes', null),
+    TextTransformation: new ResourceAttribute('TextTransformation', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFSizeConstraintSetSizeConstraint', properties, propertiesObject)
 }
@@ -3738,8 +3737,8 @@ AWSWAFSizeConstraintSetSizeConstraint.prototype = Object.create(ResourceProperty
 */
 function AWSWAFSizeConstraintSetSizeConstraintFieldToMatch (propertiesObject) {
   let properties = {
-    Data: new ResourceAttribute('Data', String, 'Conditional', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    Data: new ResourceAttribute('Data', String, false, 'Conditional', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFSizeConstraintSetSizeConstraintFieldToMatch', properties, propertiesObject)
 }
@@ -3751,8 +3750,8 @@ AWSWAFSizeConstraintSetSizeConstraintFieldToMatch.prototype = Object.create(Reso
 */
 function AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples (propertiesObject) {
   let properties = {
-    FieldToMatch: new ResourceAttribute('FieldToMatch', AWSWAFByteMatchSetByteMatchTuplesFieldToMatch, 'Yes', null),
-    TextTransformation: new ResourceAttribute('TextTransformation', String, 'Yes', null)
+    FieldToMatch: new ResourceAttribute('FieldToMatch', AWSWAFByteMatchSetByteMatchTuplesFieldToMatch, false, 'Yes', null),
+    TextTransformation: new ResourceAttribute('TextTransformation', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples', properties, propertiesObject)
 }
@@ -3764,8 +3763,8 @@ AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples.prototype = Object.create(Reso
 */
 function AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch (propertiesObject) {
   let properties = {
-    Data: new ResourceAttribute('Data', String, 'Conditional', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    Data: new ResourceAttribute('Data', String, false, 'Conditional', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch', properties, propertiesObject)
 }
@@ -3777,8 +3776,8 @@ AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuplesFieldToMatch.prototype = Object
 */
 function AWSWAFXssMatchSetXssMatchTuple (propertiesObject) {
   let properties = {
-    FieldToMatch: new ResourceAttribute('FieldToMatch', AWSWAFXssMatchSetXssMatchTupleFieldToMatch, 'Yes', null),
-    TextTransformation: new ResourceAttribute('TextTransformation', String, 'Yes', null)
+    FieldToMatch: new ResourceAttribute('FieldToMatch', AWSWAFXssMatchSetXssMatchTupleFieldToMatch, false, 'Yes', null),
+    TextTransformation: new ResourceAttribute('TextTransformation', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFXssMatchSetXssMatchTuple', properties, propertiesObject)
 }
@@ -3790,8 +3789,8 @@ AWSWAFXssMatchSetXssMatchTuple.prototype = Object.create(ResourceProperty.protot
 */
 function AWSWAFXssMatchSetXssMatchTupleFieldToMatch (propertiesObject) {
   let properties = {
-    Data: new ResourceAttribute('Data', String, 'Conditional', null),
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    Data: new ResourceAttribute('Data', String, false, 'Conditional', null),
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFXssMatchSetXssMatchTupleFieldToMatch', properties, propertiesObject)
 }
@@ -3802,7 +3801,7 @@ AWSWAFXssMatchSetXssMatchTupleFieldToMatch.prototype = Object.create(ResourcePro
 */
 function AWSWAFWebACLAction (propertiesObject) {
   let properties = {
-    Type: new ResourceAttribute('Type', String, 'Yes', null)
+    Type: new ResourceAttribute('Type', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFWebACLAction', properties, propertiesObject)
 }
@@ -3815,9 +3814,9 @@ AWSWAFWebACLAction.prototype = Object.create(ResourceProperty.prototype)
 */
 function AWSWAFWebACLRules (propertiesObject) {
   let properties = {
-    Action: new ResourceAttribute('Action', AWSWAFWebACLAction, 'Yes', null),
-    Priority: new ResourceAttribute('Priority', Number, 'Yes', null),
-    RuleId: new ResourceAttribute('RuleId', String, 'Yes', null)
+    Action: new ResourceAttribute('Action', AWSWAFWebACLAction, false, 'Yes', null),
+    Priority: new ResourceAttribute('Priority', Number, false, 'Yes', null),
+    RuleId: new ResourceAttribute('RuleId', String, false, 'Yes', null)
   }
   ResourceProperty.call(this, 'AWSWAFWebACLRules', properties, propertiesObject)
 }

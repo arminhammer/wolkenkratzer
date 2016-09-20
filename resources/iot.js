@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -16,8 +15,8 @@ const types = require('./../types')
 function Certificate (name, propertiesObject) {
     let resourceType = 'AWS::IoT::Certificate'
     let properties = {
-      CertificateSigningRequest: new ResourceAttribute('CertificateSigningRequest', String, 'Yes', null),
-      Status: new ResourceAttribute('Status', String, 'Yes', null)
+      CertificateSigningRequest: new ResourceAttribute('CertificateSigningRequest', String, false, 'Yes', null),
+      Status: new ResourceAttribute('Status', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -31,8 +30,8 @@ Certificate.prototype = Object.create(WKResource.prototype)
 function Policy (name, propertiesObject) {
     let resourceType = 'AWS::IoT::Policy'
     let properties = {
-      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, 'Yes', null),
-      PolicyName: new ResourceAttribute('PolicyName', String, 'No', null)
+      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, false, 'Yes', null),
+      PolicyName: new ResourceAttribute('PolicyName', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -47,8 +46,8 @@ Policy.prototype = Object.create(WKResource.prototype)
 function PolicyPrincipalAttachment (name, propertiesObject) {
     let resourceType = 'AWS::IoT::PolicyPrincipalAttachment'
     let properties = {
-      PolicyName: new ResourceAttribute('PolicyName', String, 'Yes', null),
-      Principal: new ResourceAttribute('Principal', String, 'Yes', null)
+      PolicyName: new ResourceAttribute('PolicyName', String, false, 'Yes', null),
+      Principal: new ResourceAttribute('Principal', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -63,8 +62,8 @@ PolicyPrincipalAttachment.prototype = Object.create(WKResource.prototype)
 function Thing (name, propertiesObject) {
     let resourceType = 'AWS::IoT::Thing'
     let properties = {
-      AttributePayload: new ResourceAttribute('AttributePayload', Map, 'No', null),
-      ThingName: new ResourceAttribute('ThingName', String, 'No', null)
+      AttributePayload: new ResourceAttribute('AttributePayload', Map, false, 'No', null),
+      ThingName: new ResourceAttribute('ThingName', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -79,8 +78,8 @@ Thing.prototype = Object.create(WKResource.prototype)
 function ThingPrincipalAttachment (name, propertiesObject) {
     let resourceType = 'AWS::IoT::ThingPrincipalAttachment'
     let properties = {
-      Principal: new ResourceAttribute('Principal', String, 'Yes', null),
-      ThingName: new ResourceAttribute('ThingName', String, 'Yes', null)
+      Principal: new ResourceAttribute('Principal', String, false, 'Yes', null),
+      ThingName: new ResourceAttribute('ThingName', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -94,8 +93,8 @@ ThingPrincipalAttachment.prototype = Object.create(WKResource.prototype)
 function TopicRule (name, propertiesObject) {
     let resourceType = 'AWS::IoT::TopicRule'
     let properties = {
-      RuleName: new ResourceAttribute('RuleName', String, 'No', null),
-      TopicRulePayload: new ResourceAttribute('TopicRulePayload', types.AWSIoTTopicRulePayload, 'Yes', null)
+      RuleName: new ResourceAttribute('RuleName', String, false, 'No', null),
+      TopicRulePayload: new ResourceAttribute('TopicRulePayload', types.AWSIoTTopicRulePayload, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

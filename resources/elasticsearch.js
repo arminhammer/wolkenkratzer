@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -31,12 +30,12 @@ You can still do updates that require no or some interruption. If you must repla
 function Domain (name, propertiesObject) {
     let resourceType = 'AWS::Elasticsearch::Domain'
     let properties = {
-      AccessPolicies: new ResourceAttribute('AccessPolicies', Object, 'No', null),
-      AdvancedOptions: new ResourceAttribute('AdvancedOptions', Object, 'No', null),
-      DomainName: new ResourceAttribute('DomainName', String, 'No', null),
-      EBSOptions: new ResourceAttribute('EBSOptions', types.AmazonElasticsearchServiceDomainEBSOptions, 'No', null),
-      ElasticsearchClusterConfig: new ResourceAttribute('ElasticsearchClusterConfig', types.AmazonElasticsearchServiceDomainElasticsearchClusterConfig, 'No', null),
-      SnapshotOptions: new ResourceAttribute('SnapshotOptions', types.AmazonElasticsearchServiceDomainSnapshotOptions, 'No', null),
+      AccessPolicies: new ResourceAttribute('AccessPolicies', Object, false, 'No', null),
+      AdvancedOptions: new ResourceAttribute('AdvancedOptions', Object, false, 'No', null),
+      DomainName: new ResourceAttribute('DomainName', String, false, 'No', null),
+      EBSOptions: new ResourceAttribute('EBSOptions', types.AmazonElasticsearchServiceDomainEBSOptions, false, 'No', null),
+      ElasticsearchClusterConfig: new ResourceAttribute('ElasticsearchClusterConfig', types.AmazonElasticsearchServiceDomainElasticsearchClusterConfig, false, 'No', null),
+      SnapshotOptions: new ResourceAttribute('SnapshotOptions', types.AmazonElasticsearchServiceDomainSnapshotOptions, false, 'No', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)

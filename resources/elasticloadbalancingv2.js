@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -20,12 +19,12 @@ const types = require('./../types')
 function Listener (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancingV2::Listener'
     let properties = {
-      Certificates: new ResourceAttributeArray('Certificates', types.ElasticLoadBalancingListenerCertificates, 'Conditional', null),
-      DefaultActions: new ResourceAttributeArray('DefaultActions', types.ElasticLoadBalancingListenerDefaultActions, 'Yes', null),
-      LoadBalancerArn: new ResourceAttribute('LoadBalancerArn', String, 'Yes', null),
-      Port: new ResourceAttribute('Port', Number, 'Yes', null),
-      Protocol: new ResourceAttribute('Protocol', String, 'Yes', null),
-      SslPolicy: new ResourceAttribute('SslPolicy', String, 'No', null)
+      Certificates: new ResourceAttribute('Certificates', types.ElasticLoadBalancingListenerCertificates, true, 'Conditional', null),
+      DefaultActions: new ResourceAttribute('DefaultActions', types.ElasticLoadBalancingListenerDefaultActions, true, 'Yes', null),
+      LoadBalancerArn: new ResourceAttribute('LoadBalancerArn', String, false, 'Yes', null),
+      Port: new ResourceAttribute('Port', Number, false, 'Yes', null),
+      Protocol: new ResourceAttribute('Protocol', String, false, 'Yes', null),
+      SslPolicy: new ResourceAttribute('SslPolicy', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -41,10 +40,10 @@ Listener.prototype = Object.create(WKResource.prototype)
 function ListenerRule (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancingV2::ListenerRule'
     let properties = {
-      Actions: new ResourceAttributeArray('Actions', types.ElasticLoadBalancingListenerRuleActions, 'Yes', null),
-      Conditions: new ResourceAttributeArray('Conditions', types.ElasticLoadBalancingListenerRuleConditions, 'Yes', null),
-      ListenerArn: new ResourceAttribute('ListenerArn', String, 'Yes', null),
-      Priority: new ResourceAttribute('Priority', Number, 'Yes', null)
+      Actions: new ResourceAttribute('Actions', types.ElasticLoadBalancingListenerRuleActions, true, 'Yes', null),
+      Conditions: new ResourceAttribute('Conditions', types.ElasticLoadBalancingListenerRuleConditions, true, 'Yes', null),
+      ListenerArn: new ResourceAttribute('ListenerArn', String, false, 'Yes', null),
+      Priority: new ResourceAttribute('Priority', Number, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -62,11 +61,11 @@ ListenerRule.prototype = Object.create(WKResource.prototype)
 function LoadBalancer (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancingV2::LoadBalancer'
     let properties = {
-      LoadBalancerAttributes: new ResourceAttributeArray('LoadBalancerAttributes', types.ElasticLoadBalancingLoadBalancerLoadBalancerAttributes, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'No', null),
-      Scheme: new ResourceAttribute('Scheme', String, 'No', null),
-      SecurityGroups: new ResourceAttributeArray('SecurityGroups', String, 'No', null),
-      Subnets: new ResourceAttributeArray('Subnets', String, 'Yes', null),
+      LoadBalancerAttributes: new ResourceAttribute('LoadBalancerAttributes', types.ElasticLoadBalancingLoadBalancerLoadBalancerAttributes, true, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'No', null),
+      Scheme: new ResourceAttribute('Scheme', String, false, 'No', null),
+      SecurityGroups: new ResourceAttribute('SecurityGroups', String, true, 'No', null),
+      Subnets: new ResourceAttribute('Subnets', String, true, 'Yes', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
@@ -94,21 +93,21 @@ LoadBalancer.prototype = Object.create(WKResource.prototype)
 function TargetGroup (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancingV2::TargetGroup'
     let properties = {
-      HealthCheckIntervalSeconds: new ResourceAttribute('HealthCheckIntervalSeconds', Number, 'No', null),
-      HealthCheckPath: new ResourceAttribute('HealthCheckPath', String, 'No', null),
-      HealthCheckPort: new ResourceAttribute('HealthCheckPort', String, 'No', null),
-      HealthCheckProtocol: new ResourceAttribute('HealthCheckProtocol', String, 'No', null),
-      HealthCheckTimeoutSeconds: new ResourceAttribute('HealthCheckTimeoutSeconds', Number, 'No', null),
-      HealthyThresholdCount: new ResourceAttribute('HealthyThresholdCount', Number, 'No', null),
-      Matcher: new ResourceAttribute('Matcher', types.ElasticLoadBalancingTargetGroupMatcher, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'No', null),
-      Port: new ResourceAttribute('Port', Number, 'Yes', null),
-      Protocol: new ResourceAttribute('Protocol', String, 'Yes', null),
+      HealthCheckIntervalSeconds: new ResourceAttribute('HealthCheckIntervalSeconds', Number, false, 'No', null),
+      HealthCheckPath: new ResourceAttribute('HealthCheckPath', String, false, 'No', null),
+      HealthCheckPort: new ResourceAttribute('HealthCheckPort', String, false, 'No', null),
+      HealthCheckProtocol: new ResourceAttribute('HealthCheckProtocol', String, false, 'No', null),
+      HealthCheckTimeoutSeconds: new ResourceAttribute('HealthCheckTimeoutSeconds', Number, false, 'No', null),
+      HealthyThresholdCount: new ResourceAttribute('HealthyThresholdCount', Number, false, 'No', null),
+      Matcher: new ResourceAttribute('Matcher', types.ElasticLoadBalancingTargetGroupMatcher, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'No', null),
+      Port: new ResourceAttribute('Port', Number, false, 'Yes', null),
+      Protocol: new ResourceAttribute('Protocol', String, false, 'Yes', null),
       Tags: new tag.TagSet(),
-      TargetGroupAttributes: new ResourceAttributeArray('TargetGroupAttributes', types.ElasticLoadBalancingTargetGroupTargetGroupAttributes, 'No', null),
-      Targets: new ResourceAttributeArray('Targets', types.ElasticLoadBalancingTargetGroupTargetDescription, 'No', null),
-      UnhealthyThresholdCount: new ResourceAttribute('UnhealthyThresholdCount', Number, 'No', null),
-      VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
+      TargetGroupAttributes: new ResourceAttribute('TargetGroupAttributes', types.ElasticLoadBalancingTargetGroupTargetGroupAttributes, true, 'No', null),
+      Targets: new ResourceAttribute('Targets', types.ElasticLoadBalancingTargetGroupTargetDescription, true, 'No', null),
+      UnhealthyThresholdCount: new ResourceAttribute('UnhealthyThresholdCount', Number, false, 'No', null),
+      VpcId: new ResourceAttribute('VpcId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

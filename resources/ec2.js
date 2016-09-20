@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -19,10 +18,10 @@ const types = require('./../types')
 function CustomerGateway (name, propertiesObject) {
     let resourceType = 'AWS::EC2::CustomerGateway'
     let properties = {
-      BgpAsn: new ResourceAttribute('BgpAsn', Number, 'Yes', null),
-      IpAddress: new ResourceAttribute('IpAddress', String, 'Yes', null),
+      BgpAsn: new ResourceAttribute('BgpAsn', Number, false, 'Yes', null),
+      IpAddress: new ResourceAttribute('IpAddress', String, false, 'Yes', null),
       Tags: new tag.TagSet(),
-      Type: new ResourceAttribute('Type', String, 'Yes', null)
+      Type: new ResourceAttribute('Type', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -45,11 +44,11 @@ CustomerGateway.prototype = Object.create(WKResource.prototype)
 function DHCPOptions (name, propertiesObject) {
     let resourceType = 'AWS::EC2::DHCPOptions'
     let properties = {
-      DomainName: new ResourceAttribute('DomainName', String, 'Conditional', null),
-      DomainNameServers: new ResourceAttributeArray('DomainNameServers', String, 'Conditional', null),
-      NetbiosNameServers: new ResourceAttributeArray('NetbiosNameServers', String, 'Conditional', null),
-      NetbiosNodeType: new ResourceAttributeArray('NetbiosNodeType', Number, 'Conditional', null),
-      NtpServers: new ResourceAttributeArray('NtpServers', String, 'Conditional', null),
+      DomainName: new ResourceAttribute('DomainName', String, false, 'Conditional', null),
+      DomainNameServers: new ResourceAttribute('DomainNameServers', String, true, 'Conditional', null),
+      NetbiosNameServers: new ResourceAttribute('NetbiosNameServers', String, true, 'Conditional', null),
+      NetbiosNodeType: new ResourceAttribute('NetbiosNodeType', Number, true, 'Conditional', null),
+      NtpServers: new ResourceAttribute('NtpServers', String, true, 'Conditional', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
@@ -71,8 +70,8 @@ DHCPOptions.prototype = Object.create(WKResource.prototype)
 function EIP (name, propertiesObject) {
     let resourceType = 'AWS::EC2::EIP'
     let properties = {
-      InstanceId: new ResourceAttribute('InstanceId', String, 'No', null),
-      Domain: new ResourceAttribute('Domain', String, 'Conditional', null)
+      InstanceId: new ResourceAttribute('InstanceId', String, false, 'No', null),
+      Domain: new ResourceAttribute('Domain', String, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -102,11 +101,11 @@ EIP.prototype = Object.create(WKResource.prototype)
 function EIPAssociation (name, propertiesObject) {
     let resourceType = 'AWS::EC2::EIPAssociation'
     let properties = {
-      AllocationId: new ResourceAttribute('AllocationId', String, 'Conditional', null),
-      EIP: new ResourceAttribute('EIP', String, 'Conditional', null),
-      InstanceId: new ResourceAttribute('InstanceId', String, 'No', null),
-      NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, 'No', null),
-      PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, 'No', null)
+      AllocationId: new ResourceAttribute('AllocationId', String, false, 'Conditional', null),
+      EIP: new ResourceAttribute('EIP', String, false, 'Conditional', null),
+      InstanceId: new ResourceAttribute('InstanceId', String, false, 'No', null),
+      NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, false, 'No', null),
+      PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -123,11 +122,11 @@ EIPAssociation.prototype = Object.create(WKResource.prototype)
 function FlowLog (name, propertiesObject) {
     let resourceType = 'AWS::EC2::FlowLog'
     let properties = {
-      DeliverLogsPermissionArn: new ResourceAttribute('DeliverLogsPermissionArn', String, 'Yes', null),
-      LogGroupName: new ResourceAttribute('LogGroupName', String, 'Yes', null),
-      ResourceId: new ResourceAttribute('ResourceId', String, 'Yes', null),
-      ResourceType: new ResourceAttribute('ResourceType', String, 'Yes', null),
-      TrafficType: new ResourceAttribute('TrafficType', String, 'Yes', null)
+      DeliverLogsPermissionArn: new ResourceAttribute('DeliverLogsPermissionArn', String, false, 'Yes', null),
+      LogGroupName: new ResourceAttribute('LogGroupName', String, false, 'Yes', null),
+      ResourceId: new ResourceAttribute('ResourceId', String, false, 'Yes', null),
+      ResourceType: new ResourceAttribute('ResourceType', String, false, 'Yes', null),
+      TrafficType: new ResourceAttribute('TrafficType', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -147,9 +146,9 @@ FlowLog.prototype = Object.create(WKResource.prototype)
 function Host (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Host'
     let properties = {
-      AutoPlacement: new ResourceAttribute('AutoPlacement', String, 'No', null),
-      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'Yes', null),
-      InstanceType: new ResourceAttribute('InstanceType', String, 'Yes', null)
+      AutoPlacement: new ResourceAttribute('AutoPlacement', String, false, 'No', null),
+      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, false, 'Yes', null),
+      InstanceType: new ResourceAttribute('InstanceType', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -249,33 +248,33 @@ see DependsOn Attribute.Update requires: Replacement
 function Instance (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Instance'
     let properties = {
-      Affinity: new ResourceAttribute('Affinity', String, 'No', null),
-      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'Conditional', null),
-      BlockDeviceMappings: new ResourceAttributeArray('BlockDeviceMappings', types.AmazonEC2BlockDeviceMappingProperty, 'No', null),
-      DisableApiTermination: new ResourceAttribute('DisableApiTermination', Boolean, 'No', null),
-      EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, 'Conditional', null),
-      HostId: new ResourceAttribute('HostId', String, 'No', null),
-      IamInstanceProfile: new ResourceAttribute('IamInstanceProfile', String, 'No', null),
-      ImageId: new ResourceAttribute('ImageId', String, 'Yes', null),
-      InstanceInitiatedShutdownBehavior: new ResourceAttribute('InstanceInitiatedShutdownBehavior', String, 'No', null),
-      InstanceType: new ResourceAttribute('InstanceType', String, 'No', null),
-      KernelId: new ResourceAttribute('KernelId', String, 'No', null),
-      KeyName: new ResourceAttribute('KeyName', String, 'No', null),
-      Monitoring: new ResourceAttribute('Monitoring', Boolean, 'No', null),
-      NetworkInterfaces: new ResourceAttributeArray('NetworkInterfaces', types.EC2NetworkInterfaceEmbeddedPropertyType, 'No', null),
-      PlacementGroupName: new ResourceAttribute('PlacementGroupName', String, 'No', null),
-      PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, 'No', null),
-      RamdiskId: new ResourceAttribute('RamdiskId', String, 'No', null),
-      SecurityGroupIds: new ResourceAttributeArray('SecurityGroupIds', String, 'Conditional', null),
-      SecurityGroups: new ResourceAttributeArray('SecurityGroups', String, 'No', null),
-      SourceDestCheck: new ResourceAttribute('SourceDestCheck', Boolean, 'No', null),
-      SsmAssociations: new ResourceAttributeArray('SsmAssociations', types.AmazonEC2InstanceSsmAssociations, 'No', null),
-      SubnetId: new ResourceAttribute('SubnetId', String, 'No', null),
+      Affinity: new ResourceAttribute('Affinity', String, false, 'No', null),
+      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, false, 'Conditional', null),
+      BlockDeviceMappings: new ResourceAttribute('BlockDeviceMappings', types.AmazonEC2BlockDeviceMappingProperty, true, 'No', null),
+      DisableApiTermination: new ResourceAttribute('DisableApiTermination', Boolean, false, 'No', null),
+      EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, false, 'Conditional', null),
+      HostId: new ResourceAttribute('HostId', String, false, 'No', null),
+      IamInstanceProfile: new ResourceAttribute('IamInstanceProfile', String, false, 'No', null),
+      ImageId: new ResourceAttribute('ImageId', String, false, 'Yes', null),
+      InstanceInitiatedShutdownBehavior: new ResourceAttribute('InstanceInitiatedShutdownBehavior', String, false, 'No', null),
+      InstanceType: new ResourceAttribute('InstanceType', String, false, 'No', null),
+      KernelId: new ResourceAttribute('KernelId', String, false, 'No', null),
+      KeyName: new ResourceAttribute('KeyName', String, false, 'No', null),
+      Monitoring: new ResourceAttribute('Monitoring', Boolean, false, 'No', null),
+      NetworkInterfaces: new ResourceAttribute('NetworkInterfaces', types.EC2NetworkInterfaceEmbeddedPropertyType, true, 'No', null),
+      PlacementGroupName: new ResourceAttribute('PlacementGroupName', String, false, 'No', null),
+      PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, false, 'No', null),
+      RamdiskId: new ResourceAttribute('RamdiskId', String, false, 'No', null),
+      SecurityGroupIds: new ResourceAttribute('SecurityGroupIds', String, true, 'Conditional', null),
+      SecurityGroups: new ResourceAttribute('SecurityGroups', String, true, 'No', null),
+      SourceDestCheck: new ResourceAttribute('SourceDestCheck', Boolean, false, 'No', null),
+      SsmAssociations: new ResourceAttribute('SsmAssociations', types.AmazonEC2InstanceSsmAssociations, true, 'No', null),
+      SubnetId: new ResourceAttribute('SubnetId', String, false, 'No', null),
       Tags: new tag.TagSet(),
-      Tenancy: new ResourceAttribute('Tenancy', String, 'No', null),
-      UserData: new ResourceAttribute('UserData', String, 'No', null),
-      Volumes: new ResourceAttributeArray('Volumes', types.EC2MountPointPropertyType, 'No', null),
-      AdditionalInfo: new ResourceAttribute('AdditionalInfo', String, 'No', null)
+      Tenancy: new ResourceAttribute('Tenancy', String, false, 'No', null),
+      UserData: new ResourceAttribute('UserData', String, false, 'No', null),
+      Volumes: new ResourceAttribute('Volumes', types.EC2MountPointPropertyType, true, 'No', null),
+      AdditionalInfo: new ResourceAttribute('AdditionalInfo', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -304,8 +303,8 @@ InternetGateway.prototype = Object.create(WKResource.prototype)
 function NatGateway (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NatGateway'
     let properties = {
-      AllocationId: new ResourceAttribute('AllocationId', String, 'Yes', null),
-      SubnetId: new ResourceAttribute('SubnetId', String, 'Yes', null)
+      AllocationId: new ResourceAttribute('AllocationId', String, false, 'Yes', null),
+      SubnetId: new ResourceAttribute('SubnetId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -320,7 +319,7 @@ function NetworkAcl (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkAcl'
     let properties = {
       Tags: new tag.TagSet(),
-      VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
+      VpcId: new ResourceAttribute('VpcId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -346,14 +345,14 @@ NetworkAcl.prototype = Object.create(WKResource.prototype)
 function NetworkAclEntry (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkAclEntry'
     let properties = {
-      CidrBlock: new ResourceAttribute('CidrBlock', String, 'Yes', null),
-      Egress: new ResourceAttribute('Egress', Boolean, 'No', null),
-      Icmp: new ResourceAttribute('Icmp', types.EC2ICMPPropertyType, 'Conditional', null),
-      NetworkAclId: new ResourceAttribute('NetworkAclId', String, 'Yes', null),
-      PortRange: new ResourceAttribute('PortRange', types.EC2PortRangePropertyType, 'Conditional', null),
-      Protocol: new ResourceAttribute('Protocol', Number, 'Yes', null),
-      RuleAction: new ResourceAttribute('RuleAction', String, 'Yes', null),
-      RuleNumber: new ResourceAttribute('RuleNumber', Number, 'Yes', null)
+      CidrBlock: new ResourceAttribute('CidrBlock', String, false, 'Yes', null),
+      Egress: new ResourceAttribute('Egress', Boolean, false, 'No', null),
+      Icmp: new ResourceAttribute('Icmp', types.EC2ICMPPropertyType, false, 'Conditional', null),
+      NetworkAclId: new ResourceAttribute('NetworkAclId', String, false, 'Yes', null),
+      PortRange: new ResourceAttribute('PortRange', types.EC2PortRangePropertyType, false, 'Conditional', null),
+      Protocol: new ResourceAttribute('Protocol', Number, false, 'Yes', null),
+      RuleAction: new ResourceAttribute('RuleAction', String, false, 'Yes', null),
+      RuleNumber: new ResourceAttribute('RuleNumber', Number, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -393,13 +392,13 @@ NetworkAclEntry.prototype = Object.create(WKResource.prototype)
 function NetworkInterface (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkInterface'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      GroupSet: new ResourceAttributeArray('GroupSet', String, 'No', null),
-      PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, 'No', null),
-      PrivateIpAddresses: new ResourceAttributeArray('PrivateIpAddresses', types.EC2NetworkInterfacePrivateIPSpecification, 'No', null),
-      SecondaryPrivateIpAddressCount: new ResourceAttribute('SecondaryPrivateIpAddressCount', Number, 'No', null),
-      SourceDestCheck: new ResourceAttribute('SourceDestCheck', Boolean, 'No', null),
-      SubnetId: new ResourceAttribute('SubnetId', String, 'Yes', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      GroupSet: new ResourceAttribute('GroupSet', String, true, 'No', null),
+      PrivateIpAddress: new ResourceAttribute('PrivateIpAddress', String, false, 'No', null),
+      PrivateIpAddresses: new ResourceAttribute('PrivateIpAddresses', types.EC2NetworkInterfacePrivateIPSpecification, true, 'No', null),
+      SecondaryPrivateIpAddressCount: new ResourceAttribute('SecondaryPrivateIpAddressCount', Number, false, 'No', null),
+      SourceDestCheck: new ResourceAttribute('SourceDestCheck', Boolean, false, 'No', null),
+      SubnetId: new ResourceAttribute('SubnetId', String, false, 'Yes', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
@@ -419,10 +418,10 @@ NetworkInterface.prototype = Object.create(WKResource.prototype)
 function NetworkInterfaceAttachment (name, propertiesObject) {
     let resourceType = 'AWS::EC2::NetworkInterfaceAttachment'
     let properties = {
-      DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, 'No', null),
-      DeviceIndex: new ResourceAttribute('DeviceIndex', String, 'Conditional', null),
-      InstanceId: new ResourceAttribute('InstanceId', String, 'Conditional', null),
-      NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, 'Conditional', null)
+      DeleteOnTermination: new ResourceAttribute('DeleteOnTermination', Boolean, false, 'No', null),
+      DeviceIndex: new ResourceAttribute('DeviceIndex', String, false, 'Conditional', null),
+      InstanceId: new ResourceAttribute('InstanceId', String, false, 'Conditional', null),
+      NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -439,7 +438,7 @@ NetworkInterfaceAttachment.prototype = Object.create(WKResource.prototype)
 function PlacementGroup (name, propertiesObject) {
     let resourceType = 'AWS::EC2::PlacementGroup'
     let properties = {
-      Strategy: new ResourceAttribute('Strategy', String, 'No', null)
+      Strategy: new ResourceAttribute('Strategy', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -465,13 +464,13 @@ PlacementGroup.prototype = Object.create(WKResource.prototype)
 function Route (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Route'
     let properties = {
-      DestinationCidrBlock: new ResourceAttribute('DestinationCidrBlock', String, 'Yes', null),
-      GatewayId: new ResourceAttribute('GatewayId', String, 'Conditional', null),
-      InstanceId: new ResourceAttribute('InstanceId', String, 'Conditional', null),
-      NatGatewayId: new ResourceAttribute('NatGatewayId', String, 'Conditional', null),
-      NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, 'Conditional', null),
-      RouteTableId: new ResourceAttribute('RouteTableId', String, 'Yes', null),
-      VpcPeeringConnectionId: new ResourceAttribute('VpcPeeringConnectionId', String, 'Conditional', null)
+      DestinationCidrBlock: new ResourceAttribute('DestinationCidrBlock', String, false, 'Yes', null),
+      GatewayId: new ResourceAttribute('GatewayId', String, false, 'Conditional', null),
+      InstanceId: new ResourceAttribute('InstanceId', String, false, 'Conditional', null),
+      NatGatewayId: new ResourceAttribute('NatGatewayId', String, false, 'Conditional', null),
+      NetworkInterfaceId: new ResourceAttribute('NetworkInterfaceId', String, false, 'Conditional', null),
+      RouteTableId: new ResourceAttribute('RouteTableId', String, false, 'Yes', null),
+      VpcPeeringConnectionId: new ResourceAttribute('VpcPeeringConnectionId', String, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -485,7 +484,7 @@ Route.prototype = Object.create(WKResource.prototype)
 function RouteTable (name, propertiesObject) {
     let resourceType = 'AWS::EC2::RouteTable'
     let properties = {
-      VpcId: new ResourceAttribute('VpcId', String, 'Yes', null),
+      VpcId: new ResourceAttribute('VpcId', String, false, 'Yes', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
@@ -503,11 +502,11 @@ RouteTable.prototype = Object.create(WKResource.prototype)
 function SecurityGroup (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroup'
     let properties = {
-      GroupDescription: new ResourceAttribute('GroupDescription', String, 'Yes', null),
-      SecurityGroupEgress: new ResourceAttributeArray('SecurityGroupEgress', types.EC2SecurityGroupRulePropertyType, 'No', null),
-      SecurityGroupIngress: new ResourceAttributeArray('SecurityGroupIngress', types.EC2SecurityGroupRulePropertyType, 'No', null),
+      GroupDescription: new ResourceAttribute('GroupDescription', String, false, 'Yes', null),
+      SecurityGroupEgress: new ResourceAttribute('SecurityGroupEgress', types.EC2SecurityGroupRulePropertyType, true, 'No', null),
+      SecurityGroupIngress: new ResourceAttribute('SecurityGroupIngress', types.EC2SecurityGroupRulePropertyType, true, 'No', null),
       Tags: new tag.TagSet(),
-      VpcId: new ResourceAttribute('VpcId', String, 'Conditional', null)
+      VpcId: new ResourceAttribute('VpcId', String, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -530,12 +529,12 @@ SecurityGroup.prototype = Object.create(WKResource.prototype)
 function SecurityGroupEgress (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroupEgress'
     let properties = {
-      CidrIp: new ResourceAttribute('CidrIp', String, 'Conditional', null),
-      DestinationSecurityGroupId: new ResourceAttribute('DestinationSecurityGroupId', String, 'Conditional', null),
-      FromPort: new ResourceAttribute('FromPort', Number, 'Yes', null),
-      GroupId: new ResourceAttribute('GroupId', String, 'Yes', null),
-      IpProtocol: new ResourceAttribute('IpProtocol', String, 'Yes', null),
-      ToPort: new ResourceAttribute('ToPort', Number, 'Yes', null)
+      CidrIp: new ResourceAttribute('CidrIp', String, false, 'Conditional', null),
+      DestinationSecurityGroupId: new ResourceAttribute('DestinationSecurityGroupId', String, false, 'Conditional', null),
+      FromPort: new ResourceAttribute('FromPort', Number, false, 'Yes', null),
+      GroupId: new ResourceAttribute('GroupId', String, false, 'Yes', null),
+      IpProtocol: new ResourceAttribute('IpProtocol', String, false, 'Yes', null),
+      ToPort: new ResourceAttribute('ToPort', Number, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -571,15 +570,15 @@ SecurityGroupEgress.prototype = Object.create(WKResource.prototype)
 function SecurityGroupIngress (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SecurityGroupIngress'
     let properties = {
-      CidrIp: new ResourceAttribute('CidrIp', String, 'Conditional', null),
-      FromPort: new ResourceAttribute('FromPort', Number, 'Conditional', null),
-      GroupId: new ResourceAttribute('GroupId', String, 'Conditional', null),
-      GroupName: new ResourceAttribute('GroupName', String, 'Conditional', null),
-      IpProtocol: new ResourceAttribute('IpProtocol', String, 'Yes', null),
-      SourceSecurityGroupId: new ResourceAttribute('SourceSecurityGroupId', String, 'Conditional', null),
-      SourceSecurityGroupName: new ResourceAttribute('SourceSecurityGroupName', String, 'Conditional', null),
-      SourceSecurityGroupOwnerId: new ResourceAttribute('SourceSecurityGroupOwnerId', String, 'Conditional', null),
-      ToPort: new ResourceAttribute('ToPort', Number, 'Conditional', null)
+      CidrIp: new ResourceAttribute('CidrIp', String, false, 'Conditional', null),
+      FromPort: new ResourceAttribute('FromPort', Number, false, 'Conditional', null),
+      GroupId: new ResourceAttribute('GroupId', String, false, 'Conditional', null),
+      GroupName: new ResourceAttribute('GroupName', String, false, 'Conditional', null),
+      IpProtocol: new ResourceAttribute('IpProtocol', String, false, 'Yes', null),
+      SourceSecurityGroupId: new ResourceAttribute('SourceSecurityGroupId', String, false, 'Conditional', null),
+      SourceSecurityGroupName: new ResourceAttribute('SourceSecurityGroupName', String, false, 'Conditional', null),
+      SourceSecurityGroupOwnerId: new ResourceAttribute('SourceSecurityGroupOwnerId', String, false, 'Conditional', null),
+      ToPort: new ResourceAttribute('ToPort', Number, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -592,7 +591,7 @@ SecurityGroupIngress.prototype = Object.create(WKResource.prototype)
 function SpotFleet (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SpotFleet'
     let properties = {
-      SpotFleetRequestConfigData: new ResourceAttribute('SpotFleetRequestConfigData', types.AmazonEC2SpotFleetSpotFleetRequestConfigData, 'Yes', null)
+      SpotFleetRequestConfigData: new ResourceAttribute('SpotFleetRequestConfigData', types.AmazonEC2SpotFleetSpotFleetRequestConfigData, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -626,11 +625,11 @@ SpotFleet.prototype = Object.create(WKResource.prototype)
 function Subnet (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Subnet'
     let properties = {
-      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'No', null),
-      CidrBlock: new ResourceAttribute('CidrBlock', String, 'Yes', null),
-      MapPublicIpOnLaunch: new ResourceAttribute('MapPublicIpOnLaunch', Boolean, 'No', null),
+      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, false, 'No', null),
+      CidrBlock: new ResourceAttribute('CidrBlock', String, false, 'Yes', null),
+      MapPublicIpOnLaunch: new ResourceAttribute('MapPublicIpOnLaunch', Boolean, false, 'No', null),
       Tags: new tag.TagSet(),
-      VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
+      VpcId: new ResourceAttribute('VpcId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -644,8 +643,8 @@ Subnet.prototype = Object.create(WKResource.prototype)
 function SubnetNetworkAclAssociation (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SubnetNetworkAclAssociation'
     let properties = {
-      SubnetId: new ResourceAttribute('SubnetId', String, 'Yes', null),
-      NetworkAclId: new ResourceAttribute('NetworkAclId', String, 'Yes', null)
+      SubnetId: new ResourceAttribute('SubnetId', String, false, 'Yes', null),
+      NetworkAclId: new ResourceAttribute('NetworkAclId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -661,8 +660,8 @@ SubnetNetworkAclAssociation.prototype = Object.create(WKResource.prototype)
 function SubnetRouteTableAssociation (name, propertiesObject) {
     let resourceType = 'AWS::EC2::SubnetRouteTableAssociation'
     let properties = {
-      RouteTableId: new ResourceAttribute('RouteTableId', String, 'Yes', null),
-      SubnetId: new ResourceAttribute('SubnetId', String, 'Yes', null)
+      RouteTableId: new ResourceAttribute('RouteTableId', String, false, 'Yes', null),
+      SubnetId: new ResourceAttribute('SubnetId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -701,15 +700,15 @@ SubnetRouteTableAssociation.prototype = Object.create(WKResource.prototype)
 function Volume (name, propertiesObject) {
     let resourceType = 'AWS::EC2::Volume'
     let properties = {
-      AutoEnableIO: new ResourceAttribute('AutoEnableIO', Boolean, 'No', null),
-      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'Yes', null),
-      Encrypted: new ResourceAttribute('Encrypted', Boolean, 'Conditional', null),
-      Iops: new ResourceAttribute('Iops', Number, 'Conditional', null),
-      KmsKeyId: new ResourceAttribute('KmsKeyId', String, 'No', null),
-      Size: new ResourceAttribute('Size', String, 'Conditional', null),
-      SnapshotId: new ResourceAttribute('SnapshotId', String, 'No', null),
+      AutoEnableIO: new ResourceAttribute('AutoEnableIO', Boolean, false, 'No', null),
+      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, false, 'Yes', null),
+      Encrypted: new ResourceAttribute('Encrypted', Boolean, false, 'Conditional', null),
+      Iops: new ResourceAttribute('Iops', Number, false, 'Conditional', null),
+      KmsKeyId: new ResourceAttribute('KmsKeyId', String, false, 'No', null),
+      Size: new ResourceAttribute('Size', String, false, 'Conditional', null),
+      SnapshotId: new ResourceAttribute('SnapshotId', String, false, 'No', null),
       Tags: new tag.TagSet(),
-      VolumeType: new ResourceAttribute('VolumeType', String, 'No', null)
+      VolumeType: new ResourceAttribute('VolumeType', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -728,9 +727,9 @@ Volume.prototype = Object.create(WKResource.prototype)
 function VolumeAttachment (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VolumeAttachment'
     let properties = {
-      Device: new ResourceAttribute('Device', String, 'Yes', null),
-      InstanceId: new ResourceAttribute('InstanceId', String, 'Yes', null),
-      VolumeId: new ResourceAttribute('VolumeId', String, 'Yes', null)
+      Device: new ResourceAttribute('Device', String, false, 'Yes', null),
+      InstanceId: new ResourceAttribute('InstanceId', String, false, 'Yes', null),
+      VolumeId: new ResourceAttribute('VolumeId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -757,10 +756,10 @@ VolumeAttachment.prototype = Object.create(WKResource.prototype)
 function VPC (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPC'
     let properties = {
-      CidrBlock: new ResourceAttribute('CidrBlock', String, 'Yes', null),
-      EnableDnsSupport: new ResourceAttribute('EnableDnsSupport', Boolean, 'No', null),
-      EnableDnsHostnames: new ResourceAttribute('EnableDnsHostnames', Boolean, 'No', null),
-      InstanceTenancy: new ResourceAttribute('InstanceTenancy', String, 'No', null),
+      CidrBlock: new ResourceAttribute('CidrBlock', String, false, 'Yes', null),
+      EnableDnsSupport: new ResourceAttribute('EnableDnsSupport', Boolean, false, 'No', null),
+      EnableDnsHostnames: new ResourceAttribute('EnableDnsHostnames', Boolean, false, 'No', null),
+      InstanceTenancy: new ResourceAttribute('InstanceTenancy', String, false, 'No', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
@@ -776,8 +775,8 @@ VPC.prototype = Object.create(WKResource.prototype)
 function VPCDHCPOptionsAssociation (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCDHCPOptionsAssociation'
     let properties = {
-      DhcpOptionsId: new ResourceAttribute('DhcpOptionsId', String, 'Yes', null),
-      VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
+      DhcpOptionsId: new ResourceAttribute('DhcpOptionsId', String, false, 'Yes', null),
+      VpcId: new ResourceAttribute('VpcId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -799,10 +798,10 @@ VPCDHCPOptionsAssociation.prototype = Object.create(WKResource.prototype)
 function VPCEndpoint (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCEndpoint'
     let properties = {
-      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, 'No', null),
-      RouteTableIds: new ResourceAttributeArray('RouteTableIds', String, 'No', null),
-      ServiceName: new ResourceAttribute('ServiceName', String, 'Yes', null),
-      VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
+      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, false, 'No', null),
+      RouteTableIds: new ResourceAttribute('RouteTableIds', String, true, 'No', null),
+      ServiceName: new ResourceAttribute('ServiceName', String, false, 'Yes', null),
+      VpcId: new ResourceAttribute('VpcId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -817,9 +816,9 @@ VPCEndpoint.prototype = Object.create(WKResource.prototype)
 function VPCGatewayAttachment (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCGatewayAttachment'
     let properties = {
-      InternetGatewayId: new ResourceAttribute('InternetGatewayId', String, 'Conditional', null),
-      VpcId: new ResourceAttribute('VpcId', String, 'Yes', null),
-      VpnGatewayId: new ResourceAttribute('VpnGatewayId', String, 'Conditional', null)
+      InternetGatewayId: new ResourceAttribute('InternetGatewayId', String, false, 'Conditional', null),
+      VpcId: new ResourceAttribute('VpcId', String, false, 'Yes', null),
+      VpnGatewayId: new ResourceAttribute('VpnGatewayId', String, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -835,9 +834,9 @@ VPCGatewayAttachment.prototype = Object.create(WKResource.prototype)
 function VPCPeeringConnection (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPCPeeringConnection'
     let properties = {
-      PeerVpcId: new ResourceAttribute('PeerVpcId', String, 'Yes', null),
+      PeerVpcId: new ResourceAttribute('PeerVpcId', String, false, 'Yes', null),
       Tags: new tag.TagSet(),
-      VpcId: new ResourceAttribute('VpcId', String, 'Yes', null)
+      VpcId: new ResourceAttribute('VpcId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -856,11 +855,11 @@ VPCPeeringConnection.prototype = Object.create(WKResource.prototype)
 function VPNConnection (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNConnection'
     let properties = {
-      Type: new ResourceAttribute('Type', String, 'Yes', null),
-      CustomerGatewayId: new ResourceAttribute('CustomerGatewayId', String, 'Yes', null),
-      StaticRoutesOnly: new ResourceAttribute('StaticRoutesOnly', Boolean, 'Conditional', null),
+      Type: new ResourceAttribute('Type', String, false, 'Yes', null),
+      CustomerGatewayId: new ResourceAttribute('CustomerGatewayId', String, false, 'Yes', null),
+      StaticRoutesOnly: new ResourceAttribute('StaticRoutesOnly', Boolean, false, 'Conditional', null),
       Tags: new tag.TagSet(),
-      VpnGatewayId: new ResourceAttribute('VpnGatewayId', String, 'Yes', null)
+      VpnGatewayId: new ResourceAttribute('VpnGatewayId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -875,8 +874,8 @@ VPNConnection.prototype = Object.create(WKResource.prototype)
 function VPNConnectionRoute (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNConnectionRoute'
     let properties = {
-      DestinationCidrBlock: new ResourceAttribute('DestinationCidrBlock', String, 'Conditional', null),
-      VpnConnectionId: new ResourceAttribute('VpnConnectionId', String, 'Conditional', null)
+      DestinationCidrBlock: new ResourceAttribute('DestinationCidrBlock', String, false, 'Conditional', null),
+      VpnConnectionId: new ResourceAttribute('VpnConnectionId', String, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -891,7 +890,7 @@ VPNConnectionRoute.prototype = Object.create(WKResource.prototype)
 function VPNGateway (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNGateway'
     let properties = {
-      Type: new ResourceAttribute('Type', String, 'Yes', null),
+      Type: new ResourceAttribute('Type', String, false, 'Yes', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
@@ -910,8 +909,8 @@ VPNGateway.prototype = Object.create(WKResource.prototype)
 function VPNGatewayRoutePropagation (name, propertiesObject) {
     let resourceType = 'AWS::EC2::VPNGatewayRoutePropagation'
     let properties = {
-      RouteTableIds: new ResourceAttributeArray('RouteTableIds', String, 'Yes', null),
-      VpnGatewayId: new ResourceAttribute('VpnGatewayId', String, 'Yes', null)
+      RouteTableIds: new ResourceAttribute('RouteTableIds', String, true, 'Yes', null),
+      VpnGatewayId: new ResourceAttribute('VpnGatewayId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

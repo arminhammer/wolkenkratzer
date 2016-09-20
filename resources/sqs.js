@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -36,13 +35,13 @@ You can still do updates that require no or some interruption. If you must repla
 function Queue (name, propertiesObject) {
     let resourceType = 'AWS::SQS::Queue'
     let properties = {
-      DelaySeconds: new ResourceAttribute('DelaySeconds', Number, 'No', null),
-      MaximumMessageSize: new ResourceAttribute('MaximumMessageSize', Number, 'No', null),
-      MessageRetentionPeriod: new ResourceAttribute('MessageRetentionPeriod', Number, 'No', null),
-      QueueName: new ResourceAttribute('QueueName', String, 'No', null),
-      ReceiveMessageWaitTimeSeconds: new ResourceAttribute('ReceiveMessageWaitTimeSeconds', Number, 'No', null),
-      RedrivePolicy: new ResourceAttribute('RedrivePolicy', types.AmazonSQSRedrivePolicy, 'No', null),
-      VisibilityTimeout: new ResourceAttribute('VisibilityTimeout', Number, 'No', null)
+      DelaySeconds: new ResourceAttribute('DelaySeconds', Number, false, 'No', null),
+      MaximumMessageSize: new ResourceAttribute('MaximumMessageSize', Number, false, 'No', null),
+      MessageRetentionPeriod: new ResourceAttribute('MessageRetentionPeriod', Number, false, 'No', null),
+      QueueName: new ResourceAttribute('QueueName', String, false, 'No', null),
+      ReceiveMessageWaitTimeSeconds: new ResourceAttribute('ReceiveMessageWaitTimeSeconds', Number, false, 'No', null),
+      RedrivePolicy: new ResourceAttribute('RedrivePolicy', types.AmazonSQSRedrivePolicy, false, 'No', null),
+      VisibilityTimeout: new ResourceAttribute('VisibilityTimeout', Number, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -56,8 +55,8 @@ Queue.prototype = Object.create(WKResource.prototype)
 function QueuePolicy (name, propertiesObject) {
     let resourceType = 'AWS::SQS::QueuePolicy'
     let properties = {
-      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, 'Yes', null),
-      Queues: new ResourceAttributeArray('Queues', String, 'Yes', null)
+      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, false, 'Yes', null),
+      Queues: new ResourceAttribute('Queues', String, true, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

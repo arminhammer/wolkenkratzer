@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -70,21 +69,21 @@ You can still do updates that require no or some interruption. If you must repla
 function LoadBalancer (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancing::LoadBalancer'
     let properties = {
-      AccessLoggingPolicy: new ResourceAttribute('AccessLoggingPolicy', types.ElasticLoadBalancingAccessLoggingPolicy, 'No', null),
-      AppCookieStickinessPolicy: new ResourceAttributeArray('AppCookieStickinessPolicy', types.ElasticLoadBalancingAppCookieStickinessPolicyType, 'No', null),
-      AvailabilityZones: new ResourceAttributeArray('AvailabilityZones', String, 'No', null),
-      ConnectionDrainingPolicy: new ResourceAttribute('ConnectionDrainingPolicy', types.ElasticLoadBalancingConnectionDrainingPolicy, 'No', null),
-      ConnectionSettings: new ResourceAttribute('ConnectionSettings', types.ElasticLoadBalancingConnectionSettings, 'No', null),
-      CrossZone: new ResourceAttribute('CrossZone', Boolean, 'No', null),
-      HealthCheck: new ResourceAttribute('HealthCheck', types.ElasticLoadBalancingHealthCheckType, 'No', null),
-      Instances: new ResourceAttributeArray('Instances', String, 'No', null),
-      LBCookieStickinessPolicy: new ResourceAttributeArray('LBCookieStickinessPolicy', types.ElasticLoadBalancingLBCookieStickinessPolicyType, 'No', null),
-      LoadBalancerName: new ResourceAttribute('LoadBalancerName', String, 'No', null),
-      Listeners: new ResourceAttributeArray('Listeners', types.ElasticLoadBalancingListenerPropertyType, 'Yes', null),
-      Policies: new ResourceAttributeArray('Policies', types.ElasticLoadBalancingPolicyType, 'No', null),
-      Scheme: new ResourceAttribute('Scheme', String, 'No', null),
-      SecurityGroups: new ResourceAttributeArray('SecurityGroups', String, 'No', null),
-      Subnets: new ResourceAttributeArray('Subnets', String, 'No', null),
+      AccessLoggingPolicy: new ResourceAttribute('AccessLoggingPolicy', types.ElasticLoadBalancingAccessLoggingPolicy, false, 'No', null),
+      AppCookieStickinessPolicy: new ResourceAttribute('AppCookieStickinessPolicy', types.ElasticLoadBalancingAppCookieStickinessPolicyType, true, 'No', null),
+      AvailabilityZones: new ResourceAttribute('AvailabilityZones', String, true, 'No', null),
+      ConnectionDrainingPolicy: new ResourceAttribute('ConnectionDrainingPolicy', types.ElasticLoadBalancingConnectionDrainingPolicy, false, 'No', null),
+      ConnectionSettings: new ResourceAttribute('ConnectionSettings', types.ElasticLoadBalancingConnectionSettings, false, 'No', null),
+      CrossZone: new ResourceAttribute('CrossZone', Boolean, false, 'No', null),
+      HealthCheck: new ResourceAttribute('HealthCheck', types.ElasticLoadBalancingHealthCheckType, false, 'No', null),
+      Instances: new ResourceAttribute('Instances', String, true, 'No', null),
+      LBCookieStickinessPolicy: new ResourceAttribute('LBCookieStickinessPolicy', types.ElasticLoadBalancingLBCookieStickinessPolicyType, true, 'No', null),
+      LoadBalancerName: new ResourceAttribute('LoadBalancerName', String, false, 'No', null),
+      Listeners: new ResourceAttribute('Listeners', types.ElasticLoadBalancingListenerPropertyType, true, 'Yes', null),
+      Policies: new ResourceAttribute('Policies', types.ElasticLoadBalancingPolicyType, true, 'No', null),
+      Scheme: new ResourceAttribute('Scheme', String, false, 'No', null),
+      SecurityGroups: new ResourceAttribute('SecurityGroups', String, true, 'No', null),
+      Subnets: new ResourceAttribute('Subnets', String, true, 'No', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)

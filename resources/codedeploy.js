@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -16,7 +15,7 @@ const types = require('./../types')
 function Application (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::Application'
     let properties = {
-      ApplicationName: new ResourceAttribute('ApplicationName', String, 'No', null)
+      ApplicationName: new ResourceAttribute('ApplicationName', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -39,8 +38,8 @@ You can still do updates that require no or some interruption. If you must repla
 function DeploymentConfig (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::DeploymentConfig'
     let properties = {
-      DeploymentConfigName: new ResourceAttribute('DeploymentConfigName', String, 'No', null),
-      MinimumHealthyHosts: new ResourceAttribute('MinimumHealthyHosts', types.AWSCodeDeployDeploymentConfigMinimumHealthyHosts, 'No', null)
+      DeploymentConfigName: new ResourceAttribute('DeploymentConfigName', String, false, 'No', null),
+      MinimumHealthyHosts: new ResourceAttribute('MinimumHealthyHosts', types.AWSCodeDeployDeploymentConfigMinimumHealthyHosts, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -77,14 +76,14 @@ You can still do updates that require no or some interruption. If you must repla
 function DeploymentGroup (name, propertiesObject) {
     let resourceType = 'AWS::CodeDeploy::DeploymentGroup'
     let properties = {
-      ApplicationName: new ResourceAttribute('ApplicationName', String, 'Yes', null),
-      AutoScalingGroups: new ResourceAttributeArray('AutoScalingGroups', String, 'No', null),
-      Deployment: new ResourceAttribute('Deployment', types.AWSCodeDeployDeploymentGroupDeployment, 'No', null),
-      DeploymentConfigName: new ResourceAttribute('DeploymentConfigName', String, 'No', null),
-      DeploymentGroupName: new ResourceAttribute('DeploymentGroupName', String, 'No', null),
-      Ec2TagFilters: new ResourceAttribute('Ec2TagFilters', types.AWSCodeDeployDeploymentGroupEc2TagFilters, 'No', null),
-      OnPremisesInstanceTagFilters: new ResourceAttribute('OnPremisesInstanceTagFilters', types.AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters, 'No', null),
-      ServiceRoleArn: new ResourceAttribute('ServiceRoleArn', String, 'Yes', null)
+      ApplicationName: new ResourceAttribute('ApplicationName', String, false, 'Yes', null),
+      AutoScalingGroups: new ResourceAttribute('AutoScalingGroups', String, true, 'No', null),
+      Deployment: new ResourceAttribute('Deployment', types.AWSCodeDeployDeploymentGroupDeployment, false, 'No', null),
+      DeploymentConfigName: new ResourceAttribute('DeploymentConfigName', String, false, 'No', null),
+      DeploymentGroupName: new ResourceAttribute('DeploymentGroupName', String, false, 'No', null),
+      Ec2TagFilters: new ResourceAttribute('Ec2TagFilters', types.AWSCodeDeployDeploymentGroupEc2TagFilters, false, 'No', null),
+      OnPremisesInstanceTagFilters: new ResourceAttribute('OnPremisesInstanceTagFilters', types.AWSCodeDeployDeploymentGroupOnPremisesInstanceTagFilters, false, 'No', null),
+      ServiceRoleArn: new ResourceAttribute('ServiceRoleArn', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

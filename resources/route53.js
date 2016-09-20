@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -16,8 +15,8 @@ const types = require('./../types')
 function HealthCheck (name, propertiesObject) {
     let resourceType = 'AWS::Route53::HealthCheck'
     let properties = {
-      HealthCheckConfig: new ResourceAttribute('HealthCheckConfig', types.AmazonRoute53HealthCheckConfig, 'Yes', null),
-      HealthCheckTags: new ResourceAttributeArray('HealthCheckTags', types.AmazonRoute53HealthCheckTags, 'No', null)
+      HealthCheckConfig: new ResourceAttribute('HealthCheckConfig', types.AmazonRoute53HealthCheckConfig, false, 'Yes', null),
+      HealthCheckTags: new ResourceAttribute('HealthCheckTags', types.AmazonRoute53HealthCheckTags, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -38,10 +37,10 @@ HealthCheck.prototype = Object.create(WKResource.prototype)
 function HostedZone (name, propertiesObject) {
     let resourceType = 'AWS::Route53::HostedZone'
     let properties = {
-      HostedZoneConfig: new ResourceAttribute('HostedZoneConfig', types.AmazonRoute53HostedZoneConfigProperty, 'No', null),
-      HostedZoneTags: new ResourceAttributeArray('HostedZoneTags', types.AmazonRoute53HostedZoneTags, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      VPCs: new ResourceAttributeArray('VPCs', types.AmazonRoute53HostedZoneVPCs, 'No', null)
+      HostedZoneConfig: new ResourceAttribute('HostedZoneConfig', types.AmazonRoute53HostedZoneConfigProperty, false, 'No', null),
+      HostedZoneTags: new ResourceAttribute('HostedZoneTags', types.AmazonRoute53HostedZoneTags, true, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      VPCs: new ResourceAttribute('VPCs', types.AmazonRoute53HostedZoneVPCs, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -106,19 +105,19 @@ HostedZone.prototype = Object.create(WKResource.prototype)
 function RecordSet (name, propertiesObject) {
     let resourceType = 'AWS::Route53::RecordSet'
     let properties = {
-      AliasTarget: new ResourceAttribute('AliasTarget', types.Route53AliasTargetProperty, 'Conditional', null),
-      Comment: new ResourceAttribute('Comment', String, 'No', null),
-      Failover: new ResourceAttribute('Failover', String, 'No', null),
-      GeoLocation: new ResourceAttribute('GeoLocation', types.AmazonRoute53RecordSetGeoLocationProperty, 'No', null),
-      HealthCheckId: new ResourceAttribute('HealthCheckId', String, 'No', null),
-      HostedZoneId: new ResourceAttribute('HostedZoneId', String, 'Conditional', null),
-      HostedZoneName: new ResourceAttribute('HostedZoneName', String, 'Conditional', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      ResourceRecords: new ResourceAttributeArray('ResourceRecords', String, 'No', null),
-      SetIdentifier: new ResourceAttribute('SetIdentifier', String, 'Conditional', null),
-      TTL: new ResourceAttribute('TTL', String, 'Conditional', null),
-      Type: new ResourceAttribute('Type', String, 'Yes', null),
-      Weight: new ResourceAttribute('Weight', Number, 'Conditional', null)
+      AliasTarget: new ResourceAttribute('AliasTarget', types.Route53AliasTargetProperty, false, 'Conditional', null),
+      Comment: new ResourceAttribute('Comment', String, false, 'No', null),
+      Failover: new ResourceAttribute('Failover', String, false, 'No', null),
+      GeoLocation: new ResourceAttribute('GeoLocation', types.AmazonRoute53RecordSetGeoLocationProperty, false, 'No', null),
+      HealthCheckId: new ResourceAttribute('HealthCheckId', String, false, 'No', null),
+      HostedZoneId: new ResourceAttribute('HostedZoneId', String, false, 'Conditional', null),
+      HostedZoneName: new ResourceAttribute('HostedZoneName', String, false, 'Conditional', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      ResourceRecords: new ResourceAttribute('ResourceRecords', String, true, 'No', null),
+      SetIdentifier: new ResourceAttribute('SetIdentifier', String, false, 'Conditional', null),
+      TTL: new ResourceAttribute('TTL', String, false, 'Conditional', null),
+      Type: new ResourceAttribute('Type', String, false, 'Yes', null),
+      Weight: new ResourceAttribute('Weight', Number, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -139,10 +138,10 @@ RecordSet.prototype = Object.create(WKResource.prototype)
 function RecordSetGroup (name, propertiesObject) {
     let resourceType = 'AWS::Route53::RecordSetGroup'
     let properties = {
-      Comment: new ResourceAttribute('Comment', String, 'No', null),
-      HostedZoneId: new ResourceAttribute('HostedZoneId', String, 'Conditional', null),
-      HostedZoneName: new ResourceAttribute('HostedZoneName', String, 'Conditional', null),
-      RecordSets: new ResourceAttributeArray('RecordSets', RecordSet, 'Yes', null)
+      Comment: new ResourceAttribute('Comment', String, false, 'No', null),
+      HostedZoneId: new ResourceAttribute('HostedZoneId', String, false, 'Conditional', null),
+      HostedZoneName: new ResourceAttribute('HostedZoneName', String, false, 'Conditional', null),
+      RecordSets: new ResourceAttribute('RecordSets', RecordSet, true, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

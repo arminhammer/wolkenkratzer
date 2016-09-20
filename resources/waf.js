@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -18,8 +17,8 @@ const types = require('./../types')
 function ByteMatchSet (name, propertiesObject) {
     let resourceType = 'AWS::WAF::ByteMatchSet'
     let properties = {
-      ByteMatchTuples: new ResourceAttributeArray('ByteMatchTuples', types.AWSWAFByteMatchSetByteMatchTuples, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null)
+      ByteMatchTuples: new ResourceAttribute('ByteMatchTuples', types.AWSWAFByteMatchSetByteMatchTuples, true, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -38,8 +37,8 @@ ByteMatchSet.prototype = Object.create(WKResource.prototype)
 function IPSet (name, propertiesObject) {
     let resourceType = 'AWS::WAF::IPSet'
     let properties = {
-      IPSetDescriptors: new ResourceAttributeArray('IPSetDescriptors', types.AWSWAFIPSetIPSetDescriptors, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null)
+      IPSetDescriptors: new ResourceAttribute('IPSetDescriptors', types.AWSWAFIPSetIPSetDescriptors, true, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -54,9 +53,9 @@ IPSet.prototype = Object.create(WKResource.prototype)
 function Rule (name, propertiesObject) {
     let resourceType = 'AWS::WAF::Rule'
     let properties = {
-      MetricName: new ResourceAttribute('MetricName', String, 'Yes', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      Predicates: new ResourceAttributeArray('Predicates', types.AWSWAFRulePredicates, 'No', null)
+      MetricName: new ResourceAttribute('MetricName', String, false, 'Yes', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      Predicates: new ResourceAttribute('Predicates', types.AWSWAFRulePredicates, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -70,8 +69,8 @@ Rule.prototype = Object.create(WKResource.prototype)
 function SizeConstraintSet (name, propertiesObject) {
     let resourceType = 'AWS::WAF::SizeConstraintSet'
     let properties = {
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      SizeConstraints: new ResourceAttributeArray('SizeConstraints', types.AWSWAFSizeConstraintSetSizeConstraint, 'Yes', null)
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      SizeConstraints: new ResourceAttribute('SizeConstraints', types.AWSWAFSizeConstraintSetSizeConstraint, true, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -86,8 +85,8 @@ SizeConstraintSet.prototype = Object.create(WKResource.prototype)
 function SqlInjectionMatchSet (name, propertiesObject) {
     let resourceType = 'AWS::WAF::SqlInjectionMatchSet'
     let properties = {
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      SqlInjectionMatchTuples: new ResourceAttributeArray('SqlInjectionMatchTuples', types.AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples, 'No', null)
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      SqlInjectionMatchTuples: new ResourceAttribute('SqlInjectionMatchTuples', types.AWSWAFSqlInjectionMatchSetSqlInjectionMatchTuples, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -104,10 +103,10 @@ SqlInjectionMatchSet.prototype = Object.create(WKResource.prototype)
 function WebACL (name, propertiesObject) {
     let resourceType = 'AWS::WAF::WebACL'
     let properties = {
-      DefaultAction: new ResourceAttribute('DefaultAction', types.AWSWAFWebACLAction, 'Yes', null),
-      MetricName: new ResourceAttribute('MetricName', String, 'Yes', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      Rules: new ResourceAttributeArray('Rules', types.AWSWAFWebACLRules, 'No', null)
+      DefaultAction: new ResourceAttribute('DefaultAction', types.AWSWAFWebACLAction, false, 'Yes', null),
+      MetricName: new ResourceAttribute('MetricName', String, false, 'Yes', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      Rules: new ResourceAttribute('Rules', types.AWSWAFWebACLRules, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -121,8 +120,8 @@ WebACL.prototype = Object.create(WKResource.prototype)
 function XssMatchSet (name, propertiesObject) {
     let resourceType = 'AWS::WAF::XssMatchSet'
     let properties = {
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      XssMatchTuples: new ResourceAttributeArray('XssMatchTuples', types.AWSWAFXssMatchSetXssMatchTuple, 'No', null)
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      XssMatchTuples: new ResourceAttribute('XssMatchTuples', types.AWSWAFXssMatchSetXssMatchTuple, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

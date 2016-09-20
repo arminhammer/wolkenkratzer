@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -37,12 +36,12 @@ Cluster.prototype = Object.create(WKResource.prototype)
 function Service (name, propertiesObject) {
     let resourceType = 'AWS::ECS::Service'
     let properties = {
-      Cluster: new ResourceAttribute('Cluster', String, 'No', null),
-      DeploymentConfiguration: new ResourceAttribute('DeploymentConfiguration', types.AmazonEC2ContainerServiceServiceDeploymentConfiguration, 'No', null),
-      DesiredCount: new ResourceAttribute('DesiredCount', String, 'Yes', null),
-      LoadBalancers: new ResourceAttributeArray('LoadBalancers', types.AmazonEC2ContainerServiceServiceLoadBalancers, 'No', null),
-      Role: new ResourceAttribute('Role', String, 'Conditional', null),
-      TaskDefinition: new ResourceAttribute('TaskDefinition', String, 'Yes', null)
+      Cluster: new ResourceAttribute('Cluster', String, false, 'No', null),
+      DeploymentConfiguration: new ResourceAttribute('DeploymentConfiguration', types.AmazonEC2ContainerServiceServiceDeploymentConfiguration, false, 'No', null),
+      DesiredCount: new ResourceAttribute('DesiredCount', String, false, 'Yes', null),
+      LoadBalancers: new ResourceAttribute('LoadBalancers', types.AmazonEC2ContainerServiceServiceLoadBalancers, true, 'No', null),
+      Role: new ResourceAttribute('Role', String, false, 'Conditional', null),
+      TaskDefinition: new ResourceAttribute('TaskDefinition', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -58,8 +57,8 @@ Service.prototype = Object.create(WKResource.prototype)
 function TaskDefinition (name, propertiesObject) {
     let resourceType = 'AWS::ECS::TaskDefinition'
     let properties = {
-      ContainerDefinitions: new ResourceAttributeArray('ContainerDefinitions', types.AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions, 'Yes', null),
-      Volumes: new ResourceAttributeArray('Volumes', types.AmazonEC2ContainerServiceTaskDefinitionVolumes, 'Yes', null)
+      ContainerDefinitions: new ResourceAttribute('ContainerDefinitions', types.AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions, true, 'Yes', null),
+      Volumes: new ResourceAttribute('Volumes', types.AmazonEC2ContainerServiceTaskDefinitionVolumes, true, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

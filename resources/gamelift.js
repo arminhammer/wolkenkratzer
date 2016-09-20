@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -19,9 +18,9 @@ const types = require('./../types')
 function Alias (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Alias'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      RoutingStrategy: new ResourceAttribute('RoutingStrategy', types.AmazonGameLiftAliasRoutingStrategy, 'Yes', null)
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      RoutingStrategy: new ResourceAttribute('RoutingStrategy', types.AmazonGameLiftAliasRoutingStrategy, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -38,9 +37,9 @@ Alias.prototype = Object.create(WKResource.prototype)
 function Build (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Build'
     let properties = {
-      Name: new ResourceAttribute('Name', String, 'No', null),
-      StorageLocation: new ResourceAttribute('StorageLocation', types.AmazonGameLiftBuildStorageLocation, 'Conditional', null),
-      Version: new ResourceAttribute('Version', String, 'No', null)
+      Name: new ResourceAttribute('Name', String, false, 'No', null),
+      StorageLocation: new ResourceAttribute('StorageLocation', types.AmazonGameLiftBuildStorageLocation, false, 'Conditional', null),
+      Version: new ResourceAttribute('Version', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -77,17 +76,17 @@ Build.prototype = Object.create(WKResource.prototype)
 function Fleet (name, propertiesObject) {
     let resourceType = 'AWS::GameLift::Fleet'
     let properties = {
-      BuildId: new ResourceAttribute('BuildId', String, 'Yes', null),
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      DesiredEC2Instances: new ResourceAttribute('DesiredEC2Instances', Number, 'Yes', null),
-      EC2InboundPermissions: new ResourceAttributeArray('EC2InboundPermissions', types.AmazonGameLiftFleetEC2InboundPermission, 'No', null),
-      EC2InstanceType: new ResourceAttribute('EC2InstanceType', String, 'Yes', null),
-      LogPaths: new ResourceAttributeArray('LogPaths', String, 'No', null),
-      MaxSize: new ResourceAttribute('MaxSize', Number, 'No', null),
-      MinSize: new ResourceAttribute('MinSize', Number, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      ServerLaunchParameters: new ResourceAttribute('ServerLaunchParameters', String, 'No', null),
-      ServerLaunchPath: new ResourceAttribute('ServerLaunchPath', String, 'Yes', null)
+      BuildId: new ResourceAttribute('BuildId', String, false, 'Yes', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      DesiredEC2Instances: new ResourceAttribute('DesiredEC2Instances', Number, false, 'Yes', null),
+      EC2InboundPermissions: new ResourceAttribute('EC2InboundPermissions', types.AmazonGameLiftFleetEC2InboundPermission, true, 'No', null),
+      EC2InstanceType: new ResourceAttribute('EC2InstanceType', String, false, 'Yes', null),
+      LogPaths: new ResourceAttribute('LogPaths', String, true, 'No', null),
+      MaxSize: new ResourceAttribute('MaxSize', Number, false, 'No', null),
+      MinSize: new ResourceAttribute('MinSize', Number, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      ServerLaunchParameters: new ResourceAttribute('ServerLaunchParameters', String, false, 'No', null),
+      ServerLaunchPath: new ResourceAttribute('ServerLaunchPath', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

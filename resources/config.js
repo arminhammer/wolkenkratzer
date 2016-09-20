@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -31,12 +30,12 @@ const types = require('./../types')
 function ConfigRule (name, propertiesObject) {
     let resourceType = 'AWS::Config::ConfigRule'
     let properties = {
-      ConfigRuleName: new ResourceAttribute('ConfigRuleName', String, 'No', null),
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      InputParameters: new ResourceAttribute('InputParameters', Object, 'No', null),
-      MaximumExecutionFrequency: new ResourceAttribute('MaximumExecutionFrequency', String, 'No', null),
-      Scope: new ResourceAttribute('Scope', types.AWSConfigConfigRuleScope, 'No', null),
-      Source: new ResourceAttribute('Source', types.AWSConfigConfigRuleSource, 'Yes', null)
+      ConfigRuleName: new ResourceAttribute('ConfigRuleName', String, false, 'No', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      InputParameters: new ResourceAttribute('InputParameters', Object, false, 'No', null),
+      MaximumExecutionFrequency: new ResourceAttribute('MaximumExecutionFrequency', String, false, 'No', null),
+      Scope: new ResourceAttribute('Scope', types.AWSConfigConfigRuleScope, false, 'No', null),
+      Source: new ResourceAttribute('Source', types.AWSConfigConfigRuleSource, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -59,9 +58,9 @@ ConfigRule.prototype = Object.create(WKResource.prototype)
 function ConfigurationRecorder (name, propertiesObject) {
     let resourceType = 'AWS::Config::ConfigurationRecorder'
     let properties = {
-      Name: new ResourceAttribute('Name', String, 'No', null),
-      RecordingGroup: new ResourceAttribute('RecordingGroup', types.AWSConfigConfigurationRecorderRecordingGroup, 'No', null),
-      RoleARN: new ResourceAttribute('RoleARN', String, 'Yes', null)
+      Name: new ResourceAttribute('Name', String, false, 'No', null),
+      RecordingGroup: new ResourceAttribute('RecordingGroup', types.AWSConfigConfigurationRecorderRecordingGroup, false, 'No', null),
+      RoleARN: new ResourceAttribute('RoleARN', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -85,11 +84,11 @@ ConfigurationRecorder.prototype = Object.create(WKResource.prototype)
 function DeliveryChannel (name, propertiesObject) {
     let resourceType = 'AWS::Config::DeliveryChannel'
     let properties = {
-      ConfigSnapshotDeliveryProperties: new ResourceAttribute('ConfigSnapshotDeliveryProperties', types.AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'No', null),
-      S3BucketName: new ResourceAttribute('S3BucketName', String, 'Yes', null),
-      S3KeyPrefix: new ResourceAttribute('S3KeyPrefix', String, 'No', null),
-      SnsTopicARN: new ResourceAttribute('SnsTopicARN', String, 'No', null)
+      ConfigSnapshotDeliveryProperties: new ResourceAttribute('ConfigSnapshotDeliveryProperties', types.AWSConfigDeliveryChannelConfigSnapshotDeliveryProperties, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'No', null),
+      S3BucketName: new ResourceAttribute('S3BucketName', String, false, 'Yes', null),
+      S3KeyPrefix: new ResourceAttribute('S3KeyPrefix', String, false, 'No', null),
+      SnsTopicARN: new ResourceAttribute('SnsTopicARN', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

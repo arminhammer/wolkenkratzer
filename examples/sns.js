@@ -17,4 +17,9 @@ topic.Subscription.push({
 })
 t.add(topic)
 
-console.log(t.toJson().Template)
+let result = t.toJson()
+if (result.Errors) {
+  console.error(result.Errors)
+} else {
+  console.log(t.toJson().Template)
+}

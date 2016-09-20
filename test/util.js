@@ -10,7 +10,6 @@ const AWS = require('aws-sdk')
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' })
 
 function validateTemplate(template, cb) {
-  console.log('validating...')
   let jsonString = template.toJson().Template
   return CloudFormation.validateTemplate({
     TemplateBody: jsonString
@@ -20,7 +19,6 @@ function validateTemplate(template, cb) {
       console.log(template.toJson().Errors)
     }
     should.exist(data)
-    console.log('validated!')
     cb()
   })
 }

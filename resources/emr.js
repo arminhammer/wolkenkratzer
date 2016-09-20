@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -42,18 +41,18 @@ const types = require('./../types')
 function Cluster (name, propertiesObject) {
     let resourceType = 'AWS::EMR::Cluster'
     let properties = {
-      AdditionalInfo: new ResourceAttribute('AdditionalInfo', Object, 'No', null),
-      Applications: new ResourceAttributeArray('Applications', types.AmazonEMRClusterApplication, 'No', null),
-      BootstrapActions: new ResourceAttributeArray('BootstrapActions', types.AmazonEMRClusterBootstrapActionConfig, 'No', null),
-      Configurations: new ResourceAttributeArray('Configurations', types.AmazonEMRClusterConfiguration, 'No', null),
-      Instances: new ResourceAttribute('Instances', types.AmazonEMRClusterJobFlowInstancesConfig, 'Yes', null),
-      JobFlowRole: new ResourceAttribute('JobFlowRole', String, 'Yes', null),
-      LogUri: new ResourceAttribute('LogUri', String, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      ReleaseLabel: new ResourceAttribute('ReleaseLabel', String, 'Conditional', null),
-      ServiceRole: new ResourceAttribute('ServiceRole', String, 'Yes', null),
+      AdditionalInfo: new ResourceAttribute('AdditionalInfo', Object, false, 'No', null),
+      Applications: new ResourceAttribute('Applications', types.AmazonEMRClusterApplication, true, 'No', null),
+      BootstrapActions: new ResourceAttribute('BootstrapActions', types.AmazonEMRClusterBootstrapActionConfig, true, 'No', null),
+      Configurations: new ResourceAttribute('Configurations', types.AmazonEMRClusterConfiguration, true, 'No', null),
+      Instances: new ResourceAttribute('Instances', types.AmazonEMRClusterJobFlowInstancesConfig, false, 'Yes', null),
+      JobFlowRole: new ResourceAttribute('JobFlowRole', String, false, 'Yes', null),
+      LogUri: new ResourceAttribute('LogUri', String, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      ReleaseLabel: new ResourceAttribute('ReleaseLabel', String, false, 'Conditional', null),
+      ServiceRole: new ResourceAttribute('ServiceRole', String, false, 'Yes', null),
       Tags: new tag.TagSet(),
-      VisibleToAllUsers: new ResourceAttribute('VisibleToAllUsers', Boolean, 'No', null)
+      VisibleToAllUsers: new ResourceAttribute('VisibleToAllUsers', Boolean, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -84,15 +83,15 @@ Cluster.prototype = Object.create(WKResource.prototype)
 function InstanceGroupConfig (name, propertiesObject) {
     let resourceType = 'AWS::EMR::InstanceGroupConfig'
     let properties = {
-      BidPrice: new ResourceAttribute('BidPrice', String, 'No', null),
-      Configurations: new ResourceAttributeArray('Configurations', types.AmazonEMRClusterConfiguration, 'No', null),
-      EbsConfiguration: new ResourceAttribute('EbsConfiguration', types.AmazonEMREbsConfiguration, 'No', null),
-      InstanceCount: new ResourceAttribute('InstanceCount', Number, 'Yes', null),
-      InstanceRole: new ResourceAttribute('InstanceRole', String, 'Yes', null),
-      InstanceType: new ResourceAttribute('InstanceType', String, 'Yes', null),
-      JobFlowId: new ResourceAttribute('JobFlowId', String, 'Yes', null),
-      Market: new ResourceAttribute('Market', String, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'No', null)
+      BidPrice: new ResourceAttribute('BidPrice', String, false, 'No', null),
+      Configurations: new ResourceAttribute('Configurations', types.AmazonEMRClusterConfiguration, true, 'No', null),
+      EbsConfiguration: new ResourceAttribute('EbsConfiguration', types.AmazonEMREbsConfiguration, false, 'No', null),
+      InstanceCount: new ResourceAttribute('InstanceCount', Number, false, 'Yes', null),
+      InstanceRole: new ResourceAttribute('InstanceRole', String, false, 'Yes', null),
+      InstanceType: new ResourceAttribute('InstanceType', String, false, 'Yes', null),
+      JobFlowId: new ResourceAttribute('JobFlowId', String, false, 'Yes', null),
+      Market: new ResourceAttribute('Market', String, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -108,10 +107,10 @@ InstanceGroupConfig.prototype = Object.create(WKResource.prototype)
 function Step (name, propertiesObject) {
     let resourceType = 'AWS::EMR::Step'
     let properties = {
-      ActionOnFailure: new ResourceAttribute('ActionOnFailure', String, 'Yes', null),
-      HadoopJarStep: new ResourceAttribute('HadoopJarStep', types.AmazonEMRStepHadoopJarStepConfig, 'Yes', null),
-      JobFlowId: new ResourceAttribute('JobFlowId', String, 'Yes', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null)
+      ActionOnFailure: new ResourceAttribute('ActionOnFailure', String, false, 'Yes', null),
+      HadoopJarStep: new ResourceAttribute('HadoopJarStep', types.AmazonEMRStepHadoopJarStepConfig, false, 'Yes', null),
+      JobFlowId: new ResourceAttribute('JobFlowId', String, false, 'Yes', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

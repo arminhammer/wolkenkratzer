@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -39,16 +38,16 @@ const types = require('./../types')
 function Trail (name, propertiesObject) {
     let resourceType = 'AWS::CloudTrail::Trail'
     let properties = {
-      CloudWatchLogsLogGroupArn: new ResourceAttribute('CloudWatchLogsLogGroupArn', String, 'Conditional', null),
-      CloudWatchLogsRoleArn: new ResourceAttribute('CloudWatchLogsRoleArn', String, 'No', null),
-      EnableLogFileValidation: new ResourceAttribute('EnableLogFileValidation', Boolean, 'No', null),
-      IncludeGlobalServiceEvents: new ResourceAttribute('IncludeGlobalServiceEvents', Boolean, 'No', null),
-      IsLogging: new ResourceAttribute('IsLogging', Boolean, 'Yes', null),
-      IsMultiRegionTrail: new ResourceAttribute('IsMultiRegionTrail', Boolean, 'No', null),
-      KMSKeyId: new ResourceAttribute('KMSKeyId', String, 'No', null),
-      S3BucketName: new ResourceAttribute('S3BucketName', String, 'Yes', null),
-      S3KeyPrefix: new ResourceAttribute('S3KeyPrefix', String, 'No', null),
-      SnsTopicName: new ResourceAttribute('SnsTopicName', String, 'No', null),
+      CloudWatchLogsLogGroupArn: new ResourceAttribute('CloudWatchLogsLogGroupArn', String, false, 'Conditional', null),
+      CloudWatchLogsRoleArn: new ResourceAttribute('CloudWatchLogsRoleArn', String, false, 'No', null),
+      EnableLogFileValidation: new ResourceAttribute('EnableLogFileValidation', Boolean, false, 'No', null),
+      IncludeGlobalServiceEvents: new ResourceAttribute('IncludeGlobalServiceEvents', Boolean, false, 'No', null),
+      IsLogging: new ResourceAttribute('IsLogging', Boolean, false, 'Yes', null),
+      IsMultiRegionTrail: new ResourceAttribute('IsMultiRegionTrail', Boolean, false, 'No', null),
+      KMSKeyId: new ResourceAttribute('KMSKeyId', String, false, 'No', null),
+      S3BucketName: new ResourceAttribute('S3BucketName', String, false, 'Yes', null),
+      S3KeyPrefix: new ResourceAttribute('S3KeyPrefix', String, false, 'No', null),
+      SnsTopicName: new ResourceAttribute('SnsTopicName', String, false, 'No', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)

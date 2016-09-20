@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -58,21 +57,21 @@ You can still do updates that require no or some interruption. If you must repla
 function Alarm (name, propertiesObject) {
     let resourceType = 'AWS::CloudWatch::Alarm'
     let properties = {
-      ActionsEnabled: new ResourceAttribute('ActionsEnabled', Boolean, 'No', null),
-      AlarmActions: new ResourceAttributeArray('AlarmActions', String, 'No', null),
-      AlarmDescription: new ResourceAttribute('AlarmDescription', String, 'No', null),
-      AlarmName: new ResourceAttribute('AlarmName', String, 'No', null),
-      ComparisonOperator: new ResourceAttribute('ComparisonOperator', String, 'Yes', null),
-      Dimensions: new ResourceAttributeArray('Dimensions', types.CloudWatchMetricDimensionPropertyType, 'No', null),
-      EvaluationPeriods: new ResourceAttribute('EvaluationPeriods', String, 'Yes', null),
-      InsufficientDataActions: new ResourceAttributeArray('InsufficientDataActions', String, 'No', null),
-      MetricName: new ResourceAttribute('MetricName', String, 'Yes', null),
-      Namespace: new ResourceAttribute('Namespace', String, 'Yes', null),
-      OKActions: new ResourceAttributeArray('OKActions', String, 'No', null),
-      Period: new ResourceAttribute('Period', String, 'Yes', null),
-      Statistic: new ResourceAttribute('Statistic', String, 'Yes', null),
-      Threshold: new ResourceAttribute('Threshold', String, 'Yes', null),
-      Unit: new ResourceAttribute('Unit', String, 'No', null)
+      ActionsEnabled: new ResourceAttribute('ActionsEnabled', Boolean, false, 'No', null),
+      AlarmActions: new ResourceAttribute('AlarmActions', String, true, 'No', null),
+      AlarmDescription: new ResourceAttribute('AlarmDescription', String, false, 'No', null),
+      AlarmName: new ResourceAttribute('AlarmName', String, false, 'No', null),
+      ComparisonOperator: new ResourceAttribute('ComparisonOperator', String, false, 'Yes', null),
+      Dimensions: new ResourceAttribute('Dimensions', types.CloudWatchMetricDimensionPropertyType, true, 'No', null),
+      EvaluationPeriods: new ResourceAttribute('EvaluationPeriods', String, false, 'Yes', null),
+      InsufficientDataActions: new ResourceAttribute('InsufficientDataActions', String, true, 'No', null),
+      MetricName: new ResourceAttribute('MetricName', String, false, 'Yes', null),
+      Namespace: new ResourceAttribute('Namespace', String, false, 'Yes', null),
+      OKActions: new ResourceAttribute('OKActions', String, true, 'No', null),
+      Period: new ResourceAttribute('Period', String, false, 'Yes', null),
+      Statistic: new ResourceAttribute('Statistic', String, false, 'Yes', null),
+      Threshold: new ResourceAttribute('Threshold', String, false, 'Yes', null),
+      Unit: new ResourceAttribute('Unit', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

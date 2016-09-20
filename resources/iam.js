@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -21,9 +20,9 @@ const types = require('./../types')
 function AccessKey (name, propertiesObject) {
     let resourceType = 'AWS::IAM::AccessKey'
     let properties = {
-      Serial: new ResourceAttribute('Serial', Number, 'No', null),
-      Status: new ResourceAttribute('Status', String, 'No', null),
-      UserName: new ResourceAttribute('UserName', String, 'Yes', null)
+      Serial: new ResourceAttribute('Serial', Number, false, 'No', null),
+      Status: new ResourceAttribute('Status', String, false, 'No', null),
+      UserName: new ResourceAttribute('UserName', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -40,10 +39,10 @@ You can still do updates that require no or some interruption. If you must repla
 function Group (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Group'
     let properties = {
-      GroupName: new ResourceAttribute('GroupName', String, 'No', null),
-      ManagedPolicyArns: new ResourceAttributeArray('ManagedPolicyArns', String, 'No', null),
-      Path: new ResourceAttribute('Path', String, 'No', null),
-      Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null)
+      GroupName: new ResourceAttribute('GroupName', String, false, 'No', null),
+      ManagedPolicyArns: new ResourceAttribute('ManagedPolicyArns', String, true, 'No', null),
+      Path: new ResourceAttribute('Path', String, false, 'No', null),
+      Policies: new ResourceAttribute('Policies', types.IAMPolicies, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -58,8 +57,8 @@ Group.prototype = Object.create(WKResource.prototype)
 function InstanceProfile (name, propertiesObject) {
     let resourceType = 'AWS::IAM::InstanceProfile'
     let properties = {
-      Path: new ResourceAttribute('Path', String, 'Yes', null),
-      Roles: new ResourceAttributeArray('Roles', String, 'Yes', null)
+      Path: new ResourceAttribute('Path', String, false, 'Yes', null),
+      Roles: new ResourceAttribute('Roles', String, true, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -91,12 +90,12 @@ InstanceProfile.prototype = Object.create(WKResource.prototype)
 function ManagedPolicy (name, propertiesObject) {
     let resourceType = 'AWS::IAM::ManagedPolicy'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      Groups: new ResourceAttributeArray('Groups', String, 'No', null),
-      Path: new ResourceAttribute('Path', String, 'No', null),
-      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, 'Yes', null),
-      Roles: new ResourceAttributeArray('Roles', String, 'No', null),
-      Users: new ResourceAttributeArray('Users', String, 'No', null)
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      Groups: new ResourceAttribute('Groups', String, true, 'No', null),
+      Path: new ResourceAttribute('Path', String, false, 'No', null),
+      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, false, 'Yes', null),
+      Roles: new ResourceAttribute('Roles', String, true, 'No', null),
+      Users: new ResourceAttribute('Users', String, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -125,11 +124,11 @@ ManagedPolicy.prototype = Object.create(WKResource.prototype)
 function Policy (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Policy'
     let properties = {
-      Groups: new ResourceAttributeArray('Groups', String, 'Conditional', null),
-      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, 'Yes', null),
-      PolicyName: new ResourceAttribute('PolicyName', String, 'Yes', null),
-      Roles: new ResourceAttributeArray('Roles', String, 'Conditional', null),
-      Users: new ResourceAttributeArray('Users', String, 'Conditional', null)
+      Groups: new ResourceAttribute('Groups', String, true, 'Conditional', null),
+      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, false, 'Yes', null),
+      PolicyName: new ResourceAttribute('PolicyName', String, false, 'Yes', null),
+      Roles: new ResourceAttribute('Roles', String, true, 'Conditional', null),
+      Users: new ResourceAttribute('Users', String, true, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -151,11 +150,11 @@ You can still do updates that require no or some interruption. If you must repla
 function Role (name, propertiesObject) {
     let resourceType = 'AWS::IAM::Role'
     let properties = {
-      AssumeRolePolicyDocument: new ResourceAttribute('AssumeRolePolicyDocument', Object, 'Yes', null),
-      ManagedPolicyArns: new ResourceAttributeArray('ManagedPolicyArns', String, 'No', null),
-      Path: new ResourceAttribute('Path', String, 'No', null),
-      Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null),
-      RoleName: new ResourceAttribute('RoleName', String, 'No', null)
+      AssumeRolePolicyDocument: new ResourceAttribute('AssumeRolePolicyDocument', Object, false, 'Yes', null),
+      ManagedPolicyArns: new ResourceAttribute('ManagedPolicyArns', String, true, 'No', null),
+      Path: new ResourceAttribute('Path', String, false, 'No', null),
+      Policies: new ResourceAttribute('Policies', types.IAMPolicies, true, 'No', null),
+      RoleName: new ResourceAttribute('RoleName', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -180,12 +179,12 @@ You can still do updates that require no or some interruption. If you must repla
 function User (name, propertiesObject) {
     let resourceType = 'AWS::IAM::User'
     let properties = {
-      Groups: new ResourceAttributeArray('Groups', String, 'No', null),
-      LoginProfile: new ResourceAttribute('LoginProfile', types.IAMUserLoginProfile, 'No', null),
-      ManagedPolicyArns: new ResourceAttributeArray('ManagedPolicyArns', String, 'No', null),
-      Path: new ResourceAttribute('Path', String, 'No', null),
-      Policies: new ResourceAttributeArray('Policies', types.IAMPolicies, 'No', null),
-      UserName: new ResourceAttribute('UserName', String, 'No', null)
+      Groups: new ResourceAttribute('Groups', String, true, 'No', null),
+      LoginProfile: new ResourceAttribute('LoginProfile', types.IAMUserLoginProfile, false, 'No', null),
+      ManagedPolicyArns: new ResourceAttribute('ManagedPolicyArns', String, true, 'No', null),
+      Path: new ResourceAttribute('Path', String, false, 'No', null),
+      Policies: new ResourceAttribute('Policies', types.IAMPolicies, true, 'No', null),
+      UserName: new ResourceAttribute('UserName', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -199,8 +198,8 @@ User.prototype = Object.create(WKResource.prototype)
 function UserToGroupAddition (name, propertiesObject) {
     let resourceType = 'AWS::IAM::UserToGroupAddition'
     let properties = {
-      GroupName: new ResourceAttribute('GroupName', String, 'Yes', null),
-      Users: new ResourceAttributeArray('Users', String, 'Yes', null)
+      GroupName: new ResourceAttribute('GroupName', String, false, 'Yes', null),
+      Users: new ResourceAttribute('Users', String, true, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

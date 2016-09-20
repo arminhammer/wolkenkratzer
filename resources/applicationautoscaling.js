@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -20,12 +19,12 @@ const types = require('./../types')
 function ScalableTarget (name, propertiesObject) {
     let resourceType = 'AWS::ApplicationAutoScaling::ScalableTarget'
     let properties = {
-      MaxCapacity: new ResourceAttribute('MaxCapacity', Number, 'Yes', null),
-      MinCapacity: new ResourceAttribute('MinCapacity', Number, 'Yes', null),
-      ResourceId: new ResourceAttribute('ResourceId', String, 'Yes', null),
-      RoleARN: new ResourceAttribute('RoleARN', String, 'Yes', null),
-      ScalableDimension: new ResourceAttribute('ScalableDimension', String, 'Yes', null),
-      ServiceNamespace: new ResourceAttribute('ServiceNamespace', String, 'Yes', null)
+      MaxCapacity: new ResourceAttribute('MaxCapacity', Number, false, 'Yes', null),
+      MinCapacity: new ResourceAttribute('MinCapacity', Number, false, 'Yes', null),
+      ResourceId: new ResourceAttribute('ResourceId', String, false, 'Yes', null),
+      RoleARN: new ResourceAttribute('RoleARN', String, false, 'Yes', null),
+      ScalableDimension: new ResourceAttribute('ScalableDimension', String, false, 'Yes', null),
+      ServiceNamespace: new ResourceAttribute('ServiceNamespace', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -52,13 +51,13 @@ ScalableTarget.prototype = Object.create(WKResource.prototype)
 function ScalingPolicy (name, propertiesObject) {
     let resourceType = 'AWS::ApplicationAutoScaling::ScalingPolicy'
     let properties = {
-      PolicyName: new ResourceAttribute('PolicyName', String, 'Yes', null),
-      PolicyType: new ResourceAttribute('PolicyType', String, 'No', null),
-      ResourceId: new ResourceAttribute('ResourceId', String, 'Conditional', null),
-      ScalableDimension: new ResourceAttribute('ScalableDimension', String, 'Conditional', null),
-      ServiceNamespace: new ResourceAttribute('ServiceNamespace', String, 'Conditional', null),
-      ScalingTargetId: new ResourceAttribute('ScalingTargetId', String, 'Conditional', null),
-      StepScalingPolicyConfiguration: new ResourceAttribute('StepScalingPolicyConfiguration', types.ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration, 'No', null)
+      PolicyName: new ResourceAttribute('PolicyName', String, false, 'Yes', null),
+      PolicyType: new ResourceAttribute('PolicyType', String, false, 'No', null),
+      ResourceId: new ResourceAttribute('ResourceId', String, false, 'Conditional', null),
+      ScalableDimension: new ResourceAttribute('ScalableDimension', String, false, 'Conditional', null),
+      ServiceNamespace: new ResourceAttribute('ServiceNamespace', String, false, 'Conditional', null),
+      ScalingTargetId: new ResourceAttribute('ScalingTargetId', String, false, 'Conditional', null),
+      StepScalingPolicyConfiguration: new ResourceAttribute('StepScalingPolicyConfiguration', types.ApplicationAutoScalingScalingPolicyStepScalingPolicyConfiguration, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

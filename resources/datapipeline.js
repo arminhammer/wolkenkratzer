@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -36,13 +35,13 @@ const types = require('./../types')
 function Pipeline (name, propertiesObject) {
     let resourceType = 'AWS::DataPipeline::Pipeline'
     let properties = {
-      Activate: new ResourceAttribute('Activate', Boolean, 'No', null),
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      ParameterObjects: new ResourceAttribute('ParameterObjects', types.AWSDataPipelinePipelineParameterObjects, 'No', null),
-      ParameterValues: new ResourceAttribute('ParameterValues', types.AWSDataPipelinePipelineParameterValues, 'No', null),
-      PipelineObjects: new ResourceAttributeArray('PipelineObjects', types.AWSDataPipelinePipelineObjects, 'Yes', null),
-      PipelineTags: new ResourceAttribute('PipelineTags', types.AWSDataPipelinePipelinePipelineTags, 'No', null)
+      Activate: new ResourceAttribute('Activate', Boolean, false, 'No', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      ParameterObjects: new ResourceAttribute('ParameterObjects', types.AWSDataPipelinePipelineParameterObjects, false, 'No', null),
+      ParameterValues: new ResourceAttribute('ParameterValues', types.AWSDataPipelinePipelineParameterValues, false, 'No', null),
+      PipelineObjects: new ResourceAttribute('PipelineObjects', types.AWSDataPipelinePipelineObjects, true, 'Yes', null),
+      PipelineTags: new ResourceAttribute('PipelineTags', types.AWSDataPipelinePipelinePipelineTags, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -19,9 +18,9 @@ You can still do updates that require no or some interruption. If you must repla
 function Topic (name, propertiesObject) {
     let resourceType = 'AWS::SNS::Topic'
     let properties = {
-      DisplayName: new ResourceAttribute('DisplayName', String, 'No', null),
-      Subscription: new ResourceAttributeArray('Subscription', types.AmazonSNSSubscriptionPropertyType, 'No', null),
-      TopicName: new ResourceAttribute('TopicName', String, 'No', null)
+      DisplayName: new ResourceAttribute('DisplayName', String, false, 'No', null),
+      Subscription: new ResourceAttribute('Subscription', types.AmazonSNSSubscriptionPropertyType, true, 'No', null),
+      TopicName: new ResourceAttribute('TopicName', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -39,8 +38,8 @@ Topic.prototype = Object.create(WKResource.prototype)
 function TopicPolicy (name, propertiesObject) {
     let resourceType = 'AWS::SNS::TopicPolicy'
     let properties = {
-      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, 'Yes', null),
-      Topics: new ResourceAttributeArray('Topics', String, 'Yes', null)
+      PolicyDocument: new ResourceAttribute('PolicyDocument', Object, false, 'Yes', null),
+      Topics: new ResourceAttribute('Topics', String, true, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

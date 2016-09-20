@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -22,13 +21,13 @@ You can still do updates that require no or some interruption. If you must repla
 function Rule (name, propertiesObject) {
     let resourceType = 'AWS::Events::Rule'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      EventPattern: new ResourceAttribute('EventPattern', Object, 'Conditional', null),
-      Name: new ResourceAttribute('Name', String, 'No', null),
-      RoleArn: new ResourceAttribute('RoleArn', String, 'No', null),
-      ScheduleExpression: new ResourceAttribute('ScheduleExpression', String, 'Conditional', null),
-      State: new ResourceAttribute('State', String, 'No', null),
-      Targets: new ResourceAttributeArray('Targets', types.AmazonCloudWatchEventsRuleTarget, 'No', null)
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      EventPattern: new ResourceAttribute('EventPattern', Object, false, 'Conditional', null),
+      Name: new ResourceAttribute('Name', String, false, 'No', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, false, 'No', null),
+      ScheduleExpression: new ResourceAttribute('ScheduleExpression', String, false, 'Conditional', null),
+      State: new ResourceAttribute('State', String, false, 'No', null),
+      Targets: new ResourceAttribute('Targets', types.AmazonCloudWatchEventsRuleTarget, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

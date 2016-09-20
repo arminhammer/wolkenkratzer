@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -65,23 +64,23 @@ see DependsOn Attribute.Update requires: No interruptionImportantWhen you update
 function AutoScalingGroup (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::AutoScalingGroup'
     let properties = {
-      AvailabilityZones: new ResourceAttributeArray('AvailabilityZones', String, 'Conditional', null),
-      Cooldown: new ResourceAttribute('Cooldown', String, 'No', null),
-      DesiredCapacity: new ResourceAttribute('DesiredCapacity', String, 'No', null),
-      HealthCheckGracePeriod: new ResourceAttribute('HealthCheckGracePeriod', Number, 'No', null),
-      HealthCheckType: new ResourceAttribute('HealthCheckType', String, 'No', null),
-      InstanceId: new ResourceAttribute('InstanceId', String, 'Conditional', null),
-      LaunchConfigurationName: new ResourceAttribute('LaunchConfigurationName', String, 'Conditional', null),
-      LoadBalancerNames: new ResourceAttributeArray('LoadBalancerNames', String, 'No', null),
-      MaxSize: new ResourceAttribute('MaxSize', String, 'Yes', null),
-      MetricsCollection: new ResourceAttributeArray('MetricsCollection', types.AutoScalingMetricsCollection, 'No', null),
-      MinSize: new ResourceAttribute('MinSize', String, 'Yes', null),
-      NotificationConfigurations: new ResourceAttributeArray('NotificationConfigurations', types.AutoScalingNotificationConfigurations, 'No', null),
-      PlacementGroup: new ResourceAttribute('PlacementGroup', String, 'No', null),
+      AvailabilityZones: new ResourceAttribute('AvailabilityZones', String, true, 'Conditional', null),
+      Cooldown: new ResourceAttribute('Cooldown', String, false, 'No', null),
+      DesiredCapacity: new ResourceAttribute('DesiredCapacity', String, false, 'No', null),
+      HealthCheckGracePeriod: new ResourceAttribute('HealthCheckGracePeriod', Number, false, 'No', null),
+      HealthCheckType: new ResourceAttribute('HealthCheckType', String, false, 'No', null),
+      InstanceId: new ResourceAttribute('InstanceId', String, false, 'Conditional', null),
+      LaunchConfigurationName: new ResourceAttribute('LaunchConfigurationName', String, false, 'Conditional', null),
+      LoadBalancerNames: new ResourceAttribute('LoadBalancerNames', String, true, 'No', null),
+      MaxSize: new ResourceAttribute('MaxSize', String, false, 'Yes', null),
+      MetricsCollection: new ResourceAttribute('MetricsCollection', types.AutoScalingMetricsCollection, true, 'No', null),
+      MinSize: new ResourceAttribute('MinSize', String, false, 'Yes', null),
+      NotificationConfigurations: new ResourceAttribute('NotificationConfigurations', types.AutoScalingNotificationConfigurations, true, 'No', null),
+      PlacementGroup: new ResourceAttribute('PlacementGroup', String, false, 'No', null),
       Tags: new tag.TagSet(),
-      TargetGroupARNs: new ResourceAttributeArray('TargetGroupARNs', String, 'No', null),
-      TerminationPolicies: new ResourceAttributeArray('TerminationPolicies', String, 'No', null),
-      VPCZoneIdentifier: new ResourceAttributeArray('VPCZoneIdentifier', String, 'Conditional', null)
+      TargetGroupARNs: new ResourceAttribute('TargetGroupARNs', String, true, 'No', null),
+      TerminationPolicies: new ResourceAttribute('TerminationPolicies', String, true, 'No', null),
+      VPCZoneIdentifier: new ResourceAttribute('VPCZoneIdentifier', String, true, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -157,23 +156,23 @@ see DependsOn Attribute.Update requires: Replacement
 function LaunchConfiguration (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::LaunchConfiguration'
     let properties = {
-      AssociatePublicIpAddress: new ResourceAttribute('AssociatePublicIpAddress', Boolean, 'No', null),
-      BlockDeviceMappings: new ResourceAttributeArray('BlockDeviceMappings', types.AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType, 'No', null),
-      ClassicLinkVPCId: new ResourceAttribute('ClassicLinkVPCId', String, 'No', null),
-      ClassicLinkVPCSecurityGroups: new ResourceAttributeArray('ClassicLinkVPCSecurityGroups', String, 'Conditional', null),
-      EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, 'Conditional', null),
-      IamInstanceProfile: new ResourceAttribute('IamInstanceProfile', String, 'No', null),
-      ImageId: new ResourceAttribute('ImageId', String, 'Yes', null),
-      InstanceId: new ResourceAttribute('InstanceId', String, 'No', null),
-      InstanceMonitoring: new ResourceAttribute('InstanceMonitoring', Boolean, 'No', null),
-      InstanceType: new ResourceAttribute('InstanceType', String, 'Yes', null),
-      KernelId: new ResourceAttribute('KernelId', String, 'No', null),
-      KeyName: new ResourceAttribute('KeyName', String, 'No', null),
-      PlacementTenancy: new ResourceAttribute('PlacementTenancy', String, 'No', null),
-      RamDiskId: new ResourceAttribute('RamDiskId', String, 'No', null),
-      SecurityGroups: new ResourceAttributeArray('SecurityGroups', String, 'No', null),
-      SpotPrice: new ResourceAttribute('SpotPrice', String, 'No', null),
-      UserData: new ResourceAttribute('UserData', String, 'No', null)
+      AssociatePublicIpAddress: new ResourceAttribute('AssociatePublicIpAddress', Boolean, false, 'No', null),
+      BlockDeviceMappings: new ResourceAttribute('BlockDeviceMappings', types.AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType, true, 'No', null),
+      ClassicLinkVPCId: new ResourceAttribute('ClassicLinkVPCId', String, false, 'No', null),
+      ClassicLinkVPCSecurityGroups: new ResourceAttribute('ClassicLinkVPCSecurityGroups', String, true, 'Conditional', null),
+      EbsOptimized: new ResourceAttribute('EbsOptimized', Boolean, false, 'Conditional', null),
+      IamInstanceProfile: new ResourceAttribute('IamInstanceProfile', String, false, 'No', null),
+      ImageId: new ResourceAttribute('ImageId', String, false, 'Yes', null),
+      InstanceId: new ResourceAttribute('InstanceId', String, false, 'No', null),
+      InstanceMonitoring: new ResourceAttribute('InstanceMonitoring', Boolean, false, 'No', null),
+      InstanceType: new ResourceAttribute('InstanceType', String, false, 'Yes', null),
+      KernelId: new ResourceAttribute('KernelId', String, false, 'No', null),
+      KeyName: new ResourceAttribute('KeyName', String, false, 'No', null),
+      PlacementTenancy: new ResourceAttribute('PlacementTenancy', String, false, 'No', null),
+      RamDiskId: new ResourceAttribute('RamDiskId', String, false, 'No', null),
+      SecurityGroups: new ResourceAttribute('SecurityGroups', String, true, 'No', null),
+      SpotPrice: new ResourceAttribute('SpotPrice', String, false, 'No', null),
+      UserData: new ResourceAttribute('UserData', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -204,13 +203,13 @@ LaunchConfiguration.prototype = Object.create(WKResource.prototype)
 function LifecycleHook (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::LifecycleHook'
     let properties = {
-      AutoScalingGroupName: new ResourceAttribute('AutoScalingGroupName', String, 'Yes', null),
-      DefaultResult: new ResourceAttribute('DefaultResult', String, 'No', null),
-      HeartbeatTimeout: new ResourceAttribute('HeartbeatTimeout', Number, 'No', null),
-      LifecycleTransition: new ResourceAttribute('LifecycleTransition', String, 'Yes', null),
-      NotificationMetadata: new ResourceAttribute('NotificationMetadata', String, 'No', null),
-      NotificationTargetARN: new ResourceAttribute('NotificationTargetARN', String, 'Yes', null),
-      RoleARN: new ResourceAttribute('RoleARN', String, 'Yes', null)
+      AutoScalingGroupName: new ResourceAttribute('AutoScalingGroupName', String, false, 'Yes', null),
+      DefaultResult: new ResourceAttribute('DefaultResult', String, false, 'No', null),
+      HeartbeatTimeout: new ResourceAttribute('HeartbeatTimeout', Number, false, 'No', null),
+      LifecycleTransition: new ResourceAttribute('LifecycleTransition', String, false, 'Yes', null),
+      NotificationMetadata: new ResourceAttribute('NotificationMetadata', String, false, 'No', null),
+      NotificationTargetARN: new ResourceAttribute('NotificationTargetARN', String, false, 'Yes', null),
+      RoleARN: new ResourceAttribute('RoleARN', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -251,15 +250,15 @@ LifecycleHook.prototype = Object.create(WKResource.prototype)
 function ScalingPolicy (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::ScalingPolicy'
     let properties = {
-      AdjustmentType: new ResourceAttribute('AdjustmentType', String, 'Yes', null),
-      AutoScalingGroupName: new ResourceAttribute('AutoScalingGroupName', String, 'Yes', null),
-      Cooldown: new ResourceAttribute('Cooldown', String, 'No', null),
-      EstimatedInstanceWarmup: new ResourceAttribute('EstimatedInstanceWarmup', Number, 'No', null),
-      MetricAggregationType: new ResourceAttribute('MetricAggregationType', String, 'No', null),
-      MinAdjustmentMagnitude: new ResourceAttribute('MinAdjustmentMagnitude', Number, 'No', null),
-      PolicyType: new ResourceAttribute('PolicyType', String, 'No', null),
-      ScalingAdjustment: new ResourceAttribute('ScalingAdjustment', Number, 'Conditional', null),
-      StepAdjustments: new ResourceAttributeArray('StepAdjustments', types.AutoScalingScalingPolicyStepAdjustments, 'Conditional', null)
+      AdjustmentType: new ResourceAttribute('AdjustmentType', String, false, 'Yes', null),
+      AutoScalingGroupName: new ResourceAttribute('AutoScalingGroupName', String, false, 'Yes', null),
+      Cooldown: new ResourceAttribute('Cooldown', String, false, 'No', null),
+      EstimatedInstanceWarmup: new ResourceAttribute('EstimatedInstanceWarmup', Number, false, 'No', null),
+      MetricAggregationType: new ResourceAttribute('MetricAggregationType', String, false, 'No', null),
+      MinAdjustmentMagnitude: new ResourceAttribute('MinAdjustmentMagnitude', Number, false, 'No', null),
+      PolicyType: new ResourceAttribute('PolicyType', String, false, 'No', null),
+      ScalingAdjustment: new ResourceAttribute('ScalingAdjustment', Number, false, 'Conditional', null),
+      StepAdjustments: new ResourceAttribute('StepAdjustments', types.AutoScalingScalingPolicyStepAdjustments, true, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -284,13 +283,13 @@ ScalingPolicy.prototype = Object.create(WKResource.prototype)
 function ScheduledAction (name, propertiesObject) {
     let resourceType = 'AWS::AutoScaling::ScheduledAction'
     let properties = {
-      AutoScalingGroupName: new ResourceAttribute('AutoScalingGroupName', String, 'Yes', null),
-      DesiredCapacity: new ResourceAttribute('DesiredCapacity', Number, 'No', null),
-      EndTime: new ResourceAttribute('EndTime', Date, 'No', null),
-      MaxSize: new ResourceAttribute('MaxSize', Number, 'No', null),
-      MinSize: new ResourceAttribute('MinSize', Number, 'No', null),
-      Recurrence: new ResourceAttribute('Recurrence', String, 'No', null),
-      StartTime: new ResourceAttribute('StartTime', Date, 'No', null)
+      AutoScalingGroupName: new ResourceAttribute('AutoScalingGroupName', String, false, 'Yes', null),
+      DesiredCapacity: new ResourceAttribute('DesiredCapacity', Number, false, 'No', null),
+      EndTime: new ResourceAttribute('EndTime', Date, false, 'No', null),
+      MaxSize: new ResourceAttribute('MaxSize', Number, false, 'No', null),
+      MinSize: new ResourceAttribute('MinSize', Number, false, 'No', null),
+      Recurrence: new ResourceAttribute('Recurrence', String, false, 'No', null),
+      StartTime: new ResourceAttribute('StartTime', Date, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

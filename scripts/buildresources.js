@@ -15,7 +15,6 @@ fs
     header += '\'use strict\'\n\n'
     header += 'const WKResource = require(\'./../resource\').WKResource\n'
     header += 'const ResourceAttribute = require(\'./../resourceattribute\').ResourceAttribute\n'
-    header += 'const ResourceAttributeArray = require(\'./../resourceattribute\').ResourceAttributeArray\n'
     header += 'const tag = require(\'./../tag\')\n'
     header += 'const types = require(\'./../types\')\n\n'
 
@@ -46,8 +45,9 @@ fs
         if (propType === 'Type::ListofAWS::Route53::RecordSetobjects,asshowninthefollowingexample:') {
           propType = ['RecordSet']
         }
+        let isArray = false
         if (Array.isArray(propType)) {
-          wkType = 'ResourceAttributeArray'
+          isArray = true
           propType = propType[0]
         }
         if (typeof propType === 'string') {
@@ -167,7 +167,7 @@ fs
             break
           case 'Stringlist':
             propType = 'String'
-            wkType = 'ResourceAttributeArray'
+            wkType = 'ResourceAttribute'
             break
           case 'routetableIDs':
             propType = 'String'
@@ -219,7 +219,7 @@ fs
         if (name === 'Tags') {
           resourceBody += '      ' + name + ': new tag.TagSet()'
         } else {
-          resourceBody += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + required + '\', null)'
+          resourceBody += '      ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', ' + isArray + ', \'' + required + '\', null)'
         }
 
         docHeader += '* @property {' + docType + '} ' + name + ' Required: ' + required + '. ' + subProp.properties[ props[ i ] ].Description + '\n'

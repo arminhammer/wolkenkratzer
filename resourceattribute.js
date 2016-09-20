@@ -18,9 +18,10 @@ const ResourceProperty = require('./resource').ResourceProperty
 /**
  * @memberof module:Core
  */
-function ResourceAttribute (name, type, required, value) {
+function ResourceAttribute (name, type, isArray, required, value) {
   this.WKName = name
   this.Type = type
+  this.isArray = isArray
   this.required = required
   this.val = value
 }
@@ -30,19 +31,72 @@ function ResourceAttribute (name, type, required, value) {
  * @param value
  */
 ResourceAttribute.prototype.set = function (value) {
+  if (this.isArray) {
+    let instrinsicValue = Intrinsic.makeIntrinsic(value)
+    if (instrinsicValue) {
+      value = instrinsicValue
+    }
+    if (value instanceof Intrinsic.Intrinsic) {
+      this.val = value
+    } else if (!Array.isArray(value)) {
+      throw new TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type)
+    } else {
+      this.val = []
+      for (let val of value) {
+        val = new this.Type(val)
+        if (((typeof val === 'string') && (this.Type.prototype === String.prototype)) || ((typeof val === 'boolean') && (this.Type.prototype === Boolean.prototype)) || ((typeof val === 'number') && (this.Type.prototype === Number.prototype)) || (val instanceof this.Type)) {
+          this.val.push(val)
+        } else {
+          throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)
+        }
+      }
+    }
+  } else {
+    let instrinsicValue = Intrinsic.makeIntrinsic(value)
+    if (instrinsicValue) {
+      value = instrinsicValue
+    }
+    if (value instanceof Intrinsic.Intrinsic) {
+      this.val = value
+    } else {
+      if (((typeof value === 'string') && (this.Type.prototype === String.prototype)) || ((typeof value === 'boolean') && (this.Type.prototype === Boolean.prototype)) || ((typeof value === 'number') && (this.Type.prototype === Number.prototype)) || (value instanceof this.Type)) {
+        this.val = value
+      } else if (new this.Type(value) instanceof this.Type) {
+        this.val = new this.Type(value)
+      } else {
+        throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)
+      }
+    }
+  }
+}
+
+/**
+ * Add a value to the attribute array
+ * @param val
+ */
+ResourceAttribute.prototype.push = function (val) {
+  if (!this.isArray) {
+    throw new TypeException(this.WKName + ' is not an array, cannot push ' + val)
+  }
+  let value = val
   let instrinsicValue = Intrinsic.makeIntrinsic(value)
   if (instrinsicValue) {
     value = instrinsicValue
   }
-  if (value instanceof Intrinsic.Intrinsic) {
-    this.val = value
+  if ((value instanceof Intrinsic.Intrinsic) || ((typeof value === 'string') && (this.Type.prototype === String.prototype)) || ((typeof value === 'boolean') && (this.Type.prototype === Boolean.prototype)) || ((typeof value === 'number') && (this.Type.prototype === Number.prototype)) || (value instanceof this.Type)) {
+    if (!this.val) {
+      this.val = []
+    }
+    this.val.push(val)
   } else {
-    if (((typeof value === 'string') && (this.Type.prototype === String.prototype)) || ((typeof value === 'boolean') && (this.Type.prototype === Boolean.prototype)) || ((typeof value === 'number') && (this.Type.prototype === Number.prototype)) || (value instanceof this.Type)) {
-      this.val = value
-    } else if (new this.Type(value) instanceof this.Type) {
-      this.val = new this.Type(value)
-    } else {
-      throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)
+    try {
+      if (!this.val) {
+        this.val = []
+      }
+      let newObject = new this.Type(val)
+      this.val.push(newObject)
+    } catch (e) {
+      throw new TypeException(val + ' is the wrong type, was expecting ' + this.Type + ', reporting: ' + e)
     }
   }
 }
@@ -102,124 +156,51 @@ ResourceAttribute.prototype.base64 = function (content) {
  * @returns {*}
  */
 ResourceAttribute.prototype.toJson = function () {
-  if (this.val !== null) {
-    if (this.val instanceof Intrinsic.Intrinsic) {
-      return this.val.toJson()
-    } else if (this.val instanceof ResourceProperty) {
-      return this.val.toJson()
-    }
-    return this.val
-  } else {
-    if (this.required === 'Yes') {
-      throw new RequiredPropertyException('this value is required')
-    }
-  }
-}
-
-/**
- * @memberof module:Core
- */
-function ResourceAttributeArray (name, type, required, value) {
-  ResourceAttribute.call(this, name, type, required, value)
-}
-ResourceAttributeArray.prototype = Object.create(ResourceAttribute.prototype)
-
-/**
- * Set the value of the attribute
- * @param value
- */
-ResourceAttributeArray.prototype.set = function (value) {
-  let instrinsicValue = Intrinsic.makeIntrinsic(value)
-  if (instrinsicValue) {
-    value = instrinsicValue
-  }
-  if (value instanceof Intrinsic.Intrinsic) {
-    this.val = value
-  } else if (!Array.isArray(value)) {
-    throw new TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type)
-  } else {
-    this.val = []
-    for (let val of value) {
-      val = new this.Type(val)
-      if (((typeof val === 'string') && (this.Type.prototype === String.prototype)) || ((typeof val === 'boolean') && (this.Type.prototype === Boolean.prototype)) || ((typeof val === 'number') && (this.Type.prototype === Number.prototype)) || (val instanceof this.Type)) {
-        this.val.push(val)
+  if (this.isArray) {
+    if (this.val !== null) {
+      if (this.val instanceof Intrinsic.Intrinsic) {
+        return this.val.toJson()
+      } else if (this.Type.prototype instanceof ResourceProperty) {
+        let propArray = []
+        for (let prop in this.val) {
+          propArray.push(this.val[prop].toJson())
+        }
+        if (propArray.length > 0) {
+          return propArray
+        }
       } else {
-        throw new TypeException(value + ' is the wrong type for ' + this.WKName + ', was expecting ' + this.Type)
-      }
-    }
-  }
-}
-
-/**
- * Add an Fn Join intrinsic function to set the value of the attribute
- * @param delimiter
- * @param values
- */
-ResourceAttributeArray.prototype.join = function (delimiter, values) {
-  if (!this.val) {
-    this.val = []
-  }
-  this.val.push(new FnJoin(delimiter, values))
-}
-
-/**
- * Add a value to the attribute array
- * @param val
- */
-ResourceAttributeArray.prototype.push = function (val) {
-  let value = val
-  let instrinsicValue = Intrinsic.makeIntrinsic(value)
-  if (instrinsicValue) {
-    value = instrinsicValue
-  }
-  if ((value instanceof Intrinsic.Intrinsic) || ((typeof value === 'string') && (this.Type.prototype === String.prototype)) || ((typeof value === 'boolean') && (this.Type.prototype === Boolean.prototype)) || ((typeof value === 'number') && (this.Type.prototype === Number.prototype)) || (value instanceof this.Type)) {
-    if (!this.val) {
-      this.val = []
-    }
-    this.val.push(val)
-  } else {
-    try {
-      if (!this.val) {
-        this.val = []
-      }
-      let newObject = new this.Type(val)
-      this.val.push(newObject)
-    } catch (e) {
-      throw new TypeException(val + ' is the wrong type, was expecting ' + this.Type + ', reporting: ' + e)
-    }
-  }
-}
-/**
- * Get a JSON representation of the attribute
- * @returns {*}
- */
-ResourceAttributeArray.prototype.toJson = function () {
-  if (this.val !== null) {
-    if (this.val instanceof Intrinsic.Intrinsic) {
-      return this.val.toJson()
-    } else if (this.Type.prototype instanceof ResourceProperty) {
-      let propArray = []
-      for (let prop in this.val) {
-        propArray.push(this.val[prop].toJson())
-      }
-      return propArray
-    } else {
-      let propArray = []
-      for (let prop in this.val) {
-        if (this.val[prop] instanceof Intrinsic.Intrinsic) {
-          propArray.push(this.val[ prop ].toJson())
-        } else {
-          propArray.push(this.val[prop])
+        let propArray = []
+        for (let prop in this.val) {
+          if (this.val[prop] instanceof Intrinsic.Intrinsic) {
+            propArray.push(this.val[prop].toJson())
+          } else {
+            propArray.push(this.val[prop])
+          }
+        }
+        if (propArray.length > 0) {
+          return propArray
         }
       }
-      return propArray
+    } else {
+      if (this.required === 'Yes') { throw new RequiredPropertyException(this.WKName + ' is required.') }
     }
-  } else {
-    if (this.required === 'Yes') { throw new RequiredPropertyException(this.WKName + ' is required.') }
+  }
+  else {
+    if (this.val !== null) {
+      if (this.val instanceof Intrinsic.Intrinsic) {
+        return this.val.toJson()
+      } else if (this.val instanceof ResourceProperty) {
+        return this.val.toJson()
+      }
+      return this.val
+    } else {
+      if (this.required === 'Yes') {
+        throw new RequiredPropertyException('this value is required')
+      }
+    }
   }
 }
 
 module.exports = {
-  ResourceAttribute: ResourceAttribute,
-  ResourceAttributeArray: ResourceAttributeArray
+  ResourceAttribute: ResourceAttribute
 }

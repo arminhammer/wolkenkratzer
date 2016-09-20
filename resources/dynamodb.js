@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -46,13 +45,13 @@ You can still do updates that require no or some interruption. If you must repla
 function Table (name, propertiesObject) {
     let resourceType = 'AWS::DynamoDB::Table'
     let properties = {
-      AttributeDefinitions: new ResourceAttributeArray('AttributeDefinitions', types.DynamoDBAttributeDefinitions, 'Yes', null),
-      GlobalSecondaryIndexes: new ResourceAttributeArray('GlobalSecondaryIndexes', types.DynamoDBGlobalSecondaryIndexes, 'No', null),
-      KeySchema: new ResourceAttributeArray('KeySchema', types.DynamoDBKeySchema, 'Yes', null),
-      LocalSecondaryIndexes: new ResourceAttributeArray('LocalSecondaryIndexes', types.DynamoDBLocalSecondaryIndexes, 'No', null),
-      ProvisionedThroughput: new ResourceAttribute('ProvisionedThroughput', types.DynamoDBProvisionedThroughput, 'Yes', null),
-      StreamSpecification: new ResourceAttribute('StreamSpecification', types.DynamoDBTableStreamSpecification, 'No', null),
-      TableName: new ResourceAttribute('TableName', String, 'No', null)
+      AttributeDefinitions: new ResourceAttribute('AttributeDefinitions', types.DynamoDBAttributeDefinitions, true, 'Yes', null),
+      GlobalSecondaryIndexes: new ResourceAttribute('GlobalSecondaryIndexes', types.DynamoDBGlobalSecondaryIndexes, true, 'No', null),
+      KeySchema: new ResourceAttribute('KeySchema', types.DynamoDBKeySchema, true, 'Yes', null),
+      LocalSecondaryIndexes: new ResourceAttribute('LocalSecondaryIndexes', types.DynamoDBLocalSecondaryIndexes, true, 'No', null),
+      ProvisionedThroughput: new ResourceAttribute('ProvisionedThroughput', types.DynamoDBProvisionedThroughput, false, 'Yes', null),
+      StreamSpecification: new ResourceAttribute('StreamSpecification', types.DynamoDBTableStreamSpecification, false, 'No', null),
+      TableName: new ResourceAttribute('TableName', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

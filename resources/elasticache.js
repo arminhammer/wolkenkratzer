@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -87,27 +86,27 @@ You can still do updates that require no or some interruption. If you must repla
 function CacheCluster (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::CacheCluster'
     let properties = {
-      AutoMinorVersionUpgrade: new ResourceAttribute('AutoMinorVersionUpgrade', Boolean, 'No', null),
-      AZMode: new ResourceAttribute('AZMode', String, 'Conditional', null),
-      CacheNodeType: new ResourceAttribute('CacheNodeType', String, 'Yes', null),
-      CacheParameterGroupName: new ResourceAttribute('CacheParameterGroupName', String, 'No', null),
-      CacheSecurityGroupNames: new ResourceAttributeArray('CacheSecurityGroupNames', String, 'Conditional', null),
-      CacheSubnetGroupName: new ResourceAttribute('CacheSubnetGroupName', String, 'Conditional', null),
-      ClusterName: new ResourceAttribute('ClusterName', String, 'No', null),
-      Engine: new ResourceAttribute('Engine', String, 'Yes', null),
-      EngineVersion: new ResourceAttribute('EngineVersion', String, 'No', null),
-      NotificationTopicArn: new ResourceAttribute('NotificationTopicArn', String, 'No', null),
-      NumCacheNodes: new ResourceAttribute('NumCacheNodes', String, 'Yes', null),
-      Port: new ResourceAttribute('Port', Number, 'No', null),
-      PreferredAvailabilityZone: new ResourceAttribute('PreferredAvailabilityZone', String, 'No', null),
-      PreferredAvailabilityZones: new ResourceAttributeArray('PreferredAvailabilityZones', String, 'No', null),
-      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, 'No', null),
-      SnapshotArns: new ResourceAttributeArray('SnapshotArns', String, 'No', null),
-      SnapshotName: new ResourceAttribute('SnapshotName', String, 'No', null),
-      SnapshotRetentionLimit: new ResourceAttribute('SnapshotRetentionLimit', Number, 'No', null),
-      SnapshotWindow: new ResourceAttribute('SnapshotWindow', String, 'No', null),
+      AutoMinorVersionUpgrade: new ResourceAttribute('AutoMinorVersionUpgrade', Boolean, false, 'No', null),
+      AZMode: new ResourceAttribute('AZMode', String, false, 'Conditional', null),
+      CacheNodeType: new ResourceAttribute('CacheNodeType', String, false, 'Yes', null),
+      CacheParameterGroupName: new ResourceAttribute('CacheParameterGroupName', String, false, 'No', null),
+      CacheSecurityGroupNames: new ResourceAttribute('CacheSecurityGroupNames', String, true, 'Conditional', null),
+      CacheSubnetGroupName: new ResourceAttribute('CacheSubnetGroupName', String, false, 'Conditional', null),
+      ClusterName: new ResourceAttribute('ClusterName', String, false, 'No', null),
+      Engine: new ResourceAttribute('Engine', String, false, 'Yes', null),
+      EngineVersion: new ResourceAttribute('EngineVersion', String, false, 'No', null),
+      NotificationTopicArn: new ResourceAttribute('NotificationTopicArn', String, false, 'No', null),
+      NumCacheNodes: new ResourceAttribute('NumCacheNodes', String, false, 'Yes', null),
+      Port: new ResourceAttribute('Port', Number, false, 'No', null),
+      PreferredAvailabilityZone: new ResourceAttribute('PreferredAvailabilityZone', String, false, 'No', null),
+      PreferredAvailabilityZones: new ResourceAttribute('PreferredAvailabilityZones', String, true, 'No', null),
+      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, false, 'No', null),
+      SnapshotArns: new ResourceAttribute('SnapshotArns', String, true, 'No', null),
+      SnapshotName: new ResourceAttribute('SnapshotName', String, false, 'No', null),
+      SnapshotRetentionLimit: new ResourceAttribute('SnapshotRetentionLimit', Number, false, 'No', null),
+      SnapshotWindow: new ResourceAttribute('SnapshotWindow', String, false, 'No', null),
       Tags: new tag.TagSet(),
-      VpcSecurityGroupIds: new ResourceAttributeArray('VpcSecurityGroupIds', String, 'Conditional', null)
+      VpcSecurityGroupIds: new ResourceAttribute('VpcSecurityGroupIds', String, true, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -124,9 +123,9 @@ CacheCluster.prototype = Object.create(WKResource.prototype)
 function ParameterGroup (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ParameterGroup'
     let properties = {
-      CacheParameterGroupFamily: new ResourceAttribute('CacheParameterGroupFamily', String, 'Yes', null),
-      Description: new ResourceAttribute('Description', String, 'Yes', null),
-      Properties: new ResourceAttribute('Properties', Map, 'No', null)
+      CacheParameterGroupFamily: new ResourceAttribute('CacheParameterGroupFamily', String, false, 'Yes', null),
+      Description: new ResourceAttribute('Description', String, false, 'Yes', null),
+      Properties: new ResourceAttribute('Properties', Map, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -185,24 +184,24 @@ ParameterGroup.prototype = Object.create(WKResource.prototype)
 function ReplicationGroup (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::ReplicationGroup'
     let properties = {
-      AutomaticFailoverEnabled: new ResourceAttribute('AutomaticFailoverEnabled', Boolean, 'No', null),
-      AutoMinorVersionUpgrade: new ResourceAttribute('AutoMinorVersionUpgrade', Boolean, 'No', null),
-      CacheNodeType: new ResourceAttribute('CacheNodeType', String, 'Yes', null),
-      CacheParameterGroupName: new ResourceAttribute('CacheParameterGroupName', String, 'No', null),
-      CacheSecurityGroupNames: new ResourceAttributeArray('CacheSecurityGroupNames', String, 'No', null),
-      CacheSubnetGroupName: new ResourceAttribute('CacheSubnetGroupName', String, 'No', null),
-      Engine: new ResourceAttribute('Engine', String, 'Yes', null),
-      EngineVersion: new ResourceAttribute('EngineVersion', String, 'No', null),
-      NotificationTopicArn: new ResourceAttribute('NotificationTopicArn', String, 'No', null),
-      NumCacheClusters: new ResourceAttribute('NumCacheClusters', Number, 'Yes', null),
-      Port: new ResourceAttribute('Port', Number, 'No', null),
-      PreferredCacheClusterAZs: new ResourceAttributeArray('PreferredCacheClusterAZs', String, 'No', null),
-      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, 'No', null),
-      ReplicationGroupDescription: new ResourceAttribute('ReplicationGroupDescription', String, 'Yes', null),
-      SecurityGroupIds: new ResourceAttributeArray('SecurityGroupIds', String, 'No', null),
-      SnapshotArns: new ResourceAttributeArray('SnapshotArns', String, 'No', null),
-      SnapshotRetentionLimit: new ResourceAttribute('SnapshotRetentionLimit', Number, 'No', null),
-      SnapshotWindow: new ResourceAttribute('SnapshotWindow', String, 'No', null)
+      AutomaticFailoverEnabled: new ResourceAttribute('AutomaticFailoverEnabled', Boolean, false, 'No', null),
+      AutoMinorVersionUpgrade: new ResourceAttribute('AutoMinorVersionUpgrade', Boolean, false, 'No', null),
+      CacheNodeType: new ResourceAttribute('CacheNodeType', String, false, 'Yes', null),
+      CacheParameterGroupName: new ResourceAttribute('CacheParameterGroupName', String, false, 'No', null),
+      CacheSecurityGroupNames: new ResourceAttribute('CacheSecurityGroupNames', String, true, 'No', null),
+      CacheSubnetGroupName: new ResourceAttribute('CacheSubnetGroupName', String, false, 'No', null),
+      Engine: new ResourceAttribute('Engine', String, false, 'Yes', null),
+      EngineVersion: new ResourceAttribute('EngineVersion', String, false, 'No', null),
+      NotificationTopicArn: new ResourceAttribute('NotificationTopicArn', String, false, 'No', null),
+      NumCacheClusters: new ResourceAttribute('NumCacheClusters', Number, false, 'Yes', null),
+      Port: new ResourceAttribute('Port', Number, false, 'No', null),
+      PreferredCacheClusterAZs: new ResourceAttribute('PreferredCacheClusterAZs', String, true, 'No', null),
+      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, false, 'No', null),
+      ReplicationGroupDescription: new ResourceAttribute('ReplicationGroupDescription', String, false, 'Yes', null),
+      SecurityGroupIds: new ResourceAttribute('SecurityGroupIds', String, true, 'No', null),
+      SnapshotArns: new ResourceAttribute('SnapshotArns', String, true, 'No', null),
+      SnapshotRetentionLimit: new ResourceAttribute('SnapshotRetentionLimit', Number, false, 'No', null),
+      SnapshotWindow: new ResourceAttribute('SnapshotWindow', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -215,7 +214,7 @@ ReplicationGroup.prototype = Object.create(WKResource.prototype)
 function SecurityGroup (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroup'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'No', null)
+      Description: new ResourceAttribute('Description', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -232,9 +231,9 @@ SecurityGroup.prototype = Object.create(WKResource.prototype)
 function SecurityGroupIngress (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SecurityGroupIngress'
     let properties = {
-      CacheSecurityGroupName: new ResourceAttribute('CacheSecurityGroupName', String, 'Yes', null),
-      EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, 'Yes', null),
-      EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, 'No', null)
+      CacheSecurityGroupName: new ResourceAttribute('CacheSecurityGroupName', String, false, 'Yes', null),
+      EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, false, 'Yes', null),
+      EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -248,8 +247,8 @@ SecurityGroupIngress.prototype = Object.create(WKResource.prototype)
 function SubnetGroup (name, propertiesObject) {
     let resourceType = 'AWS::ElastiCache::SubnetGroup'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'Yes', null),
-      SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null)
+      Description: new ResourceAttribute('Description', String, false, 'Yes', null),
+      SubnetIds: new ResourceAttribute('SubnetIds', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

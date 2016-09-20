@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -15,7 +14,7 @@ const types = require('./../types')
 function Account (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Account'
     let properties = {
-      CloudWatchRoleArn: new ResourceAttribute('CloudWatchRoleArn', String, 'No', null)
+      CloudWatchRoleArn: new ResourceAttribute('CloudWatchRoleArn', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -32,10 +31,10 @@ You can still do updates that require no or some interruption. If you must repla
 function ApiKey (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::ApiKey'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      Enabled: new ResourceAttribute('Enabled', Boolean, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'No', null),
-      StageKeys: new ResourceAttributeArray('StageKeys', types.AmazonAPIGatewayApiKeyStageKey, 'No', null)
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      Enabled: new ResourceAttribute('Enabled', Boolean, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'No', null),
+      StageKeys: new ResourceAttribute('StageKeys', types.AmazonAPIGatewayApiKeyStageKey, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -55,14 +54,14 @@ ApiKey.prototype = Object.create(WKResource.prototype)
 function Authorizer (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Authorizer'
     let properties = {
-      AuthorizerCredentials: new ResourceAttribute('AuthorizerCredentials', String, 'No', null),
-      AuthorizerResultTtlInSeconds: new ResourceAttribute('AuthorizerResultTtlInSeconds', Number, 'No', null),
-      AuthorizerUri: new ResourceAttribute('AuthorizerUri', String, 'Yes', null),
-      IdentitySource: new ResourceAttribute('IdentitySource', String, 'Yes', null),
-      IdentityValidationExpression: new ResourceAttribute('IdentityValidationExpression', String, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null),
-      RestApiId: new ResourceAttribute('RestApiId', String, 'No', null),
-      Type: new ResourceAttribute('Type', String, 'Yes', null)
+      AuthorizerCredentials: new ResourceAttribute('AuthorizerCredentials', String, false, 'No', null),
+      AuthorizerResultTtlInSeconds: new ResourceAttribute('AuthorizerResultTtlInSeconds', Number, false, 'No', null),
+      AuthorizerUri: new ResourceAttribute('AuthorizerUri', String, false, 'Yes', null),
+      IdentitySource: new ResourceAttribute('IdentitySource', String, false, 'Yes', null),
+      IdentityValidationExpression: new ResourceAttribute('IdentityValidationExpression', String, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null),
+      RestApiId: new ResourceAttribute('RestApiId', String, false, 'No', null),
+      Type: new ResourceAttribute('Type', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -78,10 +77,10 @@ Authorizer.prototype = Object.create(WKResource.prototype)
 function BasePathMapping (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::BasePathMapping'
     let properties = {
-      BasePath: new ResourceAttribute('BasePath', String, 'No', null),
-      DomainName: new ResourceAttribute('DomainName', String, 'Yes', null),
-      RestApiId: new ResourceAttribute('RestApiId', String, 'Yes', null),
-      Stage: new ResourceAttribute('Stage', String, 'No', null)
+      BasePath: new ResourceAttribute('BasePath', String, false, 'No', null),
+      DomainName: new ResourceAttribute('DomainName', String, false, 'Yes', null),
+      RestApiId: new ResourceAttribute('RestApiId', String, false, 'Yes', null),
+      Stage: new ResourceAttribute('Stage', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -94,7 +93,7 @@ BasePathMapping.prototype = Object.create(WKResource.prototype)
 function ClientCertificate (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::ClientCertificate'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'No', null)
+      Description: new ResourceAttribute('Description', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -111,10 +110,10 @@ ClientCertificate.prototype = Object.create(WKResource.prototype)
 function Deployment (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Deployment'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      RestApiId: new ResourceAttribute('RestApiId', String, 'Yes', null),
-      StageDescription: new ResourceAttribute('StageDescription', types.AmazonAPIGatewayDeploymentStageDescription, 'No', null),
-      StageName: new ResourceAttribute('StageName', String, 'Yes', null)
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      RestApiId: new ResourceAttribute('RestApiId', String, false, 'Yes', null),
+      StageDescription: new ResourceAttribute('StageDescription', types.AmazonAPIGatewayDeploymentStageDescription, false, 'No', null),
+      StageName: new ResourceAttribute('StageName', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -137,16 +136,16 @@ Deployment.prototype = Object.create(WKResource.prototype)
 function Method (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Method'
     let properties = {
-      ApiKeyRequired: new ResourceAttribute('ApiKeyRequired', Boolean, 'No', null),
-      AuthorizationType: new ResourceAttribute('AuthorizationType', String, 'Conditional', null),
-      AuthorizerId: new ResourceAttribute('AuthorizerId', String, 'No', null),
-      HttpMethod: new ResourceAttribute('HttpMethod', String, 'Yes', null),
-      Integration: new ResourceAttribute('Integration', types.AmazonAPIGatewayMethodIntegration, 'No', null),
-      MethodResponses: new ResourceAttributeArray('MethodResponses', types.AmazonAPIGatewayMethodMethodResponse, 'No', null),
-      RequestModels: new ResourceAttribute('RequestModels', Map, 'No', null),
-      RequestParameters: new ResourceAttribute('RequestParameters', Map, 'No', null),
-      ResourceId: new ResourceAttribute('ResourceId', String, 'Yes', null),
-      RestApiId: new ResourceAttribute('RestApiId', String, 'Yes', null)
+      ApiKeyRequired: new ResourceAttribute('ApiKeyRequired', Boolean, false, 'No', null),
+      AuthorizationType: new ResourceAttribute('AuthorizationType', String, false, 'Conditional', null),
+      AuthorizerId: new ResourceAttribute('AuthorizerId', String, false, 'No', null),
+      HttpMethod: new ResourceAttribute('HttpMethod', String, false, 'Yes', null),
+      Integration: new ResourceAttribute('Integration', types.AmazonAPIGatewayMethodIntegration, false, 'No', null),
+      MethodResponses: new ResourceAttribute('MethodResponses', types.AmazonAPIGatewayMethodMethodResponse, true, 'No', null),
+      RequestModels: new ResourceAttribute('RequestModels', Map, false, 'No', null),
+      RequestParameters: new ResourceAttribute('RequestParameters', Map, false, 'No', null),
+      ResourceId: new ResourceAttribute('ResourceId', String, false, 'Yes', null),
+      RestApiId: new ResourceAttribute('RestApiId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -164,11 +163,11 @@ You can still do updates that require no or some interruption. If you must repla
 function Model (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Model'
     let properties = {
-      ContentType: new ResourceAttribute('ContentType', String, 'No', null),
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'No', null),
-      RestApiId: new ResourceAttribute('RestApiId', String, 'Yes', null),
-      Schema: new ResourceAttribute('Schema', Object, 'No', null)
+      ContentType: new ResourceAttribute('ContentType', String, false, 'No', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'No', null),
+      RestApiId: new ResourceAttribute('RestApiId', String, false, 'Yes', null),
+      Schema: new ResourceAttribute('Schema', Object, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -183,9 +182,9 @@ Model.prototype = Object.create(WKResource.prototype)
 function Resource (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Resource'
     let properties = {
-      ParentId: new ResourceAttribute('ParentId', String, 'Yes', null),
-      PathPart: new ResourceAttribute('PathPart', String, 'Yes', null),
-      RestApiId: new ResourceAttribute('RestApiId', String, 'Yes', null)
+      ParentId: new ResourceAttribute('ParentId', String, false, 'Yes', null),
+      PathPart: new ResourceAttribute('PathPart', String, false, 'Yes', null),
+      RestApiId: new ResourceAttribute('RestApiId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -206,13 +205,13 @@ Resource.prototype = Object.create(WKResource.prototype)
 function RestApi (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::RestApi'
     let properties = {
-      Body: new ResourceAttribute('Body', Object, 'No', null),
-      BodyS3Location: new ResourceAttribute('BodyS3Location', types.AmazonAPIGatewayRestApiS3Location, 'No', null),
-      CloneFrom: new ResourceAttribute('CloneFrom', String, 'No', null),
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      FailOnWarnings: new ResourceAttribute('FailOnWarnings', Boolean, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'Conditional', null),
-      Parameters: new ResourceAttributeArray('Parameters', String, 'No', null)
+      Body: new ResourceAttribute('Body', Object, false, 'No', null),
+      BodyS3Location: new ResourceAttribute('BodyS3Location', types.AmazonAPIGatewayRestApiS3Location, false, 'No', null),
+      CloneFrom: new ResourceAttribute('CloneFrom', String, false, 'No', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      FailOnWarnings: new ResourceAttribute('FailOnWarnings', Boolean, false, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'Conditional', null),
+      Parameters: new ResourceAttribute('Parameters', String, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -233,15 +232,15 @@ RestApi.prototype = Object.create(WKResource.prototype)
 function Stage (name, propertiesObject) {
     let resourceType = 'AWS::ApiGateway::Stage'
     let properties = {
-      CacheClusterEnabled: new ResourceAttribute('CacheClusterEnabled', Boolean, 'No', null),
-      CacheClusterSize: new ResourceAttribute('CacheClusterSize', String, 'No', null),
-      ClientCertificateId: new ResourceAttribute('ClientCertificateId', String, 'No', null),
-      DeploymentId: new ResourceAttribute('DeploymentId', String, 'Yes', null),
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      MethodSettings: new ResourceAttribute('MethodSettings', types.AmazonAPIGatewayStageMethodSetting, 'No', null),
-      RestApiId: new ResourceAttribute('RestApiId', String, 'Yes', null),
-      StageName: new ResourceAttribute('StageName', String, 'Yes', null),
-      Variables: new ResourceAttribute('Variables', Map, 'No', null)
+      CacheClusterEnabled: new ResourceAttribute('CacheClusterEnabled', Boolean, false, 'No', null),
+      CacheClusterSize: new ResourceAttribute('CacheClusterSize', String, false, 'No', null),
+      ClientCertificateId: new ResourceAttribute('ClientCertificateId', String, false, 'No', null),
+      DeploymentId: new ResourceAttribute('DeploymentId', String, false, 'Yes', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      MethodSettings: new ResourceAttribute('MethodSettings', types.AmazonAPIGatewayStageMethodSetting, false, 'No', null),
+      RestApiId: new ResourceAttribute('RestApiId', String, false, 'Yes', null),
+      StageName: new ResourceAttribute('StageName', String, false, 'Yes', null),
+      Variables: new ResourceAttribute('Variables', Map, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

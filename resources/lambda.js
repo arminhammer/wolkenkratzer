@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -28,11 +27,11 @@ const types = require('./../types')
 function EventSourceMapping (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::EventSourceMapping'
     let properties = {
-      BatchSize: new ResourceAttribute('BatchSize', Number, 'No', null),
-      Enabled: new ResourceAttribute('Enabled', Boolean, 'No', null),
-      EventSourceArn: new ResourceAttribute('EventSourceArn', String, 'Yes', null),
-      FunctionName: new ResourceAttribute('FunctionName', String, 'Yes', null),
-      StartingPosition: new ResourceAttribute('StartingPosition', String, 'Yes', null)
+      BatchSize: new ResourceAttribute('BatchSize', Number, false, 'No', null),
+      Enabled: new ResourceAttribute('Enabled', Boolean, false, 'No', null),
+      EventSourceArn: new ResourceAttribute('EventSourceArn', String, false, 'Yes', null),
+      FunctionName: new ResourceAttribute('FunctionName', String, false, 'Yes', null),
+      StartingPosition: new ResourceAttribute('StartingPosition', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -48,10 +47,10 @@ EventSourceMapping.prototype = Object.create(WKResource.prototype)
 function Alias (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Alias'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      FunctionName: new ResourceAttribute('FunctionName', String, 'Yes', null),
-      FunctionVersion: new ResourceAttribute('FunctionVersion', String, 'Yes', null),
-      Name: new ResourceAttribute('Name', String, 'Yes', null)
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      FunctionName: new ResourceAttribute('FunctionName', String, false, 'Yes', null),
+      FunctionVersion: new ResourceAttribute('FunctionVersion', String, false, 'Yes', null),
+      Name: new ResourceAttribute('Name', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -88,15 +87,15 @@ You can still do updates that require no or some interruption. If you must repla
 function LambdaFunction (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Function'
     let properties = {
-      Code: new ResourceAttribute('Code', types.AWSLambdaFunctionCode, 'Yes', null),
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      FunctionName: new ResourceAttribute('FunctionName', String, 'No', null),
-      Handler: new ResourceAttribute('Handler', String, 'Yes', null),
-      MemorySize: new ResourceAttribute('MemorySize', Number, 'No', null),
-      Role: new ResourceAttribute('Role', String, 'Yes', null),
-      Runtime: new ResourceAttribute('Runtime', String, 'Yes', null),
-      Timeout: new ResourceAttribute('Timeout', Number, 'No', null),
-      VpcConfig: new ResourceAttribute('VpcConfig', types.AWSLambdaFunctionVPCConfig, 'No', null)
+      Code: new ResourceAttribute('Code', types.AWSLambdaFunctionCode, false, 'Yes', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      FunctionName: new ResourceAttribute('FunctionName', String, false, 'No', null),
+      Handler: new ResourceAttribute('Handler', String, false, 'Yes', null),
+      MemorySize: new ResourceAttribute('MemorySize', Number, false, 'No', null),
+      Role: new ResourceAttribute('Role', String, false, 'Yes', null),
+      Runtime: new ResourceAttribute('Runtime', String, false, 'Yes', null),
+      Timeout: new ResourceAttribute('Timeout', Number, false, 'No', null),
+      VpcConfig: new ResourceAttribute('VpcConfig', types.AWSLambdaFunctionVPCConfig, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -127,11 +126,11 @@ LambdaFunction.prototype = Object.create(WKResource.prototype)
 function Permission (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Permission'
     let properties = {
-      Action: new ResourceAttribute('Action', String, 'Yes', null),
-      FunctionName: new ResourceAttribute('FunctionName', String, 'Yes', null),
-      Principal: new ResourceAttribute('Principal', String, 'Yes', null),
-      SourceAccount: new ResourceAttribute('SourceAccount', String, 'No', null),
-      SourceArn: new ResourceAttribute('SourceArn', String, 'No', null)
+      Action: new ResourceAttribute('Action', String, false, 'Yes', null),
+      FunctionName: new ResourceAttribute('FunctionName', String, false, 'Yes', null),
+      Principal: new ResourceAttribute('Principal', String, false, 'Yes', null),
+      SourceAccount: new ResourceAttribute('SourceAccount', String, false, 'No', null),
+      SourceArn: new ResourceAttribute('SourceArn', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -146,9 +145,9 @@ Permission.prototype = Object.create(WKResource.prototype)
 function Version (name, propertiesObject) {
     let resourceType = 'AWS::Lambda::Version'
     let properties = {
-      CodeSha256: new ResourceAttribute('CodeSha256', String, 'No', null),
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      FunctionName: new ResourceAttribute('FunctionName', String, 'Yes', null)
+      CodeSha256: new ResourceAttribute('CodeSha256', String, false, 'No', null),
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      FunctionName: new ResourceAttribute('FunctionName', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

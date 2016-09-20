@@ -12,7 +12,6 @@ fs
   let result = ''
   result += '\'use strict\'\n\n'
   result += 'const ResourceProperty = require(\'./resource\').ResourceProperty\n'
-  result += 'const ResourceAttributeArray = require(\'./resourceattribute\').ResourceAttributeArray\n'
   result += 'const ResourceAttribute = require(\'./resourceattribute\').ResourceAttribute\n\n'
   result += '/** @module Types' + ' */\n\n'
 
@@ -31,8 +30,10 @@ fs
     for (let i = 0; i < props.length; i++) {
       let wkType = 'ResourceAttribute'
       let propType = subProp.properties[ props[ i ] ].Type
+      let isArray = false
       if (Array.isArray(propType)) {
-        wkType = 'ResourceAttributeArray'
+        //wkType = 'ResourceAttributeArray'
+        isArray = true
         propType = propType[0]
       }
       if ((props[i] === 'LambdaConfigurations') || (props[i] === 'QueueConfigurations') || (props[i] === 'TopicConfigurations')) {
@@ -159,7 +160,7 @@ fs
         required = 'No'
       }
       if (isValid) {
-        body += '    ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', \'' + required + '\', null)'
+        body += '    ' + name + ': new ' + wkType + '(\'' + name + '\', ' + propType + ', ' + isArray + ', \'' + required + '\', null)'
       }
       if (isValid && i === (props.length - 1)) {
         body += '\n'

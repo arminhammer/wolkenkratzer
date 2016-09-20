@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -18,9 +17,9 @@ const types = require('./../types')
 function Certificate (name, propertiesObject) {
     let resourceType = 'AWS::CertificateManager::Certificate'
     let properties = {
-      DomainName: new ResourceAttribute('DomainName', String, 'Yes', null),
-      DomainValidationOptions: new ResourceAttributeArray('DomainValidationOptions', types.AWSCertificateManagerCertificateDomainValidationOption, 'No', null),
-      SubjectAlternativeNames: new ResourceAttributeArray('SubjectAlternativeNames', String, 'No', null),
+      DomainName: new ResourceAttribute('DomainName', String, false, 'Yes', null),
+      DomainValidationOptions: new ResourceAttribute('DomainValidationOptions', types.AWSCertificateManagerCertificateDomainValidationOption, true, 'No', null),
+      SubjectAlternativeNames: new ResourceAttribute('SubjectAlternativeNames', String, true, 'No', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)

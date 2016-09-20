@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -23,13 +22,13 @@ const types = require('./../types')
 function CustomActionType (name, propertiesObject) {
     let resourceType = 'AWS::CodePipeline::CustomActionType'
     let properties = {
-      Category: new ResourceAttribute('Category', String, 'Yes', null),
-      ConfigurationProperties: new ResourceAttributeArray('ConfigurationProperties', types.AWSCodePipelineCustomActionTypeConfigurationProperties, 'No', null),
-      InputArtifactDetails: new ResourceAttribute('InputArtifactDetails', types.AWSCodePipelineCustomActionTypeArtifactDetails, 'Yes', null),
-      OutputArtifactDetails: new ResourceAttribute('OutputArtifactDetails', types.AWSCodePipelineCustomActionTypeArtifactDetails, 'Yes', null),
-      Provider: new ResourceAttribute('Provider', String, 'Yes', null),
-      Settings: new ResourceAttribute('Settings', types.AWSCodePipelineCustomActionTypeSettings, 'No', null),
-      Version: new ResourceAttribute('Version', String, 'No', null)
+      Category: new ResourceAttribute('Category', String, false, 'Yes', null),
+      ConfigurationProperties: new ResourceAttribute('ConfigurationProperties', types.AWSCodePipelineCustomActionTypeConfigurationProperties, true, 'No', null),
+      InputArtifactDetails: new ResourceAttribute('InputArtifactDetails', types.AWSCodePipelineCustomActionTypeArtifactDetails, false, 'Yes', null),
+      OutputArtifactDetails: new ResourceAttribute('OutputArtifactDetails', types.AWSCodePipelineCustomActionTypeArtifactDetails, false, 'Yes', null),
+      Provider: new ResourceAttribute('Provider', String, false, 'Yes', null),
+      Settings: new ResourceAttribute('Settings', types.AWSCodePipelineCustomActionTypeSettings, false, 'No', null),
+      Version: new ResourceAttribute('Version', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -52,12 +51,12 @@ CustomActionType.prototype = Object.create(WKResource.prototype)
 function Pipeline (name, propertiesObject) {
     let resourceType = 'AWS::CodePipeline::Pipeline'
     let properties = {
-      ArtifactStore: new ResourceAttribute('ArtifactStore', types.AWSCodePipelinePipelineArtifactStore, 'Yes', null),
-      DisableInboundStageTransitions: new ResourceAttributeArray('DisableInboundStageTransitions', types.AWSCodePipelinePipelineDisableInboundStageTransitions, 'No', null),
-      Name: new ResourceAttribute('Name', String, 'No', null),
-      RestartExecutionOnUpdate: new ResourceAttribute('RestartExecutionOnUpdate', Boolean, 'No', null),
-      RoleArn: new ResourceAttribute('RoleArn', String, 'Yes', null),
-      Stages: new ResourceAttribute('Stages', types.AWSCodePipelinePipelineStages, 'Yes', null)
+      ArtifactStore: new ResourceAttribute('ArtifactStore', types.AWSCodePipelinePipelineArtifactStore, false, 'Yes', null),
+      DisableInboundStageTransitions: new ResourceAttribute('DisableInboundStageTransitions', types.AWSCodePipelinePipelineDisableInboundStageTransitions, true, 'No', null),
+      Name: new ResourceAttribute('Name', String, false, 'No', null),
+      RestartExecutionOnUpdate: new ResourceAttribute('RestartExecutionOnUpdate', Boolean, false, 'No', null),
+      RoleArn: new ResourceAttribute('RoleArn', String, false, 'Yes', null),
+      Stages: new ResourceAttribute('Stages', types.AWSCodePipelinePipelineStages, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

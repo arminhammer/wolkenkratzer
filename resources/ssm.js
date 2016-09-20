@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -17,7 +16,7 @@ const types = require('./../types')
 function Document (name, propertiesObject) {
     let resourceType = 'AWS::SSM::Document'
     let properties = {
-      Content: new ResourceAttribute('Content', Object, 'Yes', null)
+      Content: new ResourceAttribute('Content', Object, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

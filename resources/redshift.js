@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -57,30 +56,30 @@ const types = require('./../types')
 function Cluster (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::Cluster'
     let properties = {
-      AllowVersionUpgrade: new ResourceAttribute('AllowVersionUpgrade', Boolean, 'No', null),
-      AutomatedSnapshotRetentionPeriod: new ResourceAttribute('AutomatedSnapshotRetentionPeriod', Number, 'No', null),
-      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'No', null),
-      ClusterParameterGroupName: new ResourceAttribute('ClusterParameterGroupName', String, 'No', null),
-      ClusterSecurityGroups: new ResourceAttributeArray('ClusterSecurityGroups', String, 'No', null),
-      ClusterSubnetGroupName: new ResourceAttribute('ClusterSubnetGroupName', String, 'No', null),
-      ClusterType: new ResourceAttribute('ClusterType', String, 'Yes', null),
-      ClusterVersion: new ResourceAttribute('ClusterVersion', String, 'No', null),
-      DBName: new ResourceAttribute('DBName', String, 'Yes', null),
-      ElasticIp: new ResourceAttribute('ElasticIp', String, 'No', null),
-      Encrypted: new ResourceAttribute('Encrypted', Boolean, 'No', null),
-      HsmClientCertificateIdentifier: new ResourceAttribute('HsmClientCertificateIdentifier', String, 'No', null),
-      HsmConfigurationIdentifier: new ResourceAttribute('HsmConfigurationIdentifier', String, 'No', null),
-      KmsKeyId: new ResourceAttribute('KmsKeyId', String, 'No', null),
-      MasterUsername: new ResourceAttribute('MasterUsername', String, 'Yes', null),
-      MasterUserPassword: new ResourceAttribute('MasterUserPassword', String, 'Yes', null),
-      NodeType: new ResourceAttribute('NodeType', String, 'Yes', null),
-      NumberOfNodes: new ResourceAttribute('NumberOfNodes', Number, 'Conditional', null),
-      OwnerAccount: new ResourceAttribute('OwnerAccount', String, 'No', null),
-      Port: new ResourceAttribute('Port', Number, 'No', null),
-      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, 'No', null),
-      PubliclyAccessible: new ResourceAttribute('PubliclyAccessible', Boolean, 'No', null),
-      SnapshotIdentifier: new ResourceAttribute('SnapshotIdentifier', String, 'Conditional', null),
-      VpcSecurityGroupIds: new ResourceAttributeArray('VpcSecurityGroupIds', String, 'No', null)
+      AllowVersionUpgrade: new ResourceAttribute('AllowVersionUpgrade', Boolean, false, 'No', null),
+      AutomatedSnapshotRetentionPeriod: new ResourceAttribute('AutomatedSnapshotRetentionPeriod', Number, false, 'No', null),
+      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, false, 'No', null),
+      ClusterParameterGroupName: new ResourceAttribute('ClusterParameterGroupName', String, false, 'No', null),
+      ClusterSecurityGroups: new ResourceAttribute('ClusterSecurityGroups', String, true, 'No', null),
+      ClusterSubnetGroupName: new ResourceAttribute('ClusterSubnetGroupName', String, false, 'No', null),
+      ClusterType: new ResourceAttribute('ClusterType', String, false, 'Yes', null),
+      ClusterVersion: new ResourceAttribute('ClusterVersion', String, false, 'No', null),
+      DBName: new ResourceAttribute('DBName', String, false, 'Yes', null),
+      ElasticIp: new ResourceAttribute('ElasticIp', String, false, 'No', null),
+      Encrypted: new ResourceAttribute('Encrypted', Boolean, false, 'No', null),
+      HsmClientCertificateIdentifier: new ResourceAttribute('HsmClientCertificateIdentifier', String, false, 'No', null),
+      HsmConfigurationIdentifier: new ResourceAttribute('HsmConfigurationIdentifier', String, false, 'No', null),
+      KmsKeyId: new ResourceAttribute('KmsKeyId', String, false, 'No', null),
+      MasterUsername: new ResourceAttribute('MasterUsername', String, false, 'Yes', null),
+      MasterUserPassword: new ResourceAttribute('MasterUserPassword', String, false, 'Yes', null),
+      NodeType: new ResourceAttribute('NodeType', String, false, 'Yes', null),
+      NumberOfNodes: new ResourceAttribute('NumberOfNodes', Number, false, 'Conditional', null),
+      OwnerAccount: new ResourceAttribute('OwnerAccount', String, false, 'No', null),
+      Port: new ResourceAttribute('Port', Number, false, 'No', null),
+      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, false, 'No', null),
+      PubliclyAccessible: new ResourceAttribute('PubliclyAccessible', Boolean, false, 'No', null),
+      SnapshotIdentifier: new ResourceAttribute('SnapshotIdentifier', String, false, 'Conditional', null),
+      VpcSecurityGroupIds: new ResourceAttribute('VpcSecurityGroupIds', String, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -100,9 +99,9 @@ Cluster.prototype = Object.create(WKResource.prototype)
 function ClusterParameterGroup (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterParameterGroup'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'Yes', null),
-      ParameterGroupFamily: new ResourceAttribute('ParameterGroupFamily', String, 'Yes', null),
-      Parameters: new ResourceAttribute('Parameters', types.AmazonRedshiftParameterType, 'No', null)
+      Description: new ResourceAttribute('Description', String, false, 'Yes', null),
+      ParameterGroupFamily: new ResourceAttribute('ParameterGroupFamily', String, false, 'Yes', null),
+      Parameters: new ResourceAttribute('Parameters', types.AmazonRedshiftParameterType, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -115,7 +114,7 @@ ClusterParameterGroup.prototype = Object.create(WKResource.prototype)
 function ClusterSecurityGroup (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSecurityGroup'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'Yes', null)
+      Description: new ResourceAttribute('Description', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -133,10 +132,10 @@ ClusterSecurityGroup.prototype = Object.create(WKResource.prototype)
 function ClusterSecurityGroupIngress (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSecurityGroupIngress'
     let properties = {
-      ClusterSecurityGroupName: new ResourceAttribute('ClusterSecurityGroupName', String, 'Yes', null),
-      CIDRIP: new ResourceAttribute('CIDRIP', String, 'No', null),
-      EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, 'No', null),
-      EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, 'Conditional', null)
+      ClusterSecurityGroupName: new ResourceAttribute('ClusterSecurityGroupName', String, false, 'Yes', null),
+      CIDRIP: new ResourceAttribute('CIDRIP', String, false, 'No', null),
+      EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, false, 'No', null),
+      EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -150,8 +149,8 @@ ClusterSecurityGroupIngress.prototype = Object.create(WKResource.prototype)
 function ClusterSubnetGroup (name, propertiesObject) {
     let resourceType = 'AWS::Redshift::ClusterSubnetGroup'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'Yes', null),
-      SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null)
+      Description: new ResourceAttribute('Description', String, false, 'Yes', null),
+      SubnetIds: new ResourceAttribute('SubnetIds', String, true, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

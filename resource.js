@@ -204,6 +204,7 @@ ResourceProperty.prototype.toJson = function () {
   let newProperties = JSON.parse(JSON.stringify(this.properties))
   for (let prop in newProperties) {
     try {
+      //TODO: only call toJson if this is an object
       newProperties[prop] = this.properties[prop].toJson()
     } catch (e) {
       if (e instanceof RequiredPropertyException) {

@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -21,10 +20,10 @@ const types = require('./../types')
 function Key (name, propertiesObject) {
     let resourceType = 'AWS::KMS::Key'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'No', null),
-      Enabled: new ResourceAttribute('Enabled', Boolean, 'No', null),
-      EnableKeyRotation: new ResourceAttribute('EnableKeyRotation', Boolean, 'No', null),
-      KeyPolicy: new ResourceAttribute('KeyPolicy', Object, 'Yes', null)
+      Description: new ResourceAttribute('Description', String, false, 'No', null),
+      Enabled: new ResourceAttribute('Enabled', Boolean, false, 'No', null),
+      EnableKeyRotation: new ResourceAttribute('EnableKeyRotation', Boolean, false, 'No', null),
+      KeyPolicy: new ResourceAttribute('KeyPolicy', Object, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

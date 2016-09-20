@@ -50,7 +50,7 @@ websiteDNSName.Type = 'CNAME'
 websiteDNSName.TTL = '900'
 websiteDNSName.Comment = 'CNAME redirect custom name to CloudFront distribution'
 websiteDNSName.Name.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ])
-websiteDNSName.ResourceRecords.join('', [ 'http://', new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName') ])
+websiteDNSName.ResourceRecords.push(new wk.Intrinsic.FnJoin('', [ 'http://', new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName') ]))
 websiteDNSName.HostedZoneName.join('', [ new Ref(hostedZoneParam), '.' ])
 t.add(websiteDNSName)
 
@@ -76,8 +76,7 @@ defaultCacheBehavior.ViewerProtocolPolicy = 'allow-all'
 
 let distConfig = new wk.Types.CloudFrontDistributionConfig()
 distConfig.Comment = 'CDN for S3-backed website'
-distConfig.Aliases.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ])
-
+distConfig.Aliases.push(new wk.Intrinsic.FnJoin('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ]))
 distConfig.Origins.push(distConfigOrigin)
 distConfig.Enabled = true
 distConfig.DefaultRootObject = 'index.html'

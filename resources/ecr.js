@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -21,8 +20,8 @@ You can still do updates that require no or some interruption. If you must repla
 function Repository (name, propertiesObject) {
     let resourceType = 'AWS::ECR::Repository'
     let properties = {
-      RepositoryName: new ResourceAttribute('RepositoryName', String, 'No', null),
-      RepositoryPolicyText: new ResourceAttribute('RepositoryPolicyText', Object, 'No', null)
+      RepositoryName: new ResourceAttribute('RepositoryName', String, false, 'No', null),
+      RepositoryPolicyText: new ResourceAttribute('RepositoryPolicyText', Object, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

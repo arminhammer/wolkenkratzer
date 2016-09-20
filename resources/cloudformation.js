@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -27,14 +26,14 @@ const types = require('./../types')
 function Authentication (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Authentication'
     let properties = {
-      accessKeyId: new ResourceAttribute('accessKeyId', String, 'Conditional', null),
-      buckets: new ResourceAttributeArray('buckets', String, 'Conditional', null),
-      password: new ResourceAttribute('password', String, 'Conditional', null),
-      secretKey: new ResourceAttribute('secretKey', String, 'Conditional', null),
-      type: new ResourceAttribute('type', String, 'Yes', null),
-      uris: new ResourceAttributeArray('uris', String, 'Conditional', null),
-      username: new ResourceAttribute('username', String, 'Conditional', null),
-      roleName: new ResourceAttribute('roleName', String, 'Conditional', null)
+      accessKeyId: new ResourceAttribute('accessKeyId', String, false, 'Conditional', null),
+      buckets: new ResourceAttribute('buckets', String, true, 'Conditional', null),
+      password: new ResourceAttribute('password', String, false, 'Conditional', null),
+      secretKey: new ResourceAttribute('secretKey', String, false, 'Conditional', null),
+      type: new ResourceAttribute('type', String, false, 'Yes', null),
+      uris: new ResourceAttribute('uris', String, true, 'Conditional', null),
+      username: new ResourceAttribute('username', String, false, 'Conditional', null),
+      roleName: new ResourceAttribute('roleName', String, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -50,7 +49,7 @@ Authentication.prototype = Object.create(WKResource.prototype)
 function CustomResource (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::CustomResource'
     let properties = {
-      ServiceToken: new ResourceAttribute('ServiceToken', String, 'Yes', null)
+      ServiceToken: new ResourceAttribute('ServiceToken', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -77,8 +76,8 @@ Init.prototype = Object.create(WKResource.prototype)
 function Interface (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Interface'
     let properties = {
-      ParameterGroups: new ResourceAttribute('ParameterGroups', types.AWSCloudFormationInterfaceParameterGroup, 'No', null),
-      ParameterLabels: new ResourceAttribute('ParameterLabels', types.AWSCloudFormationInterfaceParameterLabel, 'No', null)
+      ParameterGroups: new ResourceAttribute('ParameterGroups', types.AWSCloudFormationInterfaceParameterGroup, false, 'No', null),
+      ParameterLabels: new ResourceAttribute('ParameterLabels', types.AWSCloudFormationInterfaceParameterLabel, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -113,11 +112,11 @@ Interface.prototype = Object.create(WKResource.prototype)
 function Stack (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::Stack'
     let properties = {
-      NotificationARNs: new ResourceAttributeArray('NotificationARNs', String, 'No', null),
-      Parameters: new ResourceAttribute('Parameters', types.CloudFormationStackParametersPropertyType, 'Conditional', null),
+      NotificationARNs: new ResourceAttribute('NotificationARNs', String, true, 'No', null),
+      Parameters: new ResourceAttribute('Parameters', types.CloudFormationStackParametersPropertyType, false, 'Conditional', null),
       Tags: new tag.TagSet(),
-      TemplateURL: new ResourceAttribute('TemplateURL', String, 'Yes', null),
-      TimeoutInMinutes: new ResourceAttribute('TimeoutInMinutes', String, 'No', null)
+      TemplateURL: new ResourceAttribute('TemplateURL', String, false, 'Yes', null),
+      TimeoutInMinutes: new ResourceAttribute('TimeoutInMinutes', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -147,9 +146,9 @@ Stack.prototype = Object.create(WKResource.prototype)
 function WaitCondition (name, propertiesObject) {
     let resourceType = 'AWS::CloudFormation::WaitCondition'
     let properties = {
-      Count: new ResourceAttribute('Count', String, 'No', null),
-      Handle: new ResourceAttribute('Handle', String, 'Yes', null),
-      Timeout: new ResourceAttribute('Timeout', String, 'Yes', null)
+      Count: new ResourceAttribute('Count', String, false, 'No', null),
+      Handle: new ResourceAttribute('Handle', String, false, 'Yes', null),
+      Timeout: new ResourceAttribute('Timeout', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

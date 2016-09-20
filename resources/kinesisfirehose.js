@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -18,10 +17,10 @@ const types = require('./../types')
 function DeliveryStream (name, propertiesObject) {
     let resourceType = 'AWS::KinesisFirehose::DeliveryStream'
     let properties = {
-      DeliveryStreamName: new ResourceAttribute('DeliveryStreamName', String, 'No', null),
-      ElasticsearchDestinationConfiguration: new ResourceAttribute('ElasticsearchDestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration, 'Conditional', null),
-      RedshiftDestinationConfiguration: new ResourceAttribute('RedshiftDestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration, 'Conditional', null),
-      S3DestinationConfiguration: new ResourceAttribute('S3DestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration, 'Conditional', null)
+      DeliveryStreamName: new ResourceAttribute('DeliveryStreamName', String, false, 'No', null),
+      ElasticsearchDestinationConfiguration: new ResourceAttribute('ElasticsearchDestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration, false, 'Conditional', null),
+      RedshiftDestinationConfiguration: new ResourceAttribute('RedshiftDestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration, false, 'Conditional', null),
+      S3DestinationConfiguration: new ResourceAttribute('S3DestinationConfiguration', types.AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -60,23 +59,23 @@ const types = require('./../types')
 function DBCluster (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBCluster'
     let properties = {
-      AvailabilityZones: new ResourceAttribute('AvailabilityZones', String, 'No', null),
-      BackupRetentionPeriod: new ResourceAttribute('BackupRetentionPeriod', Number, 'No', null),
-      DatabaseName: new ResourceAttribute('DatabaseName', String, 'No', null),
-      DBClusterParameterGroupName: new ResourceAttribute('DBClusterParameterGroupName', String, 'No', null),
-      DBSubnetGroupName: new ResourceAttribute('DBSubnetGroupName', String, 'No', null),
-      Engine: new ResourceAttribute('Engine', String, 'Yes', null),
-      EngineVersion: new ResourceAttribute('EngineVersion', String, 'No', null),
-      KmsKeyId: new ResourceAttribute('KmsKeyId', String, 'No', null),
-      MasterUsername: new ResourceAttribute('MasterUsername', String, 'Conditional', null),
-      MasterUserPassword: new ResourceAttribute('MasterUserPassword', String, 'Conditional', null),
-      Port: new ResourceAttribute('Port', Number, 'No', null),
-      PreferredBackupWindow: new ResourceAttribute('PreferredBackupWindow', String, 'No', null),
-      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, 'No', null),
-      SnapshotIdentifier: new ResourceAttribute('SnapshotIdentifier', String, 'No', null),
-      StorageEncrypted: new ResourceAttribute('StorageEncrypted', Boolean, 'Conditional', null),
+      AvailabilityZones: new ResourceAttribute('AvailabilityZones', String, false, 'No', null),
+      BackupRetentionPeriod: new ResourceAttribute('BackupRetentionPeriod', Number, false, 'No', null),
+      DatabaseName: new ResourceAttribute('DatabaseName', String, false, 'No', null),
+      DBClusterParameterGroupName: new ResourceAttribute('DBClusterParameterGroupName', String, false, 'No', null),
+      DBSubnetGroupName: new ResourceAttribute('DBSubnetGroupName', String, false, 'No', null),
+      Engine: new ResourceAttribute('Engine', String, false, 'Yes', null),
+      EngineVersion: new ResourceAttribute('EngineVersion', String, false, 'No', null),
+      KmsKeyId: new ResourceAttribute('KmsKeyId', String, false, 'No', null),
+      MasterUsername: new ResourceAttribute('MasterUsername', String, false, 'Conditional', null),
+      MasterUserPassword: new ResourceAttribute('MasterUserPassword', String, false, 'Conditional', null),
+      Port: new ResourceAttribute('Port', Number, false, 'No', null),
+      PreferredBackupWindow: new ResourceAttribute('PreferredBackupWindow', String, false, 'No', null),
+      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, false, 'No', null),
+      SnapshotIdentifier: new ResourceAttribute('SnapshotIdentifier', String, false, 'No', null),
+      StorageEncrypted: new ResourceAttribute('StorageEncrypted', Boolean, false, 'Conditional', null),
       Tags: new tag.TagSet(),
-      VpcSecurityGroupIds: new ResourceAttributeArray('VpcSecurityGroupIds', String, 'No', null)
+      VpcSecurityGroupIds: new ResourceAttribute('VpcSecurityGroupIds', String, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -99,9 +98,9 @@ DBCluster.prototype = Object.create(WKResource.prototype)
 function DBClusterParameterGroup (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBClusterParameterGroup'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'Yes', null),
-      Family: new ResourceAttribute('Family', String, 'Yes', null),
-      Parameters: new ResourceAttribute('Parameters', Object, 'Yes', null),
+      Description: new ResourceAttribute('Description', String, false, 'Yes', null),
+      Family: new ResourceAttribute('Family', String, false, 'Yes', null),
+      Parameters: new ResourceAttribute('Parameters', Object, false, 'Yes', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
@@ -282,38 +281,38 @@ see DependsOn Attribute.NoteCurrently, if you specify DBSecurityGroups, this pro
 function DBInstance (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBInstance'
     let properties = {
-      AllocatedStorage: new ResourceAttribute('AllocatedStorage', String, 'Conditional', null),
-      AllowMajorVersionUpgrade: new ResourceAttribute('AllowMajorVersionUpgrade', Boolean, 'No', null),
-      AutoMinorVersionUpgrade: new ResourceAttribute('AutoMinorVersionUpgrade', Boolean, 'No', null),
-      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, 'No', null),
-      BackupRetentionPeriod: new ResourceAttribute('BackupRetentionPeriod', String, 'No', null),
-      CharacterSetName: new ResourceAttribute('CharacterSetName', String, 'No', null),
-      DBClusterIdentifier: new ResourceAttribute('DBClusterIdentifier', String, 'No', null),
-      DBInstanceClass: new ResourceAttribute('DBInstanceClass', String, 'Yes', null),
-      DBInstanceIdentifier: new ResourceAttribute('DBInstanceIdentifier', String, 'No', null),
-      DBName: new ResourceAttribute('DBName', String, 'No', null),
-      DBParameterGroupName: new ResourceAttribute('DBParameterGroupName', String, 'No', null),
-      DBSecurityGroups: new ResourceAttributeArray('DBSecurityGroups', String, 'No', null),
-      DBSnapshotIdentifier: new ResourceAttribute('DBSnapshotIdentifier', String, 'No', null),
-      DBSubnetGroupName: new ResourceAttribute('DBSubnetGroupName', String, 'No', null),
-      Engine: new ResourceAttribute('Engine', String, 'Conditional', null),
-      EngineVersion: new ResourceAttribute('EngineVersion', String, 'No', null),
-      Iops: new ResourceAttribute('Iops', Number, 'Conditional', null),
-      KmsKeyId: new ResourceAttribute('KmsKeyId', String, 'No', null),
-      LicenseModel: new ResourceAttribute('LicenseModel', String, 'No', null),
-      MasterUsername: new ResourceAttribute('MasterUsername', String, 'Conditional', null),
-      MasterUserPassword: new ResourceAttribute('MasterUserPassword', String, 'Conditional', null),
-      MultiAZ: new ResourceAttribute('MultiAZ', Boolean, 'No', null),
-      OptionGroupName: new ResourceAttribute('OptionGroupName', String, 'No', null),
-      Port: new ResourceAttribute('Port', String, 'No', null),
-      PreferredBackupWindow: new ResourceAttribute('PreferredBackupWindow', String, 'No', null),
-      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, 'No', null),
-      PubliclyAccessible: new ResourceAttribute('PubliclyAccessible', Boolean, 'No', null),
-      SourceDBInstanceIdentifier: new ResourceAttribute('SourceDBInstanceIdentifier', String, 'No', null),
-      StorageEncrypted: new ResourceAttribute('StorageEncrypted', Boolean, 'Conditional', null),
-      StorageType: new ResourceAttribute('StorageType', String, 'No', null),
+      AllocatedStorage: new ResourceAttribute('AllocatedStorage', String, false, 'Conditional', null),
+      AllowMajorVersionUpgrade: new ResourceAttribute('AllowMajorVersionUpgrade', Boolean, false, 'No', null),
+      AutoMinorVersionUpgrade: new ResourceAttribute('AutoMinorVersionUpgrade', Boolean, false, 'No', null),
+      AvailabilityZone: new ResourceAttribute('AvailabilityZone', String, false, 'No', null),
+      BackupRetentionPeriod: new ResourceAttribute('BackupRetentionPeriod', String, false, 'No', null),
+      CharacterSetName: new ResourceAttribute('CharacterSetName', String, false, 'No', null),
+      DBClusterIdentifier: new ResourceAttribute('DBClusterIdentifier', String, false, 'No', null),
+      DBInstanceClass: new ResourceAttribute('DBInstanceClass', String, false, 'Yes', null),
+      DBInstanceIdentifier: new ResourceAttribute('DBInstanceIdentifier', String, false, 'No', null),
+      DBName: new ResourceAttribute('DBName', String, false, 'No', null),
+      DBParameterGroupName: new ResourceAttribute('DBParameterGroupName', String, false, 'No', null),
+      DBSecurityGroups: new ResourceAttribute('DBSecurityGroups', String, true, 'No', null),
+      DBSnapshotIdentifier: new ResourceAttribute('DBSnapshotIdentifier', String, false, 'No', null),
+      DBSubnetGroupName: new ResourceAttribute('DBSubnetGroupName', String, false, 'No', null),
+      Engine: new ResourceAttribute('Engine', String, false, 'Conditional', null),
+      EngineVersion: new ResourceAttribute('EngineVersion', String, false, 'No', null),
+      Iops: new ResourceAttribute('Iops', Number, false, 'Conditional', null),
+      KmsKeyId: new ResourceAttribute('KmsKeyId', String, false, 'No', null),
+      LicenseModel: new ResourceAttribute('LicenseModel', String, false, 'No', null),
+      MasterUsername: new ResourceAttribute('MasterUsername', String, false, 'Conditional', null),
+      MasterUserPassword: new ResourceAttribute('MasterUserPassword', String, false, 'Conditional', null),
+      MultiAZ: new ResourceAttribute('MultiAZ', Boolean, false, 'No', null),
+      OptionGroupName: new ResourceAttribute('OptionGroupName', String, false, 'No', null),
+      Port: new ResourceAttribute('Port', String, false, 'No', null),
+      PreferredBackupWindow: new ResourceAttribute('PreferredBackupWindow', String, false, 'No', null),
+      PreferredMaintenanceWindow: new ResourceAttribute('PreferredMaintenanceWindow', String, false, 'No', null),
+      PubliclyAccessible: new ResourceAttribute('PubliclyAccessible', Boolean, false, 'No', null),
+      SourceDBInstanceIdentifier: new ResourceAttribute('SourceDBInstanceIdentifier', String, false, 'No', null),
+      StorageEncrypted: new ResourceAttribute('StorageEncrypted', Boolean, false, 'Conditional', null),
+      StorageType: new ResourceAttribute('StorageType', String, false, 'No', null),
       Tags: new tag.TagSet(),
-      VPCSecurityGroups: new ResourceAttributeArray('VPCSecurityGroups', String, 'No', null)
+      VPCSecurityGroups: new ResourceAttribute('VPCSecurityGroups', String, true, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -329,9 +328,9 @@ DBInstance.prototype = Object.create(WKResource.prototype)
 function DBParameterGroup (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBParameterGroup'
     let properties = {
-      Description: new ResourceAttribute('Description', String, 'Yes', null),
-      Family: new ResourceAttribute('Family', String, 'Yes', null),
-      Parameters: new ResourceAttribute('Parameters', Object, 'No', null),
+      Description: new ResourceAttribute('Description', String, false, 'Yes', null),
+      Family: new ResourceAttribute('Family', String, false, 'Yes', null),
+      Parameters: new ResourceAttribute('Parameters', Object, false, 'No', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
@@ -348,9 +347,9 @@ DBParameterGroup.prototype = Object.create(WKResource.prototype)
 function DBSecurityGroup (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSecurityGroup'
     let properties = {
-      EC2VpcId: new ResourceAttribute('EC2VpcId', String, 'Conditional', null),
-      DBSecurityGroupIngress: new ResourceAttributeArray('DBSecurityGroupIngress', types.AmazonRDSSecurityGroupRule, 'Yes', null),
-      GroupDescription: new ResourceAttribute('GroupDescription', String, 'Yes', null),
+      EC2VpcId: new ResourceAttribute('EC2VpcId', String, false, 'Conditional', null),
+      DBSecurityGroupIngress: new ResourceAttribute('DBSecurityGroupIngress', types.AmazonRDSSecurityGroupRule, true, 'Yes', null),
+      GroupDescription: new ResourceAttribute('GroupDescription', String, false, 'Yes', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
@@ -374,11 +373,11 @@ DBSecurityGroup.prototype = Object.create(WKResource.prototype)
 function DBSecurityGroupIngress (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSecurityGroupIngress'
     let properties = {
-      CIDRIP: new ResourceAttribute('CIDRIP', String, 'No', null),
-      DBSecurityGroupName: new ResourceAttribute('DBSecurityGroupName', String, 'Yes', null),
-      EC2SecurityGroupId: new ResourceAttribute('EC2SecurityGroupId', String, 'No', null),
-      EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, 'No', null),
-      EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, 'No', null)
+      CIDRIP: new ResourceAttribute('CIDRIP', String, false, 'No', null),
+      DBSecurityGroupName: new ResourceAttribute('DBSecurityGroupName', String, false, 'Yes', null),
+      EC2SecurityGroupId: new ResourceAttribute('EC2SecurityGroupId', String, false, 'No', null),
+      EC2SecurityGroupName: new ResourceAttribute('EC2SecurityGroupName', String, false, 'No', null),
+      EC2SecurityGroupOwnerId: new ResourceAttribute('EC2SecurityGroupOwnerId', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -393,8 +392,8 @@ DBSecurityGroupIngress.prototype = Object.create(WKResource.prototype)
 function DBSubnetGroup (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBSubnetGroup'
     let properties = {
-      DBSubnetGroupDescription: new ResourceAttribute('DBSubnetGroupDescription', String, 'Yes', null),
-      SubnetIds: new ResourceAttributeArray('SubnetIds', String, 'Yes', null),
+      DBSubnetGroupDescription: new ResourceAttribute('DBSubnetGroupDescription', String, false, 'Yes', null),
+      SubnetIds: new ResourceAttribute('SubnetIds', String, true, 'Yes', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
@@ -420,11 +419,11 @@ DBSubnetGroup.prototype = Object.create(WKResource.prototype)
 function EventSubscription (name, propertiesObject) {
     let resourceType = 'AWS::RDS::EventSubscription'
     let properties = {
-      Enabled: new ResourceAttribute('Enabled', Boolean, 'No', null),
-      EventCategories: new ResourceAttributeArray('EventCategories', String, 'No', null),
-      SnsTopicArn: new ResourceAttribute('SnsTopicArn', String, 'Yes', null),
-      SourceIds: new ResourceAttributeArray('SourceIds', String, 'No', null),
-      SourceType: new ResourceAttribute('SourceType', String, 'Conditional', null)
+      Enabled: new ResourceAttribute('Enabled', Boolean, false, 'No', null),
+      EventCategories: new ResourceAttribute('EventCategories', String, true, 'No', null),
+      SnsTopicArn: new ResourceAttribute('SnsTopicArn', String, false, 'Yes', null),
+      SourceIds: new ResourceAttribute('SourceIds', String, true, 'No', null),
+      SourceType: new ResourceAttribute('SourceType', String, false, 'Conditional', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -443,10 +442,10 @@ EventSubscription.prototype = Object.create(WKResource.prototype)
 function OptionGroup (name, propertiesObject) {
     let resourceType = 'AWS::RDS::OptionGroup'
     let properties = {
-      EngineName: new ResourceAttribute('EngineName', String, 'Yes', null),
-      MajorEngineVersion: new ResourceAttribute('MajorEngineVersion', String, 'Yes', null),
-      OptionGroupDescription: new ResourceAttribute('OptionGroupDescription', String, 'Yes', null),
-      OptionConfigurations: new ResourceAttribute('OptionConfigurations', types.AmazonRDSOptionGroupOptionConfigurations, 'Yes', null),
+      EngineName: new ResourceAttribute('EngineName', String, false, 'Yes', null),
+      MajorEngineVersion: new ResourceAttribute('MajorEngineVersion', String, false, 'Yes', null),
+      OptionGroupDescription: new ResourceAttribute('OptionGroupDescription', String, false, 'Yes', null),
+      OptionConfigurations: new ResourceAttribute('OptionConfigurations', types.AmazonRDSOptionGroupOptionConfigurations, false, 'Yes', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)

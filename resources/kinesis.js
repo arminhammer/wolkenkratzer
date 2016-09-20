@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -23,8 +22,8 @@ You can still do updates that require no or some interruption. If you must repla
 function Stream (name, propertiesObject) {
     let resourceType = 'AWS::Kinesis::Stream'
     let properties = {
-      Name: new ResourceAttribute('Name', String, 'No', null),
-      ShardCount: new ResourceAttribute('ShardCount', Number, 'Yes', null),
+      Name: new ResourceAttribute('Name', String, false, 'No', null),
+      ShardCount: new ResourceAttribute('ShardCount', Number, false, 'Yes', null),
       Tags: new tag.TagSet()
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)

@@ -2,7 +2,6 @@
 
 const WKResource = require('./../resource').WKResource
 const ResourceAttribute = require('./../resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./../resourceattribute').ResourceAttributeArray
 const tag = require('./../tag')
 const types = require('./../types')
 
@@ -16,8 +15,8 @@ const types = require('./../types')
 function FileSystem (name, propertiesObject) {
     let resourceType = 'AWS::EFS::FileSystem'
     let properties = {
-      FileSystemTags: new ResourceAttribute('FileSystemTags', types.AmazonElasticFileSystemFileSystemFileSystemTags, 'No', null),
-      PerformanceMode: new ResourceAttribute('PerformanceMode', String, 'No', null)
+      FileSystemTags: new ResourceAttribute('FileSystemTags', types.AmazonElasticFileSystemFileSystemFileSystemTags, false, 'No', null),
+      PerformanceMode: new ResourceAttribute('PerformanceMode', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -58,10 +57,10 @@ FileSystem.prototype = Object.create(WKResource.prototype)
 function MountTarget (name, propertiesObject) {
     let resourceType = 'AWS::EFS::MountTarget'
     let properties = {
-      FileSystemId: new ResourceAttribute('FileSystemId', String, 'Yes', null),
-      IpAddress: new ResourceAttribute('IpAddress', String, 'No', null),
-      SecurityGroups: new ResourceAttributeArray('SecurityGroups', String, 'Yes', null),
-      SubnetId: new ResourceAttribute('SubnetId', String, 'Yes', null)
+      FileSystemId: new ResourceAttribute('FileSystemId', String, false, 'Yes', null),
+      IpAddress: new ResourceAttribute('IpAddress', String, false, 'No', null),
+      SecurityGroups: new ResourceAttribute('SecurityGroups', String, true, 'Yes', null),
+      SubnetId: new ResourceAttribute('SubnetId', String, false, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
