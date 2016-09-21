@@ -90,7 +90,7 @@ FnBase64.prototype = Object.create(Intrinsic.prototype)
  * @returns {Object}
  */
 FnBase64.prototype.toJson = function () {
-  return { 'Fn::Base64': this.content }
+  return { errors: null, json: { 'Fn::Base64': this.content } }
 }
 
 /**
@@ -109,7 +109,7 @@ FnFindInMap.prototype = Object.create(Intrinsic.prototype)
  * @returns {Object}
  */
 FnFindInMap.prototype.toJson = function () {
-  return { 'Fn::FindInMap': [ this.mapName, this.topLevelKey, this.secondLevelKey ] }
+  return { errors: null, json: { 'Fn::FindInMap': [ this.mapName, this.topLevelKey, this.secondLevelKey ] } }
 }
 
 function FnGetAZs (region) {
@@ -127,7 +127,7 @@ FnGetAZs.prototype = Object.create(Intrinsic.prototype)
  * @returns {Object}
  */
 FnGetAZs.prototype.toJson = function () {
-  return { 'Fn::GetAZs': this.region }
+  return { errors: null, json: { 'Fn::GetAZs': this.region } }
 }
 
 /**
@@ -145,7 +145,7 @@ FnJoin.prototype = Object.create(Intrinsic.prototype)
  * @returns {Object}
  */
 FnJoin.prototype.toJson = function () {
-  return { 'Fn::Join': [ this.delimiter, this.values ] }
+  return { errors: null, json: { 'Fn::Join': [ this.delimiter, this.values ] } }
 }
 
 function FnSelect (index, list) {
@@ -156,7 +156,7 @@ function FnSelect (index, list) {
 FnSelect.prototype = Object.create(Intrinsic.prototype)
 
 FnSelect.prototype.toJson = function () {
-  return { 'Fn::Select': [ this.index, this.list ] }
+  return { errors: null, json: {  'Fn::Select': [ this.index, this.list ] } }
 }
 
 function FnAnd (condition, body) {
@@ -167,7 +167,7 @@ function FnAnd (condition, body) {
 FnAnd.prototype = Object.create(Intrinsic.prototype)
 
 FnAnd.prototype.toJson = function () {
-  return { 'Fn::And': [ this.condition, this.body ] }
+  return { errors: null, json: { 'Fn::And': [ this.condition, this.body ] } }
 }
 
 function FnEquals (first, second) {
@@ -178,7 +178,7 @@ function FnEquals (first, second) {
 FnEquals.prototype = Object.create(Intrinsic.prototype)
 
 FnEquals.prototype.toJson = function () {
-  return { 'Fn::Equals': [ this.first, this.second ] }
+  return { errors: null, json: { 'Fn::Equals': [ this.first, this.second ] } }
 }
 
 function FnIf (condition, ifTrue, ifFalse) {
@@ -190,7 +190,7 @@ function FnIf (condition, ifTrue, ifFalse) {
 FnIf.prototype = Object.create(Intrinsic.prototype)
 
 FnIf.prototype.toJson = function () {
-  return { 'Fn::If': [ this.condition, this.ifTrue, this.ifFalse ] }
+  return { errors: null, json: { 'Fn::If': [ this.condition, this.ifTrue, this.ifFalse ] } }
 }
 
 function FnNot (condition) {
@@ -200,7 +200,7 @@ function FnNot (condition) {
 FnNot.prototype = Object.create(Intrinsic.prototype)
 
 FnNot.prototype.toJson = function () {
-  return { 'Fn::Not': [ this.condition ] }
+  return { errors: null, json: { 'Fn::Not': [ this.condition ] } }
 }
 
 function FnOr (condition, body) {
@@ -211,7 +211,7 @@ function FnOr (condition, body) {
 FnOr.prototype = Object.create(Intrinsic.prototype)
 
 FnOr.prototype.toJson = function () {
-  return { 'Fn::Or': [ this.condition, this.body ] }
+  return { errors: null, json: { 'Fn::Or': [ this.condition, this.body ] } }
 }
 
 module.exports = {

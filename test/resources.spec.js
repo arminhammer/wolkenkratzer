@@ -39,6 +39,7 @@ describe('Resource', () => {
     vpcGatewayAttachment.VpcId.ref(vpc)
     vpcGatewayAttachment.VpnGatewayId.ref(vpnGateway)
     t.add(vpcGatewayAttachment)
+
     it ('Conditional should be tested, You must specify either InternetGatewayId or VpnGatewayId, but not both.', () => {
       try {
         t.toJson()
@@ -308,7 +309,7 @@ describe('Resource', () => {
     })
   })
 
-  describe('Test supporting and modifying existing templates', () => {
+  describe ('Test supporting and modifying existing templates', () => {
 
     /* it ('Should be able to load an existing Lambda template', () => {
 

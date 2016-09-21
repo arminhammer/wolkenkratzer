@@ -131,7 +131,7 @@ WKResource.prototype.toJson = function () {
       })
       errors.push(this.WKName + '.' + prop + ' or a subproperty is required but not defined.')
     }
-    if (result.json) {
+    if (result.json != null) {
       newProperties[prop] = result.json
     } else {
       delete newProperties[prop]
@@ -213,18 +213,21 @@ ResourceProperty.prototype.toJson = function () {
   let newProperties = JSON.parse(JSON.stringify(this.properties))
   let errors = []
   for (let prop in newProperties) {
-    // TODO: only call toJson if this is an object
-    let result = this.properties[prop].toJson()
-    if (result.errors) {
-      result.errors.forEach((e) => {
-        errors.push(e)
-      })
-      errors.push(this.WKName + '.' + prop + ' is required but not defined.')
-    }
-    if (result.json) {
-      newProperties[prop] = result.json
+    if ((this.properties[prop] instanceof ResourceProperty) || (typeof this.properties[prop].toJson === 'function')) {
+      let result = this.properties[prop].toJson()
+      if (result.errors) {
+        result.errors.forEach((e) => {
+          errors.push(e)
+        })
+        errors.push(this.WKName + '.' + prop + ' is required but not defined.')
+      }
+      if (result.json != null) {
+        newProperties[prop] = result.json
+      } else {
+        delete newProperties[prop]
+      }
     } else {
-      delete newProperties[prop]
+      newProperties[prop] = this.properties[prop]
     }
   }
   if (this.conditional) {

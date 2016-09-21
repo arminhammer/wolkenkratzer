@@ -172,7 +172,7 @@ ResourceAttribute.prototype.toJson = function () {
               errors.push(e)
             })
           }
-          if (result.json) {
+          if (result.json != null) {
             propArray.push(result.json)
           }
         }
@@ -183,7 +183,15 @@ ResourceAttribute.prototype.toJson = function () {
         let propArray = []
         for (let prop in this.val) {
           if (this.val[prop] instanceof Intrinsic.Intrinsic) {
-            propArray.push(this.val[prop].toJson())
+            let result = this.val[prop].toJson()
+            if (result.errors) {
+              result.errors.forEach((e) => {
+                errors.push(e)
+              })
+            }
+            if (result.json != null) {
+              propArray.push(result.json)
+            }
           } else {
             propArray.push(this.val[prop])
           }

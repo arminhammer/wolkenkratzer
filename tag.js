@@ -23,7 +23,7 @@ function Tag (key, value) {
 Tag.prototype.toJson = function () {
   let value = this.Value
   if (value instanceof Intrinsic) {
-    value = value.toJson()
+    value = value.toJson().json
   }
   return { Key: this.Key, Value: value }
 }
