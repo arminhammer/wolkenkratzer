@@ -8,10 +8,10 @@
     "test": "test"
   },
   "dependencies": {
+    "aws-sdk": "^2.3.17",
     "js-yaml": "^3.6.1"
   },
   "devDependencies": {
-    "aws-sdk": "^2.3.17",
     "bluebird": "^3.4.1",
     "browserify": "^13.0.1",
     "chai": "^3.5.0",
@@ -43,7 +43,9 @@
     "CloudFormation",
     "AWS",
     "Template",
-    "Cloud"
+    "Cloud",
+    "aws-sdk",
+    "ecs"
   ],
   "author": "Armin Graf",
   "license": "MIT",
