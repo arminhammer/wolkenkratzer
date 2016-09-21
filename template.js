@@ -140,20 +140,25 @@ Template.prototype.addCondition = function (name, condition) {
  * @param callback
  */
 Template.prototype.toJsonAsync = function (callback) {
-  return new Promise((resolve, reject) => {      // [1]
-    process.nextTick(() => {
-      let result = this.toJson()
-      if (result.Errors) {
-        if (callback) { callback(result.Errors, result.Template) }
-        reject({ Errors: result.Errors, Template: result.Template })
-      } else {
-        if (callback) {
-          callback(null, result.Template)
+  if (callback) {
+    let result = this.toJson()
+    if (result.Errors) {
+      callback(result.Errors, result.Template)
+    } else {
+      callback(null, result.Template)
+    }
+  } else {
+    return new Promise((resolve, reject) => {
+      process.nextTick(() => {
+        let result = this.toJson()
+        if (result.Errors) {
+          reject({ Errors: result.Errors, Template: result.Template })
+        } else {
+          resolve(result.Template)
         }
-        resolve(result.Template)
-      }
+      })
     })
-  })
+  }
 }
 
 /**

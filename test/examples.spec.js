@@ -6,6 +6,7 @@
 
 const path = require('path')
 const chai = require('chai')
+const assert = require('assert')
 chai.config.truncateThreshold = 0
 chai.should()
 const BPromise = require('bluebird')
@@ -35,11 +36,14 @@ describe('Examples', () => {
           })
         })
       })
-      .map((result) => {
+      .map((templ) => {
         return CloudFormation.validateTemplate({
-          TemplateBody: result.toString()
+          TemplateBody: templ.toString()
         }).promise().then((result) => {
           return result
+        })
+        .catch((e) => {
+          assert.fail(e)
         })
       })
       .then((results) => {

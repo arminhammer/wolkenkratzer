@@ -19,7 +19,6 @@ t.add(topic)
 
 let result = t.toJson()
 if (result.Errors) {
-  console.error(result.Errors)
-} else {
-  console.log(t.toJson().Template)
+  //console.error(result.Errors)
 }
+console.log(t.toJson().Template)

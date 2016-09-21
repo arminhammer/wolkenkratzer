@@ -16,7 +16,7 @@ t.add(vpnGateway)
 
 t.toJsonAsync((errors, template) => {
   if (errors) {
-    console.log(errors)
+    // console.log(errors)
     console.log(template)
   } else {
     console.log(template)
