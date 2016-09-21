@@ -18,7 +18,7 @@ function _handleDuplicateKey (key) {
   throw new ValueException('duplicate key "%s" detected' % key)
 }
 
-function _update (d, values) {
+function _add (d, values) {
   if (Array.isArray(values)) {
     values.forEach((v) => {
       if (v.WKName in d) {
@@ -31,6 +31,17 @@ function _update (d, values) {
       _handleDuplicateKey(values.WKName)
     }
     d[values.WKName] = values
+  }
+  return values
+}
+
+function _remove (d, values) {
+  if (Array.isArray(values)) {
+    values.forEach((v) => {
+      delete d[v.WKName]
+    })
+  } else {
+    delete d[values.WKName]
   }
   return values
 }
@@ -91,13 +102,31 @@ function Template (template) {
  */
 Template.prototype.add = function (element) {
   if (element instanceof Parameter) {
-    _update(this.Parameters, element)
+    _add(this.Parameters, element)
   } else if (element instanceof WKResource) {
-    _update(this.Resources, element)
+    _add(this.Resources, element)
   } else if (element instanceof Output) {
-    _update(this.Outputs, element)
+    _add(this.Outputs, element)
   } else if (element instanceof Mapping) {
-    _update(this.Mappings, element)
+    _add(this.Mappings, element)
+  } else {
+    throw new TypeException(element + ' is not a valid type and cannot be added to the template.')
+  }
+}
+
+/**
+ * Remove an element from the Template
+ * @param element
+ */
+Template.prototype.remove = function (element) {
+  if (element instanceof Parameter) {
+    _remove(this.Parameters, element)
+  } else if (element instanceof WKResource) {
+    _remove(this.Resources, element)
+  } else if (element instanceof Output) {
+    _remove(this.Outputs, element)
+  } else if (element instanceof Mapping) {
+    _remove(this.Mappings, element)
   } else {
     throw new TypeException(element + ' is not a valid type and cannot be added to the template.')
   }
@@ -134,6 +163,15 @@ Template.prototype.setDescription = function (description) {
  */
 Template.prototype.addCondition = function (name, condition) {
   this.Conditions[name] = condition
+}
+
+/**
+ * Remove a condition from the template
+ * @param name
+ * @param condition
+ */
+Template.prototype.removeCondition = function (name, condition) {
+  delete this.Conditions[name]
 }
 
 /**
