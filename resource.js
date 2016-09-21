@@ -122,22 +122,24 @@ WKResource.prototype.addPolicy = function (policy) {
  */
 WKResource.prototype.toJson = function () {
   let newProperties = JSON.parse(JSON.stringify(this.properties))
+  let errors = []
   for (let prop in newProperties) {
-    try {
-      newProperties[prop] = this.properties[prop].toJson()
-    } catch (e) {
-      if (e instanceof RequiredPropertyException) {
-        throw new RequiredPropertyException(this.WKName + '.' + prop + ' or a subproperty is required but not defined: ' + e.message)
-      }
+    let result = this.properties[prop].toJson()
+    if (result.errors) {
+      result.errors.forEach((e) => {
+        errors.push(e)
+      })
+      errors.push(this.WKName + '.' + prop + ' or a subproperty is required but not defined.')
     }
+    newProperties[prop] = result.json
   }
   if (this.conditional) {
-    try {
-      this.conditional(this.properties)
-    } catch (e) {
-      if (e instanceof ConditionNotMetException) {
-        throw new ConditionNotMetException(this.WKName + ' has a condition that was not met: ' + e.message)
-      }
+    let result = this.conditional(this.properties)
+    if (result.errors) {
+      result.errors.forEach((e) => {
+        errors.push(e)
+      })
+      errors.push(this.WKName + ' has a condition that was not met.')
     }
   }
   let newMetadata = {}
@@ -168,7 +170,10 @@ WKResource.prototype.toJson = function () {
   if (this.dependsOn) {
     returnObject.DependsOn = this.dependsOn.WKName
   }
-  return returnObject
+  if (errors.length === 0) {
+    errors = null
+  }
+  return { errors: errors, json: returnObject }
 }
 
 /**
@@ -202,26 +207,33 @@ function ResourceProperty (name, properties, propertiesObject, conditional) {
  */
 ResourceProperty.prototype.toJson = function () {
   let newProperties = JSON.parse(JSON.stringify(this.properties))
+  let errors = []
   for (let prop in newProperties) {
-    try {
-      //TODO: only call toJson if this is an object
-      newProperties[prop] = this.properties[prop].toJson()
-    } catch (e) {
-      if (e instanceof RequiredPropertyException) {
-        throw new RequiredPropertyException(this.WKName + '.' + prop + ' is required but not defined: ' + e.message)
-      }
+    // TODO: only call toJson if this is an object
+    let result = this.properties[prop].toJson()
+    if (result.errors) {
+      result.errors.forEach((e) => {
+        errors.push(e)
+      })
+      errors.push(this.WKName + '.' + prop + ' is required but not defined.')
+    }
+    if (result.json) {
+      newProperties[prop] = result.json
+    } else {
+      delete newProperties[prop]
     }
   }
   if (this.conditional) {
-    try {
-      this.conditional(this.properties)
-    } catch (e) {
-      if (e instanceof ConditionNotMetException) {
-        throw new ConditionNotMetException(this.WKName + ' has a condition that was not met: ' + e.message)
-      }
+    let result = this.conditional(this.properties)
+    if (result.errors) {
+      result.errors.forEach((e) => {
+        errors.push(e)
+      })
+      errors.push(this.WKName + ' has a condition that was not met.')
     }
   }
-  return newProperties
+  if (errors === 0) { errors = null }
+  return { errors: errors, json: newProperties }
 }
 
 module.exports = {

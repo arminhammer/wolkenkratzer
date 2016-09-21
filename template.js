@@ -171,11 +171,13 @@ Template.prototype.toJson = function () {
     }
   }
   for (let resource in this.Resources) {
-    try {
-      j.Resources[resource] = this.Resources[resource].toJson()
-    } catch (e) {
-      errors.push(e.message)
+    let result = this.Resources[resource].toJson()
+    if (result.errors) {
+      result.errors.forEach((e) => {
+        errors.push(e)
+      })
     }
+    j.Resources[resource] = result.json
   }
   for (let output in this.Outputs) {
     try {

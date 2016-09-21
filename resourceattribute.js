@@ -156,17 +156,19 @@ ResourceAttribute.prototype.base64 = function (content) {
  * @returns {*}
  */
 ResourceAttribute.prototype.toJson = function () {
+  let errors = []
   if (this.isArray) {
     if (this.val !== null) {
       if (this.val instanceof Intrinsic.Intrinsic) {
-        return this.val.toJson()
+        let jsonValue = this.val.toJson()
+        return { errors: errors, json: jsonValue }
       } else if (this.Type.prototype instanceof ResourceProperty) {
         let propArray = []
         for (let prop in this.val) {
           propArray.push(this.val[prop].toJson())
         }
         if (propArray.length > 0) {
-          return propArray
+          return { errors: errors, json: propArray }
         }
       } else {
         let propArray = []
@@ -178,24 +180,36 @@ ResourceAttribute.prototype.toJson = function () {
           }
         }
         if (propArray.length > 0) {
-          return propArray
+          return { errors: errors, json: propArray }
         }
       }
     } else {
-      if (this.required === 'Yes') { throw new RequiredPropertyException(this.WKName + ' is required.') }
-    }
-  }
-  else {
-    if (this.val !== null) {
-      if (this.val instanceof Intrinsic.Intrinsic) {
-        return this.val.toJson()
-      } else if (this.val instanceof ResourceProperty) {
-        return this.val.toJson()
+      if (this.required === 'Yes') {
+        errors.push(this.WKName + ' is required.')
+        return { errors: errors, json: null }
+      } else {
+        return { errors: null, json: null }
       }
-      return this.val
+    }
+  } else {
+    if (this.val !== null) {
+      if ((this.val instanceof Intrinsic.Intrinsic) || (this.val instanceof ResourceProperty)) {
+        let result = this.val.toJson()
+        if (result.errors) {
+          result.errors.forEach((e) => {
+            errors.push(e)
+          })
+        }
+        return { errors: errors, json: result.json }
+      }
+      let jsonValue = this.val
+      return { errors: errors, json: jsonValue }
     } else {
       if (this.required === 'Yes') {
-        throw new RequiredPropertyException('this value is required')
+        errors.push(this.WKName + ' is required.')
+        return { errors: errors, json: null }
+      } else {
+        return { errors: null, json: null }
       }
     }
   }
