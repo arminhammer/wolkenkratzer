@@ -9,10 +9,12 @@ const types = require('./../types')
 
 /** @memberof module:SDB
 *   @extends WKResource
+* @property {String} Description Required: No. Information about the Amazon SimpleDB domain.Update requires: Updates are not supported.
 */
 function Domain (name, propertiesObject) {
     let resourceType = 'AWS::SDB::Domain'
     let properties = {
+      Description: new ResourceAttribute('Description', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }

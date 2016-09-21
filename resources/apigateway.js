@@ -127,8 +127,8 @@ Deployment.prototype = Object.create(WKResource.prototype)
 * @property {String} HttpMethod Required: Yes. The HTTP method that clients will use to call this method.Update requires: No interruption
 * @property {AmazonAPIGatewayMethodIntegration} Integration Required: No. The back-end system that the method calls when it receives a request.Update requires: No interruption
 * @property {AmazonAPIGatewayMethodMethodResponse} MethodResponses Required: No. The responses that can be sent to the client who calls the method.Update requires: No interruption
-* @property {Map} RequestModels Required: No. The resources used for the response's content type. Specify response models as key-value pairs (string-to-string maps), with a content type as the key and a Model resource name as the value.Update requires: No interruption
-* @property {Map} RequestParameters Required: No. Request parameters that API Gateway accepts. Specify request parameters as key-value pairs (string-to-Boolean maps), with a source as the key and a Boolean as the value. The Boolean specifies whether a parameter is required. A source must match the following format method.request.location.name, where the location is querystring, path, or header, and
+* @property {Map} RequestModels Required: No. The resources used for the response's content type. Specify response models as key-value pairs (string-to-string map), with a content type as the key and a Model resource name as the value.Update requires: No interruption
+* @property {Map} RequestParameters Required: No. Request parameters that API Gateway accepts. Specify request parameters as key-value pairs (string-to-Boolean map), with a source as the key and a Boolean as the value. The Boolean specifies whether a parameter is required. A source must match the following format method.request.location.name, where the location is querystring, path, or header, and
               name is a valid, unique parameter name.Update requires: No interruption
 * @property {String} ResourceId Required: Yes. The ID of an API Gateway resource. For root resource methods, specify the RestApi root resource ID, such as { "Fn::GetAtt": ["MyRestApi", "RootResourceId"] }.Update requires: No interruption
 * @property {String} RestApiId Required: Yes. The ID of the RestApi resource in which API Gateway creates the method.Update requires: No interruption
@@ -192,9 +192,7 @@ Resource.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ApiGateway
 *   @extends WKResource
-* @property {Object} Body Required: No. A Swagger specification that defines a set of RESTful APIs in the JSON format. To
-            specify a Swagger file that is in the YAML format, use the BodyS3Location
-            property.Update requires: No interruption
+* @property {Object} Body Required: No. A Swagger specification that defines a set of RESTful APIs in the JSON format.Update requires: No interruption
 * @property {AmazonAPIGatewayRestApiS3Location} BodyS3Location Required: No. The Amazon Simple Storage Service (Amazon S3) location that points to a Swagger file, which defines a set of RESTful APIs in JSON or YAML format.Update requires: No interruption
 * @property {String} CloneFrom Required: No. The ID of the API Gateway RestApi resource that you want to clone.Update requires: No interruption
 * @property {String} Description Required: No. A description of the purpose of this API Gateway RestApi resource.Update requires: No interruption

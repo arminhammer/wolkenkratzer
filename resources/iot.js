@@ -55,8 +55,8 @@ PolicyPrincipalAttachment.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:IoT
 *   @extends WKResource
-* @property {Map} AttributePayload Required: No. A JSON string that contains up to three key-value pairs, for example:
-                     {\"attributes\":{\"string1\":\"string2\"}}.Update requires: No interruption
+* @property {Map} AttributePayload Required: No. A JSON string that contains up to three key-value pairs, for example: {
+                     "attributes": { "string1":"string2" } }.Update requires: No interruption
 * @property {String} ThingName Required: No. The name (the physical ID) of the AWS IoT thing.Update requires: Replacement
 */
 function Thing (name, propertiesObject) {

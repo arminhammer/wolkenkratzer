@@ -168,12 +168,7 @@ Role.prototype = Object.create(WKResource.prototype)
 * @property {String} Path Required: No. The path for the user name. For more information about paths, see IAM Identifiers in the IAM User Guide.Update requires: No interruption
 * @property {IAMPolicies} Policies Required: No. The policies to associate with this user. For information about policies, see Overview of IAM Policies in the IAM User Guide.NoteIf you specify multiple polices, specify unique values for the policy name.
                      If you don't, updates to the IAM user will fail.Update requires: No interruption
-* @property {String} UserName Required: No. A name for the IAM user. For valid values, see the UserName
-            parameter for the CreateUser action in the IAM API Reference.
-            If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for
-            the
-            group
-            name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
+* @property {String} UserName Required: No. A name for the IAM user. For valid values, see the UserName parameter for the CreateUser action in the IAM API Reference. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the user name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
 You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {"Fn::Join": ["", [{"Ref": "AWS::Region"}, {"Ref": "MyResourceName"}]]}.Update requires: Replacement
 */
 function User (name, propertiesObject) {

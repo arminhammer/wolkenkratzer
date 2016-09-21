@@ -230,7 +230,7 @@ Template.prototype.toJson = function () {
   }
 }
 
-Template.prototype.toYAML = function () {
+Template.prototype.toYaml = function () {
   let jsonResult = this.toJson()
   return { Errors: jsonResult.errors, Template: yaml.safeDump(JSON.parse(jsonResult.Template)) }
 }

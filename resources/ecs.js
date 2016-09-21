@@ -9,10 +9,13 @@ const types = require('./../types')
 
 /** @memberof module:ECS
 *   @extends WKResource
+* @property {String} ClusterName Required: No. A name for the cluster. If you don't specify a name, AWS CloudFormation generates a unique physical ID for the name. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
+You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement
 */
 function Cluster (name, propertiesObject) {
     let resourceType = 'AWS::ECS::Cluster'
     let properties = {
+      ClusterName: new ResourceAttribute('ClusterName', String, false, 'No', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)
 }
@@ -24,7 +27,7 @@ Cluster.prototype = Object.create(WKResource.prototype)
                   service on. If you do not specify a cluster, Amazon ECS uses the default
                   cluster.Update requires: Replacement
 * @property {AmazonEC2ContainerServiceServiceDeploymentConfiguration} DeploymentConfiguration Required: No. Configures how many tasks run during a deployment.Update requires: No interruption
-* @property {String} DesiredCount Required: Yes. The number of simultaneous tasks, which you specify by using the
+* @property {Number} DesiredCount Required: Yes. The number of simultaneous tasks, which you specify by using the
                      TaskDefinition property, that you want to run on the
                   cluster.Update requires: No interruption
 * @property {AmazonEC2ContainerServiceServiceLoadBalancers} LoadBalancers Required: No. A list of load balancer objects to associate with the cluster. For information about the number of load balancers you can specify per service, see Service Load Balancing in the Amazon EC2 Container Service Developer Guide.Update requires: Replacement
@@ -38,7 +41,7 @@ function Service (name, propertiesObject) {
     let properties = {
       Cluster: new ResourceAttribute('Cluster', String, false, 'No', null),
       DeploymentConfiguration: new ResourceAttribute('DeploymentConfiguration', types.AmazonEC2ContainerServiceServiceDeploymentConfiguration, false, 'No', null),
-      DesiredCount: new ResourceAttribute('DesiredCount', String, false, 'Yes', null),
+      DesiredCount: new ResourceAttribute('DesiredCount', Number, false, 'Yes', null),
       LoadBalancers: new ResourceAttribute('LoadBalancers', types.AmazonEC2ContainerServiceServiceLoadBalancers, true, 'No', null),
       Role: new ResourceAttribute('Role', String, false, 'Conditional', null),
       TaskDefinition: new ResourceAttribute('TaskDefinition', String, false, 'Yes', null)
@@ -51,6 +54,8 @@ Service.prototype = Object.create(WKResource.prototype)
 *   @extends WKResource
 * @property {AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions} ContainerDefinitions Required: Yes. A list of container definitions in JSON format that describe the containers
             that make up your task.Update requires: Replacement
+* @property {String} Family Required: No. The name of a family that this task definition is registered to. A family groups multiple versions of a task definition. Amazon ECS gives the first task definition that you registered to a family a revision number of 1. Amazon ECS gives sequential revision numbers to each task definition that you add.If you don't specify a value, AWS CloudFormation generates a family name.Update requires: Replacement
+* @property {String} TaskRoleArn Required: No. The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants containers in the task permission to call AWS APIs on your behalf. For more information, see IAM Roles for Tasks in the Amazon EC2 Container Service Developer Guide.Update requires: Replacement
 * @property {AmazonEC2ContainerServiceTaskDefinitionVolumes} Volumes Required: Yes. A list of volume definitions in JSON format for volumes that you can use in
             your container definitions.Update requires: Replacement
 */
@@ -58,6 +63,8 @@ function TaskDefinition (name, propertiesObject) {
     let resourceType = 'AWS::ECS::TaskDefinition'
     let properties = {
       ContainerDefinitions: new ResourceAttribute('ContainerDefinitions', types.AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions, true, 'Yes', null),
+      Family: new ResourceAttribute('Family', String, false, 'No', null),
+      TaskRoleArn: new ResourceAttribute('TaskRoleArn', String, false, 'No', null),
       Volumes: new ResourceAttribute('Volumes', types.AmazonEC2ContainerServiceTaskDefinitionVolumes, true, 'Yes', null)
     }
     WKResource.call(this, name, resourceType, properties, propertiesObject)

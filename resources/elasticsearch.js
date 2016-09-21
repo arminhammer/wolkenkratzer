@@ -23,6 +23,7 @@ You can still do updates that require no or some interruption. If you must repla
 * @property {AmazonElasticsearchServiceDomainElasticsearchClusterConfig} ElasticsearchClusterConfig Required: No. The cluster configuration for the  Amazon ES domain. You can specify options such as
             the instance type and the number of instances. For more information, see Configuring Amazon ES Domains in the
             Amazon Elasticsearch Service Developer Guide.Update requires: No interruption
+* @property {String} ElasticsearchVersion Required: No. The version of Elasticsearch to use, such as 2.3. For information about the versions that Amazon ES supports, see the Elasticsearch-Version parameter for the CreateElasticsearchDomain action in the Amazon Elasticsearch Service Developer Guide.Update requires: Replacement
 * @property {AmazonElasticsearchServiceDomainSnapshotOptions} SnapshotOptions Required: No. The automated snapshot configuration for the Amazon ES domain indices.Update requires: No interruption
 * @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) to associate with the Amazon ES
             domain.Update requires: No interruption
@@ -35,6 +36,7 @@ function Domain (name, propertiesObject) {
       DomainName: new ResourceAttribute('DomainName', String, false, 'No', null),
       EBSOptions: new ResourceAttribute('EBSOptions', types.AmazonElasticsearchServiceDomainEBSOptions, false, 'No', null),
       ElasticsearchClusterConfig: new ResourceAttribute('ElasticsearchClusterConfig', types.AmazonElasticsearchServiceDomainElasticsearchClusterConfig, false, 'No', null),
+      ElasticsearchVersion: new ResourceAttribute('ElasticsearchVersion', String, false, 'No', null),
       SnapshotOptions: new ResourceAttribute('SnapshotOptions', types.AmazonElasticsearchServiceDomainSnapshotOptions, false, 'No', null),
       Tags: new tag.TagSet()
     }

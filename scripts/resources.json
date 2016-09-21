@@ -177,12 +177,12 @@
         ]
       },
       "RequestModels": {
-        "Description": "The resources used for the response's content type. Specify response models as key-value pairs (string-to-string maps), with a content type as the key and a Model resource name as the value.Update requires: No interruption",
+        "Description": "The resources used for the response's content type. Specify response models as key-value pairs (string-to-string map), with a content type as the key and a Model resource name as the value.Update requires: No interruption",
         "Required": "No",
         "Type": "Map"
       },
       "RequestParameters": {
-        "Description": "Request parameters that API Gateway accepts. Specify request parameters as key-value pairs (string-to-Boolean maps), with a source as the key and a Boolean as the value. The Boolean specifies whether a parameter is required. A source must match the following format method.request.location.name, where the location is querystring, path, or header, and\n              name is a valid, unique parameter name.Update requires: No interruption",
+        "Description": "Request parameters that API Gateway accepts. Specify request parameters as key-value pairs (string-to-Boolean map), with a source as the key and a Boolean as the value. The Boolean specifies whether a parameter is required. A source must match the following format method.request.location.name, where the location is querystring, path, or header, and\n              name is a valid, unique parameter name.Update requires: No interruption",
         "Required": "No",
         "Type": "Map"
       },
@@ -252,7 +252,7 @@
     "name": "AWS::ApiGateway::RestApi",
     "properties": {
       "Body": {
-        "Description": "A Swagger specification that defines a set of RESTful APIs in the JSON format. To\n            specify a Swagger file that is in the YAML format, use the BodyS3Location\n            property.Update requires: No interruption",
+        "Description": "A Swagger specification that defines a set of RESTful APIs in the JSON format.Update requires: No interruption",
         "Required": "No",
         "Type": "JSONobject"
       },
@@ -384,7 +384,7 @@
         "Type": "String"
       },
       "PolicyType": {
-        "Description": "An\n             Application Auto Scaling policy type. For valid values, see the\n              PolicyType parameter for the PutScalingPolicy action in the\n              Application Auto Scaling API Reference.Update requires: No interruption",
+        "Description": "An Application Auto Scaling policy type. For valid values, see the PolicyType parameter for the PutScalingPolicy action in the Application Auto Scaling API Reference.Update requires: No interruption",
         "Required": "No",
         "Type": "String"
       },
@@ -394,7 +394,7 @@
         "Type": "String"
       },
       "ScalableDimension": {
-        "Description": "The scalable dimension of the scalable target that this scaling policy applies to.\n            The scalable dimension contains the service namespace, resource type, and scaling\n            property, such as ecs:service:DesiredCount for the desired task count of an\n            Amazon ECS\n            service.Update requires: Replacement",
+        "Description": "The scalable dimension of the scalable target that this scaling policy applies to. The scalable dimension contains the service namespace, resource type, and scaling property, such as ecs:service:DesiredCount for the desired task count of an Amazon ECS service.Update requires: Replacement",
         "Required": "Conditional",
         "Type": "String"
       },
@@ -991,7 +991,7 @@
         "Type": "Boolean"
       },
       "AlarmActions": {
-        "Description": "The list of actions to execute when this alarm transitions into an ALARM state\n                  from any other state. Each action is specified as an Amazon Resource Number (ARN).\n                  For more information about creating alarms and the actions you can specify, see\n                     Creating Amazon CloudWatch\n                     Alarms in the Amazon CloudWatch Developer Guide.Update requires: No interruption",
+        "Description": "The list of actions to execute when this alarm transitions into an ALARM state\n                  from any other state. Each action is specified as an Amazon Resource Number (ARN).\n                  For more information about creating alarms and the actions you can specify, see\n                     Creating Amazon CloudWatch\n                     Alarms in the Amazon CloudWatch Developer Guide.NoteFor Auto Scaling scaling polices, you can specify only one policy. If you associate more than one policy, CloudWatch executes only the first scaling policy.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "String"
@@ -1847,7 +1847,7 @@
       "Icmp": {
         "Description": "The Internet Control Message Protocol (ICMP) code and type.Update requires: No interruption",
         "Required": "Conditional",
-        "Type": "EC2ICMPPropertyType"
+        "Type": "EC2NetworkAclEntryIcmp"
       },
       "NetworkAclId": {
         "Description": "ID of the ACL where the entry will be created.Update requires: Replacement.",
@@ -1857,7 +1857,7 @@
       "PortRange": {
         "Description": "The range of port numbers for the UDP/TCP protocol.Update requires: No interruption",
         "Required": "Conditional",
-        "Type": "EC2PortRangePropertyType"
+        "Type": "EC2NetworkAclEntryPortRange"
       },
       "Protocol": {
         "Description": "The IP protocol that the rule applies to. You must specify -1 or a\n                  protocol number (go to Protocol Numbers at iana.org). You can specify -1 for all\n                  protocols.NoteIf you specify -1, all ports are opened and the\n                        PortRange property is ignored.Update requires: No interruption",
@@ -2480,7 +2480,13 @@
   },
   "AWS::ECS::Cluster": {
     "name": "AWS::ECS::Cluster",
-    "properties": {}
+    "properties": {
+      "ClusterName": {
+        "Description": "A name for the cluster. If you don't specify a name, AWS CloudFormation generates a unique physical ID for the name. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
+      }
+    }
   },
   "AWS::ECS::Service": {
     "name": "AWS::ECS::Service",
@@ -2498,7 +2504,7 @@
       "DesiredCount": {
         "Description": "The number of simultaneous tasks, which you specify by using the\n                     TaskDefinition property, that you want to run on the\n                  cluster.Update requires: No interruption",
         "Required": "Yes",
-        "Type": "String"
+        "Type": "Integer"
       },
       "LoadBalancers": {
         "Description": "A list of load balancer objects to associate with the cluster. For information about the number of load balancers you can specify per service, see Service Load Balancing in the Amazon EC2 Container Service Developer Guide.Update requires: Replacement",
@@ -2528,6 +2534,16 @@
         "Type": [
           "AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions"
         ]
+      },
+      "Family": {
+        "Description": "The name of a family that this task definition is registered to. A family groups multiple versions of a task definition. Amazon ECS gives the first task definition that you registered to a family a revision number of 1. Amazon ECS gives sequential revision numbers to each task definition that you add.If you don't specify a value, AWS CloudFormation generates a family name.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
+      },
+      "TaskRoleArn": {
+        "Description": "The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants containers in the task permission to call AWS APIs on your behalf. For more information, see IAM Roles for Tasks in the Amazon EC2 Container Service Developer Guide.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
       },
       "Volumes": {
         "Description": "A list of volume definitions in JSON format for volumes that you can use in\n            your container definitions.Update requires: Replacement",
@@ -2737,7 +2753,7 @@
         "Type": "String"
       },
       "CacheParameterGroupName": {
-        "Description": "The name of the parameter group to associate with this replication\n                  group.Update requires: No interruption",
+        "Description": "The name of the parameter group to associate with this replication\n                  group.Update requires: Some interruptions",
         "Required": "No",
         "Type": "String"
       },
@@ -3168,38 +3184,38 @@
     "name": "AWS::ElasticLoadBalancingV2::LoadBalancer",
     "properties": {
       "LoadBalancerAttributes": {
-        "Description": "Load balancer configurations.Update requires: No interruption",
+        "Description": "Specifies the load balancer configuration.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "ElasticLoadBalancingLoadBalancerLoadBalancerAttributes"
         ]
       },
       "Name": {
-        "Description": "A name for the load balancer, which must be unique within your AWS account. The name can have a maximum of 32 alphanumeric characters and hyphens. Names can't begin or end with a hyphen.Update requires: Replacement",
+        "Description": "Specifies a name for the load balancer. This name must be unique within your AWS\n            account and can have a maximum of 32 alphanumeric characters and hyphens. A name can't\n            begin or end with a hyphen.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "Scheme": {
-        "Description": "Indicates whether the load balancer is Internet-facing or internal. An Internet-facing load balancer routes requests from clients over the Internet to targets in your public subnets. An internal load balancer routes requests to targets using private IP addresses.For valid and default values, see the Scheme parameter for the CreateLoadBalancer action in the Elastic Load Balancing API Reference version 2015-12-01.Update requires: Replacement",
+        "Description": "Specifies whether the load balancer is internal or Internet-facing. An internal load\n            balancer routes requests to targets using private IP addresses. An Internet-facing load\n            balancer routes requests from clients over the Internet to targets in your public\n            subnets. For valid and default values, see the Scheme parameter for the\n                CreateLoadBalancer action in the\n              Elastic Load Balancing API Reference version 2015-12-01.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "SecurityGroups": {
-        "Description": "A list of the IDs of the security groups to assign to the load balancer.Update requires: No interruption",
+        "Description": "Specifies a list of the IDs of the security groups to assign to the load\n            balancer.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "String"
         ]
       },
       "Subnets": {
-        "Description": "A list of at least two IDs of the subnets to associate with the load balancer. Subnets must be in different Availability Zones.Update requires: No interruption",
+        "Description": "Specifies a list of at least two IDs of the subnets to associate with the load\n            balancer. The subnets must be in different Availability Zones.Update requires: No interruption",
         "Required": "Yes",
         "Type": [
           "String"
         ]
       },
       "Tags": {
-        "Description": "An arbitrary set of tags (key–value pairs) to associate with this load balancer. Use tags to help manage resources.Update requires: No interruption",
+        "Description": "Specifies an arbitrary set of tags (key–value pairs) to associate with this\n            load balancer. Use tags to manage your resources.Update requires: No interruption",
         "Required": "No",
         "Type": "AWSCloudFormationResourceTags"
       }
@@ -3316,6 +3332,11 @@
         "Description": "The cluster configuration for the  Amazon ES domain. You can specify options such as\n            the instance type and the number of instances. For more information, see Configuring Amazon ES Domains in the\n            Amazon Elasticsearch Service Developer Guide.Update requires: No interruption",
         "Required": "No",
         "Type": "AmazonElasticsearchServiceDomainElasticsearchClusterConfig"
+      },
+      "ElasticsearchVersion": {
+        "Description": "The version of Elasticsearch to use, such as 2.3. For information about the versions that Amazon ES supports, see the Elasticsearch-Version parameter for the CreateElasticsearchDomain action in the Amazon Elasticsearch Service Developer Guide.Update requires: Replacement",
+        "Required": "No",
+        "Type": "String"
       },
       "SnapshotOptions": {
         "Description": "The automated snapshot configuration for the Amazon ES domain indices.Update requires: No interruption",
@@ -3835,7 +3856,7 @@
         ]
       },
       "UserName": {
-        "Description": "A name for the IAM user. For valid values, see the UserName\n            parameter for the CreateUser action in the IAM API Reference.\n            If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for\n            the\n            group\n            name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {\"Fn::Join\": [\"\", [{\"Ref\": \"AWS::Region\"}, {\"Ref\": \"MyResourceName\"}]]}.Update requires: Replacement",
+        "Description": "A name for the IAM user. For valid values, see the UserName parameter for the CreateUser action in the IAM API Reference. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the user name.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.If you specify a name, you must specify the CAPABILITY_NAMED_IAM value to acknowledge your template's capabilities. For more information, see Acknowledging IAM Resources in AWS CloudFormation Templates. WarningNaming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name, as in the following example: {\"Fn::Join\": [\"\", [{\"Ref\": \"AWS::Region\"}, {\"Ref\": \"MyResourceName\"}]]}.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       }
@@ -3907,7 +3928,7 @@
     "name": "AWS::IoT::Thing",
     "properties": {
       "AttributePayload": {
-        "Description": "A JSON string that contains up to three key-value pairs, for example:\n                     {\\\"attributes\\\":{\\\"string1\\\":\\\"string2\\\"}}.Update requires: No interruption",
+        "Description": "A JSON string that contains up to three key-value pairs, for example: {\n                     \"attributes\": { \"string1\":\"string2\" } }.Update requires: No interruption",
         "Required": "No",
         "Type": "Stringtostringmap"
       },
@@ -3993,6 +4014,21 @@
       }
     }
   },
+  "AWS::KMS::Alias": {
+    "name": "AWS::KMS::Alias",
+    "properties": {
+      "AliasName": {
+        "Description": "The name of the alias. The name must start with alias followed by a forward slash, such as alias/. You can't specify aliases that begin with alias/AWS. These aliases are reserved.Update requires: Replacement",
+        "Required": "Yes",
+        "Type": "String"
+      },
+      "TargetKeyId": {
+        "Description": "The ID of the key for which you are creating the alias. Specify the key's globally unique identifier or Amazon Resource Name (ARN). You can't specify another alias.Update requires: No interruption",
+        "Required": "Yes",
+        "Type": "String"
+      }
+    }
+  },
   "AWS::KMS::Key": {
     "name": "AWS::KMS::Key",
     "properties": {
@@ -4052,7 +4088,7 @@
     "name": "AWS::Lambda::Alias",
     "properties": {
       "Description": {
-        "Description": "Information that describes the alias, such as its purpose or the function that it's associated with.Update requires: No interruption",
+        "Description": "Information about the alias, such as its purpose or the Lambda function that is associated with it.Update requires: No interruption",
         "Required": "No",
         "Type": "String"
       },
@@ -4271,7 +4307,7 @@
         "Type": "String"
       },
       "RoleArn": {
-        "Description": "An IAM role that grants CloudWatch Logs permission to put data into the specified Amazon Kinesis\n                  stream. For Lambda and CloudWatch Logs destinations, don't specify this property because\n                  CloudWatch Logs gets the necessary permissions from the destination resource.Update requires: Replacement",
+        "Description": "An IAM role that grants CloudWatch Logs permission to put data into the specified Amazon Kinesis stream. For Lambda and CloudWatch Logs destinations, don't specify this property because CloudWatch Logs gets the necessary permissions from the destination resource.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       }
@@ -4750,17 +4786,17 @@
     "name": "AWS::RDS::DBInstance",
     "properties": {
       "AllocatedStorage": {
-        "Description": "The allocated storage size specified in gigabytes (GB).If any value is used in the Iops parameter,\n                     AllocatedStorage must be at least 100 GB, which\n                  corresponds to the minimum Iops value of 1000. If\n                     Iops is increased (in 1000 IOPS increments), then\n                     AllocatedStorage must also be increased (in 100 GB\n                  increments) correspondingly.Update requires: No interruption",
+        "Description": "The allocated storage size, specified in gigabytes (GB).If any value is set in the Iops parameter,\n                     AllocatedStorage must be at least 100 GB, which\n                  corresponds to the minimum Iops value of 1,000. If you\n                  increase the Iops value (in 1,000 IOPS increments), then\n                  you must also increase the AllocatedStorage value (in 100\n                  GB increments).Update requires: No interruption",
         "Required": "Conditional",
         "Type": "String"
       },
       "AllowMajorVersionUpgrade": {
-        "Description": "Indicates whether major version upgrades are allowed. Changing this parameter\n                  does not result in an outage, and the change is applied asynchronously as soon as\n                  possible.Constraints: This parameter must be set to\n                     true when you specify an EngineVersion that differs\n                  from the DB instance's current major version.Update requires: No interruption",
+        "Description": "Indicates whether major version upgrades are allowed. Setting this parameter\n                  does not result in an outage, and the change is applied asynchronously as soon as\n                  possible.Constraints: Set this parameter to true when\n                  you specify an EngineVersion that differs from the DB instance's\n                  current major version.Update requires: No interruption",
         "Required": "No",
         "Type": "Boolean"
       },
       "AutoMinorVersionUpgrade": {
-        "Description": "Indicates that minor engine upgrades will be applied automatically to the DB\n                  instance during the maintenance window. The default value is\n                  true.Update requires: No interruption or some\n                     interruptions. For more information, see ModifyDBInstance in the\n                     Amazon Relational Database Service API Reference.",
+        "Description": "Indicates that minor engine upgrades are applied automatically to the DB\n                  instance during the maintenance window. The default value is\n                  true.Update requires: No interruption or some\n                     interruptions. For more information, see ModifyDBInstance in the\n                     Amazon Relational Database Service API Reference.",
         "Required": "No",
         "Type": "Boolean"
       },
@@ -4770,64 +4806,64 @@
         "Type": "String"
       },
       "BackupRetentionPeriod": {
-        "Description": "The number of days for which automatic DB snapshots are retained.ImportantIf this DB instance is deleted or replaced during an update, all\n                        automated snapshots are deleted. However, manual DB snapshot are\n                        retained.Update requires: No interruption or some\n                     interruptions. For more information, see ModifyDBInstance in the\n                     Amazon Relational Database Service API Reference.",
+        "Description": "The number of days during which automatic DB snapshots are retained.\n                  ImportantIf this DB instance is deleted or replaced during an update, AWS CloudFormation deletes\n                     all automated snapshots. However, it retains manual DB snapshots.Update requires: No interruption or some\n                     interruptions. For more information, see ModifyDBInstance in the\n                     Amazon Relational Database Service API Reference.",
         "Required": "No",
         "Type": "String"
       },
       "CharacterSetName": {
-        "Description": "For supported engines, specifies the character set to associate with the\n                  database instance. For more information, see Appendix: Oracle\n                     Character Sets Supported in Amazon RDS in the\n                     Amazon Relational Database Service User Guide.If you specify the DBSnapshotIdentifier or\n                     SourceDBInstanceIdentifier property, do not specify this property.\n                  The value is inherited from the snapshot or source database instance.Update requires: Replacement",
+        "Description": "For supported engines, specifies the character set to associate with the DB\n                  instance. For more information, see Appendix: Oracle\n                     Character Sets Supported in Amazon RDS in the\n                     Amazon Relational Database Service User Guide.If you specify the DBSnapshotIdentifier or\n                     SourceDBInstanceIdentifier property, do not specify this property.\n                  The value is inherited from the snapshot or source DB instance.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "DBClusterIdentifier": {
-        "Description": "The identifier of an existing DB cluster that this instance will be associated\n                  with. If you specify this property, specify aurora for the\n                     Engine property and do not specify any of the following\n                  properties: AllocatedStorage, CharacterSetName,\n                     DBSecurityGroups, SourceDBInstanceIdentifier,\n                  and StorageType.Amazon RDS assigns the first DB instance in the cluster as the primary and\n                  additional DB instances as replicas.Update requires: Replacement",
+        "Description": "The name of an existing DB cluster that this instance will be associated with.\n                  If you specify this property, specify aurora for the\n                     Engine property and do not specify any of the following\n                  properties: AllocatedStorage, BackupRetentionPeriod,\n                     CharacterSetName, DBSecurityGroups,\n                     PreferredBackupWindow, PreferredMaintenanceWindow,\n                     Port, SourceDBInstanceIdentifier, or\n                     StorageType.Amazon RDS assigns the first DB instance in the cluster as the primary, and\n                  additional DB instances as replicas.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "DBInstanceClass": {
-        "Description": "The name of the compute and memory capacity class of the DB instance.Update requires: Some interruptions",
+        "Description": "The name of the compute and memory capacity classes of the DB instance.Update requires: Some interruptions",
         "Required": "Yes",
         "Type": "String"
       },
       "DBInstanceIdentifier": {
-        "Description": "A name for the DB instance. If you specify a name, AWS CloudFormation converts it to lower\n                  case. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses\n                  that ID for the DB instance. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement",
+        "Description": "A name for the DB instance. If you specify a name, AWS CloudFormation converts it to\n            lower >case.\n            If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for\n            the DB instance. For more information,\n            see\n              Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.\nYou can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "DBName": {
-        "Description": "The name of the initial database of this instance that was provided at create\n                  time, if one was specified. This same name is returned for the life of the DB\n                  instance.NoteIf you restore from a snapshot, do specify this property for the MySQL or\n                     MariaDB engines.Update requires: Replacement",
+        "Description": "The name of the DB instance that was provided at the time of creation, if one\n                  was specified. This same name is returned for the life of the DB instance.NoteIf you restore DB instances from snapshots, specify this property for the\n                     MySQL or MariaDB engines.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "DBParameterGroupName": {
-        "Description": "The name of an existing DB parameter group or a reference to an AWS::RDS::DBParameterGroup\n                  resource created in the template.Update requires: No interruption or some interruptions. If any of the data members of the referenced parameter group are changed during an update, the database instance might need to be restarted, causing some interruption. If the parameter group contains static parameters, whether they were changed or not, an update triggers a reboot.",
+        "Description": "The name of an existing DB parameter group or a reference to an AWS::RDS::DBParameterGroup\n                  resource created in the template.Update requires: No interruption or some\n                     interruptions. If any of the data members of the referenced parameter\n                  group are changed during an update, the DB instance might need to be restarted,\n                  causing some interruption. If the parameter group contains static parameters,\n                  whether they were changed or not, an update triggers a reboot.",
         "Required": "No",
         "Type": "String"
       },
       "DBSecurityGroups": {
-        "Description": "A list of the DB security groups to assign to the Amazon RDS instance. The list can\n                  include both the name of existing DB security groups or references to AWS::RDS::DBSecurityGroup\n                  resources created in the template.If you set DBSecurityGroups, you must not set VPCSecurityGroups, and\n                  vice-versa.Update requires: No interruption",
+        "Description": "A list of the DB security groups to assign to the DB instance. The list can\n                  include both the name of existing DB security groups or references to AWS::RDS::DBSecurityGroup\n                  resources created in the template.If you set DBSecurityGroups, you must not set VPCSecurityGroups, and\n                  vice-versa.ImportantIf you specify this property, AWS CloudFormation sends only the following properties (if specified) to Amazon RDS: AllocatedStorageAutoMinorVersionUpgradeAvailabilityZoneBackupRetentionPeriodCharacterSetNameDbInstanceClassDbNameDbParameterGroupNameDbSecurityGroupsDbSubnetGroupNameEngineEngineVersionIopsLicenseModelMasterUsernameMasterUserPasswordMultiAZOptionGroupNamePreferredBackupWindowPreferredMaintenanceWindowAll other properties are ignored. Specify a VPC security group if you want to submit other properties, such as StorageType, StorageEncrypted, or KmsKeyId.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "String"
         ]
       },
       "DBSnapshotIdentifier": {
-        "Description": "The identifier for the DB snapshot to restore from.By specifying this property, you can create a DB instance from the specified DB\n                  snapshot. If the DBSnapshotIdentifier property is an empty string or the\n                  AWS::RDS::DBInstance declaration has no DBSnapshotIdentifier property, the\n                  database is created as a new database. If the property contains a value (other\n                  than empty string), AWS CloudFormation creates a database from the specified snapshot. If a\n                  snapshot with the specified name does not exist, the database creation fails and\n                  the stack rolls back.Some DB instance properties are not valid when you restore from a snapshot,\n                  such as the MasterUsername and MasterUserPassword\n                  properties. For information about the properties that you can specify, see the\n                     RestoreDBInstanceFromDBSnapshot action in the\n                     Amazon Relational Database Service API Reference.Update requires: Replacement",
+        "Description": "The name or ARN of the DB snapshot used to restore the DB instance. If you are\n                  restoring from a shared manual DB snapshot, you must specify the Amazon Resource\n                  Name (ARN) of the snapshot.By specifying this property, you can create a DB instance from the specified DB\n                  snapshot. If the DBSnapshotIdentifier property is an empty string or\n                  the AWS::RDS::DBInstance declaration has no\n                     DBSnapshotIdentifier property, AWS CloudFormation creates a new database. If\n                  the property contains a value (other than an empty string), AWS CloudFormation creates a\n                  database from the specified snapshot. If a snapshot with the specified name does\n                  not exist, AWS CloudFormation can't create the database and it rolls the back the stack.Some DB instance properties are not valid when you restore from a snapshot,\n                  such as the MasterUsername and MasterUserPassword\n                  properties. For information about the properties that you can specify, see the\n                     RestoreDBInstanceFromDBSnapshot action in the\n                     Amazon Relational Database Service API Reference.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "DBSubnetGroupName": {
-        "Description": "A DB subnet group to associate with the DB instance.If there is no DB subnet group, then it is a non-VPC DB instance.For more information about using Amazon RDS in a VPC, go to Using Amazon RDS\n                     with Amazon Virtual Private Cloud (VPC) in the\n                     Amazon Relational Database Service Developer Guide.Update requires: Replacement",
+        "Description": "A DB subnet group to associate with the DB instance.If there is no DB subnet group, then the instance is not a VPC DB\n                  instance.For more information about using Amazon RDS in a VPC, see Using Amazon RDS\n                     with Amazon Virtual Private Cloud (VPC) in the\n                     Amazon Relational Database Service Developer Guide.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "Engine": {
-        "Description": "The name of the database engine that the DB instance uses. This property is\n                  optional when you specify the DBSnapshotIdentifier property to create\n                  DB instances.For valid values, see the Engine parameter of the CreateDBInstance action in the\n                  Amazon Relational Database Service API Reference.Update requires: Replacement",
+        "Description": "The database engine that the DB instance uses. This property is optional when\n                  you specify the DBSnapshotIdentifier property to create DB\n                  instances.For valid values, see the Engine parameter of the CreateDBInstance action in the\n                  Amazon Relational Database Service API Reference.Update requires: Replacement",
         "Required": "Conditional",
         "Type": "String"
       },
       "EngineVersion": {
-        "Description": "The version number of the database engine to use.Update requires: Some interruptions",
+        "Description": "The version number of the database engine that the DB instance uses.Update requires: Some interruptions",
         "Required": "No",
         "Type": "String"
       },
@@ -4837,77 +4873,87 @@
         "Type": "Number"
       },
       "KmsKeyId": {
-        "Description": "The Amazon Resource Name (ARN) of the AWS Key Management Service master key that is used to\n                  encrypt the database instance, such as\n                     arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef.\n                  If you enable the StorageEncrypted property but don't specify this\n                  property, the default master key is used. If you specify this property, you must\n                  set the StorageEncrypted property to true.If you specify the DBSnapshotIdentifier or\n                     SourceDBInstanceIdentifier property, do not specify this property.\n                  The value is inherited from the snapshot or source database instance.NoteCurrently, if you specify DBSecurityGroups, this property is\n                     ignored. If you want to specify a security group and this property, you must\n                     use a VPC security group. For more information about Amazon RDS and VPC, see Using Amazon RDS with Amazon VPC in the\n                        Amazon Relational Database Service User Guide.Update requires: Replacement.",
+        "Description": "The ARN of the AWS Key Management Service (AWS KMS) master key that is used to encrypt the DB\n                  instance, such as\n                     arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef.\n                  If you enable the StorageEncrypted property but don't specify this\n                  property, AWS CloudFormation uses the default master key. If you specify this property, you\n                  must set the StorageEncrypted property to true.If you specify the DBSnapshotIdentifier or\n                     SourceDBInstanceIdentifier property, do not specify this property.\n                  The value is inherited from the snapshot or source database instance.NoteIf you specify DBSecurityGroups, AWS CloudFormation ignores this property.\n                     To specify both a security group and this property, you must use a VPC security\n                     group. For more information about Amazon RDS and VPC, see Using Amazon RDS with Amazon VPC in the\n                        Amazon Relational Database Service User Guide.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "LicenseModel": {
-        "Description": "The license model information for the DB instance.Update requires: Replacement.",
+        "Description": "The license model of the DB instance.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "MasterUsername": {
-        "Description": "The master user name for the database instance. This property is optional when\n                  you specify the DBSnapshotIdentifier or the\n                     DBClusterIdentifier property to create DB instances. NoteIf you specify the SourceDBInstanceIdentifier or\n                           DBSnapshotIdentifier property, do not specify this property.\n                        The value is inherited from the source database instance or snapshot.Update requires: Replacement.",
+        "Description": "The master user name for the DB instance. This property is optional when you\n                  specify the DBSnapshotIdentifier or the\n                     DBClusterIdentifier property to create DB instances. NoteIf you specify the SourceDBInstanceIdentifier or\n                           DBSnapshotIdentifier property, do not specify this property.\n                        The value is inherited from the source DB instance or snapshot.Update requires: Replacement",
         "Required": "Conditional",
         "Type": "String"
       },
       "MasterUserPassword": {
-        "Description": "The master password for the database instance. This property is optional when\n                  you specify the DBSnapshotIdentifier or the\n                     DBClusterIdentifier property to create DB instances.NoteIf you specify the SourceDBInstanceIdentifier property, do not\n                     specify this property. The value is inherited from the source database\n                     instance.Update requires: No interruption.",
+        "Description": "The master password for the DB instance. This property is optional when you\n                  specify the DBSnapshotIdentifier or the\n                     DBClusterIdentifier property to create DB instances.NoteIf you specify the SourceDBInstanceIdentifier property, do not\n                     specify this property. The value is inherited from the source DB\n                     instance.Update requires: No interruption",
+        "Required": "Conditional",
+        "Type": "String"
+      },
+      "MonitoringInterval": {
+        "Description": "The interval, in seconds, between points when Amazon RDS collects enhanced\n                  monitoring metrics for the DB instance. To disable metrics collection, specify\n                     0.For default and valid values, see the MonitoringInterval parameter\n                  for the CreateDBInstance action in the\n                  Amazon Relational Database Service API Reference.Update requires: No interruption or some\n                     interruptions. For more information, see ModifyDBInstance in the\n                     Amazon Relational Database Service API Reference.",
+        "Required": "Conditional",
+        "Type": "Integer"
+      },
+      "MonitoringRoleArn": {
+        "Description": "The ARN of the AWS Identity and Access Management (IAM) role that permits Amazon RDS to send enhanced\n            monitoring metrics to Amazon CloudWatch, for example,\n              arn:aws:iam:123456789012:role/emaccess. For information on creating a\n            monitoring role, see To create an IAM\n              role for Amazon RDS Enhanced Monitoring in the\n              Amazon Relational Database Service User Guide.Update requires: No interruption",
         "Required": "Conditional",
         "Type": "String"
       },
       "MultiAZ": {
-        "Description": "Specifies if the database instance is a multiple Availability Zone deployment.\n                  You cannot set the AvailabilityZone parameter if the\n                     MultiAZ parameter is set to true.NoteDo not specify this property if you want a Multi-AZ deployment for a SQL\n                        Server database instance. Use the mirroring option in an option group to set\n                        Multi-AZ for a SQL Server database instance.Update requires: No interruption.",
+        "Description": "Specifies if the database instance is a multiple Availability Zone deployment. You cannot set the AvailabilityZone parameter if the MultiAZ parameter is set to true.Update requires: No interruption",
         "Required": "No",
         "Type": "Boolean"
       },
       "OptionGroupName": {
-        "Description": "An option group that this database instance is associated with.Update requires: No interruption.",
+        "Description": "The option group that this DB instance is associated with.Update requires: No interruption",
         "Required": "No",
         "Type": "String"
       },
       "Port": {
-        "Description": "The port for the instance.Update requires: Replacement.",
+        "Description": "The port for the instance.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "PreferredBackupWindow": {
-        "Description": "The daily time range during which automated backups are created if automated backups are enabled, as determined by the BackupRetentionPeriod property. For valid values, see the PreferredBackupWindow parameter for the CreateDBInstance action in the Amazon Relational Database Service API Reference.Update requires: No interruption.",
+        "Description": "The daily time range during which automated backups are performed if automated\n                  backups are enabled, as determined by the BackupRetentionPeriod\n                  property. For valid values, see the PreferredBackupWindow parameter\n                  for the CreateDBInstance action in the\n                  Amazon Relational Database Service API Reference.Update requires: No interruption",
         "Required": "No",
         "Type": "String"
       },
       "PreferredMaintenanceWindow": {
-        "Description": "The weekly time range (in UTC) during which system maintenance can occur. For valid values, see the PreferredMaintenanceWindow parameter for the CreateDBInstance action in the Amazon Relational Database Service API Reference.NoteThis property applies during the initial resource creation. If you use AWS CloudFormation to update the DB instance, AWS CloudFormation applies those updates immediately.Update requires: No interruption or some\n                     interruptions. For more information, see ModifyDBInstance in the\n                     Amazon Relational Database Service API Reference.",
+        "Description": "The weekly time range (in UTC) during which system maintenance can occur. For valid values, see the PreferredMaintenanceWindow parameter for the CreateDBInstance action in the Amazon Relational Database Service API Reference.NoteThis property applies when AWS CloudFormation initially creates the DB instance. If\n                        you use AWS CloudFormation to update the DB instance, those updates are applied\n                        immediately.Update requires: No interruption or some\n                     interruptions. For more information, see ModifyDBInstance in the\n                     Amazon Relational Database Service API Reference.",
         "Required": "No",
         "Type": "String"
       },
       "PubliclyAccessible": {
-        "Description": "Indicates whether the database instance is an Internet-facing instance. If you\n                  specify true, an instance is created with a publicly resolvable DNS\n                  name, which resolves to a public IP address. If you specify false, an\n                  internal instance is created with a DNS name that resolves to a private IP\n                  address. The default behavior value depends on your VPC setup and the database subnet\n                  group. For more information, see the PubliclyAccessible parameter in\n                     CreateDBInstance in the Amazon Relational Database Service API Reference.If this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the\nDependsOn attribute to declare a dependency on the VPC-gateway attachment. For more information,\nsee DependsOn Attribute.NoteCurrently, if you specify DBSecurityGroups, this property is\n                     ignored. If you want to specify a security group and this property, you must\n                     use a VPC security group. For more information about Amazon RDS and VPC, see Using Amazon RDS with Amazon VPC in the\n                        Amazon Relational Database Service User Guide.Update requires: Replacement.",
+        "Description": "Indicates whether the DB instance is an Internet-facing instance. If you\n                  specify true, AWS CloudFormation creates an instance with a publicly resolvable\n                  DNS name, which resolves to a public IP address. If you specify\n                  false, AWS CloudFormation creates an internal instance with a DNS name that\n                  resolves to a private IP address. The default behavior value depends on your VPC setup and the database subnet\n                  group. For more information, see the PubliclyAccessible parameter in\n                     CreateDBInstance in the Amazon Relational Database Service API Reference.If this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the\nDependsOn attribute to declare a dependency on the VPC-gateway attachment. For more information,\nsee DependsOn Attribute.NoteIf you specify DBSecurityGroups, AWS CloudFormation ignores this property.\n                     To specify a security group and this property, you must use a VPC security\n                     group. For more information about Amazon RDS and VPC, see Using Amazon RDS with Amazon VPC in the\n                        Amazon Relational Database Service User Guide.Update requires: Replacement",
         "Required": "No",
         "Type": "Boolean"
       },
       "SourceDBInstanceIdentifier": {
-        "Description": "If you want to create a read replica DB instance, specify the ID of the source\n                  database instance. Each database instance can have a certain number of read\n                  replicas. For more information, see Working with Read Replicas in the\n                     Amazon Relational Database Service Developer Guide.The SourceDBInstanceIdentifier property determines whether a\n                  database instance is a read replica. If you remove the\n                     SourceDBInstanceIdentifier property from your current template and\n                  then update your stack, the read replica is deleted and a new database instance\n                  (not a read replica) is created.ImportantRead replicas do not support deletion policies. Any deletion policy\n                           that's associated with a read replica is ignored.If you specify SourceDBInstanceIdentifier, do not set the\n                              MultiAZ property to true and do not specify\n                           the DBSnapshotIdentifier property. You cannot deploy read\n                           replicas in multiple Availability Zones, and you cannot create a read\n                           replica from a snapshot.Do not set the BackupRetentionPeriod,\n                           DBName, MasterUsername,\n                              MasterUserPassword, and\n                              PreferredBackupWindow properties. The database attributes\n                           are inherited from the source database instance, and backups are disabled\n                           for read replicas.If the source DB instance is in a different region than the read\n                           replica, specify a valid DB instance ARN. For more information, see\n                              Constructing a Amazon RDS Amazon Resource Name (ARN) in the\n                              Amazon Relational Database Service User Guide.For DB instances in an Amazon Aurora clusters, do not specify this\n                           property. Amazon RDS assigns automatically assigns a writer and reader DB\n                           instances.Update requires: Replacement.",
+        "Description": "If you want to create a read replica DB instance, specify the ID of the source\n                  DB instance. Each DB instance can have a limited number of read replicas. For more\n                  information, see Working with Read\n                     Replicas in the Amazon Relational Database Service Developer Guide.The SourceDBInstanceIdentifier property determines whether a DB\n                  instance is a read replica. If you remove the\n                     SourceDBInstanceIdentifier property from your template and then\n                  update your stack, AWS CloudFormation deletes the read replica and creates a new DB instance\n                  (not a read replica).ImportantRead replicas do not support deletion policies. AWS CloudFormation ignores any\n                           deletion policy that's associated with a read replica.If you specify SourceDBInstanceIdentifier, do not set the\n                              MultiAZ property to true and do not specify\n                           the DBSnapshotIdentifier property. You cannot deploy read\n                           replicas in multiple Availability Zones, and you cannot create a read\n                           replica from a snapshot.Do not set the BackupRetentionPeriod,\n                           DBName, MasterUsername,\n                              MasterUserPassword, and\n                              PreferredBackupWindow properties. The database attributes\n                           are inherited from the source DB instance, and backups are disabled for\n                           read replicas.If the source DB instance is in a different region than the read\n                           replica, specify an ARN for a valid DB instance. For more information,\n                           see Constructing a Amazon RDS Amazon Resource Name (ARN) in the\n                              Amazon Relational Database Service User Guide.For DB instances in Amazon Aurora clusters, do not specify this\n                           property. Amazon RDS automatically assigns writer and reader DB\n                           instances.Update requires: Replacement",
         "Required": "No",
         "Type": "String"
       },
       "StorageEncrypted": {
-        "Description": "Indicates whether the database instance is encrypted.If you specify the DBClusterIdentifier,\n                     DBSnapshotIdentifier, or SourceDBInstanceIdentifier\n                  property, do not specify this property. The value is inherited from the cluster,\n                  snapshot, or source database instance.Update requires: Replacement.",
+        "Description": "Indicates whether the DB instance is encrypted.If you specify the DBClusterIdentifier,\n                     DBSnapshotIdentifier, or SourceDBInstanceIdentifier\n                  property, do not specify this property. The value is inherited from the cluster,\n                  snapshot, or source DB instance.Update requires: Replacement",
         "Required": "Conditional",
         "Type": "Boolean"
       },
       "StorageType": {
-        "Description": "The storage type associated with this database instance.For the default and valid values, see the StorageType parameter of\n                  the CreateDBInstance action in the\n                  Amazon Relational Database Service API Reference.Update requires: Some interruptions",
+        "Description": "The storage type associated with this DB instance.For the default and valid values, see the StorageType parameter of\n                  the CreateDBInstance action in the\n                  Amazon Relational Database Service API Reference.Update requires: Some interruptions",
         "Required": "No",
         "Type": "String"
       },
       "Tags": {
-        "Description": "An arbitrary set of tags (key–value pairs) for this database\n                  instance.Update requires: No interruption.",
+        "Description": "An arbitrary set of tags (key–value pairs) for this DB instance.Update requires: No interruption",
         "Required": "No",
         "Type": "AWSCloudFormationResourceTags"
       },
       "VPCSecurityGroups": {
-        "Description": "A list of the VPC security group IDs to assign to the Amazon RDS instance. The list can include both the physical IDs of existing VPC security groups or references to AWS::EC2::SecurityGroup resources created in the template.If you set VPCSecurityGroups, you must not set DBSecurityGroups, and\n                  vice-versa.ImportantYou can migrate a database instance in your stack from an RDS DB security\n                     group to a VPC security group, but you should keep the following points in\n                     mind:You cannot revert to using an RDS security group once you have\n                           established a VPC security group membership.When you migrate your DB instance to VPC security groups, if your\n                           stack update rolls back because of another failure in the database\n                           instance update, or because of an update failure in another AWS CloudFormation\n                           resource, the rollback will fail because it cannot revert to an RDS\n                           security group.To avoid this situation, only migrate your DB instance to using VPC security\n                     groups when that is the only change in your stack\n                     template.Update requires: No interruption.",
+        "Description": "A list of the VPC security group IDs to assign to the DB instance. The list can\n                  include both the physical IDs of existing VPC security groups and references to\n                     AWS::EC2::SecurityGroup resources created in the\n                  template.If you set VPCSecurityGroups, you must not set DBSecurityGroups, and vice\n                  versa.ImportantYou\n              can migrate a\n              DB\n              instance in your stack from an RDS DB security group to a VPC security group, but\n              keep\n              the\n              following in mind:You cannot revert to using an RDS security group after you\n                           establish a VPC security group membership.When you migrate your DB instance to VPC security groups, if your\n                           stack update rolls back because the DB instance update fails, or because\n                           an update fails in another AWS CloudFormation resource, the rollback will fail because\n                           it cannot revert to an RDS security group. To avoid this situation, migrate your DB instance to using VPC security\n                     groups only when that is the only change in your stack template.Update requires: No interruption",
         "Required": "No",
         "Type": [
           "String"
@@ -5503,7 +5549,13 @@
   },
   "AWS::SDB::Domain": {
     "name": "AWS::SDB::Domain",
-    "properties": {}
+    "properties": {
+      "Description": {
+        "Description": "Information about the Amazon SimpleDB domain.Update requires: Updates are not supported.",
+        "Required": "No",
+        "Type": "String"
+      }
+    }
   },
   "AWS::SNS::Topic": {
     "name": "AWS::SNS::Topic",
@@ -5710,7 +5762,7 @@
         "Type": "AWSWAFWebACLAction"
       },
       "MetricName": {
-        "Description": "A friendly name or description for the Amazon CloudWatch metric of this web ACL.Update requires: Replacement",
+        "Description": "A friendly name or description for the Amazon CloudWatch metric of this web ACL. For valid values, see the MetricName parameter of the CreateWebACL action in the AWS WAF API Reference.Update requires: Replacement",
         "Required": "Yes",
         "Type": "String"
       },

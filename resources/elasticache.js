@@ -145,7 +145,7 @@ ParameterGroup.prototype = Object.create(WKResource.prototype)
                   values, see CreateReplicationGroup in the Amazon ElastiCache API
                      Reference Guide.Update requires: Replacement
 * @property {String} CacheParameterGroupName Required: No. The name of the parameter group to associate with this replication
-                  group.Update requires: No interruption
+                  group.Update requires: Some interruptions
 * @property {String} CacheSecurityGroupNames Required: No. A list of cache security group names to associate with this replication group.
                   If you specify the SecurityGroupIds property, do not specify this
                   property; you can specify only one.Update requires: No interruption

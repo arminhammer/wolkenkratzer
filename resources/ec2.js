@@ -331,9 +331,9 @@ NetworkAcl.prototype = Object.create(WKResource.prototype)
 * @property {Boolean} Egress Required: No. Whether this rule applies to egress traffic from the subnet (true)
                   or ingress traffic to the subnet (false). By default, AWS CloudFormation specifies
                      false.Update requires: Replacement.
-* @property {EC2ICMPPropertyType} Icmp Required: Conditional. The Internet Control Message Protocol (ICMP) code and type.Update requires: No interruption
+* @property {EC2NetworkAclEntryIcmp} Icmp Required: Conditional. The Internet Control Message Protocol (ICMP) code and type.Update requires: No interruption
 * @property {String} NetworkAclId Required: Yes. ID of the ACL where the entry will be created.Update requires: Replacement.
-* @property {EC2PortRangePropertyType} PortRange Required: Conditional. The range of port numbers for the UDP/TCP protocol.Update requires: No interruption
+* @property {EC2NetworkAclEntryPortRange} PortRange Required: Conditional. The range of port numbers for the UDP/TCP protocol.Update requires: No interruption
 * @property {Number} Protocol Required: Yes. The IP protocol that the rule applies to. You must specify -1 or a
                   protocol number (go to Protocol Numbers at iana.org). You can specify -1 for all
                   protocols.NoteIf you specify -1, all ports are opened and the
@@ -347,9 +347,9 @@ function NetworkAclEntry (name, propertiesObject) {
     let properties = {
       CidrBlock: new ResourceAttribute('CidrBlock', String, false, 'Yes', null),
       Egress: new ResourceAttribute('Egress', Boolean, false, 'No', null),
-      Icmp: new ResourceAttribute('Icmp', types.EC2ICMPPropertyType, false, 'Conditional', null),
+      Icmp: new ResourceAttribute('Icmp', types.EC2NetworkAclEntryIcmp, false, 'Conditional', null),
       NetworkAclId: new ResourceAttribute('NetworkAclId', String, false, 'Yes', null),
-      PortRange: new ResourceAttribute('PortRange', types.EC2PortRangePropertyType, false, 'Conditional', null),
+      PortRange: new ResourceAttribute('PortRange', types.EC2NetworkAclEntryPortRange, false, 'Conditional', null),
       Protocol: new ResourceAttribute('Protocol', Number, false, 'Yes', null),
       RuleAction: new ResourceAttribute('RuleAction', String, false, 'Yes', null),
       RuleNumber: new ResourceAttribute('RuleNumber', Number, false, 'Yes', null)

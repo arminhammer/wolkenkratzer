@@ -9,6 +9,21 @@ const types = require('./../types')
 
 /** @memberof module:KMS
 *   @extends WKResource
+* @property {String} AliasName Required: Yes. The name of the alias. The name must start with alias followed by a forward slash, such as alias/. You can't specify aliases that begin with alias/AWS. These aliases are reserved.Update requires: Replacement
+* @property {String} TargetKeyId Required: Yes. The ID of the key for which you are creating the alias. Specify the key's globally unique identifier or Amazon Resource Name (ARN). You can't specify another alias.Update requires: No interruption
+*/
+function Alias (name, propertiesObject) {
+    let resourceType = 'AWS::KMS::Alias'
+    let properties = {
+      AliasName: new ResourceAttribute('AliasName', String, false, 'Yes', null),
+      TargetKeyId: new ResourceAttribute('TargetKeyId', String, false, 'Yes', null)
+    }
+    WKResource.call(this, name, resourceType, properties, propertiesObject)
+}
+Alias.prototype = Object.create(WKResource.prototype)
+
+/** @memberof module:KMS
+*   @extends WKResource
 * @property {String} Description Required: No. A description of the key. Use a description that helps your users decide
                   whether the key is appropriate for a particular task.Update requires: No interruption
 * @property {Boolean} Enabled Required: No. Indicates whether the key is available for use. AWS CloudFormation sets this value to
@@ -29,5 +44,6 @@ function Key (name, propertiesObject) {
 }
 Key.prototype = Object.create(WKResource.prototype)
 
-module.exports = {  Key: Key
+module.exports = {  Alias: Alias,
+  Key: Key
 }

@@ -33,16 +33,9 @@ ScalableTarget.prototype = Object.create(WKResource.prototype)
 /** @memberof module:ApplicationAutoScaling
 *   @extends WKResource
 * @property {String} PolicyName Required: Yes. A name for the scaling policy.Update requires: Replacement
-* @property {String} PolicyType Required: No. An
-             Application Auto Scaling policy type. For valid values, see the
-              PolicyType parameter for the PutScalingPolicy action in the
-              Application Auto Scaling API Reference.Update requires: No interruption
+* @property {String} PolicyType Required: No. An Application Auto Scaling policy type. For valid values, see the PolicyType parameter for the PutScalingPolicy action in the Application Auto Scaling API Reference.Update requires: No interruption
 * @property {String} ResourceId Required: Conditional. The unique resource identifier for the scalable target that this scaling policy applies to. For more information, see the ResourceId parameter for the PutScalingPolicy action in the Application Auto Scaling API Reference.Update requires: Replacement
-* @property {String} ScalableDimension Required: Conditional. The scalable dimension of the scalable target that this scaling policy applies to.
-            The scalable dimension contains the service namespace, resource type, and scaling
-            property, such as ecs:service:DesiredCount for the desired task count of an
-            Amazon ECS
-            service.Update requires: Replacement
+* @property {String} ScalableDimension Required: Conditional. The scalable dimension of the scalable target that this scaling policy applies to. The scalable dimension contains the service namespace, resource type, and scaling property, such as ecs:service:DesiredCount for the desired task count of an Amazon ECS service.Update requires: Replacement
 * @property {String} ServiceNamespace Required: Conditional. The AWS service namespace of the scalable target that this scaling policy applies to. For a list of service namespaces, see AWS Service Namespaces in the AWS General Reference.Update requires: Replacement
 * @property {String} ScalingTargetId Required: Conditional. The AWS CloudFormation-generated ID of an Application Auto Scaling scalable target. For more information about
             the ID, see the Return Value section of the AWS::ApplicationAutoScaling::ScalableTarget resource.Update requires: Replacement

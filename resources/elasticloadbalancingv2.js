@@ -51,12 +51,22 @@ ListenerRule.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:ElasticLoadBalancingV2
 *   @extends WKResource
-* @property {ElasticLoadBalancingLoadBalancerLoadBalancerAttributes} LoadBalancerAttributes Required: No. Load balancer configurations.Update requires: No interruption
-* @property {String} Name Required: No. A name for the load balancer, which must be unique within your AWS account. The name can have a maximum of 32 alphanumeric characters and hyphens. Names can't begin or end with a hyphen.Update requires: Replacement
-* @property {String} Scheme Required: No. Indicates whether the load balancer is Internet-facing or internal. An Internet-facing load balancer routes requests from clients over the Internet to targets in your public subnets. An internal load balancer routes requests to targets using private IP addresses.For valid and default values, see the Scheme parameter for the CreateLoadBalancer action in the Elastic Load Balancing API Reference version 2015-12-01.Update requires: Replacement
-* @property {String} SecurityGroups Required: No. A list of the IDs of the security groups to assign to the load balancer.Update requires: No interruption
-* @property {String} Subnets Required: Yes. A list of at least two IDs of the subnets to associate with the load balancer. Subnets must be in different Availability Zones.Update requires: No interruption
-* @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) to associate with this load balancer. Use tags to help manage resources.Update requires: No interruption
+* @property {ElasticLoadBalancingLoadBalancerLoadBalancerAttributes} LoadBalancerAttributes Required: No. Specifies the load balancer configuration.Update requires: No interruption
+* @property {String} Name Required: No. Specifies a name for the load balancer. This name must be unique within your AWS
+            account and can have a maximum of 32 alphanumeric characters and hyphens. A name can't
+            begin or end with a hyphen.Update requires: Replacement
+* @property {String} Scheme Required: No. Specifies whether the load balancer is internal or Internet-facing. An internal load
+            balancer routes requests to targets using private IP addresses. An Internet-facing load
+            balancer routes requests from clients over the Internet to targets in your public
+            subnets. For valid and default values, see the Scheme parameter for the
+                CreateLoadBalancer action in the
+              Elastic Load Balancing API Reference version 2015-12-01.Update requires: Replacement
+* @property {String} SecurityGroups Required: No. Specifies a list of the IDs of the security groups to assign to the load
+            balancer.Update requires: No interruption
+* @property {String} Subnets Required: Yes. Specifies a list of at least two IDs of the subnets to associate with the load
+            balancer. The subnets must be in different Availability Zones.Update requires: No interruption
+* @property {AWSCloudFormationResourceTags} Tags Required: No. Specifies an arbitrary set of tags (key–value pairs) to associate with this
+            load balancer. Use tags to manage your resources.Update requires: No interruption
 */
 function LoadBalancer (name, propertiesObject) {
     let resourceType = 'AWS::ElasticLoadBalancingV2::LoadBalancer'

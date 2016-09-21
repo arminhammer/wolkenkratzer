@@ -39,7 +39,7 @@ EventSourceMapping.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:Lambda
 *   @extends WKResource
-* @property {String} Description Required: No. Information that describes the alias, such as its purpose or the function that it's associated with.Update requires: No interruption
+* @property {String} Description Required: No. Information about the alias, such as its purpose or the Lambda function that is associated with it.Update requires: No interruption
 * @property {String} FunctionName Required: Yes. The Lambda function that you want to associate with this alias. You can specify the function's name or its Amazon Resource Name (ARN).Update requires: Replacement
 * @property {String} FunctionVersion Required: Yes. The version of the Lambda function that you want to associate with this alias.Update requires: No interruption
 * @property {String} Name Required: Yes. A name for the alias.Update requires: Replacement

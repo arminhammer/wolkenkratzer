@@ -14,7 +14,7 @@ let vpnGateway = new wk.EC2.VPNGateway('VPNGateway')
 vpnGateway.Type = 'ipsec.1'
 t.add(vpnGateway)
 
-let yamlResult = t.toYAML()
+let yamlResult = t.toYaml()
 
 if (yamlResult.Errors) {
   console.log(yamlResult.Errors)

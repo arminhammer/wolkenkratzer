@@ -98,9 +98,7 @@ MetricFilter.prototype = Object.create(WKResource.prototype)
 * @property {String} LogGroupName Required: Yes. The log group to associate with the subscription filter. All log events that
                   are uploaded to this log group are filtered and delivered to the specified AWS
                   resource if the filter pattern matches the log events.Update requires: Replacement
-* @property {String} RoleArn Required: No. An IAM role that grants CloudWatch Logs permission to put data into the specified Amazon Kinesis
-                  stream. For Lambda and CloudWatch Logs destinations, don't specify this property because
-                  CloudWatch Logs gets the necessary permissions from the destination resource.Update requires: Replacement
+* @property {String} RoleArn Required: No. An IAM role that grants CloudWatch Logs permission to put data into the specified Amazon Kinesis stream. For Lambda and CloudWatch Logs destinations, don't specify this property because CloudWatch Logs gets the necessary permissions from the destination resource.Update requires: Replacement
 */
 function SubscriptionFilter (name, propertiesObject) {
     let resourceType = 'AWS::Logs::SubscriptionFilter'

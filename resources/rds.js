@@ -109,18 +109,18 @@ DBClusterParameterGroup.prototype = Object.create(WKResource.prototype)
 
 /** @memberof module:RDS
 *   @extends WKResource
-* @property {String} AllocatedStorage Required: Conditional. The allocated storage size specified in gigabytes (GB).If any value is used in the Iops parameter,
+* @property {String} AllocatedStorage Required: Conditional. The allocated storage size, specified in gigabytes (GB).If any value is set in the Iops parameter,
                      AllocatedStorage must be at least 100 GB, which
-                  corresponds to the minimum Iops value of 1000. If
-                     Iops is increased (in 1000 IOPS increments), then
-                     AllocatedStorage must also be increased (in 100 GB
-                  increments) correspondingly.Update requires: No interruption
-* @property {Boolean} AllowMajorVersionUpgrade Required: No. Indicates whether major version upgrades are allowed. Changing this parameter
+                  corresponds to the minimum Iops value of 1,000. If you
+                  increase the Iops value (in 1,000 IOPS increments), then
+                  you must also increase the AllocatedStorage value (in 100
+                  GB increments).Update requires: No interruption
+* @property {Boolean} AllowMajorVersionUpgrade Required: No. Indicates whether major version upgrades are allowed. Setting this parameter
                   does not result in an outage, and the change is applied asynchronously as soon as
-                  possible.Constraints: This parameter must be set to
-                     true when you specify an EngineVersion that differs
-                  from the DB instance's current major version.Update requires: No interruption
-* @property {Boolean} AutoMinorVersionUpgrade Required: No. Indicates that minor engine upgrades will be applied automatically to the DB
+                  possible.Constraints: Set this parameter to true when
+                  you specify an EngineVersion that differs from the DB instance's
+                  current major version.Update requires: No interruption
+* @property {Boolean} AutoMinorVersionUpgrade Required: No. Indicates that minor engine upgrades are applied automatically to the DB
                   instance during the maintenance window. The default value is
                   true.Update requires: No interruption or some
                      interruptions. For more information, see ModifyDBInstance in the
@@ -128,58 +128,69 @@ DBClusterParameterGroup.prototype = Object.create(WKResource.prototype)
 * @property {String} AvailabilityZone Required: No. The name of the Availability Zone where the DB instance is located. You cannot
                   set the AvailabilityZone parameter if the
                      MultiAZ parameter is set to true.Update requires: Replacement
-* @property {String} BackupRetentionPeriod Required: No. The number of days for which automatic DB snapshots are retained.ImportantIf this DB instance is deleted or replaced during an update, all
-                        automated snapshots are deleted. However, manual DB snapshot are
-                        retained.Update requires: No interruption or some
+* @property {String} BackupRetentionPeriod Required: No. The number of days during which automatic DB snapshots are retained.
+                  ImportantIf this DB instance is deleted or replaced during an update, AWS CloudFormation deletes
+                     all automated snapshots. However, it retains manual DB snapshots.Update requires: No interruption or some
                      interruptions. For more information, see ModifyDBInstance in the
                      Amazon Relational Database Service API Reference.
-* @property {String} CharacterSetName Required: No. For supported engines, specifies the character set to associate with the
-                  database instance. For more information, see Appendix: Oracle
+* @property {String} CharacterSetName Required: No. For supported engines, specifies the character set to associate with the DB
+                  instance. For more information, see Appendix: Oracle
                      Character Sets Supported in Amazon RDS in the
                      Amazon Relational Database Service User Guide.If you specify the DBSnapshotIdentifier or
                      SourceDBInstanceIdentifier property, do not specify this property.
-                  The value is inherited from the snapshot or source database instance.Update requires: Replacement
-* @property {String} DBClusterIdentifier Required: No. The identifier of an existing DB cluster that this instance will be associated
-                  with. If you specify this property, specify aurora for the
+                  The value is inherited from the snapshot or source DB instance.Update requires: Replacement
+* @property {String} DBClusterIdentifier Required: No. The name of an existing DB cluster that this instance will be associated with.
+                  If you specify this property, specify aurora for the
                      Engine property and do not specify any of the following
-                  properties: AllocatedStorage, CharacterSetName,
-                     DBSecurityGroups, SourceDBInstanceIdentifier,
-                  and StorageType.Amazon RDS assigns the first DB instance in the cluster as the primary and
+                  properties: AllocatedStorage, BackupRetentionPeriod,
+                     CharacterSetName, DBSecurityGroups,
+                     PreferredBackupWindow, PreferredMaintenanceWindow,
+                     Port, SourceDBInstanceIdentifier, or
+                     StorageType.Amazon RDS assigns the first DB instance in the cluster as the primary, and
                   additional DB instances as replicas.Update requires: Replacement
-* @property {String} DBInstanceClass Required: Yes. The name of the compute and memory capacity class of the DB instance.Update requires: Some interruptions
-* @property {String} DBInstanceIdentifier Required: No. A name for the DB instance. If you specify a name, AWS CloudFormation converts it to lower
-                  case. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses
-                  that ID for the DB instance. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
+* @property {String} DBInstanceClass Required: Yes. The name of the compute and memory capacity classes of the DB instance.Update requires: Some interruptions
+* @property {String} DBInstanceIdentifier Required: No. A name for the DB instance. If you specify a name, AWS CloudFormation converts it to
+            lower >case.
+            If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for
+            the DB instance. For more information,
+            see
+              Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
 You can still do updates that require no or some interruption. If you must replace the resource, specify a new name.Update requires: Replacement
-* @property {String} DBName Required: No. The name of the initial database of this instance that was provided at create
-                  time, if one was specified. This same name is returned for the life of the DB
-                  instance.NoteIf you restore from a snapshot, do specify this property for the MySQL or
-                     MariaDB engines.Update requires: Replacement
+* @property {String} DBName Required: No. The name of the DB instance that was provided at the time of creation, if one
+                  was specified. This same name is returned for the life of the DB instance.NoteIf you restore DB instances from snapshots, specify this property for the
+                     MySQL or MariaDB engines.Update requires: Replacement
 * @property {String} DBParameterGroupName Required: No. The name of an existing DB parameter group or a reference to an AWS::RDS::DBParameterGroup
-                  resource created in the template.Update requires: No interruption or some interruptions. If any of the data members of the referenced parameter group are changed during an update, the database instance might need to be restarted, causing some interruption. If the parameter group contains static parameters, whether they were changed or not, an update triggers a reboot.
-* @property {String} DBSecurityGroups Required: No. A list of the DB security groups to assign to the Amazon RDS instance. The list can
+                  resource created in the template.Update requires: No interruption or some
+                     interruptions. If any of the data members of the referenced parameter
+                  group are changed during an update, the DB instance might need to be restarted,
+                  causing some interruption. If the parameter group contains static parameters,
+                  whether they were changed or not, an update triggers a reboot.
+* @property {String} DBSecurityGroups Required: No. A list of the DB security groups to assign to the DB instance. The list can
                   include both the name of existing DB security groups or references to AWS::RDS::DBSecurityGroup
                   resources created in the template.If you set DBSecurityGroups, you must not set VPCSecurityGroups, and
-                  vice-versa.Update requires: No interruption
-* @property {String} DBSnapshotIdentifier Required: No. The identifier for the DB snapshot to restore from.By specifying this property, you can create a DB instance from the specified DB
-                  snapshot. If the DBSnapshotIdentifier property is an empty string or the
-                  AWS::RDS::DBInstance declaration has no DBSnapshotIdentifier property, the
-                  database is created as a new database. If the property contains a value (other
-                  than empty string), AWS CloudFormation creates a database from the specified snapshot. If a
-                  snapshot with the specified name does not exist, the database creation fails and
-                  the stack rolls back.Some DB instance properties are not valid when you restore from a snapshot,
+                  vice-versa.ImportantIf you specify this property, AWS CloudFormation sends only the following properties (if specified) to Amazon RDS: AllocatedStorageAutoMinorVersionUpgradeAvailabilityZoneBackupRetentionPeriodCharacterSetNameDbInstanceClassDbNameDbParameterGroupNameDbSecurityGroupsDbSubnetGroupNameEngineEngineVersionIopsLicenseModelMasterUsernameMasterUserPasswordMultiAZOptionGroupNamePreferredBackupWindowPreferredMaintenanceWindowAll other properties are ignored. Specify a VPC security group if you want to submit other properties, such as StorageType, StorageEncrypted, or KmsKeyId.Update requires: No interruption
+* @property {String} DBSnapshotIdentifier Required: No. The name or ARN of the DB snapshot used to restore the DB instance. If you are
+                  restoring from a shared manual DB snapshot, you must specify the Amazon Resource
+                  Name (ARN) of the snapshot.By specifying this property, you can create a DB instance from the specified DB
+                  snapshot. If the DBSnapshotIdentifier property is an empty string or
+                  the AWS::RDS::DBInstance declaration has no
+                     DBSnapshotIdentifier property, AWS CloudFormation creates a new database. If
+                  the property contains a value (other than an empty string), AWS CloudFormation creates a
+                  database from the specified snapshot. If a snapshot with the specified name does
+                  not exist, AWS CloudFormation can't create the database and it rolls the back the stack.Some DB instance properties are not valid when you restore from a snapshot,
                   such as the MasterUsername and MasterUserPassword
                   properties. For information about the properties that you can specify, see the
                      RestoreDBInstanceFromDBSnapshot action in the
                      Amazon Relational Database Service API Reference.Update requires: Replacement
-* @property {String} DBSubnetGroupName Required: No. A DB subnet group to associate with the DB instance.If there is no DB subnet group, then it is a non-VPC DB instance.For more information about using Amazon RDS in a VPC, go to Using Amazon RDS
+* @property {String} DBSubnetGroupName Required: No. A DB subnet group to associate with the DB instance.If there is no DB subnet group, then the instance is not a VPC DB
+                  instance.For more information about using Amazon RDS in a VPC, see Using Amazon RDS
                      with Amazon Virtual Private Cloud (VPC) in the
                      Amazon Relational Database Service Developer Guide.Update requires: Replacement
-* @property {String} Engine Required: Conditional. The name of the database engine that the DB instance uses. This property is
-                  optional when you specify the DBSnapshotIdentifier property to create
-                  DB instances.For valid values, see the Engine parameter of the CreateDBInstance action in the
+* @property {String} Engine Required: Conditional. The database engine that the DB instance uses. This property is optional when
+                  you specify the DBSnapshotIdentifier property to create DB
+                  instances.For valid values, see the Engine parameter of the CreateDBInstance action in the
                   Amazon Relational Database Service API Reference.Update requires: Replacement
-* @property {String} EngineVersion Required: No. The version number of the database engine to use.Update requires: Some interruptions
+* @property {String} EngineVersion Required: No. The version number of the database engine that the DB instance uses.Update requires: Some interruptions
 * @property {Number} Iops Required: Conditional. The number of I/O operations per second (IOPS) that the database provisions.
                   The value must be equal to or greater than 1000.If you specify this property, you must follow the range of allowed ratios of
                   your requested IOPS rate to the amount of storage that you allocate (IOPS to
@@ -189,60 +200,75 @@ You can still do updates that require no or some interruption. If you must repla
                   see Amazon RDS Provisioned IOPS
                      Storage to Improve Performance in the
                      Amazon Relational Database Service User Guide.Update requires: No interruption
-* @property {String} KmsKeyId Required: No. The Amazon Resource Name (ARN) of the AWS Key Management Service master key that is used to
-                  encrypt the database instance, such as
+* @property {String} KmsKeyId Required: No. The ARN of the AWS Key Management Service (AWS KMS) master key that is used to encrypt the DB
+                  instance, such as
                      arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef.
                   If you enable the StorageEncrypted property but don't specify this
-                  property, the default master key is used. If you specify this property, you must
-                  set the StorageEncrypted property to true.If you specify the DBSnapshotIdentifier or
+                  property, AWS CloudFormation uses the default master key. If you specify this property, you
+                  must set the StorageEncrypted property to true.If you specify the DBSnapshotIdentifier or
                      SourceDBInstanceIdentifier property, do not specify this property.
-                  The value is inherited from the snapshot or source database instance.NoteCurrently, if you specify DBSecurityGroups, this property is
-                     ignored. If you want to specify a security group and this property, you must
-                     use a VPC security group. For more information about Amazon RDS and VPC, see Using Amazon RDS with Amazon VPC in the
-                        Amazon Relational Database Service User Guide.Update requires: Replacement.
-* @property {String} LicenseModel Required: No. The license model information for the DB instance.Update requires: Replacement.
-* @property {String} MasterUsername Required: Conditional. The master user name for the database instance. This property is optional when
-                  you specify the DBSnapshotIdentifier or the
+                  The value is inherited from the snapshot or source database instance.NoteIf you specify DBSecurityGroups, AWS CloudFormation ignores this property.
+                     To specify both a security group and this property, you must use a VPC security
+                     group. For more information about Amazon RDS and VPC, see Using Amazon RDS with Amazon VPC in the
+                        Amazon Relational Database Service User Guide.Update requires: Replacement
+* @property {String} LicenseModel Required: No. The license model of the DB instance.Update requires: Replacement
+* @property {String} MasterUsername Required: Conditional. The master user name for the DB instance. This property is optional when you
+                  specify the DBSnapshotIdentifier or the
                      DBClusterIdentifier property to create DB instances. NoteIf you specify the SourceDBInstanceIdentifier or
                            DBSnapshotIdentifier property, do not specify this property.
-                        The value is inherited from the source database instance or snapshot.Update requires: Replacement.
-* @property {String} MasterUserPassword Required: Conditional. The master password for the database instance. This property is optional when
-                  you specify the DBSnapshotIdentifier or the
+                        The value is inherited from the source DB instance or snapshot.Update requires: Replacement
+* @property {String} MasterUserPassword Required: Conditional. The master password for the DB instance. This property is optional when you
+                  specify the DBSnapshotIdentifier or the
                      DBClusterIdentifier property to create DB instances.NoteIf you specify the SourceDBInstanceIdentifier property, do not
-                     specify this property. The value is inherited from the source database
-                     instance.Update requires: No interruption.
-* @property {Boolean} MultiAZ Required: No. Specifies if the database instance is a multiple Availability Zone deployment.
-                  You cannot set the AvailabilityZone parameter if the
-                     MultiAZ parameter is set to true.NoteDo not specify this property if you want a Multi-AZ deployment for a SQL
-                        Server database instance. Use the mirroring option in an option group to set
-                        Multi-AZ for a SQL Server database instance.Update requires: No interruption.
-* @property {String} OptionGroupName Required: No. An option group that this database instance is associated with.Update requires: No interruption.
-* @property {String} Port Required: No. The port for the instance.Update requires: Replacement.
-* @property {String} PreferredBackupWindow Required: No. The daily time range during which automated backups are created if automated backups are enabled, as determined by the BackupRetentionPeriod property. For valid values, see the PreferredBackupWindow parameter for the CreateDBInstance action in the Amazon Relational Database Service API Reference.Update requires: No interruption.
-* @property {String} PreferredMaintenanceWindow Required: No. The weekly time range (in UTC) during which system maintenance can occur. For valid values, see the PreferredMaintenanceWindow parameter for the CreateDBInstance action in the Amazon Relational Database Service API Reference.NoteThis property applies during the initial resource creation. If you use AWS CloudFormation to update the DB instance, AWS CloudFormation applies those updates immediately.Update requires: No interruption or some
+                     specify this property. The value is inherited from the source DB
+                     instance.Update requires: No interruption
+* @property {Number} MonitoringInterval Required: Conditional. The interval, in seconds, between points when Amazon RDS collects enhanced
+                  monitoring metrics for the DB instance. To disable metrics collection, specify
+                     0.For default and valid values, see the MonitoringInterval parameter
+                  for the CreateDBInstance action in the
+                  Amazon Relational Database Service API Reference.Update requires: No interruption or some
                      interruptions. For more information, see ModifyDBInstance in the
                      Amazon Relational Database Service API Reference.
-* @property {Boolean} PubliclyAccessible Required: No. Indicates whether the database instance is an Internet-facing instance. If you
-                  specify true, an instance is created with a publicly resolvable DNS
-                  name, which resolves to a public IP address. If you specify false, an
-                  internal instance is created with a DNS name that resolves to a private IP
-                  address. The default behavior value depends on your VPC setup and the database subnet
+* @property {String} MonitoringRoleArn Required: Conditional. The ARN of the AWS Identity and Access Management (IAM) role that permits Amazon RDS to send enhanced
+            monitoring metrics to Amazon CloudWatch, for example,
+              arn:aws:iam:123456789012:role/emaccess. For information on creating a
+            monitoring role, see To create an IAM
+              role for Amazon RDS Enhanced Monitoring in the
+              Amazon Relational Database Service User Guide.Update requires: No interruption
+* @property {Boolean} MultiAZ Required: No. Specifies if the database instance is a multiple Availability Zone deployment. You cannot set the AvailabilityZone parameter if the MultiAZ parameter is set to true.Update requires: No interruption
+* @property {String} OptionGroupName Required: No. The option group that this DB instance is associated with.Update requires: No interruption
+* @property {String} Port Required: No. The port for the instance.Update requires: Replacement
+* @property {String} PreferredBackupWindow Required: No. The daily time range during which automated backups are performed if automated
+                  backups are enabled, as determined by the BackupRetentionPeriod
+                  property. For valid values, see the PreferredBackupWindow parameter
+                  for the CreateDBInstance action in the
+                  Amazon Relational Database Service API Reference.Update requires: No interruption
+* @property {String} PreferredMaintenanceWindow Required: No. The weekly time range (in UTC) during which system maintenance can occur. For valid values, see the PreferredMaintenanceWindow parameter for the CreateDBInstance action in the Amazon Relational Database Service API Reference.NoteThis property applies when AWS CloudFormation initially creates the DB instance. If
+                        you use AWS CloudFormation to update the DB instance, those updates are applied
+                        immediately.Update requires: No interruption or some
+                     interruptions. For more information, see ModifyDBInstance in the
+                     Amazon Relational Database Service API Reference.
+* @property {Boolean} PubliclyAccessible Required: No. Indicates whether the DB instance is an Internet-facing instance. If you
+                  specify true, AWS CloudFormation creates an instance with a publicly resolvable
+                  DNS name, which resolves to a public IP address. If you specify
+                  false, AWS CloudFormation creates an internal instance with a DNS name that
+                  resolves to a private IP address. The default behavior value depends on your VPC setup and the database subnet
                   group. For more information, see the PubliclyAccessible parameter in
                      CreateDBInstance in the Amazon Relational Database Service API Reference.If this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the
 DependsOn attribute to declare a dependency on the VPC-gateway attachment. For more information,
-see DependsOn Attribute.NoteCurrently, if you specify DBSecurityGroups, this property is
-                     ignored. If you want to specify a security group and this property, you must
-                     use a VPC security group. For more information about Amazon RDS and VPC, see Using Amazon RDS with Amazon VPC in the
-                        Amazon Relational Database Service User Guide.Update requires: Replacement.
+see DependsOn Attribute.NoteIf you specify DBSecurityGroups, AWS CloudFormation ignores this property.
+                     To specify a security group and this property, you must use a VPC security
+                     group. For more information about Amazon RDS and VPC, see Using Amazon RDS with Amazon VPC in the
+                        Amazon Relational Database Service User Guide.Update requires: Replacement
 * @property {String} SourceDBInstanceIdentifier Required: No. If you want to create a read replica DB instance, specify the ID of the source
-                  database instance. Each database instance can have a certain number of read
-                  replicas. For more information, see Working with Read Replicas in the
-                     Amazon Relational Database Service Developer Guide.The SourceDBInstanceIdentifier property determines whether a
-                  database instance is a read replica. If you remove the
-                     SourceDBInstanceIdentifier property from your current template and
-                  then update your stack, the read replica is deleted and a new database instance
-                  (not a read replica) is created.ImportantRead replicas do not support deletion policies. Any deletion policy
-                           that's associated with a read replica is ignored.If you specify SourceDBInstanceIdentifier, do not set the
+                  DB instance. Each DB instance can have a limited number of read replicas. For more
+                  information, see Working with Read
+                     Replicas in the Amazon Relational Database Service Developer Guide.The SourceDBInstanceIdentifier property determines whether a DB
+                  instance is a read replica. If you remove the
+                     SourceDBInstanceIdentifier property from your template and then
+                  update your stack, AWS CloudFormation deletes the read replica and creates a new DB instance
+                  (not a read replica).ImportantRead replicas do not support deletion policies. AWS CloudFormation ignores any
+                           deletion policy that's associated with a read replica.If you specify SourceDBInstanceIdentifier, do not set the
                               MultiAZ property to true and do not specify
                            the DBSnapshotIdentifier property. You cannot deploy read
                            replicas in multiple Availability Zones, and you cannot create a read
@@ -250,33 +276,37 @@ see DependsOn Attribute.NoteCurrently, if you specify DBSecurityGroups, this pro
                            DBName, MasterUsername,
                               MasterUserPassword, and
                               PreferredBackupWindow properties. The database attributes
-                           are inherited from the source database instance, and backups are disabled
-                           for read replicas.If the source DB instance is in a different region than the read
-                           replica, specify a valid DB instance ARN. For more information, see
-                              Constructing a Amazon RDS Amazon Resource Name (ARN) in the
-                              Amazon Relational Database Service User Guide.For DB instances in an Amazon Aurora clusters, do not specify this
-                           property. Amazon RDS assigns automatically assigns a writer and reader DB
-                           instances.Update requires: Replacement.
-* @property {Boolean} StorageEncrypted Required: Conditional. Indicates whether the database instance is encrypted.If you specify the DBClusterIdentifier,
+                           are inherited from the source DB instance, and backups are disabled for
+                           read replicas.If the source DB instance is in a different region than the read
+                           replica, specify an ARN for a valid DB instance. For more information,
+                           see Constructing a Amazon RDS Amazon Resource Name (ARN) in the
+                              Amazon Relational Database Service User Guide.For DB instances in Amazon Aurora clusters, do not specify this
+                           property. Amazon RDS automatically assigns writer and reader DB
+                           instances.Update requires: Replacement
+* @property {Boolean} StorageEncrypted Required: Conditional. Indicates whether the DB instance is encrypted.If you specify the DBClusterIdentifier,
                      DBSnapshotIdentifier, or SourceDBInstanceIdentifier
                   property, do not specify this property. The value is inherited from the cluster,
-                  snapshot, or source database instance.Update requires: Replacement.
-* @property {String} StorageType Required: No. The storage type associated with this database instance.For the default and valid values, see the StorageType parameter of
+                  snapshot, or source DB instance.Update requires: Replacement
+* @property {String} StorageType Required: No. The storage type associated with this DB instance.For the default and valid values, see the StorageType parameter of
                   the CreateDBInstance action in the
                   Amazon Relational Database Service API Reference.Update requires: Some interruptions
-* @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this database
-                  instance.Update requires: No interruption.
-* @property {String} VPCSecurityGroups Required: No. A list of the VPC security group IDs to assign to the Amazon RDS instance. The list can include both the physical IDs of existing VPC security groups or references to AWS::EC2::SecurityGroup resources created in the template.If you set VPCSecurityGroups, you must not set DBSecurityGroups, and
-                  vice-versa.ImportantYou can migrate a database instance in your stack from an RDS DB security
-                     group to a VPC security group, but you should keep the following points in
-                     mind:You cannot revert to using an RDS security group once you have
-                           established a VPC security group membership.When you migrate your DB instance to VPC security groups, if your
-                           stack update rolls back because of another failure in the database
-                           instance update, or because of an update failure in another AWS CloudFormation
-                           resource, the rollback will fail because it cannot revert to an RDS
-                           security group.To avoid this situation, only migrate your DB instance to using VPC security
-                     groups when that is the only change in your stack
-                     template.Update requires: No interruption.
+* @property {AWSCloudFormationResourceTags} Tags Required: No. An arbitrary set of tags (key–value pairs) for this DB instance.Update requires: No interruption
+* @property {String} VPCSecurityGroups Required: No. A list of the VPC security group IDs to assign to the DB instance. The list can
+                  include both the physical IDs of existing VPC security groups and references to
+                     AWS::EC2::SecurityGroup resources created in the
+                  template.If you set VPCSecurityGroups, you must not set DBSecurityGroups, and vice
+                  versa.ImportantYou
+              can migrate a
+              DB
+              instance in your stack from an RDS DB security group to a VPC security group, but
+              keep
+              the
+              following in mind:You cannot revert to using an RDS security group after you
+                           establish a VPC security group membership.When you migrate your DB instance to VPC security groups, if your
+                           stack update rolls back because the DB instance update fails, or because
+                           an update fails in another AWS CloudFormation resource, the rollback will fail because
+                           it cannot revert to an RDS security group. To avoid this situation, migrate your DB instance to using VPC security
+                     groups only when that is the only change in your stack template.Update requires: No interruption
 */
 function DBInstance (name, propertiesObject) {
     let resourceType = 'AWS::RDS::DBInstance'
@@ -302,6 +332,8 @@ function DBInstance (name, propertiesObject) {
       LicenseModel: new ResourceAttribute('LicenseModel', String, false, 'No', null),
       MasterUsername: new ResourceAttribute('MasterUsername', String, false, 'Conditional', null),
       MasterUserPassword: new ResourceAttribute('MasterUserPassword', String, false, 'Conditional', null),
+      MonitoringInterval: new ResourceAttribute('MonitoringInterval', Number, false, 'Conditional', null),
+      MonitoringRoleArn: new ResourceAttribute('MonitoringRoleArn', String, false, 'Conditional', null),
       MultiAZ: new ResourceAttribute('MultiAZ', Boolean, false, 'No', null),
       OptionGroupName: new ResourceAttribute('OptionGroupName', String, false, 'No', null),
       Port: new ResourceAttribute('Port', String, false, 'No', null),

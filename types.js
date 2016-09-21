@@ -1278,7 +1278,7 @@ AmazonEC2BlockDeviceMappingProperty.prototype = Object.create(ResourceProperty.p
 * @property Encrypted {Boolean} Required: No. Indicates whether the volume is encrypted. Encrypted Amazon EBS volumes can only be                   attached to instance types that support Amazon EBS encryption. Volumes that are created                   from encrypted snapshots are automatically encrypted. You cannot create an                   encrypted volume from an unencrypted snapshot or vice versa. If your AMI uses                   encrypted volumes, you can only launch the AMI on supported instance types. For                   more information, see Amazon EBS                      encryption in the Amazon EC2 User Guide for Linux Instances.
 * @property Iops {Number} Required: Conditional. The number of I/O operations per second (IOPS) that the volume supports. This can be an integer                from 100 – 2000.
 * @property SnapshotId {String} Required: Conditional. The snapshot ID of the volume to use to create a block device.
-* @property VolumeSize {String} Required: Conditional. The volume size, in gibibytes (GiB). This can be a number from 1 – 1024.                   If the volume type is io1, the minimum value is 10.Update requires: Some interruptions
+* @property VolumeSize {String} Required: Conditional. The volume size, in gibibytes (GiB). For valid values, see the Size parameter for the CreateVolume action in the Amazon EC2 API Reference.Update requires: Some interruptions
 * @property VolumeType {String} Required: No. The volume type. If you set the type to io1, you must also set the Iops property. For valid values, see the VolumeType parameter for the CreateVolume action in the Amazon EC2 API Reference.
 */
 function AmazonElasticBlockStoreBlockDeviceProperty (propertiesObject) {
@@ -1293,15 +1293,6 @@ function AmazonElasticBlockStoreBlockDeviceProperty (propertiesObject) {
   ResourceProperty.call(this, 'AmazonElasticBlockStoreBlockDeviceProperty', properties, propertiesObject)
 }
 AmazonElasticBlockStoreBlockDeviceProperty.prototype = Object.create(ResourceProperty.prototype)
-
-/**
-*/
-function EC2ICMPPropertyType (propertiesObject) {
-  let properties = {
-  }
-  ResourceProperty.call(this, 'EC2ICMPPropertyType', properties, propertiesObject)
-}
-EC2ICMPPropertyType.prototype = Object.create(ResourceProperty.prototype)
 
 /**
 * @property AssociationParameters {AmazonEC2InstanceSsmAssociationsAssociationParameters} Required: No. The input parameter values to use with the associated SSM document.
@@ -1372,47 +1363,30 @@ function EC2NetworkInterfaceEmbeddedPropertyType (propertiesObject) {
 EC2NetworkInterfaceEmbeddedPropertyType.prototype = Object.create(ResourceProperty.prototype)
 
 /**
-* @property AttachmentID {String} Required: Yes. The ID of the network interface attachment.
-* @property InstanceID {String} Required: Yes. The ID of the instance attached to the network interface.
-* @property PublicIp {String} Required: Yes. The address of the Elastic IP address bound to the network interface.
-* @property IpOwnerId {String} Required: Yes. The ID of the Elastic IP address owner.
+* @property Code {Number} Required: Conditional. The Internet Control Message Protocol (ICMP) code. You can use -1 to specify all ICMP codes                   for the given ICMP type.
+* @property Type {Number} Required: Conditional. The Internet Control Message Protocol (ICMP) type. You can use -1 to specify all ICMP                   types.
 */
-function EC2NetworkInterfaceAssociation (propertiesObject) {
+function EC2NetworkAclEntryIcmp (propertiesObject) {
   let properties = {
-    AttachmentID: new ResourceAttribute('AttachmentID', String, false, 'Yes', null),
-    InstanceID: new ResourceAttribute('InstanceID', String, false, 'Yes', null),
-    PublicIp: new ResourceAttribute('PublicIp', String, false, 'Yes', null),
-    IpOwnerId: new ResourceAttribute('IpOwnerId', String, false, 'Yes', null)
+    Code: new ResourceAttribute('Code', Number, false, 'Conditional', null),
+    Type: new ResourceAttribute('Type', Number, false, 'Conditional', null)
   }
-  ResourceProperty.call(this, 'EC2NetworkInterfaceAssociation', properties, propertiesObject)
+  ResourceProperty.call(this, 'EC2NetworkAclEntryIcmp', properties, propertiesObject)
 }
-EC2NetworkInterfaceAssociation.prototype = Object.create(ResourceProperty.prototype)
+EC2NetworkAclEntryIcmp.prototype = Object.create(ResourceProperty.prototype)
 
 /**
-* @property AttachmentID {String} Required: Yes. The ID of the network interface attachment.
-* @property InstanceID {String} Required: Yes. The ID of the instance attached to the network interface.
+* @property From {Number} Required: Conditional. The first port in the range.
+* @property To {Number} Required: Conditional. The last port in the range.
 */
-function EC2NetworkInterfaceAttachment (propertiesObject) {
+function EC2NetworkAclEntryPortRange (propertiesObject) {
   let properties = {
-    AttachmentID: new ResourceAttribute('AttachmentID', String, false, 'Yes', null),
-    InstanceID: new ResourceAttribute('InstanceID', String, false, 'Yes', null)
+    From: new ResourceAttribute('From', Number, false, 'Conditional', null),
+    To: new ResourceAttribute('To', Number, false, 'Conditional', null)
   }
-  ResourceProperty.call(this, 'EC2NetworkInterfaceAttachment', properties, propertiesObject)
+  ResourceProperty.call(this, 'EC2NetworkAclEntryPortRange', properties, propertiesObject)
 }
-EC2NetworkInterfaceAttachment.prototype = Object.create(ResourceProperty.prototype)
-
-/**
-* @property Key {String} Required: Yes. ID of the security group.
-* @property Value {String} Required: Yes. Name of the security group.
-*/
-function EC2NetworkInterfaceGroupItem (propertiesObject) {
-  let properties = {
-    Key: new ResourceAttribute('Key', String, false, 'Yes', null),
-    Value: new ResourceAttribute('Value', String, false, 'Yes', null)
-  }
-  ResourceProperty.call(this, 'EC2NetworkInterfaceGroupItem', properties, propertiesObject)
-}
-EC2NetworkInterfaceGroupItem.prototype = Object.create(ResourceProperty.prototype)
+EC2NetworkAclEntryPortRange.prototype = Object.create(ResourceProperty.prototype)
 
 /**
 * @property PrivateIpAddress {String} Required: Yes. The private IP address of the network interface.
@@ -1426,15 +1400,6 @@ function EC2NetworkInterfacePrivateIPSpecification (propertiesObject) {
   ResourceProperty.call(this, 'EC2NetworkInterfacePrivateIPSpecification', properties, propertiesObject)
 }
 EC2NetworkInterfacePrivateIPSpecification.prototype = Object.create(ResourceProperty.prototype)
-
-/**
-*/
-function EC2PortRangePropertyType (propertiesObject) {
-  let properties = {
-  }
-  ResourceProperty.call(this, 'EC2PortRangePropertyType', properties, propertiesObject)
-}
-EC2PortRangePropertyType.prototype = Object.create(ResourceProperty.prototype)
 
 /**
 * @property CidrIp {String} Required: Conditional. Specifies a CIDR range.
@@ -1501,6 +1466,7 @@ AmazonEC2SpotFleetSpotFleetRequestConfigData.prototype = Object.create(ResourceP
 * @property Placement {AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement} Required: No. Defines a placement group, which is a logical grouping of instances within a                   single Availability Zone (AZ).
 * @property RamdiskId {String} Required: No. The ID of the RAM disk to select. Some kernels require additional drivers at                   launch. Check the kernel requirements for information about whether you need to                   specify a RAM disk. To find kernel requirements, refer to the AWS Resource Center                   and search for the kernel ID.
 * @property SecurityGroups {AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups} Required: No. One or more security group IDs to associate with the instances.
+* @property SpotPrice {String} Required: No. The bid price per unit hour for the specified instance type. If you don't specify a value, Amazon EC2 uses the Spot bid price for the fleet. For more information, see How Spot Fleet Works in the Amazon EC2 User Guide for Linux Instances.
 * @property SubnetId {String} Required: No. The ID of the subnet in which to launch the instances.
 * @property UserData {String} Required: No. Base64-encoded MIME user data that instances use when starting up.
 * @property WeightedCapacity {Number} Required: No. The number of units provided by the specified instance type. These units are                   the same units that you chose to set the target capacity in terms of instances or                   a performance characteristic, such as vCPUs, memory, or I/O. For more information,                   see How Spot Fleet Works in the                      Amazon EC2 User Guide for Linux Instances.If the target capacity divided by this value is not a whole number, Amazon EC2                   rounds the number of instances to the next whole number.
@@ -1519,6 +1485,7 @@ function AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpeci
     Placement: new ResourceAttribute('Placement', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsPlacement, false, 'No', null),
     RamdiskId: new ResourceAttribute('RamdiskId', String, false, 'No', null),
     SecurityGroups: new ResourceAttribute('SecurityGroups', AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups, true, 'No', null),
+    SpotPrice: new ResourceAttribute('SpotPrice', String, false, 'No', null),
     SubnetId: new ResourceAttribute('SubnetId', String, false, 'No', null),
     UserData: new ResourceAttribute('UserData', String, false, 'No', null),
     WeightedCapacity: new ResourceAttribute('WeightedCapacity', Number, false, 'No', null)
@@ -2017,12 +1984,12 @@ function ElasticLoadBalancingLBCookieStickinessPolicyType (propertiesObject) {
 ElasticLoadBalancingLBCookieStickinessPolicyType.prototype = Object.create(ResourceProperty.prototype)
 
 /**
-* @property InstancePort {String} Required: Yes. Specifies the TCP port on which the instance server is listening. This property cannot be modified                   for the life of the load balancer.
-* @property InstanceProtocol {String} Required: No. Specifies the protocol to use for routing traffic to back-end instances—HTTP, HTTPS, TCP, or SSL. This property cannot be modified for the life of the load balancer.NoteIf the front-end protocol is HTTP or HTTPS, InstanceProtocol has to be at the same protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. By default, Elastic Load Balancing sets the instance protocol to HTTP or TCP.If there is another listener with the same InstancePort whose                            InstanceProtocol is secure, i.e., HTTPS or SSL, the listener's                            InstanceProtocol has to be secure, i.e., HTTPS or SSL. If there is                            another listener with the same InstancePort whose InstanceProtocol is                            HTTP or TCP, the listener's InstanceProtocol must be either HTTP or                            TCP.
-* @property LoadBalancerPort {String} Required: Yes. Specifies the external load balancer port number. This property cannot be modified for the life of                   the load balancer.
-* @property PolicyNames {String} Required: No. A list of ElasticLoadBalancing policy names to associate with the listener. Specify only policies that are compatible with listeners. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference version 2012-06-01.
-* @property Protocol {String} Required: Yes. Specifies the load balancer transport protocol to use for routing — HTTP, HTTPS, TCP or SSL.                   This property cannot be modified for the life of the load balancer.
-* @property SSLCertificateId {String} Required: No. The ARN of the SSL certificate to use. For more information about SSL certificates, see Managing                      Server Certificates in the AWS Identity and Access Management documentation.
+* @property InstancePort {String} Required: Yes. Specifies the TCP port on which the instance server listens. You can't modify                   this property during the life of the load balancer.
+* @property InstanceProtocol {String} Required: No. Specifies the protocol to use for routing traffic to back-end instances: HTTP,                   HTTPS, TCP, or SSL. You can't modify this property during the life of the load                   balancer.NoteIf the front-end protocol is HTTP or HTTPS,                               InstanceProtocol must be on the same protocol layer (HTTP                            or HTTPS). Likewise, if the front-end protocol is TCP or SSL,                               InstanceProtocol must be TCP or SSL. By default, Elastic Load Balancing                            sets the instance protocol to HTTP or TCP.If there is another Listener with the same                               InstancePort whose InstanceProtocol is                            secure, (using HTTPS or SSL), the InstanceProtocol of the                               Listener must be secure (using HTTPS or SSL). If there is                            another Listener with the same InstancePort                            whose InstanceProtocol is HTTP or TCP, the                               InstanceProtocol of the Listener must be                            either HTTP or TCP.
+* @property LoadBalancerPort {String} Required: Yes. Specifies the external load balancer port number. You can't modify this                   property during the life of the load balancer.
+* @property PolicyNames {String} Required: No. A list of ElasticLoadBalancing policy names to associate with the                      Listener. Specify only policies that are compatible with a                      Listener. For more information, see DescribeLoadBalancerPolicyTypes in the                      Elastic Load Balancing API Reference version 2012-06-01.NoteBy default, Elastic Load Balancing associates the latest predefined policy with your load                         balancer. When a new predefined policy is added, we recommend that you                         update your load balancer to use the new predefined policy. Alternatively,                         you can select a different predefined security policy or create a custom                         policy. To create a security policy, use the Policies property                         of the AWS::ElasticLoadBalancing::LoadBalancer resource.
+* @property Protocol {String} Required: Yes. Specifies the load balancer transport protocol to use for routing: HTTP, HTTPS,                   TCP or SSL. You can't modify this property during the life of the load                   balancer.
+* @property SSLCertificateId {String} Required: No. The ARN of the SSL certificate to use. For more information about SSL                   certificates, see Managing                      Server Certificates in the AWS Identity and Access                      Management User Guide.
 */
 function ElasticLoadBalancingListenerPropertyType (propertiesObject) {
   let properties = {
@@ -3902,16 +3869,13 @@ module.exports = {
   DynamoDBTableStreamSpecification: DynamoDBTableStreamSpecification,
   AmazonEC2BlockDeviceMappingProperty: AmazonEC2BlockDeviceMappingProperty,
   AmazonElasticBlockStoreBlockDeviceProperty: AmazonElasticBlockStoreBlockDeviceProperty,
-  EC2ICMPPropertyType: EC2ICMPPropertyType,
   AmazonEC2InstanceSsmAssociations: AmazonEC2InstanceSsmAssociations,
   AmazonEC2InstanceSsmAssociationsAssociationParameters: AmazonEC2InstanceSsmAssociationsAssociationParameters,
   EC2MountPointPropertyType: EC2MountPointPropertyType,
   EC2NetworkInterfaceEmbeddedPropertyType: EC2NetworkInterfaceEmbeddedPropertyType,
-  EC2NetworkInterfaceAssociation: EC2NetworkInterfaceAssociation,
-  EC2NetworkInterfaceAttachment: EC2NetworkInterfaceAttachment,
-  EC2NetworkInterfaceGroupItem: EC2NetworkInterfaceGroupItem,
+  EC2NetworkAclEntryIcmp: EC2NetworkAclEntryIcmp,
+  EC2NetworkAclEntryPortRange: EC2NetworkAclEntryPortRange,
   EC2NetworkInterfacePrivateIPSpecification: EC2NetworkInterfacePrivateIPSpecification,
-  EC2PortRangePropertyType: EC2PortRangePropertyType,
   EC2SecurityGroupRulePropertyType: EC2SecurityGroupRulePropertyType,
   AmazonEC2SpotFleetSpotFleetRequestConfigData: AmazonEC2SpotFleetSpotFleetRequestConfigData,
   AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications: AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecifications,

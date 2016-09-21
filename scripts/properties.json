@@ -1892,7 +1892,7 @@
         "Type": "String"
       },
       "VolumeSize": {
-        "Description": "The volume size, in gibibytes (GiB). This can be a number from 1 – 1024.\n                  If the volume type is io1, the minimum value is 10.Update requires: Some interruptions",
+        "Description": "The volume size, in gibibytes (GiB). For valid values, see the Size parameter for the CreateVolume action in the Amazon EC2 API Reference.Update requires: Some interruptions",
         "Required": "Conditional",
         "Type": "String"
       },
@@ -1902,10 +1902,6 @@
         "Type": "String"
       }
     }
-  },
-  "EC2ICMPPropertyType": {
-    "name": "EC2ICMPPropertyType",
-    "properties": {}
   },
   "AmazonEC2InstanceSsmAssociations": {
     "name": "AmazonEC2InstanceSsmAssociations",
@@ -2015,58 +2011,33 @@
       }
     }
   },
-  "EC2NetworkInterfaceAssociation": {
-    "name": "EC2NetworkInterfaceAssociation",
+  "EC2NetworkAclEntryIcmp": {
+    "name": "EC2NetworkAclEntryIcmp",
     "properties": {
-      "AttachmentID": {
-        "Description": "The ID of the network interface attachment.",
-        "Required": "Yes",
-        "Type": "String"
+      "Code": {
+        "Description": "The Internet Control Message Protocol (ICMP) code. You can use -1 to specify all ICMP codes\n                  for the given ICMP type.",
+        "Required": "Conditional",
+        "Type": "Integer"
       },
-      "InstanceID": {
-        "Description": "The ID of the instance attached to the network interface.",
-        "Required": "Yes",
-        "Type": "String"
-      },
-      "PublicIp": {
-        "Description": "The address of the Elastic IP address bound to the network interface.",
-        "Required": "Yes",
-        "Type": "String"
-      },
-      "IpOwnerId": {
-        "Description": "The ID of the Elastic IP address owner.",
-        "Required": "Yes",
-        "Type": "String"
+      "Type": {
+        "Description": "The Internet Control Message Protocol (ICMP) type. You can use -1 to specify all ICMP\n                  types.",
+        "Required": "Conditional",
+        "Type": "Integer"
       }
     }
   },
-  "EC2NetworkInterfaceAttachment": {
-    "name": "EC2NetworkInterfaceAttachment",
+  "EC2NetworkAclEntryPortRange": {
+    "name": "EC2NetworkAclEntryPortRange",
     "properties": {
-      "AttachmentID": {
-        "Description": "The ID of the network interface attachment.",
-        "Required": "Yes",
-        "Type": "String"
+      "From": {
+        "Description": "The first port in the range.",
+        "Required": "Conditional",
+        "Type": "Integer"
       },
-      "InstanceID": {
-        "Description": "The ID of the instance attached to the network interface.",
-        "Required": "Yes",
-        "Type": "String"
-      }
-    }
-  },
-  "EC2NetworkInterfaceGroupItem": {
-    "name": "EC2NetworkInterfaceGroupItem",
-    "properties": {
-      "Key": {
-        "Description": "ID of the security group.",
-        "Required": "Yes",
-        "Type": "String"
-      },
-      "Value": {
-        "Description": "Name of the security group.",
-        "Required": "Yes",
-        "Type": "String"
+      "To": {
+        "Description": "The last port in the range.",
+        "Required": "Conditional",
+        "Type": "Integer"
       }
     }
   },
@@ -2084,10 +2055,6 @@
         "Type": "Boolean"
       }
     }
-  },
-  "EC2PortRangePropertyType": {
-    "name": "EC2PortRangePropertyType",
-    "properties": {}
   },
   "EC2SecurityGroupRulePropertyType": {
     "name": "EC2SecurityGroupRulePropertyType",
@@ -2254,6 +2221,11 @@
         "Type": [
           "AmazonElasticComputeCloudSpotFleetSpotFleetRequestConfigDataLaunchSpecificationsSecurityGroups"
         ]
+      },
+      "SpotPrice": {
+        "Description": "The bid price per unit hour for the specified instance type. If you don't specify a value, Amazon EC2 uses the Spot bid price for the fleet. For more information, see How Spot Fleet Works in the Amazon EC2 User Guide for Linux Instances.",
+        "Required": "No",
+        "Type": "String"
       },
       "SubnetId": {
         "Description": "The ID of the subnet in which to launch the instances.",
@@ -2982,34 +2954,34 @@
     "name": "ElasticLoadBalancingListenerPropertyType",
     "properties": {
       "InstancePort": {
-        "Description": "Specifies the TCP port on which the instance server is listening. This property cannot be modified\n                  for the life of the load balancer.",
+        "Description": "Specifies the TCP port on which the instance server listens. You can't modify\n                  this property during the life of the load balancer.",
         "Required": "Yes",
         "Type": "String"
       },
       "InstanceProtocol": {
-        "Description": "Specifies the protocol to use for routing traffic to back-end instances—HTTP, HTTPS, TCP, or SSL. This property cannot be modified for the life of the load balancer.NoteIf the front-end protocol is HTTP or HTTPS, InstanceProtocol has to be at the same protocol layer, i.e., HTTP or HTTPS. Likewise, if the front-end protocol is TCP or SSL, InstanceProtocol has to be TCP or SSL. By default, Elastic Load Balancing sets the instance protocol to HTTP or TCP.If there is another listener with the same InstancePort whose\n                           InstanceProtocol is secure, i.e., HTTPS or SSL, the listener's\n                           InstanceProtocol has to be secure, i.e., HTTPS or SSL. If there is\n                           another listener with the same InstancePort whose InstanceProtocol is\n                           HTTP or TCP, the listener's InstanceProtocol must be either HTTP or\n                           TCP.",
+        "Description": "Specifies the protocol to use for routing traffic to back-end instances: HTTP,\n                  HTTPS, TCP, or SSL. You can't modify this property during the life of the load\n                  balancer.NoteIf the front-end protocol is HTTP or HTTPS,\n                              InstanceProtocol must be on the same protocol layer (HTTP\n                           or HTTPS). Likewise, if the front-end protocol is TCP or SSL,\n                              InstanceProtocol must be TCP or SSL. By default, Elastic Load Balancing\n                           sets the instance protocol to HTTP or TCP.If there is another Listener with the same\n                              InstancePort whose InstanceProtocol is\n                           secure, (using HTTPS or SSL), the InstanceProtocol of the\n                              Listener must be secure (using HTTPS or SSL). If there is\n                           another Listener with the same InstancePort\n                           whose InstanceProtocol is HTTP or TCP, the\n                              InstanceProtocol of the Listener must be\n                           either HTTP or TCP.",
         "Required": "No",
         "Type": "String"
       },
       "LoadBalancerPort": {
-        "Description": "Specifies the external load balancer port number. This property cannot be modified for the life of\n                  the load balancer.",
+        "Description": "Specifies the external load balancer port number. You can't modify this\n                  property during the life of the load balancer.",
         "Required": "Yes",
         "Type": "String"
       },
       "PolicyNames": {
-        "Description": "A list of ElasticLoadBalancing policy names to associate with the listener. Specify only policies that are compatible with listeners. For more information, see DescribeLoadBalancerPolicyTypes in the Elastic Load Balancing API Reference version 2012-06-01.",
+        "Description": "A list of ElasticLoadBalancing policy names to associate with the\n                     Listener. Specify only policies that are compatible with a\n                     Listener. For more information, see DescribeLoadBalancerPolicyTypes in the\n                     Elastic Load Balancing API Reference version 2012-06-01.NoteBy default, Elastic Load Balancing associates the latest predefined policy with your load\n                        balancer. When a new predefined policy is added, we recommend that you\n                        update your load balancer to use the new predefined policy. Alternatively,\n                        you can select a different predefined security policy or create a custom\n                        policy. To create a security policy, use the Policies property\n                        of the AWS::ElasticLoadBalancing::LoadBalancer resource.",
         "Required": "No",
         "Type": [
           "String"
         ]
       },
       "Protocol": {
-        "Description": "Specifies the load balancer transport protocol to use for routing — HTTP, HTTPS, TCP or SSL.\n                  This property cannot be modified for the life of the load balancer.",
+        "Description": "Specifies the load balancer transport protocol to use for routing: HTTP, HTTPS,\n                  TCP or SSL. You can't modify this property during the life of the load\n                  balancer.",
         "Required": "Yes",
         "Type": "String"
       },
       "SSLCertificateId": {
-        "Description": "The ARN of the SSL certificate to use. For more information about SSL certificates, see Managing\n                     Server Certificates in the AWS Identity and Access Management documentation.",
+        "Description": "The ARN of the SSL certificate to use. For more information about SSL\n                  certificates, see Managing\n                     Server Certificates in the AWS Identity and Access\n                     Management User Guide.",
         "Required": "No",
         "Type": "String"
       }

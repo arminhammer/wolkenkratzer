@@ -96,7 +96,7 @@ SqlInjectionMatchSet.prototype = Object.create(WKResource.prototype)
 *   @extends WKResource
 * @property {AWSWAFWebACLAction} DefaultAction Required: Yes. The action that you want AWS WAF to take when a request doesn't match the
                   criteria in any of the rules that are associated with the web ACL.Update requires: No interruption
-* @property {String} MetricName Required: Yes. A friendly name or description for the Amazon CloudWatch metric of this web ACL.Update requires: Replacement
+* @property {String} MetricName Required: Yes. A friendly name or description for the Amazon CloudWatch metric of this web ACL. For valid values, see the MetricName parameter of the CreateWebACL action in the AWS WAF API Reference.Update requires: Replacement
 * @property {String} Name Required: Yes. A friendly name or description of the web ACL.Update requires: Replacement
 * @property {AWSWAFWebACLRules} Rules Required: No. The rules to associate with the web ACL and the settings for each rule.Update requires: No interruption
 */

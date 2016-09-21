@@ -15,7 +15,7 @@ const types = require('./../types')
                   from any other state. Each action is specified as an Amazon Resource Number (ARN).
                   For more information about creating alarms and the actions you can specify, see
                      Creating Amazon CloudWatch
-                     Alarms in the Amazon CloudWatch Developer Guide.Update requires: No interruption
+                     Alarms in the Amazon CloudWatch Developer Guide.NoteFor Auto Scaling scaling polices, you can specify only one policy. If you associate more than one policy, CloudWatch executes only the first scaling policy.Update requires: No interruption
 * @property {String} AlarmDescription Required: No. The description for the alarm.Update requires: No interruption
 * @property {String} AlarmName Required: No. A name for the alarm. If you don't specify a name, AWS CloudFormation generates a unique
                   physical ID and uses that ID for the alarm name. For more information, see Name Type.ImportantIf you specify a name, you cannot do updates that require this resource to be replaced.
