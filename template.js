@@ -9,6 +9,7 @@ const Output = require('./output').Output
 const Parameter = require('./parameter').Parameter
 const WKResource = require('./resource').WKResource
 const path = require('path')
+const yaml = require('js-yaml')
 
 /** @module Core */
 
@@ -230,7 +231,8 @@ Template.prototype.toJson = function () {
 }
 
 Template.prototype.toYAML = function () {
-
+  let jsonResult = this.toJson()
+  return { Errors: jsonResult.errors, Template: yaml.safeDump(JSON.parse(jsonResult.Template)) }
 }
 
 module.exports = {
