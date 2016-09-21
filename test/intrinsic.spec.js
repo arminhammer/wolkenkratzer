@@ -120,7 +120,6 @@ describe ('Intrinsics', () => {
     t.add(InstanceSecurityGroup)
 
     it ('FnGetAtt should generate JSON correctly when part of a resource', () => {
-
       let jsonString = JSON.parse(t.toJson().Template)
       jsonString.should.deep.equal({
         'Resources': {

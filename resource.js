@@ -34,10 +34,10 @@ function WKResource (name, resourceType, properties, propertiesObject, condition
       if (this.properties[prop]) {
         let property = propertiesObject[prop]
         if (this.properties[prop].Type) {
-            try {
-              this.properties[prop].set(property)
-            } catch (e) {
-            }
+          try {
+            this.properties[prop].set(property)
+          } catch (e) {
+          }
         }
       }
     }
@@ -131,7 +131,11 @@ WKResource.prototype.toJson = function () {
       })
       errors.push(this.WKName + '.' + prop + ' or a subproperty is required but not defined.')
     }
-    newProperties[prop] = result.json
+    if (result.json) {
+      newProperties[prop] = result.json
+    } else {
+      delete newProperties[prop]
+    }
   }
   if (this.conditional) {
     let result = this.conditional(this.properties)

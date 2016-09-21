@@ -161,11 +161,20 @@ ResourceAttribute.prototype.toJson = function () {
     if (this.val !== null) {
       if (this.val instanceof Intrinsic.Intrinsic) {
         let jsonValue = this.val.toJson()
+        // TODO: fix this
         return { errors: errors, json: jsonValue }
       } else if (this.Type.prototype instanceof ResourceProperty) {
         let propArray = []
         for (let prop in this.val) {
-          propArray.push(this.val[prop].toJson())
+          let result = this.val[prop].toJson()
+          if (result.errors) {
+            result.errors.forEach((e) => {
+              errors.push(e)
+            })
+          }
+          if (result.json) {
+            propArray.push(result.json)
+          }
         }
         if (propArray.length > 0) {
           return { errors: errors, json: propArray }

@@ -84,7 +84,9 @@ TagSet.prototype.toJson = function () {
       let tagJson = this.tags[tag].toJson()
       tagArray.push(tagJson)
     }
-    return tagArray
+    return { errors: null, json: tagArray }
+  } else {
+    return { errors: null, json: null }
   }
 }
 

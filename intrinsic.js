@@ -31,7 +31,7 @@ function Intrinsic () {
  * Returns a JSON Object
  */
 Intrinsic.prototype.toJson = function () {}
-Intrinsic.prototype.toJSON = function () { return this.toJson() }
+Intrinsic.prototype.toJSON = function () { return this.toJson().json }
 
 /**
  * @memberof module:Core
@@ -48,9 +48,9 @@ Ref.prototype = Object.create(Intrinsic.prototype)
  */
 Ref.prototype.toJson = function () {
   if (this.ref instanceof WKResource || this.ref instanceof Parameter) {
-    return { 'Ref': this.ref.WKName }
+    return { errors: null, json: { 'Ref': this.ref.WKName } }
   } else {
-    return { 'Ref': this.ref }
+    return { errors: null, json: { 'Ref': this.ref } }
   }
 }
 
@@ -70,9 +70,9 @@ FnGetAtt.prototype = Object.create(Intrinsic.prototype)
  */
 FnGetAtt.prototype.toJson = function () {
   if (this.resource instanceof WKResource || this.resource instanceof Parameter) {
-    return { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
+    return { errors: null, json: { 'Fn::GetAtt': [this.resource.WKName, this.attribute] } }
   } else {
-    return { 'Fn::GetAtt': [this.resource, this.attribute] }
+    return { errors: null, json: { 'Fn::GetAtt': [this.resource, this.attribute] } }
   }
 }
 
