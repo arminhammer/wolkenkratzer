@@ -11,7 +11,7 @@ const util = require('../util')
 function Bucket (name, region) {
   const s3Client = new aws.S3({ region: region })
   return new Promise((resolve, reject) => {
-    let bucket = new s3Resource.Bucket(name)
+    let bucket = new s3Resource.Bucket(util.safeRename(name))
     bucket.BucketName = name
     return s3Client
     .getBucketVersioning({ Bucket: name }).promise()

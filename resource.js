@@ -4,6 +4,7 @@
 'use strict'
 const TypeException = require('./exceptions').TypeException
 const Policy = require('./policy').Policy
+const util = require('./util')
 
 /** @module Core */
 
@@ -129,10 +130,10 @@ WKResource.prototype.toJson = function () {
       })
       errors.push(this.WKName + '.' + prop + ' or a subproperty is required but not defined.')
     }
-    if (result.json != null) {
-      newProperties[prop] = result.json
-    } else {
+    if (result.json === null || util.isEmpty(result.json)) {
       delete newProperties[prop]
+    } else {
+      newProperties[prop] = result.json
     }
   }
   if (this.conditional) {
