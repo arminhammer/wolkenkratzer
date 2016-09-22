@@ -22,6 +22,7 @@ const Output = require('./output').Output
 const Init = require('./init')
 const Policy = require('./policy')
 const Mapping = require('./mapping').Mapping
+const Macro = require('./macro')
 
 const ApiGateway = require('./resources/apigateway')
 const ApplicationAutoScaling = require('./resources/applicationautoscaling')
@@ -110,6 +111,7 @@ module.exports = {
   KMS: KMS,
   Lambda: Lambda,
   Logs: Logs,
+  Macro: Macro,
   OpsWorks: OpsWorks,
   RDS: RDS,
   Redshift: Redshift,

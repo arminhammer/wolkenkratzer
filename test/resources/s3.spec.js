@@ -25,7 +25,7 @@ describe('S3', () => {
   let bucketPolicy = new wk.S3.BucketPolicy('newBucketPolicy')
   bucketPolicy.PolicyDocument = {
     'Statement': [{
-      'Action': ['s3:GetObject'],
+      'Action': ['s3Client:GetObject'],
       'Effect': 'Allow',
       'Resource': '*',
       'Principal': '*'
@@ -59,7 +59,7 @@ describe('S3', () => {
               'Statement': [
                 {
                   'Action': [
-                    's3:GetObject'
+                    's3Client:GetObject'
                   ],
                   'Effect': 'Allow',
                   'Resource': '*',

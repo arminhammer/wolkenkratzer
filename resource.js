@@ -2,8 +2,6 @@
  * Created by arming on 6/15/16.
  */
 'use strict'
-const RequiredPropertyException = require('./exceptions').RequiredPropertyException
-const ConditionNotMetException = require('./exceptions').ConditionNotMetException
 const TypeException = require('./exceptions').TypeException
 const Policy = require('./policy').Policy
 
@@ -49,7 +47,7 @@ function WKResource (name, resourceType, properties, propertiesObject, condition
  * @param resource
  */
 WKResource.prototype.dependsOn = function (resource) {
-  this.dependsOn = resource
+  this.DependsOn = resource
 }
 
 /**
@@ -171,8 +169,8 @@ WKResource.prototype.toJson = function () {
       returnObject[policy] = this.policies[policy].toJson()
     }
   }
-  if (this.dependsOn) {
-    returnObject.DependsOn = this.dependsOn.WKName
+  if (this.DependsOn) {
+    returnObject.DependsOn = this.DependsOn.WKName
   }
   if (errors.length === 0) {
     errors = null
