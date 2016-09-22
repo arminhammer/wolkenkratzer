@@ -17,6 +17,6 @@ t.add(vpnGateway)
 let yamlResult = t.toYaml()
 
 if (yamlResult.Errors) {
-  console.log(yamlResult.Errors)
+  // console.log(yamlResult.Errors)
 }
 console.log(yamlResult.Template)

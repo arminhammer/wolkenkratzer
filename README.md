@@ -2,6 +2,30 @@
 
 Wolkenkratzer is a Javascript library that helps you programmatically generate CloudFormation templates.
 
+Table of Contents
+=================
+
+  * [wolkenkratzer](#wolkenkratzer)
+    * [Installation](#installation)
+    * [Usage](#usage)
+      * [General](#general)
+      * [Resources](#resources)
+        * [constructor (name, properties)](#constructor-name-properties)
+        * [Resource support](#resource-support)
+      * [Macros](#macros)
+      * [Intrinsic Functions](#intrinsic-functions)
+      * [Parameters](#parameters)
+        * [constructor](#constructor)
+      * [Mappings](#mappings)
+        * [constructor](#constructor-1)
+      * [Output](#output)
+        * [constructor](#constructor-2)
+      * [Examples](#examples)
+        * [S3 CloudFront template example](#s3-cloudfront-template-example)
+        * [Wordpress single instance site](#wordpress-single-instance-site)
+    * [Contributing](#contributing)
+    * [License](#license)
+
 ## Installation
 
   ```$ npm install wolkenkratzer```
@@ -59,6 +83,32 @@ This results in the template:
 }
 ```
 
+YAML output is also supported:
+
+```javascript
+let yamlResult = t.toYaml()
+
+if (yamlResult.Errors) {
+  console.log(yamlResult.Errors)
+}
+console.log(yamlResult.Template)
+```
+
+Output:
+
+```yaml
+Parameters:
+  VPCCIDR:
+    Type: String
+    Default: 10.0.0.0/16
+Resources:
+  VPNGateway:
+    Type: 'AWS::EC2::VPNGateway'
+    Properties:
+      Type: ipsec.1
+AWSTemplateFormatVersion: '2010-09-09'
+```
+
 ### Resources
 
 #### constructor (name, properties)
@@ -114,7 +164,7 @@ Output:
     "ec2One": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-        "ImageId": "ami-2a69aa47"
+        "ImageId": "ami-5679aa47"
       }
     },
     "ec2Two": {
@@ -123,16 +173,16 @@ Output:
         "EbsOptimized": false,
         "ImageId": "ami-466da12b",
         "InstanceType": "t2.micro",
-        "KeyName": "arminkeypair",
+        "KeyName": "keypair",
         "PrivateIpAddress": "172.31.0.119",
         "SecurityGroups": [
           {
-            "GroupName": "awseb-e-qyaht32vin-stack-AWSEBSecurityGroup-1LXS554OCJIS3",
+            "GroupName": "awseb-e-qyaht32vin-stack-AWSEBSecurityGroup-12345678",
             "GroupId": "sg-aba882d0"
           }
         ],
         "SourceDestCheck": true,
-        "SubnetId": "subnet-bc1d57cb"
+        "SubnetId": "subnet-bc1d1234"
       }
     }
   },
@@ -145,6 +195,116 @@ Output:
 Wolkenkratzer supports all CloudFormation resources. This is made possible by scripts that scrape the CloudFormation documentation pages 
 and generate the resource code files. The scrapers can be found in the /scripts folder.
 
+### Macros
+Wolkenkratzer includes macros that take advantage of the aws-sdk npm library. The macros are intended to make certain common uses of CloudFormation easier. Currently the only macro is the S3 Bucket macro, which can be used like this:
+
+```javascript
+'use strict'
+
+let region = 'us-east-1'
+const wk = require('wolkenkratzer')
+const aws = require('aws-sdk')
+const s3 = new aws.S3({ region: region })
+
+s3.listBuckets().promise()
+.then((data) => {
+  let bucketName = data.Buckets[0].Name
+  return wk.Macro.S3.Bucket(bucketName, 'mybucket', region)
+})
+.then((bucket) => {
+  let t = new wk.Template()
+  t.add(bucket)
+  let result = t.toJson()
+  console.log(result.Template)
+})
+.catch((e) => {
+  console.error(e)
+})
+```
+
+Output: 
+
+```json
+{
+  "Resources": {
+    "mybucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "mybucket",
+        "LifecycleConfiguration": {
+          "Rules": [
+            {
+              "ID": "rule0",
+              "Prefix": "",
+              "Status": "Enabled",
+              "Transitions": [
+                {
+                  "Days": 180,
+                  "StorageClass": "STANDARD_IA"
+                }
+              ],
+              "NoncurrentVersionTransitions": []
+            }
+          ]
+        },
+        "LoggingConfiguration": {
+          "LoggingEnabled": {
+            "TargetBucket": "my-logging-bucket",
+            "TargetGrants": [],
+            "TargetPrefix": "logs/"
+          }
+        },
+        "NotificationConfiguration": {
+          "CloudFunctionConfiguration": {
+            "Id": "Lambda",
+            "Event": "s3:ObjectCreated:*",
+            "Events": [
+              "s3:ObjectCreated:*"
+            ],
+            "CloudFunction": "arn:aws:lambda:us-east-1:2123456789:function:myFunc"
+          }
+        },
+        "ReplicationConfiguration": {
+          "ReplicationConfiguration": {
+            "Role": "arn:aws:iam::2123456789:role/my-role-s3-repl-role",
+            "Rules": [
+              {
+                "ID": "mybucket",
+                "Prefix": "",
+                "Status": "Enabled",
+                "Destination": {
+                  "Bucket": "arn:aws:s3:::replbucket"
+                }
+              }
+            ]
+          }
+        },
+        "Tags": [
+          {
+            "Key": "testkey",
+            "Value": "testvalue"
+          }
+        ],
+        "VersioningConfiguration": {
+          "Status": "Enabled"
+        },
+        "WebsiteConfiguration": {
+          "ErrorDocument": {
+            "Key": "error.html"
+          },
+          "IndexDocument": {
+            "Suffix": "index.html"
+          },
+          "RoutingRules": []
+        }
+      }
+    }
+  },
+  "AWSTemplateFormatVersion": "2010-09-09"
+}
+```
+
+Macros for other resources, as well as Mappings and other parameter blocks are planned for the future.
 
 ### Intrinsic Functions
 
@@ -262,9 +422,6 @@ More examples can be found in the /examples folder.
 #### S3 CloudFront template example
 
 ```javascript
-/**
- * Created by arming on 7/6/16.
- */
 'use strict'
 
 const wk = require('wolkenkratzer')
@@ -298,7 +455,7 @@ let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
 }
 )
 
-t.addMapping(region2S3WebsiteSuffixMap)
+t.add(region2S3WebsiteSuffixMap)
 
 let s3BucketForWebsiteContent = new wk.S3.Bucket('S3BucketForWebsiteContent')
 s3BucketForWebsiteContent.AccessControl = 'PublicRead'
@@ -314,7 +471,7 @@ websiteDNSName.Type = 'CNAME'
 websiteDNSName.TTL = '900'
 websiteDNSName.Comment = 'CNAME redirect custom name to CloudFront distribution'
 websiteDNSName.Name.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ])
-websiteDNSName.ResourceRecords.join('', [ 'http://', new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName') ])
+websiteDNSName.ResourceRecords.push(new wk.Intrinsic.FnJoin('', [ 'http://', new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName') ]))
 websiteDNSName.HostedZoneName.join('', [ new Ref(hostedZoneParam), '.' ])
 t.add(websiteDNSName)
 
@@ -340,8 +497,7 @@ defaultCacheBehavior.ViewerProtocolPolicy = 'allow-all'
 
 let distConfig = new wk.Types.CloudFrontDistributionConfig()
 distConfig.Comment = 'CDN for S3-backed website'
-distConfig.Aliases.join('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ])
-
+distConfig.Aliases.push(new wk.Intrinsic.FnJoin('', [ new Ref(wk.Pseudo.AWS_STACK_NAME), new Ref(wk.Pseudo.AWS_ACCOUNT_ID), '.', new Ref(wk.Pseudo.AWS_REGION), '.', new Ref(hostedZoneParam) ]))
 distConfig.Origins.push(distConfigOrigin)
 distConfig.Enabled = true
 distConfig.DefaultRootObject = 'index.html'
@@ -460,7 +616,7 @@ rule2.ToPort = 22
 rule2.CidrIp.ref(sshLocationParam)
 webServerSecurityGroup.SecurityGroupIngress.push(rule2)
 
-t.addMapping('AWSInstanceType2Arch', {
+let AWSInstanceType2ArchMap = new wk.Mapping('AWSInstanceType2Arch', {
   't1.micro': { 'Arch': 'PV64' },
   't2.nano': { 'Arch': 'HVM64' },
   't2.micro': { 'Arch': 'HVM64' },
@@ -515,8 +671,9 @@ t.addMapping('AWSInstanceType2Arch', {
   'cr1.8xlarge': { 'Arch': 'HVM64' },
   'cc2.8xlarge': { 'Arch': 'HVM64' }
 })
+t.add(AWSInstanceType2ArchMap)
 
-t.addMapping('AWSInstanceType2NATArch', {
+let AWSInstanceType2NATArchMap = new wk.Mapping('AWSInstanceType2NATArch', {
   't1.micro': { 'Arch': 'NATPV64' },
   't2.nano': { 'Arch': 'NATHVM64' },
   't2.micro': { 'Arch': 'NATHVM64' },
@@ -571,8 +728,9 @@ t.addMapping('AWSInstanceType2NATArch', {
   'cr1.8xlarge': { 'Arch': 'NATHVM64' },
   'cc2.8xlarge': { 'Arch': 'NATHVM64' }
 })
+t.add(AWSInstanceType2NATArchMap)
 
-t.addMapping('AWSRegionArch2AMI', {
+let AWSRegionArch2AMIMap = new wk.Mapping('AWSRegionArch2AMI', {
   'us-east-1': {'PV64': 'ami-2a69aa47', 'HVM64': 'ami-6869aa05', 'HVMG2': 'ami-2e5e9c43'},
   'us-west-2': {'PV64': 'ami-7f77b31f', 'HVM64': 'ami-7172b611', 'HVMG2': 'ami-83b770e3'},
   'us-west-1': {'PV64': 'ami-a2490dc2', 'HVM64': 'ami-31490d51', 'HVMG2': 'ami-fd76329d'},
@@ -585,6 +743,7 @@ t.addMapping('AWSRegionArch2AMI', {
   'sa-east-1': {'PV64': 'ami-1ad34676', 'HVM64': 'ami-6dd04501', 'HVMG2': 'NOT_SUPPORTED'},
   'cn-north-1': {'PV64': 'ami-77559f1a', 'HVM64': 'ami-8e6aa0e3', 'HVMG2': 'NOT_SUPPORTED'}
 })
+t.add(AWSRegionArch2AMIMap)
 
 let webServer = new wk.EC2.Instance('WebServer')
 webServer.ImageId.findInMap('AWSRegionArch2AMI', { 'Ref': 'AWS::Region' }, { 'Fn::FindInMap': [ 'AWSInstanceType2Arch', { 'Ref': 'InstanceType' }, 'Arch' ] })
@@ -600,7 +759,7 @@ webServer.UserData.base64({ 'Fn::Join': ['', [
   '/opt/aws/bin/cfn-init -v ',
   '         --stack ', { 'Ref': 'AWS::StackName' },
   '         --resource WebServer ',
-  '         --configsets wordpress_install ',
+  '         --configsets wordpressInstall ',
   '         --region ', { 'Ref': 'AWS::Region' }, '\n',
 
   '/opt/aws/bin/cfn-signal -e $? ',
@@ -610,28 +769,28 @@ webServer.UserData.base64({ 'Fn::Join': ['', [
 ]]})
 
 let webSiteUrlOutput = new wk.Output('WebsiteURL', {
-  'Value': { 'Fn::Join': ['', [ 'http://', { 'Fn::GetAtt': [ 'WebServer', 'PublicDnsName' ] }, '/wordpress' ] ] },
+  'Value': { 'Fn::Join': [ '', [ 'http://', { 'Fn::GetAtt': [ 'WebServer', 'PublicDnsName' ] }, '/wordpress' ] ] },
   'Description': 'WordPress Website'
 })
 
-let set_mysql_root_password = new wk.Init.Command('01_set_mysql_root_password')
-set_mysql_root_password.command = { 'Fn::Join': [ '', [ 'mysqladmin -u root password \'', { 'Ref': 'DBRootPassword' }, '\'' ] ] }
-set_mysql_root_password.test = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))' ] ] }
+let setMysqlRootPassword = new wk.Init.Command('01_setMysqlRootPassword')
+setMysqlRootPassword.command = { 'Fn::Join': [ '', [ 'mysqladmin -u root password \'', { 'Ref': 'DBRootPassword' }, '\'' ] ] }
+setMysqlRootPassword.test = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))' ] ] }
 
-let create_database = new wk.Init.Command('02_create_database')
-create_database.command = { 'Fn::Join': [ '', [ 'mysql -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' < /tmp/setup.mysql' ] ] }
-create_database.test = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))' ] ] }
+let createDatabase = new wk.Init.Command('02_createDatabase')
+createDatabase.command = { 'Fn::Join': [ '', [ 'mysql -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' < /tmp/setup.mysql' ] ] }
+createDatabase.test = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))' ] ] }
 
-let configure_wordpressCMD = new wk.Init.Command('03_configure_wordpress')
-configure_wordpressCMD.command = '/tmp/create-wp-config'
-configure_wordpressCMD.cwd = '/var/www/html/wordpress'
+let configureWordpressCMD = new wk.Init.Command('03_configureWordpress')
+configureWordpressCMD.command = '/tmp/create-wp-config'
+configureWordpressCMD.cwd = '/var/www/html/wordpress'
 
-let configure_wordpress = new wk.Init.Config('configure_wordpress')
-configure_wordpress.add(set_mysql_root_password)
-configure_wordpress.add(create_database)
-configure_wordpress.add(configure_wordpressCMD)
+let configureWordpress = new wk.Init.Config('configureWordpress')
+configureWordpress.add(setMysqlRootPassword)
+configureWordpress.add(createDatabase)
+configureWordpress.add(configureWordpressCMD)
 
-webServer.addConfig(configure_wordpress)
+webServer.addConfig(configureWordpress)
 
 let cfnHup = new wk.Init.File('/etc/cfn/cfn-hup.conf')
 cfnHup.content = { 'Fn::Join': ['', [ '[main]\n', 'stack=', { 'Ref': 'AWS::StackId' }, '\n', 'region=', { 'Ref': 'AWS::Region' }, '\n' ]] }
@@ -640,7 +799,7 @@ cfnHup.owner = 'root'
 cfnHup.group = 'root'
 
 let cfnAutoReloader = new wk.Init.File('/etc/cfn/hooks.d/cfn-auto-reloader.conf')
-cfnAutoReloader.content = { 'Fn::Join': [ '', [ '[cfn-auto-reloader-hook]\n', 'triggers=post.update\n', 'path=Resources.WebServer.Metadata.AWS::CloudFormation::Init\n', 'action=/opt/aws/bin/cfn-init -v ', '         --stack ', { 'Ref': 'AWS::StackName' }, '         --resource WebServer ', '         --configsets wordpress_install ', '         --region ', { 'Ref': 'AWS::Region' }, '\n' ] ] }
+cfnAutoReloader.content = { 'Fn::Join': [ '', [ '[cfn-auto-reloader-hook]\n', 'triggers=post.update\n', 'path=Resources.WebServer.Metadata.AWS::CloudFormation::Init\n', 'action=/opt/aws/bin/cfn-init -v ', '         --stack ', { 'Ref': 'AWS::StackName' }, '         --resource WebServer ', '         --configsets wordpressInstall ', '         --region ', { 'Ref': 'AWS::Region' }, '\n' ] ] }
 cfnAutoReloader.mode = '000400'
 cfnAutoReloader.owner = 'root'
 cfnAutoReloader.group = 'root'
@@ -650,20 +809,20 @@ cfnHupService.enabled = 'true'
 cfnHupService.ensureRunning = 'true'
 cfnHupService.files = ['/etc/cfn/cfn-hup.conf', '/etc/cfn/hooks.d/cfn-auto-reloader.conf']
 
-let install_cfn = new wk.Init.Config('install_cfn')
-install_cfn.add(cfnHup)
-install_cfn.add(cfnAutoReloader)
-install_cfn.add(cfnHupService)
-webServer.addConfig(install_cfn)
+let installCfn = new wk.Init.Config('installCfn')
+installCfn.add(cfnHup)
+installCfn.add(cfnAutoReloader)
+installCfn.add(cfnHupService)
+webServer.addConfig(installCfn)
 
 let createWPConfig = new wk.Init.File('/tmp/create-wp-config')
-createWPConfig.content = { 'Fn::Join': [ '', [ '#!/bin/bash -xe\n', 'cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n', 'sed -i "s/\'database_name_here\'/\'',{ 'Ref': 'DBName' }, '\'/g\" wp-config.php\n', 'sed -i \"s/\'username_here\'/\'',{ 'Ref': 'DBUser' }, '\'/g\" wp-config.php\n', 'sed -i \"s/\'password_here\'/\'',{ 'Ref': 'DBPassword' }, '\'/g\" wp-config.php\n' ]]}
+createWPConfig.content = { 'Fn::Join': [ '', [ '#!/bin/bash -xe\n', 'cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n', 'sed -i "s/\'database_name_here\'/\'', { 'Ref': 'DBName' }, '\'/g" wp-config.php\n', 'sed -i "s/\'username_here\'/\'', { 'Ref': 'DBUser' }, '\'/g" wp-config.php\n', 'sed -i "s/\'password_here\'/\'', { 'Ref': 'DBPassword' }, '\'/g" wp-config.php\n' ] ] }
 createWPConfig.mode = '000500'
 createWPConfig.owner = 'root'
 createWPConfig.group = 'root'
 
 let setupMysql = new wk.Init.File('/tmp/setup.mysql')
-setupMysql.content = { 'Fn::Join': ['', [ 'CREATE DATABASE ', { 'Ref': 'DBName' }, ';\n',   'CREATE USER \'', { 'Ref': 'DBUser' }, '\'@\'localhost\' IDENTIFIED BY \'', { 'Ref': 'DBPassword' }, '\';\n',   'GRANT ALL ON ', { 'Ref': 'DBName' }, '.* TO \'', { 'Ref': 'DBUser' }, '\'@\'localhost\';\n', 'FLUSH PRIVILEGES;\n' ]]}
+setupMysql.content = { 'Fn::Join': ['', [ 'CREATE DATABASE ', { 'Ref': 'DBName' }, ';\n', 'CREATE USER \'', { 'Ref': 'DBUser' }, '\'@\'localhost\' IDENTIFIED BY \'', { 'Ref': 'DBPassword' }, '\';\n', 'GRANT ALL ON ', { 'Ref': 'DBName' }, '.* TO \'', { 'Ref': 'DBUser' }, '\'@\'localhost\';\n', 'FLUSH PRIVILEGES;\n' ]] }
 setupMysql.mode = '000400'
 setupMysql.owner = 'root'
 setupMysql.group = 'root'
@@ -686,22 +845,22 @@ let mysqld = new wk.Init.Service('mysqld')
 mysqld.enabled = 'true'
 mysqld.ensureRunning = 'true'
 
-let htmlSource = new wk.Init.Source('/var/www/html', "http://wordpress.org/latest.tar.gz")
+let htmlSource = new wk.Init.Source('/var/www/html', 'http://wordpress.org/latest.tar.gz')
 
-let install_wordpress = new wk.Init.Config('install_wordpress')
-install_wordpress.add(createWPConfig)
-install_wordpress.add(setupMysql)
-install_wordpress.add(wpPackages)
-install_wordpress.add(httpd)
-install_wordpress.add(mysqld)
-install_wordpress.add(htmlSource)
-webServer.addConfig(install_wordpress)
+let installWordpress = new wk.Init.Config('installWordpress')
+installWordpress.add(createWPConfig)
+installWordpress.add(setupMysql)
+installWordpress.add(wpPackages)
+installWordpress.add(httpd)
+installWordpress.add(mysqld)
+installWordpress.add(htmlSource)
+webServer.addConfig(installWordpress)
 
-let wordpress_install = new wk.Init.ConfigSet('wordpress_install')
-wordpress_install.add(install_cfn)
-wordpress_install.add(install_wordpress)
-wordpress_install.add(configure_wordpress)
-webServer.addConfigSet(wordpress_install)
+let wordpressInstall = new wk.Init.ConfigSet('wordpressInstall')
+wordpressInstall.add(installCfn)
+wordpressInstall.add(installWordpress)
+wordpressInstall.add(configureWordpress)
+webServer.addConfigSet(wordpressInstall)
 
 let cPolicy = new wk.Policy.CreationPolicy({
   'ResourceSignal': {

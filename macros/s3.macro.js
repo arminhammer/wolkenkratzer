@@ -8,11 +8,11 @@ const s3Resource = require('../resources/s3')
 const types = require('../types')
 const util = require('../util')
 
-function Bucket (name, region) {
+function Bucket (name, newName, region) {
   const s3Client = new aws.S3({ region: region })
   return new Promise((resolve, reject) => {
-    let bucket = new s3Resource.Bucket(util.safeRename(name))
-    bucket.BucketName = name
+    let bucket = new s3Resource.Bucket(util.safeRename(newName))
+    bucket.BucketName = newName
     return s3Client
     .getBucketVersioning({ Bucket: name }).promise()
     .then((versionData) => {

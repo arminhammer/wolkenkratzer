@@ -11,7 +11,7 @@ const s3 = new aws.S3({ region: region })
 s3.listBuckets().promise()
 .then((data) => {
   let bucketName = data.Buckets[0].Name
-  return wk.Macro.S3.Bucket(bucketName, region)
+  return wk.Macro.S3.Bucket('armingtest', 'mybucket', region)
 })
 .then((bucket) => {
   let t = new wk.Template()

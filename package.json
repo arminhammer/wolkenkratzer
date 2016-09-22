@@ -48,7 +48,7 @@
     "ecs"
   ],
   "author": "Armin Graf",
-  "license": "MIT",
+  "license": "Apache License 2.0",
   "bugs": {
     "url": "https://github.com/arminhammer/wolkenkratzer/issues"
   },
