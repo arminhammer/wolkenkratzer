@@ -451,11 +451,6 @@
         "PV64": "ami-1ad34676",
         "HVM64": "ami-6dd04501",
         "HVMG2": "NOT_SUPPORTED"
-      },
-      "cn-north-1": {
-        "PV64": "ami-77559f1a",
-        "HVM64": "ami-8e6aa0e3",
-        "HVMG2": "NOT_SUPPORTED"
       }
     }
 

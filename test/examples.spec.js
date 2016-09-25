@@ -50,7 +50,8 @@ describe('Examples', () => {
       })
   })
 
-  it ('Should correctly create the wordpress template', () => {
+  it ('Should correctly create the wordpress template NetworkTest', function () {
+    this.timeout(60000)
     let file = ''
     return fs
       .readJsonAsync(path.join(__dirname, 'templates', 'wordpressSingle.json'))

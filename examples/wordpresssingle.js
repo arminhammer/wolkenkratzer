@@ -20,7 +20,7 @@ let instanceTypeParam = new wk.Parameter('InstanceType', {
   'Description': 'WebServer EC2 instance type',
   'Type': 'String',
   'Default': 't2.small',
-  'AllowedValues': wk.Macro.EC2InstanceTypes.getInstanceTypeNameList(),
+  'AllowedValues': wk.Macro.EC2Meta.getInstanceTypeNameList(),
   'ConstraintDescription': 'must be a valid EC2 instance type.'
 })
 t.add(instanceTypeParam)
@@ -94,7 +94,7 @@ rule2.ToPort = 22
 rule2.CidrIp.ref(sshLocationParam)
 webServerSecurityGroup.SecurityGroupIngress.push(rule2)
 
-let AWSInstanceType2ArchMap = new wk.Mapping('AWSInstanceType2Arch', wk.Macro.EC2InstanceTypes.getInstanceTypeList().reduce((result, instanceType) => {
+let AWSInstanceType2ArchMap = new wk.Mapping('AWSInstanceType2Arch', wk.Macro.EC2Meta.getInstanceTypeList().reduce((result, instanceType) => {
   let ending = '64'
   if (instanceType.linux_virtualization_types[0] && instanceType.arch.includes('x86_64')) {
     if(instanceType.instance_type.includes('g2')) {
@@ -108,7 +108,7 @@ let AWSInstanceType2ArchMap = new wk.Mapping('AWSInstanceType2Arch', wk.Macro.EC
 }, {}))
 t.add(AWSInstanceType2ArchMap)
 
-let AWSInstanceType2NATArchMap = new wk.Mapping('AWSInstanceType2NATArch', wk.Macro.EC2InstanceTypes.getInstanceTypeList().reduce((result, instanceType) => {
+let AWSInstanceType2NATArchMap = new wk.Mapping('AWSInstanceType2NATArch', wk.Macro.EC2Meta.getInstanceTypeList().reduce((result, instanceType) => {
   let ending = '64'
   if (instanceType.linux_virtualization_types[0] && instanceType.arch.includes('x86_64')) {
     if(instanceType.instance_type.includes('g2')) {
@@ -122,7 +122,7 @@ let AWSInstanceType2NATArchMap = new wk.Mapping('AWSInstanceType2NATArch', wk.Ma
 }, {}))
 t.add(AWSInstanceType2NATArchMap)
 
-let AWSRegionArch2AMIMap = new wk.Mapping('AWSRegionArch2AMI', {
+/* let AWSRegionArch2AMIMap = new wk.Mapping('AWSRegionArch2AMI', {
   'us-east-1': {'PV64': 'ami-2a69aa47', 'HVM64': 'ami-6869aa05', 'HVMG2': 'ami-2e5e9c43'},
   'us-west-2': {'PV64': 'ami-7f77b31f', 'HVM64': 'ami-7172b611', 'HVMG2': 'ami-83b770e3'},
   'us-west-1': {'PV64': 'ami-a2490dc2', 'HVM64': 'ami-31490d51', 'HVMG2': 'ami-fd76329d'},
@@ -135,7 +135,7 @@ let AWSRegionArch2AMIMap = new wk.Mapping('AWSRegionArch2AMI', {
   'sa-east-1': {'PV64': 'ami-1ad34676', 'HVM64': 'ami-6dd04501', 'HVMG2': 'NOT_SUPPORTED'},
   'cn-north-1': {'PV64': 'ami-77559f1a', 'HVM64': 'ami-8e6aa0e3', 'HVMG2': 'NOT_SUPPORTED'}
 })
-t.add(AWSRegionArch2AMIMap)
+t.add(AWSRegionArch2AMIMap)*/
 
 let webServer = new wk.EC2.Instance('WebServer')
 webServer.ImageId.findInMap('AWSRegionArch2AMI', { 'Ref': 'AWS::Region' }, { 'Fn::FindInMap': [ 'AWSInstanceType2Arch', { 'Ref': 'InstanceType' }, 'Arch' ] })
@@ -260,6 +260,32 @@ let cPolicy = new wk.Policy.CreationPolicy({
   }
 })
 webServer.addPolicy(cPolicy)
-
 t.add(webSiteUrlOutput)
-console.log(t.toJson().Template)
+
+let filterParams = [
+  { Name: 'HVM64', Filters: [ { Name: 'name', Values: ['amzn-ami-hvm-2016.03.3.x86_64-gp2'] } ] },
+  { Name: 'PV64', Filters: [ { Name: 'name', Values: ['amzn-ami-pv-2016.03.3.x86_64-ebs'] } ] },
+  { Name: 'HVMG2', Filters: [ { Name: 'name', Values: ['amzn-ami-graphics-hvm-2016.03.3.x86_64*'] } ] }
+]
+
+let regions = wk.Macro.EC2Meta.getRegions().filter((region) => {
+  if (!region.includes('us-gov') && !region.includes('cn-north-1')) {
+    return region
+  }
+})
+//console.log(regions)
+
+wk.Macro.EC2Meta.getAMIMap(filterParams, regions)
+.then((amiMap) => {
+  t.add(new wk.Mapping('AWSRegionArch2AMI', amiMap))
+  let result = t.toJson()
+  if (result.Errors) {
+    // console.error(result.Errors)
+  }
+  console.log(result.Template)
+})
+.catch((e) => {
+  console.error(e)
+})
+
+// console.log(t.toJson().Template)

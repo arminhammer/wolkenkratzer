@@ -8,11 +8,11 @@
     "test": "test"
   },
   "dependencies": {
+    "bluebird": "^3.4.1",
     "aws-sdk": "^2.3.17",
     "js-yaml": "^3.6.1"
   },
   "devDependencies": {
-    "bluebird": "^3.4.1",
     "browserify": "^13.0.1",
     "chai": "^3.5.0",
     "eslint-config-standard": "^5.3.1",
