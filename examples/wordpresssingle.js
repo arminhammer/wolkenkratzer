@@ -122,21 +122,6 @@ let AWSInstanceType2NATArchMap = new wk.Mapping('AWSInstanceType2NATArch', wk.Ma
 }, {}))
 t.add(AWSInstanceType2NATArchMap)
 
-/* let AWSRegionArch2AMIMap = new wk.Mapping('AWSRegionArch2AMI', {
-  'us-east-1': {'PV64': 'ami-2a69aa47', 'HVM64': 'ami-6869aa05', 'HVMG2': 'ami-2e5e9c43'},
-  'us-west-2': {'PV64': 'ami-7f77b31f', 'HVM64': 'ami-7172b611', 'HVMG2': 'ami-83b770e3'},
-  'us-west-1': {'PV64': 'ami-a2490dc2', 'HVM64': 'ami-31490d51', 'HVMG2': 'ami-fd76329d'},
-  'eu-west-1': {'PV64': 'ami-4cdd453f', 'HVM64': 'ami-f9dd458a', 'HVMG2': 'ami-b9bd25ca'},
-  'eu-central-1': {'PV64': 'ami-6527cf0a', 'HVM64': 'ami-ea26ce85', 'HVMG2': 'ami-7f04ec10'},
-  'ap-northeast-1': {'PV64': 'ami-3e42b65f', 'HVM64': 'ami-374db956', 'HVMG2': 'ami-e0ee1981'},
-  'ap-northeast-2': {'PV64': 'NOT_SUPPORTED', 'HVM64': 'ami-2b408b45', 'HVMG2': 'NOT_SUPPORTED'},
-  'ap-southeast-1': {'PV64': 'ami-df9e4cbc', 'HVM64': 'ami-a59b49c6', 'HVMG2': 'ami-0cb5676f'},
-  'ap-southeast-2': {'PV64': 'ami-63351d00', 'HVM64': 'ami-dc361ebf', 'HVMG2': 'ami-a71c34c4'},
-  'sa-east-1': {'PV64': 'ami-1ad34676', 'HVM64': 'ami-6dd04501', 'HVMG2': 'NOT_SUPPORTED'},
-  'cn-north-1': {'PV64': 'ami-77559f1a', 'HVM64': 'ami-8e6aa0e3', 'HVMG2': 'NOT_SUPPORTED'}
-})
-t.add(AWSRegionArch2AMIMap)*/
-
 let webServer = new wk.EC2.Instance('WebServer')
 webServer.ImageId.findInMap('AWSRegionArch2AMI', { 'Ref': 'AWS::Region' }, { 'Fn::FindInMap': [ 'AWSInstanceType2Arch', { 'Ref': 'InstanceType' }, 'Arch' ] })
 t.add(webServer)
@@ -273,7 +258,6 @@ let regions = wk.Macro.EC2Meta.getRegions().filter((region) => {
     return region
   }
 })
-//console.log(regions)
 
 wk.Macro.EC2Meta.getAMIMap(filterParams, regions)
 .then((amiMap) => {
@@ -287,5 +271,3 @@ wk.Macro.EC2Meta.getAMIMap(filterParams, regions)
 .catch((e) => {
   console.error(e)
 })
-
-// console.log(t.toJson().Template)

@@ -196,7 +196,12 @@ Wolkenkratzer supports all CloudFormation resources. This is made possible by sc
 and generate the resource code files. The scrapers can be found in the /scripts folder.
 
 ### Macros
-Wolkenkratzer includes macros that take advantage of the aws-sdk npm library. The macros are intended to make certain common uses of CloudFormation easier. Currently the only macro is the S3 Bucket macro, which can be used like this:
+Wolkenkratzer includes macros that take advantage of the aws-sdk npm library. The macros are intended to make certain common uses of CloudFormation easier. 
+
+#### S3 Macros
+
+##### S3 Bucket Macro
+Currently the S3 Bucket is the only macro for Resources, which can be used like this:
 
 ```javascript
 'use strict'
@@ -304,6 +309,115 @@ Output:
 }
 ```
 
+#### EC2 Meta Macros
+
+The EC2 Meta macros take advantage of the scraped data from the excellent https://github.com/powdahound/ec2instances.info project. A cached version of https://github.com/powdahound/ec2instances.info/blob/master/www/instances.json is stored in scripts/ec2info.json.
+
+##### getInstanceTypeList
+Returns an array of instance types and details.
+
+```javascript
+const instanceList = wk.Macro.EC2Meta.getInstanceTypeList()
+```
+##### getInstanceTypeNameList
+Returns an array of just the names of instance types.
+```javascript
+const instanceTypes = wk.Macro.EC2Meta.getInstanceTypeNameList()
+```
+##### getInstanceTypeMap
+Same as getInstanceTypeList, but returns as an object instead of an array.
+```javascript
+const instanceTypeMap = wk.Macro.EC2Meta.getInstanceTypeMap()
+```
+##### getRegions
+Returns an array of all the names of regions available in AWS.
+```javascript
+let regions = wk.Macro.EC2Meta.getRegions().filter((region) => {
+  if (!region.includes('us-gov') && !region.includes('cn-north-1')) {
+    return region
+  }
+})
+console.log(regions)
+```
+##### getAMIMap
+Makes a series of aws-sdk EC2.describeImages calls in order to structure a map of AMIs based off of search criteria across one or more regions. Useful when trying to maintain complicated ```Mappings``` of AMIs across multiple regions. Returns a ```javascript Promise``` so make sure you handle the result with a then() call:
+```javascript
+let filterParams = [
+  { Name: 'HVM64', Filters: [ { Name: 'name', Values: ['amzn-ami-hvm-2016.03.3.x86_64-gp2'] } ] },
+  { Name: 'PV64', Filters: [ { Name: 'name', Values: ['amzn-ami-pv-2016.03.3.x86_64-ebs'] } ] },
+  { Name: 'HVMG2', Filters: [ { Name: 'name', Values: ['amzn-ami-graphics-hvm-2016.03.3.x86_64*'] } ] }
+]
+
+let regions = wk.Macro.EC2Meta.getRegions().filter((region) => {
+  if (!region.includes('us-gov') && !region.includes('cn-north-1')) {
+    return region
+  }
+})
+
+wk.Macro.EC2Meta.getAMIMap(filterParams, regions)
+.then((amiMap) => {
+  t.add(new wk.Mapping('AWSRegionArch2AMI', amiMap))
+})
+.catch((e) => {
+  console.error(e)
+})
+```
+
+Outputs:
+```json
+"AWSRegionArch2AMI": {
+      "us-east-1": {
+        "HVM64": "ami-6869aa05",
+        "PV64": "ami-2a69aa47",
+        "HVMG2": "ami-2e5e9c43"
+      },
+      "us-west-2": {
+        "HVM64": "ami-7172b611",
+        "PV64": "ami-7f77b31f",
+        "HVMG2": "ami-83b770e3"
+      },
+      "us-west-1": {
+        "HVM64": "ami-31490d51",
+        "PV64": "ami-a2490dc2",
+        "HVMG2": "ami-fd76329d"
+      },
+      "eu-west-1": {
+        "HVM64": "ami-f9dd458a",
+        "PV64": "ami-4cdd453f",
+        "HVMG2": "ami-b9bd25ca"
+      },
+      "eu-central-1": {
+        "HVM64": "ami-ea26ce85",
+        "PV64": "ami-6527cf0a",
+        "HVMG2": "ami-7f04ec10"
+      },
+      "ap-southeast-1": {
+        "HVM64": "ami-a59b49c6",
+        "PV64": "ami-df9e4cbc",
+        "HVMG2": "ami-0cb5676f"
+      },
+      "ap-northeast-1": {
+        "HVM64": "ami-374db956",
+        "PV64": "ami-3e42b65f",
+        "HVMG2": "ami-e0ee1981"
+      },
+      "ap-northeast-2": {
+        "HVM64": "ami-2b408b45",
+        "PV64": "NOT_SUPPORTED",
+        "HVMG2": "NOT_SUPPORTED"
+      },
+      "ap-southeast-2": {
+        "HVM64": "ami-dc361ebf",
+        "PV64": "ami-63351d00",
+        "HVMG2": "ami-a71c34c4"
+      },
+      "sa-east-1": {
+        "HVM64": "ami-6dd04501",
+        "PV64": "ami-1ad34676",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+```
 Macros for other resources, as well as Mappings and other parameter blocks are planned for the future.
 
 ### Intrinsic Functions
@@ -542,7 +656,7 @@ let instanceTypeParam = new wk.Parameter('InstanceType', {
   'Description': 'WebServer EC2 instance type',
   'Type': 'String',
   'Default': 't2.small',
-  'AllowedValues': [ 't1.micro', 't2.nano', 't2.micro', 't2.small', 't2.medium', 't2.large', 'm1.small', 'm1.medium', 'm1.large', 'm1.xlarge', 'm2.xlarge', 'm2.2xlarge', 'm2.4xlarge', 'm3.medium', 'm3.large', 'm3.xlarge', 'm3.2xlarge', 'm4.large', 'm4.xlarge', 'm4.2xlarge', 'm4.4xlarge', 'm4.10xlarge', 'c1.medium', 'c1.xlarge', 'c3.large', 'c3.xlarge', 'c3.2xlarge', 'c3.4xlarge', 'c3.8xlarge', 'c4.large', 'c4.xlarge', 'c4.2xlarge', 'c4.4xlarge', 'c4.8xlarge', 'g2.2xlarge', 'g2.8xlarge', 'r3.large', 'r3.xlarge', 'r3.2xlarge', 'r3.4xlarge', 'r3.8xlarge', 'i2.xlarge', 'i2.2xlarge', 'i2.4xlarge', 'i2.8xlarge', 'd2.xlarge', 'd2.2xlarge', 'd2.4xlarge', 'd2.8xlarge', 'hi1.4xlarge', 'hs1.8xlarge', 'cr1.8xlarge', 'cc2.8xlarge', 'cg1.4xlarge' ],
+  'AllowedValues': wk.Macro.EC2Meta.getInstanceTypeNameList(),
   'ConstraintDescription': 'must be a valid EC2 instance type.'
 })
 t.add(instanceTypeParam)
@@ -616,134 +730,33 @@ rule2.ToPort = 22
 rule2.CidrIp.ref(sshLocationParam)
 webServerSecurityGroup.SecurityGroupIngress.push(rule2)
 
-let AWSInstanceType2ArchMap = new wk.Mapping('AWSInstanceType2Arch', {
-  't1.micro': { 'Arch': 'PV64' },
-  't2.nano': { 'Arch': 'HVM64' },
-  't2.micro': { 'Arch': 'HVM64' },
-  't2.small': { 'Arch': 'HVM64' },
-  't2.medium': { 'Arch': 'HVM64' },
-  't2.large': { 'Arch': 'HVM64' },
-  'm1.small': { 'Arch': 'PV64' },
-  'm1.medium': { 'Arch': 'PV64' },
-  'm1.large': { 'Arch': 'PV64' },
-  'm1.xlarge': { 'Arch': 'PV64' },
-  'm2.xlarge': { 'Arch': 'PV64' },
-  'm2.2xlarge': { 'Arch': 'PV64' },
-  'm2.4xlarge': { 'Arch': 'PV64' },
-  'm3.medium': { 'Arch': 'HVM64' },
-  'm3.large': { 'Arch': 'HVM64' },
-  'm3.xlarge': { 'Arch': 'HVM64' },
-  'm3.2xlarge': { 'Arch': 'HVM64' },
-  'm4.large': { 'Arch': 'HVM64' },
-  'm4.xlarge': { 'Arch': 'HVM64' },
-  'm4.2xlarge': { 'Arch': 'HVM64' },
-  'm4.4xlarge': { 'Arch': 'HVM64' },
-  'm4.10xlarge': { 'Arch': 'HVM64' },
-  'c1.medium': { 'Arch': 'PV64' },
-  'c1.xlarge': { 'Arch': 'PV64' },
-  'c3.large': { 'Arch': 'HVM64' },
-  'c3.xlarge': { 'Arch': 'HVM64' },
-  'c3.2xlarge': { 'Arch': 'HVM64' },
-  'c3.4xlarge': { 'Arch': 'HVM64' },
-  'c3.8xlarge': { 'Arch': 'HVM64' },
-  'c4.large': { 'Arch': 'HVM64' },
-  'c4.xlarge': { 'Arch': 'HVM64' },
-  'c4.2xlarge': { 'Arch': 'HVM64' },
-  'c4.4xlarge': { 'Arch': 'HVM64' },
-  'c4.8xlarge': { 'Arch': 'HVM64' },
-  'g2.2xlarge': { 'Arch': 'HVMG2' },
-  'g2.8xlarge': { 'Arch': 'HVMG2' },
-  'r3.large': { 'Arch': 'HVM64' },
-  'r3.xlarge': { 'Arch': 'HVM64' },
-  'r3.2xlarge': { 'Arch': 'HVM64' },
-  'r3.4xlarge': { 'Arch': 'HVM64' },
-  'r3.8xlarge': { 'Arch': 'HVM64' },
-  'i2.xlarge': { 'Arch': 'HVM64' },
-  'i2.2xlarge': { 'Arch': 'HVM64' },
-  'i2.4xlarge': { 'Arch': 'HVM64' },
-  'i2.8xlarge': { 'Arch': 'HVM64' },
-  'd2.xlarge': { 'Arch': 'HVM64' },
-  'd2.2xlarge': { 'Arch': 'HVM64' },
-  'd2.4xlarge': { 'Arch': 'HVM64' },
-  'd2.8xlarge': { 'Arch': 'HVM64' },
-  'hi1.4xlarge': { 'Arch': 'HVM64' },
-  'hs1.8xlarge': { 'Arch': 'HVM64' },
-  'cr1.8xlarge': { 'Arch': 'HVM64' },
-  'cc2.8xlarge': { 'Arch': 'HVM64' }
-})
+let AWSInstanceType2ArchMap = new wk.Mapping('AWSInstanceType2Arch', wk.Macro.EC2Meta.getInstanceTypeList().reduce((result, instanceType) => {
+  let ending = '64'
+  if (instanceType.linux_virtualization_types[0] && instanceType.arch.includes('x86_64')) {
+    if(instanceType.instance_type.includes('g2')) {
+      ending = 'G2'
+    }
+    result[instanceType.instance_type] = {
+      Arch: instanceType.linux_virtualization_types[0] + ending
+    }
+  }
+  return result
+}, {}))
 t.add(AWSInstanceType2ArchMap)
 
-let AWSInstanceType2NATArchMap = new wk.Mapping('AWSInstanceType2NATArch', {
-  't1.micro': { 'Arch': 'NATPV64' },
-  't2.nano': { 'Arch': 'NATHVM64' },
-  't2.micro': { 'Arch': 'NATHVM64' },
-  't2.small': { 'Arch': 'NATHVM64' },
-  't2.medium': { 'Arch': 'NATHVM64' },
-  't2.large': { 'Arch': 'NATHVM64' },
-  'm1.small': { 'Arch': 'NATPV64' },
-  'm1.medium': { 'Arch': 'NATPV64' },
-  'm1.large': { 'Arch': 'NATPV64' },
-  'm1.xlarge': { 'Arch': 'NATPV64' },
-  'm2.xlarge': { 'Arch': 'NATPV64' },
-  'm2.2xlarge': { 'Arch': 'NATPV64' },
-  'm2.4xlarge': { 'Arch': 'NATPV64' },
-  'm3.medium': { 'Arch': 'NATHVM64' },
-  'm3.large': { 'Arch': 'NATHVM64' },
-  'm3.xlarge': { 'Arch': 'NATHVM64' },
-  'm3.2xlarge': { 'Arch': 'NATHVM64' },
-  'm4.large': { 'Arch': 'NATHVM64' },
-  'm4.xlarge': { 'Arch': 'NATHVM64' },
-  'm4.2xlarge': { 'Arch': 'NATHVM64' },
-  'm4.4xlarge': { 'Arch': 'NATHVM64' },
-  'm4.10xlarge': { 'Arch': 'NATHVM64' },
-  'c1.medium': { 'Arch': 'NATPV64' },
-  'c1.xlarge': { 'Arch': 'NATPV64' },
-  'c3.large': { 'Arch': 'NATHVM64' },
-  'c3.xlarge': { 'Arch': 'NATHVM64' },
-  'c3.2xlarge': { 'Arch': 'NATHVM64' },
-  'c3.4xlarge': { 'Arch': 'NATHVM64' },
-  'c3.8xlarge': { 'Arch': 'NATHVM64' },
-  'c4.large': { 'Arch': 'NATHVM64' },
-  'c4.xlarge': { 'Arch': 'NATHVM64' },
-  'c4.2xlarge': { 'Arch': 'NATHVM64' },
-  'c4.4xlarge': { 'Arch': 'NATHVM64' },
-  'c4.8xlarge': { 'Arch': 'NATHVM64' },
-  'g2.2xlarge': { 'Arch': 'NATHVMG2' },
-  'g2.8xlarge': { 'Arch': 'NATHVMG2' },
-  'r3.large': { 'Arch': 'NATHVM64' },
-  'r3.xlarge': { 'Arch': 'NATHVM64' },
-  'r3.2xlarge': { 'Arch': 'NATHVM64' },
-  'r3.4xlarge': { 'Arch': 'NATHVM64' },
-  'r3.8xlarge': { 'Arch': 'NATHVM64' },
-  'i2.xlarge': { 'Arch': 'NATHVM64' },
-  'i2.2xlarge': { 'Arch': 'NATHVM64' },
-  'i2.4xlarge': { 'Arch': 'NATHVM64' },
-  'i2.8xlarge': { 'Arch': 'NATHVM64' },
-  'd2.xlarge': { 'Arch': 'NATHVM64' },
-  'd2.2xlarge': { 'Arch': 'NATHVM64' },
-  'd2.4xlarge': { 'Arch': 'NATHVM64' },
-  'd2.8xlarge': { 'Arch': 'NATHVM64' },
-  'hi1.4xlarge': { 'Arch': 'NATHVM64' },
-  'hs1.8xlarge': { 'Arch': 'NATHVM64' },
-  'cr1.8xlarge': { 'Arch': 'NATHVM64' },
-  'cc2.8xlarge': { 'Arch': 'NATHVM64' }
-})
+let AWSInstanceType2NATArchMap = new wk.Mapping('AWSInstanceType2NATArch', wk.Macro.EC2Meta.getInstanceTypeList().reduce((result, instanceType) => {
+  let ending = '64'
+  if (instanceType.linux_virtualization_types[0] && instanceType.arch.includes('x86_64')) {
+    if(instanceType.instance_type.includes('g2')) {
+      ending = 'G2'
+    }
+    result[instanceType.instance_type] = {
+      Arch: 'NAT' + instanceType.linux_virtualization_types[0] + ending
+    }
+  }
+  return result
+}, {}))
 t.add(AWSInstanceType2NATArchMap)
-
-let AWSRegionArch2AMIMap = new wk.Mapping('AWSRegionArch2AMI', {
-  'us-east-1': {'PV64': 'ami-2a69aa47', 'HVM64': 'ami-6869aa05', 'HVMG2': 'ami-2e5e9c43'},
-  'us-west-2': {'PV64': 'ami-7f77b31f', 'HVM64': 'ami-7172b611', 'HVMG2': 'ami-83b770e3'},
-  'us-west-1': {'PV64': 'ami-a2490dc2', 'HVM64': 'ami-31490d51', 'HVMG2': 'ami-fd76329d'},
-  'eu-west-1': {'PV64': 'ami-4cdd453f', 'HVM64': 'ami-f9dd458a', 'HVMG2': 'ami-b9bd25ca'},
-  'eu-central-1': {'PV64': 'ami-6527cf0a', 'HVM64': 'ami-ea26ce85', 'HVMG2': 'ami-7f04ec10'},
-  'ap-northeast-1': {'PV64': 'ami-3e42b65f', 'HVM64': 'ami-374db956', 'HVMG2': 'ami-e0ee1981'},
-  'ap-northeast-2': {'PV64': 'NOT_SUPPORTED', 'HVM64': 'ami-2b408b45', 'HVMG2': 'NOT_SUPPORTED'},
-  'ap-southeast-1': {'PV64': 'ami-df9e4cbc', 'HVM64': 'ami-a59b49c6', 'HVMG2': 'ami-0cb5676f'},
-  'ap-southeast-2': {'PV64': 'ami-63351d00', 'HVM64': 'ami-dc361ebf', 'HVMG2': 'ami-a71c34c4'},
-  'sa-east-1': {'PV64': 'ami-1ad34676', 'HVM64': 'ami-6dd04501', 'HVMG2': 'NOT_SUPPORTED'},
-  'cn-north-1': {'PV64': 'ami-77559f1a', 'HVM64': 'ami-8e6aa0e3', 'HVMG2': 'NOT_SUPPORTED'}
-})
-t.add(AWSRegionArch2AMIMap)
 
 let webServer = new wk.EC2.Instance('WebServer')
 webServer.ImageId.findInMap('AWSRegionArch2AMI', { 'Ref': 'AWS::Region' }, { 'Fn::FindInMap': [ 'AWSInstanceType2Arch', { 'Ref': 'InstanceType' }, 'Arch' ] })
@@ -868,9 +881,32 @@ let cPolicy = new wk.Policy.CreationPolicy({
   }
 })
 webServer.addPolicy(cPolicy)
-
 t.add(webSiteUrlOutput)
-console.log(t.toJson().Template)
+
+let filterParams = [
+  { Name: 'HVM64', Filters: [ { Name: 'name', Values: ['amzn-ami-hvm-2016.03.3.x86_64-gp2'] } ] },
+  { Name: 'PV64', Filters: [ { Name: 'name', Values: ['amzn-ami-pv-2016.03.3.x86_64-ebs'] } ] },
+  { Name: 'HVMG2', Filters: [ { Name: 'name', Values: ['amzn-ami-graphics-hvm-2016.03.3.x86_64*'] } ] }
+]
+
+let regions = wk.Macro.EC2Meta.getRegions().filter((region) => {
+  if (!region.includes('us-gov') && !region.includes('cn-north-1')) {
+    return region
+  }
+})
+
+wk.Macro.EC2Meta.getAMIMap(filterParams, regions)
+.then((amiMap) => {
+  t.add(new wk.Mapping('AWSRegionArch2AMI', amiMap))
+  let result = t.toJson()
+  if (result.Errors) {
+    // console.error(result.Errors)
+  }
+  console.log(result.Template)
+})
+.catch((e) => {
+  console.error(e)
+})
 ```
 
 ## Contributing

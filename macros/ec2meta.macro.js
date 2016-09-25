@@ -6,10 +6,22 @@
 const instanceTypes = require('../scripts/ec2info.json')
 const Promise = require('bluebird')
 
+/** @module Macro */
+
+/**
+ * Returns an array of all instance types and details.
+ * @memberof module:Macro
+ * @returns {Array}
+ */
 function getInstanceTypeList () {
   return instanceTypes
 }
 
+/**
+ * Returns an array of just the instance type names available in AWS.
+ * @memberof module:Macro
+ * @returns {Array}
+ */
 function getInstanceTypeNameList () {
   let results = []
   instanceTypes.forEach((instanceType) => {
@@ -18,6 +30,11 @@ function getInstanceTypeNameList () {
   return results
 }
 
+/**
+ * Returns a map of all instance types and details.
+ * @memberof module:Macro
+ * @returns {{}}
+ */
 function getInstanceTypeMap () {
   let results = {}
   instanceTypes.forEach((instanceType) => {
@@ -26,10 +43,22 @@ function getInstanceTypeMap () {
   return results
 }
 
+/**
+ * Returns an array of the names of all regions in AWS.
+ * @memberof module:Macro
+ * @returns {string[]}
+ */
 function getRegions () {
   return [ 'us-east-1', 'us-west-2', 'us-west-1', 'eu-west-1', 'eu-central-1', 'ap-southeast-1', 'ap-northeast-1', 'ap-northeast-2', 'ap-southeast-2', 'sa-east-1', 'cn-north-1', 'us-gov-west-1' ]
 }
 
+/**
+ * Returns an AMI Map that can be added to a Mapping.
+ * @memberof module:Macro
+ * @param filters
+ * @param regions
+ * @returns {Promise.<TResult>}
+ */
 function getAMIMap (filters, regions) {
   const aws = require('aws-sdk')
   return Promise.map(regions, (region) => {

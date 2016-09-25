@@ -8,6 +8,16 @@ const s3Resource = require('../resources/s3')
 const types = require('../types')
 const util = require('../util')
 
+/** @module Macro */
+
+/**
+ * @memberof module:Macro
+ * @param name
+ * @param newName
+ * @param region
+ * @returns {Promise}
+ * @constructor
+ */
 function Bucket (name, newName, region) {
   const s3Client = new aws.S3({ region: region })
   return new Promise((resolve, reject) => {
