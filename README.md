@@ -6,6 +6,7 @@ Table of Contents
 =================
 
   * [wolkenkratzer](#wolkenkratzer)
+  * [Table of Contents](#table-of-contents)
     * [Installation](#installation)
     * [Usage](#usage)
       * [General](#general)
@@ -13,6 +14,14 @@ Table of Contents
         * [constructor (name, properties)](#constructor-name-properties)
         * [Resource support](#resource-support)
       * [Macros](#macros)
+        * [S3 Macros](#s3-macros)
+          * [S3 Bucket Macro](#s3-bucket-macro)
+        * [EC2 Meta Macros](#ec2-meta-macros)
+          * [getInstanceTypeList](#getinstancetypelist)
+          * [getInstanceTypeNameList](#getinstancetypenamelist)
+          * [getInstanceTypeMap](#getinstancetypemap)
+          * [getRegions](#getregions)
+          * [getAMIMap](#getamimap)
       * [Intrinsic Functions](#intrinsic-functions)
       * [Parameters](#parameters)
         * [constructor](#constructor)
