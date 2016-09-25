@@ -226,10 +226,13 @@
       "hs1.8xlarge": {
         "Arch": "HVM64"
       },
-      "cr1.8xlarge": {
+      "cc2.8xlarge": {
         "Arch": "HVM64"
       },
-      "cc2.8xlarge": {
+      "x1.32xlarge": {
+        "Arch": "HVM64"
+      },
+      "cg1.4xlarge": {
         "Arch": "HVM64"
       }
     },
@@ -388,10 +391,13 @@
       "hs1.8xlarge": {
         "Arch": "NATHVM64"
       },
-      "cr1.8xlarge": {
+      "cc2.8xlarge": {
         "Arch": "NATHVM64"
       },
-      "cc2.8xlarge": {
+      "x1.32xlarge": {
+        "Arch": "NATHVM64"
+      },
+      "cg1.4xlarge": {
         "Arch": "NATHVM64"
       }
     },

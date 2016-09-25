@@ -20,7 +20,7 @@ let instanceTypeParam = new wk.Parameter('InstanceType', {
   'Description': 'WebServer EC2 instance type',
   'Type': 'String',
   'Default': 't2.small',
-  'AllowedValues': wk.Macro.EC2InstanceTypes.getInstanceTypeList(),
+  'AllowedValues': wk.Macro.EC2InstanceTypes.getInstanceTypeNameList(),
   'ConstraintDescription': 'must be a valid EC2 instance type.'
 })
 t.add(instanceTypeParam)
@@ -94,118 +94,32 @@ rule2.ToPort = 22
 rule2.CidrIp.ref(sshLocationParam)
 webServerSecurityGroup.SecurityGroupIngress.push(rule2)
 
-let AWSInstanceType2ArchMap = new wk.Mapping('AWSInstanceType2Arch', {
-  't1.micro': { 'Arch': 'PV64' },
-  't2.nano': { 'Arch': 'HVM64' },
-  't2.micro': { 'Arch': 'HVM64' },
-  't2.small': { 'Arch': 'HVM64' },
-  't2.medium': { 'Arch': 'HVM64' },
-  't2.large': { 'Arch': 'HVM64' },
-  'm1.small': { 'Arch': 'PV64' },
-  'm1.medium': { 'Arch': 'PV64' },
-  'm1.large': { 'Arch': 'PV64' },
-  'm1.xlarge': { 'Arch': 'PV64' },
-  'm2.xlarge': { 'Arch': 'PV64' },
-  'm2.2xlarge': { 'Arch': 'PV64' },
-  'm2.4xlarge': { 'Arch': 'PV64' },
-  'm3.medium': { 'Arch': 'HVM64' },
-  'm3.large': { 'Arch': 'HVM64' },
-  'm3.xlarge': { 'Arch': 'HVM64' },
-  'm3.2xlarge': { 'Arch': 'HVM64' },
-  'm4.large': { 'Arch': 'HVM64' },
-  'm4.xlarge': { 'Arch': 'HVM64' },
-  'm4.2xlarge': { 'Arch': 'HVM64' },
-  'm4.4xlarge': { 'Arch': 'HVM64' },
-  'm4.10xlarge': { 'Arch': 'HVM64' },
-  'c1.medium': { 'Arch': 'PV64' },
-  'c1.xlarge': { 'Arch': 'PV64' },
-  'c3.large': { 'Arch': 'HVM64' },
-  'c3.xlarge': { 'Arch': 'HVM64' },
-  'c3.2xlarge': { 'Arch': 'HVM64' },
-  'c3.4xlarge': { 'Arch': 'HVM64' },
-  'c3.8xlarge': { 'Arch': 'HVM64' },
-  'c4.large': { 'Arch': 'HVM64' },
-  'c4.xlarge': { 'Arch': 'HVM64' },
-  'c4.2xlarge': { 'Arch': 'HVM64' },
-  'c4.4xlarge': { 'Arch': 'HVM64' },
-  'c4.8xlarge': { 'Arch': 'HVM64' },
-  'g2.2xlarge': { 'Arch': 'HVMG2' },
-  'g2.8xlarge': { 'Arch': 'HVMG2' },
-  'r3.large': { 'Arch': 'HVM64' },
-  'r3.xlarge': { 'Arch': 'HVM64' },
-  'r3.2xlarge': { 'Arch': 'HVM64' },
-  'r3.4xlarge': { 'Arch': 'HVM64' },
-  'r3.8xlarge': { 'Arch': 'HVM64' },
-  'i2.xlarge': { 'Arch': 'HVM64' },
-  'i2.2xlarge': { 'Arch': 'HVM64' },
-  'i2.4xlarge': { 'Arch': 'HVM64' },
-  'i2.8xlarge': { 'Arch': 'HVM64' },
-  'd2.xlarge': { 'Arch': 'HVM64' },
-  'd2.2xlarge': { 'Arch': 'HVM64' },
-  'd2.4xlarge': { 'Arch': 'HVM64' },
-  'd2.8xlarge': { 'Arch': 'HVM64' },
-  'hi1.4xlarge': { 'Arch': 'HVM64' },
-  'hs1.8xlarge': { 'Arch': 'HVM64' },
-  'cr1.8xlarge': { 'Arch': 'HVM64' },
-  'cc2.8xlarge': { 'Arch': 'HVM64' }
-})
+let AWSInstanceType2ArchMap = new wk.Mapping('AWSInstanceType2Arch', wk.Macro.EC2InstanceTypes.getInstanceTypeList().reduce((result, instanceType) => {
+  let ending = '64'
+  if (instanceType.linux_virtualization_types[0] && instanceType.arch.includes('x86_64')) {
+    if(instanceType.instance_type.includes('g2')) {
+      ending = 'G2'
+    }
+    result[instanceType.instance_type] = {
+      Arch: instanceType.linux_virtualization_types[0] + ending
+    }
+  }
+  return result
+}, {}))
 t.add(AWSInstanceType2ArchMap)
 
-let AWSInstanceType2NATArchMap = new wk.Mapping('AWSInstanceType2NATArch', {
-  't1.micro': { 'Arch': 'NATPV64' },
-  't2.nano': { 'Arch': 'NATHVM64' },
-  't2.micro': { 'Arch': 'NATHVM64' },
-  't2.small': { 'Arch': 'NATHVM64' },
-  't2.medium': { 'Arch': 'NATHVM64' },
-  't2.large': { 'Arch': 'NATHVM64' },
-  'm1.small': { 'Arch': 'NATPV64' },
-  'm1.medium': { 'Arch': 'NATPV64' },
-  'm1.large': { 'Arch': 'NATPV64' },
-  'm1.xlarge': { 'Arch': 'NATPV64' },
-  'm2.xlarge': { 'Arch': 'NATPV64' },
-  'm2.2xlarge': { 'Arch': 'NATPV64' },
-  'm2.4xlarge': { 'Arch': 'NATPV64' },
-  'm3.medium': { 'Arch': 'NATHVM64' },
-  'm3.large': { 'Arch': 'NATHVM64' },
-  'm3.xlarge': { 'Arch': 'NATHVM64' },
-  'm3.2xlarge': { 'Arch': 'NATHVM64' },
-  'm4.large': { 'Arch': 'NATHVM64' },
-  'm4.xlarge': { 'Arch': 'NATHVM64' },
-  'm4.2xlarge': { 'Arch': 'NATHVM64' },
-  'm4.4xlarge': { 'Arch': 'NATHVM64' },
-  'm4.10xlarge': { 'Arch': 'NATHVM64' },
-  'c1.medium': { 'Arch': 'NATPV64' },
-  'c1.xlarge': { 'Arch': 'NATPV64' },
-  'c3.large': { 'Arch': 'NATHVM64' },
-  'c3.xlarge': { 'Arch': 'NATHVM64' },
-  'c3.2xlarge': { 'Arch': 'NATHVM64' },
-  'c3.4xlarge': { 'Arch': 'NATHVM64' },
-  'c3.8xlarge': { 'Arch': 'NATHVM64' },
-  'c4.large': { 'Arch': 'NATHVM64' },
-  'c4.xlarge': { 'Arch': 'NATHVM64' },
-  'c4.2xlarge': { 'Arch': 'NATHVM64' },
-  'c4.4xlarge': { 'Arch': 'NATHVM64' },
-  'c4.8xlarge': { 'Arch': 'NATHVM64' },
-  'g2.2xlarge': { 'Arch': 'NATHVMG2' },
-  'g2.8xlarge': { 'Arch': 'NATHVMG2' },
-  'r3.large': { 'Arch': 'NATHVM64' },
-  'r3.xlarge': { 'Arch': 'NATHVM64' },
-  'r3.2xlarge': { 'Arch': 'NATHVM64' },
-  'r3.4xlarge': { 'Arch': 'NATHVM64' },
-  'r3.8xlarge': { 'Arch': 'NATHVM64' },
-  'i2.xlarge': { 'Arch': 'NATHVM64' },
-  'i2.2xlarge': { 'Arch': 'NATHVM64' },
-  'i2.4xlarge': { 'Arch': 'NATHVM64' },
-  'i2.8xlarge': { 'Arch': 'NATHVM64' },
-  'd2.xlarge': { 'Arch': 'NATHVM64' },
-  'd2.2xlarge': { 'Arch': 'NATHVM64' },
-  'd2.4xlarge': { 'Arch': 'NATHVM64' },
-  'd2.8xlarge': { 'Arch': 'NATHVM64' },
-  'hi1.4xlarge': { 'Arch': 'NATHVM64' },
-  'hs1.8xlarge': { 'Arch': 'NATHVM64' },
-  'cr1.8xlarge': { 'Arch': 'NATHVM64' },
-  'cc2.8xlarge': { 'Arch': 'NATHVM64' }
-})
+let AWSInstanceType2NATArchMap = new wk.Mapping('AWSInstanceType2NATArch', wk.Macro.EC2InstanceTypes.getInstanceTypeList().reduce((result, instanceType) => {
+  let ending = '64'
+  if (instanceType.linux_virtualization_types[0] && instanceType.arch.includes('x86_64')) {
+    if(instanceType.instance_type.includes('g2')) {
+      ending = 'G2'
+    }
+    result[instanceType.instance_type] = {
+      Arch: 'NAT' + instanceType.linux_virtualization_types[0] + ending
+    }
+  }
+  return result
+}, {}))
 t.add(AWSInstanceType2NATArchMap)
 
 let AWSRegionArch2AMIMap = new wk.Mapping('AWSRegionArch2AMI', {

@@ -5,28 +5,28 @@
 
 const instanceTypes = require('../scripts/ec2info.json')
 
-function getInstanceTypeList (filters) {
+function getInstanceTypeList () {
+  return instanceTypes
+}
+
+function getInstanceTypeNameList () {
   let results = []
   instanceTypes.forEach((instanceType) => {
-    let valid = true
-    if (filters) {
-      valid = false
-      if (filters.instanceTypes) {
-        filters.instanceTypes.some((filter) => {
-          if (instanceType.instance_type.includes(filter)) {
-            valid = true
-            return true
-          }
-        })
-      }
-    }
-    if (valid) {
-      results.push(instanceType.instance_type)
-    }
+    results.push(instanceType.instance_type)
+  })
+  return results
+}
+
+function getInstanceTypeMap () {
+  let results = {}
+  instanceTypes.forEach((instanceType) => {
+    results[instanceType.instance_type] = instanceType
   })
   return results
 }
 
 module.exports = {
-  getInstanceTypeList: getInstanceTypeList
+  getInstanceTypeList: getInstanceTypeList,
+  getInstanceTypeNameList: getInstanceTypeNameList,
+  getInstanceTypeMap: getInstanceTypeMap
 }
