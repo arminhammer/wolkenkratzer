@@ -3,6 +3,7 @@
  */
 'use strict'
 
+const EC2InstanceTypes = require('./macros/ec2instancetypes.macro')
 const S3 = require('./macros/s3.macro')
 
 // const Intrinsic = require('./intrinsic')
@@ -22,5 +23,6 @@ const S3 = require('./macros/s3.macro')
  */
 
 module.exports = {
+  EC2InstanceTypes: EC2InstanceTypes,
   S3: S3
 }
