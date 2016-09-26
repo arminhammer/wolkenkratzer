@@ -9,7 +9,7 @@
 const https = require('https')
 const fs = require('fs')
 
-const file = fs.createWriteStream(__dirname + '/ec2info.json')
+const file = fs.createWriteStream(__dirname + '/../metadata/ec2info.json')
 https.get('https://raw.githubusercontent.com/powdahound/ec2instances.info/master/www/instances.json', (response) => {
   response.pipe(file)
 })

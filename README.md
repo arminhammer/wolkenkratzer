@@ -320,7 +320,7 @@ Output:
 
 #### EC2 Meta Macros
 
-The EC2 Meta macros take advantage of the scraped data from the excellent https://github.com/powdahound/ec2instances.info project. A cached version of https://github.com/powdahound/ec2instances.info/blob/master/www/instances.json is stored in scripts/ec2info.json.
+The EC2 Meta macros take advantage of the scraped data from the excellent https://github.com/powdahound/ec2instances.info project. A cached version of https://github.com/powdahound/ec2instances.info/blob/master/www/instances.json is stored in metadata/ec2info.json.
 
 ##### getInstanceTypeList
 Returns an array of instance types and details.

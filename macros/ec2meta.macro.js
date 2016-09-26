@@ -3,7 +3,7 @@
  */
 'use strict'
 
-const instanceTypes = require('../scripts/ec2info.json')
+const instanceTypes = require('../metadata/ec2info.json')
 const Promise = require('bluebird')
 
 /** @module Macro */
