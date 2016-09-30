@@ -519,7 +519,7 @@ let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
   }
 )
 
-t.addMapping(region2S3WebsiteSuffixMap)
+t.add(region2S3WebsiteSuffixMap)
 ```
 
 ### Output
