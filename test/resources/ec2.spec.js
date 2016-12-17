@@ -142,7 +142,7 @@ describe('EC2', () => {
     t.add(vpc)
 
     it('should be able to add an instance to the template', () => {
-      v.Resources['myvpc'].WKResourceType.should.equal('AWS::EC2::VPC')
+      t.Resources['myvpc'].WKResourceType.should.equal('AWS::EC2::VPC')
     })
 
     it('should generate the expected JSON template', () => {

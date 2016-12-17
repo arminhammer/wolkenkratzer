@@ -132,7 +132,7 @@ describe('Examples', () => {
       let jsonString = JSON.parse(result)
       jsonString.should.deep.equal(file)
     })
-  })*/
+  }) */
 
   /* it('Should execute and analyze the wordpresssingle template', () => {
     let file = ''
@@ -164,5 +164,5 @@ describe('Examples', () => {
       let jsonString = JSON.parse(result)
       jsonString.should.deep.equal(file)
     })
-  })*/
+  }) */
 })

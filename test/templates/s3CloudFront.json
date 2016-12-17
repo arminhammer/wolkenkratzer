@@ -57,8 +57,8 @@
           "Origins" : [
             { "CustomOriginConfig" :
             {
-              "HTTPPort" : "80",
-              "HTTPSPort" : "443",
+              "HTTPPort" : 80,
+              "HTTPSPort" : 443,
               "OriginProtocolPolicy" : "http-only"
             },
               "DomainName" : { "Fn::Join" : ["", [{"Ref" : "S3BucketForWebsiteContent"},
