@@ -63,7 +63,6 @@ function _populateFromExisting(newTemplate, existingTemplate) {
   for (let resource in existingTemplate.Resources) {
     let typeSplit = existingTemplate.Resources[resource].Type.split('::')
     let resourceGroupName = typeSplit[1]
-    let resourceGroup = null
     let resourceName = typeSplit[2]
     if (typeSplit[0] === 'Custom') {
       resourceName = 'CustomResource'
