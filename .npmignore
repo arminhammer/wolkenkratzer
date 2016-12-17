@@ -9,3 +9,16 @@ scripts/
 tempExa/
 LICENSE
 README.md
+ec2info/in/
+ec2info/www/bootstrap/
+ec2info/www/datatables/
+ec2info/www/rds/
+ec2info/www/store/
+ec2info/README.md
+ec2info/LICENSE
+ec2info/requirements.txt
+stubs/html/
+stubs/node_modules/
+stubs/index.js
+stubs/LICENSE
+stubs/README.md
