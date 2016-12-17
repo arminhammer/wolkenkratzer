@@ -33,7 +33,7 @@
     "coverage": "istanbul cover --print detail ./node_modules/.bin/_mocha test/**/*.spec.js examples/*.js",
     "builddocs": "./node_modules/.bin/jsdoc -c jsdoc.conf.json -R ./README.md",
     "publishdocs": "git push origin `git subtree split --prefix docs/ master`:gh-pages --force",
-    "linecount": "git ls-files | xargs wc -l"
+    "linecount": "cloc --vcs=git ."
   },
   "repository": {
     "type": "git",
