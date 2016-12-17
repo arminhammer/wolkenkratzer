@@ -66,18 +66,10 @@ function _populateFromExisting(newTemplate, existingTemplate) {
     let resourceGroup = null
     let resourceName = typeSplit[2]
     if (typeSplit[0] === 'Custom') {
-      resourceGroup = require(path.join(__dirname, 'resources', 'cloudformation'))
       resourceName = 'CustomResource'
-    } else {
-      resourceGroup = require(path.join(__dirname, 'resources', resourceGroupName.toLowerCase()))
-      /* if (resourceGroupName === 'Lambda' && resourceName === 'Function') {
-        resourceName = 'LambdaFunction'
-      } */
     }
-    // let temp = Object.create(resourceGroup[resourceName].prototype)
     let serviceClient = Service(resourceGroupName)
     let newResource = new serviceClient[resourceName](resource, existingTemplate.Resources[resource].Properties)
-    // let newResource = Reflect.construct(resourceGroup[resourceName], [resource, existingTemplate.Resources[resource].Properties])
     newTemplate.add(newResource)
   }
 }

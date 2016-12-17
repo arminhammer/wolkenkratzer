@@ -4,7 +4,8 @@
 'use strict'
 
 const aws = require('aws-sdk')
-const s3Resource = require('../resources/s3')
+const Service = require('../service')
+const s3Resource = Service('S3')
 const types = require('../types')
 const util = require('../util')
 
