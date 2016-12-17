@@ -1,0 +1,3 @@
+[submodule "stubs"]
+	path = stubs
+	url = https://github.com/arminhammer/cfn-doc-json-stubs
