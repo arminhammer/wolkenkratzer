@@ -64,7 +64,7 @@ WKResource.prototype.getName = function () {
  * @param config
  */
 WKResource.prototype.addConfig = function (config) {
-  if ((this instanceof require('./resources/ec2').Instance) || (this instanceof require('./resources/autoscaling').LaunchConfiguration)) {
+  if ((this.WKResourceType === 'AWS::EC2::Instance') || (this.WKResourceType === 'AWS::AutoScaling::LaunchConfiguration')) {
     if (!this.Metadata) {
       this.Metadata = {
       }
@@ -85,7 +85,7 @@ WKResource.prototype.addConfig = function (config) {
  * @param configSet
  */
 WKResource.prototype.addConfigSet = function (configSet) {
-  if ((this instanceof require('./resources/ec2').Instance) || (this instanceof require('./resources/autoscaling').LaunchConfiguration)) {
+  if ((this.WKResourceType === 'AWS::EC2::Instance') || (this.WKResourceType === 'AWS::AutoScaling::LaunchConfiguration')) {
     if (!this.Metadata) {
       this.Metadata = {
       }
