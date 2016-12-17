@@ -84,7 +84,14 @@ let webServerSecurityGroup = new wk.EC2.SecurityGroup('WebServerSecurityGroup')
 t.add(webServerSecurityGroup)
 webServerSecurityGroup.GroupDescription = 'Enable HTTP access via port 80 locked down to the load balancer + SSH access'
 
-let rule1 = new wk.Types.EC2SecurityGroupRulePropertyType({'IpProtocol': 'tcp', 'FromPort': 80, 'ToPort': 80, 'CidrIp': '0.0.0.0/0'})
+// let rule1 = new wk.Types.EC2SecurityGroupRulePropertyType({'IpProtocol': 'tcp', 'FromPort': 80, 'ToPort': 80, 'CidrIp': '0.0.0.0/0'})
+// webServerSecurityGroup.SecurityGroupIngress.push(rule1)
+
+let rule1 = new wk.Types.EC2SecurityGroupRulePropertyType()
+rule1.IpProtocol = 'tcp'
+rule1.FromPort = 80
+rule1.ToPort = 80
+rule1.CidrIp = '0.0.0.0/0'
 webServerSecurityGroup.SecurityGroupIngress.push(rule1)
 
 let rule2 = new wk.Types.EC2SecurityGroupRulePropertyType()
@@ -97,7 +104,7 @@ webServerSecurityGroup.SecurityGroupIngress.push(rule2)
 let AWSInstanceType2ArchMap = new wk.Mapping('AWSInstanceType2Arch', wk.Macro.EC2Meta.getInstanceTypeList().reduce((result, instanceType) => {
   let ending = '64'
   if (instanceType.linux_virtualization_types[0] && instanceType.arch.includes('x86_64')) {
-    if(instanceType.instance_type.includes('g2')) {
+    if (instanceType.instance_type.includes('g2')) {
       ending = 'G2'
     }
     result[instanceType.instance_type] = {

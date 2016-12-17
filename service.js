@@ -5,7 +5,7 @@
  'use strict'
  const ResourceAttribute = require('./resourceattribute').ResourceAttribute
  const WKResource = require('./resource').WKResource
- const types = require('./types')
+ const types = require('./types')()
 
  function Service (serviceName) {
    let service = {}
@@ -20,6 +20,15 @@
        switch (propBlock.Type) {
          case 'String':
            realType = String
+           break
+         case 'Number':
+           realType = Number
+           break
+         case 'Boolean':
+           realType = Boolean
+           break
+         default:
+           realType = types[propBlock.Type]
            break
        }
        properties[prop] = new ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null)
