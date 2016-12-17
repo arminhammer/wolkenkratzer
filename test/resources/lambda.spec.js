@@ -24,7 +24,7 @@ describe('Lambda', () => {
   t.add(EventSourceMapping)
 
   let Alias = new wk.Lambda.Alias('Alias')
-  let LambdaFunction = new wk.Lambda.LambdaFunction('LambdaFunction')
+  let LambdaFunction = new wk.Lambda.Function('LambdaFunction')
   let Permission = new wk.Lambda.Permission('Permission')
   let Version = new wk.Lambda.Version('Version')
 

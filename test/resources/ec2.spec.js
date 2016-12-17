@@ -133,20 +133,25 @@ describe('EC2', () => {
 
   describe('VPC', () => {
     let t = new wk.Template()
-
     let vpc = new wk.EC2.VPC('myvpc')
     vpc.CidrBlock = '10.0.0.0/16'
     vpc.InstanceTenancy = 'default'
     vpc.EnableDnsSupport = true
     vpc.EnableDnsHostnames = true
-
     t.add(vpc)
 
     it('should be able to add an instance to the template', () => {
-      t.Resources[ 'myvpc' ].WKResourceType.should.equal('AWS::EC2::VPC')
+      t.Resources['myvpc'].WKResourceType.should.equal('AWS::EC2::VPC')
     })
 
     it('should generate the expected JSON template', () => {
+      let t = new wk.Template()
+      let vpc = new wk.EC2.VPC('myvpc')
+      vpc.CidrBlock = '10.0.0.0/16'
+      vpc.InstanceTenancy = 'default'
+      vpc.EnableDnsSupport = true
+      vpc.EnableDnsHostnames = true
+      t.add(vpc)
       let jsonString = JSON.parse(t.toJson().Template)
       jsonString.should.deep.equal({
         'Resources': {
