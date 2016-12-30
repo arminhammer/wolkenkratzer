@@ -16,7 +16,7 @@
       "Type": "String",
       "Default": "t2.small",
       "AllowedValues": [ "m1.small", "m1.medium",
-        "m1.large", "m1.xlarge", "c1.medium", "c1.xlarge", "cc2.8xlarge", "cg1.4xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "cr1.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "t1.micro", "t2.nano", "t2.micro", "t2.small", "t2.medium", "t2.large", "m4.large", "m4.xlarge", "m4.2xlarge", "m4.4xlarge", "m4.10xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "g2.2xlarge", "g2.8xlarge", "x1.32xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "d2.xlarge", "d2.2xlarge", "d2.4xlarge", "d2.8xlarge" ],
+        "m1.large", "m1.xlarge", "c1.medium", "c1.xlarge", "cc2.8xlarge", "cg1.4xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "cr1.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "t1.micro", "t2.nano", "t2.micro", "t2.small", "t2.medium", "t2.large", "t2.xlarge", "t2.2xlarge", "m4.large", "m4.xlarge", "m4.2xlarge", "m4.4xlarge", "m4.10xlarge", "m4.16xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "p2.xlarge", "p2.8xlarge", "p2.16xlarge", "g2.2xlarge", "g2.8xlarge", "x1.16xlarge", "x1.32xlarge", "r4.large", "r4.xlarge", "r4.2xlarge", "r4.4xlarge", "r4.8xlarge", "r4.16xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "d2.xlarge", "d2.2xlarge", "d2.4xlarge", "d2.8xlarge","f1.2xlarge", "f1.16xlarge" ],
       "ConstraintDescription": "must be a valid EC2 instance type."
     },
 
@@ -139,6 +139,9 @@
       "m4.10xlarge": {
         "Arch": "HVM64"
       },
+      "m4.16xlarge": {
+        "Arch": "HVM64"
+      },
       "c1.medium": {
         "Arch": "PV64"
       },
@@ -234,12 +237,51 @@
       },
       "cg1.4xlarge": {
         "Arch": "HVM64"
+      },
+      "t2.xlarge": {
+        "Arch": "HVM64"
+      },
+      "x1.16xlarge": {
+        "Arch": "HVM64"
+      },
+      "t2.2xlarge": {
+        "Arch": "HVM64"
+      },
+      "r4.16xlarge": {
+        "Arch": "HVM64"
+      },
+      "r4.2xlarge": {
+        "Arch": "HVM64"
+      },
+      "r4.4xlarge": {
+        "Arch": "HVM64"
+      },
+      "r4.8xlarge": {
+        "Arch": "HVM64"
+      },
+      "r4.large": {
+        "Arch": "HVM64"
+      },
+      "r4.xlarge": {
+        "Arch": "HVM64"
+      },
+      "p2.16xlarge": {
+        "Arch": "HVM64"
+      },
+      "p2.8xlarge": {
+        "Arch": "HVM64"
+      },
+      "p2.xlarge": {
+        "Arch": "HVM64"
       }
     },
 
     "AWSInstanceType2NATArch": {
       "t1.micro": {
         "Arch": "NATPV64"
+      },
+      "t2.2xlarge": {
+        "Arch": "NATHVM64"
       },
       "t2.nano": {
         "Arch": "NATHVM64"
@@ -304,6 +346,18 @@
       "m4.10xlarge": {
         "Arch": "NATHVM64"
       },
+      "m4.16xlarge": {
+        "Arch": "NATHVM64"
+      },
+      "p2.16xlarge": {
+        "Arch": "NATHVM64"
+      },
+      "p2.8xlarge": {
+        "Arch": "NATHVM64"
+      },
+      "p2.xlarge": {
+        "Arch": "NATHVM64"
+      },
       "c1.medium": {
         "Arch": "NATPV64"
       },
@@ -345,6 +399,24 @@
       },
       "g2.8xlarge": {
         "Arch": "NATHVMG2"
+      },
+      "r4.16xlarge": {
+        "Arch": "NATHVM64"
+      },
+      "r4.2xlarge": {
+        "Arch": "NATHVM64"
+      },
+      "r4.4xlarge": {
+        "Arch": "NATHVM64"
+      },
+      "r4.8xlarge": {
+        "Arch": "NATHVM64"
+      },
+      "r4.large": {
+        "Arch": "NATHVM64"
+      },
+      "r4.xlarge": {
+        "Arch": "NATHVM64"
       },
       "r3.large": {
         "Arch": "NATHVM64"
@@ -394,6 +466,12 @@
       "cc2.8xlarge": {
         "Arch": "NATHVM64"
       },
+      "t2.xlarge": {
+        "Arch": "NATHVM64"
+      },
+      "x1.16xlarge": {
+        "Arch": "NATHVM64"
+      },
       "x1.32xlarge": {
         "Arch": "NATHVM64"
       },
@@ -404,7 +482,7 @@
     "AWSRegionArch2AMI": {
       "us-east-1": {
         "PV64": "ami-2a69aa47",
-        "HVM64": "ami-6869aa05",
+        "HVM64": "ami-12e4f105",
         "HVMG2": "ami-2e5e9c43"
       },
       "us-west-2": {
