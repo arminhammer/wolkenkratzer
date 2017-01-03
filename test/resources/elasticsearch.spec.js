@@ -14,10 +14,10 @@ var should = require('chai').should()
 const wk = require(path.join(__dirname, '..', '..', 'index'))
 const util = require('../util')
 
-describe('ElasticSearch', () => {
+describe('Elasticsearch', () => {
   let t = new wk.Template()
 
-  let Domain = new wk.ElasticSearch.Domain('Domain')
+  let Domain = new wk.Elasticsearch.Domain('Domain')
   t.add(Domain)
 
   it('should be able to add an ElasticSearch Domain to the template', () => {

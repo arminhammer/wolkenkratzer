@@ -132,7 +132,6 @@ describe('EC2', () => {
   })
 
   describe('VPC', () => {
-    console.log('new template...')
     let t = new wk.Template()
     let vpc = new wk.EC2.VPC('myvpc')
     vpc.CidrBlock = '10.0.0.0/16'
@@ -165,7 +164,6 @@ describe('EC2', () => {
   })
 
   describe('VPNGatewayAttachment', () => {
-    console.log('new template...')
     let t = new wk.Template()
 
     let vpnGateway = new wk.EC2.VPNGateway('VPNGateway')
@@ -207,7 +205,6 @@ describe('EC2', () => {
   })
 
   describe('Combined Networking', () => {
-    console.log('new template...')
     let t = new wk.Template()
     let vpcCiderParam = new wk.Parameter('VPCCIDR', { Type: 'String', Default: '10.0.0.0/16' })
     t.add(vpcCiderParam)

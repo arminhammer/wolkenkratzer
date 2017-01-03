@@ -48,7 +48,7 @@ const ElastiCache = Service('ElastiCache')
 const ElasticBeanstalk = Service('ElasticBeanstalk')
 const ElasticLoadBalancing = Service('ElasticLoadBalancing')
 const ElasticLoadBalancingV2 = Service('ElasticLoadBalancingV2')
-const ElasticSearch = Service('ElasticSearch')
+const Elasticsearch = Service('Elasticsearch')
 const EMR = Service('EMR')
 const Events = Service('Events')
 const GameLift = Service('GameLift')
@@ -103,7 +103,7 @@ module.exports = {
   ElasticBeanstalk: ElasticBeanstalk,
   ElasticLoadBalancing: ElasticLoadBalancing,
   ElasticLoadBalancingV2: ElasticLoadBalancingV2,
-  ElasticSearch: ElasticSearch,
+  Elasticsearch: Elasticsearch,
   EMR: EMR,
   Events: Events,
   GameLift: GameLift,
