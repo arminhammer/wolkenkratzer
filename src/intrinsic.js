@@ -17,6 +17,8 @@ function makeIntrinsic(obj) {
     return new FnGetAtt(obj['Fn::GetAtt']);
   } else if (obj['Fn::Join']) {
     return new FnJoin(obj['Fn::Join'][0], obj['Fn::Join'][1]);
+  } else if (obj['Fn::Sub']) {
+    return new FnSub(obj['Fn::Sub']);
   }
   return null;
 }
@@ -53,6 +55,23 @@ Ref.prototype.toJson = function() {
   } else {
     return { errors: null, json: { Ref: this.ref } };
   }
+};
+
+/**
+ * @memberof module:Core
+ */
+function FnSub(input) {
+  Intrinsic.call(this);
+  this.sub = input;
+}
+FnSub.prototype = Object.create(Intrinsic.prototype);
+
+/**
+ * Returns a JSON string version
+ * @returns {Object}
+ */
+FnSub.prototype.toJson = function() {
+  return { errors: null, json: { 'Fn::Sub': this.sub } };
 };
 
 /**
@@ -233,6 +252,7 @@ FnOr.prototype.toJson = function() {
 
 module.exports = {
   Ref: Ref,
+  FnSub: FnSub,
   Intrinsic: Intrinsic,
   FnGetAtt: FnGetAtt,
   FnGetAZs: FnGetAZs,

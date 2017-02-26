@@ -66,13 +66,14 @@ function _populateFromExisting(newTemplate, existingTemplate) {
     let resourceName = typeSplit[2];
     if (typeSplit[0] === 'Custom') {
       resourceName = 'CustomResource';
+    } else {
+      let serviceClient = Service(resourceGroupName);
+      let newResource = new serviceClient[resourceName](
+        resource,
+        existingTemplate.Resources[resource].Properties
+      );
+      newTemplate.add(newResource);
     }
-    let serviceClient = Service(resourceGroupName);
-    let newResource = new serviceClient[resourceName](
-      resource,
-      existingTemplate.Resources[resource].Properties
-    );
-    newTemplate.add(newResource);
   }
 }
 

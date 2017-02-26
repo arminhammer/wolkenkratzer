@@ -5,6 +5,7 @@
 
 const Intrinsic = require('./intrinsic');
 const Ref = Intrinsic.Ref;
+const FnSub = Intrinsic.FnSub;
 const FnGetAtt = Intrinsic.FnGetAtt;
 const FnFindInMap = Intrinsic.FnFindInMap;
 const FnBase64 = Intrinsic.FnBase64;
@@ -157,6 +158,14 @@ ResourceAttribute.prototype.get = function() {
  */
 ResourceAttribute.prototype.ref = function(resource) {
   this.val = new Ref(resource);
+};
+
+/**
+ * Add an Fn Sub intrinsic function
+ * @param resource
+ */
+ResourceAttribute.prototype.sub = function(input) {
+  this.val = new FnSub(input);
 };
 
 /**

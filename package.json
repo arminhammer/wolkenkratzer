@@ -61,9 +61,9 @@
     "files": [
       "newtests/**/*.spec.js"
     ],
-    "concurrency": 0,
-    "failFast": true,
-    "tap": true,
-    "powerAssert": true
+    "concurrency": 10,
+    "failFast": false,
+    "tap": false,
+    "powerAssert": false
   }
 }

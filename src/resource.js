@@ -148,16 +148,10 @@ WKResource.prototype.toJson = function() {
   let errors = [];
   for (let prop in newProperties) {
     let result = this.properties[prop].toJson();
-    if (result.errors) {
+    if (result.errors && result.errors.length > 0) {
       result.errors.forEach(e => {
-        errors.push(e);
+        errors.push(this.WKName + '.' + e);
       });
-      errors.push(
-        this.WKName +
-          '.' +
-          prop +
-          ' or a subproperty is required but not defined.'
-      );
     }
     if (result.json === null || util.isEmpty(result.json)) {
       delete newProperties[prop];
@@ -250,11 +244,10 @@ ResourceProperty.prototype.toJson = function() {
       typeof this.properties[prop].toJson === 'function'
     ) {
       let result = this.properties[prop].toJson();
-      if (result.errors) {
+      if (result.errors && result.errors.length > 0) {
         result.errors.forEach(e => {
-          errors.push(e);
+          errors.push(this.WKName + '.' + e);
         });
-        errors.push(this.WKName + '.' + prop + ' is required but not defined.');
       }
       if (result.json != null) {
         newProperties[prop] = result.json;
