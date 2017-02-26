@@ -4,3 +4,4 @@ coverage/
 node_modules/
 tempExa/
 npm-debug.log
+.nyc_output/
