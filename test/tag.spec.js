@@ -2,52 +2,48 @@
  * Created by arming on 6/5/16.
  */
 /* global describe it */
-'use strict'
+'use strict';
 
-const path = require('path')
-const chai = require('chai')
+const path = require('path');
+const ava = require('ava');
 
-chai.should()
+const wk = require(path.join(__dirname, '..', 'index'));
 
-const wk = require(path.join(__dirname, '..', 'index'))
+ava('Tags', test => {
+  let t = new wk.Template();
 
-describe('Tags', () => {
-  it('should add tags with add()', () => {
-    let t = new wk.Template()
+  let vpc = new wk.EC2.VPC('vpc');
+  vpc.CidrBlock = '10.0.0.0/16';
+  vpc.Tags.add({ Key: 'Key0', Value: 'Value0' });
+  let tag = new wk.Tag('Key1', 'Value1');
+  vpc.Tags.add(tag);
+  vpc.Tags.add({ Key: 'Key2', Value: 'Value2' });
+  t.add(vpc);
 
-    let vpc = new wk.EC2.VPC('vpc')
-    vpc.CidrBlock = '10.0.0.0/16'
-    vpc.Tags.add({ Key: 'Key0', Value: 'Value0' })
-    let tag = new wk.Tag('Key1', 'Value1')
-    vpc.Tags.add(tag)
-    vpc.Tags.add({ Key: 'Key2', Value: 'Value2' })
-    t.add(vpc)
-
-    let jsonString = JSON.parse(t.toJson().Template)
-    jsonString.should.deep.equal({
-      'Resources': {
-      'vpc': {
-        'Type': 'AWS::EC2::VPC',
-          'Properties': {
-          'CidrBlock': '10.0.0.0/16',
-            'Tags': [
+  let jsonString = JSON.parse(t.toJson().Template);
+  test.deepEqual(jsonString, {
+    Resources: {
+      vpc: {
+        Type: 'AWS::EC2::VPC',
+        Properties: {
+          CidrBlock: '10.0.0.0/16',
+          Tags: [
             {
-              'Key': 'Key0',
-              'Value': 'Value0'
+              Key: 'Key0',
+              Value: 'Value0'
             },
             {
-              'Key': 'Key1',
-              'Value': 'Value1'
+              Key: 'Key1',
+              Value: 'Value1'
             },
             {
-              'Key': 'Key2',
-              'Value': 'Value2'
+              Key: 'Key2',
+              Value: 'Value2'
             }
           ]
         }
       }
     },
-    'AWSTemplateFormatVersion': '2010-09-09'
-  })
-  })
-})
+    AWSTemplateFormatVersion: '2010-09-09'
+  });
+});
