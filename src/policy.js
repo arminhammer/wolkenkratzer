@@ -1,61 +1,63 @@
 /**
  * Created by arming on 7/4/16.
  */
-'use strict'
+'use strict';
 
-const TypeException = require('./exceptions').TypeException
+const TypeException = require('./exceptions').TypeException;
 
 /** @module Core */
 
 /**
  * @memberof module:Core
  */
-function Policy (name) {
-  this.WKName = name
+function Policy(name) {
+  this.WKName = name;
 }
 
-Policy.prototype.toJson = function () {
-  let p = JSON.parse(JSON.stringify(this))
-  delete p.WKName
-  return p
-}
+Policy.prototype.toJson = function() {
+  let p = JSON.parse(JSON.stringify(this));
+  delete p.WKName;
+  return p;
+};
 
 /**
  * @memberof module:Core
  */
-function CreationPolicy (parameters) {
-  Policy.call(this, 'CreationPolicy')
+function CreationPolicy(parameters) {
+  Policy.call(this, 'CreationPolicy');
   if (parameters) {
-    this.AutoScalingCreationPolicy = parameters.AutoScalingCreationPolicy
-    this.ResourceSignal = parameters.ResourceSignal
+    this.AutoScalingCreationPolicy = parameters.AutoScalingCreationPolicy;
+    this.ResourceSignal = parameters.ResourceSignal;
   }
 }
-CreationPolicy.prototype = Object.create(Policy.prototype)
+CreationPolicy.prototype = Object.create(Policy.prototype);
 
 /**
  * @memberof module:Core
  */
-function DeletionPolicy (Type) {
-  Policy.call(this, 'DeletionPolicy')
+function DeletionPolicy(Type) {
+  Policy.call(this, 'DeletionPolicy');
   if (Type === 'Delete' || Type === 'Retain' || Type === 'Snapshot') {
-    this.Type = Type
+    this.Type = Type;
   } else {
-    throw new TypeException(Type + ' in DeletionPolicy must be Delete, Retain, or Snapshot')
+    throw new TypeException(
+      Type + ' in DeletionPolicy must be Delete, Retain, or Snapshot'
+    );
   }
 }
-DeletionPolicy.prototype = Object.create(Policy.prototype)
+DeletionPolicy.prototype = Object.create(Policy.prototype);
 
 /**
  * @memberof module:Core
  */
-function UpdatePolicy (parameters) {
-  Policy.call(this, 'UpdatePolicy')
+function UpdatePolicy(parameters) {
+  Policy.call(this, 'UpdatePolicy');
 }
-UpdatePolicy.prototype = Object.create(Policy.prototype)
+UpdatePolicy.prototype = Object.create(Policy.prototype);
 
 module.exports = {
   Policy: Policy,
   CreationPolicy: CreationPolicy,
   DeletionPolicy: DeletionPolicy,
   UpdatePolicy: UpdatePolicy
-}
+};

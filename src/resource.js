@@ -1,10 +1,10 @@
 /**
  * Created by arming on 6/15/16.
  */
-'use strict'
-const TypeException = require('./exceptions').TypeException
-const Policy = require('./policy').Policy
-const util = require('./util')
+'use strict';
+const TypeException = require('./exceptions').TypeException;
+const Policy = require('./policy').Policy;
+const util = require('./util');
 
 /** @module Core */
 
@@ -13,28 +13,34 @@ const util = require('./util')
  * @memberof module:Core
  * @property {String} WKName
  */
-function WKResource (name, resourceType, properties, propertiesObject, conditional) {
-  this.WKName = name
-  this.WKResourceType = resourceType
-  this.properties = properties
-  this.conditional = conditional
+function WKResource(
+  name,
+  resourceType,
+  properties,
+  propertiesObject,
+  conditional
+) {
+  this.WKName = name;
+  this.WKResourceType = resourceType;
+  this.properties = properties;
+  this.conditional = conditional;
   for (let prop in this.properties) {
     Object.defineProperty(this, prop, {
-      set: (value) => {
-        this.properties[prop].set(value)
+      set: value => {
+        this.properties[prop].set(value);
       },
       get: () => {
-        return this.properties[prop]
+        return this.properties[prop];
       }
-    })
+    });
   }
   if (propertiesObject) {
     for (let prop in propertiesObject) {
       if (this.properties[prop]) {
-        let property = propertiesObject[prop]
+        let property = propertiesObject[prop];
         if (this.properties[prop].Type) {
           try {
-            this.properties[prop].set(property)
+            this.properties[prop].set(property);
           } catch (e) {
           }
         }
@@ -47,113 +53,140 @@ function WKResource (name, resourceType, properties, propertiesObject, condition
  * Adds a DependsOn dependency for another Resource
  * @param resource
  */
-WKResource.prototype.dependsOn = function (resource) {
-  this.DependsOn = resource
-}
+WKResource.prototype.dependsOn = function(resource) {
+  this.DependsOn = resource;
+};
 
 /**
  * Get the logical name of the resource
  * @returns {String}
  */
-WKResource.prototype.getName = function () {
-  return this.WKName
-}
+WKResource.prototype.getName = function() {
+  return this.WKName;
+};
 
 /**
  * Adds a Config block to the Metadata AWS::CloudFormation::Init block of an Instance
  * @param config
  */
-WKResource.prototype.addConfig = function (config) {
-  if ((this.WKResourceType === 'AWS::EC2::Instance') || (this.WKResourceType === 'AWS::AutoScaling::LaunchConfiguration')) {
+WKResource.prototype.addConfig = function(config) {
+  if (
+    this.WKResourceType === 'AWS::EC2::Instance' ||
+    this.WKResourceType === 'AWS::AutoScaling::LaunchConfiguration'
+  ) {
     if (!this.Metadata) {
-      this.Metadata = {
-      }
+      this.Metadata = {};
     }
     if (!this.Metadata['AWS::CloudFormation::Init']) {
       this.Metadata['AWS::CloudFormation::Init'] = {
         configSets: {}
-      }
+      };
     }
-    this.Metadata['AWS::CloudFormation::Init'][config.WKName] = config
+    this.Metadata['AWS::CloudFormation::Init'][config.WKName] = config;
   } else {
-    throw new TypeException('Not allowed to add ' + config.WKName + ' to ' + this.WKName + ' because it is not an Instance or LaunchConfiguration')
+    throw new TypeException(
+      'Not allowed to add ' +
+        config.WKName +
+        ' to ' +
+        this.WKName +
+        ' because it is not an Instance or LaunchConfiguration'
+    );
   }
-}
+};
 
 /**
  * Adds a ConfigSet block to the Metadata AWS::CloudFormation::Init block of an Instance
  * @param configSet
  */
-WKResource.prototype.addConfigSet = function (configSet) {
-  if ((this.WKResourceType === 'AWS::EC2::Instance') || (this.WKResourceType === 'AWS::AutoScaling::LaunchConfiguration')) {
+WKResource.prototype.addConfigSet = function(configSet) {
+  if (
+    this.WKResourceType === 'AWS::EC2::Instance' ||
+    this.WKResourceType === 'AWS::AutoScaling::LaunchConfiguration'
+  ) {
     if (!this.Metadata) {
-      this.Metadata = {
-      }
+      this.Metadata = {};
     }
     if (!this.Metadata['AWS::CloudFormation::Init']) {
       this.Metadata['AWS::CloudFormation::Init'] = {
         configSets: {}
-      }
+      };
     }
-    this.Metadata['AWS::CloudFormation::Init'].configSets[configSet.WKName] = configSet.configs
+    this.Metadata['AWS::CloudFormation::Init'].configSets[
+      configSet.WKName
+    ] = configSet.configs;
   } else {
-    throw new TypeException('Not allowed to add ' + configSet.WKName + ' to ' + this.WKName + ' because it is not an Instance or LaunchConfiguration')
+    throw new TypeException(
+      'Not allowed to add ' +
+        configSet.WKName +
+        ' to ' +
+        this.WKName +
+        ' because it is not an Instance or LaunchConfiguration'
+    );
   }
-}
+};
 
 /**
  * Adds a CreationPolicy, UpdatePolicy, or DeletePolic
  * @param policy
  */
-WKResource.prototype.addPolicy = function (policy) {
+WKResource.prototype.addPolicy = function(policy) {
   if (!this.policies) {
-    this.policies = {}
+    this.policies = {};
   }
   if (policy instanceof Policy) {
-    this.policies[policy.WKName] = policy
+    this.policies[policy.WKName] = policy;
   } else {
-    throw new TypeException(policy + ' must be of type Policy')
+    throw new TypeException(policy + ' must be of type Policy');
   }
-}
+};
 /**
  * Performs validation and returns a pretty-printed JSON object.
  * @returns {String}
  */
-WKResource.prototype.toJson = function () {
-  let newProperties = JSON.parse(JSON.stringify(this.properties))
-  let errors = []
+WKResource.prototype.toJson = function() {
+  let newProperties = JSON.parse(JSON.stringify(this.properties));
+  let errors = [];
   for (let prop in newProperties) {
-    let result = this.properties[prop].toJson()
+    let result = this.properties[prop].toJson();
     if (result.errors) {
-      result.errors.forEach((e) => {
-        errors.push(e)
-      })
-      errors.push(this.WKName + '.' + prop + ' or a subproperty is required but not defined.')
+      result.errors.forEach(e => {
+        errors.push(e);
+      });
+      errors.push(
+        this.WKName +
+          '.' +
+          prop +
+          ' or a subproperty is required but not defined.'
+      );
     }
     if (result.json === null || util.isEmpty(result.json)) {
-      delete newProperties[prop]
+      delete newProperties[prop];
     } else {
-      newProperties[prop] = result.json
+      newProperties[prop] = result.json;
     }
   }
   if (this.conditional) {
-    let result = this.conditional(this.properties)
+    let result = this.conditional(this.properties);
     if (result.errors) {
-      result.errors.forEach((e) => {
-        errors.push(e)
-      })
-      errors.push(this.WKName + ' has a condition that was not met.')
+      result.errors.forEach(e => {
+        errors.push(e);
+      });
+      errors.push(this.WKName + ' has a condition that was not met.');
     }
   }
-  let newMetadata = {}
+  let newMetadata = {};
   if (this.Metadata) {
     if (this.Metadata['AWS::CloudFormation::Init']) {
-      newMetadata['AWS::CloudFormation::Init'] = {}
+      newMetadata['AWS::CloudFormation::Init'] = {};
       for (let config in this.Metadata['AWS::CloudFormation::Init']) {
         if (config === 'configSets') {
-          newMetadata['AWS::CloudFormation::Init'][config] = this.Metadata['AWS::CloudFormation::Init'][config]
+          newMetadata['AWS::CloudFormation::Init'][config] = this.Metadata[
+            'AWS::CloudFormation::Init'
+          ][config];
         } else {
-          newMetadata['AWS::CloudFormation::Init'][config] = this.Metadata['AWS::CloudFormation::Init'][config].toJson()
+          newMetadata['AWS::CloudFormation::Init'][config] = this.Metadata[
+            'AWS::CloudFormation::Init'
+          ][config].toJson();
         }
       }
     }
@@ -161,45 +194,45 @@ WKResource.prototype.toJson = function () {
   let returnObject = {
     Type: this.WKResourceType,
     Properties: newProperties
-  }
+  };
   if (this.Metadata) {
-    returnObject.Metadata = newMetadata
+    returnObject.Metadata = newMetadata;
   }
   if (this.policies) {
     for (let policy in this.policies) {
-      returnObject[policy] = this.policies[policy].toJson()
+      returnObject[policy] = this.policies[policy].toJson();
     }
   }
   if (this.DependsOn) {
-    returnObject.DependsOn = this.DependsOn.WKName
+    returnObject.DependsOn = this.DependsOn.WKName;
   }
   if (errors.length === 0) {
-    errors = null
+    errors = null;
   }
-  return { errors: errors, json: returnObject }
-}
+  return { errors: errors, json: returnObject };
+};
 
 /**
  * A CloudFormation ResourceProperty, mapped to those listed at http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-product-property-reference.html
  * @memberof module:Core
  */
-function ResourceProperty (name, properties, propertiesObject, conditional) {
-  this.WKName = name
-  this.properties = properties
-  this.conditional = conditional
+function ResourceProperty(name, properties, propertiesObject, conditional) {
+  this.WKName = name;
+  this.properties = properties;
+  this.conditional = conditional;
   for (let prop in this.properties) {
     Object.defineProperty(this, prop, {
-      set: (value) => {
-        this.properties[prop].set(value)
+      set: value => {
+        this.properties[prop].set(value);
       },
       get: () => {
-        return this.properties[prop]
+        return this.properties[prop];
       }
-    })
+    });
   }
   if (propertiesObject) {
     for (let prop in propertiesObject) {
-      this.properties[prop] = propertiesObject[prop]
+      this.properties[prop] = propertiesObject[prop];
     }
   }
 }
@@ -208,41 +241,46 @@ function ResourceProperty (name, properties, propertiesObject, conditional) {
  * Performs validation and returns a pretty-printed JSON object.
  * @returns {String}
  */
-ResourceProperty.prototype.toJson = function () {
-  let newProperties = JSON.parse(JSON.stringify(this.properties))
-  let errors = []
+ResourceProperty.prototype.toJson = function() {
+  let newProperties = JSON.parse(JSON.stringify(this.properties));
+  let errors = [];
   for (let prop in newProperties) {
-    if ((this.properties[prop] instanceof ResourceProperty) || (typeof this.properties[prop].toJson === 'function')) {
-      let result = this.properties[prop].toJson()
+    if (
+      this.properties[prop] instanceof ResourceProperty ||
+      typeof this.properties[prop].toJson === 'function'
+    ) {
+      let result = this.properties[prop].toJson();
       if (result.errors) {
-        result.errors.forEach((e) => {
-          errors.push(e)
-        })
-        errors.push(this.WKName + '.' + prop + ' is required but not defined.')
+        result.errors.forEach(e => {
+          errors.push(e);
+        });
+        errors.push(this.WKName + '.' + prop + ' is required but not defined.');
       }
       if (result.json != null) {
-        newProperties[prop] = result.json
+        newProperties[prop] = result.json;
       } else {
-        delete newProperties[prop]
+        delete newProperties[prop];
       }
     } else {
-      newProperties[prop] = this.properties[prop]
+      newProperties[prop] = this.properties[prop];
     }
   }
   if (this.conditional) {
-    let result = this.conditional(this.properties)
+    let result = this.conditional(this.properties);
     if (result.errors) {
-      result.errors.forEach((e) => {
-        errors.push(e)
-      })
-      errors.push(this.WKName + ' has a condition that was not met.')
+      result.errors.forEach(e => {
+        errors.push(e);
+      });
+      errors.push(this.WKName + ' has a condition that was not met.');
     }
   }
-  if (errors === 0) { errors = null }
-  return { errors: errors, json: newProperties }
-}
+  if (errors === 0) {
+    errors = null;
+  }
+  return { errors: errors, json: newProperties };
+};
 
 module.exports = {
   WKResource: WKResource,
   ResourceProperty: ResourceProperty
-}
+};

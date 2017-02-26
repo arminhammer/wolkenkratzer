@@ -2,34 +2,34 @@
  * Created by arming on 9/19/16.
  */
 
-'use strict'
+'use strict';
 
-const wk = require('./../index')
+const wk = require('./../index');
 
-let t = new wk.Template()
+let t = new wk.Template();
 
-let topic0 = new wk.SNS.Topic('topic0')
-topic0.DisplayName = 'name'
-topic0.TopicName = 'name'
+let topic0 = new wk.SNS.Topic('topic0');
+topic0.DisplayName = 'name';
+topic0.TopicName = 'name';
 topic0.Subscription.push({
-  'Endpoint': 'endpoint',
-  'Protocol': 'email'
-})
-t.add(topic0)
+  Endpoint: 'endpoint',
+  Protocol: 'email'
+});
+t.add(topic0);
 
-let topic1 = new wk.SNS.Topic('topic1')
-topic1.DisplayName = 'name'
-topic1.TopicName = 'name'
+let topic1 = new wk.SNS.Topic('topic1');
+topic1.DisplayName = 'name';
+topic1.TopicName = 'name';
 topic1.Subscription.push({
-  'Endpoint': 'endpoint',
-  'Protocol': 'email'
-})
-t.add(topic1)
+  Endpoint: 'endpoint',
+  Protocol: 'email'
+});
+t.add(topic1);
 
-t.remove(topic0)
+t.remove(topic0);
 
-let result = t.toJson()
+let result = t.toJson();
 if (result.Errors) {
   // console.error(result.Errors)
 }
-console.log(t.toJson().Template)
+console.log(t.toJson().Template);

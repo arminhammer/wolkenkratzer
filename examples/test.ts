@@ -1,6 +1,6 @@
 /**
- * Created by arming on 6/2/16.
- */
+* Created by arming on 6/2/16.
+*/
 'use strict'
 
 const wk = require('./../index')

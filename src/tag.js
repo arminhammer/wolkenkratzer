@@ -1,38 +1,38 @@
 /**
  * Created by arming on 6/15/16.
  */
-'use strict'
+'use strict';
 // const debug = require('debug')('tag')
-const Intrinsic = require('./intrinsic').Intrinsic
-const TypeException = require('./exceptions').TypeException
+const Intrinsic = require('./intrinsic').Intrinsic;
+const TypeException = require('./exceptions').TypeException;
 
 /** @module Core */
 
 /**
  * @memberof module:Core
  */
-function Tag (key, value) {
-  this.Key = key
-  this.Value = value
+function Tag(key, value) {
+  this.Key = key;
+  this.Value = value;
 }
 
 /**
  * Returns a JSON representation of the Tag
  * @returns {{Key: module:KMS.Key, Value: *}}
  */
-Tag.prototype.toJson = function () {
-  let value = this.Value
+Tag.prototype.toJson = function() {
+  let value = this.Value;
   if (value instanceof Intrinsic) {
-    value = value.toJson().json
+    value = value.toJson().json;
   }
-  return { Key: this.Key, Value: value }
-}
+  return { Key: this.Key, Value: value };
+};
 
 /**
  * @memberof module:Core
  */
-function TagSet () {
-  this.tags = {}
+function TagSet() {
+  this.tags = {};
 }
 
 /**
@@ -42,55 +42,55 @@ function TagSet () {
  * @param first
  * @param second
  */
-TagSet.prototype.add = function (first, second) {
-  let tag
+TagSet.prototype.add = function(first, second) {
+  let tag;
   if (typeof second === 'undefined') {
     if (!(first instanceof Tag)) {
       if (first.Key && first.Value) {
-        tag = new Tag(first.Key, first.Value)
+        tag = new Tag(first.Key, first.Value);
       } else {
-        throw new TypeException(tag, 'is not a valid tag')
+        throw new TypeException(tag, 'is not a valid tag');
       }
     } else {
-      tag = first
+      tag = first;
     }
-    this.tags[tag.Key] = tag
+    this.tags[tag.Key] = tag;
   } else {
     if (typeof first === 'string' && typeof second === 'string') {
-      tag = new Tag(first, second)
-      this.tags[tag.Key] = tag
+      tag = new Tag(first, second);
+      this.tags[tag.Key] = tag;
     } else {
-      throw new TypeException(first + ' and ' + second + 'must be strings.')
+      throw new TypeException(first + ' and ' + second + 'must be strings.');
     }
   }
-}
+};
 
 /**
  * Removes a Tag object from the TagSet
  * @param tag
  */
-TagSet.prototype.remove = function (tag) {
-  delete this.tags(tag)
-}
+TagSet.prototype.remove = function(tag) {
+  delete this.tags(tag);
+};
 
 /**
  * Returns a JSON representation of the TagSet
  * @returns {Array}
  */
-TagSet.prototype.toJson = function () {
+TagSet.prototype.toJson = function() {
   if (Object.keys(this.tags).length > 0) {
-    let tagArray = []
+    let tagArray = [];
     for (let tag in this.tags) {
-      let tagJson = this.tags[tag].toJson()
-      tagArray.push(tagJson)
+      let tagJson = this.tags[tag].toJson();
+      tagArray.push(tagJson);
     }
-    return { errors: null, json: tagArray }
+    return { errors: null, json: tagArray };
   } else {
-    return { errors: null, json: null }
+    return { errors: null, json: null };
   }
-}
+};
 
 module.exports = {
   TagSet: TagSet,
   Tag: Tag
-}
+};

@@ -2,53 +2,59 @@
  * Created by arming on 12/16/16.
  */
 
-'use strict'
-const ResourceAttribute = require('./resourceattribute').ResourceAttribute
-const WKResource = require('./resource').WKResource
-const types = require('./types')()
-const tag = require('./tag')
+'use strict';
+const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
+const WKResource = require('./resource').WKResource;
+const types = require('./types')();
+const tag = require('./tag');
 
-function Service (serviceName) {
-  let service = {}
-  const stub = require('../stubs/json/resources/' + serviceName)
+function Service(serviceName) {
+  let service = {};
+  const stub = require('../stubs/json/resources/' + serviceName);
   for (let resourceStub in stub) {
-    let resourceBlock = function (name, propertiesObject) {
-      let resourceType = stub[resourceStub].Name
-      let properties = {}
+    let resourceBlock = function(name, propertiesObject) {
+      let resourceType = stub[resourceStub].Name;
+      let properties = {};
       for (let prop in stub[resourceStub].Properties) {
         if (prop === 'Tags') {
-          properties[prop] = new tag.TagSet()
+          properties[prop] = new tag.TagSet();
         } else {
-          let propBlock = stub[ resourceStub ].Properties[ prop ]
-          let realType = String
+          let propBlock = stub[resourceStub].Properties[prop];
+          let realType = String;
           switch (propBlock.Type) {
             case 'String':
-              realType = String
-              break
+              realType = String;
+              break;
             case 'Number':
-              realType = Number
-              break
+              realType = Number;
+              break;
             case 'Boolean':
-              realType = Boolean
-              break
+              realType = Boolean;
+              break;
             case 'Object':
-              realType = Object
-              break
+              realType = Object;
+              break;
             default:
-              realType = types[ propBlock.Type ]
-              break
+              realType = types[propBlock.Type];
+              break;
           }
-          properties[prop] = new ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null)
+          properties[prop] = new ResourceAttribute(
+            prop,
+            realType,
+            propBlock.Array,
+            propBlock.Required,
+            null
+          );
         }
       }
-      WKResource.call(this, name, resourceType, properties, propertiesObject)
-      return this
-    }
-    resourceBlock.prototype = Object.create(WKResource.prototype)
+      WKResource.call(this, name, resourceType, properties, propertiesObject);
+      return this;
+    };
+    resourceBlock.prototype = Object.create(WKResource.prototype);
     // resourceBlock.prototype.constructor = WKResource.prototype.constructor
-    service[resourceStub] = resourceBlock
+    service[resourceStub] = resourceBlock;
   }
-  return service
+  return service;
 }
 
-module.exports = Service
+module.exports = Service;
