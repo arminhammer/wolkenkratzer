@@ -1,62 +1,109 @@
-# wolkenkratzer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
 
-Wolkenkratzer is a Javascript library that helps you programmatically generate CloudFormation templates.
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
 
-Table of Contents
-=================
+<body>
 
-  * [wolkenkratzer](#wolkenkratzer)
-  * [Table of Contents](#table-of-contents)
-    * [Installation](#installation)
-    * [Usage](#usage)
-      * [General](#general)
-      * [Resources](#resources)
-        * [constructor (name, properties)](#constructor-name-properties)
-        * [Resource support](#resource-support)
-      * [Macros](#macros)
-        * [S3 Macros](#s3-macros)
-          * [S3 Bucket Macro](#s3-bucket-macro)
-        * [EC2 Meta Macros](#ec2-meta-macros)
-          * [getInstanceTypeList](#getinstancetypelist)
-          * [getInstanceTypeNameList](#getinstancetypenamelist)
-          * [getInstanceTypeMap](#getinstancetypemap)
-          * [getRegions](#getregions)
-          * [getAMIMap](#getamimap)
-      * [Intrinsic Functions](#intrinsic-functions)
-      * [Parameters](#parameters)
-        * [constructor](#constructor)
-      * [Mappings](#mappings)
-        * [constructor](#constructor-1)
-      * [Output](#output)
-        * [constructor](#constructor-2)
-      * [Examples](#examples)
-        * [S3 CloudFront template example](#s3-cloudfront-template-example)
-        * [Wordpress single instance site](#wordpress-single-instance-site)
-    * [Contributing](#contributing)
-    * [License](#license)
+<div id="main">
 
-## Installation
+    <h1 class="page-title">Home</h1>
 
-  ```$ npm install wolkenkratzer```
-  
-  It can then be used in any nodejs script with
-  
-  ```javascript const wk = require('wolkenkratzer') ```
+    
 
-## Usage
 
-Full documentation for the project can be found at https://arminhammer.github.io/wolkenkratzer/.
 
-### General
-The core class is Template, which is instantiated with ```new wolkenkratzer.Template()```. Parameters can be added with the ```add()``` method,
-and Resources can be added with ```add```. The final template can be retrieved with Template.toJson().
+    
 
-Template.toJson() returns an object ```json { Errors: [], Template: {} }```. Any validation errors found in the Template will be added to the Errors array. If there are no validation errors, Errors will be ```null```. ```Template``` is the JSON template.
 
-The following script adds a VPNGateway to the template:
+    <h3> </h3>
 
-```javascript
-const wk = require('wolkenkratzer')
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>wolkenkratzer</h1><p>Wolkenkratzer is a Javascript library that helps you programmatically generate CloudFormation templates.</p>
+<h1>Table of Contents</h1><ul>
+<li><a href="#wolkenkratzer">wolkenkratzer</a></li>
+<li><a href="#table-of-contents">Table of Contents</a><ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#general">General</a></li>
+<li><a href="#resources">Resources</a><ul>
+<li><a href="#constructor-name-properties">constructor (name, properties)</a></li>
+<li><a href="#resource-support">Resource support</a></li>
+</ul>
+</li>
+<li><a href="#macros">Macros</a><ul>
+<li><a href="#s3-macros">S3 Macros</a><ul>
+<li><a href="#s3-bucket-macro">S3 Bucket Macro</a></li>
+</ul>
+</li>
+<li><a href="#ec2-meta-macros">EC2 Meta Macros</a><ul>
+<li><a href="#getinstancetypelist">getInstanceTypeList</a></li>
+<li><a href="#getinstancetypenamelist">getInstanceTypeNameList</a></li>
+<li><a href="#getinstancetypemap">getInstanceTypeMap</a></li>
+<li><a href="#getregions">getRegions</a></li>
+<li><a href="#getamimap">getAMIMap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#intrinsic-functions">Intrinsic Functions</a></li>
+<li><a href="#parameters">Parameters</a><ul>
+<li><a href="#constructor">constructor</a></li>
+</ul>
+</li>
+<li><a href="#mappings">Mappings</a><ul>
+<li><a href="#constructor-1">constructor</a></li>
+</ul>
+</li>
+<li><a href="#output">Output</a><ul>
+<li><a href="#constructor-2">constructor</a></li>
+</ul>
+</li>
+<li><a href="#examples">Examples</a><ul>
+<li><a href="#s3-cloudfront-template-example">S3 CloudFront template example</a></li>
+<li><a href="#wordpress-single-instance-site">Wordpress single instance site</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+<h2>Installation</h2><p>  <code>$ npm install wolkenkratzer</code></p>
+<p>  It can then be used in any nodejs script with</p>
+<p>  <code>javascript const wk = require('wolkenkratzer')</code></p>
+<h2>Usage</h2><p>Full documentation for the project can be found at https://arminhammer.github.io/wolkenkratzer/.</p>
+<h3>General</h3><p>The core class is Template, which is instantiated with <code>new wolkenkratzer.Template()</code>. Parameters can be added with the <code>add()</code> method,
+and Resources can be added with <code>add</code>. The final template can be retrieved with Template.toJson().</p>
+<p>Template.toJson() returns an object <code>json { Errors: [], Template: {} }</code>. Any validation errors found in the Template will be added to the Errors array. If there are no validation errors, Errors will be <code>null</code>. <code>Template</code> is the JSON template.</p>
+<p>The following script adds a VPNGateway to the template:</p>
+<pre class="prettyprint source lang-javascript"><code>const wk = require('wolkenkratzer')
 
 let t = new wk.Template()
 
@@ -67,46 +114,31 @@ let vpnGateway = new wk.EC2.VPNGateway('VPNGateway')
 vpnGateway.Type = 'ipsec.1'
 t.add(vpnGateway)
 
-console.log(t.toJson().Template)
-```
-
-This results in the template:
-
-```json
-{
-  "Parameters": {
-    "VPCCIDR": {
-      "Type": "String",
-      "Default": "10.0.0.0/16"
+console.log(t.toJson().Template)</code></pre><p>This results in the template:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;Parameters&quot;: {
+    &quot;VPCCIDR&quot;: {
+      &quot;Type&quot;: &quot;String&quot;,
+      &quot;Default&quot;: &quot;10.0.0.0/16&quot;
     }
   },
-  "Resources": {
-    "VPNGateway": {
-      "Type": "AWS::EC2::VPNGateway",
-      "Properties": {
-        "Type": "ipsec.1"
+  &quot;Resources&quot;: {
+    &quot;VPNGateway&quot;: {
+      &quot;Type&quot;: &quot;AWS::EC2::VPNGateway&quot;,
+      &quot;Properties&quot;: {
+        &quot;Type&quot;: &quot;ipsec.1&quot;
       }
     }
   },
-  "AWSTemplateFormatVersion": "2010-09-09"
-}
-```
-
-YAML output is also supported:
-
-```javascript
-let yamlResult = t.toYaml()
+  &quot;AWSTemplateFormatVersion&quot;: &quot;2010-09-09&quot;
+}</code></pre><p>YAML output is also supported:</p>
+<pre class="prettyprint source lang-javascript"><code>let yamlResult = t.toYaml()
 
 if (yamlResult.Errors) {
   console.log(yamlResult.Errors)
 }
-console.log(yamlResult.Template)
-```
-
-Output:
-
-```yaml
-Parameters:
+console.log(yamlResult.Template)</code></pre><p>Output:</p>
+<pre class="prettyprint source lang-yaml"><code>Parameters:
   VPCCIDR:
     Type: String
     Default: 10.0.0.0/16
@@ -115,32 +147,12 @@ Resources:
     Type: 'AWS::EC2::VPNGateway'
     Properties:
       Type: ipsec.1
-AWSTemplateFormatVersion: '2010-09-09'
-```
-
-### Resources
-
-#### constructor (name, properties)
- 
-Resources must be created with a string name parameter, which will be the CloudFormation logical id for the resource:
-    
-```javascript 
-let ec2One = new wk.EC2.Instance('ec2One')
-```
-
-Once you create the resource, you can set the attributes using setters. Although you can use the = operator to set new values, wolkenkratzer
- overrides the setters and does typechecking for you.
-
-```javascript 
-ec2One.ImageId = 'ami-2a69aa47'
-```
-
-You can use the second parameter in case you want to create the resource with a JSON block, instead of setting the attributes one at a time.
-
-An example of creating a resource with one argument (ec2One), and another (ec2Two) with a JSON object:
-
-```javascript
-'use strict';
+AWSTemplateFormatVersion: '2010-09-09'</code></pre><h3>Resources</h3><h4>constructor (name, properties)</h4><p>Resources must be created with a string name parameter, which will be the CloudFormation logical id for the resource:</p>
+<pre class="prettyprint source lang-javascript"><code>let ec2One = new wk.EC2.Instance('ec2One')</code></pre><p>Once you create the resource, you can set the attributes using setters. Although you can use the = operator to set new values, wolkenkratzer
+ overrides the setters and does typechecking for you.</p>
+<pre class="prettyprint source lang-javascript"><code>ec2One.ImageId = 'ami-2a69aa47'</code></pre><p>You can use the second parameter in case you want to create the resource with a JSON block, instead of setting the attributes one at a time.</p>
+<p>An example of creating a resource with one argument (ec2One), and another (ec2Two) with a JSON object:</p>
+<pre class="prettyprint source lang-javascript"><code>'use strict';
 
 const aws = require('aws-sdk')
 const EC2 = new aws.EC2({ region: 'us-east-1' })
@@ -162,58 +174,40 @@ EC2.describeInstances({}, (err, data) => {
     t.add(ec2Two)
     console.log(t.toJson().Template)
   }
-})
-```
-
-Output:
-
-```json
-{
-  "Resources": {
-    "ec2One": {
-      "Type": "AWS::EC2::Instance",
-      "Properties": {
-        "ImageId": "ami-5679aa47"
+})</code></pre><p>Output:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;Resources&quot;: {
+    &quot;ec2One&quot;: {
+      &quot;Type&quot;: &quot;AWS::EC2::Instance&quot;,
+      &quot;Properties&quot;: {
+        &quot;ImageId&quot;: &quot;ami-5679aa47&quot;
       }
     },
-    "ec2Two": {
-      "Type": "AWS::EC2::Instance",
-      "Properties": {
-        "EbsOptimized": false,
-        "ImageId": "ami-466da12b",
-        "InstanceType": "t2.micro",
-        "KeyName": "keypair",
-        "PrivateIpAddress": "172.31.0.119",
-        "SecurityGroups": [
+    &quot;ec2Two&quot;: {
+      &quot;Type&quot;: &quot;AWS::EC2::Instance&quot;,
+      &quot;Properties&quot;: {
+        &quot;EbsOptimized&quot;: false,
+        &quot;ImageId&quot;: &quot;ami-466da12b&quot;,
+        &quot;InstanceType&quot;: &quot;t2.micro&quot;,
+        &quot;KeyName&quot;: &quot;keypair&quot;,
+        &quot;PrivateIpAddress&quot;: &quot;172.31.0.119&quot;,
+        &quot;SecurityGroups&quot;: [
           {
-            "GroupName": "awseb-e-qyaht32vin-stack-AWSEBSecurityGroup-12345678",
-            "GroupId": "sg-aba882d0"
+            &quot;GroupName&quot;: &quot;awseb-e-qyaht32vin-stack-AWSEBSecurityGroup-12345678&quot;,
+            &quot;GroupId&quot;: &quot;sg-aba882d0&quot;
           }
         ],
-        "SourceDestCheck": true,
-        "SubnetId": "subnet-bc1d1234"
+        &quot;SourceDestCheck&quot;: true,
+        &quot;SubnetId&quot;: &quot;subnet-bc1d1234&quot;
       }
     }
   },
-  "AWSTemplateFormatVersion": "2010-09-09"
-}
-```
-
-
-#### Resource support
-Wolkenkratzer supports all CloudFormation resources. This is made possible by scripts that scrape the CloudFormation documentation pages 
-and generate the resource code files. The scrapers can be found in the /scripts folder.
-
-### Macros
-Wolkenkratzer includes macros that take advantage of the aws-sdk npm library. The macros are intended to make certain common uses of CloudFormation easier. 
-
-#### S3 Macros
-
-##### S3 Bucket Macro
-Currently the S3 Bucket is the only macro for Resources, which can be used like this:
-
-```javascript
-'use strict'
+  &quot;AWSTemplateFormatVersion&quot;: &quot;2010-09-09&quot;
+}</code></pre><h4>Resource support</h4><p>Wolkenkratzer supports all CloudFormation resources. This is made possible by scripts that scrape the CloudFormation documentation pages 
+and generate the resource code files. The scrapers can be found in the /scripts folder.</p>
+<h3>Macros</h3><p>Wolkenkratzer includes macros that take advantage of the aws-sdk npm library. The macros are intended to make certain common uses of CloudFormation easier. </p>
+<h4>S3 Macros</h4><h5>S3 Bucket Macro</h5><p>Currently the S3 Bucket is the only macro for Resources, which can be used like this:</p>
+<pre class="prettyprint source lang-javascript"><code>'use strict'
 
 let region = 'us-east-1'
 const wk = require('wolkenkratzer')
@@ -233,125 +227,95 @@ s3.listBuckets().promise()
 })
 .catch((e) => {
   console.error(e)
-})
-```
-
-Output: 
-
-```json
-{
-  "Resources": {
-    "mybucket": {
-      "Type": "AWS::S3::Bucket",
-      "Properties": {
-        "BucketName": "mybucket",
-        "LifecycleConfiguration": {
-          "Rules": [
+})</code></pre><p>Output: </p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;Resources&quot;: {
+    &quot;mybucket&quot;: {
+      &quot;Type&quot;: &quot;AWS::S3::Bucket&quot;,
+      &quot;Properties&quot;: {
+        &quot;BucketName&quot;: &quot;mybucket&quot;,
+        &quot;LifecycleConfiguration&quot;: {
+          &quot;Rules&quot;: [
             {
-              "ID": "rule0",
-              "Prefix": "",
-              "Status": "Enabled",
-              "Transitions": [
+              &quot;ID&quot;: &quot;rule0&quot;,
+              &quot;Prefix&quot;: &quot;&quot;,
+              &quot;Status&quot;: &quot;Enabled&quot;,
+              &quot;Transitions&quot;: [
                 {
-                  "Days": 180,
-                  "StorageClass": "STANDARD_IA"
+                  &quot;Days&quot;: 180,
+                  &quot;StorageClass&quot;: &quot;STANDARD_IA&quot;
                 }
               ],
-              "NoncurrentVersionTransitions": []
+              &quot;NoncurrentVersionTransitions&quot;: []
             }
           ]
         },
-        "LoggingConfiguration": {
-          "LoggingEnabled": {
-            "TargetBucket": "my-logging-bucket",
-            "TargetGrants": [],
-            "TargetPrefix": "logs/"
+        &quot;LoggingConfiguration&quot;: {
+          &quot;LoggingEnabled&quot;: {
+            &quot;TargetBucket&quot;: &quot;my-logging-bucket&quot;,
+            &quot;TargetGrants&quot;: [],
+            &quot;TargetPrefix&quot;: &quot;logs/&quot;
           }
         },
-        "NotificationConfiguration": {
-          "CloudFunctionConfiguration": {
-            "Id": "Lambda",
-            "Event": "s3:ObjectCreated:*",
-            "Events": [
-              "s3:ObjectCreated:*"
+        &quot;NotificationConfiguration&quot;: {
+          &quot;CloudFunctionConfiguration&quot;: {
+            &quot;Id&quot;: &quot;Lambda&quot;,
+            &quot;Event&quot;: &quot;s3:ObjectCreated:*&quot;,
+            &quot;Events&quot;: [
+              &quot;s3:ObjectCreated:*&quot;
             ],
-            "CloudFunction": "arn:aws:lambda:us-east-1:2123456789:function:myFunc"
+            &quot;CloudFunction&quot;: &quot;arn:aws:lambda:us-east-1:2123456789:function:myFunc&quot;
           }
         },
-        "ReplicationConfiguration": {
-          "ReplicationConfiguration": {
-            "Role": "arn:aws:iam::2123456789:role/my-role-s3-repl-role",
-            "Rules": [
+        &quot;ReplicationConfiguration&quot;: {
+          &quot;ReplicationConfiguration&quot;: {
+            &quot;Role&quot;: &quot;arn:aws:iam::2123456789:role/my-role-s3-repl-role&quot;,
+            &quot;Rules&quot;: [
               {
-                "ID": "mybucket",
-                "Prefix": "",
-                "Status": "Enabled",
-                "Destination": {
-                  "Bucket": "arn:aws:s3:::replbucket"
+                &quot;ID&quot;: &quot;mybucket&quot;,
+                &quot;Prefix&quot;: &quot;&quot;,
+                &quot;Status&quot;: &quot;Enabled&quot;,
+                &quot;Destination&quot;: {
+                  &quot;Bucket&quot;: &quot;arn:aws:s3:::replbucket&quot;
                 }
               }
             ]
           }
         },
-        "Tags": [
+        &quot;Tags&quot;: [
           {
-            "Key": "testkey",
-            "Value": "testvalue"
+            &quot;Key&quot;: &quot;testkey&quot;,
+            &quot;Value&quot;: &quot;testvalue&quot;
           }
         ],
-        "VersioningConfiguration": {
-          "Status": "Enabled"
+        &quot;VersioningConfiguration&quot;: {
+          &quot;Status&quot;: &quot;Enabled&quot;
         },
-        "WebsiteConfiguration": {
-          "ErrorDocument": {
-            "Key": "error.html"
+        &quot;WebsiteConfiguration&quot;: {
+          &quot;ErrorDocument&quot;: {
+            &quot;Key&quot;: &quot;error.html&quot;
           },
-          "IndexDocument": {
-            "Suffix": "index.html"
+          &quot;IndexDocument&quot;: {
+            &quot;Suffix&quot;: &quot;index.html&quot;
           },
-          "RoutingRules": []
+          &quot;RoutingRules&quot;: []
         }
       }
     }
   },
-  "AWSTemplateFormatVersion": "2010-09-09"
-}
-```
-
-#### EC2 Meta Macros
-
-The EC2 Meta macros take advantage of the scraped data from the excellent https://github.com/powdahound/ec2instances.info project. A cached version of https://github.com/powdahound/ec2instances.info/blob/master/www/instances.json is stored in metadata/ec2info.json.
-
-##### getInstanceTypeList
-Returns an array of instance types and details.
-
-```javascript
-const instanceList = wk.Macro.EC2Meta.getInstanceTypeList()
-```
-##### getInstanceTypeNameList
-Returns an array of just the names of instance types.
-```javascript
-const instanceTypes = wk.Macro.EC2Meta.getInstanceTypeNameList()
-```
-##### getInstanceTypeMap
-Same as getInstanceTypeList, but returns as an object instead of an array.
-```javascript
-const instanceTypeMap = wk.Macro.EC2Meta.getInstanceTypeMap()
-```
-##### getRegions
-Returns an array of all the names of regions available in AWS.
-```javascript
-let regions = wk.Macro.EC2Meta.getRegions().filter((region) => {
+  &quot;AWSTemplateFormatVersion&quot;: &quot;2010-09-09&quot;
+}</code></pre><h4>EC2 Meta Macros</h4><p>The EC2 Meta macros take advantage of the scraped data from the excellent https://github.com/powdahound/ec2instances.info project. A cached version of https://github.com/powdahound/ec2instances.info/blob/master/www/instances.json is stored in metadata/ec2info.json.</p>
+<h5>getInstanceTypeList</h5><p>Returns an array of instance types and details.</p>
+<pre class="prettyprint source lang-javascript"><code>const instanceList = wk.Macro.EC2Meta.getInstanceTypeList()</code></pre><h5>getInstanceTypeNameList</h5><p>Returns an array of just the names of instance types.</p>
+<pre class="prettyprint source lang-javascript"><code>const instanceTypes = wk.Macro.EC2Meta.getInstanceTypeNameList()</code></pre><h5>getInstanceTypeMap</h5><p>Same as getInstanceTypeList, but returns as an object instead of an array.</p>
+<pre class="prettyprint source lang-javascript"><code>const instanceTypeMap = wk.Macro.EC2Meta.getInstanceTypeMap()</code></pre><h5>getRegions</h5><p>Returns an array of all the names of regions available in AWS.</p>
+<pre class="prettyprint source lang-javascript"><code>let regions = wk.Macro.EC2Meta.getRegions().filter((region) => {
   if (!region.includes('us-gov') && !region.includes('cn-north-1')) {
     return region
   }
 })
-console.log(regions)
-```
-##### getAMIMap
-Makes a series of aws-sdk EC2.describeImages calls in order to structure a map of AMIs based off of search criteria across one or more regions. Useful when trying to maintain complicated ```Mappings``` of AMIs across multiple regions. Returns a ```javascript Promise``` so make sure you handle the result with a then() call:
-```javascript
-let filterParams = [
+console.log(regions)</code></pre><h5>getAMIMap</h5><p>Makes a series of aws-sdk EC2.describeImages calls in order to structure a map of AMIs based off of search criteria across one or more regions. Useful when trying to maintain complicated <code>Mappings</code> of AMIs across multiple regions. Returns a <code>javascript Promise</code> so make sure you handle the result with a then() call:</p>
+<pre class="prettyprint source lang-javascript"><code>let filterParams = [
   { Name: 'HVM64', Filters: [ { Name: 'name', Values: ['amzn-ami-hvm-2016.03.3.x86_64-gp2'] } ] },
   { Name: 'PV64', Filters: [ { Name: 'name', Values: ['amzn-ami-pv-2016.03.3.x86_64-ebs'] } ] },
   { Name: 'HVMG2', Filters: [ { Name: 'name', Values: ['amzn-ami-graphics-hvm-2016.03.3.x86_64*'] } ] }
@@ -369,73 +333,62 @@ wk.Macro.EC2Meta.getAMIMap(filterParams, regions)
 })
 .catch((e) => {
   console.error(e)
-})
-```
-
-Outputs:
-```json
-"AWSRegionArch2AMI": {
-      "us-east-1": {
-        "HVM64": "ami-6869aa05",
-        "PV64": "ami-2a69aa47",
-        "HVMG2": "ami-2e5e9c43"
+})</code></pre><p>Outputs:</p>
+<pre class="prettyprint source lang-json"><code>&quot;AWSRegionArch2AMI&quot;: {
+      &quot;us-east-1&quot;: {
+        &quot;HVM64&quot;: &quot;ami-6869aa05&quot;,
+        &quot;PV64&quot;: &quot;ami-2a69aa47&quot;,
+        &quot;HVMG2&quot;: &quot;ami-2e5e9c43&quot;
       },
-      "us-west-2": {
-        "HVM64": "ami-7172b611",
-        "PV64": "ami-7f77b31f",
-        "HVMG2": "ami-83b770e3"
+      &quot;us-west-2&quot;: {
+        &quot;HVM64&quot;: &quot;ami-7172b611&quot;,
+        &quot;PV64&quot;: &quot;ami-7f77b31f&quot;,
+        &quot;HVMG2&quot;: &quot;ami-83b770e3&quot;
       },
-      "us-west-1": {
-        "HVM64": "ami-31490d51",
-        "PV64": "ami-a2490dc2",
-        "HVMG2": "ami-fd76329d"
+      &quot;us-west-1&quot;: {
+        &quot;HVM64&quot;: &quot;ami-31490d51&quot;,
+        &quot;PV64&quot;: &quot;ami-a2490dc2&quot;,
+        &quot;HVMG2&quot;: &quot;ami-fd76329d&quot;
       },
-      "eu-west-1": {
-        "HVM64": "ami-f9dd458a",
-        "PV64": "ami-4cdd453f",
-        "HVMG2": "ami-b9bd25ca"
+      &quot;eu-west-1&quot;: {
+        &quot;HVM64&quot;: &quot;ami-f9dd458a&quot;,
+        &quot;PV64&quot;: &quot;ami-4cdd453f&quot;,
+        &quot;HVMG2&quot;: &quot;ami-b9bd25ca&quot;
       },
-      "eu-central-1": {
-        "HVM64": "ami-ea26ce85",
-        "PV64": "ami-6527cf0a",
-        "HVMG2": "ami-7f04ec10"
+      &quot;eu-central-1&quot;: {
+        &quot;HVM64&quot;: &quot;ami-ea26ce85&quot;,
+        &quot;PV64&quot;: &quot;ami-6527cf0a&quot;,
+        &quot;HVMG2&quot;: &quot;ami-7f04ec10&quot;
       },
-      "ap-southeast-1": {
-        "HVM64": "ami-a59b49c6",
-        "PV64": "ami-df9e4cbc",
-        "HVMG2": "ami-0cb5676f"
+      &quot;ap-southeast-1&quot;: {
+        &quot;HVM64&quot;: &quot;ami-a59b49c6&quot;,
+        &quot;PV64&quot;: &quot;ami-df9e4cbc&quot;,
+        &quot;HVMG2&quot;: &quot;ami-0cb5676f&quot;
       },
-      "ap-northeast-1": {
-        "HVM64": "ami-374db956",
-        "PV64": "ami-3e42b65f",
-        "HVMG2": "ami-e0ee1981"
+      &quot;ap-northeast-1&quot;: {
+        &quot;HVM64&quot;: &quot;ami-374db956&quot;,
+        &quot;PV64&quot;: &quot;ami-3e42b65f&quot;,
+        &quot;HVMG2&quot;: &quot;ami-e0ee1981&quot;
       },
-      "ap-northeast-2": {
-        "HVM64": "ami-2b408b45",
-        "PV64": "NOT_SUPPORTED",
-        "HVMG2": "NOT_SUPPORTED"
+      &quot;ap-northeast-2&quot;: {
+        &quot;HVM64&quot;: &quot;ami-2b408b45&quot;,
+        &quot;PV64&quot;: &quot;NOT_SUPPORTED&quot;,
+        &quot;HVMG2&quot;: &quot;NOT_SUPPORTED&quot;
       },
-      "ap-southeast-2": {
-        "HVM64": "ami-dc361ebf",
-        "PV64": "ami-63351d00",
-        "HVMG2": "ami-a71c34c4"
+      &quot;ap-southeast-2&quot;: {
+        &quot;HVM64&quot;: &quot;ami-dc361ebf&quot;,
+        &quot;PV64&quot;: &quot;ami-63351d00&quot;,
+        &quot;HVMG2&quot;: &quot;ami-a71c34c4&quot;
       },
-      "sa-east-1": {
-        "HVM64": "ami-6dd04501",
-        "PV64": "ami-1ad34676",
-        "HVMG2": "NOT_SUPPORTED"
+      &quot;sa-east-1&quot;: {
+        &quot;HVM64&quot;: &quot;ami-6dd04501&quot;,
+        &quot;PV64&quot;: &quot;ami-1ad34676&quot;,
+        &quot;HVMG2&quot;: &quot;NOT_SUPPORTED&quot;
       }
-    }
-```
-Macros for other resources, as well as Mappings and other parameter blocks are planned for the future.
-
-### Intrinsic Functions
-
-Intrinsic functions such as Ref and Fn::GetAtt are supported. Any resource can associate with other elements by using the corresponding 
-intrinsic function:
-
-```javascript
-const wk = require('wolkenkratzer')
+    }</code></pre><p>Macros for other resources, as well as Mappings and other parameter blocks are planned for the future.</p>
+<h3>Intrinsic Functions</h3><p>Intrinsic functions such as Ref and Fn::GetAtt are supported. Any resource can associate with other elements by using the corresponding 
+intrinsic function:</p>
+<pre class="prettyprint source lang-javascript"><code>const wk = require('wolkenkratzer')
 const Ref = wk.Intrinsic.Ref
 
 let t = new wk.Template()
@@ -448,15 +401,9 @@ let bucket = new wk.S3.Bucket('s3Bucket')
 bucket.BucketName = new Ref(bucketName)
 t.add(bucket)
 
-console.log(t.toJson().Template)
-```
-
-Intrinsic functions are available from wk.Instrinsic.*.
-
-Convenience methods are available for Resources. For example, you can call .ref():
-
-```javascript
-const wk = require('wolkenkratzer')
+console.log(t.toJson().Template)</code></pre><p>Intrinsic functions are available from wk.Instrinsic.*.</p>
+<p>Convenience methods are available for Resources. For example, you can call .ref():</p>
+<pre class="prettyprint source lang-javascript"><code>const wk = require('wolkenkratzer')
 
 let t = new wk.Template()
 
@@ -468,43 +415,22 @@ let bucket = new wk.S3.Bucket('s3Bucket')
 bucket.BucketName.ref(bucketName)
 t.add(bucket)
 
-console.log(t.toJson().Template)
-```
-
-### Parameters
-
-Parameters are available at wk.Parameters.
-
-#### constructor
-
-Parameters take two parameters: the first parameter is the logical id of the Parameter, and the other is the object that represents
-the attributes of the Paramter:
-
-```javascript
-let t = new wk.Template()
+console.log(t.toJson().Template)</code></pre><h3>Parameters</h3><p>Parameters are available at wk.Parameters.</p>
+<h4>constructor</h4><p>Parameters take two parameters: the first parameter is the logical id of the Parameter, and the other is the object that represents
+the attributes of the Paramter:</p>
+<pre class="prettyprint source lang-javascript"><code>let t = new wk.Template()
 
 let hostedZoneParam = new wk.Parameter('HostedZone', {
   'Type': 'String',
   'Description': 'The DNS name of an existing Amazon Route 53 hosted zone',
-  'AllowedPattern': '(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)',
+  'AllowedPattern': '(?!-)[a-zA-Z0-9-.]{1,63}(?&lt;!-)',
   'ConstraintDescription': 'must be a valid DNS zone name.'
 })
 
-t.add(hostedZoneParam)
-
-```
-
-### Mappings
-
-Mappings are available at wk.Mapping.
-
-#### constructor
-
-Mappings take two parameters: the first parameter is the logical id of the Mapping, and the other is the object that represents
-the attributes of the Mapping:
-
-```javascript
-let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
+t.add(hostedZoneParam)</code></pre><h3>Mappings</h3><p>Mappings are available at wk.Mapping.</p>
+<h4>constructor</h4><p>Mappings take two parameters: the first parameter is the logical id of the Mapping, and the other is the object that represents
+the attributes of the Mapping:</p>
+<pre class="prettyprint source lang-javascript"><code>let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
   'us-east-1': { 'Suffix': '.s3-website-us-east-1.amazonaws.com' },
   'us-west-1': { 'Suffix': '.s3-website-us-west-1.amazonaws.com' },
   'us-west-2': { 'Suffix': '.s3-website-us-west-2.amazonaws.com' },
@@ -519,33 +445,14 @@ let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
   }
 )
 
-t.add(region2S3WebsiteSuffixMap)
-```
-
-### Output
-
-Outputs are available at wk.Output.
-
-#### constructor
-
-Output take two parameters: the first parameter is the logical id of the Output, and the other is the object that represents
-the attributes of the Mapping:
-
-```javascript
-t.add(new wk.Output('WebsiteURL', {
+t.add(region2S3WebsiteSuffixMap)</code></pre><h3>Output</h3><p>Outputs are available at wk.Output.</p>
+<h4>constructor</h4><p>Output take two parameters: the first parameter is the logical id of the Output, and the other is the object that represents
+the attributes of the Mapping:</p>
+<pre class="prettyprint source lang-javascript"><code>t.add(new wk.Output('WebsiteURL', {
   'Value': new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
   'Description': 'The URL of the newly created website'
-}))
-```
-
-### Examples
-
-More examples can be found in the /examples folder.
-
-#### S3 CloudFront template example
-
-```javascript
-'use strict'
+}))</code></pre><h3>Examples</h3><p>More examples can be found in the /examples folder.</p>
+<h4>S3 CloudFront template example</h4><pre class="prettyprint source lang-javascript"><code>'use strict'
 
 const wk = require('wolkenkratzer')
 const Ref = wk.Intrinsic.Ref
@@ -557,7 +464,7 @@ t.setDescription('AWS CloudFormation Sample Template S3_Website_With_CloudFront_
 let hostedZoneParam = new wk.Parameter('HostedZone', {
   'Type': 'String',
   'Description': 'The DNS name of an existing Amazon Route 53 hosted zone',
-  'AllowedPattern': '(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)',
+  'AllowedPattern': '(?!-)[a-zA-Z0-9-.]{1,63}(?&lt;!-)',
   'ConstraintDescription': 'must be a valid DNS zone name.'
 })
 
@@ -640,13 +547,7 @@ t.add(new wk.Output('BucketName', {
   'Description': 'Name of S3 bucket to hold website content'
 }))
 
-console.log(t.toJson().Template)
-```
-
-#### Wordpress single instance site
-
-```javascript
-'use strict'
+console.log(t.toJson().Template)</code></pre><h4>Wordpress single instance site</h4><pre class="prettyprint source lang-javascript"><code>'use strict'
 
 const wk = require('wolkenkratzer')
 
@@ -797,11 +698,11 @@ let webSiteUrlOutput = new wk.Output('WebsiteURL', {
 
 let setMysqlRootPassword = new wk.Init.Command('01_setMysqlRootPassword')
 setMysqlRootPassword.command = { 'Fn::Join': [ '', [ 'mysqladmin -u root password \'', { 'Ref': 'DBRootPassword' }, '\'' ] ] }
-setMysqlRootPassword.ava = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))' ] ] }
+setMysqlRootPassword.ava = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 &lt;/dev/null); (( $? != 0 ))' ] ] }
 
 let createDatabase = new wk.Init.Command('02_createDatabase')
-createDatabase.command = { 'Fn::Join': [ '', [ 'mysql -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' < /tmp/setup.mysql' ] ] }
-createDatabase.ava = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 </dev/null); (( $? != 0 ))' ] ] }
+createDatabase.command = { 'Fn::Join': [ '', [ 'mysql -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' &lt; /tmp/setup.mysql' ] ] }
+createDatabase.ava = { 'Fn::Join': [ '', [ '$(mysql ', { 'Ref': 'DBName' }, ' -u root --password=\'', { 'Ref': 'DBRootPassword' }, '\' >/dev/null 2>&1 &lt;/dev/null); (( $? != 0 ))' ] ] }
 
 let configureWordpressCMD = new wk.Init.Command('03_configureWordpress')
 configureWordpressCMD.command = '/tmp/create-wp-config'
@@ -838,7 +739,7 @@ installCfn.add(cfnHupService)
 webServer.addConfig(installCfn)
 
 let createWPConfig = new wk.Init.File('/tmp/create-wp-config')
-createWPConfig.content = { 'Fn::Join': [ '', [ '#!/bin/bash -xe\n', 'cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n', 'sed -i "s/\'database_name_here\'/\'', { 'Ref': 'DBName' }, '\'/g" wp-config.php\n', 'sed -i "s/\'username_here\'/\'', { 'Ref': 'DBUser' }, '\'/g" wp-config.php\n', 'sed -i "s/\'password_here\'/\'', { 'Ref': 'DBPassword' }, '\'/g" wp-config.php\n' ] ] }
+createWPConfig.content = { 'Fn::Join': [ '', [ '#!/bin/bash -xe\n', 'cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n', 'sed -i &quot;s/\'database_name_here\'/\'', { 'Ref': 'DBName' }, '\'/g&quot; wp-config.php\n', 'sed -i &quot;s/\'username_here\'/\'', { 'Ref': 'DBUser' }, '\'/g&quot; wp-config.php\n', 'sed -i &quot;s/\'password_here\'/\'', { 'Ref': 'DBPassword' }, '\'/g&quot; wp-config.php\n' ] ] }
 createWPConfig.mode = '000500'
 createWPConfig.owner = 'root'
 createWPConfig.group = 'root'
@@ -915,12 +816,29 @@ wk.Macro.EC2Meta.getAMIMap(filterParams, regions)
 })
 .catch((e) => {
   console.error(e)
-})
-```
+})</code></pre><h2>Contributing</h2><p>Wolkenkratzer is still a new library and needs lots of testing. If you run into any problems please open an issue or create a PR. All 
+contributions are welcome!</p>
+<h2>License</h2><p>Wolkenkratzer uses the Apache 2.0 open source license.</p></article>
+    </section>
 
-## Contributing
-Wolkenkratzer is still a new library and needs lots of testing. If you run into any problems please open an issue or create a PR. All 
-contributions are welcome!
 
-## License
-Wolkenkratzer uses the Apache 2.0 open source license.
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Core.html">Core</a></li><li><a href="module-Macro.html">Macro</a></li></ul><h3>Classes</h3><ul><li><a href="module-Macro.Bucket.html">Bucket</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chai">chai</a></li><li><a href="global.html#wk">wk</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Dec 17 2016 18:34:20 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

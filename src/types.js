@@ -27,7 +27,7 @@ function Types () {
     return types
   } else {
     types = {}
-    const stub = require('./stubs/json/properties/properties')
+    const stub = require('../stubs/json/properties/properties')
     for (let propStub in stub) {
       let propBlock = function (propertiesObject) {
         let propName = stub[ propStub ].Name

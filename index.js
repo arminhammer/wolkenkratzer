@@ -3,28 +3,28 @@
  */
 'use strict'
 
-const Template = require('./template').Template
-const Tag = require('./tag').Tag
-const TagSet = require('./tag').TagSet
-const Intrinsic = require('./intrinsic')
-const Ref = require('./intrinsic').Ref
-const FnGetAtt = require('./intrinsic').FnGetAtt
-const Parameter = require('./parameter').Parameter
-const WKResource = require('./resource').WKResource
-const ResourceProperty = require('./resource').ResourceProperty
-const ResourceAttribute = require('./resourceattribute').ResourceAttribute
-const ResourceAttributeArray = require('./resourceattribute').ResourceAttributeArray
-const TypeException = require('./exceptions').TypeException
-const RequiredPropertyException = require('./exceptions').RequiredPropertyException
-const ValueException = require('./exceptions').ValueException
-const Types = require('./types')()
-// const Types = require('./types.old')()
-const Output = require('./output').Output
-const Init = require('./init')
-const Policy = require('./policy')
-const Mapping = require('./mapping').Mapping
-const Macro = require('./macro')
-const Service = require('./service')
+const Template = require('./src/template').Template
+const Tag = require('./src/tag').Tag
+const TagSet = require('./src/tag').TagSet
+const Intrinsic = require('./src/intrinsic')
+const Ref = require('./src/intrinsic').Ref
+const FnGetAtt = require('./src/intrinsic').FnGetAtt
+const Parameter = require('./src/parameter').Parameter
+const WKResource = require('./src/resource').WKResource
+const ResourceProperty = require('./src/resource').ResourceProperty
+const ResourceAttribute = require('./src/resourceattribute').ResourceAttribute
+const ResourceAttributeArray = require('./src/resourceattribute').ResourceAttributeArray
+const TypeException = require('./src/exceptions').TypeException
+const RequiredPropertyException = require('./src/exceptions').RequiredPropertyException
+const ValueException = require('./src/exceptions').ValueException
+const Types = require('./src/types')()
+// const Types = require('./src/types.old')()
+const Output = require('./src/output').Output
+const Init = require('./src/init')
+const Policy = require('./src/policy')
+const Mapping = require('./src/mapping').Mapping
+const Macro = require('./src/macro')
+const Service = require('./src/service')
 
 const ApiGateway = Service('ApiGateway')
 const ApplicationAutoScaling = Service('ApplicationAutoScaling')
@@ -34,6 +34,8 @@ const CloudFormation = Service('CloudFormation')
 const CloudFront = Service('CloudFront')
 const CloudTrail = Service('CloudTrail')
 const CloudWatch = Service('CloudWatch')
+const CodeBuild = Service('CodeBuild')
+const CodeCommit = Service('CodeCommit')
 const CodeDeploy = Service('CodeDeploy')
 const CodePipeline = Service('CodePipeline')
 const Config = Service('Config')
@@ -53,8 +55,9 @@ const EMR = Service('EMR')
 const Events = Service('Events')
 const GameLift = Service('GameLift')
 const IAM = Service('IAM')
-const IoT = Service('IOT')
+const IoT = Service('IoT')
 const Kinesis = Service('Kinesis')
+const KinesisFirehose = Service('KinesisFirehose')
 const KMS = Service('KMS')
 const Lambda = Service('Lambda')
 const Logs = Service('Logs')
@@ -67,6 +70,7 @@ const SDB = Service('SDB')
 const SNS = Service('SNS')
 const SQS = Service('SQS')
 const SSM = Service('SSM')
+const StepFunctions = Service('StepFunctions')
 const WAF = Service('WAF')
 const WorkSpaces = Service('WorkSpaces')
 
@@ -89,6 +93,8 @@ module.exports = {
   CloudFront: CloudFront,
   CloudTrail: CloudTrail,
   CloudWatch: CloudWatch,
+  CodeBuild: CodeBuild,
+  CodeCommit: CodeCommit,
   CodeDeploy: CodeDeploy,
   CodePipeline: CodePipeline,
   Config: Config,
@@ -110,6 +116,7 @@ module.exports = {
   IAM: IAM,
   IoT: IoT,
   Kinesis: Kinesis,
+  KinesisFirehose: KinesisFirehose,
   KMS: KMS,
   Lambda: Lambda,
   Logs: Logs,
@@ -123,6 +130,7 @@ module.exports = {
   SNS: SNS,
   SQS: SQS,
   SSM: SSM,
+  StepFunctions: StepFunctions,
   WAF: WAF,
   WorkSpaces: WorkSpaces,
   Template: Template,

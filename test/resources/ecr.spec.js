@@ -18,7 +18,7 @@ describe('ECR', () => {
   let t = new wk.Template()
 
   let repository = new wk.ECR.Repository('repository')
-  repository.RepositoryName = 'test-repository'
+  repository.RepositoryName = 'ava-repository'
   repository.RepositoryPolicyText = {
     'Version': '2008-10-17',
     'Statement': [
@@ -56,7 +56,7 @@ describe('ECR', () => {
         'repository': {
           'Type': 'AWS::ECR::Repository',
           'Properties': {
-            'RepositoryName': 'test-repository',
+            'RepositoryName': 'ava-repository',
             'RepositoryPolicyText': {
               'Version': '2008-10-17',
               'Statement': [

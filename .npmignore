@@ -17,7 +17,6 @@ ec2info/www/store/
 ec2info/README.md
 ec2info/LICENSE
 ec2info/requirements.txt
-stubs/html/
 stubs/node_modules/
 stubs/index.js
 stubs/LICENSE

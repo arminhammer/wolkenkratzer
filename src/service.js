@@ -10,7 +10,7 @@ const tag = require('./tag')
 
 function Service (serviceName) {
   let service = {}
-  const stub = require('./stubs/json/resources/' + serviceName)
+  const stub = require('../stubs/json/resources/' + serviceName)
   for (let resourceStub in stub) {
     let resourceBlock = function (name, propertiesObject) {
       let resourceType = stub[resourceStub].Name

@@ -1,6 +1,6 @@
 {
   "name": "wolkenkratzer",
-  "version": "0.5.1",
+  "version": "0.5.4",
   "description": "Library for generating CloudFormation templates",
   "main": "index.js",
   "directories": {
@@ -13,6 +13,7 @@
     "js-yaml": "^3.6.1"
   },
   "devDependencies": {
+    "ava": "^0.18.2",
     "browserify": "^13.0.1",
     "chai": "^3.5.0",
     "eslint-config-standard": "^6.2.1",
@@ -23,12 +24,14 @@
     "jsdoc": "^3.4.0",
     "lodash": "^4.13.1",
     "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
     "standard": "^8.6.0",
     "x-ray": "^2.3.0"
   },
   "scripts": {
     "lint": "standard test/**/*.js ./*.js examples/*.js",
-    "test": "./node_modules/.bin/_mocha 'test/**/*.spec.js'",
+    "test": "./node_modules/.bin/_mocha 'test/**/*.spec.js' && ava",
+    "ava": "ava",
     "testnonetwork": "./node_modules/.bin/_mocha --invert --fgrep NetworkTest 'test/**/*.spec.js'",
     "coverage": "istanbul cover --print detail ./node_modules/.bin/_mocha test/**/*.spec.js examples/*.js",
     "builddocs": "./node_modules/.bin/jsdoc -c jsdoc.conf.json -R ./README.md",
@@ -52,5 +55,14 @@
   "bugs": {
     "url": "https://github.com/arminhammer/wolkenkratzer/issues"
   },
-  "homepage": "https://github.com/arminhammer/wolkenkratzer#readme"
+  "homepage": "https://github.com/arminhammer/wolkenkratzer#readme",
+  "ava": {
+    "files": [
+      "newtests/**/*.spec.js"
+    ],
+    "concurrency": 0,
+    "failFast": true,
+    "tap": true,
+    "powerAssert": true
+  }
 }
