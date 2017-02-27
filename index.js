@@ -1,8 +1,6 @@
-/**
- * Created by arming on 6/2/16.
- */
 'use strict';
 
+//Components
 const Template = require('./src/template').Template;
 const Tag = require('./src/tag').Tag;
 const TagSet = require('./src/tag').TagSet;
@@ -22,7 +20,6 @@ const RequiredPropertyException = require(
 ).RequiredPropertyException;
 const ValueException = require('./src/exceptions').ValueException;
 const Types = require('./src/types')();
-// const Types = require('./src/types.old')()
 const Output = require('./src/output').Output;
 const Init = require('./src/init');
 const Policy = require('./src/policy');
@@ -30,6 +27,7 @@ const Mapping = require('./src/mapping').Mapping;
 const Macro = require('./src/macro');
 const Service = require('./src/service');
 
+// Services
 const ApiGateway = Service('ApiGateway');
 const ApplicationAutoScaling = Service('ApplicationAutoScaling');
 const AutoScaling = Service('AutoScaling');
@@ -78,7 +76,7 @@ const StepFunctions = Service('StepFunctions');
 const WAF = Service('WAF');
 const WorkSpaces = Service('WorkSpaces');
 
-// Pseudo Parameters
+// Pseudo-Parameters
 const Pseudo = {
   AWS_ACCOUNT_ID: 'AWS::AccountId',
   AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
@@ -88,6 +86,7 @@ const Pseudo = {
   AWS_STACK_NAME: 'AWS::StackName'
 };
 
+//Exports
 module.exports = {
   ApiGateway: ApiGateway,
   ApplicationAutoScaling: ApplicationAutoScaling,

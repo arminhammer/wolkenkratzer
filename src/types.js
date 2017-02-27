@@ -1,8 +1,5 @@
-/**
- * Created by arming on 12/16/16.
- */
-
 'use strict';
+
 const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
 const ResourceProperty = require('./resource').ResourceProperty;
 // const WKResource = require('./resource').WKResource

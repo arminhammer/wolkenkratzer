@@ -1,7 +1,5 @@
-/**
- * Created by arming on 6/15/16.
- */
 'use strict';
+
 const ValueException = require('./exceptions').ValueException;
 const TypeException = require('./exceptions').TypeException;
 const Mapping = require('./mapping').Mapping;

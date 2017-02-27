@@ -1,6 +1,3 @@
-/**
- * Created by arming on 6/2/16.
- */
 'use strict';
 
 const wk = require('./../index');
@@ -17,9 +14,10 @@ let vpnGateway = new wk.EC2.VPNGateway('VPNGateway');
 vpnGateway.Type = 'ipsec.1';
 t.add(vpnGateway);
 
-let yamlResult = t.toYaml();
+let output = t.toYaml();
 
-if (yamlResult.Errors) {
-  // console.log(yamlResult.Errors)
+if (output.Errors) {
+  console.error(output.Errors);
+} else {
+  console.log(output.Template);
 }
-console.log(yamlResult.Template);

@@ -1,8 +1,5 @@
-/**
- * Created by arming on 6/15/16.
- */
 'use strict';
-// const debug = require('debug')('tag')
+
 const Intrinsic = require('./intrinsic').Intrinsic;
 const TypeException = require('./exceptions').TypeException;
 

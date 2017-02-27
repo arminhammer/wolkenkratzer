@@ -1,9 +1,6 @@
-/**
- * Created by arming on 7/14/16.
- */
-
 'use strict';
 
+// replace with const wk = require('wolkenkratzer')
 const wk = require('../index');
 
 const vpcCidr = '172.50.0.0/16';

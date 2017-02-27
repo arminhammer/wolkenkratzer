@@ -1,9 +1,7 @@
-/**
- * Created by arming on 6/2/16.
- */
 'use strict';
 
-const wk = require('./../index');
+// replace with const wk = require('wolkenkratzer')
+const wk = require('../index');
 
 let t = new wk.Template();
 

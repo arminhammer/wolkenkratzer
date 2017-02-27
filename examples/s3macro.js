@@ -1,10 +1,9 @@
-/**
- * Created by arming on 9/19/16.
- */
 'use strict';
 
+// replace with const wk = require('wolkenkratzer')
+const wk = require('../index');
+
 let region = 'us-east-1';
-const wk = require('./../index');
 const aws = require('aws-sdk');
 const s3 = new aws.S3({ region: region });
 
@@ -20,9 +19,10 @@ s3
     t.add(bucket);
     let result = t.toJson();
     if (result.Errors) {
-      // console.error(result.Errors)
+      console.error(result.Errors);
+    } else {
+      console.log(result.Template);
     }
-    console.log(result.Template);
   })
   .catch(e => {
     console.error(e);

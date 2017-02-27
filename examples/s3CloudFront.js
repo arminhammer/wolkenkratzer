@@ -1,8 +1,6 @@
-/**
- * Created by arming on 7/6/16.
- */
 'use strict';
 
+// replace with const wk = require('wolkenkratzer')
 const wk = require('../index');
 const Ref = wk.Intrinsic.Ref;
 
@@ -22,17 +20,39 @@ let hostedZoneParam = new wk.Parameter('HostedZone', {
 t.add(hostedZoneParam);
 
 let region2S3WebsiteSuffixMap = new wk.Mapping('Region2S3WebsiteSuffix', {
-  'us-east-1': { Suffix: '.s3-website-us-east-1.amazonaws.com' },
-  'us-west-1': { Suffix: '.s3-website-us-west-1.amazonaws.com' },
-  'us-west-2': { Suffix: '.s3-website-us-west-2.amazonaws.com' },
-  'eu-west-1': { Suffix: '.s3-website-eu-west-1.amazonaws.com' },
-  'ap-northeast-1': { Suffix: '.s3-website-ap-northeast-1.amazonaws.com' },
-  'ap-northeast-2': { Suffix: '.s3-website-ap-northeast-2.amazonaws.com' },
-  'ap-southeast-1': { Suffix: '.s3-website-ap-southeast-1.amazonaws.com' },
-  'ap-southeast-2': { Suffix: '.s3-website-ap-southeast-2.amazonaws.com' },
-  'sa-east-1': { Suffix: '.s3-website-sa-east-1.amazonaws.com' },
-  'cn-north-1': { Suffix: '.s3-website.cn-north-1.amazonaws.com.cn' },
-  'eu-central-1': { Suffix: '.s3-website-eu-central-1.amazonaws.com' }
+  'us-east-1': {
+    Suffix: '.s3-website-us-east-1.amazonaws.com'
+  },
+  'us-west-1': {
+    Suffix: '.s3-website-us-west-1.amazonaws.com'
+  },
+  'us-west-2': {
+    Suffix: '.s3-website-us-west-2.amazonaws.com'
+  },
+  'eu-west-1': {
+    Suffix: '.s3-website-eu-west-1.amazonaws.com'
+  },
+  'ap-northeast-1': {
+    Suffix: '.s3-website-ap-northeast-1.amazonaws.com'
+  },
+  'ap-northeast-2': {
+    Suffix: '.s3-website-ap-northeast-2.amazonaws.com'
+  },
+  'ap-southeast-1': {
+    Suffix: '.s3-website-ap-southeast-1.amazonaws.com'
+  },
+  'ap-southeast-2': {
+    Suffix: '.s3-website-ap-southeast-2.amazonaws.com'
+  },
+  'sa-east-1': {
+    Suffix: '.s3-website-sa-east-1.amazonaws.com'
+  },
+  'cn-north-1': {
+    Suffix: '.s3-website.cn-north-1.amazonaws.com.cn'
+  },
+  'eu-central-1': {
+    Suffix: '.s3-website-eu-central-1.amazonaws.com'
+  }
 });
 
 t.add(region2S3WebsiteSuffixMap);

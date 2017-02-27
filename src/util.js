@@ -1,8 +1,7 @@
-/**
- * Created by arming on 9/17/16.
- */
+//Utility methods
 'use strict';
 
+//Check if an ```Object``` is empty.
 function isEmpty(obj) {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
