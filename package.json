@@ -1,6 +1,6 @@
 {
   "name": "wolkenkratzer",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "description": "Library for generating CloudFormation templates",
   "main": "index.js",
   "directories": {
@@ -14,18 +14,18 @@
   },
   "devDependencies": {
     "ava": "^0.18.2",
-    "browserify": "^13.0.1",
-    "fs-extra": "^1.0.0",
-    "istanbul": "^0.4.3",
+    "browserify": "^14.1.0",
+    "fs-extra": "^2.0.0",
     "lodash": "^4.13.1",
     "markdown-toc": "^1.1.0",
     "nyc": "^10.1.2",
-    "prettier": "^0.19.0",
+    "prettier": "^0.22.0",
+    "typescript": "^2.2.1",
     "x-ray": "^2.3.0"
   },
   "scripts": {
-    "test": "nyc ava",
-    "builddocs": "./node_modules/.bin/jsdoc -c jsdoc.conf.json -R ./README.md",
+    "test": "time tsc && nyc --cache --reporter=lcov ava --verbose && nyc report",
+    "builddocs": "jsdoc -c jsdoc.conf.json -R ./README.md",
     "publishdocs": "git push origin `git subtree split --prefix docs/ master`:gh-pages --force",
     "linecount": "cloc --vcs=git ."
   },
@@ -42,7 +42,7 @@
     "ecs"
   ],
   "author": "Armin Graf",
-  "license": "Apache License 2.0",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/arminhammer/wolkenkratzer/issues"
   },
@@ -51,7 +51,7 @@
     "files": [
       "test/**/*.spec.js"
     ],
-    "concurrency": 10,
+    "concurrency": 32,
     "failFast": false,
     "tap": false,
     "powerAssert": false

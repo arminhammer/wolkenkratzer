@@ -21,3 +21,5 @@ stubs/node_modules/
 stubs/index.js
 stubs/LICENSE
 stubs/README.md
+.vscode/
+.nyc_output/
