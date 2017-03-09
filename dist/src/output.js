@@ -1,21 +1,23 @@
 'use strict';
-/** @module Core */
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * @memberof module:Core
+ * @class Output
  */
-function Output(name, parameter) {
-    this.WKName = name;
-    this.Description = parameter.Description;
-    this.Value = parameter.Value;
+class Output {
+    constructor(name, parameter) {
+        this.WKName = name;
+        this.Description = parameter.Description;
+        this.Value = parameter.Value;
+    }
+    /**
+     * Returns a JSON version of the Output
+     * @returns {Object}
+     */
+    toJson() {
+        let p = JSON.parse(JSON.stringify(this));
+        delete p.WKName;
+        return p;
+    }
+    ;
 }
-/**
- * Returns a JSON version of the Output
- */
-Output.prototype.toJson = function () {
-    let p = JSON.parse(JSON.stringify(this));
-    delete p.WKName;
-    return p;
-};
-module.exports = {
-    Output: Output
-};
+exports.Output = Output;
