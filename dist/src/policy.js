@@ -1,54 +1,54 @@
-/**
- * Created by arming on 7/4/16.
- */
 'use strict';
-const TypeException = require('./exceptions').TypeException;
-/** @module Core */
+Object.defineProperty(exports, "__esModule", { value: true });
+const exceptions_1 = require("./exceptions");
 /**
- * @memberof module:Core
+ * @class Policy
  */
-function Policy(name) {
-    this.WKName = name;
-}
-Policy.prototype.toJson = function () {
-    let p = JSON.parse(JSON.stringify(this));
-    delete p.WKName;
-    return p;
-};
-/**
- * @memberof module:Core
- */
-function CreationPolicy(parameters) {
-    Policy.call(this, 'CreationPolicy');
-    if (parameters) {
-        this.AutoScalingCreationPolicy = parameters.AutoScalingCreationPolicy;
-        this.ResourceSignal = parameters.ResourceSignal;
+class Policy {
+    constructor(name) {
+        this.WKName = name;
+    }
+    toJson() {
+        let p = JSON.parse(JSON.stringify(this));
+        delete p.WKName;
+        return p;
     }
 }
-CreationPolicy.prototype = Object.create(Policy.prototype);
+exports.Policy = Policy;
 /**
- * @memberof module:Core
+ * @class CreationPolicy
  */
-function DeletionPolicy(Type) {
-    Policy.call(this, 'DeletionPolicy');
-    if (Type === 'Delete' || Type === 'Retain' || Type === 'Snapshot') {
-        this.Type = Type;
-    }
-    else {
-        throw new TypeException(Type + ' in DeletionPolicy must be Delete, Retain, or Snapshot');
+class CreationPolicy extends Policy {
+    constructor(parameters) {
+        super('CreationPolicy');
+        if (parameters) {
+            this.AutoScalingCreationPolicy = parameters.AutoScalingCreationPolicy;
+            this.ResourceSignal = parameters.ResourceSignal;
+        }
     }
 }
-DeletionPolicy.prototype = Object.create(Policy.prototype);
+exports.CreationPolicy = CreationPolicy;
 /**
- * @memberof module:Core
+ * @class DeletionPolicy
  */
-function UpdatePolicy(parameters) {
-    Policy.call(this, 'UpdatePolicy');
+class DeletionPolicy extends Policy {
+    constructor(Type) {
+        super('DeletionPolicy');
+        if (Type === 'Delete' || Type === 'Retain' || Type === 'Snapshot') {
+            this.Type = Type;
+        }
+        else {
+            throw new exceptions_1.TypeException(Type + ' in DeletionPolicy must be Delete, Retain, or Snapshot');
+        }
+    }
 }
-UpdatePolicy.prototype = Object.create(Policy.prototype);
-module.exports = {
-    Policy: Policy,
-    CreationPolicy: CreationPolicy,
-    DeletionPolicy: DeletionPolicy,
-    UpdatePolicy: UpdatePolicy
-};
+exports.DeletionPolicy = DeletionPolicy;
+/**
+ * @class UpdatePolicy
+ */
+class UpdatePolicy extends Policy {
+    constructor(parameters) {
+        super('UpdatePolicy');
+    }
+}
+exports.UpdatePolicy = UpdatePolicy;
