@@ -10,7 +10,7 @@ const ava = require('ava');
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs-extra'));
 
-const wk = require(path.join(__dirname, '..', 'index'));
+const wk = require(path.join(__dirname, '..', 'dist', 'index'));
 
 ava(
   'Conditional should be tested, You must specify either InternetGatewayId or VpnGatewayId, but not both.',

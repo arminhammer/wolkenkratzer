@@ -1,0 +1,68 @@
+{
+  "Association": {
+    "Name": "AWS::SSM::Association",
+    "Properties": {
+      "DocumentVersion": {
+        "Description": "The version of the SSM document to associate with the target.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "InstanceId": {
+        "Description": "The ID of the instance that the SSM document is associated with.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Conditional. You must specify the InstanceId or              Targets property.",
+        "UpdateRequires": "Replacement"
+      },
+      "Name": {
+        "Description": "The name of the SSM document.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "Parameters": {
+        "Description": "Parameter values that the SSM document uses at runtime.",
+        "Array": false,
+        "Type": "Map",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "ScheduleExpression": {
+        "Description": "A Cron expression that specifies when the association is applied to the target. For            supported expressions, see the ScheduleExpression parameter for the CreateAssociation action in the              Amazon EC2 Systems Manager API Reference.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "Targets": {
+        "Description": "The targets that the SSM document sends commands to.",
+        "Array": true,
+        "Type": "AmazonEC2SystemsManagerAssociationTargets",
+        "Required": "Conditional. You must specify the InstanceId or              Targets property.",
+        "UpdateRequires": "Replacement"
+      }
+    }
+  },
+  "Document": {
+    "Name": "AWS::SSM::Document",
+    "Properties": {
+      "Content": {
+        "Description": "A JSON object that describes an instance configuration. For more information,            see Creating SSM Documents in            the Amazon EC2 User Guide for Linux Instances.",
+        "Array": false,
+        "Type": "Object",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "DocumentType": {
+        "Description": "The type of document to create that relates to the purpose of your document, such as            running commands, bootstrapping software, or automating tasks. For valid values, see the              CreateDocument action in the              Amazon EC2 Systems Manager API Reference.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      }
+    }
+  }
+}

@@ -11,13 +11,9 @@ const Parameter = require('./src/parameter').Parameter;
 const WKResource = require('./src/resource').WKResource;
 const ResourceProperty = require('./src/resource').ResourceProperty;
 const ResourceAttribute = require('./src/resourceattribute').ResourceAttribute;
-const ResourceAttributeArray = require(
-  './src/resourceattribute'
-).ResourceAttributeArray;
+const ResourceAttributeArray = require('./src/resourceattribute').ResourceAttributeArray;
 const TypeException = require('./src/exceptions').TypeException;
-const RequiredPropertyException = require(
-  './src/exceptions'
-).RequiredPropertyException;
+const RequiredPropertyException = require('./src/exceptions').RequiredPropertyException;
 const ValueException = require('./src/exceptions').ValueException;
 const Types = require('./src/types')();
 const Output = require('./src/output').Output;

@@ -1,7 +1,7 @@
 'use strict';
 
 // replace with const wk = require('wolkenkratzer')
-const wk = require('../index');
+const wk = require('../dist/index');
 
 let t = new wk.Template();
 
@@ -142,9 +142,13 @@ let AWSInstanceType2NATArchMap = new wk.Mapping(
 t.add(AWSInstanceType2NATArchMap);
 
 let webServer = new wk.EC2.Instance('WebServer');
-webServer.ImageId.findInMap('AWSRegionArch2AMI', { Ref: 'AWS::Region' }, {
-  'Fn::FindInMap': ['AWSInstanceType2Arch', { Ref: 'InstanceType' }, 'Arch']
-});
+webServer.ImageId.findInMap(
+  'AWSRegionArch2AMI',
+  { Ref: 'AWS::Region' },
+  {
+    'Fn::FindInMap': ['AWSInstanceType2Arch', { Ref: 'InstanceType' }, 'Arch']
+  }
+);
 t.add(webServer);
 
 webServer.InstanceType.ref(instanceTypeParam);

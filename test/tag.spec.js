@@ -7,9 +7,9 @@
 const path = require('path');
 const ava = require('ava');
 
-const wk = require(path.join(__dirname, '..', 'index'));
+const wk = require(path.join(__dirname, '..', 'dist', 'index'));
 
-ava('Tags', test => {
+ava.only('Tags', test => {
   let t = new wk.Template();
 
   let vpc = new wk.EC2.VPC('vpc');

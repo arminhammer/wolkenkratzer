@@ -1,0 +1,95 @@
+{
+  "BucketPolicy": {
+    "Name": "AWS::S3::BucketPolicy",
+    "Properties": {
+      "Bucket": {
+        "Description": "The Amazon S3 bucket that the policy applies to.You cannot update this property. If you want to add or remove a bucket from a            bucket policy, you must modify your AWS CloudFormation template by creating a new bucket policy            resource and removing the old one. Then use the modified template to update your AWS CloudFormation            stack.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes"
+      },
+      "PolicyDocument": {
+        "Description": "A policy document containing permissions to add to the specified bucket. For            more information, see Access Policy Language Overview in the            Amazon Simple Storage Service Developer Guide.",
+        "Array": false,
+        "Type": "Object",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      }
+    }
+  },
+  "Bucket": {
+    "Name": "AWS::S3::Bucket",
+    "Properties": {
+      "AccessControl": {
+        "Description": "A canned access control list (ACL) that grants predefined permissions to the                  bucket. For more information about canned ACLs, see Canned ACLs in the                     Amazon S3 documentation.Valid values: AuthenticatedRead |                            AwsExecRead | BucketOwnerRead |                            BucketOwnerFullControl |                            LogDeliveryWrite | Private |                            PublicRead |                        PublicReadWrite",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "BucketName": {
+        "Description": "A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique                  physical ID and uses that ID for the bucket name. For more information, see Name Type. The bucket                  name must contain only lowercase letters, numbers, periods (.), and dashes                  (-).ImportantIf you specify a name, you cannot perform updates that require replacement of this resource.You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "CorsConfiguration": {
+        "Description": "Rules that define cross-origin resource sharing of objects in this bucket.                        For more information, see Enabling                            Cross-Origin Resource Sharing in the                            Amazon Simple Storage Service Developer Guide.",
+        "Array": false,
+        "Type": "AmazonS3CorsConfiguration",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "LifecycleConfiguration": {
+        "Description": "Rules that define how Amazon S3 manages objects during their lifetime. For more                        information, see Object                            Lifecycle Management in the                            Amazon Simple Storage Service Developer Guide.",
+        "Array": false,
+        "Type": "AmazonS3LifecycleConfiguration",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "LoggingConfiguration": {
+        "Description": "Settings that defines where logs are stored.",
+        "Array": false,
+        "Type": "AmazonS3LoggingConfiguration",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "NotificationConfiguration": {
+        "Description": "Configuration that defines how Amazon S3 handles bucket notifications.",
+        "Array": false,
+        "Type": "AmazonS3NotificationConfiguration",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "ReplicationConfiguration": {
+        "Description": "Configuration for replicating objects in an S3 bucket. To enable replication, you must also enable versioning by using the VersioningConfiguration property.Amazon S3 can store replicated objects in only one destination (S3 bucket). The destination bucket must already exist and be in a different region than your source bucket.",
+        "Array": false,
+        "Type": "AmazonS3ReplicationConfiguration",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "Tags": {
+        "Description": "An arbitrary set of tags (key-value pairs) for this Amazon S3 bucket.ImportantWe don't recommend specifying more than 7 tags because doing so prevents the                AWS CLI and the AWS CloudFormation console and API actions from listing the tags for the Amazon S3                bucket.",
+        "Array": false,
+        "Type": "AWSCloudFormationResourceTags",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "VersioningConfiguration": {
+        "Description": "Enables multiple variants of all objects in this bucket. You might enable                        versioning to prevent objects from being deleted or overwritten by mistake                        or to archive objects so that you can retrieve previous versions of                        them.",
+        "Array": false,
+        "Type": "AmazonS3VersioningConfiguration",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "WebsiteConfiguration": {
+        "Description": "Information used to configure the bucket as a static website. For more information, see Hosting Websites on Amazon                  S3.",
+        "Array": false,
+        "Type": "AmazonS3WebsiteConfigurationProperty",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      }
+    }
+  }
+}

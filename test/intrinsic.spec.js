@@ -7,7 +7,7 @@
 const path = require('path');
 const ava = require('ava');
 
-const wk = require(path.join(__dirname, '..', 'index'));
+const wk = require(path.join(__dirname, '..', 'dist', 'index'));
 
 const AWS = require('aws-sdk');
 const CloudFormation = new AWS.CloudFormation({ region: 'us-east-1' });
@@ -67,7 +67,7 @@ ava('Intrinsic FnGetAtt within a Resource', test => {
   ElasticLoadBalancer.Listeners.push(listener);
 
   let elbHealthCheck = new wk.Types.ElasticLoadBalancingHealthCheckType();
-  elbHealthCheck.Target = 'HTTP:80/', elbHealthCheck.HealthyThreshold = '2', elbHealthCheck.UnhealthyThreshold = '5', elbHealthCheck.Interval = '10', elbHealthCheck.Timeout = '5';
+  (elbHealthCheck.Target = 'HTTP:80/'), (elbHealthCheck.HealthyThreshold = '2'), (elbHealthCheck.UnhealthyThreshold = '5'), (elbHealthCheck.Interval = '10'), (elbHealthCheck.Timeout = '5');
   ElasticLoadBalancer.HealthCheck = elbHealthCheck;
 
   t.add(ElasticLoadBalancer);

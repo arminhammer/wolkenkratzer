@@ -1,6 +1,6 @@
 'use strict';
 
-const wk = require('./../index');
+const wk = require('./../dist/index');
 
 let t = new wk.Template();
 

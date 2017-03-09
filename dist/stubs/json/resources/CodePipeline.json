@@ -1,0 +1,103 @@
+{
+  "Pipeline": {
+    "Name": "AWS::CodePipeline::Pipeline",
+    "Properties": {
+      "ArtifactStore": {
+        "Description": "The Amazon Simple Storage Service (Amazon S3) location where AWS CodePipeline stores pipeline artifacts. For more            information, see Create an Amazon S3 Bucket              for Your Application in the AWS CodePipeline User Guide.",
+        "Array": false,
+        "Type": "AWSCodePipelinePipelineArtifactStore",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      },
+      "DisableInboundStageTransitions": {
+        "Description": "Prevents artifacts in a pipeline from transitioning to the stage that you            specified. This enables you to manually control transitions.",
+        "Array": true,
+        "Type": "AWSCodePipelinePipelineDisableInboundStageTransitions",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "Name": {
+        "Description": "The name of your AWS CodePipeline pipeline.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "RestartExecutionOnUpdate": {
+        "Description": "Indicates whether to rerun the AWS CodePipeline pipeline after you update it.",
+        "Array": false,
+        "Type": "Boolean",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "RoleArn": {
+        "Description": "A service role Amazon Resource Name (ARN) that grants AWS CodePipeline permission to                  make calls to AWS services on your behalf. For more information, see AWS CodePipeline Access Permissions                     Reference in the AWS CodePipeline User Guide.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      },
+      "Stages": {
+        "Description": "Defines the AWS CodePipeline pipeline stages.",
+        "Array": false,
+        "Type": "AWSCodePipelinePipelineStages",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      }
+    }
+  },
+  "CustomActionType": {
+    "Name": "AWS::CodePipeline::CustomActionType",
+    "Properties": {
+      "Category": {
+        "Description": "The category of the custom action, such as a source action or a build action.                  For valid values, see CreateCustomActionType in the                  AWS CodePipeline API Reference.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "ConfigurationProperties": {
+        "Description": "The configuration properties for the custom action.",
+        "Array": true,
+        "Type": "AWSCodePipelineCustomActionTypeConfigurationProperties",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "InputArtifactDetails": {
+        "Description": "The input artifact details for this custom action.",
+        "Array": false,
+        "Type": "AWSCodePipelineCustomActionTypeArtifactDetails",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "OutputArtifactDetails": {
+        "Description": "The output artifact details for this custom action.",
+        "Array": false,
+        "Type": "AWSCodePipelineCustomActionTypeArtifactDetails",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "Provider": {
+        "Description": "The name of the service provider that AWS CodePipeline uses for this custom action.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "Settings": {
+        "Description": "URLs that provide users information about this custom action.",
+        "Array": false,
+        "Type": "AWSCodePipelineCustomActionTypeSettings",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "Version": {
+        "Description": "The version number of this custom action.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      }
+    }
+  }
+}

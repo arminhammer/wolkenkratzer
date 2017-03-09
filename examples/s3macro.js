@@ -1,7 +1,7 @@
 'use strict';
 
 // replace with const wk = require('wolkenkratzer')
-const wk = require('../index');
+const wk = require('../dist/index');
 
 let region = 'us-east-1';
 const aws = require('aws-sdk');

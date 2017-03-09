@@ -1,0 +1,7 @@
+fabric
+boto
+mako
+lxml
+paramiko
+pycrypto
+requests==2.9.1

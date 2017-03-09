@@ -1,7 +1,7 @@
 'use strict';
 
 // replace with const wk = require('wolkenkratzer')
-const wk = require('../index');
+const wk = require('../dist/index');
 const Ref = wk.Intrinsic.Ref;
 
 let t = new wk.Template();
@@ -78,10 +78,12 @@ websiteDNSName.Name.join('', [
   '.',
   new Ref(hostedZoneParam)
 ]);
-websiteDNSName.ResourceRecords.push(new wk.Intrinsic.FnJoin('', [
-  'http://',
-  new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName')
-]));
+websiteDNSName.ResourceRecords.push(
+  new wk.Intrinsic.FnJoin('', [
+    'http://',
+    new wk.Intrinsic.FnGetAtt('WebsiteCDN', 'DomainName')
+  ])
+);
 websiteDNSName.HostedZoneName.join('', [new Ref(hostedZoneParam), '.']);
 t.add(websiteDNSName);
 
@@ -113,14 +115,16 @@ defaultCacheBehavior.ViewerProtocolPolicy = 'allow-all';
 
 let distConfig = new wk.Types.CloudFrontDistributionConfig();
 distConfig.Comment = 'CDN for S3-backed website';
-distConfig.Aliases.push(new wk.Intrinsic.FnJoin('', [
-  new Ref(wk.Pseudo.AWS_STACK_NAME),
-  new Ref(wk.Pseudo.AWS_ACCOUNT_ID),
-  '.',
-  new Ref(wk.Pseudo.AWS_REGION),
-  '.',
-  new Ref(hostedZoneParam)
-]));
+distConfig.Aliases.push(
+  new wk.Intrinsic.FnJoin('', [
+    new Ref(wk.Pseudo.AWS_STACK_NAME),
+    new Ref(wk.Pseudo.AWS_ACCOUNT_ID),
+    '.',
+    new Ref(wk.Pseudo.AWS_REGION),
+    '.',
+    new Ref(hostedZoneParam)
+  ])
+);
 distConfig.Origins.push(distConfigOrigin);
 distConfig.Enabled = true;
 distConfig.DefaultRootObject = 'index.html';
@@ -130,14 +134,18 @@ websiteCDN.DistributionConfig = distConfig;
 
 t.add(websiteCDN);
 
-t.add(new wk.Output('WebsiteURL', {
-  Value: new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
-  Description: 'The URL of the newly created website'
-}));
+t.add(
+  new wk.Output('WebsiteURL', {
+    Value: new wk.Intrinsic.FnJoin('', ['http://', new Ref(websiteDNSName)]),
+    Description: 'The URL of the newly created website'
+  })
+);
 
-t.add(new wk.Output('BucketName', {
-  Value: new Ref(s3BucketForWebsiteContent),
-  Description: 'Name of S3 bucket to hold website content'
-}));
+t.add(
+  new wk.Output('BucketName', {
+    Value: new Ref(s3BucketForWebsiteContent),
+    Description: 'Name of S3 bucket to hold website content'
+  })
+);
 
 console.log(t.toJson().Template);

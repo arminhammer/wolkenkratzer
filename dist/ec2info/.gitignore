@@ -1,0 +1,7 @@
+*.pyc
+*.DS_store
+.idea
+env
+venv
+.fab_tasks~
+.env

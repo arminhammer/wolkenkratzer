@@ -8,11 +8,12 @@
     "test": "test"
   },
   "dependencies": {
-    "bluebird": "^3.4.1",
     "aws-sdk": "^2.3.17",
+    "bluebird": "^3.4.1",
     "js-yaml": "^3.6.1"
   },
   "devDependencies": {
+    "@types/node": "^7.0.7",
     "ava": "^0.18.2",
     "browserify": "^14.1.0",
     "fs-extra": "^2.0.0",
@@ -24,7 +25,7 @@
     "x-ray": "^2.3.0"
   },
   "scripts": {
-    "test": "time tsc && nyc --cache --reporter=lcov ava --verbose && nyc report",
+    "test": "tsc && rm -rf dist/ec2info && rm -rf dist/stubs && cp -R ec2info dist/ && cp -R stubs dist/ && time nyc --cache --reporter=lcov ava --verbose && nyc report",
     "builddocs": "jsdoc -c jsdoc.conf.json -R ./README.md",
     "publishdocs": "git push origin `git subtree split --prefix docs/ master`:gh-pages --force",
     "linecount": "cloc --vcs=git ."

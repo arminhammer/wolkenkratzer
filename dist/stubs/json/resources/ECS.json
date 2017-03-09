@@ -1,0 +1,101 @@
+{
+  "Cluster": {
+    "Name": "AWS::ECS::Cluster",
+    "Properties": {
+      "ClusterName": {
+        "Description": "A name for the cluster. If you don't specify a name, AWS CloudFormation generates a unique physical ID for the name. For more information, see Name Type.ImportantIf you specify a name, you cannot perform updates that require replacement of this resource.You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      }
+    }
+  },
+  "Service": {
+    "Name": "AWS::ECS::Service",
+    "Properties": {
+      "Cluster": {
+        "Description": "The name or Amazon Resource Name (ARN) of the cluster that you want to run your                  service on. If you do not specify a cluster, Amazon ECS uses the default                  cluster.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "DeploymentConfiguration": {
+        "Description": "Configures how many tasks run during a deployment.",
+        "Array": false,
+        "Type": "AmazonEC2ContainerServiceServiceDeploymentConfiguration",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "DesiredCount": {
+        "Description": "The number of simultaneous tasks, which you specify by using the                     TaskDefinition property, that you want to run on the                  cluster.",
+        "Array": false,
+        "Type": "Number",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      },
+      "LoadBalancers": {
+        "Description": "A list of load balancer objects to associate with the cluster. For information about the number of load balancers you can specify per service, see Service Load Balancing in the Amazon EC2 Container Service Developer Guide.",
+        "Array": true,
+        "Type": "AmazonEC2ContainerServiceServiceLoadBalancers",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "Role": {
+        "Description": "The name or ARN of an AWS Identity and Access Management (IAM) role that allows your Amazon ECS container                  agent to make calls to your load balancer.NoteIn some cases, you might need to add a dependency on the service role's                     policy. For more information, see IAM role policy in DependsOn Attribute.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Conditional. This parameter is required only if you specify the                     LoadBalancers property.",
+        "UpdateRequires": "Replacement"
+      },
+      "TaskDefinition": {
+        "Description": "The ARN of the task definition (including the revision number) that you want to                  run on the cluster, such as                     arn:aws:ecs:us-east-1:123456789012:task-definition/mytask:3.                  You can't use :latest to specify a revision because it's ambiguous.                  For example, if AWS CloudFormation needed to rollback an update, it wouldn't know which                  revision to rollback to.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "Some interruptions"
+      }
+    }
+  },
+  "TaskDefinition": {
+    "Name": "AWS::ECS::TaskDefinition",
+    "Properties": {
+      "ContainerDefinitions": {
+        "Description": "A list of container definitions in JSON format that describe the containers            that make up your task.",
+        "Array": true,
+        "Type": "AmazonEC2ContainerServiceTaskDefinitionContainerDefinitions",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "Family": {
+        "Description": "The name of a family that this task definition is registered to. A              family groups multiple versions of a task definition. Amazon ECS gives            the first task definition that you registered to a family a revision number of 1. Amazon ECS            gives sequential revision numbers to each task definition that you add.NoteTo use revision numbers when you update a task definition, specify this property.              If you don't specify a value, AWS CloudFormation generates a new task definition each time you              update it.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "NetworkMode": {
+        "Description": "The Docker networking mode to use for the containers in the task, such as              none, bridge, or host. For information about            network modes, see NetworkMode in the Task Definition Parameters            topic in the Amazon EC2 Container Service Developer Guide.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "TaskRoleArn": {
+        "Description": "The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants containers in the task permission to call AWS APIs on your behalf. For more information, see IAM Roles for Tasks in the Amazon EC2 Container Service Developer Guide.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "Volumes": {
+        "Description": "A list of volume definitions in JSON format for volumes that you can use in            your container definitions.",
+        "Array": true,
+        "Type": "AmazonEC2ContainerServiceTaskDefinitionVolumes",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      }
+    }
+  }
+}

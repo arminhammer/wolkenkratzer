@@ -1,7 +1,7 @@
 'use strict';
 
 // replace with const wk = require('wolkenkratzer')
-const wk = require('../index');
+const wk = require('../dist/index');
 
 const vpcCidr = '172.50.0.0/16';
 const subnetCidrs = ['172.50.0.0/24', '172.50.1.0/24'];

@@ -1,0 +1,35 @@
+{
+  "DeliveryStream": {
+    "Name": "AWS::KinesisFirehose::DeliveryStream",
+    "Properties": {
+      "DeliveryStreamName": {
+        "Description": "A name for the delivery stream.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "ElasticsearchDestinationConfiguration": {
+        "Description": "An Amazon ES destination for the delivery stream.",
+        "Array": false,
+        "Type": "AmazonKinesisFirehoseDeliveryStreamElasticsearchDestinationConfiguration",
+        "Required": "Conditional. You must specify only one destination configuration.",
+        "UpdateRequires": "No interruption. If you change the delivery stream destination from an Amazon ES destination to an Amazon S3 or Amazon Redshift destination, update requires some interruptions."
+      },
+      "RedshiftDestinationConfiguration": {
+        "Description": "An Amazon Redshift destination for the delivery stream.",
+        "Array": false,
+        "Type": "AmazonKinesisFirehoseDeliveryStreamRedshiftDestinationConfiguration",
+        "Required": "Conditional. You must specify only one destination configuration.",
+        "UpdateRequires": "No interruption. If you change the delivery stream destination from an Amazon Redshift destination to an Amazon ES destination, update requires some interruptions."
+      },
+      "S3DestinationConfiguration": {
+        "Description": "An Amazon S3 destination for the delivery stream.",
+        "Array": false,
+        "Type": "AmazonKinesisFirehoseDeliveryStreamS3DestinationConfiguration",
+        "Required": "Conditional. You must specify only one destination configuration.",
+        "UpdateRequires": "No interruption. If you change the delivery stream destination from an Amazon S3 destination to an Amazon ES destination, update requires some interruptions."
+      }
+    }
+  }
+}

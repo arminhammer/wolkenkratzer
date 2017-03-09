@@ -2,11 +2,11 @@
 'use strict';
 
 //Check if an ```Object``` is empty.
-function isEmpty(obj) {
+export function isEmpty(obj: Object) {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
 
-function safeRename(name) {
+export function safeRename(name: string) {
   return name.replace(/\W/g, '');
 }
 
@@ -15,8 +15,3 @@ function _generateShortHash() {
     -4
   );
 }
-
-module.exports = {
-  isEmpty: isEmpty,
-  safeRename: safeRename
-};

@@ -4,7 +4,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs-extra'));
 const ava = require('ava');
-const wk = require(path.join(__dirname, '..', 'index'));
+const wk = require(path.join(__dirname, '..', 'dist', 'index'));
 
 let stubDir = './stubs/json/resources/';
 let files = fs.readdirSync(stubDir);

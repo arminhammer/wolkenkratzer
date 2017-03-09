@@ -1,0 +1,70 @@
+{
+  "Project": {
+    "Name": "AWS::CodeBuild::Project",
+    "Properties": {
+      "Artifacts": {
+        "Description": "The output settings for artifacts that the project generates during a build.",
+        "Array": false,
+        "Type": "AWSCodeBuildProjectArtifacts",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      },
+      "Description": {
+        "Description": "A description of the project. Use the description to identify the purpose of the            project.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "EncryptionKey": {
+        "Description": "The alias or Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key            (CMK) that AWS CodeBuild uses to encrypt the build output. If you don't specify a value, AWS CodeBuild            uses the AWS-managed CMK for Amazon Simple Storage Service.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "Environment": {
+        "Description": "The build environment settings for the project, such as the environment type or the            environment variables to use for the build environment.",
+        "Array": false,
+        "Type": "AWSCodeBuildProjectEnvironment",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      },
+      "Name": {
+        "Description": "A name for the project. The name must be unique across all of the projects in your            AWS account.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "ServiceRole": {
+        "Description": "The ARN of the service role that AWS CodeBuild uses to interact with services on your            behalf.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      },
+      "Source": {
+        "Description": "The source code settings for the project, such as the source code's repository type            and location.",
+        "Array": false,
+        "Type": "AWSCodeBuildProjectSource",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      },
+      "Tags": {
+        "Description": "An arbitrary set of tags (key-value pairs) for the AWS CodeBuild project.",
+        "Array": false,
+        "Type": "AWSCloudFormationResourceTags",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "TimeoutInMinutes": {
+        "Description": "The number of minutes after which AWS CodeBuild stops the build if it's not complete. For            valid values, see the timeoutInMinutes field in the              AWS CodeBuild User Guide.",
+        "Array": false,
+        "Type": "Number",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      }
+    }
+  }
+}

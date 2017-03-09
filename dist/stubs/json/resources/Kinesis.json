@@ -1,0 +1,28 @@
+{
+  "Stream": {
+    "Name": "AWS::Kinesis::Stream",
+    "Properties": {
+      "Name": {
+        "Description": "The name of the Amazon Kinesis stream. If you don't specify a name, AWS CloudFormation generates a unique physical                   ID and uses that ID for the stream name. For more information, see                   Name Type.ImportantIf you specify a name, you cannot perform updates that require replacement of this resource.You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "ShardCount": {
+        "Description": "The number of shards that the stream uses. For greater provisioned throughput,                  increase the number of shards.",
+        "Array": false,
+        "Type": "Number",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "Tags": {
+        "Description": "An arbitrary set of tags (key–value pairs) to associate with the Amazon Kinesis                  stream.",
+        "Array": false,
+        "Type": "AWSCloudFormationResourceTags",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      }
+    }
+  }
+}

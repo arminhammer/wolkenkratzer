@@ -1,0 +1,116 @@
+{
+  "Certificate": {
+    "Name": "AWS::IoT::Certificate",
+    "Properties": {
+      "CertificateSigningRequest": {
+        "Description": "The certificate signing request (CSR).",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "Status": {
+        "Description": "The status of the certificate.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      }
+    }
+  },
+  "Policy": {
+    "Name": "AWS::IoT::Policy",
+    "Properties": {
+      "PolicyDocument": {
+        "Description": "The JSON document that describes the policy.",
+        "Array": false,
+        "Type": "Object",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "PolicyName": {
+        "Description": "The name (the physical ID) of the AWS IoT policy.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      }
+    }
+  },
+  "TopicRule": {
+    "Name": "AWS::IoT::TopicRule",
+    "Properties": {
+      "RuleName": {
+        "Description": "The name (the physical ID) of the AWS IoT rule.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      },
+      "TopicRulePayload": {
+        "Description": "The actions associated with the AWS IoT rule.",
+        "Array": false,
+        "Type": "AWSIoTTopicRulePayload",
+        "Required": "Yes",
+        "UpdateRequires": "No interruption"
+      }
+    }
+  },
+  "PolicyPrincipalAttachment": {
+    "Name": "AWS::IoT::PolicyPrincipalAttachment",
+    "Properties": {
+      "PolicyName": {
+        "Description": "The name of the policy.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "Principal": {
+        "Description": "The principal, which can be a certificate ARN (as returned from the                     CreateCertificate operation) or an Amazon Cognito ID.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      }
+    }
+  },
+  "ThingPrincipalAttachment": {
+    "Name": "AWS::IoT::ThingPrincipalAttachment",
+    "Properties": {
+      "Principal": {
+        "Description": "The principal, which can be a certificate ARN (as returned from the                     CreateCertificate operation) or an Amazon Cognito ID.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      },
+      "ThingName": {
+        "Description": "The name of the AWS IoT thing.",
+        "Array": false,
+        "Type": "String",
+        "Required": "Yes",
+        "UpdateRequires": "Replacement"
+      }
+    }
+  },
+  "Thing": {
+    "Name": "AWS::IoT::Thing",
+    "Properties": {
+      "AttributePayload": {
+        "Description": "A JSON string that contains up to three key-value pairs, for example: {                     \"attributes\": { \"string1\":\"string2\" } }.",
+        "Array": false,
+        "Type": "Map",
+        "Required": "No",
+        "UpdateRequires": "No interruption"
+      },
+      "ThingName": {
+        "Description": "The name (the physical ID) of the AWS IoT thing.",
+        "Array": false,
+        "Type": "String",
+        "Required": "No",
+        "UpdateRequires": "Replacement"
+      }
+    }
+  }
+}

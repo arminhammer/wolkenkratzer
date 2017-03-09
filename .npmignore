@@ -21,5 +21,17 @@ stubs/node_modules/
 stubs/index.js
 stubs/LICENSE
 stubs/README.md
+dist/ec2info/in/
+dist/ec2info/www/bootstrap/
+dist/ec2info/www/datatables/
+dist/ec2info/www/rds/
+dist/ec2info/www/store/
+dist/ec2info/README.md
+dist/ec2info/LICENSE
+dist/ec2info/requirements.txt
+dist/stubs/node_modules/
+dist/stubs/index.js
+dist/stubs/LICENSE
+dist/stubs/README.md
 .vscode/
 .nyc_output/
