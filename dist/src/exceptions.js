@@ -1,55 +1,58 @@
-/**
- * Created by arming on 6/15/16.
- */
 'use strict';
-/** @module Core */
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * @memberof module:Core
+ * @class Exception
  */
-function Exception(message) {
-    this.message = message;
+class Exception {
+    constructor(message) {
+        this.message = message;
+    }
+    /**
+    * Returns a JSON string
+    */
+    toJson() {
+        return this.message;
+    }
+    ;
 }
+exports.Exception = Exception;
 /**
- * Returns a JSON string
+ * @class ValueException
  */
-Exception.prototype.toJson = function () {
-    return this.message;
-};
-/**
- * @memberof module:Core
- */
-function ValueException(message) {
-    Exception.call(this, message);
-    this.name = 'ValueError';
+class ValueException extends Exception {
+    constructor(message) {
+        super(message);
+        this.name = 'ValueError';
+    }
 }
-ValueException.prototype = Object.create(Exception.prototype);
+exports.ValueException = ValueException;
 /**
- * @memberof module:Core
+ * @class RequiredPropertyException
  */
-function RequiredPropertyException(message) {
-    Exception.call(this, message);
-    this.name = 'RequiredPropertyException';
+class RequiredPropertyException extends Exception {
+    constructor(message) {
+        super(message);
+        this.name = 'RequiredPropertyException';
+    }
 }
-RequiredPropertyException.prototype = Object.create(Exception.prototype);
+exports.RequiredPropertyException = RequiredPropertyException;
 /**
- * @memberof module:Core
+ * @class TypeException
  */
-function TypeException(message) {
-    Exception.call(this, message);
-    this.name = 'TypeException';
+class TypeException extends Exception {
+    constructor(message) {
+        super(message);
+        this.name = 'TypeException';
+    }
 }
-TypeException.prototype = Object.create(Exception.prototype);
+exports.TypeException = TypeException;
 /**
- * @memberof module:Core
+ * @class ConditionNotMetException
  */
-function ConditionNotMetException(message) {
-    Exception.call(this, message);
-    this.name = 'ConditionNotMetException';
+class ConditionNotMetException extends Exception {
+    constructor(message) {
+        super(message);
+        this.name = 'ConditionNotMetException';
+    }
 }
-ConditionNotMetException.prototype = Object.create(Exception.prototype);
-module.exports = {
-    TypeException: TypeException,
-    RequiredPropertyException: RequiredPropertyException,
-    ValueException: ValueException,
-    ConditionNotMetException: ConditionNotMetException
-};
+exports.ConditionNotMetException = ConditionNotMetException;
