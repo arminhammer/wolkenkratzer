@@ -1,6 +1,3 @@
-/**
- * Created by arming on 6/15/16.
- */
 'use strict';
 /** @module Core */
 /**
