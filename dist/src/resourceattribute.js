@@ -11,7 +11,7 @@ const FnBase64 = Intrinsic.FnBase64;
 const FnJoin = Intrinsic.FnJoin;
 const RequiredPropertyException = require('./exceptions').RequiredPropertyException;
 const TypeException = require('./exceptions').TypeException;
-const ResourceProperty = require('./resource').ResourceProperty;
+const ResourceProperty = require('./resourceproperty').ResourceProperty;
 /** @module Core */
 /**
  * @memberof module:Core
@@ -43,10 +43,12 @@ ResourceAttribute.prototype.set = function (value) {
             this.val = [];
             for (let val of value) {
                 val = new this.Type(val);
-                if (typeof val === 'string' && this.Type.prototype === String.prototype ||
-                    typeof val === 'boolean' &&
-                        this.Type.prototype === Boolean.prototype ||
-                    typeof val === 'number' && this.Type.prototype === Number.prototype ||
+                if ((typeof val === 'string' &&
+                    this.Type.prototype === String.prototype) ||
+                    (typeof val === 'boolean' &&
+                        this.Type.prototype === Boolean.prototype) ||
+                    (typeof val === 'number' &&
+                        this.Type.prototype === Number.prototype) ||
                     val instanceof this.Type) {
                     this.val.push(val);
                 }
@@ -69,10 +71,12 @@ ResourceAttribute.prototype.set = function (value) {
             this.val = value;
         }
         else {
-            if (typeof value === 'string' && this.Type.prototype === String.prototype ||
-                typeof value === 'boolean' &&
-                    this.Type.prototype === Boolean.prototype ||
-                typeof value === 'number' && this.Type.prototype === Number.prototype ||
+            if ((typeof value === 'string' &&
+                this.Type.prototype === String.prototype) ||
+                (typeof value === 'boolean' &&
+                    this.Type.prototype === Boolean.prototype) ||
+                (typeof value === 'number' &&
+                    this.Type.prototype === Number.prototype) ||
                 value instanceof this.Type) {
                 this.val = value;
             }
@@ -103,9 +107,9 @@ ResourceAttribute.prototype.push = function (val) {
         value = instrinsicValue;
     }
     if (value instanceof Intrinsic.Intrinsic ||
-        typeof value === 'string' && this.Type.prototype === String.prototype ||
-        typeof value === 'boolean' && this.Type.prototype === Boolean.prototype ||
-        typeof value === 'number' && this.Type.prototype === Number.prototype ||
+        (typeof value === 'string' && this.Type.prototype === String.prototype) ||
+        (typeof value === 'boolean' && this.Type.prototype === Boolean.prototype) ||
+        (typeof value === 'number' && this.Type.prototype === Number.prototype) ||
         value instanceof this.Type) {
         if (!this.val) {
             this.val = [];

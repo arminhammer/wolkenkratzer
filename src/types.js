@@ -1,7 +1,7 @@
 'use strict';
 
 const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
-const ResourceProperty = require('./resource').ResourceProperty;
+const ResourceProperty = require('./resourceproperty').ResourceProperty;
 // const WKResource = require('./resource').WKResource
 // const types = require('./types')
 
