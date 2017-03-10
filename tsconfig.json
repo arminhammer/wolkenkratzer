@@ -18,12 +18,11 @@
         "typings"
     ],
     "filesGlob": [
-        "./src/**/*.js",
         "./src/**/*.ts",
         "!./node_modules/**/*",
         "!./src/**/*.d.ts"
     ],
     "files": [
-        "./index.js"
+        "./index.ts"
     ]
 }
