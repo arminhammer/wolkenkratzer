@@ -29,7 +29,7 @@ function ResourceProperty(name, properties, propertiesObject, conditional) {
  * Performs validation and returns a pretty-printed JSON object.
  * @returns {String}
  */
-ResourceProperty.prototype.toJson = function() {
+ResourceProperty.prototype.toJson = function () {
   let newProperties = JSON.parse(JSON.stringify(this.properties));
   let errors = [];
   for (let prop in newProperties) {

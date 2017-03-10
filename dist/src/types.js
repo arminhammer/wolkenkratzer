@@ -1,19 +1,6 @@
 'use strict';
 const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
 const ResourceProperty = require('./resourceproperty').ResourceProperty;
-// const WKResource = require('./resource').WKResource
-// const types = require('./types')
-/* function AmazonAPIGatewayRestApiS3Location (propertiesObject) {
- let properties = {
- Bucket: new ResourceAttribute('Bucket', String, false, 'No', null),
- ETag: new ResourceAttribute('ETag', String, false, 'No', null),
- Key: new ResourceAttribute('Key', String, false, 'No', null),
- Version: new ResourceAttribute('Version', String, false, 'No', null)
- }
- ResourceProperty.call(this, 'AmazonAPIGatewayRestApiS3Location', properties, propertiesObject)
- }
- AmazonAPIGatewayRestApiS3Location.prototype = Object.create(ResourceProperty.prototype)
- */
 let types = null;
 function Types() {
     if (types) {
