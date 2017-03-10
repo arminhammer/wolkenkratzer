@@ -26,9 +26,9 @@ export class Intrinsic implements Jsonify {
   constructor() { }
 
   /**
-  * Returns a JSON Object 
+  * Returns a JSON Object
   */
-  public toJson() { return { json: {} } };
+  public toJson() { return { json: {} }; };
 
   public toJSON() {
     return this.toJson().json;
@@ -105,12 +105,12 @@ export class FnGetAtt extends Intrinsic implements Jsonify {
     ) {
       return {
         errors: null,
-        json: { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
+        json: { 'Fn::GetAtt': [this.resource.WKName, this.attribute] },
       };
     } else {
       return {
         errors: null,
-        json: { 'Fn::GetAtt': [this.resource, this.attribute] }
+        json: { 'Fn::GetAtt': [this.resource, this.attribute] },
       };
     }
   }
@@ -161,8 +161,8 @@ export class FnFindInMap extends Intrinsic implements Jsonify {
     return {
       errors: null,
       json: {
-        'Fn::FindInMap': [this.mapName, this.topLevelKey, this.secondLevelKey]
-      }
+        'Fn::FindInMap': [this.mapName, this.topLevelKey, this.secondLevelKey],
+      },
     };
   };
 }
@@ -212,8 +212,8 @@ export class FnJoin extends Intrinsic implements Jsonify {
   };
 }
 
-/** 
- * @class FnSelect 
+/**
+ * @class FnSelect
  */
 export class FnSelect extends Intrinsic implements Jsonify {
 
@@ -279,7 +279,7 @@ export class FnIf extends Intrinsic implements Jsonify {
   public toJson() {
     return {
       errors: null,
-      json: { 'Fn::If': [this.condition, this.ifTrue, this.ifFalse] }
+      json: { 'Fn::If': [this.condition, this.ifTrue, this.ifFalse] },
     };
   };
 }

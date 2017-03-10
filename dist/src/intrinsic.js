@@ -94,13 +94,13 @@ class FnGetAtt extends Intrinsic {
         if (this.resource instanceof resource_1.WKResource || this.resource instanceof parameter_1.Parameter) {
             return {
                 errors: null,
-                json: { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
+                json: { 'Fn::GetAtt': [this.resource.WKName, this.attribute] },
             };
         }
         else {
             return {
                 errors: null,
-                json: { 'Fn::GetAtt': [this.resource, this.attribute] }
+                json: { 'Fn::GetAtt': [this.resource, this.attribute] },
             };
         }
     }
@@ -142,8 +142,8 @@ class FnFindInMap extends Intrinsic {
         return {
             errors: null,
             json: {
-                'Fn::FindInMap': [this.mapName, this.topLevelKey, this.secondLevelKey]
-            }
+                'Fn::FindInMap': [this.mapName, this.topLevelKey, this.secondLevelKey],
+            },
         };
     }
     ;
@@ -236,7 +236,7 @@ class FnIf extends Intrinsic {
     toJson() {
         return {
             errors: null,
-            json: { 'Fn::If': [this.condition, this.ifTrue, this.ifFalse] }
+            json: { 'Fn::If': [this.condition, this.ifTrue, this.ifFalse] },
         };
     }
     ;

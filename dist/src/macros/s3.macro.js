@@ -1,6 +1,3 @@
-/**
- * Created by arming on 9/21/16.
- */
 'use strict';
 const aws = require('aws-sdk');
 const Service = require('../service');

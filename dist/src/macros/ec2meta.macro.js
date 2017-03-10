@@ -1,10 +1,7 @@
-/**
- * Created by arming on 9/25/16.
- */
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
 const instanceTypes = require('../../ec2info/www/instances.json');
-const Promise = require('bluebird');
-/** @module Macro */
+const Promise = require("bluebird");
 /**
  * Returns an array of all instance types and details.
  * @memberof module:Macro
@@ -13,6 +10,7 @@ const Promise = require('bluebird');
 function getInstanceTypeList() {
     return instanceTypes;
 }
+exports.getInstanceTypeList = getInstanceTypeList;
 /**
  * Returns an array of just the instance type names available in AWS.
  * @memberof module:Macro
@@ -25,6 +23,7 @@ function getInstanceTypeNameList() {
     });
     return results;
 }
+exports.getInstanceTypeNameList = getInstanceTypeNameList;
 /**
  * Returns a map of all instance types and details.
  * @memberof module:Macro
@@ -37,6 +36,7 @@ function getInstanceTypeMap() {
     });
     return results;
 }
+exports.getInstanceTypeMap = getInstanceTypeMap;
 /**
  * Returns an array of the names of all regions in AWS.
  * @memberof module:Macro
@@ -55,9 +55,10 @@ function getRegions() {
         'ap-southeast-2',
         'sa-east-1',
         'cn-north-1',
-        'us-gov-west-1'
+        'us-gov-west-1',
     ];
 }
+exports.getRegions = getRegions;
 /**
  * Returns an AMI Map that can be added to a Mapping.
  * @memberof module:Macro
@@ -74,7 +75,7 @@ function getAMIMap(filters, regions) {
             .map(filters, filterSet => {
             return ec2Client
                 .describeImages({
-                Filters: filterSet.Filters
+                Filters: filterSet.Filters,
             })
                 .promise()
                 .then(ami => {
@@ -110,10 +111,4 @@ function getAMIMap(filters, regions) {
         return final;
     });
 }
-module.exports = {
-    getInstanceTypeList: getInstanceTypeList,
-    getInstanceTypeNameList: getInstanceTypeNameList,
-    getInstanceTypeMap: getInstanceTypeMap,
-    getRegions: getRegions,
-    getAMIMap: getAMIMap
-};
+exports.getAMIMap = getAMIMap;

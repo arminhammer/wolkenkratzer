@@ -1,19 +1,14 @@
-/**
- * Created by arming on 9/25/16.
- */
 'use strict';
 
 const instanceTypes = require('../../ec2info/www/instances.json');
-const Promise = require('bluebird');
-
-/** @module Macro */
+import * as Promise from 'bluebird';
 
 /**
  * Returns an array of all instance types and details.
  * @memberof module:Macro
  * @returns {Array}
  */
-function getInstanceTypeList() {
+export function getInstanceTypeList() {
   return instanceTypes;
 }
 
@@ -22,8 +17,8 @@ function getInstanceTypeList() {
  * @memberof module:Macro
  * @returns {Array}
  */
-function getInstanceTypeNameList() {
-  let results = [];
+export function getInstanceTypeNameList() {
+  let results: string[] = [];
   instanceTypes.forEach(instanceType => {
     results.push(instanceType.instance_type);
   });
@@ -35,7 +30,7 @@ function getInstanceTypeNameList() {
  * @memberof module:Macro
  * @returns {{}}
  */
-function getInstanceTypeMap() {
+export function getInstanceTypeMap() {
   let results = {};
   instanceTypes.forEach(instanceType => {
     results[instanceType.instance_type] = instanceType;
@@ -48,7 +43,7 @@ function getInstanceTypeMap() {
  * @memberof module:Macro
  * @returns {string[]}
  */
-function getRegions() {
+export function getRegions() {
   return [
     'us-east-1',
     'us-west-2',
@@ -61,7 +56,7 @@ function getRegions() {
     'ap-southeast-2',
     'sa-east-1',
     'cn-north-1',
-    'us-gov-west-1'
+    'us-gov-west-1',
   ];
 }
 
@@ -72,7 +67,7 @@ function getRegions() {
  * @param regions
  * @returns {Promise.<TResult>}
  */
-function getAMIMap(filters, regions) {
+export function getAMIMap(filters, regions) {
   const aws = require('aws-sdk');
   return Promise
     .map(regions, region => {
@@ -81,7 +76,7 @@ function getAMIMap(filters, regions) {
         .map(filters, filterSet => {
           return ec2Client
             .describeImages({
-              Filters: filterSet.Filters
+              Filters: filterSet.Filters,
             })
             .promise()
             .then(ami => {
@@ -105,12 +100,12 @@ function getAMIMap(filters, regions) {
               prev[key] = current[key];
               return prev;
             },
-            {}
+            {},
           );
           return { region: region, images: results };
         });
     })
-    .then(function(results) {
+    .then(function (results) {
       let final = {};
       results.forEach(result => {
         final[result.region] = result.images;
@@ -118,11 +113,3 @@ function getAMIMap(filters, regions) {
       return final;
     });
 }
-
-module.exports = {
-  getInstanceTypeList: getInstanceTypeList,
-  getInstanceTypeNameList: getInstanceTypeNameList,
-  getInstanceTypeMap: getInstanceTypeMap,
-  getRegions: getRegions,
-  getAMIMap: getAMIMap
-};
