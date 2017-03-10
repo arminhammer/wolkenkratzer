@@ -2,11 +2,9 @@
 
 // Components
 import { Template } from './src/template';
-const Tag = require('./src/tag').Tag;
-const TagSet = require('./src/tag').TagSet;
-const Intrinsic = require('./src/intrinsic');
-const Ref = require('./src/intrinsic').Ref;
-const FnGetAtt = require('./src/intrinsic').FnGetAtt;
+import { Tag, TagSet } from './src/tag';
+import * as Intrinsic from './src/intrinsic';
+import { FnGetAtt, Ref } from './src/intrinsic';
 const Parameter = require('./src/parameter').Parameter;
 import { WKResource } from './src/resource';
 const ResourceProperty = require('./src/resourceproperty').ResourceProperty;

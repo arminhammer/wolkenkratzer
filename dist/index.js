@@ -2,11 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // Components
 const template_1 = require("./src/template");
-const Tag = require('./src/tag').Tag;
-const TagSet = require('./src/tag').TagSet;
-const Intrinsic = require('./src/intrinsic');
-const Ref = require('./src/intrinsic').Ref;
-const FnGetAtt = require('./src/intrinsic').FnGetAtt;
+const tag_1 = require("./src/tag");
+const Intrinsic = require("./src/intrinsic");
+const intrinsic_1 = require("./src/intrinsic");
 const Parameter = require('./src/parameter').Parameter;
 const resource_1 = require("./src/resource");
 const ResourceProperty = require('./src/resourceproperty').ResourceProperty;
@@ -134,9 +132,9 @@ module.exports = {
     Types: Types,
     ResourceAttribute: ResourceAttribute,
     ResourceAttributeArray: ResourceAttributeArray,
-    TagSet: TagSet,
-    Tag: Tag,
-    Ref: Ref,
+    TagSet: tag_1.TagSet,
+    Tag: tag_1.Tag,
+    Ref: intrinsic_1.Ref,
     Init: Init,
     Intrinsic: Intrinsic,
     Output: Output,
@@ -144,7 +142,7 @@ module.exports = {
     TypeException: exceptions_1.TypeException,
     RequiredPropertyException: exceptions_1.RequiredPropertyException,
     ValueException: exceptions_1.ValueException,
-    FnGetAtt: FnGetAtt,
+    FnGetAtt: intrinsic_1.FnGetAtt,
     Mapping: Mapping,
     Pseudo: Pseudo
 };

@@ -3,12 +3,11 @@
 const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
 import { WKResource } from './resource';
 const types = require('./types')();
-const tag = require('./tag');
+import { TagSet } from './tag';
 
 export class Service {
   constructor(serviceName: string) {
     let service: any = {};
-    let s1 = {};
     const stub = require('../stubs/json/resources/' + serviceName);
     for (let resourceStub in stub) {
       let resourceBlock = function (name: string, propertiesObject: any) {
@@ -16,7 +15,7 @@ export class Service {
         let properties: any = {};
         for (let prop in stub[resourceStub].Properties) {
           if (prop === 'Tags') {
-            properties[prop] = new tag.TagSet();
+            properties[prop] = new TagSet();
           } else {
             let propBlock = stub[resourceStub].Properties[prop];
             let realType: any = String;

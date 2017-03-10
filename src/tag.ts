@@ -8,10 +8,10 @@ const TypeException = require('./exceptions').TypeException;
  */
 export class Tag {
 
-  private Key;
-  private Value;
+  private Key: string;
+  private Value: any;
 
-  constructor(key, value) {
+  constructor(key: string, value: any) {
     this.Key = key;
     this.Value = value;
   }
@@ -34,7 +34,7 @@ export class Tag {
  */
 export class TagSet {
 
-  private tags: Object;
+  private tags: any;
 
   constructor() {
     this.tags = {};
@@ -47,8 +47,8 @@ export class TagSet {
    * @param first
    * @param second
    */
-  public add(first, second) {
-    let tag;
+  public add(first: any, second: any) {
+    let tag: any;
     if (typeof second === 'undefined') {
       if (!(first instanceof Tag)) {
         if (first.Key && first.Value) {
@@ -82,7 +82,7 @@ export class TagSet {
    * Returns a JSON representation of the TagSet
    * @returns {Array}
    */
-  public toJson() {
+  public toJson(): any {
     if (Object.keys(this.tags).length > 0) {
       let tagArray: Object[] = [];
       for (let tag in this.tags) {

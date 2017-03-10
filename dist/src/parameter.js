@@ -18,6 +18,10 @@ class Parameter {
         this.MinValue = parameter.MinValue;
         this.NoEcho = parameter.NoEcho;
     }
+    getName() {
+        return this.WKName;
+    }
+    ;
     /**
      * Provides a JSON version of the Parameter
      */

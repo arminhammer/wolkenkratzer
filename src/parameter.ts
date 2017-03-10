@@ -33,6 +33,10 @@ export class Parameter {
     this.NoEcho = parameter.NoEcho;
   }
 
+  public getName() {
+    return this.WKName;
+  };
+
   /**
    * Provides a JSON version of the Parameter
    */
@@ -41,4 +45,5 @@ export class Parameter {
     delete p.WKName;
     return p;
   };
+
 }

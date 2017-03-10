@@ -50,8 +50,11 @@ class Ref extends Intrinsic {
      * @returns {Object}
      */
     toJson() {
-        if (this.ref instanceof resource_1.WKResource || this.ref instanceof parameter_1.Parameter) {
-            return { errors: null, json: { Ref: this.ref.WKName } };
+        if (this.ref instanceof resource_1.WKResource) {
+            return { errors: null, json: { Ref: this.ref.getName() } };
+        }
+        else if (this.ref instanceof parameter_1.Parameter) {
+            return { errors: null, json: { Ref: this.ref.getName() } };
         }
         else {
             return { errors: null, json: { Ref: this.ref } };
@@ -94,7 +97,7 @@ class FnGetAtt extends Intrinsic {
         if (this.resource instanceof resource_1.WKResource || this.resource instanceof parameter_1.Parameter) {
             return {
                 errors: null,
-                json: { 'Fn::GetAtt': [this.resource.WKName, this.attribute] },
+                json: { 'Fn::GetAtt': [this.resource.getName(), this.attribute] },
             };
         }
         else {

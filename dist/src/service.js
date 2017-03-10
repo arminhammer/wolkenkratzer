@@ -3,11 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
 const resource_1 = require("./resource");
 const types = require('./types')();
-const tag = require('./tag');
+const tag_1 = require("./tag");
 class Service {
     constructor(serviceName) {
         let service = {};
-        let s1 = {};
         const stub = require('../stubs/json/resources/' + serviceName);
         for (let resourceStub in stub) {
             let resourceBlock = function (name, propertiesObject) {
@@ -15,7 +14,7 @@ class Service {
                 let properties = {};
                 for (let prop in stub[resourceStub].Properties) {
                     if (prop === 'Tags') {
-                        properties[prop] = new tag.TagSet();
+                        properties[prop] = new tag_1.TagSet();
                     }
                     else {
                         let propBlock = stub[resourceStub].Properties[prop];

@@ -4,7 +4,7 @@ import { WKResource } from './resource';
 import { Parameter } from './parameter';
 import { Jsonify } from './interfaces';
 
-export function makeIntrinsic(obj) {
+export function makeIntrinsic(obj: any): any {
   if (obj['Ref']) {
     return new Ref(obj['Ref']);
   } else if (obj['Fn::FindInMap']) {
@@ -40,9 +40,9 @@ export class Intrinsic implements Jsonify {
  */
 export class Ref extends Intrinsic implements Jsonify {
 
-  private ref;
+  private ref: any;
 
-  constructor(resource) {
+  constructor(resource: any) {
     super();
     this.ref = resource;
   }
@@ -52,8 +52,10 @@ export class Ref extends Intrinsic implements Jsonify {
    * @returns {Object}
    */
   public toJson() {
-    if (this.ref instanceof WKResource || this.ref instanceof Parameter) {
-      return { errors: null, json: { Ref: this.ref.WKName } };
+    if (this.ref instanceof WKResource) {
+      return { errors: null, json: { Ref: this.ref.getName() } };
+    } else if (this.ref instanceof Parameter) {
+      return { errors: null, json: { Ref: this.ref.getName() } };
     } else {
       return { errors: null, json: { Ref: this.ref } };
     }
@@ -65,9 +67,9 @@ export class Ref extends Intrinsic implements Jsonify {
  */
 export class FnSub extends Intrinsic implements Jsonify {
 
-  private sub;
+  private sub: any;
 
-  constructor(input) {
+  constructor(input: any) {
     super();
     this.sub = input;
   }
@@ -86,10 +88,10 @@ export class FnSub extends Intrinsic implements Jsonify {
  */
 export class FnGetAtt extends Intrinsic implements Jsonify {
 
-  private resource;
-  private attribute;
+  private resource: any;
+  private attribute: any;
 
-  constructor(resource, attribute?) {
+  constructor(resource: any, attribute?: any) {
     super();
     this.resource = resource;
     this.attribute = attribute;
@@ -105,7 +107,7 @@ export class FnGetAtt extends Intrinsic implements Jsonify {
     ) {
       return {
         errors: null,
-        json: { 'Fn::GetAtt': [this.resource.WKName, this.attribute] },
+        json: { 'Fn::GetAtt': [this.resource.getName(), this.attribute] },
       };
     } else {
       return {
@@ -121,9 +123,9 @@ export class FnGetAtt extends Intrinsic implements Jsonify {
  */
 export class FnBase64 extends Intrinsic implements Jsonify {
 
-  private content;
+  private content: any;
 
-  constructor(content) {
+  constructor(content: any) {
     super();
     this.content = content;
   }
@@ -142,11 +144,11 @@ export class FnBase64 extends Intrinsic implements Jsonify {
  */
 export class FnFindInMap extends Intrinsic implements Jsonify {
 
-  private mapName;
-  private topLevelKey;
-  private secondLevelKey;
+  private mapName: any;
+  private topLevelKey: any;
+  private secondLevelKey: any;
 
-  constructor(mapName, topLevelKey?, secondLevelKey?) {
+  constructor(mapName: any, topLevelKey?: any, secondLevelKey?: any) {
     super();
     this.mapName = mapName;
     this.topLevelKey = topLevelKey;
@@ -169,9 +171,9 @@ export class FnFindInMap extends Intrinsic implements Jsonify {
 
 export class FnGetAZs extends Intrinsic implements Jsonify {
 
-  private region;
+  private region: any;
 
-  constructor(region) {
+  constructor(region: any) {
     super();
     if (region) {
       this.region = region;
@@ -194,10 +196,10 @@ export class FnGetAZs extends Intrinsic implements Jsonify {
  */
 export class FnJoin extends Intrinsic implements Jsonify {
 
-  private delimiter;
-  private values;
+  private delimiter: any;
+  private values: any;
 
-  constructor(delimiter, values) {
+  constructor(delimiter: any, values: any) {
     super();
     this.delimiter = delimiter;
     this.values = values;
@@ -217,10 +219,10 @@ export class FnJoin extends Intrinsic implements Jsonify {
  */
 export class FnSelect extends Intrinsic implements Jsonify {
 
-  private index;
-  private list;
+  private index: any;
+  private list: any;
 
-  constructor(index, list) {
+  constructor(index: any, list: any) {
     super();
     this.index = index;
     this.list = list;
@@ -233,10 +235,10 @@ export class FnSelect extends Intrinsic implements Jsonify {
 
 export class FnAnd extends Intrinsic implements Jsonify {
 
-  private condition;
-  private body;
+  private condition: any;
+  private body: any;
 
-  constructor(condition, body) {
+  constructor(condition: any, body: any) {
     super();
     this.condition = condition;
     this.body = body;
@@ -249,10 +251,10 @@ export class FnAnd extends Intrinsic implements Jsonify {
 
 export class FnEquals extends Intrinsic implements Jsonify {
 
-  private first;
-  private second;
+  private first: any;
+  private second: any;
 
-  constructor(first, second) {
+  constructor(first: any, second: any) {
     super();
     this.first = first;
     this.second = second;
@@ -265,11 +267,11 @@ export class FnEquals extends Intrinsic implements Jsonify {
 
 export class FnIf extends Intrinsic implements Jsonify {
 
-  private condition;
-  private ifTrue;
-  private ifFalse;
+  private condition: any;
+  private ifTrue: any;
+  private ifFalse: any;
 
-  constructor(condition, ifTrue, ifFalse) {
+  constructor(condition: any, ifTrue: any, ifFalse: any) {
     super();
     this.condition = condition;
     this.ifTrue = ifTrue;
@@ -286,9 +288,9 @@ export class FnIf extends Intrinsic implements Jsonify {
 
 export class FnNot extends Intrinsic implements Jsonify {
 
-  private condition;
+  private condition: any;
 
-  constructor(condition) {
+  constructor(condition: any) {
     super();
     this.condition = condition;
   }
@@ -300,10 +302,10 @@ export class FnNot extends Intrinsic implements Jsonify {
 
 export class FnOr extends Intrinsic implements Jsonify {
 
-  private condition;
-  private body;
+  private condition: any;
+  private body: any;
 
-  constructor(condition, body) {
+  constructor(condition: any, body: any) {
     super();
     this.condition = condition;
     this.body = body;

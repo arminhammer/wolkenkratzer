@@ -15,6 +15,7 @@ export declare class Parameter {
     private MinValue;
     private NoEcho;
     constructor(name: string, parameter: any);
+    getName(): string;
     /**
      * Provides a JSON version of the Parameter
      */
