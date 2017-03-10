@@ -14,12 +14,14 @@
         "pretty": true
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "typings"
     ],
     "filesGlob": [
         "./src/**/*.js",
         "./src/**/*.ts",
-        "!./node_modules/**/*"
+        "!./node_modules/**/*",
+        "!./src/**/*.d.ts"
     ],
     "files": [
         "./index.js"

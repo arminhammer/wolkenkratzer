@@ -1,6 +1,3 @@
-/**
- * Created by arming on 7/3/16.
- */
 'use strict';
 const TypeException = require('./exceptions').TypeException;
 /** @module Core */

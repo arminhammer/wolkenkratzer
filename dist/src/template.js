@@ -11,7 +11,7 @@ const Service = require('./service');
 /** @module Core */
 function _handleDuplicateKey(key) {
     console.log('Duplicate key ' + key);
-    throw new ValueException('duplicate key "%s" detected' % key);
+    throw new ValueException(`duplicate key ${key} detected`);
 }
 function _add(d, values) {
     if (Array.isArray(values)) {
@@ -171,10 +171,10 @@ Template.prototype.toJsonAsync = function (callback) {
     if (callback) {
         let result = this.toJson();
         if (result.Errors) {
-            callback(result.Errors, result.Template);
+            return callback(result.Errors, result.Template);
         }
         else {
-            callback(null, result.Template);
+            return callback(null, result.Template);
         }
     }
     else {
@@ -254,21 +254,25 @@ Template.prototype.toJson = function () {
     if (j.Description === '') {
         delete j.Description;
     }
-    if (errors.length === 0) {
-        errors = null;
-    }
-    return {
+    let result = {
         Errors: errors,
-        Template: JSON.stringify(j, null, 2)
+        Template: JSON.stringify(j, null, 2),
     };
+    if (errors.length === 0) {
+        result = {
+            Errors: null,
+            Template: JSON.stringify(j, null, 2),
+        };
+    }
+    return result;
 };
 Template.prototype.toYaml = function () {
     let jsonResult = this.toJson();
     return {
         Errors: jsonResult.errors,
-        Template: yaml.safeDump(JSON.parse(jsonResult.Template))
+        Template: yaml.safeDump(JSON.parse(jsonResult.Template)),
     };
 };
 module.exports = {
-    Template: Template
+    Template: Template,
 };

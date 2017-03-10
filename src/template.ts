@@ -14,7 +14,7 @@ const Service = require('./service');
 
 function _handleDuplicateKey(key) {
   console.log('Duplicate key ' + key);
-  throw new ValueException('duplicate key "%s" detected' % key);
+  throw new ValueException(`duplicate key ${key} detected`);
 }
 
 function _add(d, values) {
@@ -68,7 +68,7 @@ function _populateFromExisting(newTemplate, existingTemplate) {
       let serviceClient = Service(resourceGroupName);
       let newResource = new serviceClient[resourceName](
         resource,
-        existingTemplate.Resources[resource].Properties
+        existingTemplate.Resources[resource].Properties,
       );
       newTemplate.add(newResource);
     }
@@ -96,7 +96,7 @@ function Template(template) {
  * Add an element to the Template
  * @param element
  */
-Template.prototype.add = function(element) {
+Template.prototype.add = function (element) {
   if (element instanceof Parameter) {
     _add(this.Parameters, element);
   } else if (element instanceof WKResource) {
@@ -107,7 +107,7 @@ Template.prototype.add = function(element) {
     _add(this.Mappings, element);
   } else {
     throw new TypeException(
-      element + ' is not a valid type and cannot be added to the template.'
+      element + ' is not a valid type and cannot be added to the template.',
     );
   }
 };
@@ -116,7 +116,7 @@ Template.prototype.add = function(element) {
  * Remove an element from the Template
  * @param element
  */
-Template.prototype.remove = function(element) {
+Template.prototype.remove = function (element) {
   if (element instanceof Parameter) {
     _remove(this.Parameters, element);
   } else if (element instanceof WKResource) {
@@ -127,7 +127,7 @@ Template.prototype.remove = function(element) {
     _remove(this.Mappings, element);
   } else {
     throw new TypeException(
-      element + ' is not a valid type and cannot be added to the template.'
+      element + ' is not a valid type and cannot be added to the template.',
     );
   }
 };
@@ -136,7 +136,7 @@ Template.prototype.remove = function(element) {
  * Set the metadata value of the template
  * @param metadata
  */
-Template.prototype.setMetadata = function(metadata) {
+Template.prototype.setMetadata = function (metadata) {
   this.Metadata = metadata;
 };
 
@@ -144,7 +144,7 @@ Template.prototype.setMetadata = function(metadata) {
  * Set the version value of the template
  * @param version
  */
-Template.prototype.setVersion = function(version) {
+Template.prototype.setVersion = function (version) {
   this.Version = version;
 };
 
@@ -152,7 +152,7 @@ Template.prototype.setVersion = function(version) {
  * Add a description to the template
  * @param description
  */
-Template.prototype.setDescription = function(description) {
+Template.prototype.setDescription = function (description) {
   this.Description = description;
 };
 
@@ -161,7 +161,7 @@ Template.prototype.setDescription = function(description) {
  * @param name
  * @param condition
  */
-Template.prototype.addCondition = function(name, condition) {
+Template.prototype.addCondition = function (name, condition) {
   this.Conditions[name] = condition;
 };
 
@@ -170,7 +170,7 @@ Template.prototype.addCondition = function(name, condition) {
  * @param name
  * @param condition
  */
-Template.prototype.removeCondition = function(name, condition) {
+Template.prototype.removeCondition = function (name, condition) {
   delete this.Conditions[name];
 };
 
@@ -178,13 +178,13 @@ Template.prototype.removeCondition = function(name, condition) {
  *
  * @param callback
  */
-Template.prototype.toJsonAsync = function(callback) {
+Template.prototype.toJsonAsync = function (callback) {
   if (callback) {
     let result = this.toJson();
     if (result.Errors) {
-      callback(result.Errors, result.Template);
+      return callback(result.Errors, result.Template);
     } else {
-      callback(null, result.Template);
+      return callback(null, result.Template);
     }
   } else {
     return new Promise((resolve, reject) => {
@@ -204,9 +204,9 @@ Template.prototype.toJsonAsync = function(callback) {
  * Returns a CloudFormation JSON template string
  * @returns {Object}
  */
-Template.prototype.toJson = function() {
+Template.prototype.toJson = function () {
   let j = JSON.parse(JSON.stringify(this));
-  let errors = [];
+  let errors: string[] = [];
   for (let param in this.Parameters) {
     try {
       j.Parameters[param] = this.Parameters[param].toJson();
@@ -259,23 +259,27 @@ Template.prototype.toJson = function() {
   if (j.Description === '') {
     delete j.Description;
   }
-  if (errors.length === 0) {
-    errors = null;
-  }
-  return {
+  let result: Object = {
     Errors: errors,
-    Template: JSON.stringify(j, null, 2)
+    Template: JSON.stringify(j, null, 2),
   };
+  if (errors.length === 0) {
+    result = {
+      Errors: null,
+      Template: JSON.stringify(j, null, 2),
+    };
+  }
+  return result;
 };
 
-Template.prototype.toYaml = function() {
+Template.prototype.toYaml = function () {
   let jsonResult = this.toJson();
   return {
     Errors: jsonResult.errors,
-    Template: yaml.safeDump(JSON.parse(jsonResult.Template))
+    Template: yaml.safeDump(JSON.parse(jsonResult.Template)),
   };
 };
 
 module.exports = {
-  Template: Template
+  Template: Template,
 };
