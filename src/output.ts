@@ -6,10 +6,10 @@
 export class Output {
 
   private WKName: string;
-  private Description: any;
-  private Value: any;
+  private Description;
+  private Value;
 
-  constructor(name: string, parameter: any) {
+  constructor(name: string, parameter) {
     this.WKName = name;
     this.Description = parameter.Description;
     this.Value = parameter.Value;

@@ -6,7 +6,7 @@
         "allowJs": true,
         "outDir": "./dist",
         "noImplicitReturns": true,
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "strictNullChecks": true,
         "noFallthroughCasesInSwitch": true,
         "alwaysStrict": true,

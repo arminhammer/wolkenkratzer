@@ -5,19 +5,19 @@
  */
 export class Parameter {
   private WKName: string;
-  private Type: any;
+  private Type;
   private AllowedPattern: string;
-  private AllowedValues: any;
-  private ConstraintDescription: any;
-  private Default: any;
+  private AllowedValues;
+  private ConstraintDescription;
+  private Default;
   private Description: string;
-  private MaxLength: any;
-  private MaxValue: any;
-  private MinLength: any;
-  private MinValue: any;
-  private NoEcho: any;
+  private MaxLength;
+  private MaxValue;
+  private MinLength;
+  private MinValue;
+  private NoEcho;
 
-  constructor(name: string, parameter: any) {
+  constructor(name: string, parameter) {
     this.WKName = name;
     this.Type = parameter.Type;
     this.AllowedPattern = parameter.AllowedPattern;

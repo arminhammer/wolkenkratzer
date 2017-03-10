@@ -1,10 +1,7 @@
-/**
- * Created by arming on 6/15/16.
- */
 'use strict';
-const WKResource = require('./resource').WKResource;
-const Parameter = require('./parameter').Parameter;
-/** @module Core */
+Object.defineProperty(exports, "__esModule", { value: true });
+const resource_1 = require("./resource");
+const parameter_1 = require("./parameter");
 function makeIntrinsic(obj) {
     if (obj['Ref']) {
         return new Ref(obj['Ref']);
@@ -23,220 +20,248 @@ function makeIntrinsic(obj) {
     }
     return null;
 }
+exports.makeIntrinsic = makeIntrinsic;
 /**
- * @memberof module:Core
+ * @class Intrinsic
  */
-function Intrinsic() { }
-/**
- * Returns a JSON Object
- */
-Intrinsic.prototype.toJson = function () { };
-Intrinsic.prototype.toJSON = function () {
-    return this.toJson().json;
-};
-/**
- * @memberof module:Core
- */
-function Ref(resource) {
-    Intrinsic.call(this);
-    this.ref = resource;
-}
-Ref.prototype = Object.create(Intrinsic.prototype);
-/**
- * Returns a JSON string version
- * @returns {Object}
- */
-Ref.prototype.toJson = function () {
-    if (this.ref instanceof WKResource || this.ref instanceof Parameter) {
-        return { errors: null, json: { Ref: this.ref.WKName } };
+class Intrinsic {
+    constructor() { }
+    /**
+    * Returns a JSON Object
+    */
+    toJson() { return { json: {} }; }
+    ;
+    toJSON() {
+        return this.toJson().json;
     }
-    else {
-        return { errors: null, json: { Ref: this.ref } };
+    ;
+}
+exports.Intrinsic = Intrinsic;
+/**
+ * @class Ref
+ */
+class Ref extends Intrinsic {
+    constructor(resource) {
+        super();
+        this.ref = resource;
     }
-};
-/**
- * @memberof module:Core
- */
-function FnSub(input) {
-    Intrinsic.call(this);
-    this.sub = input;
-}
-FnSub.prototype = Object.create(Intrinsic.prototype);
-/**
- * Returns a JSON string version
- * @returns {Object}
- */
-FnSub.prototype.toJson = function () {
-    return { errors: null, json: { 'Fn::Sub': this.sub } };
-};
-/**
- * @memberof module:Core
- */
-function FnGetAtt(resource, attribute) {
-    Intrinsic.call(this);
-    this.resource = resource;
-    this.attribute = attribute;
-}
-FnGetAtt.prototype = Object.create(Intrinsic.prototype);
-/**
- * Returns a JSON string version
- * @returns {Object}
- */
-FnGetAtt.prototype.toJson = function () {
-    if (this.resource instanceof WKResource || this.resource instanceof Parameter) {
-        return {
-            errors: null,
-            json: { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
-        };
-    }
-    else {
-        return {
-            errors: null,
-            json: { 'Fn::GetAtt': [this.resource, this.attribute] }
-        };
-    }
-};
-/**
- * @memberof module:Core
- */
-function FnBase64(content) {
-    Intrinsic.call(this);
-    this.content = content;
-}
-FnBase64.prototype = Object.create(Intrinsic.prototype);
-/**
- * Returns a JSON string version
- * @returns {Object}
- */
-FnBase64.prototype.toJson = function () {
-    return { errors: null, json: { 'Fn::Base64': this.content } };
-};
-/**
- * @memberof module:Core
- */
-function FnFindInMap(mapName, topLevelKey, secondLevelKey) {
-    Intrinsic.call(this);
-    this.mapName = mapName;
-    this.topLevelKey = topLevelKey;
-    this.secondLevelKey = secondLevelKey;
-}
-FnFindInMap.prototype = Object.create(Intrinsic.prototype);
-/**
- * Returns a JSON string version
- * @returns {Object}
- */
-FnFindInMap.prototype.toJson = function () {
-    return {
-        errors: null,
-        json: {
-            'Fn::FindInMap': [this.mapName, this.topLevelKey, this.secondLevelKey]
+    /**
+     * Returns a JSON string version
+     * @returns {Object}
+     */
+    toJson() {
+        if (this.ref instanceof resource_1.WKResource || this.ref instanceof parameter_1.Parameter) {
+            return { errors: null, json: { Ref: this.ref.WKName } };
         }
-    };
-};
-function FnGetAZs(region) {
-    Intrinsic.call(this);
-    if (region) {
-        this.region = region;
-    }
-    else {
-        this.region = { Ref: 'AWS::Region' };
+        else {
+            return { errors: null, json: { Ref: this.ref } };
+        }
     }
 }
-FnGetAZs.prototype = Object.create(Intrinsic.prototype);
+exports.Ref = Ref;
 /**
- *
- * @returns {Object}
+ * @class FnSub
  */
-FnGetAZs.prototype.toJson = function () {
-    return { errors: null, json: { 'Fn::GetAZs': this.region } };
-};
+class FnSub extends Intrinsic {
+    constructor(input) {
+        super();
+        this.sub = input;
+    }
+    /**
+     * Returns a JSON string version
+     * @returns {Object}
+     */
+    toJson() {
+        return { errors: null, json: { 'Fn::Sub': this.sub } };
+    }
+    ;
+}
+exports.FnSub = FnSub;
 /**
- * @memberof module:Core
+ * @class FnGetAtt
  */
-function FnJoin(delimiter, values) {
-    Intrinsic.call(this);
-    this.delimiter = delimiter;
-    this.values = values;
+class FnGetAtt extends Intrinsic {
+    constructor(resource, attribute) {
+        super();
+        this.resource = resource;
+        this.attribute = attribute;
+    }
+    /**
+     * Returns a JSON string version
+     * @returns {Object}
+     */
+    toJson() {
+        if (this.resource instanceof resource_1.WKResource || this.resource instanceof parameter_1.Parameter) {
+            return {
+                errors: null,
+                json: { 'Fn::GetAtt': [this.resource.WKName, this.attribute] }
+            };
+        }
+        else {
+            return {
+                errors: null,
+                json: { 'Fn::GetAtt': [this.resource, this.attribute] }
+            };
+        }
+    }
 }
-FnJoin.prototype = Object.create(Intrinsic.prototype);
+exports.FnGetAtt = FnGetAtt;
 /**
- * Returns a JSON string version
- * @returns {Object}
+ * @class FnBase64
  */
-FnJoin.prototype.toJson = function () {
-    return { errors: null, json: { 'Fn::Join': [this.delimiter, this.values] } };
-};
-function FnSelect(index, list) {
-    Intrinsic.call(this);
-    this.index = index;
-    this.list = list;
+class FnBase64 extends Intrinsic {
+    constructor(content) {
+        super();
+        this.content = content;
+    }
+    /**
+     * Returns a JSON string version
+     * @returns {Object}
+     */
+    toJson() {
+        return { errors: null, json: { 'Fn::Base64': this.content } };
+    }
+    ;
 }
-FnSelect.prototype = Object.create(Intrinsic.prototype);
-FnSelect.prototype.toJson = function () {
-    return { errors: null, json: { 'Fn::Select': [this.index, this.list] } };
-};
-function FnAnd(condition, body) {
-    Intrinsic.call(this);
-    this.condition = condition;
-    this.body = body;
+exports.FnBase64 = FnBase64;
+/**
+ * @mclass FnFindInMap
+ */
+class FnFindInMap extends Intrinsic {
+    constructor(mapName, topLevelKey, secondLevelKey) {
+        super();
+        this.mapName = mapName;
+        this.topLevelKey = topLevelKey;
+        this.secondLevelKey = secondLevelKey;
+    }
+    /**
+   * Returns a JSON string version
+   * @returns {Object}
+   */
+    toJson() {
+        return {
+            errors: null,
+            json: {
+                'Fn::FindInMap': [this.mapName, this.topLevelKey, this.secondLevelKey]
+            }
+        };
+    }
+    ;
 }
-FnAnd.prototype = Object.create(Intrinsic.prototype);
-FnAnd.prototype.toJson = function () {
-    return { errors: null, json: { 'Fn::And': [this.condition, this.body] } };
-};
-function FnEquals(first, second) {
-    Intrinsic.call(this);
-    this.first = first;
-    this.second = second;
+exports.FnFindInMap = FnFindInMap;
+class FnGetAZs extends Intrinsic {
+    constructor(region) {
+        super();
+        if (region) {
+            this.region = region;
+        }
+        else {
+            this.region = { Ref: 'AWS::Region' };
+        }
+    }
+    /**
+   *
+   * @returns {Object}
+   */
+    toJson() {
+        return { errors: null, json: { 'Fn::GetAZs': this.region } };
+    }
+    ;
 }
-FnEquals.prototype = Object.create(Intrinsic.prototype);
-FnEquals.prototype.toJson = function () {
-    return { errors: null, json: { 'Fn::Equals': [this.first, this.second] } };
-};
-function FnIf(condition, ifTrue, ifFalse) {
-    Intrinsic.call(this);
-    this.condition = condition;
-    this.ifTrue = ifTrue;
-    this.ifFalse = ifFalse;
+exports.FnGetAZs = FnGetAZs;
+/**
+ * @class FnJoin
+ */
+class FnJoin extends Intrinsic {
+    constructor(delimiter, values) {
+        super();
+        this.delimiter = delimiter;
+        this.values = values;
+    }
+    /**
+   * Returns a JSON string version
+   * @returns {Object}
+   */
+    toJson() {
+        return { errors: null, json: { 'Fn::Join': [this.delimiter, this.values] } };
+    }
+    ;
 }
-FnIf.prototype = Object.create(Intrinsic.prototype);
-FnIf.prototype.toJson = function () {
-    return {
-        errors: null,
-        json: { 'Fn::If': [this.condition, this.ifTrue, this.ifFalse] }
-    };
-};
-function FnNot(condition) {
-    Intrinsic.call(this);
-    this.condition = condition;
+exports.FnJoin = FnJoin;
+/**
+ * @class FnSelect
+ */
+class FnSelect extends Intrinsic {
+    constructor(index, list) {
+        super();
+        this.index = index;
+        this.list = list;
+    }
+    toJson() {
+        return { errors: null, json: { 'Fn::Select': [this.index, this.list] } };
+    }
+    ;
 }
-FnNot.prototype = Object.create(Intrinsic.prototype);
-FnNot.prototype.toJson = function () {
-    return { errors: null, json: { 'Fn::Not': [this.condition] } };
-};
-function FnOr(condition, body) {
-    Intrinsic.call(this);
-    this.condition = condition;
-    this.body = body;
+exports.FnSelect = FnSelect;
+class FnAnd extends Intrinsic {
+    constructor(condition, body) {
+        super();
+        this.condition = condition;
+        this.body = body;
+    }
+    toJson() {
+        return { errors: null, json: { 'Fn::And': [this.condition, this.body] } };
+    }
+    ;
 }
-FnOr.prototype = Object.create(Intrinsic.prototype);
-FnOr.prototype.toJson = function () {
-    return { errors: null, json: { 'Fn::Or': [this.condition, this.body] } };
-};
-module.exports = {
-    Ref: Ref,
-    FnSub: FnSub,
-    Intrinsic: Intrinsic,
-    FnGetAtt: FnGetAtt,
-    FnGetAZs: FnGetAZs,
-    FnBase64: FnBase64,
-    FnFindInMap: FnFindInMap,
-    FnJoin: FnJoin,
-    FnSelect: FnSelect,
-    FnAnd: FnAnd,
-    FnEquals: FnEquals,
-    FnIf: FnIf,
-    FnNot: FnNot,
-    FnOr: FnOr,
-    makeIntrinsic: makeIntrinsic
-};
+exports.FnAnd = FnAnd;
+class FnEquals extends Intrinsic {
+    constructor(first, second) {
+        super();
+        this.first = first;
+        this.second = second;
+    }
+    toJson() {
+        return { errors: null, json: { 'Fn::Equals': [this.first, this.second] } };
+    }
+}
+exports.FnEquals = FnEquals;
+class FnIf extends Intrinsic {
+    constructor(condition, ifTrue, ifFalse) {
+        super();
+        this.condition = condition;
+        this.ifTrue = ifTrue;
+        this.ifFalse = ifFalse;
+    }
+    toJson() {
+        return {
+            errors: null,
+            json: { 'Fn::If': [this.condition, this.ifTrue, this.ifFalse] }
+        };
+    }
+    ;
+}
+exports.FnIf = FnIf;
+class FnNot extends Intrinsic {
+    constructor(condition) {
+        super();
+        this.condition = condition;
+    }
+    toJson() {
+        return { errors: null, json: { 'Fn::Not': [this.condition] } };
+    }
+    ;
+}
+exports.FnNot = FnNot;
+class FnOr extends Intrinsic {
+    constructor(condition, body) {
+        super();
+        this.condition = condition;
+        this.body = body;
+    }
+    toJson() {
+        return { errors: null, json: { 'Fn::Or': [this.condition, this.body] } };
+    }
+    ;
+}
+exports.FnOr = FnOr;

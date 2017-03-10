@@ -5,30 +5,30 @@ import { TypeException } from './exceptions';
 /**
  * @class Policy
  */
-export class Policy { 
-  
+export class Policy {
+
   private WKName: string;
 
   constructor(name: string) {
     this.WKName = name;
   }
 
- public toJson () {
-  let p = JSON.parse(JSON.stringify(this));
-  delete p.WKName;
-  return p;
+  public toJson() {
+    let p = JSON.parse(JSON.stringify(this));
+    delete p.WKName;
+    return p;
   }
 }
 
 /**
  * @class CreationPolicy
  */
-export class CreationPolicy extends Policy { 
+export class CreationPolicy extends Policy {
 
-  private AutoScalingCreationPolicy: any;
-  private ResourceSignal: any;
+  private AutoScalingCreationPolicy;
+  private ResourceSignal;
 
-  constructor(parameters?: any) {
+  constructor(parameters?) {
     super('CreationPolicy');
     if (parameters) {
       this.AutoScalingCreationPolicy = parameters.AutoScalingCreationPolicy;
@@ -40,7 +40,7 @@ export class CreationPolicy extends Policy {
 /**
  * @class DeletionPolicy
  */
-export class DeletionPolicy extends Policy { 
+export class DeletionPolicy extends Policy {
 
   private Type: string;
 
@@ -59,8 +59,8 @@ export class DeletionPolicy extends Policy {
 /**
  * @class UpdatePolicy 
  */
-export class UpdatePolicy extends Policy { 
-  constructor(parameters?: any) {
+export class UpdatePolicy extends Policy {
+  constructor(parameters?) {
     super('UpdatePolicy');
   }
 }
