@@ -5,19 +5,20 @@
  */
 export class Parameter {
   private WKName: string;
-  private Type;
+  // TODO fix anys
+  private Type: any;
   private AllowedPattern: string;
-  private AllowedValues;
-  private ConstraintDescription;
-  private Default;
+  private AllowedValues: any;
+  private ConstraintDescription: any;
+  private Default: any;
   private Description: string;
-  private MaxLength;
-  private MaxValue;
-  private MinLength;
-  private MinValue;
-  private NoEcho;
+  private MaxLength: any;
+  private MaxValue: any;
+  private MinLength: any;
+  private MinValue: any;
+  private NoEcho: any;
 
-  constructor(name: string, parameter) {
+  constructor(name: string, parameter: any) {
     this.WKName = name;
     this.Type = parameter.Type;
     this.AllowedPattern = parameter.AllowedPattern;
@@ -41,5 +42,3 @@ export class Parameter {
     return p;
   };
 }
-
-

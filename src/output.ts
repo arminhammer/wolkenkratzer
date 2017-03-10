@@ -6,10 +6,11 @@
 export class Output {
 
   private WKName: string;
-  private Description;
-  private Value;
+  // TODO fix anys
+  private Description: any;
+  private Value: any;
 
-  constructor(name: string, parameter) {
+  constructor(name: string, parameter: any) {
     this.WKName = name;
     this.Description = parameter.Description;
     this.Value = parameter.Value;

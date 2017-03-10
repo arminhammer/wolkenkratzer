@@ -1,7 +1,7 @@
 'use strict';
 
-//Components
-const Template = require('./src/template').Template;
+// Components
+import { Template } from './src/template';
 const Tag = require('./src/tag').Tag;
 const TagSet = require('./src/tag').TagSet;
 const Intrinsic = require('./src/intrinsic');
@@ -82,7 +82,7 @@ const Pseudo = {
   AWS_STACK_NAME: 'AWS::StackName'
 };
 
-//Exports
+// Exports
 module.exports = {
   ApiGateway: ApiGateway,
   ApplicationAutoScaling: ApplicationAutoScaling,

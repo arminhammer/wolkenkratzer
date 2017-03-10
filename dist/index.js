@@ -1,6 +1,7 @@
 'use strict';
-//Components
-const Template = require('./src/template').Template;
+Object.defineProperty(exports, "__esModule", { value: true });
+// Components
+const template_1 = require("./src/template");
 const Tag = require('./src/tag').Tag;
 const TagSet = require('./src/tag').TagSet;
 const Intrinsic = require('./src/intrinsic');
@@ -78,7 +79,7 @@ const Pseudo = {
     AWS_STACK_ID: 'AWS::StackId',
     AWS_STACK_NAME: 'AWS::StackName'
 };
-//Exports
+// Exports
 module.exports = {
     ApiGateway: ApiGateway,
     ApplicationAutoScaling: ApplicationAutoScaling,
@@ -128,7 +129,7 @@ module.exports = {
     StepFunctions: StepFunctions,
     WAF: WAF,
     WorkSpaces: WorkSpaces,
-    Template: Template,
+    Template: template_1.Template,
     WKResource: WKResource,
     ResourceProperty: ResourceProperty,
     Parameter: Parameter,

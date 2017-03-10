@@ -1,80 +1,67 @@
+import { Mapping } from './mapping';
+import { Output } from './output';
+import { Parameter } from './parameter';
 /**
  * @memberof module:Core
  */
 export declare class Template {
     private Description;
+    private Metadata;
+    private Conditions;
+    private Mappings;
+    private Outputs;
+    private Parameters;
+    private Resources;
+    private AWSTemplateFormatVersion;
     constructor(template: any);
     /**
      * Add an element to the Template
      * @param element
      */
-    Template: any;
-    prototype: any;
-    add: (element: any) => void;
+    add(element: Parameter | Object | Output | Mapping): void;
     /**
      * Remove an element from the Template
      * @param element
      */
-    Template: any;
-    prototype: any;
-    remove: (element: any) => void;
+    remove(element: Parameter | Object | Output | Mapping): void;
     /**
      * Set the metadata value of the template
      * @param metadata
      */
-    Template: any;
-    prototype: any;
-    setMetadata: (metadata: any) => void;
+    setMetadata(metadata: string): void;
     /**
      * Set the version value of the template
      * @param version
      */
-    Template: any;
-    prototype: any;
-    setVersion: (version: any) => void;
+    setVersion(version: string): void;
     /**
      * Add a description to the template
      * @param description
      */
-    Template: any;
-    prototype: any;
-    setDescription: (description: any) => void;
+    setDescription(description: string): void;
     /**
      * Add a condition to the template
      * @param name
      * @param condition
      */
-    Template: any;
-    prototype: any;
-    addCondition: (name: any, condition: any) => void;
+    addCondition(name: string, condition: string): void;
     /**
      * Remove a condition from the template
      * @param name
      * @param condition
      */
-    Template: any;
-    prototype: any;
-    removeCondition: (name: any, condition: any) => void;
+    removeCondition(name: string, condition: string): void;
     /**
      *
      * @param callback
      */
-    Template: any;
-    prototype: any;
-    toJsonAsync: (callback: any) => Promise<{}> | undefined;
+    toJsonAsync(callback: Function): any;
     /**
      * Returns a CloudFormation JSON template string
      * @returns {Object}
      */
-    Template: any;
-    prototype: any;
-    toJson: () => {
-        Errors: any[];
-        Template: string;
-    };
-    Template: any;
-    prototype: any;
-    toYaml: () => {
+    toJson(): any;
+    toYaml(): {
         Errors: any;
         Template: any;
     };
