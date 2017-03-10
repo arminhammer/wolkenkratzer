@@ -1,8 +1,6 @@
-/**
- * Created by arming on 6/15/16.
- */
 'use strict';
-const TypeException = require('./exceptions').TypeException;
+
+import { TypeException } from './exceptions';
 const Policy = require('./policy').Policy;
 const util = require('./util');
 
@@ -13,12 +11,12 @@ const util = require('./util');
  * @memberof module:Core
  * @property {String} WKName
  */
-function WKResource(
+export function WKResource(
   name,
   resourceType,
   properties,
   propertiesObject,
-  conditional
+  conditional,
 ) {
   this.WKName = name;
   this.WKResourceType = resourceType;
@@ -31,7 +29,7 @@ function WKResource(
       },
       get: () => {
         return this.properties[prop];
-      }
+      },
     });
   }
   if (propertiesObject) {
@@ -41,7 +39,7 @@ function WKResource(
         if (this.properties[prop].Type) {
           try {
             this.properties[prop].set(property);
-          } catch (e) {}
+          } catch (e) { }
         }
       }
     }
@@ -52,7 +50,7 @@ function WKResource(
  * Adds a DependsOn dependency for another Resource
  * @param resource
  */
-WKResource.prototype.dependsOn = function(resource) {
+WKResource.prototype.dependsOn = function (resource) {
   this.DependsOn = resource;
 };
 
@@ -60,7 +58,7 @@ WKResource.prototype.dependsOn = function(resource) {
  * Get the logical name of the resource
  * @returns {String}
  */
-WKResource.prototype.getName = function() {
+WKResource.prototype.getName = function () {
   return this.WKName;
 };
 
@@ -68,7 +66,7 @@ WKResource.prototype.getName = function() {
  * Adds a Config block to the Metadata AWS::CloudFormation::Init block of an Instance
  * @param config
  */
-WKResource.prototype.addConfig = function(config) {
+WKResource.prototype.addConfig = function (config) {
   if (
     this.WKResourceType === 'AWS::EC2::Instance' ||
     this.WKResourceType === 'AWS::AutoScaling::LaunchConfiguration'
@@ -78,17 +76,17 @@ WKResource.prototype.addConfig = function(config) {
     }
     if (!this.Metadata['AWS::CloudFormation::Init']) {
       this.Metadata['AWS::CloudFormation::Init'] = {
-        configSets: {}
+        configSets: {},
       };
     }
     this.Metadata['AWS::CloudFormation::Init'][config.WKName] = config;
   } else {
     throw new TypeException(
       'Not allowed to add ' +
-        config.WKName +
-        ' to ' +
-        this.WKName +
-        ' because it is not an Instance or LaunchConfiguration'
+      config.WKName +
+      ' to ' +
+      this.WKName +
+      ' because it is not an Instance or LaunchConfiguration',
     );
   }
 };
@@ -97,7 +95,7 @@ WKResource.prototype.addConfig = function(config) {
  * Adds a ConfigSet block to the Metadata AWS::CloudFormation::Init block of an Instance
  * @param configSet
  */
-WKResource.prototype.addConfigSet = function(configSet) {
+WKResource.prototype.addConfigSet = function (configSet) {
   if (
     this.WKResourceType === 'AWS::EC2::Instance' ||
     this.WKResourceType === 'AWS::AutoScaling::LaunchConfiguration'
@@ -107,7 +105,7 @@ WKResource.prototype.addConfigSet = function(configSet) {
     }
     if (!this.Metadata['AWS::CloudFormation::Init']) {
       this.Metadata['AWS::CloudFormation::Init'] = {
-        configSets: {}
+        configSets: {},
       };
     }
     this.Metadata['AWS::CloudFormation::Init'].configSets[
@@ -116,10 +114,10 @@ WKResource.prototype.addConfigSet = function(configSet) {
   } else {
     throw new TypeException(
       'Not allowed to add ' +
-        configSet.WKName +
-        ' to ' +
-        this.WKName +
-        ' because it is not an Instance or LaunchConfiguration'
+      configSet.WKName +
+      ' to ' +
+      this.WKName +
+      ' because it is not an Instance or LaunchConfiguration',
     );
   }
 };
@@ -128,7 +126,7 @@ WKResource.prototype.addConfigSet = function(configSet) {
  * Adds a CreationPolicy, UpdatePolicy, or DeletePolic
  * @param policy
  */
-WKResource.prototype.addPolicy = function(policy) {
+WKResource.prototype.addPolicy = function (policy) {
   if (!this.policies) {
     this.policies = {};
   }
@@ -142,9 +140,9 @@ WKResource.prototype.addPolicy = function(policy) {
  * Performs validation and returns a pretty-printed JSON object.
  * @returns {String}
  */
-WKResource.prototype.toJson = function() {
+WKResource.prototype.toJson = function () {
   let newProperties = JSON.parse(JSON.stringify(this.properties));
-  let errors = [];
+  let errors: string[] = [];
   for (let prop in newProperties) {
     let result = this.properties[prop].toJson();
     if (result.errors && result.errors.length > 0) {
@@ -184,7 +182,8 @@ WKResource.prototype.toJson = function() {
       }
     }
   }
-  let returnObject = {
+  // TODO fix any
+  let returnObject: any = {
     Type: this.WKResourceType,
     Properties: newProperties
   };
@@ -199,12 +198,9 @@ WKResource.prototype.toJson = function() {
   if (this.DependsOn) {
     returnObject.DependsOn = this.DependsOn.WKName;
   }
+  let result: Object = { errors: errors, json: returnObject };
   if (errors.length === 0) {
-    errors = null;
+    result = { errors: null, json: returnObject };
   }
-  return { errors: errors, json: returnObject };
-};
-
-module.exports = {
-  WKResource: WKResource
+  return result;
 };

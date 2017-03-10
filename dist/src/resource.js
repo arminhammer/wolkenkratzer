@@ -1,8 +1,6 @@
-/**
- * Created by arming on 6/15/16.
- */
 'use strict';
-const TypeException = require('./exceptions').TypeException;
+Object.defineProperty(exports, "__esModule", { value: true });
+const exceptions_1 = require("./exceptions");
 const Policy = require('./policy').Policy;
 const util = require('./util');
 /** @module Core */
@@ -23,7 +21,7 @@ function WKResource(name, resourceType, properties, propertiesObject, conditiona
             },
             get: () => {
                 return this.properties[prop];
-            }
+            },
         });
     }
     if (propertiesObject) {
@@ -40,6 +38,7 @@ function WKResource(name, resourceType, properties, propertiesObject, conditiona
         }
     }
 }
+exports.WKResource = WKResource;
 /**
  * Adds a DependsOn dependency for another Resource
  * @param resource
@@ -66,13 +65,13 @@ WKResource.prototype.addConfig = function (config) {
         }
         if (!this.Metadata['AWS::CloudFormation::Init']) {
             this.Metadata['AWS::CloudFormation::Init'] = {
-                configSets: {}
+                configSets: {},
             };
         }
         this.Metadata['AWS::CloudFormation::Init'][config.WKName] = config;
     }
     else {
-        throw new TypeException('Not allowed to add ' +
+        throw new exceptions_1.TypeException('Not allowed to add ' +
             config.WKName +
             ' to ' +
             this.WKName +
@@ -91,13 +90,13 @@ WKResource.prototype.addConfigSet = function (configSet) {
         }
         if (!this.Metadata['AWS::CloudFormation::Init']) {
             this.Metadata['AWS::CloudFormation::Init'] = {
-                configSets: {}
+                configSets: {},
             };
         }
         this.Metadata['AWS::CloudFormation::Init'].configSets[configSet.WKName] = configSet.configs;
     }
     else {
-        throw new TypeException('Not allowed to add ' +
+        throw new exceptions_1.TypeException('Not allowed to add ' +
             configSet.WKName +
             ' to ' +
             this.WKName +
@@ -116,7 +115,7 @@ WKResource.prototype.addPolicy = function (policy) {
         this.policies[policy.WKName] = policy;
     }
     else {
-        throw new TypeException(policy + ' must be of type Policy');
+        throw new exceptions_1.TypeException(policy + ' must be of type Policy');
     }
 };
 /**
@@ -163,6 +162,7 @@ WKResource.prototype.toJson = function () {
             }
         }
     }
+    // TODO fix any
     let returnObject = {
         Type: this.WKResourceType,
         Properties: newProperties
@@ -178,11 +178,9 @@ WKResource.prototype.toJson = function () {
     if (this.DependsOn) {
         returnObject.DependsOn = this.DependsOn.WKName;
     }
+    let result = { errors: errors, json: returnObject };
     if (errors.length === 0) {
-        errors = null;
+        result = { errors: null, json: returnObject };
     }
-    return { errors: errors, json: returnObject };
-};
-module.exports = {
-    WKResource: WKResource
+    return result;
 };
