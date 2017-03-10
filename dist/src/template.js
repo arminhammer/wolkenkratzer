@@ -4,10 +4,10 @@ const exceptions_1 = require("./exceptions");
 const mapping_1 = require("./mapping");
 const output_1 = require("./output");
 const parameter_1 = require("./parameter");
-const WKResource = require('./resource').WKResource;
+const resource_1 = require("./resource");
 const path = require('path');
 const yaml = require('js-yaml');
-const Service = require('./service');
+const service_1 = require("./service");
 /** @module Core */
 function _handleDuplicateKey(key) {
     console.log('Duplicate key ' + key);
@@ -64,7 +64,7 @@ function _populateFromExisting(newTemplate, existingTemplate) {
             resourceName = 'CustomResource';
         }
         else {
-            let serviceClient = Service(resourceGroupName);
+            let serviceClient = new service_1.Service(resourceGroupName);
             let newResource = new serviceClient[resourceName](resource, existingTemplate.Resources[resource].Properties);
             newTemplate.add(newResource);
         }
@@ -95,7 +95,7 @@ class Template {
         if (element instanceof parameter_1.Parameter) {
             _add(this.Parameters, element);
         }
-        else if (element instanceof WKResource) {
+        else if (element instanceof resource_1.WKResource) {
             _add(this.Resources, element);
         }
         else if (element instanceof output_1.Output) {
@@ -117,7 +117,7 @@ class Template {
         if (element instanceof parameter_1.Parameter) {
             _remove(this.Parameters, element);
         }
-        else if (element instanceof WKResource) {
+        else if (element instanceof resource_1.WKResource) {
             _remove(this.Resources, element);
         }
         else if (element instanceof output_1.Output) {

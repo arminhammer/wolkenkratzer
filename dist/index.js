@@ -8,68 +8,66 @@ const Intrinsic = require('./src/intrinsic');
 const Ref = require('./src/intrinsic').Ref;
 const FnGetAtt = require('./src/intrinsic').FnGetAtt;
 const Parameter = require('./src/parameter').Parameter;
-const WKResource = require('./src/resource').WKResource;
+const resource_1 = require("./src/resource");
 const ResourceProperty = require('./src/resourceproperty').ResourceProperty;
 const ResourceAttribute = require('./src/resourceattribute').ResourceAttribute;
 const ResourceAttributeArray = require('./src/resourceattribute').ResourceAttributeArray;
-const TypeException = require('./src/exceptions').TypeException;
-const RequiredPropertyException = require('./src/exceptions').RequiredPropertyException;
-const ValueException = require('./src/exceptions').ValueException;
+const exceptions_1 = require("./src/exceptions");
 const Types = require('./src/types')();
 const Output = require('./src/output').Output;
 const Init = require('./src/init');
 const Policy = require('./src/policy');
 const Mapping = require('./src/mapping').Mapping;
 const Macro = require('./src/macro');
-const Service = require('./src/service');
+const service_1 = require("./src/service");
 // Services
-const ApiGateway = Service('ApiGateway');
-const ApplicationAutoScaling = Service('ApplicationAutoScaling');
-const AutoScaling = Service('AutoScaling');
-const CertificateManager = Service('CertificateManager');
-const CloudFormation = Service('CloudFormation');
-const CloudFront = Service('CloudFront');
-const CloudTrail = Service('CloudTrail');
-const CloudWatch = Service('CloudWatch');
-const CodeBuild = Service('CodeBuild');
-const CodeCommit = Service('CodeCommit');
-const CodeDeploy = Service('CodeDeploy');
-const CodePipeline = Service('CodePipeline');
-const Config = Service('Config');
-const DataPipeline = Service('DataPipeline');
-const DirectoryService = Service('DirectoryService');
-const DynamoDB = Service('DynamoDB');
-const EC2 = Service('EC2');
-const ECR = Service('ECR');
-const ECS = Service('ECS');
-const EFS = Service('EFS');
-const ElastiCache = Service('ElastiCache');
-const ElasticBeanstalk = Service('ElasticBeanstalk');
-const ElasticLoadBalancing = Service('ElasticLoadBalancing');
-const ElasticLoadBalancingV2 = Service('ElasticLoadBalancingV2');
-const Elasticsearch = Service('Elasticsearch');
-const EMR = Service('EMR');
-const Events = Service('Events');
-const GameLift = Service('GameLift');
-const IAM = Service('IAM');
-const IoT = Service('IoT');
-const Kinesis = Service('Kinesis');
-const KinesisFirehose = Service('KinesisFirehose');
-const KMS = Service('KMS');
-const Lambda = Service('Lambda');
-const Logs = Service('Logs');
-const OpsWorks = Service('OpsWorks');
-const RDS = Service('RDS');
-const Redshift = Service('Redshift');
-const Route53 = Service('Route53');
-const S3 = Service('S3');
-const SDB = Service('SDB');
-const SNS = Service('SNS');
-const SQS = Service('SQS');
-const SSM = Service('SSM');
-const StepFunctions = Service('StepFunctions');
-const WAF = Service('WAF');
-const WorkSpaces = Service('WorkSpaces');
+const ApiGateway = new service_1.Service('ApiGateway');
+const ApplicationAutoScaling = new service_1.Service('ApplicationAutoScaling');
+const AutoScaling = new service_1.Service('AutoScaling');
+const CertificateManager = new service_1.Service('CertificateManager');
+const CloudFormation = new service_1.Service('CloudFormation');
+const CloudFront = new service_1.Service('CloudFront');
+const CloudTrail = new service_1.Service('CloudTrail');
+const CloudWatch = new service_1.Service('CloudWatch');
+const CodeBuild = new service_1.Service('CodeBuild');
+const CodeCommit = new service_1.Service('CodeCommit');
+const CodeDeploy = new service_1.Service('CodeDeploy');
+const CodePipeline = new service_1.Service('CodePipeline');
+const Config = new service_1.Service('Config');
+const DataPipeline = new service_1.Service('DataPipeline');
+const DirectoryService = new service_1.Service('DirectoryService');
+const DynamoDB = new service_1.Service('DynamoDB');
+const EC2 = new service_1.Service('EC2');
+const ECR = new service_1.Service('ECR');
+const ECS = new service_1.Service('ECS');
+const EFS = new service_1.Service('EFS');
+const ElastiCache = new service_1.Service('ElastiCache');
+const ElasticBeanstalk = new service_1.Service('ElasticBeanstalk');
+const ElasticLoadBalancing = new service_1.Service('ElasticLoadBalancing');
+const ElasticLoadBalancingV2 = new service_1.Service('ElasticLoadBalancingV2');
+const Elasticsearch = new service_1.Service('Elasticsearch');
+const EMR = new service_1.Service('EMR');
+const Events = new service_1.Service('Events');
+const GameLift = new service_1.Service('GameLift');
+const IAM = new service_1.Service('IAM');
+const IoT = new service_1.Service('IoT');
+const Kinesis = new service_1.Service('Kinesis');
+const KinesisFirehose = new service_1.Service('KinesisFirehose');
+const KMS = new service_1.Service('KMS');
+const Lambda = new service_1.Service('Lambda');
+const Logs = new service_1.Service('Logs');
+const OpsWorks = new service_1.Service('OpsWorks');
+const RDS = new service_1.Service('RDS');
+const Redshift = new service_1.Service('Redshift');
+const Route53 = new service_1.Service('Route53');
+const S3 = new service_1.Service('S3');
+const SDB = new service_1.Service('SDB');
+const SNS = new service_1.Service('SNS');
+const SQS = new service_1.Service('SQS');
+const SSM = new service_1.Service('SSM');
+const StepFunctions = new service_1.Service('StepFunctions');
+const WAF = new service_1.Service('WAF');
+const WorkSpaces = new service_1.Service('WorkSpaces');
 // Pseudo-Parameters
 const Pseudo = {
     AWS_ACCOUNT_ID: 'AWS::AccountId',
@@ -130,7 +128,7 @@ module.exports = {
     WAF: WAF,
     WorkSpaces: WorkSpaces,
     Template: template_1.Template,
-    WKResource: WKResource,
+    WKResource: resource_1.WKResource,
     ResourceProperty: ResourceProperty,
     Parameter: Parameter,
     Types: Types,
@@ -143,9 +141,9 @@ module.exports = {
     Intrinsic: Intrinsic,
     Output: Output,
     Policy: Policy,
-    TypeException: TypeException,
-    RequiredPropertyException: RequiredPropertyException,
-    ValueException: ValueException,
+    TypeException: exceptions_1.TypeException,
+    RequiredPropertyException: exceptions_1.RequiredPropertyException,
+    ValueException: exceptions_1.ValueException,
     FnGetAtt: FnGetAtt,
     Mapping: Mapping,
     Pseudo: Pseudo

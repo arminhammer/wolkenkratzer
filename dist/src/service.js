@@ -4,47 +4,47 @@ const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
 const resource_1 = require("./resource");
 const types = require('./types')();
 const tag = require('./tag');
-function Service(serviceName) {
-    let service = {};
-    const stub = require('../stubs/json/resources/' + serviceName);
-    for (let resourceStub in stub) {
-        let resourceBlock = function (name, propertiesObject) {
-            let resourceType = stub[resourceStub].Name;
-            let properties = {};
-            for (let prop in stub[resourceStub].Properties) {
-                if (prop === 'Tags') {
-                    properties[prop] = new tag.TagSet();
-                }
-                else {
-                    let propBlock = stub[resourceStub].Properties[prop];
-                    let realType = String;
-                    switch (propBlock.Type) {
-                        case 'String':
-                            realType = String;
-                            break;
-                        case 'Number':
-                            realType = Number;
-                            break;
-                        case 'Boolean':
-                            realType = Boolean;
-                            break;
-                        case 'Object':
-                            realType = Object;
-                            break;
-                        default:
-                            realType = types[propBlock.Type];
-                            break;
+class Service {
+    constructor(serviceName) {
+        let service = {};
+        let s1 = {};
+        const stub = require('../stubs/json/resources/' + serviceName);
+        for (let resourceStub in stub) {
+            let resourceBlock = function (name, propertiesObject) {
+                let resourceType = stub[resourceStub].Name;
+                let properties = {};
+                for (let prop in stub[resourceStub].Properties) {
+                    if (prop === 'Tags') {
+                        properties[prop] = new tag.TagSet();
                     }
-                    properties[prop] = new ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null);
+                    else {
+                        let propBlock = stub[resourceStub].Properties[prop];
+                        let realType = String;
+                        switch (propBlock.Type) {
+                            case 'String':
+                                realType = String;
+                                break;
+                            case 'Number':
+                                realType = Number;
+                                break;
+                            case 'Boolean':
+                                realType = Boolean;
+                                break;
+                            case 'Object':
+                                realType = Object;
+                                break;
+                            default:
+                                realType = types[propBlock.Type];
+                                break;
+                        }
+                        properties[prop] = new ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null);
+                    }
                 }
-            }
-            resource_1.WKResource.call(this, name, resourceType, properties, propertiesObject);
-            return this;
-        };
-        resourceBlock.prototype = Object.create(resource_1.WKResource.prototype);
-        // resourceBlock.prototype.constructor = WKResource.prototype.constructor
-        service[resourceStub] = resourceBlock;
+                return new resource_1.WKResource(name, resourceType, properties, propertiesObject);
+            };
+            service[resourceStub] = resourceBlock;
+        }
+        return service;
     }
-    return service;
 }
-module.exports = Service;
+exports.Service = Service;

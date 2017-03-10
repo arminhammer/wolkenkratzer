@@ -1,8 +1,8 @@
 'use strict';
 
 const aws = require('aws-sdk');
-const Service = require('../service');
-const s3Resource = Service('S3');
+import { Service } from '../service';
+const s3Resource = new Service('S3');
 const types = require('../types');
 const util = require('../util');
 

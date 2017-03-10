@@ -11,7 +11,8 @@
         "noFallthroughCasesInSwitch": true,
         "alwaysStrict": true,
         "forceConsistentCasingInFileNames": true,
-        "pretty": true
+        "pretty": true,
+        "types": ["node"]
     },
     "exclude": [
         "node_modules",

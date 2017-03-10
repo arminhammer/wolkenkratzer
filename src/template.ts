@@ -4,10 +4,10 @@ import { ValueException, TypeException } from './exceptions';
 import { Mapping } from './mapping';
 import { Output } from './output';
 import { Parameter } from './parameter';
-const WKResource = require('./resource').WKResource;
+import { WKResource } from './resource';
 const path = require('path');
 const yaml = require('js-yaml');
-const Service = require('./service');
+import { Service } from './service';
 
 /** @module Core */
 
@@ -66,7 +66,7 @@ function _populateFromExisting(newTemplate: any, existingTemplate: any) {
     if (typeSplit[0] === 'Custom') {
       resourceName = 'CustomResource';
     } else {
-      let serviceClient = Service(resourceGroupName);
+      let serviceClient: any = new Service(resourceGroupName);
       let newResource = new serviceClient[resourceName](
         resource,
         existingTemplate.Resources[resource].Properties,

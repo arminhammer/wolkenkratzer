@@ -1,7 +1,7 @@
 'use strict';
 const aws = require('aws-sdk');
-const Service = require('../service');
-const s3Resource = Service('S3');
+const Service = require('../service').Service;
+const s3Resource = new Service('S3');
 const types = require('../types');
 const util = require('../util');
 /** @module Macro */
