@@ -1,9 +1,7 @@
-/**
- * Created by arming on 12/16/16.
- */
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
 const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
-const WKResource = require('./resource').WKResource;
+const resource_1 = require("./resource");
 const types = require('./types')();
 const tag = require('./tag');
 function Service(serviceName) {
@@ -40,10 +38,10 @@ function Service(serviceName) {
                     properties[prop] = new ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null);
                 }
             }
-            WKResource.call(this, name, resourceType, properties, propertiesObject);
+            resource_1.WKResource.call(this, name, resourceType, properties, propertiesObject);
             return this;
         };
-        resourceBlock.prototype = Object.create(WKResource.prototype);
+        resourceBlock.prototype = Object.create(resource_1.WKResource.prototype);
         // resourceBlock.prototype.constructor = WKResource.prototype.constructor
         service[resourceStub] = resourceBlock;
     }

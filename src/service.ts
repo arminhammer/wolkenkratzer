@@ -1,10 +1,7 @@
-/**
- * Created by arming on 12/16/16.
- */
-
 'use strict';
+
 const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
-const WKResource = require('./resource').WKResource;
+import { WKResource } from './resource';
 const types = require('./types')();
 const tag = require('./tag');
 
@@ -12,7 +9,7 @@ function Service(serviceName) {
   let service = {};
   const stub = require('../stubs/json/resources/' + serviceName);
   for (let resourceStub in stub) {
-    let resourceBlock = function(name, propertiesObject) {
+    let resourceBlock = function (name, propertiesObject) {
       let resourceType = stub[resourceStub].Name;
       let properties = {};
       for (let prop in stub[resourceStub].Properties) {
@@ -20,7 +17,7 @@ function Service(serviceName) {
           properties[prop] = new tag.TagSet();
         } else {
           let propBlock = stub[resourceStub].Properties[prop];
-          let realType = String;
+          let realType: any = String;
           switch (propBlock.Type) {
             case 'String':
               realType = String;
