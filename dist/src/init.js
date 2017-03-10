@@ -1,5 +1,6 @@
 'use strict';
-const TypeException = require('./exceptions').TypeException;
+Object.defineProperty(exports, "__esModule", { value: true });
+const exceptions_1 = require("./exceptions");
 /** @module Core */
 /**
  * @memberof module:Core
@@ -126,7 +127,7 @@ Config.prototype.add = function (block) {
         this.sources[block.WKName] = block;
     }
     else {
-        throw new TypeException(block.WKName + ' is not a proper type for ConfigSet ' + this.Name);
+        throw new exceptions_1.TypeException(block.WKName + ' is not a proper type for ConfigSet ' + this.Name);
     }
 };
 /**

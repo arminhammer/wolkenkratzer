@@ -1,6 +1,6 @@
 'use strict';
 
-const TypeException = require('./exceptions').TypeException;
+import { TypeException } from './exceptions';
 
 /** @module Core */
 
@@ -14,7 +14,7 @@ function Block(name) {
 /**
  * Returns a JSON string version
  */
-Block.prototype.toJson = function() {
+Block.prototype.toJson = function () {
   let p = JSON.parse(JSON.stringify(this));
   delete p.WKName;
   return p;
@@ -69,7 +69,7 @@ Packages.prototype = Object.create(Block.prototype);
  * Returns a JSON string version
  * @returns {*}
  */
-Packages.prototype.toJson = function() {
+Packages.prototype.toJson = function () {
   return this.body;
 };
 
@@ -102,7 +102,7 @@ Source.prototype = Object.create(Block.prototype);
  * Returns a JSON string version
  * @returns {*}
  */
-Source.prototype.toJson = function() {
+Source.prototype.toJson = function () {
   return this.body;
 };
 
@@ -124,7 +124,7 @@ function Config(name) {
  *
  * @param block
  */
-Config.prototype.add = function(block) {
+Config.prototype.add = function (block) {
   if (block instanceof Command) {
     this.commands[block.WKName] = block;
   } else if (block instanceof File) {
@@ -145,7 +145,7 @@ Config.prototype.add = function(block) {
 /**
  * Returns a JSON string version
  */
-Config.prototype.toJson = function() {
+Config.prototype.toJson = function () {
   let p = JSON.parse(JSON.stringify(this));
   delete p.WKName;
   for (let block in p) {
@@ -182,14 +182,14 @@ function ConfigSet(name) {
  *
  * @param config
  */
-ConfigSet.prototype.add = function(config) {
+ConfigSet.prototype.add = function (config) {
   this.configs.push(config.WKName);
 };
 
 /**
  * Returns a JSON string version
  */
-ConfigSet.prototype.toJson = function() {
+ConfigSet.prototype.toJson = function () {
   let p = JSON.parse(JSON.stringify(this));
   delete p.WKName;
   return p;
