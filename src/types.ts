@@ -3,7 +3,7 @@
 const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
 const ResourceProperty = require('./resourceproperty').ResourceProperty;
 
-let types = null;
+let types: any = null;
 
 function Types() {
   if (types) {
@@ -12,12 +12,12 @@ function Types() {
     types = {};
     const stub = require('../stubs/json/properties/properties');
     for (let propStub in stub) {
-      let propBlock = function(propertiesObject) {
+      let propBlock = function (propertiesObject) {
         let propName = stub[propStub].Name;
         let properties = {};
         for (let prop in stub[propStub].Properties) {
           let propBlock = stub[propStub].Properties[prop];
-          let realType = String;
+          let realType: any = String;
           switch (propBlock.Type) {
             case 'String':
               realType = String;
