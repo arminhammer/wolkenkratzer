@@ -4,7 +4,7 @@
  * A CloudFormation ResourceProperty, mapped to those listed at http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-product-property-reference.html
  * @memberof module:Core
  */
-function ResourceProperty(name, properties, propertiesObject, conditional) {
+export function ResourceProperty(name, properties, propertiesObject, conditional) {
   this.WKName = name;
   this.properties = properties;
   this.conditional = conditional;
@@ -31,7 +31,7 @@ function ResourceProperty(name, properties, propertiesObject, conditional) {
  */
 ResourceProperty.prototype.toJson = function () {
   let newProperties = JSON.parse(JSON.stringify(this.properties));
-  let errors = [];
+  let errors: string[] = [];
   for (let prop in newProperties) {
     if (
       this.properties[prop] instanceof ResourceProperty ||
@@ -61,10 +61,11 @@ ResourceProperty.prototype.toJson = function () {
       errors.push(this.WKName + ' has a condition that was not met.');
     }
   }
-  if (errors === 0) {
-    errors = null;
+  let result: Object = { errors: errors, json: newProperties };
+  if (errors.length === 0) {
+    result = { errors: null, json: newProperties };
   }
-  return { errors: errors, json: newProperties };
+  return result;
 };
 
 module.exports = {

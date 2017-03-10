@@ -1,4 +1,5 @@
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * A CloudFormation ResourceProperty, mapped to those listed at http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-product-property-reference.html
  * @memberof module:Core
@@ -23,6 +24,7 @@ function ResourceProperty(name, properties, propertiesObject, conditional) {
         }
     }
 }
+exports.ResourceProperty = ResourceProperty;
 /**
  * Performs validation and returns a pretty-printed JSON object.
  * @returns {String}
@@ -59,10 +61,11 @@ ResourceProperty.prototype.toJson = function () {
             errors.push(this.WKName + ' has a condition that was not met.');
         }
     }
-    if (errors === 0) {
-        errors = null;
+    let result = { errors: errors, json: newProperties };
+    if (errors.length === 0) {
+        result = { errors: null, json: newProperties };
     }
-    return { errors: errors, json: newProperties };
+    return result;
 };
 module.exports = {
     ResourceProperty: ResourceProperty
