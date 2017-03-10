@@ -1,17 +1,8 @@
-/**
- * Created by arming on 6/15/16.
- */
 'use strict';
-const Intrinsic = require('./intrinsic');
-const Ref = Intrinsic.Ref;
-const FnSub = Intrinsic.FnSub;
-const FnGetAtt = Intrinsic.FnGetAtt;
-const FnFindInMap = Intrinsic.FnFindInMap;
-const FnBase64 = Intrinsic.FnBase64;
-const FnJoin = Intrinsic.FnJoin;
-const RequiredPropertyException = require('./exceptions').RequiredPropertyException;
-const TypeException = require('./exceptions').TypeException;
-const ResourceProperty = require('./resourceproperty').ResourceProperty;
+Object.defineProperty(exports, "__esModule", { value: true });
+const intrinsic_1 = require("./intrinsic");
+const exceptions_1 = require("./exceptions");
+const resourceproperty_1 = require("./resourceproperty");
 /** @module Core */
 /**
  * @memberof module:Core
@@ -29,15 +20,15 @@ function ResourceAttribute(name, type, isArray, required, value) {
  */
 ResourceAttribute.prototype.set = function (value) {
     if (this.isArray) {
-        let instrinsicValue = Intrinsic.makeIntrinsic(value);
+        let instrinsicValue = intrinsic_1.makeIntrinsic(value);
         if (instrinsicValue) {
             value = instrinsicValue;
         }
-        if (value instanceof Intrinsic.Intrinsic) {
+        if (value instanceof intrinsic_1.Intrinsic) {
             this.val = value;
         }
         else if (!Array.isArray(value)) {
-            throw new TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type);
+            throw new exceptions_1.TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type);
         }
         else {
             this.val = [];
@@ -53,7 +44,7 @@ ResourceAttribute.prototype.set = function (value) {
                     this.val.push(val);
                 }
                 else {
-                    throw new TypeException(value +
+                    throw new exceptions_1.TypeException(value +
                         ' is the wrong type for ' +
                         this.WKName +
                         ', was expecting ' +
@@ -63,11 +54,11 @@ ResourceAttribute.prototype.set = function (value) {
         }
     }
     else {
-        let instrinsicValue = Intrinsic.makeIntrinsic(value);
+        let instrinsicValue = intrinsic_1.makeIntrinsic(value);
         if (instrinsicValue) {
             value = instrinsicValue;
         }
-        if (value instanceof Intrinsic.Intrinsic) {
+        if (value instanceof intrinsic_1.Intrinsic) {
             this.val = value;
         }
         else {
@@ -84,7 +75,7 @@ ResourceAttribute.prototype.set = function (value) {
                 this.val = new this.Type(value);
             }
             else {
-                throw new TypeException(value +
+                throw new exceptions_1.TypeException(value +
                     ' is the wrong type for ' +
                     this.WKName +
                     ', was expecting ' +
@@ -99,14 +90,14 @@ ResourceAttribute.prototype.set = function (value) {
  */
 ResourceAttribute.prototype.push = function (val) {
     if (!this.isArray) {
-        throw new TypeException(this.WKName + ' is not an array, cannot push ' + val);
+        throw new exceptions_1.TypeException(this.WKName + ' is not an array, cannot push ' + val);
     }
     let value = val;
-    let instrinsicValue = Intrinsic.makeIntrinsic(value);
+    let instrinsicValue = intrinsic_1.makeIntrinsic(value);
     if (instrinsicValue) {
         value = instrinsicValue;
     }
-    if (value instanceof Intrinsic.Intrinsic ||
+    if (value instanceof intrinsic_1.Intrinsic ||
         (typeof value === 'string' && this.Type.prototype === String.prototype) ||
         (typeof value === 'boolean' && this.Type.prototype === Boolean.prototype) ||
         (typeof value === 'number' && this.Type.prototype === Number.prototype) ||
@@ -125,7 +116,7 @@ ResourceAttribute.prototype.push = function (val) {
             this.val.push(newObject);
         }
         catch (e) {
-            throw new TypeException(val +
+            throw new exceptions_1.TypeException(val +
                 ' is the wrong type, was expecting ' +
                 this.Type +
                 ', reporting: ' +
@@ -145,14 +136,14 @@ ResourceAttribute.prototype.get = function () {
  * @param resource
  */
 ResourceAttribute.prototype.ref = function (resource) {
-    this.val = new Ref(resource);
+    this.val = new intrinsic_1.Ref(resource);
 };
 /**
  * Add an Fn Sub intrinsic function
  * @param resource
  */
 ResourceAttribute.prototype.sub = function (input) {
-    this.val = new FnSub(input);
+    this.val = new intrinsic_1.FnSub(input);
 };
 /**
  * Add an Fn GetAtt intrinsic function to link the attribute of another resource to the attribute
@@ -160,7 +151,7 @@ ResourceAttribute.prototype.sub = function (input) {
  * @param attribute
  */
 ResourceAttribute.prototype.getAtt = function (resource, attribute) {
-    this.val = new FnGetAtt(resource, attribute);
+    this.val = new intrinsic_1.FnGetAtt(resource, attribute);
 };
 /**
  * Add a Fn FindInMap intrinsic function to set the value of the attribute
@@ -169,7 +160,7 @@ ResourceAttribute.prototype.getAtt = function (resource, attribute) {
  * @param second
  */
 ResourceAttribute.prototype.findInMap = function (map, top, second) {
-    this.val = new FnFindInMap(map, top, second);
+    this.val = new intrinsic_1.FnFindInMap(map, top, second);
 };
 /**
  * Add an Fn Join intrinsic function to set the value of the attribute
@@ -177,14 +168,14 @@ ResourceAttribute.prototype.findInMap = function (map, top, second) {
  * @param values
  */
 ResourceAttribute.prototype.join = function (delimiter, values) {
-    this.val = new FnJoin(delimiter, values);
+    this.val = new intrinsic_1.FnJoin(delimiter, values);
 };
 /**
  * Add an Fn Base64 intrinsic function to set the value of the attribute
  * @param content
  */
 ResourceAttribute.prototype.base64 = function (content) {
-    this.val = new FnBase64(content);
+    this.val = new intrinsic_1.FnBase64(content);
 };
 /**
  * Get a JSON representation of the attribute
@@ -194,7 +185,7 @@ ResourceAttribute.prototype.toJson = function () {
     let errors = [];
     if (this.isArray) {
         if (this.val !== null) {
-            if (this.val instanceof Intrinsic.Intrinsic) {
+            if (this.val instanceof intrinsic_1.Intrinsic) {
                 let result = this.val.toJson();
                 if (result.errors) {
                     result.errors.forEach(e => {
@@ -203,7 +194,7 @@ ResourceAttribute.prototype.toJson = function () {
                 }
                 return { errors: errors, json: result.json };
             }
-            else if (this.Type.prototype instanceof ResourceProperty) {
+            else if (this.Type.prototype instanceof resourceproperty_1.ResourceProperty) {
                 let propArray = [];
                 for (let prop in this.val) {
                     let result = this.val[prop].toJson();
@@ -219,11 +210,14 @@ ResourceAttribute.prototype.toJson = function () {
                 if (propArray.length > 0) {
                     return { errors: errors, json: propArray };
                 }
+                else {
+                    return { errors: errors, json: null };
+                }
             }
             else {
                 let propArray = [];
                 for (let prop in this.val) {
-                    if (this.val[prop] instanceof Intrinsic.Intrinsic) {
+                    if (this.val[prop] instanceof intrinsic_1.Intrinsic) {
                         let result = this.val[prop].toJson();
                         if (result.errors) {
                             result.errors.forEach(e => {
@@ -241,6 +235,9 @@ ResourceAttribute.prototype.toJson = function () {
                 if (propArray.length > 0) {
                     return { errors: errors, json: propArray };
                 }
+                else {
+                    return { errors: errors, json: null };
+                }
             }
         }
         else {
@@ -255,8 +252,8 @@ ResourceAttribute.prototype.toJson = function () {
     }
     else {
         if (this.val !== null) {
-            if (this.val instanceof Intrinsic.Intrinsic ||
-                this.val instanceof ResourceProperty) {
+            if (this.val instanceof intrinsic_1.Intrinsic ||
+                this.val instanceof resourceproperty_1.ResourceProperty) {
                 let result = this.val.toJson();
                 if (result.errors) {
                     result.errors.forEach(e => {
