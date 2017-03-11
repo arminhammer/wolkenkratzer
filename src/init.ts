@@ -7,7 +7,7 @@ import { TypeException } from './exceptions';
 /**
  * @memberof module:Core
  */
-function Block(name) {
+function Block(name: any) {
   this.WKName = name;
 }
 
@@ -23,7 +23,7 @@ Block.prototype.toJson = function () {
 /**
  * @memberof module:Core
  */
-function Command(name, parameter) {
+function Command(name: any, parameter: any) {
   Block.call(this, name);
   if (parameter) {
     this.command = parameter.command;
@@ -39,7 +39,7 @@ Command.prototype = Object.create(Block.prototype);
 /**
  * @memberof module:Core
  */
-function File(name, parameter) {
+function File(name: any, parameter: any) {
   Block.call(this, name);
   if (parameter) {
     this.content = parameter.content;
@@ -58,7 +58,7 @@ File.prototype = Object.create(Block.prototype);
 /**
  * @memberof module:Core
  */
-function Packages(name, body) {
+function Packages(name: any, body: any) {
   Block.call(this, name);
   this.body = body;
 }
@@ -76,7 +76,7 @@ Packages.prototype.toJson = function () {
 /**
  * @memberof module:Core
  */
-function Service(name, parameter) {
+function Service(name: any, parameter: any) {
   Block.call(this, name);
   if (parameter) {
     this.ensureRunning = parameter.ensureRunning;
@@ -92,7 +92,7 @@ Service.prototype = Object.create(Block.prototype);
 /**
  * @memberof module:Core
  */
-function Source(name, body) {
+function Source(name: any, body: any) {
   Block.call(this, name);
   this.body = body;
 }
@@ -109,7 +109,7 @@ Source.prototype.toJson = function () {
 /**
  * @memberof module:Core
  */
-function Config(name) {
+function Config(name: any) {
   this.WKName = name;
   this.commands = {};
   this.files = {};
@@ -124,7 +124,7 @@ function Config(name) {
  *
  * @param block
  */
-Config.prototype.add = function (block) {
+Config.prototype.add = function (block: any) {
   if (block instanceof Command) {
     this.commands[block.WKName] = block;
   } else if (block instanceof File) {
@@ -173,7 +173,7 @@ Config.prototype.toJson = function () {
 /**
  * @memberof module:Core
  */
-function ConfigSet(name) {
+function ConfigSet(name: any) {
   this.WKName = name;
   this.configs = [];
 }
@@ -182,7 +182,7 @@ function ConfigSet(name) {
  *
  * @param config
  */
-ConfigSet.prototype.add = function (config) {
+ConfigSet.prototype.add = function (config: any) {
   this.configs.push(config.WKName);
 };
 

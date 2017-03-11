@@ -65,7 +65,7 @@ let NotificationConfiguration = new wk.Types.AmazonS3NotificationConfiguration()
 let LambdaConfiguration = new wk.Types.AmazonSimpleStorageServiceNotificationConfigurationLambdaConfigurations();
 
 LambdaConfiguration.Event = 's3:ObjectCreated:*';
-LambdaConfiguration.Function = new wk.FnGetAtt(LambdaFunction, 'Arn');
+LambdaConfiguration.Function = new wk.Intrinsic.FnGetAtt(LambdaFunction, 'Arn');
 
 NotificationConfiguration.LambdaConfigurations.push(LambdaConfiguration);
 

@@ -14,17 +14,18 @@ function ResourceAttribute(name, type, isArray, required, value) {
     this.required = required;
     this.val = value;
 }
+exports.ResourceAttribute = ResourceAttribute;
 /**
  * Set the value of the attribute
  * @param value
  */
 ResourceAttribute.prototype.set = function (value) {
     if (this.isArray) {
-        let instrinsicValue = intrinsic_1.makeIntrinsic(value);
+        let instrinsicValue = intrinsic_1.Intrinsic.makeIntrinsic(value);
         if (instrinsicValue) {
             value = instrinsicValue;
         }
-        if (value instanceof intrinsic_1.Intrinsic) {
+        if (value instanceof intrinsic_1.Intrinsic.Intrinsic) {
             this.val = value;
         }
         else if (!Array.isArray(value)) {
@@ -54,11 +55,11 @@ ResourceAttribute.prototype.set = function (value) {
         }
     }
     else {
-        let instrinsicValue = intrinsic_1.makeIntrinsic(value);
+        let instrinsicValue = intrinsic_1.Intrinsic.makeIntrinsic(value);
         if (instrinsicValue) {
             value = instrinsicValue;
         }
-        if (value instanceof intrinsic_1.Intrinsic) {
+        if (value instanceof intrinsic_1.Intrinsic.Intrinsic) {
             this.val = value;
         }
         else {
@@ -93,11 +94,11 @@ ResourceAttribute.prototype.push = function (val) {
         throw new exceptions_1.TypeException(this.WKName + ' is not an array, cannot push ' + val);
     }
     let value = val;
-    let instrinsicValue = intrinsic_1.makeIntrinsic(value);
+    let instrinsicValue = intrinsic_1.Intrinsic.makeIntrinsic(value);
     if (instrinsicValue) {
         value = instrinsicValue;
     }
-    if (value instanceof intrinsic_1.Intrinsic ||
+    if (value instanceof intrinsic_1.Intrinsic.Intrinsic ||
         (typeof value === 'string' && this.Type.prototype === String.prototype) ||
         (typeof value === 'boolean' && this.Type.prototype === Boolean.prototype) ||
         (typeof value === 'number' && this.Type.prototype === Number.prototype) ||
@@ -136,14 +137,14 @@ ResourceAttribute.prototype.get = function () {
  * @param resource
  */
 ResourceAttribute.prototype.ref = function (resource) {
-    this.val = new intrinsic_1.Ref(resource);
+    this.val = new intrinsic_1.Intrinsic.Ref(resource);
 };
 /**
  * Add an Fn Sub intrinsic function
  * @param resource
  */
 ResourceAttribute.prototype.sub = function (input) {
-    this.val = new intrinsic_1.FnSub(input);
+    this.val = new intrinsic_1.Intrinsic.FnSub(input);
 };
 /**
  * Add an Fn GetAtt intrinsic function to link the attribute of another resource to the attribute
@@ -151,7 +152,7 @@ ResourceAttribute.prototype.sub = function (input) {
  * @param attribute
  */
 ResourceAttribute.prototype.getAtt = function (resource, attribute) {
-    this.val = new intrinsic_1.FnGetAtt(resource, attribute);
+    this.val = new intrinsic_1.Intrinsic.FnGetAtt(resource, attribute);
 };
 /**
  * Add a Fn FindInMap intrinsic function to set the value of the attribute
@@ -160,7 +161,7 @@ ResourceAttribute.prototype.getAtt = function (resource, attribute) {
  * @param second
  */
 ResourceAttribute.prototype.findInMap = function (map, top, second) {
-    this.val = new intrinsic_1.FnFindInMap(map, top, second);
+    this.val = new intrinsic_1.Intrinsic.FnFindInMap(map, top, second);
 };
 /**
  * Add an Fn Join intrinsic function to set the value of the attribute
@@ -168,14 +169,14 @@ ResourceAttribute.prototype.findInMap = function (map, top, second) {
  * @param values
  */
 ResourceAttribute.prototype.join = function (delimiter, values) {
-    this.val = new intrinsic_1.FnJoin(delimiter, values);
+    this.val = new intrinsic_1.Intrinsic.FnJoin(delimiter, values);
 };
 /**
  * Add an Fn Base64 intrinsic function to set the value of the attribute
  * @param content
  */
 ResourceAttribute.prototype.base64 = function (content) {
-    this.val = new intrinsic_1.FnBase64(content);
+    this.val = new intrinsic_1.Intrinsic.FnBase64(content);
 };
 /**
  * Get a JSON representation of the attribute
@@ -185,10 +186,10 @@ ResourceAttribute.prototype.toJson = function () {
     let errors = [];
     if (this.isArray) {
         if (this.val !== null) {
-            if (this.val instanceof intrinsic_1.Intrinsic) {
+            if (this.val instanceof intrinsic_1.Intrinsic.Intrinsic) {
                 let result = this.val.toJson();
                 if (result.errors) {
-                    result.errors.forEach(e => {
+                    result.errors.forEach((e) => {
                         errors.push(e);
                     });
                 }
@@ -199,7 +200,7 @@ ResourceAttribute.prototype.toJson = function () {
                 for (let prop in this.val) {
                     let result = this.val[prop].toJson();
                     if (result.errors) {
-                        result.errors.forEach(e => {
+                        result.errors.forEach((e) => {
                             errors.push(e);
                         });
                     }
@@ -217,10 +218,10 @@ ResourceAttribute.prototype.toJson = function () {
             else {
                 let propArray = [];
                 for (let prop in this.val) {
-                    if (this.val[prop] instanceof intrinsic_1.Intrinsic) {
+                    if (this.val[prop] instanceof intrinsic_1.Intrinsic.Intrinsic) {
                         let result = this.val[prop].toJson();
                         if (result.errors) {
-                            result.errors.forEach(e => {
+                            result.errors.forEach((e) => {
                                 errors.push(e);
                             });
                         }
@@ -252,11 +253,11 @@ ResourceAttribute.prototype.toJson = function () {
     }
     else {
         if (this.val !== null) {
-            if (this.val instanceof intrinsic_1.Intrinsic ||
+            if (this.val instanceof intrinsic_1.Intrinsic.Intrinsic ||
                 this.val instanceof resourceproperty_1.ResourceProperty) {
                 let result = this.val.toJson();
                 if (result.errors) {
-                    result.errors.forEach(e => {
+                    result.errors.forEach((e) => {
                         errors.push(e);
                     });
                 }

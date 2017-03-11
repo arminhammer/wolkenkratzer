@@ -1,7 +1,7 @@
 'use strict';
 
 const instanceTypes = require('../../ec2info/www/instances.json');
-import * as Promise from 'bluebird';
+const Promise = require('bluebird');
 
 /**
  * Returns an array of all instance types and details.
@@ -19,7 +19,7 @@ export function getInstanceTypeList() {
  */
 export function getInstanceTypeNameList() {
   let results: string[] = [];
-  instanceTypes.forEach(instanceType => {
+  instanceTypes.forEach((instanceType: any) => {
     results.push(instanceType.instance_type);
   });
   return results;
@@ -31,8 +31,8 @@ export function getInstanceTypeNameList() {
  * @returns {{}}
  */
 export function getInstanceTypeMap() {
-  let results = {};
-  instanceTypes.forEach(instanceType => {
+  let results: any = {};
+  instanceTypes.forEach((instanceType: any) => {
     results[instanceType.instance_type] = instanceType;
   });
   return results;
@@ -67,20 +67,20 @@ export function getRegions() {
  * @param regions
  * @returns {Promise.<TResult>}
  */
-export function getAMIMap(filters, regions) {
+export function getAMIMap(filters: any, regions: any) {
   const aws = require('aws-sdk');
   return Promise
-    .map(regions, region => {
+    .map(regions, (region: any) => {
       let ec2Client = new aws.EC2({ region: region });
       return Promise
-        .map(filters, filterSet => {
+        .map(filters, (filterSet: any) => {
           return ec2Client
             .describeImages({
               Filters: filterSet.Filters,
             })
             .promise()
-            .then(ami => {
-              let set = {};
+            .then((ami: any) => {
+              let set: any = {};
               if (ami.Images[0]) {
                 if (ami.Images[0].ImageId) {
                   set[filterSet.Name] = ami.Images[0].ImageId;
@@ -93,9 +93,9 @@ export function getAMIMap(filters, regions) {
               return set;
             });
         })
-        .then(results => {
+        .then((results: any) => {
           results = results.reduce(
-            (prev, current) => {
+            (prev: any, current: any) => {
               let key = Object.keys(current)[0];
               prev[key] = current[key];
               return prev;
@@ -105,9 +105,9 @@ export function getAMIMap(filters, regions) {
           return { region: region, images: results };
         });
     })
-    .then(function (results) {
-      let final = {};
-      results.forEach(result => {
+    .then(function (results: any) {
+      let final: any = {};
+      results.forEach((result: any) => {
         final[result.region] = result.images;
       });
       return final;

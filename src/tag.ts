@@ -1,7 +1,7 @@
 'use strict';
 
-const Intrinsic = require('./intrinsic').Intrinsic;
-const TypeException = require('./exceptions').TypeException;
+import { Intrinsic } from './intrinsic';
+import { TypeException } from './exceptions';
 
 /**
  * @class Tag
@@ -22,7 +22,7 @@ export class Tag {
  */
   public toJson = function () {
     let value = this.Value;
-    if (value instanceof Intrinsic) {
+    if (value instanceof Intrinsic.Intrinsic) {
       value = value.toJson().json;
     }
     return { Key: this.Key, Value: value };
@@ -54,7 +54,7 @@ export class TagSet {
         if (first.Key && first.Value) {
           tag = new Tag(first.Key, first.Value);
         } else {
-          throw new TypeException(tag, 'is not a valid tag');
+          throw new TypeException(tag + 'is not a valid tag');
         }
       } else {
         tag = first;

@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 const instanceTypes = require('../../ec2info/www/instances.json');
-const Promise = require("bluebird");
+const Promise = require('bluebird');
 /**
  * Returns an array of all instance types and details.
  * @memberof module:Macro
@@ -18,7 +18,7 @@ exports.getInstanceTypeList = getInstanceTypeList;
  */
 function getInstanceTypeNameList() {
     let results = [];
-    instanceTypes.forEach(instanceType => {
+    instanceTypes.forEach((instanceType) => {
         results.push(instanceType.instance_type);
     });
     return results;
@@ -31,7 +31,7 @@ exports.getInstanceTypeNameList = getInstanceTypeNameList;
  */
 function getInstanceTypeMap() {
     let results = {};
-    instanceTypes.forEach(instanceType => {
+    instanceTypes.forEach((instanceType) => {
         results[instanceType.instance_type] = instanceType;
     });
     return results;
@@ -69,16 +69,16 @@ exports.getRegions = getRegions;
 function getAMIMap(filters, regions) {
     const aws = require('aws-sdk');
     return Promise
-        .map(regions, region => {
+        .map(regions, (region) => {
         let ec2Client = new aws.EC2({ region: region });
         return Promise
-            .map(filters, filterSet => {
+            .map(filters, (filterSet) => {
             return ec2Client
                 .describeImages({
                 Filters: filterSet.Filters,
             })
                 .promise()
-                .then(ami => {
+                .then((ami) => {
                 let set = {};
                 if (ami.Images[0]) {
                     if (ami.Images[0].ImageId) {
@@ -94,7 +94,7 @@ function getAMIMap(filters, regions) {
                 return set;
             });
         })
-            .then(results => {
+            .then((results) => {
             results = results.reduce((prev, current) => {
                 let key = Object.keys(current)[0];
                 prev[key] = current[key];
@@ -105,7 +105,7 @@ function getAMIMap(filters, regions) {
     })
         .then(function (results) {
         let final = {};
-        results.forEach(result => {
+        results.forEach((result) => {
             final[result.region] = result.images;
         });
         return final;

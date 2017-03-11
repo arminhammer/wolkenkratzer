@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const Intrinsic = require('./intrinsic').Intrinsic;
-const TypeException = require('./exceptions').TypeException;
+const intrinsic_1 = require("./intrinsic");
+const exceptions_1 = require("./exceptions");
 /**
  * @class Tag
  */
@@ -13,7 +13,7 @@ class Tag {
        */
         this.toJson = function () {
             let value = this.Value;
-            if (value instanceof Intrinsic) {
+            if (value instanceof intrinsic_1.Intrinsic.Intrinsic) {
                 value = value.toJson().json;
             }
             return { Key: this.Key, Value: value };
@@ -45,7 +45,7 @@ class TagSet {
                     tag = new Tag(first.Key, first.Value);
                 }
                 else {
-                    throw new TypeException(tag, 'is not a valid tag');
+                    throw new exceptions_1.TypeException(tag + 'is not a valid tag');
                 }
             }
             else {
@@ -59,7 +59,7 @@ class TagSet {
                 this.tags[tag.Key] = tag;
             }
             else {
-                throw new TypeException(first + ' and ' + second + 'must be strings.');
+                throw new exceptions_1.TypeException(first + ' and ' + second + 'must be strings.');
             }
         }
     }

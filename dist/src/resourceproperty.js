@@ -37,7 +37,7 @@ ResourceProperty.prototype.toJson = function () {
             typeof this.properties[prop].toJson === 'function') {
             let result = this.properties[prop].toJson();
             if (result.errors && result.errors.length > 0) {
-                result.errors.forEach(e => {
+                result.errors.forEach((e) => {
                     errors.push(this.WKName + '.' + e);
                 });
             }
@@ -55,7 +55,7 @@ ResourceProperty.prototype.toJson = function () {
     if (this.conditional) {
         let result = this.conditional(this.properties);
         if (result.errors) {
-            result.errors.forEach(e => {
+            result.errors.forEach((e) => {
                 errors.push(e);
             });
             errors.push(this.WKName + ' has a condition that was not met.');

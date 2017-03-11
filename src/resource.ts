@@ -1,7 +1,7 @@
 'use strict';
 
 import { TypeException } from './exceptions';
-const Policy = require('./policy').Policy;
+import { Policy } from './policy';
 const util = require('./util');
 
 /** @module Core */
@@ -140,8 +140,8 @@ export class WKResource {
     if (!this.policies) {
       this.policies = {};
     }
-    if (policy instanceof Policy) {
-      this.policies[policy.WKName] = policy;
+    if (policy instanceof Policy.Policy) {
+      this.policies[policy.getName()] = policy;
     } else {
       throw new TypeException(policy + ' must be of type Policy');
     }

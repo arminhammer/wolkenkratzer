@@ -2,11 +2,9 @@
 
 const aws = require('aws-sdk');
 import { Service } from '../service';
-const s3Resource = new Service('S3');
+const s3Resource: any = new Service('S3');
 const types = require('../types');
 const util = require('../util');
-
-/** @module Macro */
 
 /**
  * @memberof module:Macro
@@ -16,7 +14,7 @@ const util = require('../util');
  * @returns {Promise}
  * @constructor
  */
-function Bucket(name, newName, region) {
+function Bucket(name: any, newName: any, region: any) {
   const s3Client = new aws.S3({ region: region });
   return new Promise((resolve, reject) => {
     let bucket = new s3Resource.Bucket(util.safeRename(newName));
@@ -24,7 +22,7 @@ function Bucket(name, newName, region) {
     return s3Client
       .getBucketVersioning({ Bucket: name })
       .promise()
-      .then(versionData => {
+      .then((versionData: any) => {
         if (!util.isEmpty(versionData)) {
           bucket.VersioningConfiguration = new types.AmazonS3VersioningConfiguration(
             versionData
@@ -38,7 +36,7 @@ function Bucket(name, newName, region) {
       console.log(JSON.stringify(aclData))
       bucket.AccessControl = aclData
     })*/
-      .then(function (corsData) {
+      .then(function (corsData: any) {
         bucket.CorsConfiguration = new types.AmazonS3CorsConfiguration(
           corsData
         );
@@ -52,7 +50,7 @@ function Bucket(name, newName, region) {
           .getBucketLifecycleConfiguration({ Bucket: name })
           .promise();
       })
-      .then(function (lifeData) {
+      .then(function (lifeData: any) {
         bucket.LifecycleConfiguration = lifeData;
         return s3Client.getBucketLogging({ Bucket: name }).promise();
       })
@@ -60,26 +58,26 @@ function Bucket(name, newName, region) {
         // Silently catch the NoSuchLifecycleConfiguration
         return s3Client.getBucketLogging({ Bucket: name }).promise();
       })
-      .then(function (loggingData) {
+      .then(function (loggingData: any) {
         bucket.LoggingConfiguration = new types.AmazonS3LoggingConfiguration(
           loggingData
         );
         return s3Client.getBucketNotification({ Bucket: name }).promise();
       })
-      .then(function (notificationData) {
+      .then(function (notificationData: any) {
         bucket.NotificationConfiguration = new types.AmazonS3NotificationConfiguration(
           notificationData
         );
         return s3Client.getBucketReplication({ Bucket: name }).promise();
       })
-      .then(function (replData) {
+      .then(function (replData: any) {
         bucket.ReplicationConfiguration = new types.AmazonS3ReplicationConfiguration(
           replData
         );
         return s3Client.getBucketTagging({ Bucket: name }).promise();
       })
-      .then(function (tagsData) {
-        tagsData.TagSet.forEach(tag => {
+      .then(function (tagsData: any) {
+        tagsData.TagSet.forEach((tag: any) => {
           bucket.Tags.add(tag);
         });
         return s3Client.getBucketWebsite({ Bucket: name }).promise();
@@ -88,7 +86,7 @@ function Bucket(name, newName, region) {
         // Silently catch the NoSuchTagSet
         return s3Client.getBucketWebsite({ Bucket: name }).promise();
       })
-      .then(function (websiteData) {
+      .then(function (websiteData: any) {
         bucket.WebsiteConfiguration = new types.AmazonS3WebsiteConfigurationProperty(
           websiteData
         );
@@ -100,7 +98,7 @@ function Bucket(name, newName, region) {
       .then(function () {
         resolve(bucket);
       })
-      .catch(function (e) {
+      .catch(function (e: any) {
         // Silently catch the NoSuchWebsiteConfiguration
         reject(e);
       });

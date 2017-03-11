@@ -1,10 +1,10 @@
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
 const aws = require('aws-sdk');
-const Service = require('../service').Service;
-const s3Resource = new Service('S3');
+const service_1 = require("../service");
+const s3Resource = new service_1.Service('S3');
 const types = require('../types');
 const util = require('../util');
-/** @module Macro */
 /**
  * @memberof module:Macro
  * @param name
@@ -21,7 +21,7 @@ function Bucket(name, newName, region) {
         return s3Client
             .getBucketVersioning({ Bucket: name })
             .promise()
-            .then(versionData => {
+            .then((versionData) => {
             if (!util.isEmpty(versionData)) {
                 bucket.VersioningConfiguration = new types.AmazonS3VersioningConfiguration(versionData);
             }
@@ -61,7 +61,7 @@ function Bucket(name, newName, region) {
             return s3Client.getBucketTagging({ Bucket: name }).promise();
         })
             .then(function (tagsData) {
-            tagsData.TagSet.forEach(tag => {
+            tagsData.TagSet.forEach((tag) => {
                 bucket.Tags.add(tag);
             });
             return s3Client.getBucketWebsite({ Bucket: name }).promise();

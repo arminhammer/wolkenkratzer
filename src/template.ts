@@ -8,6 +8,7 @@ import { WKResource } from './resource';
 const path = require('path');
 const yaml = require('js-yaml');
 import { Service } from './service';
+import * as Promise from 'bluebird';
 
 /** @module Core */
 
@@ -199,7 +200,7 @@ export class Template {
         return callback(null, result.Template);
       }
     } else {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve: any, reject: any) => {
         process.nextTick(() => {
           let result = this.toJson();
           if (result.Errors) {

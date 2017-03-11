@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 const exceptions_1 = require("./exceptions");
-const Policy = require('./policy').Policy;
+const policy_1 = require("./policy");
 const util = require('./util');
 /** @module Core */
 /**
@@ -115,8 +115,8 @@ class WKResource {
         if (!this.policies) {
             this.policies = {};
         }
-        if (policy instanceof Policy) {
-            this.policies[policy.WKName] = policy;
+        if (policy instanceof policy_1.Policy.Policy) {
+            this.policies[policy.getName()] = policy;
         }
         else {
             throw new exceptions_1.TypeException(policy + ' must be of type Policy');

@@ -12,9 +12,9 @@ function Types() {
     types = {};
     const stub = require('../stubs/json/properties/properties');
     for (let propStub in stub) {
-      let propBlock = function (propertiesObject) {
+      let propBlock = function (propertiesObject: any) {
         let propName = stub[propStub].Name;
-        let properties = {};
+        let properties: any = {};
         for (let prop in stub[propStub].Properties) {
           let propBlock = stub[propStub].Properties[prop];
           let realType: any = String;

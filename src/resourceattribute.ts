@@ -1,7 +1,7 @@
 'use strict';
 
-import { Intrinsic, makeIntrinsic, Ref, FnSub, FnGetAtt, FnFindInMap, FnBase64, FnJoin } from './intrinsic';
-import { RequiredPropertyException, TypeException } from './exceptions';
+import { Intrinsic } from './intrinsic';
+import { TypeException } from './exceptions';
 import { ResourceProperty } from './resourceproperty';
 
 /** @module Core */
@@ -9,7 +9,7 @@ import { ResourceProperty } from './resourceproperty';
 /**
  * @memberof module:Core
  */
-function ResourceAttribute(name, type, isArray, required, value) {
+export function ResourceAttribute(name: string, type: any, isArray: boolean, required: any, value: any) {
   this.WKName = name;
   this.Type = type;
   this.isArray = isArray;
@@ -21,13 +21,13 @@ function ResourceAttribute(name, type, isArray, required, value) {
  * Set the value of the attribute
  * @param value
  */
-ResourceAttribute.prototype.set = function (value) {
+ResourceAttribute.prototype.set = function (value: any) {
   if (this.isArray) {
-    let instrinsicValue = makeIntrinsic(value);
+    let instrinsicValue = Intrinsic.makeIntrinsic(value);
     if (instrinsicValue) {
       value = instrinsicValue;
     }
-    if (value instanceof Intrinsic) {
+    if (value instanceof Intrinsic.Intrinsic ) {
       this.val = value;
     } else if (!Array.isArray(value)) {
       throw new TypeException(
@@ -59,11 +59,11 @@ ResourceAttribute.prototype.set = function (value) {
       }
     }
   } else {
-    let instrinsicValue = makeIntrinsic(value);
+    let instrinsicValue = Intrinsic.makeIntrinsic(value);
     if (instrinsicValue) {
       value = instrinsicValue;
     }
-    if (value instanceof Intrinsic) {
+    if (value instanceof Intrinsic.Intrinsic) {
       this.val = value;
     } else {
       if (
@@ -95,19 +95,19 @@ ResourceAttribute.prototype.set = function (value) {
  * Add a value to the attribute array
  * @param val
  */
-ResourceAttribute.prototype.push = function (val) {
+ResourceAttribute.prototype.push = function (val: any) {
   if (!this.isArray) {
     throw new TypeException(
       this.WKName + ' is not an array, cannot push ' + val
     );
   }
   let value = val;
-  let instrinsicValue = makeIntrinsic(value);
+  let instrinsicValue = Intrinsic.makeIntrinsic(value);
   if (instrinsicValue) {
     value = instrinsicValue;
   }
   if (
-    value instanceof Intrinsic ||
+    value instanceof Intrinsic.Intrinsic ||
     (typeof value === 'string' && this.Type.prototype === String.prototype) ||
     (typeof value === 'boolean' && this.Type.prototype === Boolean.prototype) ||
     (typeof value === 'number' && this.Type.prototype === Number.prototype) ||
@@ -148,16 +148,16 @@ ResourceAttribute.prototype.get = function () {
  * Add an Fn Ref intrinsic function to link another resource to the attribute
  * @param resource
  */
-ResourceAttribute.prototype.ref = function (resource) {
-  this.val = new Ref(resource);
+ResourceAttribute.prototype.ref = function (resource: any) {
+  this.val = new Intrinsic.Ref(resource);
 };
 
 /**
  * Add an Fn Sub intrinsic function
  * @param resource
  */
-ResourceAttribute.prototype.sub = function (input) {
-  this.val = new FnSub(input);
+ResourceAttribute.prototype.sub = function (input: any) {
+  this.val = new Intrinsic.FnSub(input);
 };
 
 /**
@@ -165,8 +165,8 @@ ResourceAttribute.prototype.sub = function (input) {
  * @param resource
  * @param attribute
  */
-ResourceAttribute.prototype.getAtt = function (resource, attribute) {
-  this.val = new FnGetAtt(resource, attribute);
+ResourceAttribute.prototype.getAtt = function (resource: any, attribute: any) {
+  this.val = new Intrinsic.FnGetAtt(resource, attribute);
 };
 
 /**
@@ -175,8 +175,8 @@ ResourceAttribute.prototype.getAtt = function (resource, attribute) {
  * @param top
  * @param second
  */
-ResourceAttribute.prototype.findInMap = function (map, top, second) {
-  this.val = new FnFindInMap(map, top, second);
+ResourceAttribute.prototype.findInMap = function (map: any, top: any, second: any) {
+  this.val = new Intrinsic.FnFindInMap(map, top, second);
 };
 
 /**
@@ -184,16 +184,16 @@ ResourceAttribute.prototype.findInMap = function (map, top, second) {
  * @param delimiter
  * @param values
  */
-ResourceAttribute.prototype.join = function (delimiter, values) {
-  this.val = new FnJoin(delimiter, values);
+ResourceAttribute.prototype.join = function (delimiter: any, values: any) {
+  this.val = new Intrinsic.FnJoin(delimiter, values);
 };
 
 /**
  * Add an Fn Base64 intrinsic function to set the value of the attribute
  * @param content
  */
-ResourceAttribute.prototype.base64 = function (content) {
-  this.val = new FnBase64(content);
+ResourceAttribute.prototype.base64 = function (content: any) {
+  this.val = new Intrinsic.FnBase64(content);
 };
 
 /**
@@ -204,10 +204,10 @@ ResourceAttribute.prototype.toJson = function () {
   let errors: string[] = [];
   if (this.isArray) {
     if (this.val !== null) {
-      if (this.val instanceof Intrinsic) {
+      if (this.val instanceof Intrinsic.Intrinsic) {
         let result = this.val.toJson();
         if (result.errors) {
-          result.errors.forEach(e => {
+          result.errors.forEach((e: any) => {
             errors.push(e);
           });
         }
@@ -217,7 +217,7 @@ ResourceAttribute.prototype.toJson = function () {
         for (let prop in this.val) {
           let result = this.val[prop].toJson();
           if (result.errors) {
-            result.errors.forEach(e => {
+            result.errors.forEach((e: any) => {
               errors.push(e);
             });
           }
@@ -233,10 +233,10 @@ ResourceAttribute.prototype.toJson = function () {
       } else {
         let propArray: Object[] = [];
         for (let prop in this.val) {
-          if (this.val[prop] instanceof Intrinsic) {
+          if (this.val[prop] instanceof Intrinsic.Intrinsic) {
             let result = this.val[prop].toJson();
             if (result.errors) {
-              result.errors.forEach(e => {
+              result.errors.forEach((e: any) => {
                 errors.push(e);
               });
             }
@@ -264,12 +264,12 @@ ResourceAttribute.prototype.toJson = function () {
   } else {
     if (this.val !== null) {
       if (
-        this.val instanceof Intrinsic ||
+        this.val instanceof Intrinsic.Intrinsic ||
         this.val instanceof ResourceProperty
       ) {
         let result = this.val.toJson();
         if (result.errors) {
-          result.errors.forEach(e => {
+          result.errors.forEach((e: any) => {
             errors.push(e);
           });
         }

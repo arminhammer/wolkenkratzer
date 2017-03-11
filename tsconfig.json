@@ -16,14 +16,21 @@
     },
     "exclude": [
         "node_modules",
-        "typings"
+        "typings",
+        "dist"
     ],
     "filesGlob": [
-        "./src/**/*.ts",
-        "!./node_modules/**/*",
-        "!./src/**/*.d.ts"
+        "./src/*.ts",
+        "./src/macros/*.ts",
+        "!./node_modules/**/*"
     ],
     "files": [
-        "./index.ts"
+        "./index.ts",
+        "./src/resourceattribute.ts",
+        "./src/types.ts",
+        "./src/init.ts",
+        "./src/util.ts",
+        "./src/macros/ec2meta.macro.ts",
+        "./src/macros/s3.macro.ts"
     ]
 }

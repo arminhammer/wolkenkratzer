@@ -2,65 +2,72 @@
 
 import { TypeException } from './exceptions';
 
-/**
- * @class Policy
- */
-export class Policy {
+export namespace Policy {
+  /**
+   * @class Policy
+   */
+  export class Policy {
 
-  private WKName: string;
+    private WKName: string;
 
-  constructor(name: string) {
-    this.WKName = name;
-  }
+    constructor(name: string) {
+      this.WKName = name;
+    }
 
-  public toJson() {
-    let p = JSON.parse(JSON.stringify(this));
-    delete p.WKName;
-    return p;
-  }
-}
+    public getName() {
+      return this.WKName;
+    }
 
-/**
- * @class CreationPolicy
- */
-export class CreationPolicy extends Policy {
-
-  private AutoScalingCreationPolicy;
-  private ResourceSignal;
-
-  constructor(parameters?) {
-    super('CreationPolicy');
-    if (parameters) {
-      this.AutoScalingCreationPolicy = parameters.AutoScalingCreationPolicy;
-      this.ResourceSignal = parameters.ResourceSignal;
+    public toJson() {
+      let p = JSON.parse(JSON.stringify(this));
+      delete p.WKName;
+      return p;
     }
   }
-}
 
-/**
- * @class DeletionPolicy
- */
-export class DeletionPolicy extends Policy {
+  /**
+   * @class CreationPolicy
+   */
+  export class CreationPolicy extends Policy {
 
-  private Type: string;
+    private AutoScalingCreationPolicy: any;
+    private ResourceSignal: any;
 
-  constructor(Type: string) {
-    super('DeletionPolicy');
-    if (Type === 'Delete' || Type === 'Retain' || Type === 'Snapshot') {
-      this.Type = Type;
-    } else {
-      throw new TypeException(
-        Type + ' in DeletionPolicy must be Delete, Retain, or Snapshot'
-      );
+    constructor(parameters?: any) {
+      super('CreationPolicy');
+      if (parameters) {
+        this.AutoScalingCreationPolicy = parameters.AutoScalingCreationPolicy;
+        this.ResourceSignal = parameters.ResourceSignal;
+      }
     }
   }
-}
 
-/**
- * @class UpdatePolicy 
- */
-export class UpdatePolicy extends Policy {
-  constructor(parameters?) {
-    super('UpdatePolicy');
+  /**
+   * @class DeletionPolicy
+   */
+  export class DeletionPolicy extends Policy {
+
+    private Type: string;
+
+    constructor(Type: string) {
+      super('DeletionPolicy');
+      if (Type === 'Delete' || Type === 'Retain' || Type === 'Snapshot') {
+        this.Type = Type;
+      } else {
+        throw new TypeException(
+            Type + ' in DeletionPolicy must be Delete, Retain, or Snapshot'
+        );
+      }
+    }
   }
+
+  /**
+   * @class UpdatePolicy
+   */
+  export class UpdatePolicy extends Policy {
+    constructor(parameters?: any) {
+      super('UpdatePolicy');
+    }
+  }
+
 }
