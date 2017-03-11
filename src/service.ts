@@ -1,9 +1,9 @@
 'use strict';
 
-const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
 import { WKResource } from './resource';
+import { TagSet } from './tagset';
+const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
 const types = require('./types')();
-import { TagSet } from './tag';
 
 export class Service {
   constructor(serviceName: string) {

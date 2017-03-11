@@ -1,9 +1,9 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
 const resource_1 = require("./resource");
+const tagset_1 = require("./tagset");
+const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
 const types = require('./types')();
-const tag_1 = require("./tag");
 class Service {
     constructor(serviceName) {
         let service = {};
@@ -14,7 +14,7 @@ class Service {
                 let properties = {};
                 for (let prop in stub[resourceStub].Properties) {
                     if (prop === 'Tags') {
-                        properties[prop] = new tag_1.TagSet();
+                        properties[prop] = new tagset_1.TagSet();
                     }
                     else {
                         let propBlock = stub[resourceStub].Properties[prop];

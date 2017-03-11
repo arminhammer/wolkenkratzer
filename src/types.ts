@@ -1,7 +1,7 @@
 'use strict';
 
-const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
-const ResourceProperty = require('./resourceproperty').ResourceProperty;
+import { ResourceProperty } from './resourceproperty';
+import { ResourceAttribute } from './resourceattribute';
 
 let types: any = null;
 
@@ -12,7 +12,7 @@ function Types() {
     types = {};
     const stub = require('../stubs/json/properties/properties');
     for (let propStub in stub) {
-      let propBlock = function (propertiesObject: any) {
+      let propBlock = function (propertiesObject: any): any {
         let propName = stub[propStub].Name;
         let properties: any = {};
         for (let prop in stub[propStub].Properties) {

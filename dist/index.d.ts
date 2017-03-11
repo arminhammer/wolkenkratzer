@@ -1,5 +1,6 @@
 export { Template } from './src/template';
-export { Tag, TagSet } from './src/tag';
+export { Tag } from './src/tag';
+export { TagSet } from './src/tagset';
 export { Intrinsic } from './src/intrinsic';
 export { Parameter } from './src/parameter';
 export { WKResource } from './src/resource';

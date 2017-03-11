@@ -4,7 +4,8 @@
  * A CloudFormation ResourceProperty, mapped to those listed at http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-product-property-reference.html
  * @memberof module:Core
  */
-export function ResourceProperty(name: any, properties: any, propertiesObject: any, conditional: any) {
+export function ResourceProperty(name: any, properties: any, propertiesObject: any, conditional?: any) {
+
   this.WKName = name;
   this.properties = properties;
   this.conditional = conditional;

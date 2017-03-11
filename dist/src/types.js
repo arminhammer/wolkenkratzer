@@ -1,6 +1,7 @@
 'use strict';
-const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
-const ResourceProperty = require('./resourceproperty').ResourceProperty;
+Object.defineProperty(exports, "__esModule", { value: true });
+const resourceproperty_1 = require("./resourceproperty");
+const resourceattribute_1 = require("./resourceattribute");
 let types = null;
 function Types() {
     if (types) {
@@ -33,11 +34,11 @@ function Types() {
                             realType = types[propBlock.Type];
                             break;
                     }
-                    properties[prop] = new ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null);
+                    properties[prop] = new resourceattribute_1.ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null);
                 }
-                ResourceProperty.call(this, propName, properties, propertiesObject);
+                resourceproperty_1.ResourceProperty.call(this, propName, properties, propertiesObject);
             };
-            propBlock.prototype = Object.create(ResourceProperty.prototype);
+            propBlock.prototype = Object.create(resourceproperty_1.ResourceProperty.prototype);
             types[propStub] = propBlock;
         }
         return types;
