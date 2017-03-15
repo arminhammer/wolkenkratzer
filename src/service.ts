@@ -3,6 +3,7 @@
 import { WKResource } from './resource';
 import { TagSet } from './tagset';
 import { ResourceAttribute } from './resourceattribute';
+import * as util from './util';
 
 const types = require('./types')();
 
@@ -19,27 +20,9 @@ export class Service {
             properties[prop] = new TagSet();
           } else {
             let propBlock = stub[resourceStub].Properties[prop];
-            let realType: any = String;
-            switch (propBlock.Type) {
-              case 'String':
-                realType = String;
-                break;
-              case 'Number':
-                realType = Number;
-                break;
-              case 'Boolean':
-                realType = Boolean;
-                break;
-              case 'Object':
-                realType = Object;
-                break;
-              default:
-                realType = types[propBlock.Type];
-                break;
-            }
             properties[prop] = new ResourceAttribute(
                 prop,
-                realType,
+                util.getTypeFromString(propBlock.Type, types),
                 propBlock.Array,
                 propBlock.Required,
                 null

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const resourceproperty_1 = require("./resourceproperty");
 const resourceattribute_1 = require("./resourceattribute");
+const util = require("./util");
 let types = null;
 function Types() {
     if (types) {
@@ -16,25 +17,7 @@ function Types() {
                 let properties = {};
                 for (let prop in stub[propStub].Properties) {
                     let propBlock = stub[propStub].Properties[prop];
-                    let realType = String;
-                    switch (propBlock.Type) {
-                        case 'String':
-                            realType = String;
-                            break;
-                        case 'Number':
-                            realType = Number;
-                            break;
-                        case 'Boolean':
-                            realType = Boolean;
-                            break;
-                        case 'Object':
-                            realType = Object;
-                            break;
-                        default:
-                            realType = types[propBlock.Type];
-                            break;
-                    }
-                    properties[prop] = new resourceattribute_1.ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null);
+                    properties[prop] = new resourceattribute_1.ResourceAttribute(prop, util.getTypeFromString(propBlock.Type, types), propBlock.Array, propBlock.Required, null);
                 }
                 resourceproperty_1.ResourceProperty.call(this, propName, properties, propertiesObject);
             };

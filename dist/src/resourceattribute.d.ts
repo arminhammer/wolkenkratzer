@@ -1,6 +1,5 @@
-/** @module Core */
 /**
- * @memberof module:Core
+ * @class ResourceAttribute
  */
 export declare class ResourceAttribute {
     private WKName;
@@ -9,6 +8,7 @@ export declare class ResourceAttribute {
     private required;
     private val;
     constructor(name: string, type: any, isArray: boolean, required: any, value: any);
+    private checkType(val);
     /**
      * Set the value of the attribute
      * @param value

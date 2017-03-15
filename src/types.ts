@@ -2,6 +2,7 @@
 
 import { ResourceProperty } from './resourceproperty';
 import { ResourceAttribute } from './resourceattribute';
+import * as util from './util';
 
 let types: any = null;
 
@@ -17,30 +18,12 @@ function Types() {
         let properties: any = {};
         for (let prop in stub[propStub].Properties) {
           let propBlock = stub[propStub].Properties[prop];
-          let realType: any = String;
-          switch (propBlock.Type) {
-            case 'String':
-              realType = String;
-              break;
-            case 'Number':
-              realType = Number;
-              break;
-            case 'Boolean':
-              realType = Boolean;
-              break;
-            case 'Object':
-              realType = Object;
-              break;
-            default:
-              realType = types[propBlock.Type];
-              break;
-          }
           properties[prop] = new ResourceAttribute(
-            prop,
-            realType,
-            propBlock.Array,
-            propBlock.Required,
-            null
+              prop,
+              util.getTypeFromString(propBlock.Type, types),
+              propBlock.Array,
+              propBlock.Required,
+              null
           );
         }
         ResourceProperty.call(this, propName, properties, propertiesObject);

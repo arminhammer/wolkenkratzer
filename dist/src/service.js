@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const resource_1 = require("./resource");
 const tagset_1 = require("./tagset");
 const resourceattribute_1 = require("./resourceattribute");
+const util = require("./util");
 const types = require('./types')();
 class Service {
     constructor(serviceName) {
@@ -18,25 +19,7 @@ class Service {
                     }
                     else {
                         let propBlock = stub[resourceStub].Properties[prop];
-                        let realType = String;
-                        switch (propBlock.Type) {
-                            case 'String':
-                                realType = String;
-                                break;
-                            case 'Number':
-                                realType = Number;
-                                break;
-                            case 'Boolean':
-                                realType = Boolean;
-                                break;
-                            case 'Object':
-                                realType = Object;
-                                break;
-                            default:
-                                realType = types[propBlock.Type];
-                                break;
-                        }
-                        properties[prop] = new resourceattribute_1.ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null);
+                        properties[prop] = new resourceattribute_1.ResourceAttribute(prop, util.getTypeFromString(propBlock.Type, types), propBlock.Array, propBlock.Required, null);
                     }
                 }
                 return new resource_1.WKResource(name, resourceType, properties, propertiesObject);

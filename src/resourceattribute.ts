@@ -4,10 +4,8 @@ import { Intrinsic } from './intrinsic';
 import { TypeException } from './exceptions';
 import { ResourceProperty } from './resourceproperty';
 
-/** @module Core */
-
 /**
- * @memberof module:Core
+ * @class ResourceAttribute
  */
 export class ResourceAttribute {
 
@@ -25,75 +23,57 @@ export class ResourceAttribute {
     this.val = value;
   }
 
+  private checkType(val: any): boolean {
+    if (
+        (typeof val === 'string' &&
+        this.Type.prototype === String.prototype) ||
+        (typeof val === 'boolean' &&
+        this.Type.prototype === Boolean.prototype) ||
+        (typeof val === 'number' &&
+        this.Type.prototype === Number.prototype) ||
+        val instanceof this.Type
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * Set the value of the attribute
    * @param value
    */
   set(value: any) {
+    let instrinsicValue = Intrinsic.makeIntrinsic(value);
+    if (instrinsicValue) {
+      value = instrinsicValue;
+    }
     if (this.isArray) {
-      let instrinsicValue = Intrinsic.makeIntrinsic(value);
-      if (instrinsicValue) {
-        value = instrinsicValue;
-      }
       if (value instanceof Intrinsic.Intrinsic) {
         this.val = value;
       } else if (!Array.isArray(value)) {
-        throw new TypeException(
-            value + ' is the wrong type, was expecting an array of ' + this.Type
-        );
+        throw new TypeException(`${value} is the wrong type, was expecting an array of ${this.Type}`);
       } else {
         this.val = [];
         for (let val of value) {
           val = new this.Type(val);
-          if (
-              (typeof val === 'string' &&
-              this.Type.prototype === String.prototype) ||
-              (typeof val === 'boolean' &&
-              this.Type.prototype === Boolean.prototype) ||
-              (typeof val === 'number' &&
-              this.Type.prototype === Number.prototype) ||
-              val instanceof this.Type
-          ) {
+          if (this.checkType(val)) {
             this.val.push(val);
           } else {
-            throw new TypeException(
-                value +
-                ' is the wrong type for ' +
-                this.WKName +
-                ', was expecting ' +
-                this.Type
-            );
+            throw new TypeException(`${value} is the wrong type for ${this.WKName}, was expecting ${this.Type}`);
           }
         }
       }
     } else {
-      let instrinsicValue = Intrinsic.makeIntrinsic(value);
-      if (instrinsicValue) {
-        value = instrinsicValue;
-      }
       if (value instanceof Intrinsic.Intrinsic) {
         this.val = value;
       } else {
-        if (
-            (typeof value === 'string' &&
-            this.Type.prototype === String.prototype) ||
-            (typeof value === 'boolean' &&
-            this.Type.prototype === Boolean.prototype) ||
-            (typeof value === 'number' &&
-            this.Type.prototype === Number.prototype) ||
-            value instanceof this.Type
-        ) {
+        if (this.checkType(value)) {
           this.val = value;
         } else if (new this.Type(value) instanceof this.Type) {
           this.val = new this.Type(value);
         } else {
-          throw new TypeException(
-              value +
-              ' is the wrong type for ' +
-              this.WKName +
-              ', was expecting ' +
-              this.Type
-          );
+          throw new TypeException(`${value} is the wrong type for ${this.WKName}, was expecting ${this.Type}`);
         }
       }
     }
@@ -105,9 +85,7 @@ export class ResourceAttribute {
    */
   push(val: any) {
     if (!this.isArray) {
-      throw new TypeException(
-          this.WKName + ' is not an array, cannot push ' + val
-      );
+      throw new TypeException(`${this.WKName} is not an array, cannot push ${val}`);
     }
     let value = val;
     let instrinsicValue = Intrinsic.makeIntrinsic(value);
@@ -115,16 +93,12 @@ export class ResourceAttribute {
       value = instrinsicValue;
     }
     if (
-        value instanceof Intrinsic.Intrinsic ||
-        (typeof value === 'string' && this.Type.prototype === String.prototype) ||
-        (typeof value === 'boolean' && this.Type.prototype === Boolean.prototype) ||
-        (typeof value === 'number' && this.Type.prototype === Number.prototype) ||
-        value instanceof this.Type
+        value instanceof Intrinsic.Intrinsic || this.checkType(value)
     ) {
       if (!this.val) {
         this.val = [];
       }
-      this.val.push(val);
+      this.val.push(value);
     } else {
       try {
         if (!this.val) {
@@ -133,13 +107,7 @@ export class ResourceAttribute {
         let newObject = new this.Type(val);
         this.val.push(newObject);
       } catch (e) {
-        throw new TypeException(
-            val +
-            ' is the wrong type, was expecting ' +
-            this.Type +
-            ', reporting: ' +
-            e
-        );
+        throw new TypeException(`${value} is the wrong type for ${this.WKName}, was expecting ${this.Type}`);
       }
     }
   };

@@ -3,9 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const intrinsic_1 = require("./intrinsic");
 const exceptions_1 = require("./exceptions");
 const resourceproperty_1 = require("./resourceproperty");
-/** @module Core */
 /**
- * @memberof module:Core
+ * @class ResourceAttribute
  */
 class ResourceAttribute {
     constructor(name, type, isArray, required, value) {
@@ -15,72 +14,62 @@ class ResourceAttribute {
         this.required = required;
         this.val = value;
     }
+    checkType(val) {
+        if ((typeof val === 'string' &&
+            this.Type.prototype === String.prototype) ||
+            (typeof val === 'boolean' &&
+                this.Type.prototype === Boolean.prototype) ||
+            (typeof val === 'number' &&
+                this.Type.prototype === Number.prototype) ||
+            val instanceof this.Type) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     /**
      * Set the value of the attribute
      * @param value
      */
     set(value) {
+        let instrinsicValue = intrinsic_1.Intrinsic.makeIntrinsic(value);
+        if (instrinsicValue) {
+            value = instrinsicValue;
+        }
         if (this.isArray) {
-            let instrinsicValue = intrinsic_1.Intrinsic.makeIntrinsic(value);
-            if (instrinsicValue) {
-                value = instrinsicValue;
-            }
             if (value instanceof intrinsic_1.Intrinsic.Intrinsic) {
                 this.val = value;
             }
             else if (!Array.isArray(value)) {
-                throw new exceptions_1.TypeException(value + ' is the wrong type, was expecting an array of ' + this.Type);
+                throw new exceptions_1.TypeException(`${value} is the wrong type, was expecting an array of ${this.Type}`);
             }
             else {
                 this.val = [];
                 for (let val of value) {
                     val = new this.Type(val);
-                    if ((typeof val === 'string' &&
-                        this.Type.prototype === String.prototype) ||
-                        (typeof val === 'boolean' &&
-                            this.Type.prototype === Boolean.prototype) ||
-                        (typeof val === 'number' &&
-                            this.Type.prototype === Number.prototype) ||
-                        val instanceof this.Type) {
+                    if (this.checkType(val)) {
                         this.val.push(val);
                     }
                     else {
-                        throw new exceptions_1.TypeException(value +
-                            ' is the wrong type for ' +
-                            this.WKName +
-                            ', was expecting ' +
-                            this.Type);
+                        throw new exceptions_1.TypeException(`${value} is the wrong type for ${this.WKName}, was expecting ${this.Type}`);
                     }
                 }
             }
         }
         else {
-            let instrinsicValue = intrinsic_1.Intrinsic.makeIntrinsic(value);
-            if (instrinsicValue) {
-                value = instrinsicValue;
-            }
             if (value instanceof intrinsic_1.Intrinsic.Intrinsic) {
                 this.val = value;
             }
             else {
-                if ((typeof value === 'string' &&
-                    this.Type.prototype === String.prototype) ||
-                    (typeof value === 'boolean' &&
-                        this.Type.prototype === Boolean.prototype) ||
-                    (typeof value === 'number' &&
-                        this.Type.prototype === Number.prototype) ||
-                    value instanceof this.Type) {
+                if (this.checkType(value)) {
                     this.val = value;
                 }
                 else if (new this.Type(value) instanceof this.Type) {
                     this.val = new this.Type(value);
                 }
                 else {
-                    throw new exceptions_1.TypeException(value +
-                        ' is the wrong type for ' +
-                        this.WKName +
-                        ', was expecting ' +
-                        this.Type);
+                    throw new exceptions_1.TypeException(`${value} is the wrong type for ${this.WKName}, was expecting ${this.Type}`);
                 }
             }
         }
@@ -92,22 +81,18 @@ class ResourceAttribute {
      */
     push(val) {
         if (!this.isArray) {
-            throw new exceptions_1.TypeException(this.WKName + ' is not an array, cannot push ' + val);
+            throw new exceptions_1.TypeException(`${this.WKName} is not an array, cannot push ${val}`);
         }
         let value = val;
         let instrinsicValue = intrinsic_1.Intrinsic.makeIntrinsic(value);
         if (instrinsicValue) {
             value = instrinsicValue;
         }
-        if (value instanceof intrinsic_1.Intrinsic.Intrinsic ||
-            (typeof value === 'string' && this.Type.prototype === String.prototype) ||
-            (typeof value === 'boolean' && this.Type.prototype === Boolean.prototype) ||
-            (typeof value === 'number' && this.Type.prototype === Number.prototype) ||
-            value instanceof this.Type) {
+        if (value instanceof intrinsic_1.Intrinsic.Intrinsic || this.checkType(value)) {
             if (!this.val) {
                 this.val = [];
             }
-            this.val.push(val);
+            this.val.push(value);
         }
         else {
             try {
@@ -118,11 +103,7 @@ class ResourceAttribute {
                 this.val.push(newObject);
             }
             catch (e) {
-                throw new exceptions_1.TypeException(val +
-                    ' is the wrong type, was expecting ' +
-                    this.Type +
-                    ', reporting: ' +
-                    e);
+                throw new exceptions_1.TypeException(`${value} is the wrong type for ${this.WKName}, was expecting ${this.Type}`);
             }
         }
     }
