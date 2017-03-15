@@ -1,10 +1,10 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const aws = require('aws-sdk');
+const aws = require("aws-sdk");
+const util = require("../util");
 const service_1 = require("../service");
 const s3Resource = new service_1.Service('S3');
 const types = require('../types');
-const util = require('../util');
 /**
  * @memberof module:Macro
  * @param name

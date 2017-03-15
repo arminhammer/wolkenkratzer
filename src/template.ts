@@ -5,10 +5,12 @@ import { Mapping } from './mapping';
 import { Output } from './output';
 import { Parameter } from './parameter';
 import { WKResource } from './resource';
-const path = require('path');
-const yaml = require('js-yaml');
 import { Service } from './service';
 import * as Promise from 'bluebird';
+
+const path = require('path');
+const yaml = require('js-yaml');
+
 
 /** @module Core */
 

@@ -2,8 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const exceptions_1 = require("./exceptions");
 const policy_1 = require("./policy");
-const util = require('./util');
-/** @module Core */
+const util = require("./util");
 /**
  * A CloudFormation Resource, mapping to those defined at http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html.
  * @memberof module:Core

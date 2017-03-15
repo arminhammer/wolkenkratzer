@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const resource_1 = require("./resource");
 const tagset_1 = require("./tagset");
-const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
+const resourceattribute_1 = require("./resourceattribute");
 const types = require('./types')();
 class Service {
     constructor(serviceName) {
@@ -36,7 +36,7 @@ class Service {
                                 realType = types[propBlock.Type];
                                 break;
                         }
-                        properties[prop] = new ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null);
+                        properties[prop] = new resourceattribute_1.ResourceAttribute(prop, realType, propBlock.Array, propBlock.Required, null);
                     }
                 }
                 return new resource_1.WKResource(name, resourceType, properties, propertiesObject);

@@ -1,10 +1,11 @@
 'use strict';
 
-const aws = require('aws-sdk');
+import * as aws from 'aws-sdk';
+import * as util from '../util';
 import { Service } from '../service';
+
 const s3Resource: any = new Service('S3');
 const types = require('../types');
-const util = require('../util');
 
 /**
  * @memberof module:Macro

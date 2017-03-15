@@ -5,10 +5,10 @@ const mapping_1 = require("./mapping");
 const output_1 = require("./output");
 const parameter_1 = require("./parameter");
 const resource_1 = require("./resource");
-const path = require('path');
-const yaml = require('js-yaml');
 const service_1 = require("./service");
 const Promise = require("bluebird");
+const path = require('path');
+const yaml = require('js-yaml');
 /** @module Core */
 function _handleDuplicateKey(key) {
     console.log('Duplicate key ' + key);

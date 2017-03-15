@@ -10,10 +10,3 @@ function safeRename(name) {
     return name.replace(/\W/g, '');
 }
 exports.safeRename = safeRename;
-/*
-function _generateShortHash() {
-  return ('0000' + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(
-    -4
-  );
-}
-*/ 

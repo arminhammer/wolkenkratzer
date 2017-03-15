@@ -2,9 +2,7 @@
 
 import { TypeException } from './exceptions';
 import { Policy } from './policy';
-const util = require('./util');
-
-/** @module Core */
+import * as util from './util';
 
 /**
  * A CloudFormation Resource, mapping to those defined at http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html.

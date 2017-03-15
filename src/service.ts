@@ -2,7 +2,8 @@
 
 import { WKResource } from './resource';
 import { TagSet } from './tagset';
-const ResourceAttribute = require('./resourceattribute').ResourceAttribute;
+import { ResourceAttribute } from './resourceattribute';
+
 const types = require('./types')();
 
 export class Service {

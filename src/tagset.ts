@@ -1,6 +1,5 @@
 'use strict';
 
-import { Intrinsic } from './intrinsic';
 import { TypeException } from './exceptions';
 import { Tag } from './tag'
 
