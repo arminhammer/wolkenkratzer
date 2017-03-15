@@ -33,5 +33,11 @@ dist/stubs/node_modules/
 dist/stubs/index.js
 dist/stubs/LICENSE
 dist/stubs/README.md
+index.ts
+src/
+tslint.json
+typings.json
+tsconfig.json
 .vscode/
 .nyc_output/
+generateReadme.js
