@@ -6,4 +6,5 @@ var parameter_1 = require("./elements/parameter");
 exports.Parameter = parameter_1.Parameter;
 var actions_1 = require("./actions");
 exports.add = actions_1.add;
+exports.remove = actions_1.remove;
 exports.json = actions_1.json;

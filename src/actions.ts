@@ -14,6 +14,21 @@ export function add(t: ITemplate, e: IElement): ITemplate {
     return result;
 }
 
+export function remove(t: ITemplate, e: IElement): ITemplate {
+    let result = { ...t }
+    switch (e.kind) {
+        case 'parameter':
+            let find = result.Parameters.indexOf(e) //.find(p => { return p.Name === e.Name })
+            if (find != -1) {
+                result.Parameters.splice(find, 1);
+            }
+            break;
+        default:
+            console.log('No match was found')
+    }
+    return result;
+}
+
 export type Jsonifiable = ITemplate | IParameter;
 
 export function json(t: Jsonifiable): string {

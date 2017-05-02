@@ -21,6 +21,21 @@ function add(t, e) {
     return result;
 }
 exports.add = add;
+function remove(t, e) {
+    let result = Object.assign({}, t);
+    switch (e.kind) {
+        case 'parameter':
+            let find = result.Parameters.indexOf(e); //.find(p => { return p.Name === e.Name })
+            if (find != -1) {
+                result.Parameters.splice(find, 1);
+            }
+            break;
+        default:
+            console.log('No match was found');
+    }
+    return result;
+}
+exports.remove = remove;
 function json(t) {
     switch (t.kind) {
         case 'parameter':
