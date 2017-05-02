@@ -8,6 +8,10 @@ export function add(t: ITemplate, e: IElement): ITemplate {
         case 'parameter':
             result.Parameters.push(e);
             break;
+        case 'description':
+            let desc = { Description: e.Content };
+            result = { ...t, ...desc }
+            break;
         default:
             console.log('No match was found');
     }
@@ -22,7 +26,7 @@ export function remove(t: ITemplate, e: IElement | string): ITemplate {
         if (find) {
             element = find;
         } else {
-            throw new Error(`Could not find ${e}`);
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
         }
     } else {
         element = e;
@@ -34,10 +38,24 @@ export function remove(t: ITemplate, e: IElement | string): ITemplate {
                 result.Parameters.splice(find, 1);
             }
             break;
+        case 'description':
+            const { Description, ...remaining } = result;
+            result = remaining;
+            break;
         default:
-            throw new Error(`Could not find ${e}`);
+            throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
     }
     return result;
+}
+
+export function wipe(t: ITemplate, category: string) {
+    switch (category) {
+        case 'Description':
+            const { Description, ...remaining } = t;
+            return remaining;
+        default:
+            throw new SyntaxError(`${category} is not a valid part of a CloudFormation template.`);
+    }
 }
 
 export type Jsonifiable = ITemplate | IParameter;
@@ -57,6 +75,9 @@ export function json(t: Jsonifiable): string {
                 t.Parameters.map(p => {
                     result.Parameters[p.Name] = JSON.parse(json(p));
                 });
+            }
+            if (t.Description) {
+                result.Description = t.Description;
             }
             return JSON.stringify(result, null, 2);
         default:

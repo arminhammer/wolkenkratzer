@@ -1,3 +1,4 @@
 export { Template } from './template';
 export { Parameter } from './elements/parameter';
-export { add, remove, json } from './actions';
+export { Description } from './elements/description';
+export { add, remove, json, wipe } from './actions';

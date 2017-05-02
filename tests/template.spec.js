@@ -1,7 +1,7 @@
 const { Template, Parameter, add, json } = require('../dist/index');
 
 describe('Template', () => {
-  it('Can turn a Template to JSON', () => {
+  test('Can turn a Template to JSON', () => {
     let t = Template();
     expect(JSON.parse(json(t))).toEqual({
       Resources: {},

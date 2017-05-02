@@ -15,6 +15,10 @@ function add(t, e) {
         case 'parameter':
             result.Parameters.push(e);
             break;
+        case 'description':
+            let desc = { Description: e.Content };
+            result = Object.assign({}, t, desc);
+            break;
         default:
             console.log('No match was found');
     }
@@ -30,7 +34,7 @@ function remove(t, e) {
             element = find;
         }
         else {
-            throw new Error(`Could not find ${e}`);
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
         }
     }
     else {
@@ -43,12 +47,26 @@ function remove(t, e) {
                 result.Parameters.splice(find, 1);
             }
             break;
+        case 'description':
+            const { Description } = result, remaining = __rest(result, ["Description"]);
+            result = remaining;
+            break;
         default:
-            throw new Error(`Could not find ${e}`);
+            throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
     }
     return result;
 }
 exports.remove = remove;
+function wipe(t, category) {
+    switch (category) {
+        case 'Description':
+            const { Description } = t, remaining = __rest(t, ["Description"]);
+            return remaining;
+        default:
+            throw new SyntaxError(`${category} is not a valid part of a CloudFormation template.`);
+    }
+}
+exports.wipe = wipe;
 function json(t) {
     switch (t.kind) {
         case 'parameter':
@@ -64,6 +82,9 @@ function json(t) {
                 t.Parameters.map(p => {
                     result.Parameters[p.Name] = JSON.parse(json(p));
                 });
+            }
+            if (t.Description) {
+                result.Description = t.Description;
             }
             return JSON.stringify(result, null, 2);
         default:
