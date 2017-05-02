@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function Template() {
     return {
-        kind: 'template',
-        Parameters: []
+        Parameters: [],
+        kind: 'template'
     };
 }
 exports.Template = Template;

@@ -25,10 +25,7 @@ function remove(t, e) {
     let result = Object.assign({}, t);
     let element;
     if (typeof e === 'string') {
-        console.log('string');
         let find = result.Parameters.find(p => { return p.Name === e; });
-        console.log('find');
-        console.log(find);
         if (find) {
             element = find;
         }
@@ -41,8 +38,8 @@ function remove(t, e) {
     }
     switch (element.kind) {
         case 'parameter':
-            let find = result.Parameters.indexOf(element); //.find(p => { return p.Name === e.Name })
-            if (find != -1) {
+            let find = result.Parameters.indexOf(element);
+            if (find !== -1) {
                 result.Parameters.splice(find, 1);
             }
             break;
@@ -59,8 +56,8 @@ function json(t) {
             return JSON.stringify(rest);
         case 'template':
             let result = {
-                Resources: {},
-                AWSTemplateFormatVersion: '2010-09-09'
+                AWSTemplateFormatVersion: '2010-09-09',
+                Resources: {}
             };
             if (t.Parameters.length > 0) {
                 result.Parameters = {};

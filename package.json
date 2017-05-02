@@ -37,7 +37,8 @@
     "builddocs": "jsdoc -c jsdoc.conf.json -R ./README.md",
     "publishdocs": "git push origin `git subtree split --prefix docs/ master`:gh-pages --force",
     "linecount": "cloc --vcs=git .",
-    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --fix",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",

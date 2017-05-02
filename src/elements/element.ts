@@ -1,3 +1,3 @@
-import { IParameter } from './parameter'
+import { IParameter } from './parameter';
 
 export type IElement = IParameter;

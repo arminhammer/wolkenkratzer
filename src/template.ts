@@ -1,13 +1,13 @@
-import { IParameter } from './elements/parameter'
+import { IParameter } from './elements/parameter';
 
 export interface ITemplate {
-    readonly kind: 'template'
-    readonly Parameters: Array<IParameter>
+    readonly kind: 'template';
+    readonly Parameters: Array<IParameter>;
 }
 
 export function Template(): ITemplate {
     return {
-        kind: 'template',
-        Parameters: []
-    }
+        Parameters: [],
+        kind: 'template'
+    };
 }
