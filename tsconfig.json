@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es2015",
+        "target": "es6",
         "declaration": true,
         "allowJs": false,
         "outDir": "./dist",
@@ -12,25 +12,21 @@
         "alwaysStrict": true,
         "forceConsistentCasingInFileNames": true,
         "pretty": true,
-        "types": ["node"]
+        "types": [
+            "node"
+        ]
     },
     "exclude": [
         "node_modules",
         "typings",
-        "dist"
+        "dist",
+        "src.old",
+        "test"
     ],
     "filesGlob": [
         "./src/*.ts",
         "./src/macros/*.ts",
-        "!./node_modules/**/*"
-    ],
-    "files": [
-        "./index.ts",
-        "./src/resourceattribute.ts",
-        "./src/types.ts",
-        "./src/init.ts",
-        "./src/util.ts",
-        "./src/macros/ec2meta.macro.ts",
-        "./src/macros/s3.macro.ts"
+        "!./node_modules/**/*",
+        "!./src/*.spec.ts"
     ]
 }
