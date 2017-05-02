@@ -15,11 +15,21 @@ describe('Parameter', () => {
     });
   });
 
-    it('Can remove a Parameter to Template once it has been added', () => {
+  it('Can remove a Parameter to Template once it has been added', () => {
     let t = Template();
-    let p = Parameter({ Name: 'NewParam' })
+    let p = Parameter({ Name: 'NewParam' });
     t = add(t, p);
     t = remove(t, p);
+    expect(JSON.parse(json(t))).toEqual({
+      Resources: {},
+      AWSTemplateFormatVersion: '2010-09-09'
+    });
+  });
+
+  it('Can remove a Parameter to Template once it has been added, by string Name', () => {
+    let t = Template();
+    t = add(t, Parameter({ Name: 'NewParam' }));
+    t = remove(t, 'NewParam');
     expect(JSON.parse(json(t))).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'

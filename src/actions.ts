@@ -14,17 +14,31 @@ export function add(t: ITemplate, e: IElement): ITemplate {
     return result;
 }
 
-export function remove(t: ITemplate, e: IElement): ITemplate {
+export function remove(t: ITemplate, e: IElement | string): ITemplate {
     let result = { ...t }
-    switch (e.kind) {
+    let element: IElement;
+    if (typeof e === 'string') {
+        console.log('string')
+        let find: IParameter | undefined = result.Parameters.find(p => { return p.Name === e })
+        console.log('find')
+        console.log(find)
+        if (find) {
+            element = find;
+        } else {
+            throw new Error(`Could not find ${e}`);
+        }
+    } else {
+        element = e
+    }
+    switch (element.kind) {
         case 'parameter':
-            let find = result.Parameters.indexOf(e) //.find(p => { return p.Name === e.Name })
+            let find = result.Parameters.indexOf(element) //.find(p => { return p.Name === e.Name })
             if (find != -1) {
                 result.Parameters.splice(find, 1);
             }
             break;
         default:
-            console.log('No match was found')
+            throw new Error(`Could not find ${e}`);
     }
     return result;
 }

@@ -23,15 +23,31 @@ function add(t, e) {
 exports.add = add;
 function remove(t, e) {
     let result = Object.assign({}, t);
-    switch (e.kind) {
+    let element;
+    if (typeof e === 'string') {
+        console.log('string');
+        let find = result.Parameters.find(p => { return p.Name === e; });
+        console.log('find');
+        console.log(find);
+        if (find) {
+            element = find;
+        }
+        else {
+            throw new Error(`Could not find ${e}`);
+        }
+    }
+    else {
+        element = e;
+    }
+    switch (element.kind) {
         case 'parameter':
-            let find = result.Parameters.indexOf(e); //.find(p => { return p.Name === e.Name })
+            let find = result.Parameters.indexOf(element); //.find(p => { return p.Name === e.Name })
             if (find != -1) {
                 result.Parameters.splice(find, 1);
             }
             break;
         default:
-            console.log('No match was found');
+            throw new Error(`Could not find ${e}`);
     }
     return result;
 }
