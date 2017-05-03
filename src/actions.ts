@@ -1,7 +1,9 @@
 import { ITemplate } from './template';
 import { IElement } from './elements/element';
 import { IParameter } from './elements/parameter';
+import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
+import { IIntrinsic } from './intrinsic';
 
 export function add(t: ITemplate, e: IElement): ITemplate {
     let result = { ...t };
@@ -12,9 +14,12 @@ export function add(t: ITemplate, e: IElement): ITemplate {
         case 'output':
             result.Outputs.push(e);
             break;
+        case 'resource':
+            result.Resources.push(e);
+            break;
         case 'description':
             let desc = { Description: e.Content };
-            result = { ...t, ...desc }
+            result = { ...t, ...desc };
             break;
         default:
             console.log('No match was found');
@@ -63,7 +68,7 @@ export function remove(t: ITemplate, e: IElement | string): ITemplate {
     return result;
 }
 
-export function wipe(t: ITemplate, category: string) {
+export function wipe(t: ITemplate, category: string): ITemplate {
     switch (category) {
         case 'Description':
             const { Description, ...remaining } = t;
@@ -73,19 +78,29 @@ export function wipe(t: ITemplate, category: string) {
     }
 }
 
-export type Jsonifiable = ITemplate | IParameter | IOutput;
+export type Jsonifiable = ITemplate | IParameter | IOutput | IResource | IIntrinsic;
 
-function stripElement(t: IParameter | IOutput) {
+function stripElement(t: IParameter | IOutput | IResource): any {
     let { kind, Name, ...rest } = t;
-    return JSON.stringify(rest);
+    return rest;
 }
 
 export function json(t: Jsonifiable): string {
     switch (t.kind) {
+        case 'intrinsic':
+            return JSON.stringify({ Ref: t.target.Name });
         case 'parameter':
-            return stripElement(t);
+            return JSON.stringify(stripElement(t));
         case 'output':
-            return stripElement(t);
+            let pared = stripElement(t);
+            if (typeof pared.Value !== 'string') {
+                pared.Value = JSON.parse(json(pared.Value));
+                return JSON.stringify(pared);
+            } else {
+                return JSON.stringify(pared);
+            }
+        case 'resource':
+            return JSON.stringify(stripElement(t));
         case 'template':
             let result: any = {
                 AWSTemplateFormatVersion: '2010-09-09',
@@ -101,6 +116,12 @@ export function json(t: Jsonifiable): string {
                 result.Outputs = {};
                 t.Outputs.map(p => {
                     result.Outputs[p.Name] = JSON.parse(json(p));
+                });
+            }
+            if (t.Resources.length > 0) {
+                result.Resources = {};
+                t.Resources.map(r => {
+                    result.Resources[r.Name] = JSON.parse(json(r));
                 });
             }
             if (t.Description) {

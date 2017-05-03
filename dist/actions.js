@@ -18,6 +18,9 @@ function add(t, e) {
         case 'output':
             result.Outputs.push(e);
             break;
+        case 'resource':
+            result.Resources.push(e);
+            break;
         case 'description':
             let desc = { Description: e.Content };
             result = Object.assign({}, t, desc);
@@ -84,14 +87,25 @@ function wipe(t, category) {
 exports.wipe = wipe;
 function stripElement(t) {
     let { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
-    return JSON.stringify(rest);
+    return rest;
 }
 function json(t) {
     switch (t.kind) {
+        case 'intrinsic':
+            return JSON.stringify({ Ref: t.target.Name });
         case 'parameter':
-            return stripElement(t);
+            return JSON.stringify(stripElement(t));
         case 'output':
-            return stripElement(t);
+            let pared = stripElement(t);
+            if (typeof pared.Value !== 'string') {
+                pared.Value = JSON.parse(json(pared.Value));
+                return JSON.stringify(pared);
+            }
+            else {
+                return JSON.stringify(pared);
+            }
+        case 'resource':
+            return JSON.stringify(stripElement(t));
         case 'template':
             let result = {
                 AWSTemplateFormatVersion: '2010-09-09',
@@ -107,6 +121,12 @@ function json(t) {
                 result.Outputs = {};
                 t.Outputs.map(p => {
                     result.Outputs[p.Name] = JSON.parse(json(p));
+                });
+            }
+            if (t.Resources.length > 0) {
+                result.Resources = {};
+                t.Resources.map(r => {
+                    result.Resources[r.Name] = JSON.parse(json(r));
                 });
             }
             if (t.Description) {

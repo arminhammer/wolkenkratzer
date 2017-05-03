@@ -33,7 +33,7 @@
   },
   "scripts": {
     "test": "tsc && jest",
-    "testful": "tsc && rm -rf dist/ec2info && rm -rf dist/stubs && cp -R ec2info dist/ && cp -R stubs dist/ && jest",
+    "testful0": "tsc && rm -rf dist/ec2info && rm -rf dist/stubs && cp -R ec2info dist/ && cp -R stubs dist/ && jest",
     "builddocs": "jsdoc -c jsdoc.conf.json -R ./README.md",
     "publishdocs": "git push origin `git subtree split --prefix docs/ master`:gh-pages --force",
     "linecount": "cloc --vcs=git .",

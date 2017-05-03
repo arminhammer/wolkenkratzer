@@ -13,3 +13,7 @@ exports.add = actions_1.add;
 exports.remove = actions_1.remove;
 exports.json = actions_1.json;
 exports.wipe = actions_1.wipe;
+var intrinsic_1 = require("./intrinsic");
+exports.Ref = intrinsic_1.Ref;
+const service_1 = require("./service");
+exports.S3 = service_1.Service('S3');

@@ -3,7 +3,7 @@ import { IDescription } from './elements/description';
 // import { IMetadata } from './elements/metadata';
 // import { IMapping } from './elements/mapping';
 // import { ICondition } from './elements/condition';
-// import { IResource } from './elements/resource';
+import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
 
 export interface ITemplate {
@@ -13,14 +13,15 @@ export interface ITemplate {
     // readonly Metadata: Array<IMetadata>;
     // readonly Mappings: Array<IMapping>;
     // readonly Conditions: Array<ICondition>;
-    // readonly Resources: Array<IResource>;
+    readonly Resources: Array<IResource>;
     readonly Outputs: Array<IOutput>;
 }
 
 export function Template(): ITemplate {
     return {
-        Parameters: [],
         Outputs: [],
+        Parameters: [],
+        Resources: [],
         kind: 'template'
     };
 }
