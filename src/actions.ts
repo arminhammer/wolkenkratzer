@@ -1,12 +1,16 @@
 import { ITemplate } from './template';
 import { IElement } from './elements/element';
 import { IParameter } from './elements/parameter';
+import { IOutput } from './elements/output';
 
 export function add(t: ITemplate, e: IElement): ITemplate {
     let result = { ...t };
     switch (e.kind) {
         case 'parameter':
             result.Parameters.push(e);
+            break;
+        case 'output':
+            result.Outputs.push(e);
             break;
         case 'description':
             let desc = { Description: e.Content };
@@ -22,20 +26,31 @@ export function remove(t: ITemplate, e: IElement | string): ITemplate {
     let result = { ...t };
     let element: IElement;
     if (typeof e === 'string') {
-        let find: IParameter | undefined = result.Parameters.find(p => { return p.Name === e; });
-        if (find) {
-            element = find;
+        let parameter: IParameter | undefined = result.Parameters.find(p => { return p.Name === e; });
+        if (parameter) {
+            element = parameter;
         } else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+            let output: IOutput | undefined = result.Outputs.find(p => { return p.Name === e; });
+            if (output) {
+                element = output;
+            } else {
+                throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+            }
         }
     } else {
         element = e;
     }
     switch (element.kind) {
         case 'parameter':
-            let find = result.Parameters.indexOf(element);
-            if (find !== -1) {
-                result.Parameters.splice(find, 1);
+            let parameter = result.Parameters.indexOf(element);
+            if (parameter !== -1) {
+                result.Parameters.splice(parameter, 1);
+            }
+            break;
+        case 'output':
+            let output = result.Outputs.indexOf(element);
+            if (output !== -1) {
+                result.Outputs.splice(output, 1);
             }
             break;
         case 'description':
@@ -58,13 +73,19 @@ export function wipe(t: ITemplate, category: string) {
     }
 }
 
-export type Jsonifiable = ITemplate | IParameter;
+export type Jsonifiable = ITemplate | IParameter | IOutput;
+
+function stripElement(t: IParameter | IOutput) {
+    let { kind, Name, ...rest } = t;
+    return JSON.stringify(rest);
+}
 
 export function json(t: Jsonifiable): string {
     switch (t.kind) {
         case 'parameter':
-            let { kind, Name, ...rest } = t;
-            return JSON.stringify(rest);
+            return stripElement(t);
+        case 'output':
+            return stripElement(t);
         case 'template':
             let result: any = {
                 AWSTemplateFormatVersion: '2010-09-09',
@@ -74,6 +95,12 @@ export function json(t: Jsonifiable): string {
                 result.Parameters = {};
                 t.Parameters.map(p => {
                     result.Parameters[p.Name] = JSON.parse(json(p));
+                });
+            }
+            if (t.Outputs.length > 0) {
+                result.Outputs = {};
+                t.Outputs.map(p => {
+                    result.Outputs[p.Name] = JSON.parse(json(p));
                 });
             }
             if (t.Description) {

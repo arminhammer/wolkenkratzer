@@ -15,6 +15,9 @@ function add(t, e) {
         case 'parameter':
             result.Parameters.push(e);
             break;
+        case 'output':
+            result.Outputs.push(e);
+            break;
         case 'description':
             let desc = { Description: e.Content };
             result = Object.assign({}, t, desc);
@@ -29,12 +32,18 @@ function remove(t, e) {
     let result = Object.assign({}, t);
     let element;
     if (typeof e === 'string') {
-        let find = result.Parameters.find(p => { return p.Name === e; });
-        if (find) {
-            element = find;
+        let parameter = result.Parameters.find(p => { return p.Name === e; });
+        if (parameter) {
+            element = parameter;
         }
         else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+            let output = result.Outputs.find(p => { return p.Name === e; });
+            if (output) {
+                element = output;
+            }
+            else {
+                throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+            }
         }
     }
     else {
@@ -42,9 +51,15 @@ function remove(t, e) {
     }
     switch (element.kind) {
         case 'parameter':
-            let find = result.Parameters.indexOf(element);
-            if (find !== -1) {
-                result.Parameters.splice(find, 1);
+            let parameter = result.Parameters.indexOf(element);
+            if (parameter !== -1) {
+                result.Parameters.splice(parameter, 1);
+            }
+            break;
+        case 'output':
+            let output = result.Outputs.indexOf(element);
+            if (output !== -1) {
+                result.Outputs.splice(output, 1);
             }
             break;
         case 'description':
@@ -67,11 +82,16 @@ function wipe(t, category) {
     }
 }
 exports.wipe = wipe;
+function stripElement(t) {
+    let { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
+    return JSON.stringify(rest);
+}
 function json(t) {
     switch (t.kind) {
         case 'parameter':
-            let { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
-            return JSON.stringify(rest);
+            return stripElement(t);
+        case 'output':
+            return stripElement(t);
         case 'template':
             let result = {
                 AWSTemplateFormatVersion: '2010-09-09',
@@ -81,6 +101,12 @@ function json(t) {
                 result.Parameters = {};
                 t.Parameters.map(p => {
                     result.Parameters[p.Name] = JSON.parse(json(p));
+                });
+            }
+            if (t.Outputs.length > 0) {
+                result.Outputs = {};
+                t.Outputs.map(p => {
+                    result.Outputs[p.Name] = JSON.parse(json(p));
                 });
             }
             if (t.Description) {

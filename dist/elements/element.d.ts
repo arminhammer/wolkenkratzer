@@ -1,3 +1,4 @@
 import { IParameter } from './parameter';
 import { IDescription } from './description';
-export declare type IElement = IParameter | IDescription;
+import { IOutput } from './output';
+export declare type IElement = IParameter | IDescription | IOutput;

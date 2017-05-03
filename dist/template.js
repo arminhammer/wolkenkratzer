@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function Template() {
     return {
         Parameters: [],
+        Outputs: [],
         kind: 'template'
     };
 }
