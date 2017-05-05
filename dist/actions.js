@@ -96,14 +96,11 @@ function json(t) {
         case 'parameter':
             return JSON.stringify(stripElement(t));
         case 'output':
-            let pared = stripElement(t);
-            if (typeof pared.Value !== 'string') {
-                pared.Value = JSON.parse(json(pared.Value));
-                return JSON.stringify(pared);
+            let outputResult = Object.assign({}, t.Properties);
+            if (typeof outputResult.Value !== 'string') {
+                outputResult = { Value: JSON.parse(json(outputResult.Value)) };
             }
-            else {
-                return JSON.stringify(pared);
-            }
+            return JSON.stringify(outputResult);
         case 'resource':
             return JSON.stringify(stripElement(t));
         case 'template':
@@ -114,14 +111,13 @@ function json(t) {
             if (t.Parameters.length > 0) {
                 result.Parameters = {};
                 t.Parameters.map(p => {
-                    // let { Properties } = p;
                     result.Parameters[p.Name] = p.Properties;
                 });
             }
             if (t.Outputs.length > 0) {
                 result.Outputs = {};
-                t.Outputs.map(p => {
-                    result.Outputs[p.Name] = JSON.parse(json(p));
+                t.Outputs.map(o => {
+                    result.Outputs[o.Name] = JSON.parse(json(o));
                 });
             }
             if (t.Resources.length > 0) {

@@ -92,13 +92,11 @@ export function json(t: Jsonifiable): string {
         case 'parameter':
             return JSON.stringify(stripElement(t));
         case 'output':
-            let pared = stripElement(t);
-            if (typeof pared.Value !== 'string') {
-                pared.Value = JSON.parse(json(pared.Value));
-                return JSON.stringify(pared);
-            } else {
-                return JSON.stringify(pared);
+            let outputResult = Object.assign({}, t.Properties);
+            if (typeof outputResult.Value !== 'string') {
+                outputResult = { Value: JSON.parse(json(outputResult.Value)) };
             }
+            return JSON.stringify(outputResult);
         case 'resource':
             return JSON.stringify(stripElement(t));
         case 'template':
@@ -114,8 +112,8 @@ export function json(t: Jsonifiable): string {
             }
             if (t.Outputs.length > 0) {
                 result.Outputs = {};
-                t.Outputs.map(p => {
-                    result.Outputs[p.Name] = JSON.parse(json(p));
+                t.Outputs.map(o => {
+                    result.Outputs[o.Name] = JSON.parse(json(o));
                 });
             }
             if (t.Resources.length > 0) {

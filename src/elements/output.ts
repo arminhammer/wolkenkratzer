@@ -1,8 +1,6 @@
 import { IIntrinsic } from '../intrinsic';
 
-export interface IOutput {
-    readonly kind: 'output';
-    readonly Name: string;
+export interface IOutputProperties {
     readonly Description?: string;
     readonly Value: IIntrinsic | string;
     readonly Export?: {
@@ -10,11 +8,15 @@ export interface IOutput {
     };
 }
 
-export function Output(params: IOutput = {} as IOutput): IOutput {
-    if (!params.Name || !params.Value) {
-        throw new SyntaxError(`New Output with ${JSON.stringify(params)} parameters is invalid. Name and Value are required.`);
+export interface IOutput {
+    readonly kind: 'output';
+    readonly Name: string;
+    readonly Properties: IOutputProperties;
+}
+
+export function Output(name: string, properties: IOutputProperties = {} as IOutputProperties): IOutput {
+    if (!name || !properties.Value) {
+        throw new SyntaxError(`New Output with ${JSON.stringify({ name, properties })} parameters is invalid. Name and Value are required.`);
     }
-    const defaultP = { kind: 'output' };
-    const mix = { ...defaultP, ...params };
-    return mix;
+    return { kind: 'output', Name: name, Properties: properties };
 }

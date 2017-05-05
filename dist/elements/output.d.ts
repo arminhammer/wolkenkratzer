@@ -1,11 +1,14 @@
 import { IIntrinsic } from '../intrinsic';
-export interface IOutput {
-    readonly kind: 'output';
-    readonly Name: string;
+export interface IOutputProperties {
     readonly Description?: string;
     readonly Value: IIntrinsic | string;
     readonly Export?: {
         Name: string;
     };
 }
-export declare function Output(params?: IOutput): IOutput;
+export interface IOutput {
+    readonly kind: 'output';
+    readonly Name: string;
+    readonly Properties: IOutputProperties;
+}
+export declare function Output(name: string, properties?: IOutputProperties): IOutput;

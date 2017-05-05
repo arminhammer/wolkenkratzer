@@ -21,7 +21,7 @@ describe('Template', () => {
     let t = Template();
     t = add(t, S3.Bucket('Bucket'));
     // t = add(t, Output('BucketName', { Value: Ref(t, 'Bucket') }));
-    t = add(t, Output({ Name: 'BucketName', Value: Ref(t, 'Bucket') }));
+    t = add(t, Output('BucketName', { Value: Ref(t, 'Bucket') }));
     expect(JSON.parse(json(t))).toEqual(require('./templates/s3.json'));
   });
 
