@@ -4,7 +4,9 @@ import { IOutput } from './elements/output';
 export interface ITemplate {
     readonly kind: 'template';
     readonly Description?: string;
-    readonly Parameters: Array<IParameter>;
+    readonly Parameters: {
+        [s: string]: IParameter;
+    };
     readonly Resources: Array<IResource>;
     readonly Outputs: Array<IOutput>;
 }

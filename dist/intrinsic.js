@@ -4,7 +4,7 @@ function Ref(t, target) {
     let result = Object.assign({}, t);
     let element;
     if (typeof target === 'string') {
-        let parameter = result.Parameters.find(p => { return p.Name === target; });
+        let parameter = result.Parameters[target]; // .find(p => { return p.Name === target; });
         if (parameter) {
             element = parameter;
         }
@@ -23,15 +23,15 @@ function Ref(t, target) {
     }
     switch (element.kind) {
         case 'parameter':
-            let parameter = result.Parameters.indexOf(element);
-            if (parameter !== -1) {
-                return { kind: 'intrinsic', target: result.Parameters[parameter] };
+            let parameter = result.Parameters[element.Name]; // .indexOf(element);
+            if (parameter) {
+                return { kind: 'ref', target: result.Parameters[element.Name] };
             }
             break;
         case 'resource':
             let resource = result.Resources.indexOf(element);
             if (resource !== -1) {
-                return { kind: 'intrinsic', target: result.Resources[resource] };
+                return { kind: 'ref', target: result.Resources[resource] };
             }
             break;
         default:
@@ -40,3 +40,10 @@ function Ref(t, target) {
     throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
 }
 exports.Ref = Ref;
+/*
+export function FnAnd(t: ITemplate): IIntrinsic { }
+export function FnEquals(t: ITemplate): IIntrinsic { }
+export function FnIf(t: ITemplate): IIntrinsic { }
+export function FnNot(t: ITemplate): IIntrinsic { }
+export function FnOr(t: ITemplate): IIntrinsic { }
+*/

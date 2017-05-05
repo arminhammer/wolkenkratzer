@@ -3,13 +3,13 @@ import { IElement } from './elements/element';
 import { IParameter } from './elements/parameter';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
-import { IIntrinsic } from './intrinsic';
+import { IRef } from './intrinsic';
 
 export function add(t: ITemplate, e: IElement): ITemplate {
     let result = { ...t };
     switch (e.kind) {
         case 'parameter':
-            result.Parameters.push(e);
+            result.Parameters[e.Name] = e;
             break;
         case 'output':
             result.Outputs.push(e);
@@ -31,7 +31,7 @@ export function remove(t: ITemplate, e: IElement | string): ITemplate {
     let result = { ...t };
     let element: IElement;
     if (typeof e === 'string') {
-        let parameter: IParameter | undefined = result.Parameters.find(p => { return p.Name === e; });
+        let parameter: IParameter | undefined = result.Parameters[e];
         if (parameter) {
             element = parameter;
         } else {
@@ -47,9 +47,9 @@ export function remove(t: ITemplate, e: IElement | string): ITemplate {
     }
     switch (element.kind) {
         case 'parameter':
-            let parameter = result.Parameters.indexOf(element);
-            if (parameter !== -1) {
-                result.Parameters.splice(parameter, 1);
+            let parameter = result.Parameters[element.Name]; // .indexOf(element);
+            if (parameter) {
+                delete result.Parameters[element.Name]; // .splice(parameter, 1);
             }
             break;
         case 'output':
@@ -78,7 +78,7 @@ export function wipe(t: ITemplate, category: string): ITemplate {
     }
 }
 
-export type Jsonifiable = ITemplate | IParameter | IOutput | IResource | IIntrinsic;
+export type Jsonifiable = ITemplate | IParameter | IOutput | IResource | IRef;
 
 function stripElement(t: IParameter | IOutput | IResource): any {
     let { kind, Name, ...rest } = t;
@@ -87,7 +87,7 @@ function stripElement(t: IParameter | IOutput | IResource): any {
 
 export function json(t: Jsonifiable): string {
     switch (t.kind) {
-        case 'intrinsic':
+        case 'ref':
             return JSON.stringify({ Ref: t.target.Name });
         case 'parameter':
             return JSON.stringify(stripElement(t));
@@ -104,10 +104,10 @@ export function json(t: Jsonifiable): string {
                 AWSTemplateFormatVersion: '2010-09-09',
                 Resources: {}
             };
-            if (t.Parameters.length > 0) {
+            if (Object.keys(t.Parameters).length > 0) {
                 result.Parameters = {};
-                t.Parameters.map(p => {
-                    result.Parameters[p.Name] = p.Properties;
+                Object.keys(t.Parameters).map(p => {
+                    result.Parameters[p] = t.Parameters[p].Properties;
                 });
             }
             if (t.Outputs.length > 0) {

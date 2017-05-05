@@ -13,7 +13,7 @@ function add(t, e) {
     let result = Object.assign({}, t);
     switch (e.kind) {
         case 'parameter':
-            result.Parameters.push(e);
+            result.Parameters[e.Name] = e;
             break;
         case 'output':
             result.Outputs.push(e);
@@ -35,7 +35,7 @@ function remove(t, e) {
     let result = Object.assign({}, t);
     let element;
     if (typeof e === 'string') {
-        let parameter = result.Parameters.find(p => { return p.Name === e; });
+        let parameter = result.Parameters[e];
         if (parameter) {
             element = parameter;
         }
@@ -54,9 +54,9 @@ function remove(t, e) {
     }
     switch (element.kind) {
         case 'parameter':
-            let parameter = result.Parameters.indexOf(element);
-            if (parameter !== -1) {
-                result.Parameters.splice(parameter, 1);
+            let parameter = result.Parameters[element.Name]; // .indexOf(element);
+            if (parameter) {
+                delete result.Parameters[element.Name]; // .splice(parameter, 1);
             }
             break;
         case 'output':
@@ -91,7 +91,7 @@ function stripElement(t) {
 }
 function json(t) {
     switch (t.kind) {
-        case 'intrinsic':
+        case 'ref':
             return JSON.stringify({ Ref: t.target.Name });
         case 'parameter':
             return JSON.stringify(stripElement(t));
@@ -108,10 +108,10 @@ function json(t) {
                 AWSTemplateFormatVersion: '2010-09-09',
                 Resources: {}
             };
-            if (t.Parameters.length > 0) {
+            if (Object.keys(t.Parameters).length > 0) {
                 result.Parameters = {};
-                t.Parameters.map(p => {
-                    result.Parameters[p.Name] = p.Properties;
+                Object.keys(t.Parameters).map(p => {
+                    result.Parameters[p] = t.Parameters[p].Properties;
                 });
             }
             if (t.Outputs.length > 0) {

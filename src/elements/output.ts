@@ -1,8 +1,8 @@
-import { IIntrinsic } from '../intrinsic';
+import { IRef } from '../intrinsic';
 
 export interface IOutputProperties {
     readonly Description?: string;
-    readonly Value: IIntrinsic | string;
+    readonly Value: IRef | string;
     readonly Export?: {
         Name: string
     };

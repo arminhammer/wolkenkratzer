@@ -9,7 +9,7 @@ import { IOutput } from './elements/output';
 export interface ITemplate {
     readonly kind: 'template';
     readonly Description?: string;
-    readonly Parameters: Array<IParameter>;
+    readonly Parameters: { [s: string]: IParameter };
     // readonly Metadata: Array<IMetadata>;
     // readonly Mappings: Array<IMapping>;
     // readonly Conditions: Array<ICondition>;
@@ -20,7 +20,7 @@ export interface ITemplate {
 export function Template(): ITemplate {
     return {
         Outputs: [],
-        Parameters: [],
+        Parameters: {},
         Resources: [],
         kind: 'template'
     };
