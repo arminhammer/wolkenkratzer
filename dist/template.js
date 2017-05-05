@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function Template() {
     return {
-        Outputs: [],
+        Outputs: {},
         Parameters: {},
         Resources: [],
         kind: 'template'

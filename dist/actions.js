@@ -16,7 +16,7 @@ function add(t, e) {
             result.Parameters[e.Name] = e;
             break;
         case 'output':
-            result.Outputs.push(e);
+            result.Outputs[e.Name] = e;
             break;
         case 'resource':
             result.Resources.push(e);
@@ -40,7 +40,7 @@ function remove(t, e) {
             element = parameter;
         }
         else {
-            let output = result.Outputs.find(p => { return p.Name === e; });
+            let output = result.Outputs[e];
             if (output) {
                 element = output;
             }
@@ -54,15 +54,13 @@ function remove(t, e) {
     }
     switch (element.kind) {
         case 'parameter':
-            let parameter = result.Parameters[element.Name]; // .indexOf(element);
-            if (parameter) {
-                delete result.Parameters[element.Name]; // .splice(parameter, 1);
+            if (result.Parameters[element.Name]) {
+                delete result.Parameters[element.Name];
             }
             break;
         case 'output':
-            let output = result.Outputs.indexOf(element);
-            if (output !== -1) {
-                result.Outputs.splice(output, 1);
+            if (result.Outputs[element.Name]) {
+                delete result.Outputs[element.Name];
             }
             break;
         case 'description':
@@ -114,10 +112,10 @@ function json(t) {
                     result.Parameters[p] = t.Parameters[p].Properties;
                 });
             }
-            if (t.Outputs.length > 0) {
+            if (Object.keys(t.Outputs).length > 0) {
                 result.Outputs = {};
-                t.Outputs.map(o => {
-                    result.Outputs[o.Name] = JSON.parse(json(o));
+                Object.keys(t.Outputs).map(o => {
+                    result.Outputs[o] = JSON.parse(json(t.Outputs[o]));
                 });
             }
             if (t.Resources.length > 0) {

@@ -10,16 +10,16 @@ export interface ITemplate {
     readonly kind: 'template';
     readonly Description?: string;
     readonly Parameters: { [s: string]: IParameter };
-    // readonly Metadata: Array<IMetadata>;
-    // readonly Mappings: Array<IMapping>;
-    // readonly Conditions: Array<ICondition>;
+    // readonly Metadata: { [s: string]: IMetadata };
+    // readonly Mappings: { [s: string]: IMapping };
+    // readonly Conditions: { [s: string]: ICondition };
     readonly Resources: Array<IResource>;
-    readonly Outputs: Array<IOutput>;
+    readonly Outputs: { [s: string]: IOutput };
 }
 
 export function Template(): ITemplate {
     return {
-        Outputs: [],
+        Outputs: {},
         Parameters: {},
         Resources: [],
         kind: 'template'

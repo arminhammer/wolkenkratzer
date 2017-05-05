@@ -8,6 +8,8 @@ export interface ITemplate {
         [s: string]: IParameter;
     };
     readonly Resources: Array<IResource>;
-    readonly Outputs: Array<IOutput>;
+    readonly Outputs: {
+        [s: string]: IOutput;
+    };
 }
 export declare function Template(): ITemplate;
