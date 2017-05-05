@@ -1,9 +1,14 @@
 import { ITemplate } from './template';
 import { IElement } from './elements/element';
+import { IParameter } from './elements/parameter';
+import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
-export declare function add(t: ITemplate, e: IElement): ITemplate;
+import { IDescription } from './elements/description';
+export declare function addParameter(t: ITemplate, e: IParameter): ITemplate;
+export declare function addOutput(t: ITemplate, e: IOutput): ITemplate;
+export declare function addResource(t: ITemplate, e: IResource): ITemplate;
+export declare function addDescription(t: ITemplate, e: IDescription): ITemplate;
 export declare function remove(t: ITemplate, e: IElement | string): ITemplate;
 export declare function wipe(t: ITemplate, category: string): ITemplate;
 export declare type Jsonifiable = IOutput;
 export declare function build(t: ITemplate): object;
-export declare function json(t: ITemplate): string;

@@ -1,9 +1,15 @@
-const { Template, Output, add, remove, build } = require('../../dist/index');
+const {
+  Template,
+  Output,
+  addOutput,
+  remove,
+  build
+} = require('../../dist/index');
 
 describe('Output', () => {
   test('Can add a Output to Template', () => {
     let t = Template();
-    t = add(t, Output('NewOutput', { Value: 'String' }));
+    t = addOutput(t, Output('NewOutput', { Value: 'String' }));
     expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
@@ -18,21 +24,21 @@ describe('Output', () => {
   test('A new Output must have a Name', () => {
     let t = Template();
     expect(() => {
-      t = add(t, Output());
+      t = addOutput(t, Output());
     }).toThrow(SyntaxError);
   });
 
   test('A new Output must have a Value', () => {
     let t = Template();
     expect(() => {
-      t = add(t, Output('NewOutput'));
+      t = addOutput(t, Output('NewOutput'));
     }).toThrow(SyntaxError);
   });
 
   test('Can remove a Output to Template once it has been added', () => {
     let t = Template();
     let o = Output('NewOutput', { Value: 'String' });
-    t = add(t, o);
+    t = addOutput(t, o);
     t = remove(t, o);
     expect(build(t)).toEqual({
       Resources: {},
@@ -42,7 +48,7 @@ describe('Output', () => {
 
   test('Can remove a Output to Template once it has been added, by string Name', () => {
     let t = Template();
-    t = add(t, Output('NewOutput', { Value: 'String' }));
+    t = addOutput(t, Output('NewOutput', { Value: 'String' }));
     t = remove(t, 'NewOutput');
     expect(build(t)).toEqual({
       Resources: {},

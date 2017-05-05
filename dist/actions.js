@@ -9,8 +9,33 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function add(t, e) {
+function addParameter(t, e) {
     let result = Object.assign({}, t);
+    result.Parameters[e.Name] = e;
+    return result;
+}
+exports.addParameter = addParameter;
+function addOutput(t, e) {
+    let result = Object.assign({}, t);
+    result.Outputs[e.Name] = e;
+    return result;
+}
+exports.addOutput = addOutput;
+function addResource(t, e) {
+    let result = Object.assign({}, t);
+    result.Resources[e.Name] = e;
+    return result;
+}
+exports.addResource = addResource;
+function addDescription(t, e) {
+    let result = Object.assign({}, t);
+    let desc = { Description: e.Content };
+    result = Object.assign({}, t, desc);
+    return result;
+}
+exports.addDescription = addDescription;
+/*export function add(t: ITemplate, e: IElement): ITemplate {
+    let result = { ...t };
     switch (e.kind) {
         case 'parameter':
             result.Parameters[e.Name] = e;
@@ -23,14 +48,13 @@ function add(t, e) {
             break;
         case 'description':
             let desc = { Description: e.Content };
-            result = Object.assign({}, t, desc);
+            result = { ...t, ...desc };
             break;
         default:
             console.log('No match was found');
     }
     return result;
-}
-exports.add = add;
+}*/
 function remove(t, e) {
     let result = Object.assign({}, t);
     let element;
@@ -87,16 +111,16 @@ function _stripElement(t) {
     let { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
     return rest;
 }
-function _jsonRef(t) {
+function _buildRef(t) {
     return JSON.stringify({ Ref: t.target.Name });
 }
-function _jsonResource(t) {
+function _buildResource(t) {
     return _stripElement(t);
 }
-function _jsonOutput(t) {
+function _buildOutput(t) {
     let outputResult = Object.assign({}, t.Properties);
     if (typeof outputResult.Value !== 'string') {
-        outputResult = { Value: JSON.parse(_jsonRef(outputResult.Value)) };
+        outputResult = { Value: JSON.parse(_buildRef(outputResult.Value)) };
     }
     return JSON.stringify(outputResult);
 }
@@ -114,13 +138,13 @@ function build(t) {
     if (Object.keys(t.Outputs).length > 0) {
         result.Outputs = {};
         Object.keys(t.Outputs).map(o => {
-            result.Outputs[o] = JSON.parse(_jsonOutput(t.Outputs[o]));
+            result.Outputs[o] = JSON.parse(_buildOutput(t.Outputs[o]));
         });
     }
     if (Object.keys(t.Resources).length > 0) {
         result.Resources = {};
         Object.keys(t.Resources).map(r => {
-            result.Resources[r] = _jsonResource(t.Resources[r]);
+            result.Resources[r] = _buildResource(t.Resources[r]);
         });
     }
     if (t.Description) {
@@ -129,7 +153,3 @@ function build(t) {
     return result;
 }
 exports.build = build;
-function json(t) {
-    return JSON.stringify(build(t), null, 2);
-}
-exports.json = json;

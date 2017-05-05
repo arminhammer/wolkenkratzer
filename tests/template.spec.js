@@ -1,7 +1,8 @@
 const {
   Template,
   Output,
-  add,
+  addResource,
+  addOutput,
   S3,
   Ref,
   Description,
@@ -20,8 +21,8 @@ describe('Template', () => {
 
   test('Can turn create a valid S3 Template', () => {
     let t = Template();
-    t = add(t, S3.Bucket('Bucket'));
-    t = add(t, Output('BucketName', { Value: Ref(t, 'Bucket') }));
+    t = addResource(t, S3.Bucket('Bucket'));
+    t = addOutput(t, Output('BucketName', { Value: Ref(t, 'Bucket') }));
     expect(build(t)).toEqual(require('./templates/s3.json'));
   });
 
