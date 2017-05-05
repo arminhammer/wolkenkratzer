@@ -4,14 +4,12 @@ function Ref(t, target) {
     let result = Object.assign({}, t);
     let element;
     if (typeof target === 'string') {
-        let parameter = result.Parameters[target]; // .find(p => { return p.Name === target; });
-        if (parameter) {
-            element = parameter;
+        if (result.Parameters[target]) {
+            element = result.Parameters[target];
         }
         else {
-            let resource = result.Resources.find(r => { return r.Name === target; });
-            if (resource) {
-                element = resource;
+            if (result.Resources[target]) {
+                element = result.Resources[target];
             }
             else {
                 throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
@@ -23,15 +21,13 @@ function Ref(t, target) {
     }
     switch (element.kind) {
         case 'parameter':
-            let parameter = result.Parameters[element.Name]; // .indexOf(element);
-            if (parameter) {
+            if (result.Parameters[element.Name]) {
                 return { kind: 'ref', target: result.Parameters[element.Name] };
             }
             break;
         case 'resource':
-            let resource = result.Resources.indexOf(element);
-            if (resource !== -1) {
-                return { kind: 'ref', target: result.Resources[resource] };
+            if (result.Resources[element.Name]) {
+                return { kind: 'ref', target: result.Resources[element.Name] };
             }
             break;
         default:

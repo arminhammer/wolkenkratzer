@@ -7,7 +7,9 @@ export interface ITemplate {
     readonly Parameters: {
         [s: string]: IParameter;
     };
-    readonly Resources: Array<IResource>;
+    readonly Resources: {
+        [s: string]: IResource;
+    };
     readonly Outputs: {
         [s: string]: IOutput;
     };

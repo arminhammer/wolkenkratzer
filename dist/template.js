@@ -4,7 +4,7 @@ function Template() {
     return {
         Outputs: {},
         Parameters: {},
-        Resources: [],
+        Resources: {},
         kind: 'template'
     };
 }

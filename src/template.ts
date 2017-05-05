@@ -13,7 +13,7 @@ export interface ITemplate {
     // readonly Metadata: { [s: string]: IMetadata };
     // readonly Mappings: { [s: string]: IMapping };
     // readonly Conditions: { [s: string]: ICondition };
-    readonly Resources: Array<IResource>;
+    readonly Resources: { [s: string]: IResource };
     readonly Outputs: { [s: string]: IOutput };
 }
 
@@ -21,7 +21,7 @@ export function Template(): ITemplate {
     return {
         Outputs: {},
         Parameters: {},
-        Resources: [],
+        Resources: {},
         kind: 'template'
     };
 }

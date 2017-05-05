@@ -19,7 +19,7 @@ function add(t, e) {
             result.Outputs[e.Name] = e;
             break;
         case 'resource':
-            result.Resources.push(e);
+            result.Resources[e.Name] = e;
             break;
         case 'description':
             let desc = { Description: e.Content };
@@ -118,10 +118,10 @@ function json(t) {
                     result.Outputs[o] = JSON.parse(json(t.Outputs[o]));
                 });
             }
-            if (t.Resources.length > 0) {
+            if (Object.keys(t.Resources).length > 0) {
                 result.Resources = {};
-                t.Resources.map(r => {
-                    result.Resources[r.Name] = JSON.parse(json(r));
+                Object.keys(t.Resources).map(r => {
+                    result.Resources[r] = JSON.parse(json(t.Resources[r]));
                 });
             }
             if (t.Description) {
