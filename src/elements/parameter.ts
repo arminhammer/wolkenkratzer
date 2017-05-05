@@ -1,6 +1,4 @@
-export interface IParameter {
-    readonly kind: 'parameter';
-    readonly Name: string;
+export interface IParameterProperties {
     readonly Type: string;
     readonly AllowedPattern?: string;
     readonly AllowedValues?: string;
@@ -14,11 +12,16 @@ export interface IParameter {
     readonly NoEcho?: string;
 }
 
-export function Parameter(params: IParameter = {} as IParameter): IParameter {
-    if (!params.Name || !params.Type) {
-        throw new SyntaxError(`New Parameter with ${JSON.stringify(params)} parameters is invalid. Name and Type are required.`);
+export interface IParameter {
+    readonly kind: 'parameter';
+    readonly Name: string;
+    readonly Properties: IParameterProperties;
+}
+
+export function Parameter(name: string, properties: IParameterProperties = {} as IParameterProperties): IParameter {
+    if (!name || !properties.Type) {
+        throw new SyntaxError(`New Parameter with ${JSON.stringify({ name, properties })} parameters is invalid. Name and Type are required.`);
     }
-    const defaultP = { kind: 'parameter' };
-    const mix = { ...defaultP, ...params };
-    return mix;
+
+    return { kind: 'parameter', Name: name, Properties: properties };
 }

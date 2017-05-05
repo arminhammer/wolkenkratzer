@@ -114,7 +114,8 @@ function json(t) {
             if (t.Parameters.length > 0) {
                 result.Parameters = {};
                 t.Parameters.map(p => {
-                    result.Parameters[p.Name] = JSON.parse(json(p));
+                    // let { Properties } = p;
+                    result.Parameters[p.Name] = p.Properties;
                 });
             }
             if (t.Outputs.length > 0) {

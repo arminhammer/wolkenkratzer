@@ -3,7 +3,7 @@ const { Template, Parameter, add, remove, json } = require('../../dist/index');
 describe('Parameter', () => {
   test('Can add a Parameter to Template', () => {
     let t = Template();
-    t = add(t, Parameter({ Name: 'NewParam', Type: 'String' }));
+    t = add(t, Parameter('NewParam', { Type: 'String' }));
     expect(JSON.parse(json(t))).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
@@ -25,13 +25,13 @@ describe('Parameter', () => {
   test('A new Parameter must have a Type', () => {
     let t = Template();
     expect(() => {
-      t = add(t, Parameter({ Name: 'NewParam' }));
+      t = add(t, Parameter('NewParam'));
     }).toThrow(SyntaxError);
   });
 
   test('Can remove a Parameter to Template once it has been added', () => {
     let t = Template();
-    let p = Parameter({ Name: 'NewParam', Type: 'String' });
+    let p = Parameter('NewParam', { Type: 'String' });
     t = add(t, p);
     t = remove(t, p);
     expect(JSON.parse(json(t))).toEqual({
@@ -42,7 +42,7 @@ describe('Parameter', () => {
 
   test('Can remove a Parameter to Template once it has been added, by string Name', () => {
     let t = Template();
-    t = add(t, Parameter({ Name: 'NewParam', Type: 'String' }));
+    t = add(t, Parameter('NewParam', { Type: 'String' }));
     t = remove(t, 'NewParam');
     expect(JSON.parse(json(t))).toEqual({
       Resources: {},

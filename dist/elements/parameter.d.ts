@@ -1,6 +1,4 @@
-export interface IParameter {
-    readonly kind: 'parameter';
-    readonly Name: string;
+export interface IParameterProperties {
     readonly Type: string;
     readonly AllowedPattern?: string;
     readonly AllowedValues?: string;
@@ -13,4 +11,9 @@ export interface IParameter {
     readonly MinValue?: string;
     readonly NoEcho?: string;
 }
-export declare function Parameter(params?: IParameter): IParameter;
+export interface IParameter {
+    readonly kind: 'parameter';
+    readonly Name: string;
+    readonly Properties: IParameterProperties;
+}
+export declare function Parameter(name: string, properties?: IParameterProperties): IParameter;
