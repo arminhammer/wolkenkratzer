@@ -3,6 +3,15 @@ export { Parameter } from './elements/parameter';
 export { Description } from './elements/description';
 export { Output } from './elements/output';
 export { add, remove, json, wipe } from './actions';
-export { Ref } from './intrinsic'
+export { Ref } from './intrinsic';
 import { Service, IService } from './service';
-export const S3 = Service('S3');
+
+import * as fs from 'fs';
+import * as path from 'path';
+
+const files = fs.readdirSync(path.resolve(__dirname, '../stubs/json/resources/'));
+
+files.map(file => {
+    const service = file.replace('.json', '');
+    exports[service] = Service(service);
+});

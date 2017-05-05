@@ -16,4 +16,10 @@ exports.wipe = actions_1.wipe;
 var intrinsic_1 = require("./intrinsic");
 exports.Ref = intrinsic_1.Ref;
 const service_1 = require("./service");
-exports.S3 = service_1.Service('S3');
+const fs = require("fs");
+const path = require("path");
+const files = fs.readdirSync(path.resolve(__dirname, '../stubs/json/resources/'));
+files.map(file => {
+    const service = file.replace('.json', '');
+    exports[service] = service_1.Service(service);
+});
