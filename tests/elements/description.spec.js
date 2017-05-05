@@ -4,14 +4,14 @@ const {
   add,
   remove,
   wipe,
-  json
+  build
 } = require('../../dist/index');
 
 describe('Description', () => {
   test('Can add a Description to Template', () => {
     let t = Template();
     t = add(t, Description({ Content: 'NewDescription' }));
-    expect(JSON.parse(json(t))).toEqual({
+    expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
       Description: 'NewDescription'
@@ -30,7 +30,7 @@ describe('Description', () => {
     let d = Description({ Content: 'NewDescription' });
     t = add(t, d);
     t = remove(t, d);
-    expect(JSON.parse(json(t))).toEqual({
+    expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
     });
@@ -40,7 +40,7 @@ describe('Description', () => {
     let t = Template();
     t = add(t, Description({ Content: 'NewDescription' }));
     t = wipe(t, 'Description');
-    expect(JSON.parse(json(t))).toEqual({
+    expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
     });

@@ -76,56 +76,58 @@ export function wipe(t: ITemplate, category: string): ITemplate {
     }
 }
 
-export type Jsonifiable = ITemplate | IParameter | IOutput | IResource | IRef;
+export type Jsonifiable = IOutput;
 
-function stripElement(t: IParameter | IOutput | IResource): any {
+function _stripElement(t: IParameter | IOutput | IResource): any {
     let { kind, Name, ...rest } = t;
     return rest;
 }
 
-export function json(t: Jsonifiable): string {
-    switch (t.kind) {
-        case 'ref':
-            return JSON.stringify({ Ref: t.target.Name });
-        case 'parameter':
-            return JSON.stringify(stripElement(t));
-        case 'output':
-            let outputResult = Object.assign({}, t.Properties);
-            if (typeof outputResult.Value !== 'string') {
-                outputResult = { Value: JSON.parse(json(outputResult.Value)) };
-            }
-            return JSON.stringify(outputResult);
-        case 'resource':
-            return JSON.stringify(stripElement(t));
-        case 'template':
-            let result: any = {
-                AWSTemplateFormatVersion: '2010-09-09',
-                Resources: {}
-            };
-            if (Object.keys(t.Parameters).length > 0) {
-                result.Parameters = {};
-                Object.keys(t.Parameters).map(p => {
-                    result.Parameters[p] = t.Parameters[p].Properties;
-                });
-            }
-            if (Object.keys(t.Outputs).length > 0) {
-                result.Outputs = {};
-                Object.keys(t.Outputs).map(o => {
-                    result.Outputs[o] = JSON.parse(json(t.Outputs[o]));
-                });
-            }
-            if (Object.keys(t.Resources).length > 0) {
-                result.Resources = {};
-                Object.keys(t.Resources).map(r => {
-                    result.Resources[r] = JSON.parse(json(t.Resources[r]));
-                });
-            }
-            if (t.Description) {
-                result.Description = t.Description;
-            }
-            return JSON.stringify(result, null, 2);
-        default:
-            console.log('You cant do that!');
-            return 'Invalid!';
+function _jsonRef(t: IRef): string {
+    return JSON.stringify({ Ref: t.target.Name });
+}
+
+function _jsonResource(t: IResource): object {
+    return _stripElement(t);
+}
+
+function _jsonOutput(t: IOutput): string {
+    let outputResult = Object.assign({}, t.Properties);
+    if (typeof outputResult.Value !== 'string') {
+        outputResult = { Value: JSON.parse(_jsonRef(outputResult.Value)) };
     }
+    return JSON.stringify(outputResult);
+}
+
+export function build(t: ITemplate): object {
+    let result: any = {
+        AWSTemplateFormatVersion: '2010-09-09',
+        Resources: {}
+    };
+    if (Object.keys(t.Parameters).length > 0) {
+        result.Parameters = {};
+        Object.keys(t.Parameters).map(p => {
+            result.Parameters[p] = t.Parameters[p].Properties;
+        });
+    }
+    if (Object.keys(t.Outputs).length > 0) {
+        result.Outputs = {};
+        Object.keys(t.Outputs).map(o => {
+            result.Outputs[o] = JSON.parse(_jsonOutput(t.Outputs[o]));
+        });
+    }
+    if (Object.keys(t.Resources).length > 0) {
+        result.Resources = {};
+        Object.keys(t.Resources).map(r => {
+            result.Resources[r] = _jsonResource(t.Resources[r]);
+        });
+    }
+    if (t.Description) {
+        result.Description = t.Description;
+    }
+    return result;
+}
+
+export function json(t: ITemplate): string {
+    return JSON.stringify(build(t), null, 2);
 }

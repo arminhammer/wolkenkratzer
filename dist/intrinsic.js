@@ -22,12 +22,12 @@ function Ref(t, target) {
     switch (element.kind) {
         case 'parameter':
             if (result.Parameters[element.Name]) {
-                return { kind: 'ref', target: result.Parameters[element.Name] };
+                return { target: result.Parameters[element.Name] };
             }
             break;
         case 'resource':
             if (result.Resources[element.Name]) {
-                return { kind: 'ref', target: result.Resources[element.Name] };
+                return { target: result.Resources[element.Name] };
             }
             break;
         default:

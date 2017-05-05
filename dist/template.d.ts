@@ -2,7 +2,7 @@ import { IParameter } from './elements/parameter';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
 export interface ITemplate {
-    readonly kind: 'template';
+    readonly AWSTemplateFormatVersion: string;
     readonly Description?: string;
     readonly Parameters: {
         [s: string]: IParameter;

@@ -1,11 +1,9 @@
 import { ITemplate } from './template';
 import { IElement } from './elements/element';
-import { IParameter } from './elements/parameter';
-import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
-import { IRef } from './intrinsic';
 export declare function add(t: ITemplate, e: IElement): ITemplate;
 export declare function remove(t: ITemplate, e: IElement | string): ITemplate;
 export declare function wipe(t: ITemplate, category: string): ITemplate;
-export declare type Jsonifiable = ITemplate | IParameter | IOutput | IResource | IRef;
-export declare function json(t: Jsonifiable): string;
+export declare type Jsonifiable = IOutput;
+export declare function build(t: ITemplate): object;
+export declare function json(t: ITemplate): string;

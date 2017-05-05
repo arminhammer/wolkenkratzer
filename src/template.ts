@@ -7,7 +7,7 @@ import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
 
 export interface ITemplate {
-    readonly kind: 'template';
+    readonly AWSTemplateFormatVersion: string;
     readonly Description?: string;
     readonly Parameters: { [s: string]: IParameter };
     // readonly Metadata: { [s: string]: IMetadata };
@@ -19,9 +19,9 @@ export interface ITemplate {
 
 export function Template(): ITemplate {
     return {
+        AWSTemplateFormatVersion: '2010-09-09',
         Outputs: {},
         Parameters: {},
-        Resources: {},
-        kind: 'template'
+        Resources: {}
     };
 }

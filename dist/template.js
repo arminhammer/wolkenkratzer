@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function Template() {
     return {
+        AWSTemplateFormatVersion: '2010-09-09',
         Outputs: {},
         Parameters: {},
-        Resources: {},
-        kind: 'template'
+        Resources: {}
     };
 }
 exports.Template = Template;

@@ -83,54 +83,53 @@ function wipe(t, category) {
     }
 }
 exports.wipe = wipe;
-function stripElement(t) {
+function _stripElement(t) {
     let { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
     return rest;
 }
-function json(t) {
-    switch (t.kind) {
-        case 'ref':
-            return JSON.stringify({ Ref: t.target.Name });
-        case 'parameter':
-            return JSON.stringify(stripElement(t));
-        case 'output':
-            let outputResult = Object.assign({}, t.Properties);
-            if (typeof outputResult.Value !== 'string') {
-                outputResult = { Value: JSON.parse(json(outputResult.Value)) };
-            }
-            return JSON.stringify(outputResult);
-        case 'resource':
-            return JSON.stringify(stripElement(t));
-        case 'template':
-            let result = {
-                AWSTemplateFormatVersion: '2010-09-09',
-                Resources: {}
-            };
-            if (Object.keys(t.Parameters).length > 0) {
-                result.Parameters = {};
-                Object.keys(t.Parameters).map(p => {
-                    result.Parameters[p] = t.Parameters[p].Properties;
-                });
-            }
-            if (Object.keys(t.Outputs).length > 0) {
-                result.Outputs = {};
-                Object.keys(t.Outputs).map(o => {
-                    result.Outputs[o] = JSON.parse(json(t.Outputs[o]));
-                });
-            }
-            if (Object.keys(t.Resources).length > 0) {
-                result.Resources = {};
-                Object.keys(t.Resources).map(r => {
-                    result.Resources[r] = JSON.parse(json(t.Resources[r]));
-                });
-            }
-            if (t.Description) {
-                result.Description = t.Description;
-            }
-            return JSON.stringify(result, null, 2);
-        default:
-            console.log('You cant do that!');
-            return 'Invalid!';
+function _jsonRef(t) {
+    return JSON.stringify({ Ref: t.target.Name });
+}
+function _jsonResource(t) {
+    return _stripElement(t);
+}
+function _jsonOutput(t) {
+    let outputResult = Object.assign({}, t.Properties);
+    if (typeof outputResult.Value !== 'string') {
+        outputResult = { Value: JSON.parse(_jsonRef(outputResult.Value)) };
     }
+    return JSON.stringify(outputResult);
+}
+function build(t) {
+    let result = {
+        AWSTemplateFormatVersion: '2010-09-09',
+        Resources: {}
+    };
+    if (Object.keys(t.Parameters).length > 0) {
+        result.Parameters = {};
+        Object.keys(t.Parameters).map(p => {
+            result.Parameters[p] = t.Parameters[p].Properties;
+        });
+    }
+    if (Object.keys(t.Outputs).length > 0) {
+        result.Outputs = {};
+        Object.keys(t.Outputs).map(o => {
+            result.Outputs[o] = JSON.parse(_jsonOutput(t.Outputs[o]));
+        });
+    }
+    if (Object.keys(t.Resources).length > 0) {
+        result.Resources = {};
+        Object.keys(t.Resources).map(r => {
+            result.Resources[r] = _jsonResource(t.Resources[r]);
+        });
+    }
+    if (t.Description) {
+        result.Description = t.Description;
+    }
+    return result;
+}
+exports.build = build;
+function json(t) {
+    return JSON.stringify(build(t), null, 2);
 }
 exports.json = json;

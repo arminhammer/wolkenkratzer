@@ -1,10 +1,10 @@
-const { Template, Parameter, add, remove, json } = require('../../dist/index');
+const { Template, Parameter, add, remove, build } = require('../../dist/index');
 
 describe('Parameter', () => {
   test('Can add a Parameter to Template', () => {
     let t = Template();
     t = add(t, Parameter('NewParam', { Type: 'String' }));
-    expect(JSON.parse(json(t))).toEqual({
+    expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
       Parameters: {
@@ -34,7 +34,7 @@ describe('Parameter', () => {
     let p = Parameter('NewParam', { Type: 'String' });
     t = add(t, p);
     t = remove(t, p);
-    expect(JSON.parse(json(t))).toEqual({
+    expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
     });
@@ -44,7 +44,7 @@ describe('Parameter', () => {
     let t = Template();
     t = add(t, Parameter('NewParam', { Type: 'String' }));
     t = remove(t, 'NewParam');
-    expect(JSON.parse(json(t))).toEqual({
+    expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
     });

@@ -1,10 +1,10 @@
-const { Template, Output, add, remove, json } = require('../../dist/index');
+const { Template, Output, add, remove, build } = require('../../dist/index');
 
 describe('Output', () => {
   test('Can add a Output to Template', () => {
     let t = Template();
     t = add(t, Output('NewOutput', { Value: 'String' }));
-    expect(JSON.parse(json(t))).toEqual({
+    expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
       Outputs: {
@@ -34,7 +34,7 @@ describe('Output', () => {
     let o = Output('NewOutput', { Value: 'String' });
     t = add(t, o);
     t = remove(t, o);
-    expect(JSON.parse(json(t))).toEqual({
+    expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
     });
@@ -44,7 +44,7 @@ describe('Output', () => {
     let t = Template();
     t = add(t, Output('NewOutput', { Value: 'String' }));
     t = remove(t, 'NewOutput');
-    expect(JSON.parse(json(t))).toEqual({
+    expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
     });
