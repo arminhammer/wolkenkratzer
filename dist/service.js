@@ -9,7 +9,7 @@ function Service(name) {
     Object.keys(json).map(r => {
         // console.log('found')
         // console.log(r)
-        // let res = 
+        // let res =
         service[r] = resource_1.Resource.bind({ json, name: r });
         // service[r].bind(this);
     });

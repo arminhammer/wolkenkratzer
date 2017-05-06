@@ -12,7 +12,7 @@ export function Service(name: string): IService {
     Object.keys(json).map(r => {
         // console.log('found')
         // console.log(r)
-        // let res = 
+        // let res =
         service[r] = Resource.bind({ json, name: r });
         // service[r].bind(this);
     });

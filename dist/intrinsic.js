@@ -25,6 +25,10 @@ function Ref(t, target) {
     }
 }
 exports.Ref = Ref;
+function FnEquals(one, two) {
+    return { 'Fn::Equals': [one, two] };
+}
+exports.FnEquals = FnEquals;
 /*
 export function FnAnd(t: ITemplate): IIntrinsic { }
 export function FnEquals(t: ITemplate): IIntrinsic { }

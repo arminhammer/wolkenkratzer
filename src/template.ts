@@ -2,7 +2,7 @@ import { IParameter } from './elements/parameter';
 import { IDescription } from './elements/description';
 // import { IMetadata } from './elements/metadata';
 // import { IMapping } from './elements/mapping';
-// import { ICondition } from './elements/condition';
+import { ICondition } from './elements/condition';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
 
@@ -12,7 +12,7 @@ export interface ITemplate {
     readonly Parameters: { [s: string]: IParameter };
     // readonly Metadata: { [s: string]: IMetadata };
     // readonly Mappings: { [s: string]: IMapping };
-    // readonly Conditions: { [s: string]: ICondition };
+    readonly Conditions: { [s: string]: ICondition };
     readonly Resources: { [s: string]: IResource };
     readonly Outputs: { [s: string]: IOutput };
 }
@@ -20,6 +20,7 @@ export interface ITemplate {
 export function Template(): ITemplate {
     return {
         AWSTemplateFormatVersion: '2010-09-09',
+        Conditions: {},
         Outputs: {},
         Parameters: {},
         Resources: {}

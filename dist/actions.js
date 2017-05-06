@@ -9,6 +9,12 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+function addCondition(t, e) {
+    let result = Object.assign({}, t);
+    result.Conditions[e.Name] = e;
+    return result;
+}
+exports.addCondition = addCondition;
 function addParameter(t, e) {
     let result = Object.assign({}, t);
     result.Parameters[e.Name] = e;
@@ -101,6 +107,12 @@ function build(t) {
         AWSTemplateFormatVersion: '2010-09-09',
         Resources: {}
     };
+    if (Object.keys(t.Conditions).length > 0) {
+        result.Conditions = {};
+        Object.keys(t.Conditions).map(c => {
+            result.Conditions[c] = _stripName(t.Conditions[c]).Condition;
+        });
+    }
     if (Object.keys(t.Parameters).length > 0) {
         result.Parameters = {};
         Object.keys(t.Parameters).map(p => {

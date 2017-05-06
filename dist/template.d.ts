@@ -1,4 +1,5 @@
 import { IParameter } from './elements/parameter';
+import { ICondition } from './elements/condition';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
 export interface ITemplate {
@@ -6,6 +7,9 @@ export interface ITemplate {
     readonly Description?: string;
     readonly Parameters: {
         [s: string]: IParameter;
+    };
+    readonly Conditions: {
+        [s: string]: ICondition;
     };
     readonly Resources: {
         [s: string]: IResource;

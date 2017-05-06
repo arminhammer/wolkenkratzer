@@ -6,6 +6,29 @@ export interface IRef {
     readonly Ref: string;
 }
 
+export type Conditional = string | IRef;
+export type ConditionFunction = IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
+
+export interface IFnAnd {
+    readonly 'Fn::And': Array<Conditional>;
+}
+
+export interface IFnEquals {
+    readonly 'Fn::Equals': Array<Conditional>;
+}
+
+export interface IFnIf {
+    readonly 'Fn::If': Array<Conditional>;
+}
+
+export interface IFnNot {
+    readonly 'Fn::Not': Array<Conditional>;
+}
+
+export interface IFnOr {
+    readonly 'Fn::Or': Array<Conditional>;
+}
+
 export function Ref(t: ITemplate, target: IResource | IParameter | string): IRef {
     let result = { ...t };
     let element: IResource | IParameter;
@@ -25,6 +48,10 @@ export function Ref(t: ITemplate, target: IResource | IParameter | string): IRef
     } else {
         throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
     }
+}
+
+export function FnEquals(one: Conditional, two: Conditional): IFnEquals {
+    return { 'Fn::Equals': [one, two] };
 }
 
 /*

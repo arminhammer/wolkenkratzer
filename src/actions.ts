@@ -1,10 +1,17 @@
 import { ITemplate } from './template';
 import { IElement } from './elements/element';
+import { ICondition } from './elements/condition';
 import { IParameter } from './elements/parameter';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
 import { IDescription } from './elements/description';
 import { IRef } from './intrinsic';
+
+export function addCondition(t: ITemplate, e: ICondition): ITemplate {
+    let result = { ...t };
+    result.Conditions[e.Name] = e;
+    return result;
+}
 
 export function addParameter(t: ITemplate, e: IParameter): ITemplate {
     let result = { ...t };
@@ -76,7 +83,7 @@ export function removeDescription(t: ITemplate): ITemplate {
     return remaining;
 }
 
-function _stripName(t: IParameter | IOutput | IResource): any {
+function _stripName(t: IParameter | IOutput | IResource | ICondition): any {
     let { Name, ...rest } = t;
     return rest;
 }
@@ -94,6 +101,12 @@ export function build(t: ITemplate): object {
         AWSTemplateFormatVersion: '2010-09-09',
         Resources: {}
     };
+    if (Object.keys(t.Conditions).length > 0) {
+        result.Conditions = {};
+        Object.keys(t.Conditions).map(c => {
+            result.Conditions[c] = _stripName(t.Conditions[c]).Condition;
+        });
+    }
     if (Object.keys(t.Parameters).length > 0) {
         result.Parameters = {};
         Object.keys(t.Parameters).map(p => {

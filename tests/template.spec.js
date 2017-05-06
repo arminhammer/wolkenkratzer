@@ -1,10 +1,15 @@
 const {
   Template,
   Output,
+  Condition,
   addResource,
+  addCondition,
   addOutput,
+  addDescription,
+  addParameter,
   S3,
   Ref,
+  FnEquals,
   Description,
   Parameter,
   build
@@ -26,15 +31,15 @@ describe('Template', () => {
     expect(build(t)).toEqual(require('./templates/s3.json'));
   });
 
-  /*test('Can turn create a valid AMI Template', () => {
+  test('Can turn create a valid AMI Template', () => {
     let t = Template();
-    t = add(
+    t = addDescription(
       t,
       Description({
         Content: 'Base template that always uses the newest Amazon Linux AMI'
       })
     );
-    t = add(
+    t = addParameter(
       t,
       Parameter('InstanceType', {
         Description: 'EC2 instance type',
@@ -92,7 +97,7 @@ describe('Template', () => {
         ConstraintDescription: 'Must be a valid EC2 instance type.'
       })
     );
-    t = add(
+    t = addParameter(
       t,
       Parameter('AMI', {
         Description: 'Instance AMI',
@@ -109,9 +114,38 @@ describe('Template', () => {
         ]
       })
     );
+    t = addCondition(
+      t,
+      Condition('AmazonAMI', FnEquals(Ref(t, 'AMI'), 'Amazon'))
+    );
+    t = addCondition(
+      t,
+      Condition('CentOSAMI', FnEquals(Ref(t, 'AMI'), 'CentOS'))
+    );
+    t = addCondition(
+      t,
+      Condition('DebianAMI', FnEquals(Ref(t, 'AMI'), 'Debian'))
+    );
+    t = addCondition(
+      t,
+      Condition('FedoraAMI', FnEquals(Ref(t, 'AMI'), 'Fedora'))
+    );
+    t = addCondition(
+      t,
+      Condition('RedHatAMI', FnEquals(Ref(t, 'AMI'), 'RedHat'))
+    );
+    t = addCondition(
+      t,
+      Condition('UbuntuAMI', FnEquals(Ref(t, 'AMI'), 'Ubuntu'))
+    );
+    t = addCondition(
+      t,
+      Condition('WindowsAMI', FnEquals(Ref(t, 'AMI'), 'Windows'))
+    );
+    console.log(JSON.stringify(build(t), null, 2));
     // t = add(t, S3.Bucket('Bucket'));
     // t = add(t, Output('BucketName', { Value: Ref(t, 'Bucket') }));
     // t = add(t, Output({ Name: 'BucketName', Value: Ref(t, 'Bucket') }));
-    expect(JSON.parse(json(t))).toEqual(require('./templates/ami.json'));
-  });*/
+    expect(build(t)).toEqual(require('./templates/ami.json'));
+  });
 });
