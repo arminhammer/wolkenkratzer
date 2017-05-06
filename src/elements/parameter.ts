@@ -13,7 +13,6 @@ export interface IParameterProperties {
 }
 
 export interface IParameter {
-    readonly kind: 'parameter';
     readonly Name: string;
     readonly Properties: IParameterProperties;
 }
@@ -23,5 +22,5 @@ export function Parameter(name: string, properties: IParameterProperties = {} as
         throw new SyntaxError(`New Parameter with ${JSON.stringify({ name, properties })} parameters is invalid. Name and Type are required.`);
     }
 
-    return { kind: 'parameter', Name: name, Properties: properties };
+    return { Name: name, Properties: properties };
 }

@@ -19,21 +19,15 @@ function Ref(t, target) {
     else {
         element = target;
     }
-    switch (element.kind) {
-        case 'parameter':
-            if (result.Parameters[element.Name]) {
-                return { target: result.Parameters[element.Name] };
-            }
-            break;
-        case 'resource':
-            if (result.Resources[element.Name]) {
-                return { target: result.Resources[element.Name] };
-            }
-            break;
-        default:
-            throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
+    if (result.Parameters[element.Name]) {
+        return { target: result.Parameters[element.Name] };
     }
-    throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
+    else if (result.Resources[element.Name]) {
+        return { target: result.Resources[element.Name] };
+    }
+    else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
+    }
 }
 exports.Ref = Ref;
 /*

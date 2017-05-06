@@ -7,7 +7,6 @@ export interface IOutputProperties {
     };
 }
 export interface IOutput {
-    readonly kind: 'output';
     readonly Name: string;
     readonly Properties: IOutputProperties;
 }

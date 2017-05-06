@@ -34,27 +34,6 @@ function addDescription(t, e) {
     return result;
 }
 exports.addDescription = addDescription;
-/*export function add(t: ITemplate, e: IElement): ITemplate {
-    let result = { ...t };
-    switch (e.kind) {
-        case 'parameter':
-            result.Parameters[e.Name] = e;
-            break;
-        case 'output':
-            result.Outputs[e.Name] = e;
-            break;
-        case 'resource':
-            result.Resources[e.Name] = e;
-            break;
-        case 'description':
-            let desc = { Description: e.Content };
-            result = { ...t, ...desc };
-            break;
-        default:
-            console.log('No match was found');
-    }
-    return result;
-}*/
 function removeParameter(t, e) {
     let result = Object.assign({}, t);
     let param;
@@ -106,15 +85,15 @@ function removeDescription(t) {
     return remaining;
 }
 exports.removeDescription = removeDescription;
-function _stripElement(t) {
-    let { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
+function _stripName(t) {
+    let { Name } = t, rest = __rest(t, ["Name"]);
     return rest;
 }
 function _buildRef(t) {
     return JSON.stringify({ Ref: t.target.Name });
 }
 function _buildResource(t) {
-    return _stripElement(t);
+    return _stripName(t);
 }
 function _buildOutput(t) {
     let outputResult = Object.assign({}, t.Properties);

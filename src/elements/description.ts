@@ -1,5 +1,4 @@
 export interface IDescription {
-    readonly kind: 'description';
     readonly Content: string;
 }
 

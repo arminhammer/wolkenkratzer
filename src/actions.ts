@@ -76,8 +76,8 @@ export function removeDescription(t: ITemplate): ITemplate {
     return remaining;
 }
 
-function _stripElement(t: IParameter | IOutput | IResource): any {
-    let { kind, Name, ...rest } = t;
+function _stripName(t: IParameter | IOutput | IResource): any {
+    let { Name, ...rest } = t;
     return rest;
 }
 
@@ -86,7 +86,7 @@ function _buildRef(t: IRef): string {
 }
 
 function _buildResource(t: IResource): object {
-    return _stripElement(t);
+    return _stripName(t);
 }
 
 function _buildOutput(t: IOutput): string {

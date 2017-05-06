@@ -1,5 +1,4 @@
 export interface IResource {
-    readonly kind: 'resource';
     readonly Name: string;
     readonly Type: string;
     readonly Properties: any;
