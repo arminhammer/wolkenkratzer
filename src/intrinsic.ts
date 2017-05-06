@@ -3,7 +3,7 @@ import { IParameter } from './elements/parameter';
 import { ITemplate } from './template';
 
 export interface IRef {
-    readonly target: IResource | IParameter;
+    readonly Ref: string;
 }
 
 export function Ref(t: ITemplate, target: IResource | IParameter | string): IRef {
@@ -11,23 +11,19 @@ export function Ref(t: ITemplate, target: IResource | IParameter | string): IRef
     let element: IResource | IParameter;
     if (typeof target === 'string') {
         if (result.Parameters[target]) {
-            element = result.Parameters[target];
+            return { Ref: target };
+        } else if (result.Resources[target]) {
+            return { Ref: target };
         } else {
-            if (result.Resources[target]) {
-                element = result.Resources[target];
-            } else {
-                throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
-            }
+            throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
         }
-    } else {
-        element = target;
     }
-    if (result.Parameters[element.Name]) {
-        return { target: result.Parameters[element.Name] };
-    } else if (result.Resources[element.Name]) {
-        return { target: result.Resources[element.Name] };
+    if (result.Parameters[target.Name]) {
+        return { Ref: target.Name };
+    } else if (result.Resources[target.Name]) {
+        return { Ref: target.Name };
     } else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
+        throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
     }
 }
 

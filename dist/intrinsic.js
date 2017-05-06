@@ -5,28 +5,23 @@ function Ref(t, target) {
     let element;
     if (typeof target === 'string') {
         if (result.Parameters[target]) {
-            element = result.Parameters[target];
+            return { Ref: target };
+        }
+        else if (result.Resources[target]) {
+            return { Ref: target };
         }
         else {
-            if (result.Resources[target]) {
-                element = result.Resources[target];
-            }
-            else {
-                throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
-            }
+            throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
         }
     }
-    else {
-        element = target;
+    if (result.Parameters[target.Name]) {
+        return { Ref: target.Name };
     }
-    if (result.Parameters[element.Name]) {
-        return { target: result.Parameters[element.Name] };
-    }
-    else if (result.Resources[element.Name]) {
-        return { target: result.Resources[element.Name] };
+    else if (result.Resources[target.Name]) {
+        return { Ref: target.Name };
     }
     else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
+        throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
     }
 }
 exports.Ref = Ref;

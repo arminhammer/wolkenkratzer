@@ -89,16 +89,10 @@ function _stripName(t) {
     let { Name } = t, rest = __rest(t, ["Name"]);
     return rest;
 }
-function _buildRef(t) {
-    return JSON.stringify({ Ref: t.target.Name });
-}
-function _buildResource(t) {
-    return _stripName(t);
-}
 function _buildOutput(t) {
     let outputResult = Object.assign({}, t.Properties);
     if (typeof outputResult.Value !== 'string') {
-        outputResult = { Value: JSON.parse(_buildRef(outputResult.Value)) };
+        outputResult = { Value: outputResult.Value };
     }
     return JSON.stringify(outputResult);
 }
@@ -122,7 +116,7 @@ function build(t) {
     if (Object.keys(t.Resources).length > 0) {
         result.Resources = {};
         Object.keys(t.Resources).map(r => {
-            result.Resources[r] = _buildResource(t.Resources[r]);
+            result.Resources[r] = _stripName(t.Resources[r]);
         });
     }
     if (t.Description) {
