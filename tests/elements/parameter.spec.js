@@ -2,7 +2,7 @@ const {
   Template,
   Parameter,
   addParameter,
-  remove,
+  removeParameter,
   build
 } = require('../../dist/index');
 
@@ -39,7 +39,7 @@ describe('Parameter', () => {
     let t = Template();
     let p = Parameter('NewParam', { Type: 'String' });
     t = addParameter(t, p);
-    t = remove(t, p);
+    t = removeParameter(t, p);
     expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
@@ -49,7 +49,7 @@ describe('Parameter', () => {
   test('Can remove a Parameter to Template once it has been added, by string Name', () => {
     let t = Template();
     t = addParameter(t, Parameter('NewParam', { Type: 'String' }));
-    t = remove(t, 'NewParam');
+    t = removeParameter(t, 'NewParam');
     expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'

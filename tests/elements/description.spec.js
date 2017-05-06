@@ -3,7 +3,7 @@ const {
   Description,
   addDescription,
   remove,
-  wipe,
+  removeDescription,
   build
 } = require('../../dist/index');
 
@@ -25,21 +25,10 @@ describe('Description', () => {
     }).toThrow(SyntaxError);
   });
 
-  test('Can remove a Description to Template once it has been added', () => {
-    let t = Template();
-    let d = Description({ Content: 'NewDescription' });
-    t = addDescription(t, d);
-    t = remove(t, d);
-    expect(build(t)).toEqual({
-      Resources: {},
-      AWSTemplateFormatVersion: '2010-09-09'
-    });
-  });
-
-  test('Can wipe a Description from a Template after adding it', () => {
+  test('Can remove a Description from a Template', () => {
     let t = Template();
     t = addDescription(t, Description({ Content: 'NewDescription' }));
-    t = wipe(t, 'Description');
+    t = removeDescription(t);
     expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'

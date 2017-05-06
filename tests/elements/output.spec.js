@@ -2,7 +2,7 @@ const {
   Template,
   Output,
   addOutput,
-  remove,
+  removeOutput,
   build
 } = require('../../dist/index');
 
@@ -39,7 +39,7 @@ describe('Output', () => {
     let t = Template();
     let o = Output('NewOutput', { Value: 'String' });
     t = addOutput(t, o);
-    t = remove(t, o);
+    t = removeOutput(t, o);
     expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
@@ -49,7 +49,7 @@ describe('Output', () => {
   test('Can remove a Output to Template once it has been added, by string Name', () => {
     let t = Template();
     t = addOutput(t, Output('NewOutput', { Value: 'String' }));
-    t = remove(t, 'NewOutput');
+    t = removeOutput(t, 'NewOutput');
     expect(build(t)).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'

@@ -55,58 +55,57 @@ exports.addDescription = addDescription;
     }
     return result;
 }*/
-function remove(t, e) {
+function removeParameter(t, e) {
     let result = Object.assign({}, t);
-    let element;
+    let param;
     if (typeof e === 'string') {
-        let parameter = result.Parameters[e];
-        if (parameter) {
-            element = parameter;
+        if (result.Parameters[e]) {
+            param = result.Parameters[e];
         }
         else {
-            let output = result.Outputs[e];
-            if (output) {
-                element = output;
-            }
-            else {
-                throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-            }
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
         }
     }
     else {
-        element = e;
+        param = e;
     }
-    switch (element.kind) {
-        case 'parameter':
-            if (result.Parameters[element.Name]) {
-                delete result.Parameters[element.Name];
-            }
-            break;
-        case 'output':
-            if (result.Outputs[element.Name]) {
-                delete result.Outputs[element.Name];
-            }
-            break;
-        case 'description':
-            const { Description } = result, remaining = __rest(result, ["Description"]);
-            result = remaining;
-            break;
-        default:
-            throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
+    if (result.Parameters[param.Name]) {
+        delete result.Parameters[param.Name];
+    }
+    else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
     }
     return result;
 }
-exports.remove = remove;
-function wipe(t, category) {
-    switch (category) {
-        case 'Description':
-            const { Description } = t, remaining = __rest(t, ["Description"]);
-            return remaining;
-        default:
-            throw new SyntaxError(`${category} is not a valid part of a CloudFormation template.`);
+exports.removeParameter = removeParameter;
+function removeOutput(t, e) {
+    let result = Object.assign({}, t);
+    let out;
+    if (typeof e === 'string') {
+        if (result.Outputs[e]) {
+            out = result.Outputs[e];
+        }
+        else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+        }
     }
+    else {
+        out = e;
+    }
+    if (result.Outputs[out.Name]) {
+        delete result.Outputs[out.Name];
+    }
+    else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
+    }
+    return result;
 }
-exports.wipe = wipe;
+exports.removeOutput = removeOutput;
+function removeDescription(t) {
+    const { Description } = t, remaining = __rest(t, ["Description"]);
+    return remaining;
+}
+exports.removeDescription = removeDescription;
 function _stripElement(t) {
     let { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
     return rest;

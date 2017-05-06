@@ -31,78 +31,50 @@ export function addDescription(t: ITemplate, e: IDescription): ITemplate {
     return result;
 }
 
-/*export function add(t: ITemplate, e: IElement): ITemplate {
+export function removeParameter(t: ITemplate, e: IParameter | string): ITemplate {
     let result = { ...t };
-    switch (e.kind) {
-        case 'parameter':
-            result.Parameters[e.Name] = e;
-            break;
-        case 'output':
-            result.Outputs[e.Name] = e;
-            break;
-        case 'resource':
-            result.Resources[e.Name] = e;
-            break;
-        case 'description':
-            let desc = { Description: e.Content };
-            result = { ...t, ...desc };
-            break;
-        default:
-            console.log('No match was found');
-    }
-    return result;
-}*/
-
-export function remove(t: ITemplate, e: IElement | string): ITemplate {
-    let result = { ...t };
-    let element: IElement;
+    let param: IParameter;
     if (typeof e === 'string') {
-        let parameter: IParameter | undefined = result.Parameters[e];
-        if (parameter) {
-            element = parameter;
+        if (result.Parameters[e]) {
+            param = result.Parameters[e];
         } else {
-            let output: IOutput | undefined = result.Outputs[e];
-            if (output) {
-                element = output;
-            } else {
-                throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-            }
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
         }
     } else {
-        element = e;
+        param = e;
     }
-    switch (element.kind) {
-        case 'parameter':
-            if (result.Parameters[element.Name]) {
-                delete result.Parameters[element.Name];
-            }
-            break;
-        case 'output':
-            if (result.Outputs[element.Name]) {
-                delete result.Outputs[element.Name];
-            }
-            break;
-        case 'description':
-            const { Description, ...remaining } = result;
-            result = remaining;
-            break;
-        default:
-            throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
+    if (result.Parameters[param.Name]) {
+        delete result.Parameters[param.Name];
+    } else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
     }
     return result;
 }
 
-export function wipe(t: ITemplate, category: string): ITemplate {
-    switch (category) {
-        case 'Description':
-            const { Description, ...remaining } = t;
-            return remaining;
-        default:
-            throw new SyntaxError(`${category} is not a valid part of a CloudFormation template.`);
+export function removeOutput(t: ITemplate, e: IOutput | string): ITemplate {
+    let result = { ...t };
+    let out: IOutput;
+    if (typeof e === 'string') {
+        if (result.Outputs[e]) {
+            out = result.Outputs[e];
+        } else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+        }
+    } else {
+        out = e;
     }
+    if (result.Outputs[out.Name]) {
+        delete result.Outputs[out.Name];
+    } else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
+    }
+    return result;
 }
 
-export type Jsonifiable = IOutput;
+export function removeDescription(t: ITemplate): ITemplate {
+    const { Description, ...remaining } = t;
+    return remaining;
+}
 
 function _stripElement(t: IParameter | IOutput | IResource): any {
     let { kind, Name, ...rest } = t;
