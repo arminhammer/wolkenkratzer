@@ -10,7 +10,7 @@
   "dependencies": {
     "@types/node": "^7.0.15",
     "aws-sdk": "^2.3.17",
-    "bluebird": "^3.4.1",
+    "bluebird": "^3.5.0",
     "js-yaml": "^3.6.1",
     "typings": "^2.1.1"
   },
@@ -21,6 +21,8 @@
     "ava": "^0.18.2",
     "browserify": "^14.1.0",
     "core-js": "^2.4.1",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.0",
     "fs-extra": "^2.0.0",
     "jest": "^19.0.2",
     "lodash": "^4.13.1",
