@@ -98,7 +98,7 @@ function _stripName(t) {
 function _buildOutput(t) {
     let outputResult = Object.assign({}, t.Properties);
     if (typeof outputResult.Value !== 'string') {
-        outputResult = { Value: outputResult.Value };
+        outputResult = Object.assign({}, outputResult, { Value: outputResult.Value });
     }
     return JSON.stringify(outputResult);
 }

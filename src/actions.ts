@@ -91,7 +91,7 @@ function _stripName(t: IParameter | IOutput | IResource | ICondition): any {
 function _buildOutput(t: IOutput): string {
     let outputResult = Object.assign({}, t.Properties);
     if (typeof outputResult.Value !== 'string') {
-        outputResult = { Value: outputResult.Value };
+        outputResult = { ...outputResult, Value: outputResult.Value };
     }
     return JSON.stringify(outputResult);
 }
