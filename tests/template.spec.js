@@ -37,6 +37,15 @@ describe('Template', () => {
   });
 
   test('Can turn create a valid AMI Template', () => {
+    const osTypes = [
+      'Amazon',
+      'Ubuntu',
+      'RedHat',
+      'Windows',
+      'CentOS',
+      'Debian',
+      'Fedora'
+    ];
     let t = Template();
     t = addDescription(
       t,
@@ -108,26 +117,10 @@ describe('Template', () => {
         Description: 'Instance AMI',
         Type: 'String',
         Default: 'Amazon',
-        AllowedValues: [
-          'Amazon',
-          'Ubuntu',
-          'RedHat',
-          'Windows',
-          'CentOS',
-          'Debian',
-          'Fedora'
-        ]
+        AllowedValues: osTypes
       })
     );
-    [
-      'Amazon',
-      'CentOS',
-      'Debian',
-      'Fedora',
-      'RedHat',
-      'Ubuntu',
-      'Windows'
-    ].map(os => {
+    osTypes.map(os => {
       t = addCondition(t, Condition(`${os}AMI`, FnEquals(Ref(t, 'AMI'), os)));
     });
     t = addResource(
