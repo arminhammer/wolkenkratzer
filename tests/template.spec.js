@@ -3,12 +3,17 @@ const {
   Output,
   Condition,
   addResource,
+  CustomResource,
   addCondition,
   addOutput,
   addDescription,
   addParameter,
   S3,
+  IAM,
+  Lambda,
+  EC2,
   Ref,
+  FnGetAtt,
   FnEquals,
   Description,
   Parameter,
@@ -114,38 +119,296 @@ describe('Template', () => {
         ]
       })
     );
-    t = addCondition(
+    [
+      'Amazon',
+      'CentOS',
+      'Debian',
+      'Fedora',
+      'RedHat',
+      'Ubuntu',
+      'Windows'
+    ].map(os => {
+      t = addCondition(t, Condition(`${os}AMI`, FnEquals(Ref(t, 'AMI'), os)));
+    });
+    t = addResource(
       t,
-      Condition('AmazonAMI', FnEquals(Ref(t, 'AMI'), 'Amazon'))
+      CustomResource('AMIInfo', {
+        ServiceToken: {
+          'Fn::GetAtt': ['AMIInfoFunction', 'Arn']
+        },
+        Region: {
+          Ref: 'AWS::Region'
+        },
+        Filters: [
+          {
+            'Fn::If': [
+              'AmazonAMI',
+              {
+                Name: 'name',
+                Values: ['amzn-ami-hvm*.x86_64-gp2']
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'AmazonAMI',
+              {
+                Name: 'owner-alias',
+                Values: ['amazon']
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'UbuntuAMI',
+              {
+                Name: 'name',
+                Values: ['ubuntu*amd64-server*']
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'UbuntuAMI',
+              {
+                Values: ['099720109477'],
+                Name: 'owner-id'
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'RedHatAMI',
+              {
+                Name: 'name',
+                Values: ['RHEL-*_HVM_GA-*-x86_64*Hourly2-GP2']
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'RedHatAMI',
+              {
+                Values: ['309956199498'],
+                Name: 'owner-id'
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'WindowsAMI',
+              {
+                Name: 'name',
+                Values: ['Windows_Server-*-English-64Bit-Base-*']
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'WindowsAMI',
+              {
+                Name: 'owner-alias',
+                Values: ['amazon']
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'CentOSAMI',
+              {
+                Name: 'name',
+                Values: ['CentOS Linux*x86_64 HVM EBS*']
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'CentOSAMI',
+              {
+                Values: ['aws-marketplace'],
+                Name: 'owner-alias'
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'DebianAMI',
+              {
+                Name: 'name',
+                Values: ['debian-*-amd64-hvm-2015*-ebs*']
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            'Fn::If': [
+              'DebianAMI',
+              {
+                Values: ['aws-marketplace'],
+                Name: 'owner-alias'
+              },
+              {
+                Ref: 'AWS::NoValue'
+              }
+            ]
+          },
+          {
+            Name: 'virtualization-type',
+            Values: ['hvm']
+          },
+          {
+            Name: 'architecture',
+            Values: ['x86_64']
+          }
+        ]
+      })
     );
-    t = addCondition(
+    t = addResource(
       t,
-      Condition('CentOSAMI', FnEquals(Ref(t, 'AMI'), 'CentOS'))
+      EC2.Instance('CFInstance', {
+        InstanceType: Ref(t, 'InstanceType'),
+        ImageId: FnGetAtt(t, 'AMIInfo', 'Id')
+      })
     );
-    t = addCondition(
+    t = addResource(
       t,
-      Condition('DebianAMI', FnEquals(Ref(t, 'AMI'), 'Debian'))
+      IAM.Role('LambdaExecutionRole', {
+        AssumeRolePolicyDocument: {
+          Version: '2012-10-17',
+          Statement: [
+            {
+              Effect: 'Allow',
+              Principal: {
+                Service: ['lambda.amazonaws.com']
+              },
+              Action: ['sts:AssumeRole']
+            }
+          ]
+        },
+        Path: '/',
+        Policies: [
+          {
+            PolicyName: 'root',
+            PolicyDocument: {
+              Version: '2012-10-17',
+              Statement: [
+                {
+                  Effect: 'Allow',
+                  Action: [
+                    'logs:CreateLogGroup',
+                    'logs:CreateLogStream',
+                    'logs:PutLogEvents'
+                  ],
+                  Resource: 'arn:aws:logs:*:*:*'
+                },
+                {
+                  Effect: 'Allow',
+                  Action: ['ec2:DescribeImages'],
+                  Resource: '*'
+                }
+              ]
+            }
+          }
+        ]
+      })
     );
-    t = addCondition(
+    t = addResource(
       t,
-      Condition('FedoraAMI', FnEquals(Ref(t, 'AMI'), 'Fedora'))
+      Lambda.Function('AMIInfoFunction', {
+        Code: {
+          ZipFile: {
+            'Fn::Join': [
+              '',
+              [
+                "  var response = require('cfn-response');",
+                "  var aws = require('aws-sdk');",
+                '',
+                '  exports.handler = function(event, context) {',
+                "      if (event.RequestType == 'Delete') {",
+                "          response.send(event, context, 'SUCCESS');",
+                '          return;',
+                '      }',
+                "      var responseStatus = 'FAILED';",
+                '      var responseData = {};',
+                '',
+                '      var ec2 = new aws.EC2({region: event.ResourceProperties.Region});',
+                '      var describeImagesParams = {',
+                '          Filters: event.ResourceProperties.Filters',
+                '      };',
+                '',
+                '      ec2.describeImages(describeImagesParams, function(err, describeImagesResult) {',
+                '          if (err) {',
+                '              console.log(err);',
+                '          }',
+                '          else {',
+                '              var images = describeImagesResult.Images;',
+                '              images.sort(function(x, y) { return y.Name.localeCompare(x.Name); });',
+                '              for (var j = 0; j < images.length; j++) {',
+                '                  if (isBeta(images[j].Name)) continue;',
+                "                  responseStatus = 'SUCCESS';",
+                '                  responseData.Id = images[j].ImageId;',
+                '                  break;',
+                '              }',
+                '          }',
+                '          response.send(event, context, responseStatus, responseData);',
+                '      });',
+                '  };',
+                '',
+                '  function isBeta(imageName) {',
+                "      return imageName.toLowerCase().indexOf('beta') > -1 || imageName.toLowerCase().indexOf('.rc') > -1;",
+                '}',
+                ''
+              ]
+            ]
+          }
+        },
+        Handler: 'index.handler',
+        Role: {
+          'Fn::GetAtt': ['LambdaExecutionRole', 'Arn']
+        },
+        Runtime: 'nodejs',
+        Timeout: '60'
+      })
     );
-    t = addCondition(
+    t = addOutput(
       t,
-      Condition('RedHatAMI', FnEquals(Ref(t, 'AMI'), 'RedHat'))
+      Output('AMIID', {
+        Description: 'The Amazon EC2 instance AMI ID.',
+        Value: FnGetAtt(t, 'AMIInfo', 'Id')
+      })
     );
-    t = addCondition(
-      t,
-      Condition('UbuntuAMI', FnEquals(Ref(t, 'AMI'), 'Ubuntu'))
-    );
-    t = addCondition(
-      t,
-      Condition('WindowsAMI', FnEquals(Ref(t, 'AMI'), 'Windows'))
-    );
-    console.log(JSON.stringify(build(t), null, 2));
-    // t = add(t, S3.Bucket('Bucket'));
-    // t = add(t, Output('BucketName', { Value: Ref(t, 'Bucket') }));
-    // t = add(t, Output({ Name: 'BucketName', Value: Ref(t, 'Bucket') }));
     expect(build(t)).toEqual(require('./templates/ami.json'));
   });
 });

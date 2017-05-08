@@ -4,3 +4,4 @@ export interface IResource {
     readonly Properties: any;
 }
 export declare function Resource(name: string, properties: object): IResource;
+export declare function CustomResource(name: string, properties: object): IResource;

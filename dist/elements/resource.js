@@ -7,3 +7,10 @@ function Resource(name, properties) {
     return { Name: name, Type: this.json[this.name].Name, Properties: properties };
 }
 exports.Resource = Resource;
+function CustomResource(name, properties) {
+    if (!name) {
+        throw new SyntaxError(`New Resource is invalid. A Name is required.`);
+    }
+    return { Name: name, Type: `Custom::${name}`, Properties: properties };
+}
+exports.CustomResource = CustomResource;

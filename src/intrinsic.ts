@@ -6,6 +6,11 @@ export interface IRef {
     readonly Ref: string;
 }
 
+export interface IFnGetAtt {
+    readonly 'Fn::GetAtt': Array<string>;
+}
+
+// export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 export type Conditional = string | IRef;
 export type ConditionFunction = IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 
@@ -27,6 +32,23 @@ export interface IFnNot {
 
 export interface IFnOr {
     readonly 'Fn::Or': Array<Conditional>;
+}
+
+export function FnGetAtt(t: ITemplate, target: IResource | string, attr: string): IFnGetAtt {
+    let result = { ...t };
+    let element: IResource;
+    if (typeof target === 'string') {
+        if (result.Resources[target]) {
+            return { 'Fn::GetAtt': [target, attr] };
+        } else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
+        }
+    }
+    if (result.Resources[target.Name]) {
+        return { 'Fn::GetAtt': [target.Name, attr] };
+    } else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
+    }
 }
 
 export function Ref(t: ITemplate, target: IResource | IParameter | string): IRef {
