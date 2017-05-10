@@ -1,21 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function FnGetAtt(t, target, attr) {
-    let result = Object.assign({}, t);
-    let element;
+/*
+export function FnGetAtt(t: ITemplate, target: IResource | string, attr: string): IFnGetAtt {
+    let result = { ...t };
+    let element: IResource;
     if (typeof target === 'string') {
         if (result.Resources[target]) {
             return { 'Fn::GetAtt': [target, attr] };
-        }
-        else {
+        } else {
             throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
         }
     }
     if (result.Resources[target.Name]) {
         return { 'Fn::GetAtt': [target.Name, attr] };
+    } else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
+    }
+}
+*/
+function FnGetAtt(target, attr) {
+    if (typeof target === 'string') {
+        return { 'Fn::GetAtt': [target, attr] };
     }
     else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
+        return { 'Fn::GetAtt': [target.Name, attr] };
     }
 }
 exports.FnGetAtt = FnGetAtt;

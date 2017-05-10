@@ -5,7 +5,7 @@ import { IDescription } from './elements/description';
 import { ICondition } from './elements/condition';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
-import { IRef } from './intrinsic';
+import { IRef, IFnGetAtt, Conditional } from './intrinsic';
 
 export interface ITemplate {
     readonly AWSTemplateFormatVersion: string;
@@ -50,6 +50,9 @@ export function Template(): ITemplate {
             if (typeof e.Properties.Value !== 'string' && e.Properties.Value.Ref) {
                 _validateRef(this, e.Properties.Value);
             }
+            /*if (typeof e.Properties.Value !== 'string' && e.Properties.Value['Fn::GetAtt']) {
+                _validateFnGetAtt(this, e.Properties.Value);
+            }*/
             let result = { ...this };
             result.Outputs[e.Name] = e;
             return result;
@@ -144,8 +147,17 @@ export function Template(): ITemplate {
 }
 
 function _validateRef(t: ITemplate, ref: IRef): undefined | SyntaxError {
-    if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
-        throw new SyntaxError(`Could not find ${ref}`);
+    if (ref.Ref) {
+        if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
+            throw new SyntaxError(`Could not find ${ref}`);
+        }
+    }
+    return;
+}
+
+function _validateFnGetAtt(t: ITemplate, getatt: IFnGetAtt): undefined | SyntaxError {
+    if (!(t.Resources[getatt['Fn::GetAtt'][0]])) {
+        throw new SyntaxError(`Could not find ${getatt}`);
     }
     return;
 }

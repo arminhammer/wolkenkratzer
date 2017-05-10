@@ -1,4 +1,4 @@
-import { IRef } from '../intrinsic';
+import { IRef, IFnGetAtt } from '../intrinsic';
 
 export interface IOutputProperties {
     readonly Description?: string;

@@ -32,6 +32,9 @@ function Template() {
             if (typeof e.Properties.Value !== 'string' && e.Properties.Value.Ref) {
                 _validateRef(this, e.Properties.Value);
             }
+            /*if (typeof e.Properties.Value !== 'string' && e.Properties.Value['Fn::GetAtt']) {
+                _validateFnGetAtt(this, e.Properties.Value);
+            }*/
             let result = Object.assign({}, this);
             result.Outputs[e.Name] = e;
             return result;
@@ -132,8 +135,16 @@ function Template() {
 }
 exports.Template = Template;
 function _validateRef(t, ref) {
-    if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
-        throw new SyntaxError(`Could not find ${ref}`);
+    if (ref.Ref) {
+        if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
+            throw new SyntaxError(`Could not find ${ref}`);
+        }
+    }
+    return;
+}
+function _validateFnGetAtt(t, getatt) {
+    if (!(t.Resources[getatt['Fn::GetAtt'][0]])) {
+        throw new SyntaxError(`Could not find ${getatt}`);
     }
     return;
 }

@@ -264,7 +264,7 @@ t
   .addResource(
     EC2.Instance('CFInstance', {
       InstanceType: Ref('InstanceType'),
-      ImageId: FnGetAtt(t, 'AMIInfo', 'Id')
+      ImageId: FnGetAtt('AMIInfo', 'Id')
     })
   )
   .addResource(
@@ -368,7 +368,7 @@ t
   .addOutput(
     Output('AMIID', {
       Description: 'The Amazon EC2 instance AMI ID.',
-      Value: FnGetAtt(t, 'AMIInfo', 'Id')
+      Value: FnGetAtt('AMIInfo', 'Id')
     })
   );
 

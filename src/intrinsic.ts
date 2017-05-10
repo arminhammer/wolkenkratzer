@@ -11,7 +11,7 @@ export interface IFnGetAtt {
 }
 
 // export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
-export type Conditional = string | IRef;
+export type Conditional = string | IRef | IFnGetAtt;
 export type ConditionFunction = IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 
 export interface IFnAnd {
@@ -34,6 +34,7 @@ export interface IFnOr {
     readonly 'Fn::Or': Array<Conditional>;
 }
 
+/*
 export function FnGetAtt(t: ITemplate, target: IResource | string, attr: string): IFnGetAtt {
     let result = { ...t };
     let element: IResource;
@@ -48,6 +49,15 @@ export function FnGetAtt(t: ITemplate, target: IResource | string, attr: string)
         return { 'Fn::GetAtt': [target.Name, attr] };
     } else {
         throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
+    }
+}
+*/
+
+export function FnGetAtt(target: IResource | string,  attr: string): IFnGetAtt {
+    if (typeof target === 'string') {
+        return { 'Fn::GetAtt': [target, attr] };
+    } else {
+        return { 'Fn::GetAtt': [target.Name, attr] };
     }
 }
 
