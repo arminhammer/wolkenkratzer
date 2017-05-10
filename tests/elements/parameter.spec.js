@@ -1,16 +1,9 @@
-const {
-  Template,
-  Parameter,
-  addParameter,
-  removeParameter,
-  build
-} = require('../../dist/index');
+const { Template, Parameter } = require('../../dist/index');
 
 describe('Parameter', () => {
   test('Can add a Parameter to Template', () => {
-    let t = Template();
-    t = addParameter(t, Parameter('NewParam', { Type: 'String' }));
-    expect(build(t)).toEqual({
+    let t = Template().addParameter(Parameter('NewParam', { Type: 'String' }));
+    expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
       Parameters: {
@@ -24,33 +17,32 @@ describe('Parameter', () => {
   test('A new Parameter must have a Name', () => {
     let t = Template();
     expect(() => {
-      t = addParameter(t, Parameter());
+      t.addParameter(Parameter());
     }).toThrow(SyntaxError);
   });
 
   test('A new Parameter must have a Type', () => {
     let t = Template();
     expect(() => {
-      t = addParameter(t, Parameter('NewParam'));
+      t.addParameter(Parameter('NewParam'));
     }).toThrow(SyntaxError);
   });
 
   test('Can remove a Parameter to Template once it has been added', () => {
     let t = Template();
     let p = Parameter('NewParam', { Type: 'String' });
-    t = addParameter(t, p);
-    t = removeParameter(t, p);
-    expect(build(t)).toEqual({
+    t.addParameter(p).removeParameter(p);
+    expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
     });
   });
 
   test('Can remove a Parameter to Template once it has been added, by string Name', () => {
-    let t = Template();
-    t = addParameter(t, Parameter('NewParam', { Type: 'String' }));
-    t = removeParameter(t, 'NewParam');
-    expect(build(t)).toEqual({
+    let t = Template()
+      .addParameter(Parameter('NewParam', { Type: 'String' }))
+      .removeParameter('NewParam');
+    expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
     });

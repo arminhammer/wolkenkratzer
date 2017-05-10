@@ -1,17 +1,11 @@
-const {
-  Template,
-  Description,
-  addDescription,
-  remove,
-  removeDescription,
-  build
-} = require('../../dist/index');
+const { Template, Description } = require('../../dist/index');
 
 describe('Description', () => {
   test('Can add a Description to Template', () => {
-    let t = Template();
-    t = addDescription(t, Description({ Content: 'NewDescription' }));
-    expect(build(t)).toEqual({
+    let t = Template().addDescription(
+      Description({ Content: 'NewDescription' })
+    );
+    expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
       Description: 'NewDescription'
@@ -21,15 +15,15 @@ describe('Description', () => {
   test('A new Description must have a Content', () => {
     let t = Template();
     expect(() => {
-      t = addDescription(t, Description());
+      t.addDescription(Description());
     }).toThrow(SyntaxError);
   });
 
   test('Can remove a Description from a Template', () => {
-    let t = Template();
-    t = addDescription(t, Description({ Content: 'NewDescription' }));
-    t = removeDescription(t);
-    expect(build(t)).toEqual({
+    const t = Template()
+      .addDescription(Description({ Content: 'NewDescription' }))
+      .removeDescription();
+    expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
     });

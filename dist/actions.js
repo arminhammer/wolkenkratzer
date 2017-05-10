@@ -33,13 +33,6 @@ function addResource(t, e) {
     return result;
 }
 exports.addResource = addResource;
-function addDescription(t, e) {
-    let result = Object.assign({}, t);
-    let desc = { Description: e.Content };
-    result = Object.assign({}, t, desc);
-    return result;
-}
-exports.addDescription = addDescription;
 function removeParameter(t, e) {
     let result = Object.assign({}, t);
     let param;
@@ -86,11 +79,6 @@ function removeOutput(t, e) {
     return result;
 }
 exports.removeOutput = removeOutput;
-function removeDescription(t) {
-    const { Description } = t, remaining = __rest(t, ["Description"]);
-    return remaining;
-}
-exports.removeDescription = removeDescription;
 function _stripName(t) {
     let { Name } = t, rest = __rest(t, ["Name"]);
     return rest;

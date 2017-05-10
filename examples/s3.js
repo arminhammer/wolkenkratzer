@@ -1,15 +1,6 @@
-const {
-  Template,
-  Output,
-  addResource,
-  addOutput,
-  S3,
-  Ref,
-  build
-} = require('../dist/index');
+const { Template, Output, S3, Ref } = require('../dist/index');
 
-let t = Template();
-t = addResource(t, S3.Bucket('Bucket'));
-t = addOutput(t, Output('BucketName', { Value: Ref(t, 'Bucket') }));
+let t = Template().addResource(S3.Bucket('Bucket'));
+t.addOutput(Output('BucketName', { Value: Ref(t, 'Bucket') }));
 
-console.log(JSON.stringify(build(t), null, 2));
+console.log(JSON.stringify(t.build(), null, 2));

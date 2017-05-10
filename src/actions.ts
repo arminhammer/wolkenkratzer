@@ -31,13 +31,6 @@ export function addResource(t: ITemplate, e: IResource): ITemplate {
     return result;
 }
 
-export function addDescription(t: ITemplate, e: IDescription): ITemplate {
-    let result = { ...t };
-    let desc = { Description: e.Content };
-    result = { ...t, ...desc };
-    return result;
-}
-
 export function removeParameter(t: ITemplate, e: IParameter | string): ITemplate {
     let result = { ...t };
     let param: IParameter;
@@ -76,11 +69,6 @@ export function removeOutput(t: ITemplate, e: IOutput | string): ITemplate {
         throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
     }
     return result;
-}
-
-export function removeDescription(t: ITemplate): ITemplate {
-    const { Description, ...remaining } = t;
-    return remaining;
 }
 
 function _stripName(t: IParameter | IOutput | IResource | ICondition): any {
