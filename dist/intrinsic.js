@@ -19,28 +19,12 @@ function FnGetAtt(t, target, attr) {
     }
 }
 exports.FnGetAtt = FnGetAtt;
-function Ref(t, target) {
-    let result = Object.assign({}, t);
-    let element;
+function Ref(target) {
     if (typeof target === 'string') {
-        if (result.Parameters[target]) {
-            return { Ref: target };
-        }
-        else if (result.Resources[target]) {
-            return { Ref: target };
-        }
-        else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
-        }
-    }
-    if (result.Parameters[target.Name]) {
-        return { Ref: target.Name };
-    }
-    else if (result.Resources[target.Name]) {
-        return { Ref: target.Name };
+        return { Ref: target };
     }
     else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
+        return { Ref: target.Name };
     }
 }
 exports.Ref = Ref;

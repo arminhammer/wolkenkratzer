@@ -51,24 +51,11 @@ export function FnGetAtt(t: ITemplate, target: IResource | string, attr: string)
     }
 }
 
-export function Ref(t: ITemplate, target: IResource | IParameter | string): IRef {
-    let result = { ...t };
-    let element: IResource | IParameter;
+export function Ref(target: IResource | IParameter | string): IRef {
     if (typeof target === 'string') {
-        if (result.Parameters[target]) {
-            return { Ref: target };
-        } else if (result.Resources[target]) {
-            return { Ref: target };
-        } else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
-        }
-    }
-    if (result.Parameters[target.Name]) {
-        return { Ref: target.Name };
-    } else if (result.Resources[target.Name]) {
-        return { Ref: target.Name };
+        return { Ref: target };
     } else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(target)}`);
+        return { Ref: target.Name };
     }
 }
 

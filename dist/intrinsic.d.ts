@@ -25,5 +25,5 @@ export interface IFnOr {
     readonly 'Fn::Or': Array<Conditional>;
 }
 export declare function FnGetAtt(t: ITemplate, target: IResource | string, attr: string): IFnGetAtt;
-export declare function Ref(t: ITemplate, target: IResource | IParameter | string): IRef;
+export declare function Ref(target: IResource | IParameter | string): IRef;
 export declare function FnEquals(one: Conditional, two: Conditional): IFnEquals;

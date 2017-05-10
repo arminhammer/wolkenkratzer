@@ -485,7 +485,7 @@ prefixes.map(p => {
   t.addOutput(
     Output(`${p}FunctionOutput`, {
       Description: `${p} Bucket Cache Function.`,
-      Value: Ref(t, `${p}ReleaseCacheLambdaFunction`)
+      Value: Ref(`${p}ReleaseCacheLambdaFunction`)
     })
   );
 });

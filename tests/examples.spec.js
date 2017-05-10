@@ -3,7 +3,6 @@
 const path = require('path');
 const BPromise = require('bluebird');
 const fs = BPromise.promisifyAll(require('fs-extra'));
-const wk = require(path.join(__dirname, '..', 'dist', 'index'));
 const execFile = require('child_process').execFile;
 
 let templatesDir = './tests/templates';

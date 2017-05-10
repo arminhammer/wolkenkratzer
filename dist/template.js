@@ -17,6 +17,7 @@ function Template() {
         Parameters: {},
         Resources: {},
         addCondition: function (e) {
+            // TODO: Validate intrinsics
             let result = Object.assign({}, this);
             result.Conditions[e.Name] = e;
             return result;
@@ -28,6 +29,9 @@ function Template() {
             return result;
         },
         addOutput: function (e) {
+            if (typeof e.Properties.Value !== 'string' && e.Properties.Value.Ref) {
+                _validateRef(this, e.Properties.Value);
+            }
             let result = Object.assign({}, this);
             result.Outputs[e.Name] = e;
             return result;
@@ -127,6 +131,12 @@ function Template() {
     };
 }
 exports.Template = Template;
+function _validateRef(t, ref) {
+    if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
+        throw new SyntaxError(`Could not find ${ref}`);
+    }
+    return;
+}
 function _stripName(t) {
     let { Name } = t, rest = __rest(t, ["Name"]);
     return rest;

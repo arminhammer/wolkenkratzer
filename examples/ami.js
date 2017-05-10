@@ -94,7 +94,7 @@ let t = Template()
     })
   );
 osTypes.map(os => {
-  t = t.addCondition(Condition(`${os}AMI`, FnEquals(Ref(t, 'AMI'), os)));
+  t = t.addCondition(Condition(`${os}AMI`, FnEquals(Ref('AMI'), os)));
 });
 t
   .addResource(
@@ -263,7 +263,7 @@ t
   )
   .addResource(
     EC2.Instance('CFInstance', {
-      InstanceType: Ref(t, 'InstanceType'),
+      InstanceType: Ref('InstanceType'),
       ImageId: FnGetAtt(t, 'AMIInfo', 'Id')
     })
   )
