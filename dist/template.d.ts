@@ -2,6 +2,8 @@ import { IParameter } from './elements/parameter';
 import { ICondition } from './elements/condition';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
+import { IElement } from './elements/element';
+import { IRef } from './intrinsic';
 export interface ITemplate {
     readonly kind: 'Template';
     readonly AWSTemplateFormatVersion: string;
@@ -29,3 +31,4 @@ export interface ITemplate {
     readonly build: Function;
 }
 export declare function Template(): ITemplate;
+export declare function _json(t: IElement | IRef): any;
