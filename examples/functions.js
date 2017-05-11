@@ -2,7 +2,7 @@ const { Template, Output, Lambda, Ref } = require('../dist/index');
 
 const prefixes = ['S3', 'EC2', 'ELB', 'SG', 'RDS'];
 let t = Template()
-  .addResource(
+  .add(
     Lambda.Function('S3ReleaseCacheLambdaFunction', {
       Code: {
         ZipFile: {
@@ -96,7 +96,7 @@ let t = Template()
       Timeout: 300
     })
   )
-  .addResource(
+  .add(
     Lambda.Function('EC2ReleaseCacheLambdaFunction', {
       Code: {
         ZipFile: {
@@ -177,7 +177,7 @@ let t = Template()
       Timeout: 300
     })
   )
-  .addResource(
+  .add(
     Lambda.Function('ELBReleaseCacheLambdaFunction', {
       Code: {
         ZipFile: {
@@ -290,7 +290,7 @@ let t = Template()
       Timeout: 300
     })
   )
-  .addResource(
+  .add(
     Lambda.Function('SGReleaseCacheLambdaFunction', {
       Code: {
         ZipFile: {
@@ -368,7 +368,7 @@ let t = Template()
       Timeout: 300
     })
   )
-  .addResource(
+  .add(
     Lambda.Function('RDSReleaseCacheLambdaFunction', {
       Code: {
         ZipFile: {
@@ -482,7 +482,7 @@ let t = Template()
     })
   );
 prefixes.map(p => {
-  t.addOutput(
+  t.add(
     Output(`${p}FunctionOutput`, {
       Description: `${p} Bucket Cache Function.`,
       Value: Ref(`${p}ReleaseCacheLambdaFunction`)

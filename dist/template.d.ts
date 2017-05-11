@@ -20,12 +20,8 @@ export interface ITemplate {
     readonly Outputs: {
         [s: string]: IOutput;
     };
-    readonly addDescription: Function;
+    readonly add: Function;
     readonly removeDescription: Function;
-    readonly addCondition: Function;
-    readonly addParameter: Function;
-    readonly addOutput: Function;
-    readonly addResource: Function;
     readonly removeOutput: Function;
     readonly removeParameter: Function;
     readonly build: Function;

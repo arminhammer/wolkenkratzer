@@ -4,7 +4,7 @@ const { Template, Output, S3, Ref } = require('../dist/index');
 //t.addOutput(Output('BucketName', { Value: Ref(t, 'Bucket') }));
 
 let t = Template()
-  .addResource(S3.Bucket('Bucket'))
-  .addOutput(Output('BucketName', { Value: Ref('Bucket') }));
+  .add(S3.Bucket('Bucket'))
+  .add(Output('BucketName', { Value: Ref('Bucket') }));
 
 console.log(JSON.stringify(t.build(), null, 2));

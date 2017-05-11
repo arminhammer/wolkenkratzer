@@ -23,12 +23,12 @@ const osTypes = [
   'Fedora'
 ];
 let t = Template()
-  .addDescription(
+  .add(
     Description({
       Content: 'Base template that always uses the newest Amazon Linux AMI'
     })
   )
-  .addParameter(
+  .add(
     Parameter('InstanceType', {
       Description: 'EC2 instance type',
       Type: 'String',
@@ -85,7 +85,7 @@ let t = Template()
       ConstraintDescription: 'Must be a valid EC2 instance type.'
     })
   )
-  .addParameter(
+  .add(
     Parameter('AMI', {
       Description: 'Instance AMI',
       Type: 'String',
@@ -94,10 +94,10 @@ let t = Template()
     })
   );
 osTypes.map(os => {
-  t = t.addCondition(Condition(`${os}AMI`, FnEquals(Ref('AMI'), os)));
+  t = t.add(Condition(`${os}AMI`, FnEquals(Ref('AMI'), os)));
 });
 t
-  .addResource(
+  .add(
     CustomResource('AMIInfo', {
       ServiceToken: {
         'Fn::GetAtt': ['AMIInfoFunction', 'Arn']
@@ -261,13 +261,13 @@ t
       ]
     })
   )
-  .addResource(
+  .add(
     EC2.Instance('CFInstance', {
       InstanceType: Ref('InstanceType'),
       ImageId: FnGetAtt('AMIInfo', 'Id')
     })
   )
-  .addResource(
+  .add(
     IAM.Role('LambdaExecutionRole', {
       AssumeRolePolicyDocument: {
         Version: '2012-10-17',
@@ -308,7 +308,7 @@ t
       ]
     })
   )
-  .addResource(
+  .add(
     Lambda.Function('AMIInfoFunction', {
       Code: {
         ZipFile: {
@@ -365,7 +365,7 @@ t
       Timeout: '60'
     })
   )
-  .addOutput(
+  .add(
     Output('AMIID', {
       Description: 'The Amazon EC2 instance AMI ID.',
       Value: FnGetAtt('AMIInfo', 'Id')

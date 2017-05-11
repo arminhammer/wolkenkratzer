@@ -16,38 +16,22 @@ function Template() {
         Outputs: {},
         Parameters: {},
         Resources: {},
-        addCondition: function (e) {
-            // TODO: Validate intrinsics
+        add: function (e) {
             let result = Object.assign({}, this);
-            result.Conditions[e.Name] = e;
-            return result;
-        },
-        addDescription: function (e) {
-            let result = Object.assign({}, this);
-            let desc = { Description: e.Content };
-            result = Object.assign({}, this, desc);
-            return result;
-        },
-        addOutput: function (e) {
-            if (typeof e.Properties.Value !== 'string' && e.Properties.Value.Ref) {
-                _validateRef(this, e.Properties.Value);
+            switch (e.kind) {
+                case 'Condition':
+                    return _addCondition(this, e);
+                case 'Parameter':
+                    return _addParameter(this, e);
+                case 'Output':
+                    return _addOutput(this, e);
+                case 'Resource':
+                    return _addResource(this, e);
+                case 'Description':
+                    return _addDescription(this, e);
+                default:
+                    throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
             }
-            /*if (typeof e.Properties.Value !== 'string' && e.Properties.Value['Fn::GetAtt']) {
-                _validateFnGetAtt(this, e.Properties.Value);
-            }*/
-            let result = Object.assign({}, this);
-            result.Outputs[e.Name] = e;
-            return result;
-        },
-        addParameter: function (e) {
-            let result = Object.assign({}, this);
-            result.Parameters[e.Name] = e;
-            return result;
-        },
-        addResource: function (e) {
-            let result = Object.assign({}, this);
-            result.Resources[e.Name] = e;
-            return result;
         },
         build: function () {
             let result = {
@@ -189,27 +173,6 @@ function _buildOutput(t) {
     }
     return outputResult;
 }
-function add(e) {
-    let result = Object.assign({}, this);
-    switch (e.kind) {
-        case 'Parameter':
-            result.Parameters[e.Name] = e;
-            break;
-        case 'Output':
-            result.Outputs[e.Name] = e;
-            break;
-        case 'Resource':
-            result.Resources[e.Name] = e;
-            break;
-        case 'Description':
-            let desc = { Description: e.Content };
-            result = Object.assign({}, this, desc);
-            break;
-        default:
-            console.log('No match was found');
-    }
-    return result;
-}
 function remove(e) {
     let result = Object.assign({}, this);
     let element;
@@ -269,3 +232,36 @@ function _json(t) {
     }
 }
 exports._json = _json;
+function _addDescription(t, e) {
+    let result = Object.assign({}, t);
+    let desc = { Description: e.Content };
+    result = Object.assign({}, t, desc);
+    return result;
+}
+function _addCondition(t, e) {
+    // TODO: Validate intrinsics
+    let result = Object.assign({}, t);
+    result.Conditions[e.Name] = e;
+    return result;
+}
+function _addOutput(t, e) {
+    if (typeof e.Properties.Value !== 'string' && e.Properties.Value.Ref) {
+        _validateRef(t, e.Properties.Value);
+    }
+    /*if (typeof e.Properties.Value !== 'string' && e.Properties.Value['Fn::GetAtt']) {
+        _validateFnGetAtt(this, e.Properties.Value);
+    }*/
+    let result = Object.assign({}, t);
+    result.Outputs[e.Name] = e;
+    return result;
+}
+function _addParameter(t, e) {
+    let result = Object.assign({}, t);
+    result.Parameters[e.Name] = e;
+    return result;
+}
+function _addResource(t, e) {
+    let result = Object.assign({}, t);
+    result.Resources[e.Name] = e;
+    return result;
+}

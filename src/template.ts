@@ -18,12 +18,8 @@ export interface ITemplate {
     readonly Conditions: { [s: string]: ICondition };
     readonly Resources: { [s: string]: IResource };
     readonly Outputs: { [s: string]: IOutput };
-    readonly addDescription: Function;
+    readonly add: Function;
     readonly removeDescription: Function;
-    readonly addCondition: Function;
-    readonly addParameter: Function;
-    readonly addOutput: Function;
-    readonly addResource: Function;
     readonly removeOutput: Function;
     readonly removeParameter: Function;
     readonly build: Function;
@@ -36,38 +32,22 @@ export function Template(): ITemplate {
         Outputs: {},
         Parameters: {},
         Resources: {},
-        addCondition: function (e: ICondition): ITemplate {
-            // TODO: Validate intrinsics
+        add: function(e: IElement): ITemplate {
             let result = { ...this };
-            result.Conditions[e.Name] = e;
-            return result;
-        },
-        addDescription: function (e: IDescription): ITemplate {
-            let result = { ...this };
-            let desc = { Description: e.Content };
-            result = { ...this, ...desc };
-            return result;
-        },
-        addOutput: function (e: IOutput): ITemplate {
-            if (typeof e.Properties.Value !== 'string' && e.Properties.Value.Ref) {
-                _validateRef(this, e.Properties.Value);
+            switch (e.kind) {
+                case 'Condition':
+                    return _addCondition(this, e);
+                case 'Parameter':
+                    return _addParameter(this, e);
+                case 'Output':
+                    return _addOutput(this, e);
+                case 'Resource':
+                    return _addResource(this, e);
+                case 'Description':
+                    return _addDescription(this, e);
+                default:
+                    throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
             }
-            /*if (typeof e.Properties.Value !== 'string' && e.Properties.Value['Fn::GetAtt']) {
-                _validateFnGetAtt(this, e.Properties.Value);
-            }*/
-            let result = { ...this };
-            result.Outputs[e.Name] = e;
-            return result;
-        },
-        addParameter: function (e: IParameter): ITemplate {
-            let result = { ...this };
-            result.Parameters[e.Name] = e;
-            return result;
-        },
-        addResource: function (e: IResource): ITemplate {
-            let result = { ...this };
-            result.Resources[e.Name] = e;
-            return result;
         },
         build: function (): object {
             let result: any = {
@@ -209,28 +189,6 @@ function _buildOutput(t: IOutput): string {
     return outputResult;
 }
 
-function add(e: IElement): ITemplate {
-    let result = { ...this };
-    switch (e.kind) {
-        case 'Parameter':
-            result.Parameters[e.Name] = e;
-            break;
-        case 'Output':
-            result.Outputs[e.Name] = e;
-            break;
-        case 'Resource':
-            result.Resources[e.Name] = e;
-            break;
-        case 'Description':
-            let desc = { Description: e.Content };
-            result = { ...this, ...desc };
-            break;
-        default:
-            console.log('No match was found');
-    }
-    return result;
-}
-
 function remove(e: IElement | string): ITemplate {
     let result = { ...this };
     let element: IElement;
@@ -286,4 +244,42 @@ export function _json(t: IElement|IRef): any {
             console.log('You cant do that!');
             return 'Invalid!';
     }
+}
+
+function _addDescription(t: ITemplate, e: IDescription): ITemplate {
+    let result = { ...t };
+    let desc = { Description: e.Content };
+    result = { ...t, ...desc };
+    return result;
+}
+
+function _addCondition(t: ITemplate, e: ICondition): ITemplate {
+    // TODO: Validate intrinsics
+    let result = { ...t };
+    result.Conditions[e.Name] = e;
+    return result;
+}
+
+function _addOutput(t: ITemplate, e: IOutput): ITemplate {
+    if (typeof e.Properties.Value !== 'string' && e.Properties.Value.Ref) {
+        _validateRef(t, e.Properties.Value);
+    }
+    /*if (typeof e.Properties.Value !== 'string' && e.Properties.Value['Fn::GetAtt']) {
+        _validateFnGetAtt(this, e.Properties.Value);
+    }*/
+    let result = { ...t };
+    result.Outputs[e.Name] = e;
+    return result;
+}
+
+function _addParameter(t: ITemplate, e: IParameter): ITemplate {
+    let result = { ...t };
+    result.Parameters[e.Name] = e;
+    return result;
+}
+
+function _addResource(t: ITemplate, e: IResource): ITemplate {
+    let result = { ...t };
+    result.Resources[e.Name] = e;
+    return result;
 }
