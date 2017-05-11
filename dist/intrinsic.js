@@ -20,24 +20,24 @@ export function FnGetAtt(t: ITemplate, target: IResource | string, attr: string)
 */
 function FnGetAtt(target, attr) {
     if (typeof target === 'string') {
-        return { 'Fn::GetAtt': [target, attr] };
+        return { kind: 'FnGetAtt', 'Fn::GetAtt': [target, attr] };
     }
     else {
-        return { 'Fn::GetAtt': [target.Name, attr] };
+        return { kind: 'FnGetAtt', 'Fn::GetAtt': [target.Name, attr] };
     }
 }
 exports.FnGetAtt = FnGetAtt;
 function Ref(target) {
     if (typeof target === 'string') {
-        return { Ref: target };
+        return { kind: 'Ref', Ref: target };
     }
     else {
-        return { Ref: target.Name };
+        return { kind: 'Ref', Ref: target.Name };
     }
 }
 exports.Ref = Ref;
 function FnEquals(one, two) {
-    return { 'Fn::Equals': [one, two] };
+    return { kind: 'FnEquals', 'Fn::Equals': [one, two] };
 }
 exports.FnEquals = FnEquals;
 /*

@@ -57,7 +57,7 @@ function Template() {
             if (Object.keys(this.Conditions).length > 0) {
                 result.Conditions = {};
                 Object.keys(this.Conditions).map(c => {
-                    result.Conditions[c] = _stripName(this.Conditions[c]).Condition;
+                    result.Conditions[c] = JSON.parse(_buildCondition(this.Conditions[c]));
                 });
             }
             if (Object.keys(this.Parameters).length > 0) {
@@ -75,7 +75,7 @@ function Template() {
             if (Object.keys(this.Resources).length > 0) {
                 result.Resources = {};
                 Object.keys(this.Resources).map(r => {
-                    result.Resources[r] = _stripName(this.Resources[r]);
+                    result.Resources[r] = JSON.parse(_buildResource(this.Resources[r]));
                 });
             }
             if (this.Description) {
@@ -83,6 +83,7 @@ function Template() {
             }
             return result;
         },
+        kind: 'Template',
         removeDescription: function () {
             const _a = this, { Description } = _a, remaining = __rest(_a, ["Description"]);
             return remaining;
@@ -148,14 +149,45 @@ function _validateFnGetAtt(t, getatt) {
     }
     return;
 }
-function _stripName(t) {
-    let { Name } = t, rest = __rest(t, ["Name"]);
+function _strip(t) {
+    let { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
     return rest;
+}
+function _stripKind(intrinsic) {
+    let { kind } = intrinsic, rest = __rest(intrinsic, ["kind"]);
+    return rest;
+}
+function _buildResource(t) {
+    let { Type, Properties } = t;
+    let newProps = {};
+    if (Properties) {
+        Object.keys(Properties).map(p => {
+            if (Properties[p].kind) {
+                newProps[p] = _stripKind(Properties[p]);
+            }
+            else {
+                newProps[p] = Properties[p];
+            }
+            //newProps[p] = _stripKind(Properties[p]);
+        });
+    }
+    //console.log(newProps);
+    return JSON.stringify({ Type, Properties: newProps });
+}
+function _buildCondition(t) {
+    let { Condition } = t;
+    let { kind } = Condition, conditionFn = __rest(Condition, ["kind"]);
+    let result = _stripKind(conditionFn);
+    Object.keys(result).map(k => {
+        result[k][0] = _stripKind(result[k][0]);
+    });
+    return JSON.stringify(result);
 }
 function _buildOutput(t) {
     let outputResult = Object.assign({}, t.Properties);
     if (typeof outputResult.Value !== 'string') {
-        outputResult = Object.assign({}, outputResult, { Value: outputResult.Value });
+        let stripped = _stripKind(outputResult.Value);
+        outputResult = Object.assign({}, outputResult, { Value: stripped });
     }
     return JSON.stringify(outputResult);
 }

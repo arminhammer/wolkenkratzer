@@ -1,0 +1,17 @@
+Props
+ServiceToken
+Region
+Filters
+Props
+InstanceType
+ImageId
+Props
+AssumeRolePolicyDocument
+Path
+Policies
+Props
+Code
+Handler
+Role
+Runtime
+Timeout

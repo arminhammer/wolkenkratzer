@@ -5,9 +5,10 @@ import { IDescription } from './elements/description';
 import { ICondition } from './elements/condition';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
-import { IRef, IFnGetAtt, Conditional } from './intrinsic';
+import { IRef, IFnGetAtt, Conditional, IIntrinsic, IFnAnd, IFnEquals, IFnIf, IFnNot, IFnOr } from './intrinsic';
 
 export interface ITemplate {
+    readonly kind: 'Template';
     readonly AWSTemplateFormatVersion: string;
     readonly Description?: string;
     readonly Parameters: { [s: string]: IParameter };
@@ -75,7 +76,7 @@ export function Template(): ITemplate {
             if (Object.keys(this.Conditions).length > 0) {
                 result.Conditions = {};
                 Object.keys(this.Conditions).map(c => {
-                    result.Conditions[c] = _stripName(this.Conditions[c]).Condition;
+                    result.Conditions[c] = JSON.parse(_buildCondition(this.Conditions[c]));
                 });
             }
             if (Object.keys(this.Parameters).length > 0) {
@@ -93,7 +94,7 @@ export function Template(): ITemplate {
             if (Object.keys(this.Resources).length > 0) {
                 result.Resources = {};
                 Object.keys(this.Resources).map(r => {
-                    result.Resources[r] = _stripName(this.Resources[r]);
+                    result.Resources[r] = JSON.parse(_buildResource(this.Resources[r]));
                 });
             }
             if (this.Description) {
@@ -101,6 +102,7 @@ export function Template(): ITemplate {
             }
             return result;
         },
+        kind: 'Template',
         removeDescription: function (): ITemplate {
             const { Description, ...remaining } = this;
             return remaining;
@@ -162,15 +164,46 @@ function _validateFnGetAtt(t: ITemplate, getatt: IFnGetAtt): undefined | SyntaxE
     return;
 }
 
-function _stripName(t: IParameter | IOutput | IResource | ICondition): any {
-    let { Name, ...rest } = t;
+function _strip(t: IParameter | IOutput | IResource | ICondition): any {
+    let { kind, Name, ...rest } = t;
     return rest;
 }
 
+function _stripKind(intrinsic: any): object {
+    let { kind, ...rest } = intrinsic;
+    return rest;
+}
+
+function _buildResource(t: IResource): string {
+    let { Type, Properties } = t;
+    let newProps: any = {};
+    if (Properties) {
+        Object.keys(Properties).map(p => {
+        if (Properties[p].kind) {
+            newProps[p] = _stripKind(Properties[p]);
+        } else {
+            newProps[p] = Properties[p];
+        }
+    });
+    }
+    return JSON.stringify({ Type, Properties: newProps });
+}
+
+function _buildCondition(t: ICondition): string {
+    let { Condition } = t;
+    let { kind, ...conditionFn } = Condition;
+    let result: any = _stripKind(conditionFn);
+    Object.keys(result).map(k => {
+    result[k][0] = _stripKind(result[k][0]);
+    });
+    return JSON.stringify(result);
+}
+
 function _buildOutput(t: IOutput): string {
-    let outputResult = Object.assign({}, t.Properties);
+    let outputResult: any = Object.assign({}, t.Properties);
     if (typeof outputResult.Value !== 'string') {
-        outputResult = { ...outputResult, Value: outputResult.Value };
+        let stripped = _stripKind(outputResult.Value);
+        outputResult = { ...outputResult, Value: stripped };
     }
     return JSON.stringify(outputResult);
 }

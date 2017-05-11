@@ -12,6 +12,7 @@ export interface IParameterProperties {
     readonly NoEcho?: string;
 }
 export interface IParameter {
+    readonly kind: 'Parameter';
     readonly Name: string;
     readonly Properties: IParameterProperties;
 }

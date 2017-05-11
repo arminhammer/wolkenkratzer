@@ -3,6 +3,7 @@ import { ICondition } from './elements/condition';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
 export interface ITemplate {
+    readonly kind: 'Template';
     readonly AWSTemplateFormatVersion: string;
     readonly Description?: string;
     readonly Parameters: {

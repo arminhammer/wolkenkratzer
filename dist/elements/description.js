@@ -4,7 +4,7 @@ function Description(params = {}) {
     if (!params.Content) {
         throw new SyntaxError(`New Description must have a Content.`);
     }
-    const defaultP = { kind: 'description' };
+    const defaultP = { kind: 'Description' };
     const mix = Object.assign({}, defaultP, params);
     return mix;
 }
