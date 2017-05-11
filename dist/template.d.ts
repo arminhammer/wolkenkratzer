@@ -21,9 +21,8 @@ export interface ITemplate {
         [s: string]: IOutput;
     };
     readonly add: Function;
+    readonly remove: Function;
     readonly removeDescription: Function;
-    readonly removeOutput: Function;
-    readonly removeParameter: Function;
     readonly build: Function;
 }
 export declare function Template(): ITemplate;

@@ -17,7 +17,6 @@ function Template() {
         Parameters: {},
         Resources: {},
         add: function (e) {
-            let result = Object.assign({}, this);
             switch (e.kind) {
                 case 'Condition':
                     return _addCondition(this, e);
@@ -68,53 +67,45 @@ function Template() {
             return result;
         },
         kind: 'Template',
+        remove: function (e) {
+            let result = Object.assign({}, this);
+            let element;
+            if (typeof e === 'string') {
+                let parameter = result.Parameters[e];
+                if (parameter) {
+                    element = parameter;
+                }
+                else {
+                    let output = result.Outputs[e];
+                    if (output) {
+                        element = output;
+                    }
+                    else {
+                        throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+                    }
+                }
+            }
+            else {
+                element = e;
+            }
+            switch (element.kind) {
+                /*case 'Condition':
+                    return _removeCondition(this, e);*/
+                case 'Parameter':
+                    return _removeParameter(this, element);
+                case 'Output':
+                    return _removeOutput(this, element);
+                /*case 'Resource':
+                    return _removeResource(this, e);*/
+                // case 'Description':
+                //    return _removeDescription(this, element);
+                default:
+                    throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
+            }
+        },
         removeDescription: function () {
             const _a = this, { Description } = _a, remaining = __rest(_a, ["Description"]);
             return remaining;
-        },
-        removeOutput: function (e) {
-            let result = Object.assign({}, this);
-            let out;
-            if (typeof e === 'string') {
-                if (result.Outputs[e]) {
-                    out = result.Outputs[e];
-                }
-                else {
-                    throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-                }
-            }
-            else {
-                out = e;
-            }
-            if (result.Outputs[out.Name]) {
-                delete result.Outputs[out.Name];
-            }
-            else {
-                throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
-            }
-            return result;
-        },
-        removeParameter: function (e) {
-            let result = Object.assign({}, this);
-            let param;
-            if (typeof e === 'string') {
-                if (result.Parameters[e]) {
-                    param = result.Parameters[e];
-                }
-                else {
-                    throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-                }
-            }
-            else {
-                param = e;
-            }
-            if (result.Parameters[param.Name]) {
-                delete result.Parameters[param.Name];
-            }
-            else {
-                throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
-            }
-            return result;
         }
     };
 }
@@ -173,47 +164,6 @@ function _buildOutput(t) {
     }
     return outputResult;
 }
-function remove(e) {
-    let result = Object.assign({}, this);
-    let element;
-    if (typeof e === 'string') {
-        let parameter = result.Parameters[e];
-        if (parameter) {
-            element = parameter;
-        }
-        else {
-            let output = result.Outputs[e];
-            if (output) {
-                element = output;
-            }
-            else {
-                throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-            }
-        }
-    }
-    else {
-        element = e;
-    }
-    switch (element.kind) {
-        case 'Parameter':
-            if (result.Parameters[element.Name]) {
-                delete result.Parameters[element.Name];
-            }
-            break;
-        case 'Output':
-            if (result.Outputs[element.Name]) {
-                delete result.Outputs[element.Name];
-            }
-            break;
-        case 'Description':
-            const { Description } = result, remaining = __rest(result, ["Description"]);
-            result = remaining;
-            break;
-        default:
-            throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
-    }
-    return result;
-}
 function _json(t) {
     switch (t.kind) {
         case 'Ref':
@@ -263,5 +213,49 @@ function _addParameter(t, e) {
 function _addResource(t, e) {
     let result = Object.assign({}, t);
     result.Resources[e.Name] = e;
+    return result;
+}
+function _removeOutput(t, e) {
+    let result = Object.assign({}, t);
+    let out;
+    if (typeof e === 'string') {
+        if (result.Outputs[e]) {
+            out = result.Outputs[e];
+        }
+        else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+        }
+    }
+    else {
+        out = e;
+    }
+    if (result.Outputs[out.Name]) {
+        delete result.Outputs[out.Name];
+    }
+    else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
+    }
+    return result;
+}
+function _removeParameter(t, e) {
+    let result = Object.assign({}, t);
+    let param;
+    if (typeof e === 'string') {
+        if (result.Parameters[e]) {
+            param = result.Parameters[e];
+        }
+        else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+        }
+    }
+    else {
+        param = e;
+    }
+    if (result.Parameters[param.Name]) {
+        delete result.Parameters[param.Name];
+    }
+    else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
+    }
     return result;
 }

@@ -31,7 +31,7 @@ describe('Output', () => {
   test('Can remove a Output to Template once it has been added', () => {
     let t = Template();
     let o = Output('NewOutput', { Value: 'String' });
-    t.add(o).removeOutput(o);
+    t.add(o).remove(o);
     expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
@@ -41,7 +41,7 @@ describe('Output', () => {
   test('Can remove a Output to Template once it has been added, by string Name', () => {
     let t = Template()
       .add(Output('NewOutput', { Value: 'String' }))
-      .removeOutput('NewOutput');
+      .remove('NewOutput');
     expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'

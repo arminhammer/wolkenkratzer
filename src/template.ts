@@ -19,9 +19,8 @@ export interface ITemplate {
     readonly Resources: { [s: string]: IResource };
     readonly Outputs: { [s: string]: IOutput };
     readonly add: Function;
+    readonly remove: Function;
     readonly removeDescription: Function;
-    readonly removeOutput: Function;
-    readonly removeParameter: Function;
     readonly build: Function;
 }
 
@@ -33,7 +32,6 @@ export function Template(): ITemplate {
         Parameters: {},
         Resources: {},
         add: function(e: IElement): ITemplate {
-            let result = { ...this };
             switch (e.kind) {
                 case 'Condition':
                     return _addCondition(this, e);
@@ -84,47 +82,42 @@ export function Template(): ITemplate {
             return result;
         },
         kind: 'Template',
+        remove: function(e: IElement | string): ITemplate {
+            let result = { ...this };
+            let element: IElement;
+            if (typeof e === 'string') {
+                let parameter: IParameter | undefined = result.Parameters[e];
+                if (parameter) {
+                    element = parameter;
+                } else {
+                    let output: IOutput | undefined = result.Outputs[e];
+                    if (output) {
+                        element = output;
+                    } else {
+                        throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+                    }
+                }
+            } else {
+                element = e;
+            }
+            switch (element.kind) {
+                /*case 'Condition':
+                    return _removeCondition(this, e);*/
+                case 'Parameter':
+                    return _removeParameter(this, element);
+                case 'Output':
+                    return _removeOutput(this, element);
+                /*case 'Resource':
+                    return _removeResource(this, e);*/
+                // case 'Description':
+                //    return _removeDescription(this, element);
+                default:
+                    throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
+            }
+        },
         removeDescription: function (): ITemplate {
             const { Description, ...remaining } = this;
             return remaining;
-        },
-        removeOutput: function (e: IOutput | string): ITemplate {
-            let result = { ...this };
-            let out: IOutput;
-            if (typeof e === 'string') {
-                if (result.Outputs[e]) {
-                    out = result.Outputs[e];
-                } else {
-                    throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-                }
-            } else {
-                out = e;
-            }
-            if (result.Outputs[out.Name]) {
-                delete result.Outputs[out.Name];
-            } else {
-                throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
-            }
-            return result;
-        },
-        removeParameter: function (e: IParameter | string): ITemplate {
-            let result = { ...this };
-            let param: IParameter;
-            if (typeof e === 'string') {
-                if (result.Parameters[e]) {
-                    param = result.Parameters[e];
-                } else {
-                    throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-                }
-            } else {
-                param = e;
-            }
-            if (result.Parameters[param.Name]) {
-                delete result.Parameters[param.Name];
-            } else {
-                throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
-            }
-            return result;
         }
     };
 }
@@ -189,45 +182,6 @@ function _buildOutput(t: IOutput): string {
     return outputResult;
 }
 
-function remove(e: IElement | string): ITemplate {
-    let result = { ...this };
-    let element: IElement;
-    if (typeof e === 'string') {
-        let parameter: IParameter | undefined = result.Parameters[e];
-        if (parameter) {
-            element = parameter;
-        } else {
-            let output: IOutput | undefined = result.Outputs[e];
-            if (output) {
-                element = output;
-            } else {
-                throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-            }
-        }
-    } else {
-        element = e;
-    }
-    switch (element.kind) {
-        case 'Parameter':
-            if (result.Parameters[element.Name]) {
-                delete result.Parameters[element.Name];
-            }
-            break;
-        case 'Output':
-            if (result.Outputs[element.Name]) {
-                delete result.Outputs[element.Name];
-            }
-            break;
-        case 'Description':
-            const { Description, ...remaining } = result;
-            result = remaining;
-            break;
-        default:
-            throw new SyntaxError(`Could not find ${JSON.stringify(element)}`);
-    }
-    return result;
-}
-
 export function _json(t: IElement|IRef): any {
     switch (t.kind) {
         case 'Ref':
@@ -281,5 +235,45 @@ function _addParameter(t: ITemplate, e: IParameter): ITemplate {
 function _addResource(t: ITemplate, e: IResource): ITemplate {
     let result = { ...t };
     result.Resources[e.Name] = e;
+    return result;
+}
+
+function _removeOutput(t: ITemplate, e: IOutput | string): ITemplate {
+    let result = { ...t };
+    let out: IOutput;
+    if (typeof e === 'string') {
+        if (result.Outputs[e]) {
+            out = result.Outputs[e];
+        } else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+        }
+    } else {
+        out = e;
+    }
+    if (result.Outputs[out.Name]) {
+        delete result.Outputs[out.Name];
+    } else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
+    }
+    return result;
+}
+
+function _removeParameter(t: ITemplate, e: IParameter | string): ITemplate {
+    let result = { ...t };
+    let param: IParameter;
+    if (typeof e === 'string') {
+        if (result.Parameters[e]) {
+            param = result.Parameters[e];
+        } else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+        }
+    } else {
+        param = e;
+    }
+    if (result.Parameters[param.Name]) {
+        delete result.Parameters[param.Name];
+    } else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
+    }
     return result;
 }

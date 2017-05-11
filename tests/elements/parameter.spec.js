@@ -31,7 +31,7 @@ describe('Parameter', () => {
   test('Can remove a Parameter to Template once it has been added', () => {
     let t = Template();
     let p = Parameter('NewParam', { Type: 'String' });
-    t.add(p).removeParameter(p);
+    t.add(p).remove(p);
     expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
@@ -41,7 +41,7 @@ describe('Parameter', () => {
   test('Can remove a Parameter to Template once it has been added, by string Name', () => {
     let t = Template()
       .add(Parameter('NewParam', { Type: 'String' }))
-      .removeParameter('NewParam');
+      .remove('NewParam');
     expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
