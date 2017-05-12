@@ -182,10 +182,14 @@ function _buildOutput(t: IOutput): string {
     return outputResult;
 }
 
-export function _json(t: IElement | IRef): any {
+export function _json(t: IElement | IRef | IFnGetAtt): any {
     switch (t.kind) {
         case 'Ref':
             return { Ref: t.Ref };
+        case 'FnGetAtt':
+            console.log('ZOMG');
+            console.log(t);
+            return { 'Fn::GetAtt': t['Fn::GetAtt'] };
         case 'Condition':
             return _buildCondition(t);
         case 'Parameter':

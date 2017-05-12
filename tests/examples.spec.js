@@ -11,34 +11,38 @@ let files = fs.readdirSync(templatesDir);
 describe('Examples', () => {
   files.map(fileName => {
     let file = '';
-    test(fileName, done => {
-      let readFile = require(path.join(__dirname, 'templates', fileName));
-      file = readFile;
+    test(
+      fileName,
+      done => {
+        let readFile = require(path.join(__dirname, 'templates', fileName));
+        file = readFile;
 
-      return new Promise((resolve, reject) => {
-        execFile(
-          'node',
-          [fileName.replace('.json', '.js')],
-          { cwd: path.join(__dirname, '..', 'examples') },
-          (error, stdout, stderr) => {
-            if (error) {
-              reject(error);
-            } else if (stderr) {
-              reject(stderr);
+        return new Promise((resolve, reject) => {
+          execFile(
+            'node',
+            [fileName.replace('.json', '.js')],
+            { cwd: path.join(__dirname, '..', 'examples') },
+            (error, stdout, stderr) => {
+              if (error) {
+                reject(error);
+              } else if (stderr) {
+                reject(stderr);
+              }
+              resolve(stdout);
             }
-            resolve(stdout);
-          }
-        );
-      })
-        .then(result => {
-          let jsonString = JSON.parse(result);
-          expect(jsonString).toEqual(file);
-          done();
+          );
         })
-        .catch(e => {
-          expect(e).toBeNull();
-          done();
-        });
-    });
+          .then(result => {
+            let jsonString = JSON.parse(result);
+            expect(jsonString).toEqual(file);
+            done();
+          })
+          .catch(e => {
+            expect(e).toBeNull();
+            done();
+          });
+      },
+      300
+    );
   });
 });

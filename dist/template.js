@@ -168,6 +168,10 @@ function _json(t) {
     switch (t.kind) {
         case 'Ref':
             return { Ref: t.Ref };
+        case 'FnGetAtt':
+            console.log('ZOMG');
+            console.log(t);
+            break;
         case 'Condition':
             return _buildCondition(t);
         case 'Parameter':

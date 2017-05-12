@@ -1,6 +1,5 @@
 const {
   Template,
-  Output,
   S3,
   Lambda,
   IAM,
@@ -30,9 +29,7 @@ let t = Template()
   .add(
     Lambda.Function('LambdaFunction', {
       Handler: 'index.handler',
-      Role: {
-        'Fn::GetAtt': ['LambdaExecutionRole', 'Arn']
-      },
+      Role: FnGetAtt('LambdaExecutionRole', 'Arn'),
       Code: {
         ZipFile: {
           'Fn::Join': [
@@ -94,7 +91,6 @@ let t = Template()
         }
       ]
     })
-  )
-  .add(Output('BucketName', { Value: Ref('S3Bucket') }));
+  );
 
 console.log(JSON.stringify(t.build(), null, 2));
