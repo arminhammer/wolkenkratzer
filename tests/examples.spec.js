@@ -9,36 +9,35 @@ let templatesDir = './tests/templates';
 let files = fs.readdirSync(templatesDir);
 
 describe('Examples', () => {
-  files.forEach(fileName => {
+  files.map(fileName => {
+    let file = '';
     test(fileName, done => {
-      let file = '';
-      return fs
-        .readJsonAsync(path.join(__dirname, 'templates', fileName))
-        .then(readFile => {
-          file = readFile;
-          return new Promise((resolve, reject) => {
-            execFile(
-              'node',
-              [fileName.replace('.json', '.js')],
-              { cwd: path.join(__dirname, '..', 'examples') },
-              (error, stdout, stderr) => {
-                if (error) {
-                  reject(error);
-                } else if (stderr) {
-                  reject(stderr);
-                }
-                resolve(stdout);
-              }
-            );
-          });
-        })
+      let readFile = require(path.join(__dirname, 'templates', fileName));
+      file = readFile;
+
+      return new Promise((resolve, reject) => {
+        execFile(
+          'node',
+          [fileName.replace('.json', '.js')],
+          { cwd: path.join(__dirname, '..', 'examples') },
+          (error, stdout, stderr) => {
+            if (error) {
+              reject(error);
+            } else if (stderr) {
+              reject(stderr);
+            }
+            resolve(stdout);
+          }
+        );
+      })
         .then(result => {
           let jsonString = JSON.parse(result);
           expect(jsonString).toEqual(file);
           done();
         })
         .catch(e => {
-          return false;
+          expect(e).toBeNull();
+          done();
         });
     });
   });

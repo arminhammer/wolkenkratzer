@@ -31,7 +31,7 @@ export function Template(): ITemplate {
         Outputs: {},
         Parameters: {},
         Resources: {},
-        add: function(e: IElement): ITemplate {
+        add: function (e: IElement): ITemplate {
             switch (e.kind) {
                 case 'Condition':
                     return _addCondition(this, e);
@@ -82,7 +82,7 @@ export function Template(): ITemplate {
             return result;
         },
         kind: 'Template',
-        remove: function(e: IElement | string): ITemplate {
+        remove: function (e: IElement | string): ITemplate {
             let result = { ...this };
             let element: IElement;
             if (typeof e === 'string') {
@@ -125,7 +125,7 @@ export function Template(): ITemplate {
 function _validateRef(t: ITemplate, ref: IRef): undefined | SyntaxError {
     if (ref.Ref) {
         if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
-            throw new SyntaxError(`Could not find ${ref}`);
+            throw new SyntaxError(`Could not find ${JSON.stringify(ref)}`);
         }
     }
     return;
@@ -133,7 +133,7 @@ function _validateRef(t: ITemplate, ref: IRef): undefined | SyntaxError {
 
 function _validateFnGetAtt(t: ITemplate, getatt: IFnGetAtt): undefined | SyntaxError {
     if (!(t.Resources[getatt['Fn::GetAtt'][0]])) {
-        throw new SyntaxError(`Could not find ${getatt}`);
+        throw new SyntaxError(`Could not find ${JSON.stringify(getatt)}`);
     }
     return;
 }
@@ -153,12 +153,12 @@ function _buildResource(t: IResource): object {
     let newProps: any = {};
     if (Properties) {
         Object.keys(Properties).map(p => {
-        if (Properties[p].kind) {
-            newProps[p] = _stripKind(Properties[p]);
-        } else {
-            newProps[p] = Properties[p];
-        }
-    });
+            if (Properties[p].kind) {
+                newProps[p] = _stripKind(Properties[p]);
+            } else {
+                newProps[p] = Properties[p];
+            }
+        });
     }
     return { Type, Properties: newProps };
 }
@@ -168,7 +168,7 @@ function _buildCondition(t: ICondition): string {
     let { kind, ...conditionFn } = Condition;
     let result: any = _stripKind(conditionFn);
     Object.keys(result).map(k => {
-    result[k][0] = _stripKind(result[k][0]);
+        result[k][0] = _stripKind(result[k][0]);
     });
     return result;
 }
@@ -182,7 +182,7 @@ function _buildOutput(t: IOutput): string {
     return outputResult;
 }
 
-export function _json(t: IElement|IRef): any {
+export function _json(t: IElement | IRef): any {
     switch (t.kind) {
         case 'Ref':
             return { Ref: t.Ref };

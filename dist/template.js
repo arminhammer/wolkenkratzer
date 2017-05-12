@@ -113,14 +113,14 @@ exports.Template = Template;
 function _validateRef(t, ref) {
     if (ref.Ref) {
         if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
-            throw new SyntaxError(`Could not find ${ref}`);
+            throw new SyntaxError(`Could not find ${JSON.stringify(ref)}`);
         }
     }
     return;
 }
 function _validateFnGetAtt(t, getatt) {
     if (!(t.Resources[getatt['Fn::GetAtt'][0]])) {
-        throw new SyntaxError(`Could not find ${getatt}`);
+        throw new SyntaxError(`Could not find ${JSON.stringify(getatt)}`);
     }
     return;
 }
