@@ -128,9 +128,29 @@ function _strip(t) {
     let { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
     return rest;
 }
-function _stripKind(intrinsic) {
-    let { kind } = intrinsic, rest = __rest(intrinsic, ["kind"]);
+function _stripKind(target) {
+    let { kind } = target, rest = __rest(target, ["kind"]);
     return rest;
+}
+function _cleanObject(object) {
+    if (Array.isArray(object)) {
+        for (let v = 0; v < object.length; v++) {
+            object[v] = _cleanObject(object[v]);
+        }
+    }
+    else {
+        if (object.kind) {
+            object = _json(object);
+        }
+        else {
+            for (let o in object) {
+                if (object[o] !== null && typeof object[o] === 'object') {
+                    object[o] = _cleanObject(object[o]);
+                }
+            }
+        }
+    }
+    return object;
 }
 function _buildResource(t) {
     let { Type, Properties } = t;
@@ -141,7 +161,7 @@ function _buildResource(t) {
                 newProps[p] = _stripKind(Properties[p]);
             }
             else {
-                newProps[p] = Properties[p];
+                newProps[p] = _cleanObject(Properties[p]);
             }
         });
     }
@@ -169,9 +189,7 @@ function _json(t) {
         case 'Ref':
             return { Ref: t.Ref };
         case 'FnGetAtt':
-            console.log('ZOMG');
-            console.log(t);
-            break;
+            return { 'Fn::GetAtt': t['Fn::GetAtt'] };
         case 'Condition':
             return _buildCondition(t);
         case 'Parameter':
@@ -181,8 +199,7 @@ function _json(t) {
         case 'Resource':
             return _buildResource(t);
         default:
-            console.log('You cant do that!');
-            return 'Invalid!';
+            throw new SyntaxError(`Can't call _json on ${JSON.stringify(t)}`);
     }
 }
 exports._json = _json;

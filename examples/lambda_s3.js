@@ -8,9 +8,7 @@ const {
   FnGetAtt
 } = require('../dist/index');
 
-//let t = Template().addResource(S3.Bucket('Bucket'));
-//t.addOutput(Output('BucketName', { Value: Ref(t, 'Bucket') }));
-
+debugger;
 let t = Template()
   .add(Parameter('BucketName', { Type: 'String' }))
   .add(
