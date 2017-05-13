@@ -1,27 +1,106 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var template_1 = require("./template");
-exports.Template = template_1.Template;
-var parameter_1 = require("./elements/parameter");
-exports.Parameter = parameter_1.Parameter;
-var description_1 = require("./elements/description");
-exports.Description = description_1.Description;
-var output_1 = require("./elements/output");
-exports.Output = output_1.Output;
-var resource_1 = require("./elements/resource");
-exports.Resource = resource_1.Resource;
-exports.CustomResource = resource_1.CustomResource;
-var condition_1 = require("./elements/condition");
-exports.Condition = condition_1.Condition;
-var intrinsic_1 = require("./intrinsic");
-exports.Ref = intrinsic_1.Ref;
-exports.FnGetAtt = intrinsic_1.FnGetAtt;
-exports.FnEquals = intrinsic_1.FnEquals;
-const service_1 = require("./service");
-const fs = require("fs");
-const path = require("path");
-const files = fs.readdirSync(path.resolve(__dirname, '../stubs/json/resources/'));
-files.map(file => {
-    const service = file.replace('.json', '');
-    exports[service] = service_1.Service(service);
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;
+
+var _template = require('./template');
+
+Object.defineProperty(exports, 'Template', {
+    enumerable: true,
+    get: function get() {
+        return _template.Template;
+    }
+});
+
+var _parameter = require('./elements/parameter');
+
+Object.defineProperty(exports, 'Parameter', {
+    enumerable: true,
+    get: function get() {
+        return _parameter.Parameter;
+    }
+});
+
+var _description = require('./elements/description');
+
+Object.defineProperty(exports, 'Description', {
+    enumerable: true,
+    get: function get() {
+        return _description.Description;
+    }
+});
+
+var _output = require('./elements/output');
+
+Object.defineProperty(exports, 'Output', {
+    enumerable: true,
+    get: function get() {
+        return _output.Output;
+    }
+});
+
+var _resource = require('./elements/resource');
+
+Object.defineProperty(exports, 'Resource', {
+    enumerable: true,
+    get: function get() {
+        return _resource.Resource;
+    }
+});
+Object.defineProperty(exports, 'CustomResource', {
+    enumerable: true,
+    get: function get() {
+        return _resource.CustomResource;
+    }
+});
+
+var _condition = require('./elements/condition');
+
+Object.defineProperty(exports, 'Condition', {
+    enumerable: true,
+    get: function get() {
+        return _condition.Condition;
+    }
+});
+
+var _intrinsic = require('./intrinsic');
+
+Object.defineProperty(exports, 'Ref', {
+    enumerable: true,
+    get: function get() {
+        return _intrinsic.Ref;
+    }
+});
+Object.defineProperty(exports, 'FnGetAtt', {
+    enumerable: true,
+    get: function get() {
+        return _intrinsic.FnGetAtt;
+    }
+});
+Object.defineProperty(exports, 'FnEquals', {
+    enumerable: true,
+    get: function get() {
+        return _intrinsic.FnEquals;
+    }
+});
+
+var _service = require('./service');
+
+var _fs = require('fs');
+
+var fs = _interopRequireWildcard(_fs);
+
+var _path = require('path');
+
+var path = _interopRequireWildcard(_path);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var files = fs.readdirSync(path.resolve(__dirname, '../stubs/json/resources/'));
+
+files.map(function (file) {
+    var service = file.replace('.json', '');
+    exports[service] = (0, _service.Service)(service);
 });

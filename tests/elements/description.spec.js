@@ -1,4 +1,4 @@
-const { Template, Description } = require('../../dist/index');
+const { Template, Description } = require('../../src/index');
 
 describe('Description', () => {
   test('Can add a Description to Template', () => {

@@ -1,4 +1,4 @@
-const { Template, Output } = require('../../dist/index');
+const { Template, Output } = require('../../src/index');
 
 describe('Output', () => {
   test('Can add a Output to Template', () => {

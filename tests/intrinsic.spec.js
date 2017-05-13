@@ -1,4 +1,11 @@
-const { Ref, FnGetAtt, FnEquals } = require('../dist/index');
+const {
+  Template,
+  Ref,
+  FnGetAtt,
+  FnEquals,
+  Parameter,
+  S3
+} = require('../src/index');
 
 describe('Intrinsic', () => {
   test('Can create a Ref', () => {
@@ -13,12 +20,48 @@ describe('Intrinsic', () => {
     const r = FnGetAtt('Function', 'ARN');
     expect(r).toEqual({
       kind: 'FnGetAtt',
-      'Fn::GetAtt': ['Function', 'ARN']
+      FnGetAtt: ['Function', 'ARN']
+    });
+  });
+
+  test('FnGetAtt turns to valid JSON', () => {
+    let t = Template().add(Parameter('BucketName', { Type: 'String' })).add(
+      S3.Bucket('S3Bucket', {
+        BucketName: Ref('BucketName'),
+        NotificationConfiguration: {
+          LambdaConfigurations: [
+            {
+              Event: 's3:ObjectCreated:*',
+              Function: FnGetAtt('LambdaFunction', 'Arn')
+            }
+          ]
+        }
+      })
+    );
+    expect(t.build()).toEqual({
+      AWSTemplateFormatVersion: '2010-09-09',
+      Parameters: { BucketName: { Type: 'String' } },
+      Resources: {
+        S3Bucket: {
+          Properties: {
+            BucketName: { Ref: 'BucketName' },
+            NotificationConfiguration: {
+              LambdaConfigurations: [
+                {
+                  Event: 's3:ObjectCreated:*',
+                  Function: { 'Fn::GetAtt': ['LambdaFunction', 'Arn'] }
+                }
+              ]
+            }
+          },
+          Type: 'AWS::S3::Bucket'
+        }
+      }
     });
   });
 
   test('Can create an FnEquals', () => {
     const r = FnEquals('Function', 'ARN');
-    expect(r).toEqual({ kind: 'FnEquals', 'Fn::Equals': ['Function', 'ARN'] });
+    expect(r).toEqual({ kind: 'FnEquals', FnEquals: ['Function', 'ARN'] });
   });
 });

@@ -1,45 +1,55 @@
+// @flow
+
 import { IResource } from './elements/resource';
 import { IParameter } from './elements/parameter';
 import { ITemplate } from './template';
 
 export interface IRef {
-    readonly kind: 'Ref';
-    readonly Ref: string;
+  +kind: 'Ref',
+  +Ref: string
 }
 
 export interface IFnGetAtt {
-    readonly kind: 'FnGetAtt';
-    readonly 'Fn::GetAtt': Array<string>;
+  +kind: 'FnGetAtt',
+  +FnGetAtt: Array<string>
 }
 
 // export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
-export type IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr | ConditionFunction;
+export type IIntrinsic =
+  | IRef
+  | IFnGetAtt
+  | IFnAnd
+  | IFnEquals
+  | IFnIf
+  | IFnNot
+  | IFnOr
+  | ConditionFunction;
 export type Conditional = string | IRef | IFnGetAtt;
 export type ConditionFunction = IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 
 export interface IFnAnd {
-    readonly kind: 'FnAnd';
-    readonly 'Fn::And': Array<Conditional>;
+  +kind: 'FnAnd',
+  +FnAnd: Array<Conditional>
 }
 
 export interface IFnEquals {
-    readonly kind: 'FnEquals';
-    readonly 'Fn::Equals': Array<Conditional>;
+  +kind: 'FnEquals',
+  +FnEquals: Array<Conditional>
 }
 
 export interface IFnIf {
-    readonly kind: 'FnIf';
-    readonly 'Fn::If': Array<Conditional>;
+  +kind: 'FnIf',
+  +FnIf: Array<Conditional>
 }
 
 export interface IFnNot {
-    readonly kind: 'FnNot';
-    readonly 'Fn::Not': Array<Conditional>;
+  +kind: 'FnNot',
+  +FnNot: Array<Conditional>
 }
 
 export interface IFnOr {
-    readonly kind: 'FnOr';
-    readonly 'Fn::Or': Array<Conditional>;
+  +kind: 'FnOr',
+  +FnOr: Array<Conditional>
 }
 
 /*
@@ -62,23 +72,23 @@ export function FnGetAtt(t: ITemplate, target: IResource | string, attr: string)
 */
 
 export function FnGetAtt(target: IResource | string, attr: string): IFnGetAtt {
-    if (typeof target === 'string') {
-        return { kind: 'FnGetAtt', 'Fn::GetAtt': [target, attr] };
-    } else {
-        return { kind: 'FnGetAtt', 'Fn::GetAtt': [target.Name, attr] };
-    }
+  if (typeof target === 'string') {
+    return { kind: 'FnGetAtt', FnGetAtt: [target, attr] };
+  } else {
+    return { kind: 'FnGetAtt', FnGetAtt: [target.Name, attr] };
+  }
 }
 
 export function Ref(target: IResource | IParameter | string): IRef {
-    if (typeof target === 'string') {
-        return { kind: 'Ref', Ref: target };
-    } else {
-        return { kind: 'Ref', Ref: target.Name };
-    }
+  if (typeof target === 'string') {
+    return { kind: 'Ref', Ref: target };
+  } else {
+    return { kind: 'Ref', Ref: target.Name };
+  }
 }
 
 export function FnEquals(one: Conditional, two: Conditional): IFnEquals {
-    return { kind: 'FnEquals', 'Fn::Equals': [one, two] };
+  return { kind: 'FnEquals', FnEquals: [one, two] };
 }
 
 /*

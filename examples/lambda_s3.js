@@ -7,7 +7,6 @@ const {
   Parameter,
   FnGetAtt
 } = require('../dist/index');
-
 debugger;
 let t = Template()
   .add(Parameter('BucketName', { Type: 'String' }))

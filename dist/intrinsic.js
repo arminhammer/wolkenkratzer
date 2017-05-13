@@ -1,5 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FnGetAtt = FnGetAtt;
+exports.Ref = Ref;
+exports.FnEquals = FnEquals;
+
+var _resource = require('./elements/resource');
+
+var _parameter = require('./elements/parameter');
+
+var _template = require('./template');
+
 /*
 export function FnGetAtt(t: ITemplate, target: IResource | string, attr: string): IFnGetAtt {
     let result = { ...t };
@@ -18,28 +31,28 @@ export function FnGetAtt(t: ITemplate, target: IResource | string, attr: string)
     }
 }
 */
+
+// export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 function FnGetAtt(target, attr) {
-    if (typeof target === 'string') {
-        return { kind: 'FnGetAtt', 'Fn::GetAtt': [target, attr] };
-    }
-    else {
-        return { kind: 'FnGetAtt', 'Fn::GetAtt': [target.Name, attr] };
-    }
+  if (typeof target === 'string') {
+    return { kind: 'FnGetAtt', FnGetAtt: [target, attr] };
+  } else {
+    return { kind: 'FnGetAtt', FnGetAtt: [target.Name, attr] };
+  }
 }
-exports.FnGetAtt = FnGetAtt;
+
 function Ref(target) {
-    if (typeof target === 'string') {
-        return { kind: 'Ref', Ref: target };
-    }
-    else {
-        return { kind: 'Ref', Ref: target.Name };
-    }
+  if (typeof target === 'string') {
+    return { kind: 'Ref', Ref: target };
+  } else {
+    return { kind: 'Ref', Ref: target.Name };
+  }
 }
-exports.Ref = Ref;
+
 function FnEquals(one, two) {
-    return { kind: 'FnEquals', 'Fn::Equals': [one, two] };
+  return { kind: 'FnEquals', FnEquals: [one, two] };
 }
-exports.FnEquals = FnEquals;
+
 /*
 export function FnAnd(t: ITemplate): IIntrinsic { }
 export function FnEquals(t: ITemplate): IIntrinsic { }

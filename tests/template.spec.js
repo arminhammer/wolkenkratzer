@@ -1,4 +1,4 @@
-const { Template } = require('../dist/index');
+const { Template } = require('../src/index');
 
 describe('Template', () => {
   test('Can turn a Template to JSON', () => {

@@ -1,4 +1,4 @@
-const { Template, Parameter } = require('../../dist/index');
+const { Template, Parameter } = require('../../src/index');
 
 describe('Parameter', () => {
   test('Can add a Parameter to Template', () => {
