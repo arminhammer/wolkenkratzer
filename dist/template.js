@@ -108,7 +108,12 @@ function Template() {
           if (output) {
             element = output;
           } else {
-            throw new SyntaxError('Could not find ' + JSON.stringify(e));
+            var mapping = result.Mappings[e];
+            if (mapping) {
+              element = mapping;
+            } else {
+              throw new SyntaxError('Could not find ' + JSON.stringify(e));
+            }
           }
         }
       } else {
@@ -123,8 +128,8 @@ function Template() {
           return _removeOutput(this, element);
         /*case 'Resource':
                     return _removeResource(this, e);*/
-        // case 'Description':
-        //    return _removeDescription(this, element);
+        case 'Mapping':
+          return _removeMapping(this, element);
         default:
           throw new SyntaxError(JSON.stringify(e) + ' is not a valid type, could not be added.');
       }
@@ -216,13 +221,7 @@ function _buildCondition(t) {
 }
 
 function _buildMapping(t) {
-  console.log('mapping');
-  console.log(t);
-  //let { Condition } = t;
   var result = t.Content;
-  //Object.keys(result).map(k => {
-  //  result[k][0] = _json(result[k][0]);
-  //});
   return result;
 }
 
@@ -292,13 +291,39 @@ function _addParameter(t, e) {
 
 function _addMapping(t, e) {
   var result = _extends({}, t);
-  result.Mappings[e.Name] = e;
+  if (result.Mappings[e.Name]) {
+    result.Mappings[e.Name] = _extends({}, e, {
+      Content: _extends({}, result.Mappings[e.Name].Content, e.Content)
+    });
+  } else {
+    result.Mappings[e.Name] = e;
+  }
   return result;
 }
 
 function _addResource(t, e) {
   var result = _extends({}, t);
   result.Resources[e.Name] = e;
+  return result;
+}
+
+function _removeMapping(t, e) {
+  var result = _extends({}, t);
+  var mapping = void 0;
+  if (typeof e === 'string') {
+    if (result.Mappings[e]) {
+      mapping = result.Mappings[e];
+    } else {
+      throw new SyntaxError('Could not find ' + JSON.stringify(e));
+    }
+  } else {
+    mapping = e;
+  }
+  if (result.Mappings[mapping.Name]) {
+    delete result.Mappings[mapping.Name];
+  } else {
+    throw new SyntaxError('Could not find ' + JSON.stringify(mapping));
+  }
   return result;
 }
 

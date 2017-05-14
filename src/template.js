@@ -117,7 +117,12 @@ export function Template(): ITemplate {
           if (output) {
             element = output;
           } else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+            let mapping: IMapping | void = result.Mappings[e];
+            if (mapping) {
+              element = mapping;
+            } else {
+              throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+            }
           }
         }
       } else {
@@ -132,8 +137,8 @@ export function Template(): ITemplate {
           return _removeOutput(this, element);
         /*case 'Resource':
                     return _removeResource(this, e);*/
-        // case 'Description':
-        //    return _removeDescription(this, element);
+        case 'Mapping':
+          return _removeMapping(this, element);
         default:
           throw new SyntaxError(
             `${JSON.stringify(e)} is not a valid type, could not be added.`
@@ -217,13 +222,7 @@ function _buildCondition(t: ICondition): string {
 }
 
 function _buildMapping(t: IMapping): string {
-  console.log('mapping');
-  console.log(t);
-  //let { Condition } = t;
   let result = t.Content;
-  //Object.keys(result).map(k => {
-  //  result[k][0] = _json(result[k][0]);
-  //});
   return result;
 }
 
@@ -293,13 +292,40 @@ function _addParameter(t: ITemplate, e: IParameter): ITemplate {
 
 function _addMapping(t: ITemplate, e: IMapping): ITemplate {
   let result = { ...t };
-  result.Mappings[e.Name] = e;
+  if (result.Mappings[e.Name]) {
+    result.Mappings[e.Name] = {
+      ...e,
+      Content: { ...result.Mappings[e.Name].Content, ...e.Content }
+    };
+  } else {
+    result.Mappings[e.Name] = e;
+  }
   return result;
 }
 
 function _addResource(t: ITemplate, e: IResource): ITemplate {
   let result = { ...t };
   result.Resources[e.Name] = e;
+  return result;
+}
+
+function _removeMapping(t: ITemplate, e: IMapping | string): ITemplate {
+  let result = { ...t };
+  let mapping: IMapping;
+  if (typeof e === 'string') {
+    if (result.Mappings[e]) {
+      mapping = result.Mappings[e];
+    } else {
+      throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+    }
+  } else {
+    mapping = e;
+  }
+  if (result.Mappings[mapping.Name]) {
+    delete result.Mappings[mapping.Name];
+  } else {
+    throw new SyntaxError(`Could not find ${JSON.stringify(mapping)}`);
+  }
   return result;
 }
 
