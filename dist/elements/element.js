@@ -9,3 +9,5 @@ var _output = require('./output');
 var _resource = require('./resource');
 
 var _condition = require('./condition');
+
+var _mapping = require('./mapping');

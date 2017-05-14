@@ -3,7 +3,7 @@
 import { IParameter } from './elements/parameter';
 import { IDescription } from './elements/description';
 // import { IMetadata } from './elements/metadata';
-// import { IMapping } from './elements/mapping';
+import { IMapping } from './elements/mapping';
 import { ICondition } from './elements/condition';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
@@ -26,7 +26,7 @@ export interface ITemplate {
   +Description?: void | string,
   +Parameters: { [s: string]: IParameter },
   // +Metadata: { [s: string]: IMetadata };
-  // +Mappings: { [s: string]: IMapping };
+  +Mappings: { [s: string]: IMapping },
   +Conditions: { [s: string]: ICondition },
   +Resources: { [s: string]: IResource },
   +Outputs: { [s: string]: IOutput },
@@ -40,6 +40,7 @@ export function Template(): ITemplate {
   return {
     AWSTemplateFormatVersion: '2010-09-09',
     Conditions: {},
+    Mappings: {},
     Outputs: {},
     Parameters: {},
     Resources: {},
@@ -47,6 +48,8 @@ export function Template(): ITemplate {
       switch (e.kind) {
         case 'Condition':
           return _addCondition(this, e);
+        case 'Mapping':
+          return _addMapping(this, e);
         case 'Parameter':
           return _addParameter(this, e);
         case 'Output':
@@ -76,6 +79,12 @@ export function Template(): ITemplate {
         result.Parameters = {};
         Object.keys(this.Parameters).map(p => {
           result.Parameters[p] = _json(this.Parameters[p]);
+        });
+      }
+      if (Object.keys(this.Mappings).length > 0) {
+        result.Mappings = {};
+        Object.keys(this.Mappings).map(m => {
+          result.Mappings[m] = _json(this.Mappings[m]);
         });
       }
       if (Object.keys(this.Outputs).length > 0) {
@@ -207,6 +216,17 @@ function _buildCondition(t: ICondition): string {
   return result;
 }
 
+function _buildMapping(t: IMapping): string {
+  console.log('mapping');
+  console.log(t);
+  //let { Condition } = t;
+  let result = t.Content;
+  //Object.keys(result).map(k => {
+  //  result[k][0] = _json(result[k][0]);
+  //});
+  return result;
+}
+
 function _buildOutput(t: IOutput): string {
   let outputResult: any = Object.assign({}, t.Properties);
   if (typeof outputResult.Value !== 'string') {
@@ -226,6 +246,8 @@ export function _json(t: IElement | IRef | IFnGetAtt): any {
       return { 'Fn::Equals': t.FnEquals };
     case 'Condition':
       return _buildCondition(t);
+    case 'Mapping':
+      return _buildMapping(t);
     case 'Parameter':
       return _strip(t).Properties;
     case 'Output':
@@ -266,6 +288,12 @@ function _addOutput(t: ITemplate, e: IOutput): ITemplate {
 function _addParameter(t: ITemplate, e: IParameter): ITemplate {
   let result = { ...t };
   result.Parameters[e.Name] = e;
+  return result;
+}
+
+function _addMapping(t: ITemplate, e: IMapping): ITemplate {
+  let result = { ...t };
+  result.Mappings[e.Name] = e;
   return result;
 }
 

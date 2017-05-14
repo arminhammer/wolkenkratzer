@@ -8,7 +8,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 // import { IMetadata } from './elements/metadata';
-// import { IMapping } from './elements/mapping';
 
 
 exports.Template = Template;
@@ -17,6 +16,8 @@ exports._json = _json;
 var _parameter = require('./elements/parameter');
 
 var _description = require('./elements/description');
+
+var _mapping = require('./elements/mapping');
 
 var _condition = require('./elements/condition');
 
@@ -30,6 +31,7 @@ function Template() {
   return {
     AWSTemplateFormatVersion: '2010-09-09',
     Conditions: {},
+    Mappings: {},
     Outputs: {},
     Parameters: {},
     Resources: {},
@@ -37,6 +39,8 @@ function Template() {
       switch (e.kind) {
         case 'Condition':
           return _addCondition(this, e);
+        case 'Mapping':
+          return _addMapping(this, e);
         case 'Parameter':
           return _addParameter(this, e);
         case 'Output':
@@ -66,6 +70,12 @@ function Template() {
         result.Parameters = {};
         Object.keys(this.Parameters).map(function (p) {
           result.Parameters[p] = _json(_this.Parameters[p]);
+        });
+      }
+      if (Object.keys(this.Mappings).length > 0) {
+        result.Mappings = {};
+        Object.keys(this.Mappings).map(function (m) {
+          result.Mappings[m] = _json(_this.Mappings[m]);
         });
       }
       if (Object.keys(this.Outputs).length > 0) {
@@ -205,6 +215,17 @@ function _buildCondition(t) {
   return result;
 }
 
+function _buildMapping(t) {
+  console.log('mapping');
+  console.log(t);
+  //let { Condition } = t;
+  var result = t.Content;
+  //Object.keys(result).map(k => {
+  //  result[k][0] = _json(result[k][0]);
+  //});
+  return result;
+}
+
 function _buildOutput(t) {
   var outputResult = Object.assign({}, t.Properties);
   if (typeof outputResult.Value !== 'string') {
@@ -224,6 +245,8 @@ function _json(t) {
       return { 'Fn::Equals': t.FnEquals };
     case 'Condition':
       return _buildCondition(t);
+    case 'Mapping':
+      return _buildMapping(t);
     case 'Parameter':
       return _strip(t).Properties;
     case 'Output':
@@ -264,6 +287,12 @@ function _addOutput(t, e) {
 function _addParameter(t, e) {
   var result = _extends({}, t);
   result.Parameters[e.Name] = e;
+  return result;
+}
+
+function _addMapping(t, e) {
+  var result = _extends({}, t);
+  result.Mappings[e.Name] = e;
   return result;
 }
 
