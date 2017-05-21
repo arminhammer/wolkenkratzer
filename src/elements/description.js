@@ -5,11 +5,9 @@ export interface IDescription {
   +Content: string
 }
 
-export function Description(params: IDescription): IDescription {
-  if (!params || !params.Content) {
-    throw new SyntaxError(`New Description must have a Content.`);
+export function Description(content: string): IDescription {
+  if (!content) {
+    throw new SyntaxError(`New Description must have content.`);
   }
-  const defaultP = { kind: 'Description' };
-  const mix = { ...defaultP, ...params };
-  return mix;
+  return { kind: 'Description', Content: content };
 }

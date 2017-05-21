@@ -1,0 +1,22 @@
+{
+    "plugins": [
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true,
+                "parser": "flow"
+            }
+        ]
+    },
+    "parserOptions": {
+        "ecmaVersion": 2016,
+        "sourceType": "module"
+    },
+    "extends": [
+        "prettier",
+        "prettier/flowtype"
+    ]
+}

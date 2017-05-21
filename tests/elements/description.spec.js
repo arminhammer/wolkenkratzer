@@ -2,7 +2,7 @@ const { Template, Description } = require('../../src/index');
 
 describe('Description', () => {
   test('Can add a Description to Template', () => {
-    let t = Template().add(Description({ Content: 'NewDescription' }));
+    let t = Template().add(Description('NewDescription'));
     expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
@@ -18,9 +18,7 @@ describe('Description', () => {
   });
 
   test('Can remove a Description from a Template', () => {
-    const t = Template()
-      .add(Description({ Content: 'NewDescription' }))
-      .removeDescription();
+    const t = Template().add(Description('NewDescription')).removeDescription();
     expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'

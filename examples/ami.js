@@ -1,3 +1,5 @@
+'use strict';
+
 const {
   Template,
   Output,
@@ -24,9 +26,7 @@ const osTypes = [
 ];
 let t = Template()
   .add(
-    Description({
-      Content: 'Base template that always uses the newest Amazon Linux AMI'
-    })
+    Description('Base template that always uses the newest Amazon Linux AMI')
   )
   .add(
     Parameter('InstanceType', {
