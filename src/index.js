@@ -7,7 +7,7 @@ export { Output } from './elements/output';
 export { Mapping } from './elements/mapping';
 export { Resource, CustomResource } from './elements/resource';
 export { Condition } from './elements/condition';
-export { Ref, FnGetAtt, FnEquals } from './intrinsic';
+export { Ref, FnGetAtt, FnEquals, FnJoin } from './intrinsic';
 import { Service, IService } from './service';
 
 import * as fs from 'fs';

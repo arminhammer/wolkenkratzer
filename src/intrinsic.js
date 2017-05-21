@@ -14,16 +14,24 @@ export interface IFnGetAtt {
   +FnGetAtt: Array<string>
 }
 
+export interface IFnJoin {
+  +kind: 'FnJoin',
+  +Delimiter: string,
+  +Values: Array<string | IFnGetAtt> | IFnGetAtt
+}
+
 // export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 export type IIntrinsic =
   | IRef
   | IFnGetAtt
+  | IFnJoin
   | IFnAnd
   | IFnEquals
   | IFnIf
   | IFnNot
   | IFnOr
   | ConditionFunction;
+
 export type Conditional = string | IRef | IFnGetAtt;
 export type ConditionFunction = IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 
@@ -85,6 +93,13 @@ export function Ref(target: IResource | IParameter | string): IRef {
   } else {
     return { kind: 'Ref', Ref: target.Name };
   }
+}
+
+export function FnJoin(
+  delimiter: string,
+  values: Array<string | IFnGetAtt> | IFnGetAtt
+): IFnJoin {
+  return { kind: 'FnJoin', Delimiter: delimiter, Values: values };
 }
 
 export function FnEquals(one: Conditional, two: Conditional): IFnEquals {

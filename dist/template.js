@@ -220,6 +220,14 @@ function _buildCondition(t) {
   return result;
 }
 
+function _buildFnJoin(t) {
+  if (Array.isArray(t.Values)) {
+    return { 'Fn::Join': [t.Delimiter, t.Values] };
+  } else {
+    return { 'Fn::Join': [t.Delimiter, _json(t.Values)] };
+  }
+}
+
 function _buildMapping(t) {
   var result = t.Content;
   return result;
@@ -240,6 +248,8 @@ function _json(t) {
       return { Ref: t.Ref };
     case 'FnGetAtt':
       return { 'Fn::GetAtt': t.FnGetAtt };
+    case 'FnJoin':
+      return _buildFnJoin(t);
     case 'FnEquals':
       return { 'Fn::Equals': t.FnEquals };
     case 'Condition':

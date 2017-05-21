@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FnGetAtt = FnGetAtt;
 exports.Ref = Ref;
+exports.FnJoin = FnJoin;
 exports.FnEquals = FnEquals;
 
 var _resource = require('./elements/resource');
@@ -47,6 +48,10 @@ function Ref(target) {
   } else {
     return { kind: 'Ref', Ref: target.Name };
   }
+}
+
+function FnJoin(delimiter, values) {
+  return { kind: 'FnJoin', Delimiter: delimiter, Values: values };
 }
 
 function FnEquals(one, two) {

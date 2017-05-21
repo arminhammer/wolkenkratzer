@@ -11,6 +11,7 @@ import type { IElement } from './elements/element';
 import type {
   IRef,
   IFnGetAtt,
+  IFnJoin,
   Conditional,
   IIntrinsic,
   IFnAnd,
@@ -221,6 +222,14 @@ function _buildCondition(t: ICondition): string {
   return result;
 }
 
+function _buildFnJoin(t: IFnJoin): mixed {
+  if (Array.isArray(t.Values)) {
+    return { 'Fn::Join': [t.Delimiter, t.Values] };
+  } else {
+    return { 'Fn::Join': [t.Delimiter, _json(t.Values)] };
+  }
+}
+
 function _buildMapping(t: IMapping): string {
   let result = t.Content;
   return result;
@@ -235,12 +244,14 @@ function _buildOutput(t: IOutput): string {
   return outputResult;
 }
 
-export function _json(t: IElement | IRef | IFnGetAtt): any {
+export function _json(t: IElement | IRef | IFnGetAtt | IFnJoin): mixed {
   switch (t.kind) {
     case 'Ref':
       return { Ref: t.Ref };
     case 'FnGetAtt':
       return { 'Fn::GetAtt': t.FnGetAtt };
+    case 'FnJoin':
+      return _buildFnJoin(t);
     case 'FnEquals':
       return { 'Fn::Equals': t.FnEquals };
     case 'Condition':
