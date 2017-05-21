@@ -8,6 +8,7 @@ import { ICondition } from './elements/condition';
 import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
 import type { IElement } from './elements/element';
+import { ICreationPolicy } from './attributes/creationpolicy';
 import type {
   IRef,
   IFnGetAtt,
@@ -47,6 +48,8 @@ export function Template(): ITemplate {
     Resources: {},
     add: function(e: IElement): ITemplate {
       switch (e.kind) {
+        case 'CreationPolicy':
+          return _addCreationPolicy(this, e);
         case 'Condition':
           return _addCondition(this, e);
         case 'Mapping':
@@ -199,8 +202,8 @@ function _cleanObject(object: any): mixed {
 }
 
 function _buildResource(t: IResource): mixed {
-  let { Type, Properties } = t;
-  let newProps: any = {};
+  let { Type, Properties, CreationPolicy } = t;
+  let newProps: mixed = {};
   if (Properties) {
     Object.keys(Properties).map(p => {
       if (Properties[p].kind) {
@@ -210,7 +213,11 @@ function _buildResource(t: IResource): mixed {
       }
     });
   }
-  return { Type, Properties: newProps };
+  let result = { Type, Properties: newProps };
+  if (CreationPolicy) {
+    result.CreationPolicy = _json(CreationPolicy);
+  }
+  return result;
 }
 
 function _buildCondition(t: ICondition): string {
@@ -220,6 +227,11 @@ function _buildCondition(t: ICondition): string {
     result[k][0] = _json(result[k][0]);
   });
   return result;
+}
+
+function _buildCreationPolicy(t: ICreationPolicy): mixed {
+  let { Content } = t;
+  return Content;
 }
 
 function _buildFnJoin(t: IFnJoin): mixed {
@@ -244,7 +256,9 @@ function _buildOutput(t: IOutput): string {
   return outputResult;
 }
 
-export function _json(t: IElement | IRef | IFnGetAtt | IFnJoin): mixed {
+export function _json(
+  t: IElement | IRef | IFnGetAtt | IFnJoin | ICreationPolicy
+): mixed {
   switch (t.kind) {
     case 'Ref':
       return { Ref: t.Ref };
@@ -254,6 +268,8 @@ export function _json(t: IElement | IRef | IFnGetAtt | IFnJoin): mixed {
       return _buildFnJoin(t);
     case 'FnEquals':
       return { 'Fn::Equals': t.FnEquals };
+    case 'CreationPolicy':
+      return _buildCreationPolicy(t);
     case 'Condition':
       return _buildCondition(t);
     case 'Mapping':
@@ -273,6 +289,19 @@ function _addDescription(t: ITemplate, e: IDescription): ITemplate {
   let result = { ...t };
   let desc = { Description: e.Content };
   result = { ...t, ...desc };
+  return result;
+}
+
+function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
+  let result = { ...t };
+  if (!result.Resources[e.Resource]) {
+    throw new SyntaxError(
+      'Cannot add CreationPolicy to a Resource that does not exist in the template.'
+    ); //console.log('Match!');
+  }
+  let resource = { ...result.Resources[e.Resource] };
+  resource.CreationPolicy = e;
+  result.Resources[e.Resource] = resource;
   return result;
 }
 

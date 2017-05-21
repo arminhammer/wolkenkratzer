@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.FnJoin = exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Mapping = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;
+exports.getInstanceTypeNameList = exports.getInstanceTypeList = exports.CreationPolicy = exports.FnJoin = exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Mapping = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;
 
 var _template = require('./template');
 
@@ -98,6 +98,30 @@ Object.defineProperty(exports, 'FnJoin', {
   enumerable: true,
   get: function get() {
     return _intrinsic.FnJoin;
+  }
+});
+
+var _creationpolicy = require('./attributes/creationpolicy');
+
+Object.defineProperty(exports, 'CreationPolicy', {
+  enumerable: true,
+  get: function get() {
+    return _creationpolicy.CreationPolicy;
+  }
+});
+
+var _ec2meta = require('./macros/ec2meta.macro');
+
+Object.defineProperty(exports, 'getInstanceTypeList', {
+  enumerable: true,
+  get: function get() {
+    return _ec2meta.getInstanceTypeList;
+  }
+});
+Object.defineProperty(exports, 'getInstanceTypeNameList', {
+  enumerable: true,
+  get: function get() {
+    return _ec2meta.getInstanceTypeNameList;
   }
 });
 

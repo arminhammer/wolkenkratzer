@@ -5,6 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Resource = Resource;
 exports.CustomResource = CustomResource;
+
+var _creationpolicy = require('../attributes/creationpolicy');
+
 function Resource(name, properties) {
   if (!name) {
     throw new SyntaxError('New Resource is invalid. A Name is required.');

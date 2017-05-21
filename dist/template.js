@@ -25,6 +25,8 @@ var _resource = require('./elements/resource');
 
 var _output = require('./elements/output');
 
+var _creationpolicy = require('./attributes/creationpolicy');
+
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function Template() {
@@ -37,6 +39,8 @@ function Template() {
     Resources: {},
     add: function add(e) {
       switch (e.kind) {
+        case 'CreationPolicy':
+          return _addCreationPolicy(this, e);
         case 'Condition':
           return _addCondition(this, e);
         case 'Mapping':
@@ -195,7 +199,8 @@ function _cleanObject(object) {
 
 function _buildResource(t) {
   var Type = t.Type,
-      Properties = t.Properties;
+      Properties = t.Properties,
+      CreationPolicy = t.CreationPolicy;
 
   var newProps = {};
   if (Properties) {
@@ -207,7 +212,11 @@ function _buildResource(t) {
       }
     });
   }
-  return { Type: Type, Properties: newProps };
+  var result = { Type: Type, Properties: newProps };
+  if (CreationPolicy) {
+    result.CreationPolicy = _json(CreationPolicy);
+  }
+  return result;
 }
 
 function _buildCondition(t) {
@@ -218,6 +227,12 @@ function _buildCondition(t) {
     result[k][0] = _json(result[k][0]);
   });
   return result;
+}
+
+function _buildCreationPolicy(t) {
+  var Content = t.Content;
+
+  return Content;
 }
 
 function _buildFnJoin(t) {
@@ -252,6 +267,8 @@ function _json(t) {
       return _buildFnJoin(t);
     case 'FnEquals':
       return { 'Fn::Equals': t.FnEquals };
+    case 'CreationPolicy':
+      return _buildCreationPolicy(t);
     case 'Condition':
       return _buildCondition(t);
     case 'Mapping':
@@ -271,6 +288,17 @@ function _addDescription(t, e) {
   var result = _extends({}, t);
   var desc = { Description: e.Content };
   result = _extends({}, t, desc);
+  return result;
+}
+
+function _addCreationPolicy(t, e) {
+  var result = _extends({}, t);
+  if (!result.Resources[e.Resource]) {
+    throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.'); //console.log('Match!');
+  }
+  var resource = _extends({}, result.Resources[e.Resource]);
+  resource.CreationPolicy = e;
+  result.Resources[e.Resource] = resource;
   return result;
 }
 

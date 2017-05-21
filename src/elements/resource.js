@@ -1,10 +1,13 @@
 // @flow
 
+import { ICreationPolicy } from '../attributes/creationpolicy';
+
 export interface IResource {
   +kind: 'Resource',
   +Name: string,
   +Type: string,
-  +Properties: any
+  +Properties: mixed,
+  +CreationPolicy?: ICreationPolicy
 }
 
 export function Resource(name: string, properties: mixed): IResource {
