@@ -27,6 +27,8 @@ var _output = require('./elements/output');
 
 var _creationpolicy = require('./attributes/creationpolicy');
 
+var _metadata = require('./attributes/metadata');
+
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function Template() {
@@ -41,6 +43,8 @@ function Template() {
       switch (e.kind) {
         case 'CreationPolicy':
           return _addCreationPolicy(this, e);
+        case 'ResourceMetadata':
+          return _addResourceMetadata(this, e);
         case 'Condition':
           return _addCondition(this, e);
         case 'Mapping':
@@ -200,7 +204,8 @@ function _cleanObject(object) {
 function _buildResource(t) {
   var Type = t.Type,
       Properties = t.Properties,
-      CreationPolicy = t.CreationPolicy;
+      CreationPolicy = t.CreationPolicy,
+      Metadata = t.Metadata;
 
   var newProps = {};
   if (Properties) {
@@ -216,6 +221,9 @@ function _buildResource(t) {
   if (CreationPolicy) {
     result.CreationPolicy = _json(CreationPolicy);
   }
+  if (Metadata) {
+    result.Metadata = _json(Metadata);
+  }
   return result;
 }
 
@@ -230,6 +238,12 @@ function _buildCondition(t) {
 }
 
 function _buildCreationPolicy(t) {
+  var Content = t.Content;
+
+  return Content;
+}
+
+function _buildResourceMetadata(t) {
   var Content = t.Content;
 
   return Content;
@@ -269,6 +283,8 @@ function _json(t) {
       return { 'Fn::Equals': t.FnEquals };
     case 'CreationPolicy':
       return _buildCreationPolicy(t);
+    case 'ResourceMetadata':
+      return _buildResourceMetadata(t);
     case 'Condition':
       return _buildCondition(t);
     case 'Mapping':
@@ -294,10 +310,21 @@ function _addDescription(t, e) {
 function _addCreationPolicy(t, e) {
   var result = _extends({}, t);
   if (!result.Resources[e.Resource]) {
-    throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.'); //console.log('Match!');
+    throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.');
   }
   var resource = _extends({}, result.Resources[e.Resource]);
   resource.CreationPolicy = e;
+  result.Resources[e.Resource] = resource;
+  return result;
+}
+
+function _addResourceMetadata(t, e) {
+  var result = _extends({}, t);
+  if (!result.Resources[e.Resource]) {
+    throw new SyntaxError('Cannot add Metadata to a Resource that does not exist in the template.');
+  }
+  var resource = _extends({}, result.Resources[e.Resource]);
+  resource.Metadata = e;
   result.Resources[e.Resource] = resource;
   return result;
 }

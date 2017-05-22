@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getInstanceTypeNameList = exports.getInstanceTypeList = exports.CreationPolicy = exports.FnJoin = exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Mapping = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;
+exports.getInstanceTypeNameList = exports.getInstanceTypeList = exports.ResourceMetadata = exports.CreationPolicy = exports.FnJoin = exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Mapping = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;
 
 var _template = require('./template');
 
@@ -107,6 +107,15 @@ Object.defineProperty(exports, 'CreationPolicy', {
   enumerable: true,
   get: function get() {
     return _creationpolicy.CreationPolicy;
+  }
+});
+
+var _metadata = require('./attributes/metadata');
+
+Object.defineProperty(exports, 'ResourceMetadata', {
+  enumerable: true,
+  get: function get() {
+    return _metadata.ResourceMetadata;
   }
 });
 

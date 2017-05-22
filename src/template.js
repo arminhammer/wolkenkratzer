@@ -9,6 +9,7 @@ import { IResource } from './elements/resource';
 import { IOutput } from './elements/output';
 import type { IElement } from './elements/element';
 import { ICreationPolicy } from './attributes/creationpolicy';
+import { IResourceMetadata } from './attributes/metadata';
 import type {
   IRef,
   IFnGetAtt,
@@ -50,6 +51,8 @@ export function Template(): ITemplate {
       switch (e.kind) {
         case 'CreationPolicy':
           return _addCreationPolicy(this, e);
+        case 'ResourceMetadata':
+          return _addResourceMetadata(this, e);
         case 'Condition':
           return _addCondition(this, e);
         case 'Mapping':
@@ -202,7 +205,7 @@ function _cleanObject(object: any): mixed {
 }
 
 function _buildResource(t: IResource): mixed {
-  let { Type, Properties, CreationPolicy } = t;
+  let { Type, Properties, CreationPolicy, Metadata } = t;
   let newProps: mixed = {};
   if (Properties) {
     Object.keys(Properties).map(p => {
@@ -217,6 +220,9 @@ function _buildResource(t: IResource): mixed {
   if (CreationPolicy) {
     result.CreationPolicy = _json(CreationPolicy);
   }
+  if (Metadata) {
+    result.Metadata = _json(Metadata);
+  }
   return result;
 }
 
@@ -230,6 +236,11 @@ function _buildCondition(t: ICondition): string {
 }
 
 function _buildCreationPolicy(t: ICreationPolicy): mixed {
+  let { Content } = t;
+  return Content;
+}
+
+function _buildResourceMetadata(t: IResourceMetadata): mixed {
   let { Content } = t;
   return Content;
 }
@@ -270,6 +281,8 @@ export function _json(
       return { 'Fn::Equals': t.FnEquals };
     case 'CreationPolicy':
       return _buildCreationPolicy(t);
+    case 'ResourceMetadata':
+      return _buildResourceMetadata(t);
     case 'Condition':
       return _buildCondition(t);
     case 'Mapping':
@@ -297,10 +310,23 @@ function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
   if (!result.Resources[e.Resource]) {
     throw new SyntaxError(
       'Cannot add CreationPolicy to a Resource that does not exist in the template.'
-    ); //console.log('Match!');
+    );
   }
   let resource = { ...result.Resources[e.Resource] };
   resource.CreationPolicy = e;
+  result.Resources[e.Resource] = resource;
+  return result;
+}
+
+function _addResourceMetadata(t: ITemplate, e: IResourceMetadata): ITemplate {
+  let result = { ...t };
+  if (!result.Resources[e.Resource]) {
+    throw new SyntaxError(
+      'Cannot add Metadata to a Resource that does not exist in the template.'
+    );
+  }
+  let resource = { ...result.Resources[e.Resource] };
+  resource.Metadata = e;
   result.Resources[e.Resource] = resource;
   return result;
 }
