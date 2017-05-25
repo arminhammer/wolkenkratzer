@@ -17,7 +17,7 @@ export function Resource(name: string, properties: mixed): IResource {
   return {
     kind: 'Resource',
     Name: name,
-    Type: this.json[this.name].Name,
+    Type: this.json.Resources[this.name].Name,
     Properties: properties
   };
 }

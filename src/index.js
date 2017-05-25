@@ -19,9 +19,7 @@ export {
 import * as fs from 'fs';
 import * as path from 'path';
 
-const files = fs.readdirSync(
-  path.resolve(__dirname, '../stubs/json/resources/')
-);
+const files = fs.readdirSync(path.resolve(__dirname, '../stubs/json/'));
 
 files.map(file => {
   const service = file.replace('.json', '');

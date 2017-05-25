@@ -146,7 +146,7 @@ var path = _interopRequireWildcard(_path);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var files = fs.readdirSync(path.resolve(__dirname, '../stubs/json/resources/'));
+var files = fs.readdirSync(path.resolve(__dirname, '../stubs/json/'));
 
 files.map(function (file) {
   var service = file.replace('.json', '');
