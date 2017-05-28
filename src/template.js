@@ -155,6 +155,25 @@ export function Template(): ITemplate {
     removeDescription: function(): ITemplate {
       const { Description, ...remaining } = this;
       return remaining;
+    },
+    merge: function(template: ITemplate): ITemplate {
+      const combined = {};
+      [
+        'Conditions',
+        'Mapping',
+        'Outputs',
+        'Parameters',
+        'Resources',
+        'Description'
+      ].map(block => {
+        if (template[block]) {
+          combined[block] = { ...this[block], ...template[block] };
+        }
+      });
+      return {
+        ...this,
+        ...combined
+      };
     }
   };
 }

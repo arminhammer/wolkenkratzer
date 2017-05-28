@@ -147,6 +147,17 @@ function Template() {
           remaining = _objectWithoutProperties(this, ['Description']);
 
       return remaining;
+    },
+    merge: function merge(template) {
+      var _this2 = this;
+
+      var combined = {};
+      ['Conditions', 'Mapping', 'Outputs', 'Parameters', 'Resources', 'Description'].map(function (block) {
+        if (template[block]) {
+          combined[block] = _extends({}, _this2[block], template[block]);
+        }
+      });
+      return _extends({}, this, combined);
     }
   };
 }
