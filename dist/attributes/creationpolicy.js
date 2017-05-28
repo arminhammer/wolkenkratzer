@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.CreationPolicy = CreationPolicy;
 function CreationPolicy(resource, content) {
   if (!resource || !content || !content.AutoScalingCreationPolicy && !content.ResourceSignal) {
-    throw new SyntaxError('New CreationPolicy must have content, ' + JSON.stringify(content) + ' is invalid.');
+    throw new SyntaxError(`New CreationPolicy must have content, ${JSON.stringify(content)} is invalid.`);
   }
   return { kind: 'CreationPolicy', Resource: resource, Content: content };
 }

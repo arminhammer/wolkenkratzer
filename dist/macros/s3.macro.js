@@ -12,8 +12,8 @@ var _service = require('../service');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var s3Resource = new _service.Service('S3');
-var types = require('../types');
+const s3Resource = new _service.Service('S3');
+const types = require('../types');
 
 /**
  * @memberof module:Macro
@@ -24,11 +24,11 @@ var types = require('../types');
  * @constructor
  */
 function Bucket(name, newName, region) {
-  var s3Client = new aws.S3({ region: region });
-  return new Promise(function (resolve, reject) {
-    var bucket = new s3Resource.Bucket(util.safeRename(newName));
+  const s3Client = new aws.S3({ region: region });
+  return new Promise((resolve, reject) => {
+    let bucket = new s3Resource.Bucket(util.safeRename(newName));
     bucket.BucketName = newName;
-    return s3Client.getBucketVersioning({ Bucket: name }).promise().then(function (versionData) {
+    return s3Client.getBucketVersioning({ Bucket: name }).promise().then(versionData => {
       if (!util.isEmpty(versionData)) {
         bucket.VersioningConfiguration = new types.AmazonS3VersioningConfiguration(versionData);
       }
@@ -62,7 +62,7 @@ function Bucket(name, newName, region) {
       bucket.ReplicationConfiguration = new types.AmazonS3ReplicationConfiguration(replData);
       return s3Client.getBucketTagging({ Bucket: name }).promise();
     }).then(function (tagsData) {
-      tagsData.TagSet.forEach(function (tag) {
+      tagsData.TagSet.forEach(tag => {
         bucket.Tags.add(tag);
       });
       return s3Client.getBucketWebsite({ Bucket: name }).promise();

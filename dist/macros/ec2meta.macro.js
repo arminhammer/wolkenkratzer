@@ -8,8 +8,8 @@ exports.getInstanceTypeNameList = getInstanceTypeNameList;
 exports.getInstanceTypeMap = getInstanceTypeMap;
 exports.getRegions = getRegions;
 exports.getAMIMap = getAMIMap;
-var instanceTypes = require('../../ec2info/www/instances.json');
-var Promise = require('bluebird');
+const instanceTypes = require('../../ec2info/www/instances.json');
+const Promise = require('bluebird');
 
 /**
  * Returns an array of all instance types and details.
@@ -26,8 +26,8 @@ function getInstanceTypeList() {
  * @returns {Array}
  */
 function getInstanceTypeNameList() {
-  var results = [];
-  instanceTypes.forEach(function (instanceType) {
+  let results = [];
+  instanceTypes.forEach(instanceType => {
     results.push(instanceType.instance_type);
   });
   return results;
@@ -39,8 +39,8 @@ function getInstanceTypeNameList() {
  * @returns {{}}
  */
 function getInstanceTypeMap() {
-  var results = {};
-  instanceTypes.forEach(function (instanceType) {
+  let results = {};
+  instanceTypes.forEach(instanceType => {
     results[instanceType.instance_type] = instanceType;
   });
   return results;
@@ -63,14 +63,14 @@ function getRegions() {
  * @returns {Promise.<TResult>}
  */
 function getAMIMap(filters, regions) {
-  var aws = require('aws-sdk');
-  return Promise.map(regions, function (region) {
-    var ec2Client = new aws.EC2({ region: region });
-    return Promise.map(filters, function (filterSet) {
+  const aws = require('aws-sdk');
+  return Promise.map(regions, region => {
+    let ec2Client = new aws.EC2({ region: region });
+    return Promise.map(filters, filterSet => {
       return ec2Client.describeImages({
         Filters: filterSet.Filters
-      }).promise().then(function (ami) {
-        var set = {};
+      }).promise().then(ami => {
+        let set = {};
         if (ami.Images[0]) {
           if (ami.Images[0].ImageId) {
             set[filterSet.Name] = ami.Images[0].ImageId;
@@ -82,17 +82,17 @@ function getAMIMap(filters, regions) {
         }
         return set;
       });
-    }).then(function (results) {
-      results = results.reduce(function (prev, current) {
-        var key = Object.keys(current)[0];
+    }).then(results => {
+      results = results.reduce((prev, current) => {
+        let key = Object.keys(current)[0];
         prev[key] = current[key];
         return prev;
       }, {});
       return { region: region, images: results };
     });
   }).then(function (results) {
-    var final = {};
-    results.forEach(function (result) {
+    let final = {};
+    results.forEach(result => {
       final[result.region] = result.images;
     });
     return final;

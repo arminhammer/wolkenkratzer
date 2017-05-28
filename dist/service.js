@@ -8,10 +8,10 @@ exports.Service = Service;
 var _resource = require('./elements/resource');
 
 function Service(name) {
-  var json = require('../stubs/json/' + name + '.json');
-  var service = { json: json };
-  Object.keys(json.Resources).map(function (r) {
-    service[r] = _resource.Resource.bind({ json: json, name: r });
+  const json = require(`../stubs/json/${name}.json`);
+  const service = { json };
+  Object.keys(json.Resources).map(r => {
+    service[r] = _resource.Resource.bind({ json, name: r });
   });
   return service;
 }
