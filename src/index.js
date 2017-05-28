@@ -25,3 +25,7 @@ files.map(file => {
   const service = file.replace('.json', '');
   exports[service] = Service(service);
 });
+
+/**
+ * @description Wolkenkratzer is a Javascript library that programmatically generates AWS CloudFormation templates. The library targets 100% feature parity with CloudFormation. This is accomplished by scraping the public documentation and using that to build the data model. The scraper and json data model are in the cfn-doc-json-stubs project. Markdown documentation for the data model is available at doc.md.
+ */

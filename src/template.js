@@ -39,6 +39,9 @@ export interface ITemplate {
   +build: Function
 }
 
+/**
+ * Returns a new Template.
+ */
 export function Template(): ITemplate {
   return {
     AWSTemplateFormatVersion: '2010-09-09',
