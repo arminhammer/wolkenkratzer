@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getInstanceTypeNameList = exports.getInstanceTypeList = exports.ResourceMetadata = exports.CreationPolicy = exports.FnJoin = exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Mapping = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;
+exports.Pseudo = exports.getInstanceTypeNameList = exports.getInstanceTypeList = exports.ResourceMetadata = exports.CreationPolicy = exports.FnJoin = exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Mapping = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;
 
 var _template = require('./template');
 
@@ -131,6 +131,15 @@ Object.defineProperty(exports, 'getInstanceTypeNameList', {
   enumerable: true,
   get: function () {
     return _ec2meta.getInstanceTypeNameList;
+  }
+});
+
+var _pseudo = require('./pseudo');
+
+Object.defineProperty(exports, 'Pseudo', {
+  enumerable: true,
+  get: function () {
+    return _pseudo.Pseudo;
   }
 });
 

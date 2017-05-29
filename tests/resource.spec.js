@@ -39,7 +39,8 @@ describe('Resource', () => {
       },
       Outputs: {
         MainS3BucketOutput: {
-          Value: { Ref: 'Main' }
+          Value: { Ref: 'Main' },
+          Export: { Name: { 'Fn::Sub': '${AWS::StackName}-S3-Bucket-Main' } }
         }
       }
     });
@@ -68,7 +69,8 @@ describe('Resource', () => {
       },
       Outputs: {
         MainS3BucketOutput: {
-          Value: { Ref: 'Main' }
+          Value: { Ref: 'Main' },
+          Export: { Name: { 'Fn::Sub': '${AWS::StackName}-S3-Bucket-Main' } }
         }
       }
     });

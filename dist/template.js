@@ -29,6 +29,8 @@ var _metadata = require('./attributes/metadata');
 
 var _intrinsic = require('./intrinsic');
 
+var _pseudo = require('./pseudo');
+
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 /**
@@ -59,10 +61,14 @@ function Template() {
         case 'Resource':
           let newT = _addResource(this, e);
           if (options) {
-            const shortName = e.Type.split('::').splice(1).join('');
+            const nameSplit = e.Type.split('::').splice(1);
+            const shortName = nameSplit.join('');
             if (options.Output) {
               newT = _addOutput(newT, (0, _output.Output)(`${e.Name}${shortName}Output`, {
-                Value: (0, _intrinsic.Ref)(e.Name)
+                Value: (0, _intrinsic.Ref)(e.Name),
+                Export: {
+                  Name: (0, _intrinsic.FnSub)(`\$\{${_pseudo.Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${e.Name}`)
+                }
               }));
             }
             if (options.Parameters) {
@@ -284,6 +290,10 @@ function _buildOutput(t) {
     let stripped = _json(outputResult.Value);
     outputResult = _extends({}, outputResult, { Value: stripped });
   }
+  if (outputResult.Export && outputResult.Export.Name && typeof outputResult.Export.Name !== 'string') {
+    let stripped = _json(outputResult.Export.Name);
+    outputResult = _extends({}, outputResult, { Export: { Name: stripped } });
+  }
   return outputResult;
 }
 
@@ -297,6 +307,8 @@ function _json(t) {
       return _buildFnJoin(t);
     case 'FnEquals':
       return { 'Fn::Equals': t.FnEquals };
+    case 'FnSub':
+      return { 'Fn::Sub': t.FnSub };
     case 'CreationPolicy':
       return _buildCreationPolicy(t);
     case 'ResourceMetadata':

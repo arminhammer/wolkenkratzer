@@ -10,7 +10,8 @@ import { IOutput, Output } from './elements/output';
 import type { IElement } from './elements/element';
 import { ICreationPolicy } from './attributes/creationpolicy';
 import { IResourceMetadata } from './attributes/metadata';
-import { Ref } from './intrinsic';
+import { Ref, FnSub } from './intrinsic';
+import { Pseudo } from './pseudo';
 import type {
   IRef,
   IFnGetAtt,
@@ -41,7 +42,8 @@ export interface ITemplate {
 }
 
 export interface IAddOptions {
-  Output: boolean
+  Output: boolean,
+  Parameters: Array<string>
 }
 
 /**
@@ -72,12 +74,18 @@ export function Template(): ITemplate {
         case 'Resource':
           let newT = _addResource(this, e);
           if (options) {
-            const shortName = e.Type.split('::').splice(1).join('');
+            const nameSplit = e.Type.split('::').splice(1);
+            const shortName = nameSplit.join('');
             if (options.Output) {
               newT = _addOutput(
                 newT,
                 Output(`${e.Name}${shortName}Output`, {
-                  Value: Ref(e.Name)
+                  Value: Ref(e.Name),
+                  Export: {
+                    Name: FnSub(
+                      `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${e.Name}`
+                    )
+                  }
                 })
               );
             }
@@ -313,11 +321,19 @@ function _buildOutput(t: IOutput): string {
     let stripped = _json(outputResult.Value);
     outputResult = { ...outputResult, Value: stripped };
   }
+  if (
+    outputResult.Export &&
+    outputResult.Export.Name &&
+    typeof outputResult.Export.Name !== 'string'
+  ) {
+    let stripped = _json(outputResult.Export.Name);
+    outputResult = { ...outputResult, Export: { Name: stripped } };
+  }
   return outputResult;
 }
 
 export function _json(
-  t: IElement | IRef | IFnGetAtt | IFnJoin | ICreationPolicy
+  t: IElement | IRef | IFnGetAtt | IFnJoin | FnSub | ICreationPolicy
 ): mixed {
   switch (t.kind) {
     case 'Ref':
@@ -328,6 +344,8 @@ export function _json(
       return _buildFnJoin(t);
     case 'FnEquals':
       return { 'Fn::Equals': t.FnEquals };
+    case 'FnSub':
+      return { 'Fn::Sub': t.FnSub };
     case 'CreationPolicy':
       return _buildCreationPolicy(t);
     case 'ResourceMetadata':

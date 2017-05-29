@@ -15,6 +15,7 @@ export {
   getInstanceTypeList,
   getInstanceTypeNameList
 } from './macros/ec2meta.macro';
+export { Pseudo } from './pseudo';
 
 import * as fs from 'fs';
 import * as path from 'path';
