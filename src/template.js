@@ -1,15 +1,16 @@
 // @flow
 
-import { IParameter } from './elements/parameter';
+import { IParameter, Parameter } from './elements/parameter';
 import { IDescription } from './elements/description';
 // import { IMetadata } from './elements/metadata';
 import { IMapping } from './elements/mapping';
 import { ICondition } from './elements/condition';
 import { IResource } from './elements/resource';
-import { IOutput } from './elements/output';
+import { IOutput, Output } from './elements/output';
 import type { IElement } from './elements/element';
 import { ICreationPolicy } from './attributes/creationpolicy';
 import { IResourceMetadata } from './attributes/metadata';
+import { Ref } from './intrinsic';
 import type {
   IRef,
   IFnGetAtt,
@@ -39,6 +40,10 @@ export interface ITemplate {
   +build: Function
 }
 
+export interface IAddOptions {
+  Output: boolean
+}
+
 /**
  * Returns a new Template.
  */
@@ -50,7 +55,7 @@ export function Template(): ITemplate {
     Outputs: {},
     Parameters: {},
     Resources: {},
-    add: function(e: IElement): ITemplate {
+    add: function(e: IElement, options?: IAddOptions): ITemplate {
       switch (e.kind) {
         case 'CreationPolicy':
           return _addCreationPolicy(this, e);
@@ -65,7 +70,29 @@ export function Template(): ITemplate {
         case 'Output':
           return _addOutput(this, e);
         case 'Resource':
-          return _addResource(this, e);
+          let newT = _addResource(this, e);
+          if (options) {
+            const shortName = e.Type.split('::').splice(1).join('');
+            if (options.Output) {
+              newT = _addOutput(
+                newT,
+                Output(`${e.Name}${shortName}Output`, {
+                  Value: Ref(e.Name)
+                })
+              );
+            }
+            if (options.Parameters) {
+              options.Parameters.map(p => {
+                newT = _addParameter(
+                  newT,
+                  Parameter(`${e.Name}${shortName}Param`, {
+                    Type: 'String'
+                  })
+                );
+              });
+            }
+          }
+          return newT;
         case 'Description':
           return _addDescription(this, e);
         default:

@@ -27,6 +27,8 @@ var _creationpolicy = require('./attributes/creationpolicy');
 
 var _metadata = require('./attributes/metadata');
 
+var _intrinsic = require('./intrinsic');
+
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 /**
@@ -40,7 +42,7 @@ function Template() {
     Outputs: {},
     Parameters: {},
     Resources: {},
-    add: function (e) {
+    add: function (e, options) {
       switch (e.kind) {
         case 'CreationPolicy':
           return _addCreationPolicy(this, e);
@@ -55,7 +57,23 @@ function Template() {
         case 'Output':
           return _addOutput(this, e);
         case 'Resource':
-          return _addResource(this, e);
+          let newT = _addResource(this, e);
+          if (options) {
+            const shortName = e.Type.split('::').splice(1).join('');
+            if (options.Output) {
+              newT = _addOutput(newT, (0, _output.Output)(`${e.Name}${shortName}Output`, {
+                Value: (0, _intrinsic.Ref)(e.Name)
+              }));
+            }
+            if (options.Parameters) {
+              options.Parameters.map(p => {
+                newT = _addParameter(newT, (0, _parameter.Parameter)(`${e.Name}${shortName}Param`, {
+                  Type: 'String'
+                }));
+              });
+            }
+          }
+          return newT;
         case 'Description':
           return _addDescription(this, e);
         default:

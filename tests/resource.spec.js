@@ -21,4 +21,56 @@ describe('Resource', () => {
       t.add(S3.Bucket('Main', { Tags: 'This is a bucket' }));
     }).toThrow(SyntaxError);
   });*/
+
+  test('Add resource pack with Output', () => {
+    let t = Template().add(S3.Bucket('Main', { BucketName: 'name' }), {
+      Output: true
+    });
+    expect(t.build()).toEqual({
+      Resources: {},
+      AWSTemplateFormatVersion: '2010-09-09',
+      Resources: {
+        Main: {
+          Type: 'AWS::S3::Bucket',
+          Properties: {
+            BucketName: 'name'
+          }
+        }
+      },
+      Outputs: {
+        MainS3BucketOutput: {
+          Value: { Ref: 'Main' }
+        }
+      }
+    });
+  });
+
+  test('Add resource pack with Output and Parameter', () => {
+    let t = Template().add(S3.Bucket('Main', { BucketName: 'name' }), {
+      Output: true,
+      Parameters: ['BucketName']
+    });
+    expect(t.build()).toEqual({
+      Resources: {},
+      AWSTemplateFormatVersion: '2010-09-09',
+      Parameters: {
+        MainS3BucketParam: {
+          Type: 'String'
+        }
+      },
+      Resources: {
+        Main: {
+          Type: 'AWS::S3::Bucket',
+          Properties: {
+            BucketName: 'name'
+          }
+        }
+      },
+      Outputs: {
+        MainS3BucketOutput: {
+          Value: { Ref: 'Main' }
+        }
+      }
+    });
+  });
 });
