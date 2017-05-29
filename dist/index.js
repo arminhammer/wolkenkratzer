@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Pseudo = exports.getInstanceTypeNameList = exports.getInstanceTypeList = exports.ResourceMetadata = exports.CreationPolicy = exports.FnJoin = exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Mapping = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;
+exports.Pseudo = exports.getInstanceTypeNameList = exports.getInstanceTypeList = exports.S3BucketTransform = exports.ResourceMetadata = exports.CreationPolicy = exports.FnJoin = exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Mapping = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;
 
 var _template = require('./template');
 
@@ -116,6 +116,15 @@ Object.defineProperty(exports, 'ResourceMetadata', {
   enumerable: true,
   get: function () {
     return _metadata.ResourceMetadata;
+  }
+});
+
+var _s = require('./transform/s3');
+
+Object.defineProperty(exports, 'S3BucketTransform', {
+  enumerable: true,
+  get: function () {
+    return _s.S3BucketTransform;
   }
 });
 

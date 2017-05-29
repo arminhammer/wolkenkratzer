@@ -11,6 +11,7 @@ export { Ref, FnGetAtt, FnEquals, FnJoin } from './intrinsic';
 import { Service, IService } from './service';
 export { CreationPolicy } from './attributes/creationpolicy';
 export { ResourceMetadata } from './attributes/metadata';
+export { S3BucketTransform } from './transform/s3';
 export {
   getInstanceTypeList,
   getInstanceTypeNameList
