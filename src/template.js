@@ -1,5 +1,5 @@
 // @flow
-
+import _ from 'lodash';
 import { IParameter, Parameter } from './elements/parameter';
 import { IDescription } from './elements/description';
 // import { IMetadata } from './elements/metadata';
@@ -29,12 +29,12 @@ export interface ITemplate {
   +kind: 'Template',
   +AWSTemplateFormatVersion: string,
   +Description?: void | string,
-  +Parameters: { [s: string]: IParameter },
-  // +Metadata: { [s: string]: IMetadata };
-  +Mappings: { [s: string]: IMapping },
-  +Conditions: { [s: string]: ICondition },
-  +Resources: { [s: string]: IResource },
-  +Outputs: { [s: string]: IOutput },
+  +Parameters: { +[s: string]: IParameter },
+  // +Metadata: { +[s: string]: IMetadata };
+  +Mappings: { +[s: string]: IMapping },
+  +Conditions: { +[s: string]: ICondition },
+  +Resources: { +[s: string]: IResource },
+  +Outputs: { +[s: string]: IOutput },
   +add: Function,
   +remove: Function,
   +removeDescription: Function,
@@ -60,19 +60,19 @@ export function Template(): ITemplate {
     add: function(e: IElement, options?: IAddOptions): ITemplate {
       switch (e.kind) {
         case 'CreationPolicy':
-          return _addCreationPolicy(this, e);
+          return _addCreationPolicy(_.cloneDeep(this), e);
         case 'ResourceMetadata':
-          return _addResourceMetadata(this, e);
+          return _addResourceMetadata(_.cloneDeep(this), e);
         case 'Condition':
-          return _addCondition(this, e);
+          return _addCondition(_.cloneDeep(this), e);
         case 'Mapping':
-          return _addMapping(this, e);
+          return _addMapping(_.cloneDeep(this), e);
         case 'Parameter':
-          return _addParameter(this, e);
+          return _addParameter(_.cloneDeep(this), e);
         case 'Output':
-          return _addOutput(this, e);
+          return _addOutput(_.cloneDeep(this), e);
         case 'Resource':
-          let newT = _addResource(this, e);
+          let newT = _addResource(_.cloneDeep(this), e);
           if (options) {
             const nameSplit = e.Type.split('::').splice(1);
             const shortName = nameSplit.join('');
@@ -102,7 +102,7 @@ export function Template(): ITemplate {
           }
           return newT;
         case 'Description':
-          return _addDescription(this, e);
+          return _addDescription(_.cloneDeep(this), e);
         default:
           throw new SyntaxError(
             `${JSON.stringify(e)} is not a valid type, could not be added.`

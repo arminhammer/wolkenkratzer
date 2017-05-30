@@ -1,4 +1,4 @@
-const { Template, S3, SNS } = require('../src/index');
+const { Template, S3, SNS } = require('../../src/index');
 
 describe('Resource', () => {
   test('Check for types of immediate attributes', () => {

@@ -11,6 +11,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 exports.Template = Template;
 exports._json = _json;
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _parameter = require('./elements/parameter');
 
 var _description = require('./elements/description');
@@ -31,6 +35,8 @@ var _intrinsic = require('./intrinsic');
 
 var _pseudo = require('./pseudo');
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 /**
@@ -47,19 +53,19 @@ function Template() {
     add: function (e, options) {
       switch (e.kind) {
         case 'CreationPolicy':
-          return _addCreationPolicy(this, e);
+          return _addCreationPolicy(_lodash2.default.cloneDeep(this), e);
         case 'ResourceMetadata':
-          return _addResourceMetadata(this, e);
+          return _addResourceMetadata(_lodash2.default.cloneDeep(this), e);
         case 'Condition':
-          return _addCondition(this, e);
+          return _addCondition(_lodash2.default.cloneDeep(this), e);
         case 'Mapping':
-          return _addMapping(this, e);
+          return _addMapping(_lodash2.default.cloneDeep(this), e);
         case 'Parameter':
-          return _addParameter(this, e);
+          return _addParameter(_lodash2.default.cloneDeep(this), e);
         case 'Output':
-          return _addOutput(this, e);
+          return _addOutput(_lodash2.default.cloneDeep(this), e);
         case 'Resource':
-          let newT = _addResource(this, e);
+          let newT = _addResource(_lodash2.default.cloneDeep(this), e);
           if (options) {
             const nameSplit = e.Type.split('::').splice(1);
             const shortName = nameSplit.join('');
@@ -81,7 +87,7 @@ function Template() {
           }
           return newT;
         case 'Description':
-          return _addDescription(this, e);
+          return _addDescription(_lodash2.default.cloneDeep(this), e);
         default:
           throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
       }

@@ -482,7 +482,7 @@ let t = Template()
     })
   );
 prefixes.map(p => {
-  t.add(
+  t = t.add(
     Output(`${p}FunctionOutput`, {
       Description: `${p} Bucket Cache Function.`,
       Value: Ref(`${p}ReleaseCacheLambdaFunction`)

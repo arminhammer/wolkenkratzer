@@ -1,0 +1,3776 @@
+ADDING MAPPING
+t
+{}
+t after
+{}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "us-east-1": {
+        "PV64": "ami-2a69aa47",
+        "HVM64": "ami-6869aa05",
+        "HVMG2": "ami-61e27177"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "us-east-1": {
+        "PV64": "ami-2a69aa47",
+        "HVM64": "ami-6869aa05",
+        "HVMG2": "ami-61e27177"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "us-west-2": {
+        "PV64": "ami-7f77b31f",
+        "HVM64": "ami-7172b611",
+        "HVMG2": "ami-60aa3700"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "us-west-2": {
+        "PV64": "ami-7f77b31f",
+        "HVM64": "ami-7172b611",
+        "HVMG2": "ami-60aa3700"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "us-west-1": {
+        "PV64": "ami-a2490dc2",
+        "HVM64": "ami-31490d51",
+        "HVMG2": "ami-4b694d2b"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "us-west-1": {
+        "PV64": "ami-a2490dc2",
+        "HVM64": "ami-31490d51",
+        "HVMG2": "ami-4b694d2b"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "eu-west-1": {
+        "PV64": "ami-4cdd453f",
+        "HVM64": "ami-f9dd458a",
+        "HVMG2": "ami-2955524f"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "eu-west-1": {
+        "PV64": "ami-4cdd453f",
+        "HVM64": "ami-f9dd458a",
+        "HVMG2": "ami-2955524f"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "eu-west-2": {
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-886369ec",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "eu-west-2": {
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-886369ec",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "eu-central-1": {
+        "PV64": "ami-6527cf0a",
+        "HVM64": "ami-ea26ce85",
+        "HVMG2": "ami-81ac71ee"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "eu-central-1": {
+        "PV64": "ami-6527cf0a",
+        "HVM64": "ami-ea26ce85",
+        "HVMG2": "ami-81ac71ee"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ap-northeast-1": {
+        "PV64": "ami-3e42b65f",
+        "HVM64": "ami-374db956",
+        "HVMG2": "ami-46220c21"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ap-northeast-1": {
+        "PV64": "ami-3e42b65f",
+        "HVM64": "ami-374db956",
+        "HVMG2": "ami-46220c21"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ap-northeast-2": {
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-2b408b45",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ap-northeast-2": {
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-2b408b45",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ap-southeast-1": {
+        "PV64": "ami-df9e4cbc",
+        "HVM64": "ami-a59b49c6",
+        "HVMG2": "ami-c212aba1"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ap-southeast-1": {
+        "PV64": "ami-df9e4cbc",
+        "HVM64": "ami-a59b49c6",
+        "HVMG2": "ami-c212aba1"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ap-southeast-2": {
+        "PV64": "ami-63351d00",
+        "HVM64": "ami-dc361ebf",
+        "HVMG2": "ami-0ad2db69"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ap-southeast-2": {
+        "PV64": "ami-63351d00",
+        "HVM64": "ami-dc361ebf",
+        "HVMG2": "ami-0ad2db69"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ap-south-1": {
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-ffbdd790",
+        "HVMG2": "ami-ca3042a5"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ap-south-1": {
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-ffbdd790",
+        "HVMG2": "ami-ca3042a5"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "us-east-2": {
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-f6035893",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "us-east-2": {
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-f6035893",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ca-central-1": {
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-730ebd17",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "ca-central-1": {
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-730ebd17",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "sa-east-1": {
+        "PV64": "ami-1ad34676",
+        "HVM64": "ami-6dd04501",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "sa-east-1": {
+        "PV64": "ami-1ad34676",
+        "HVM64": "ami-6dd04501",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "cn-north-1": {
+        "PV64": "ami-77559f1a",
+        "HVM64": "ami-8e6aa0e3",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSRegionArch2AMI": {
+    "kind": "Mapping",
+    "Name": "AWSRegionArch2AMI",
+    "Content": {
+      "cn-north-1": {
+        "PV64": "ami-77559f1a",
+        "HVM64": "ami-8e6aa0e3",
+        "HVMG2": "NOT_SUPPORTED"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m1.small": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m1.small": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m1.small": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m1.small": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m1.medium": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m1.medium": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m1.medium": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m1.medium": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m1.large": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m1.large": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m1.large": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m1.large": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m1.xlarge": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m1.xlarge": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m1.xlarge": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m1.xlarge": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c1.medium": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c1.medium": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c1.medium": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c1.medium": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c1.xlarge": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c1.xlarge": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c1.xlarge": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c1.xlarge": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "cc2.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "cc2.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "cc2.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "cc2.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "cg1.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "cg1.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "cg1.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "cg1.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m2.xlarge": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m2.xlarge": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m2.xlarge": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m2.xlarge": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m2.2xlarge": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m2.2xlarge": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m2.2xlarge": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m2.2xlarge": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m2.4xlarge": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m2.4xlarge": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m2.4xlarge": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m2.4xlarge": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "i2.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "i2.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "i2.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "i2.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "i2.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "i2.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "i2.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "i2.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "i2.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "i2.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "i2.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "i2.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "i2.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "i2.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "i2.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "i2.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "hi1.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "hi1.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "hi1.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "hi1.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "hs1.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "hs1.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "hs1.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "hs1.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t1.micro": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t1.micro": {
+        "Arch": "PV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t1.micro": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t1.micro": {
+        "Arch": "NATPV64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.nano": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.nano": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.nano": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.nano": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.micro": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.micro": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.micro": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.micro": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.small": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.small": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.small": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.small": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.medium": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.medium": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.medium": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.medium": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "t2.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "t2.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.10xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.10xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.10xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.10xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.16xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m4.16xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.16xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m4.16xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m3.medium": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m3.medium": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m3.medium": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m3.medium": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m3.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m3.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m3.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m3.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m3.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m3.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m3.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m3.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m3.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "m3.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m3.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "m3.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c4.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c4.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c4.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c4.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c4.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c4.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c4.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c4.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c4.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c4.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c4.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c4.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c4.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c4.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c4.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c4.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c4.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c4.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c4.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c4.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c3.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c3.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c3.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c3.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c3.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c3.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c3.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c3.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c3.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c3.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c3.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c3.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c3.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c3.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c3.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c3.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c3.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "c3.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c3.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "c3.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "p2.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "p2.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "p2.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "p2.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "p2.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "p2.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "p2.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "p2.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "p2.16xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "p2.16xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "p2.16xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "p2.16xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "g2.2xlarge": {
+        "Arch": "HVMG2"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "g2.2xlarge": {
+        "Arch": "HVMG2"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "g2.2xlarge": {
+        "Arch": "NATHVMG2"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "g2.2xlarge": {
+        "Arch": "NATHVMG2"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "g2.8xlarge": {
+        "Arch": "HVMG2"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "g2.8xlarge": {
+        "Arch": "HVMG2"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "g2.8xlarge": {
+        "Arch": "NATHVMG2"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "g2.8xlarge": {
+        "Arch": "NATHVMG2"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "x1.16xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "x1.16xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "x1.16xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "x1.16xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "x1.32xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "x1.32xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "x1.32xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "x1.32xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.16xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r4.16xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.16xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r4.16xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r3.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r3.large": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r3.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r3.large": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r3.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r3.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r3.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r3.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r3.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r3.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r3.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r3.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r3.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r3.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r3.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r3.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r3.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "r3.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r3.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "r3.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "d2.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "d2.xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "d2.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "d2.xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "d2.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "d2.2xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "d2.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "d2.2xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "d2.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "d2.4xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "d2.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2NATArch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2NATArch",
+    "Content": {
+      "d2.4xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}
+ADDING MAPPING
+t
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "d2.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+t after
+{
+  "AWSInstanceType2Arch": {
+    "kind": "Mapping",
+    "Name": "AWSInstanceType2Arch",
+    "Content": {
+      "d2.8xlarge": {
+        "Arch": "HVM64"
+      }
+    }
+  }
+}
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {},
+  "Mappings": {
+    "AWSInstanceType2NATArch": {
+      "d2.8xlarge": {
+        "Arch": "NATHVM64"
+      }
+    }
+  }
+}

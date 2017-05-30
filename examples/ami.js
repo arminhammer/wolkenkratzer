@@ -96,7 +96,7 @@ let t = Template()
 osTypes.map(os => {
   t = t.add(Condition(`${os}AMI`, FnEquals(Ref('AMI'), os)));
 });
-t
+t = t
   .add(
     CustomResource('AMIInfo', {
       ServiceToken: {

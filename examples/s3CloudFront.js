@@ -51,7 +51,7 @@ regions.map(r => {
   );
 });
 
-t
+t = t
   .add(
     S3.Bucket('S3BucketForWebsiteContent', {
       AccessControl: 'PublicRead',
