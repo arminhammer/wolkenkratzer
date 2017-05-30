@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-// import { IMetadata } from './elements/metadata';
-
 
 exports.Template = Template;
 exports._json = _json;
@@ -38,6 +36,8 @@ var _pseudo = require('./pseudo');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+// import { IMetadata } from './elements/metadata';
+
 
 /**
  * Returns a new Template.
@@ -51,21 +51,22 @@ function Template() {
     Parameters: {},
     Resources: {},
     add: function (e, options) {
+      const _t = _lodash2.default.cloneDeep(this);
       switch (e.kind) {
         case 'CreationPolicy':
-          return _addCreationPolicy(_lodash2.default.cloneDeep(this), e);
+          return _addCreationPolicy(_t, e);
         case 'ResourceMetadata':
-          return _addResourceMetadata(_lodash2.default.cloneDeep(this), e);
+          return _addResourceMetadata(_t, e);
         case 'Condition':
-          return _addCondition(_lodash2.default.cloneDeep(this), e);
+          return _addCondition(_t, e);
         case 'Mapping':
-          return _addMapping(_lodash2.default.cloneDeep(this), e);
+          return _addMapping(_t, e);
         case 'Parameter':
-          return _addParameter(_lodash2.default.cloneDeep(this), e);
+          return _addParameter(_t, e);
         case 'Output':
-          return _addOutput(_lodash2.default.cloneDeep(this), e);
+          return _addOutput(_t, e);
         case 'Resource':
-          let newT = _addResource(_lodash2.default.cloneDeep(this), e);
+          let newT = _addResource(_t, e);
           if (options) {
             const nameSplit = e.Type.split('::').splice(1);
             const shortName = nameSplit.join('');
@@ -87,7 +88,7 @@ function Template() {
           }
           return newT;
         case 'Description':
-          return _addDescription(_lodash2.default.cloneDeep(this), e);
+          return _addDescription(_t, e);
         default:
           throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
       }
@@ -134,7 +135,7 @@ function Template() {
     },
     kind: 'Template',
     remove: function (e) {
-      let result = _extends({}, this);
+      let result = _lodash2.default.cloneDeep(this);
       let element;
       if (typeof e === 'string') {
         let parameter = result.Parameters[e];
@@ -177,14 +178,15 @@ function Template() {
             remaining = _objectWithoutProperties(_ref, ['Description']);
       return remaining;
     },
-    merge: function (template) {
+    merge: function (t) {
+      const _t = _lodash2.default.cloneDeep(this);
       const combined = {};
       ['Conditions', 'Mapping', 'Outputs', 'Parameters', 'Resources', 'Description'].map(block => {
-        if (template[block]) {
-          combined[block] = _extends({}, this[block], template[block]);
+        if (t[block]) {
+          combined[block] = _extends({}, _t[block], t[block]);
         }
       });
-      return _extends({}, this, combined);
+      return _extends({}, _t, combined);
     }
   };
 }

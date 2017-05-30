@@ -58,21 +58,22 @@ export function Template(): ITemplate {
     Parameters: {},
     Resources: {},
     add: function(e: IElement, options?: IAddOptions): ITemplate {
+      const _t = _.cloneDeep(this);
       switch (e.kind) {
         case 'CreationPolicy':
-          return _addCreationPolicy(_.cloneDeep(this), e);
+          return _addCreationPolicy(_t, e);
         case 'ResourceMetadata':
-          return _addResourceMetadata(_.cloneDeep(this), e);
+          return _addResourceMetadata(_t, e);
         case 'Condition':
-          return _addCondition(_.cloneDeep(this), e);
+          return _addCondition(_t, e);
         case 'Mapping':
-          return _addMapping(_.cloneDeep(this), e);
+          return _addMapping(_t, e);
         case 'Parameter':
-          return _addParameter(_.cloneDeep(this), e);
+          return _addParameter(_t, e);
         case 'Output':
-          return _addOutput(_.cloneDeep(this), e);
+          return _addOutput(_t, e);
         case 'Resource':
-          let newT = _addResource(_.cloneDeep(this), e);
+          let newT = _addResource(_t, e);
           if (options) {
             const nameSplit = e.Type.split('::').splice(1);
             const shortName = nameSplit.join('');
@@ -102,7 +103,7 @@ export function Template(): ITemplate {
           }
           return newT;
         case 'Description':
-          return _addDescription(_.cloneDeep(this), e);
+          return _addDescription(_t, e);
         default:
           throw new SyntaxError(
             `${JSON.stringify(e)} is not a valid type, could not be added.`
@@ -151,7 +152,7 @@ export function Template(): ITemplate {
     },
     kind: 'Template',
     remove: function(e: IElement | string): ITemplate {
-      let result = { ...this };
+      let result = _.cloneDeep(this);
       let element: IElement;
       if (typeof e === 'string') {
         let parameter: IParameter | void = result.Parameters[e];
@@ -194,7 +195,8 @@ export function Template(): ITemplate {
       const { Description, ...remaining } = this;
       return remaining;
     },
-    merge: function(template: ITemplate): ITemplate {
+    merge: function(t: ITemplate): ITemplate {
+      const _t = _.cloneDeep(this);
       const combined = {};
       [
         'Conditions',
@@ -204,12 +206,12 @@ export function Template(): ITemplate {
         'Resources',
         'Description'
       ].map(block => {
-        if (template[block]) {
-          combined[block] = { ...this[block], ...template[block] };
+        if (t[block]) {
+          combined[block] = { ..._t[block], ...t[block] };
         }
       });
       return {
-        ...this,
+        ..._t,
         ...combined
       };
     }
