@@ -36,7 +36,8 @@
     "test": "npm run build; jest --coverage",
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
-    "docs": "documentation build src/index.js -f md > README.md"
+    "docs": "documentation build src/index.js -f md > README.md",
+    "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i"
   },
   "repository": {
     "type": "git",

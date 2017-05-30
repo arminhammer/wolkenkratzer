@@ -8,6 +8,7 @@ import { ICondition } from './elements/condition';
 import { IResource } from './elements/resource';
 import { IOutput, Output } from './elements/output';
 import type { IElement } from './elements/element';
+import { Mapping } from './elements/mapping';
 import { ICreationPolicy } from './attributes/creationpolicy';
 import { IResourceMetadata } from './attributes/metadata';
 import { Ref, FnSub } from './intrinsic';
@@ -49,7 +50,7 @@ export interface IAddOptions {
 /**
  * Returns a new Template.
  */
-export function Template(): ITemplate {
+export function Template(inputTemplate?: mixed): ITemplate {
   return {
     AWSTemplateFormatVersion: '2010-09-09',
     Conditions: {},
@@ -214,6 +215,10 @@ export function Template(): ITemplate {
         ..._t,
         ...combined
       };
+    },
+    import: function(inputTemplate: mixed): ITemplate {
+      let _t = _.cloneDeep(this);
+      return _calcFromExistingTemplate(_t, inputTemplate);
     }
   };
 }
@@ -408,12 +413,17 @@ function _addCondition(t: ITemplate, e: ICondition): ITemplate {
 }
 
 function _addOutput(t: ITemplate, e: IOutput): ITemplate {
-  if (typeof e.Properties.Value !== 'string' && e.Properties.Value.Ref) {
-    _validateRef(t, e.Properties.Value);
+  if (typeof e.Properties.Value !== 'string') {
+    if (e.Properties.Value.Ref) {
+      _validateRef(t, e.Properties.Value);
+    } else if (
+      typeof e.Properties.Value !== 'string' &&
+      e.Properties.Value['Fn::GetAtt']
+    ) {
+      _validateFnGetAtt(t, e.Properties.Value);
+    }
   }
-  /*if (typeof e.Properties.Value !== 'string' && e.Properties.Value['Fn::GetAtt']) {
-        _validateFnGetAtt(this, e.Properties.Value);
-    }*/
+
   let result = { ...t };
   result.Outputs[e.Name] = e;
   return result;
@@ -502,4 +512,37 @@ function _removeParameter(t: ITemplate, e: IParameter | string): ITemplate {
     throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
   }
   return result;
+}
+
+function _calcFromExistingTemplate(t: ITemplate, inputTemplate: mixed) {
+  if (inputTemplate.Parameters) {
+    Object.keys(inputTemplate.Parameters).map(p => {
+      t = t.add(Parameter(p, inputTemplate.Parameters[p]));
+    });
+  }
+  if (inputTemplate.Outputs) {
+    Object.keys(inputTemplate.Outputs).map(o => {
+      console.log('o');
+      t = t.add(Output(o, inputTemplate.Outputs[o]));
+    });
+  }
+  /*
+
+  if (inputTemplate.Mappings) {
+    Object.keys(inputTemplate.Mappings).map(m => {
+      t = t.add(Mapping(m, inputTemplate.Mappings[m]));
+    });
+  }
+  if (inputTemplate.Resources) {
+    Object.keys(inputTemplate.Resources).map(r => {
+      t = t.add(Mapping(r, inputTemplate.Resources[r]));
+    });
+  }
+  */
+  if (inputTemplate.Conditions) {
+    Object.keys(inputTemplate.Conditions).map(c => {
+      t = t.add(Condition(c, inputTemplate.Conditions[c]));
+    });
+  }
+  return t;
 }

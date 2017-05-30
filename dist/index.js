@@ -1,168 +1,25 @@
-'use strict';
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });exports.Pseudo = exports.getInstanceTypeNameList = exports.getInstanceTypeList = exports.S3BucketTransform = exports.ResourceMetadata = exports.CreationPolicy = exports.FnJoin = exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Mapping = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;var _template = require('./template');Object.defineProperty(exports, 'Template', { enumerable: true, get: function () {return _template.
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Pseudo = exports.getInstanceTypeNameList = exports.getInstanceTypeList = exports.S3BucketTransform = exports.ResourceMetadata = exports.CreationPolicy = exports.FnJoin = exports.FnEquals = exports.FnGetAtt = exports.Ref = exports.Condition = exports.CustomResource = exports.Resource = exports.Mapping = exports.Output = exports.Description = exports.Parameter = exports.Template = undefined;
+    Template;} });var _parameter = require('./elements/parameter');Object.defineProperty(exports, 'Parameter', { enumerable: true, get: function () {return _parameter.
+    Parameter;} });var _description = require('./elements/description');Object.defineProperty(exports, 'Description', { enumerable: true, get: function () {return _description.
+    Description;} });var _output = require('./elements/output');Object.defineProperty(exports, 'Output', { enumerable: true, get: function () {return _output.
+    Output;} });var _mapping = require('./elements/mapping');Object.defineProperty(exports, 'Mapping', { enumerable: true, get: function () {return _mapping.
+    Mapping;} });var _resource = require('./elements/resource');Object.defineProperty(exports, 'Resource', { enumerable: true, get: function () {return _resource.
+    Resource;} });Object.defineProperty(exports, 'CustomResource', { enumerable: true, get: function () {return _resource.CustomResource;} });var _condition = require('./elements/condition');Object.defineProperty(exports, 'Condition', { enumerable: true, get: function () {return _condition.
+    Condition;} });var _intrinsic = require('./intrinsic');Object.defineProperty(exports, 'Ref', { enumerable: true, get: function () {return _intrinsic.
+    Ref;} });Object.defineProperty(exports, 'FnGetAtt', { enumerable: true, get: function () {return _intrinsic.FnGetAtt;} });Object.defineProperty(exports, 'FnEquals', { enumerable: true, get: function () {return _intrinsic.FnEquals;} });Object.defineProperty(exports, 'FnJoin', { enumerable: true, get: function () {return _intrinsic.FnJoin;} });var _creationpolicy = require('./attributes/creationpolicy');Object.defineProperty(exports, 'CreationPolicy', { enumerable: true, get: function () {return _creationpolicy.
 
-var _template = require('./template');
+    CreationPolicy;} });var _metadata = require('./attributes/metadata');Object.defineProperty(exports, 'ResourceMetadata', { enumerable: true, get: function () {return _metadata.
+    ResourceMetadata;} });var _s = require('./transform/s3');Object.defineProperty(exports, 'S3BucketTransform', { enumerable: true, get: function () {return _s.
+    S3BucketTransform;} });var _ec2meta = require('./macros/ec2meta.macro');Object.defineProperty(exports, 'getInstanceTypeList', { enumerable: true, get: function () {return _ec2meta.
 
-Object.defineProperty(exports, 'Template', {
-  enumerable: true,
-  get: function () {
-    return _template.Template;
-  }
-});
+    getInstanceTypeList;} });Object.defineProperty(exports, 'getInstanceTypeNameList', { enumerable: true, get: function () {return _ec2meta.
+    getInstanceTypeNameList;} });var _pseudo = require('./pseudo');Object.defineProperty(exports, 'Pseudo', { enumerable: true, get: function () {return _pseudo.
 
-var _parameter = require('./elements/parameter');
+    Pseudo;} });var _service = require('./service');
 
-Object.defineProperty(exports, 'Parameter', {
-  enumerable: true,
-  get: function () {
-    return _parameter.Parameter;
-  }
-});
-
-var _description = require('./elements/description');
-
-Object.defineProperty(exports, 'Description', {
-  enumerable: true,
-  get: function () {
-    return _description.Description;
-  }
-});
-
-var _output = require('./elements/output');
-
-Object.defineProperty(exports, 'Output', {
-  enumerable: true,
-  get: function () {
-    return _output.Output;
-  }
-});
-
-var _mapping = require('./elements/mapping');
-
-Object.defineProperty(exports, 'Mapping', {
-  enumerable: true,
-  get: function () {
-    return _mapping.Mapping;
-  }
-});
-
-var _resource = require('./elements/resource');
-
-Object.defineProperty(exports, 'Resource', {
-  enumerable: true,
-  get: function () {
-    return _resource.Resource;
-  }
-});
-Object.defineProperty(exports, 'CustomResource', {
-  enumerable: true,
-  get: function () {
-    return _resource.CustomResource;
-  }
-});
-
-var _condition = require('./elements/condition');
-
-Object.defineProperty(exports, 'Condition', {
-  enumerable: true,
-  get: function () {
-    return _condition.Condition;
-  }
-});
-
-var _intrinsic = require('./intrinsic');
-
-Object.defineProperty(exports, 'Ref', {
-  enumerable: true,
-  get: function () {
-    return _intrinsic.Ref;
-  }
-});
-Object.defineProperty(exports, 'FnGetAtt', {
-  enumerable: true,
-  get: function () {
-    return _intrinsic.FnGetAtt;
-  }
-});
-Object.defineProperty(exports, 'FnEquals', {
-  enumerable: true,
-  get: function () {
-    return _intrinsic.FnEquals;
-  }
-});
-Object.defineProperty(exports, 'FnJoin', {
-  enumerable: true,
-  get: function () {
-    return _intrinsic.FnJoin;
-  }
-});
-
-var _creationpolicy = require('./attributes/creationpolicy');
-
-Object.defineProperty(exports, 'CreationPolicy', {
-  enumerable: true,
-  get: function () {
-    return _creationpolicy.CreationPolicy;
-  }
-});
-
-var _metadata = require('./attributes/metadata');
-
-Object.defineProperty(exports, 'ResourceMetadata', {
-  enumerable: true,
-  get: function () {
-    return _metadata.ResourceMetadata;
-  }
-});
-
-var _s = require('./transform/s3');
-
-Object.defineProperty(exports, 'S3BucketTransform', {
-  enumerable: true,
-  get: function () {
-    return _s.S3BucketTransform;
-  }
-});
-
-var _ec2meta = require('./macros/ec2meta.macro');
-
-Object.defineProperty(exports, 'getInstanceTypeList', {
-  enumerable: true,
-  get: function () {
-    return _ec2meta.getInstanceTypeList;
-  }
-});
-Object.defineProperty(exports, 'getInstanceTypeNameList', {
-  enumerable: true,
-  get: function () {
-    return _ec2meta.getInstanceTypeNameList;
-  }
-});
-
-var _pseudo = require('./pseudo');
-
-Object.defineProperty(exports, 'Pseudo', {
-  enumerable: true,
-  get: function () {
-    return _pseudo.Pseudo;
-  }
-});
-
-var _service = require('./service');
-
-var _fs = require('fs');
-
-var fs = _interopRequireWildcard(_fs);
-
-var _path = require('path');
-
-var path = _interopRequireWildcard(_path);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _fs = require('fs');var fs = _interopRequireWildcard(_fs);
+var _path = require('path');var path = _interopRequireWildcard(_path);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}
 
 const files = fs.readdirSync(path.resolve(__dirname, '../stubs/json/'));
 
@@ -172,5 +29,6 @@ files.map(file => {
 });
 
 /**
- * @description Wolkenkratzer is a Javascript library that programmatically generates AWS CloudFormation templates. The library targets 100% feature parity with CloudFormation. This is accomplished by scraping the public documentation and using that to build the data model. The scraper and json data model are in the cfn-doc-json-stubs project. Markdown documentation for the data model is available at doc.md.
- */
+     * @description Wolkenkratzer is a Javascript library that programmatically generates AWS CloudFormation templates. The library targets 100% feature parity with CloudFormation. This is accomplished by scraping the public documentation and using that to build the data model. The scraper and json data model are in the cfn-doc-json-stubs project. Markdown documentation for the data model is available at doc.md.
+     */
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC5qcyJdLCJuYW1lcyI6WyJUZW1wbGF0ZSIsIlBhcmFtZXRlciIsIkRlc2NyaXB0aW9uIiwiT3V0cHV0IiwiTWFwcGluZyIsIlJlc291cmNlIiwiQ3VzdG9tUmVzb3VyY2UiLCJDb25kaXRpb24iLCJSZWYiLCJGbkdldEF0dCIsIkZuRXF1YWxzIiwiRm5Kb2luIiwiQ3JlYXRpb25Qb2xpY3kiLCJSZXNvdXJjZU1ldGFkYXRhIiwiUzNCdWNrZXRUcmFuc2Zvcm0iLCJnZXRJbnN0YW5jZVR5cGVMaXN0IiwiZ2V0SW5zdGFuY2VUeXBlTmFtZUxpc3QiLCJQc2V1ZG8iLCJmcyIsInBhdGgiLCJmaWxlcyIsInJlYWRkaXJTeW5jIiwicmVzb2x2ZSIsIl9fZGlybmFtZSIsIm1hcCIsImZpbGUiLCJzZXJ2aWNlIiwicmVwbGFjZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiI7O0FBRVNBLFk7QUFDQUMsYTtBQUNBQyxlO0FBQ0FDLFU7QUFDQUMsVztBQUNBQyxZLDhHQUFVQyxjO0FBQ1ZDLGE7QUFDQUMsTyx5R0FBS0MsUSx5R0FBVUMsUSx1R0FBVUMsTTs7QUFFekJDLGtCO0FBQ0FDLG9CO0FBQ0FDLHFCOztBQUVQQyx1QjtBQUNBQywyQjs7QUFFT0MsVSxNQVJUOztBQVVBLHdCLElBQVlDLEU7QUFDWiw0QixJQUFZQyxJOztBQUVaLE1BQU1DLFFBQVFGLEdBQUdHLFdBQUgsQ0FBZUYsS0FBS0csT0FBTCxDQUFhQyxTQUFiLEVBQXdCLGdCQUF4QixDQUFmLENBQWQ7O0FBRUFILE1BQU1JLEdBQU4sQ0FBVUMsUUFBUTtBQUNoQixRQUFNQyxVQUFVRCxLQUFLRSxPQUFMLENBQWEsT0FBYixFQUFzQixFQUF0QixDQUFoQjtBQUNBQyxVQUFRRixPQUFSLElBQW1CLHNCQUFRQSxPQUFSLENBQW5CO0FBQ0QsQ0FIRDs7QUFLQSIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIEBmbG93XG5cbmV4cG9ydCB7IFRlbXBsYXRlIH0gZnJvbSAnLi90ZW1wbGF0ZSc7XG5leHBvcnQgeyBQYXJhbWV0ZXIgfSBmcm9tICcuL2VsZW1lbnRzL3BhcmFtZXRlcic7XG5leHBvcnQgeyBEZXNjcmlwdGlvbiB9IGZyb20gJy4vZWxlbWVudHMvZGVzY3JpcHRpb24nO1xuZXhwb3J0IHsgT3V0cHV0IH0gZnJvbSAnLi9lbGVtZW50cy9vdXRwdXQnO1xuZXhwb3J0IHsgTWFwcGluZyB9IGZyb20gJy4vZWxlbWVudHMvbWFwcGluZyc7XG5leHBvcnQgeyBSZXNvdXJjZSwgQ3VzdG9tUmVzb3VyY2UgfSBmcm9tICcuL2VsZW1lbnRzL3Jlc291cmNlJztcbmV4cG9ydCB7IENvbmRpdGlvbiB9IGZyb20gJy4vZWxlbWVudHMvY29uZGl0aW9uJztcbmV4cG9ydCB7IFJlZiwgRm5HZXRBdHQsIEZuRXF1YWxzLCBGbkpvaW4gfSBmcm9tICcuL2ludHJpbnNpYyc7XG5pbXBvcnQgeyBTZXJ2aWNlLCBJU2VydmljZSB9IGZyb20gJy4vc2VydmljZSc7XG5leHBvcnQgeyBDcmVhdGlvblBvbGljeSB9IGZyb20gJy4vYXR0cmlidXRlcy9jcmVhdGlvbnBvbGljeSc7XG5leHBvcnQgeyBSZXNvdXJjZU1ldGFkYXRhIH0gZnJvbSAnLi9hdHRyaWJ1dGVzL21ldGFkYXRhJztcbmV4cG9ydCB7IFMzQnVja2V0VHJhbnNmb3JtIH0gZnJvbSAnLi90cmFuc2Zvcm0vczMnO1xuZXhwb3J0IHtcbiAgZ2V0SW5zdGFuY2VUeXBlTGlzdCxcbiAgZ2V0SW5zdGFuY2VUeXBlTmFtZUxpc3Rcbn0gZnJvbSAnLi9tYWNyb3MvZWMybWV0YS5tYWNybyc7XG5leHBvcnQgeyBQc2V1ZG8gfSBmcm9tICcuL3BzZXVkbyc7XG5cbmltcG9ydCAqIGFzIGZzIGZyb20gJ2ZzJztcbmltcG9ydCAqIGFzIHBhdGggZnJvbSAncGF0aCc7XG5cbmNvbnN0IGZpbGVzID0gZnMucmVhZGRpclN5bmMocGF0aC5yZXNvbHZlKF9fZGlybmFtZSwgJy4uL3N0dWJzL2pzb24vJykpO1xuXG5maWxlcy5tYXAoZmlsZSA9PiB7XG4gIGNvbnN0IHNlcnZpY2UgPSBmaWxlLnJlcGxhY2UoJy5qc29uJywgJycpO1xuICBleHBvcnRzW3NlcnZpY2VdID0gU2VydmljZShzZXJ2aWNlKTtcbn0pO1xuXG4vKipcbiAqIEBkZXNjcmlwdGlvbiBXb2xrZW5rcmF0emVyIGlzIGEgSmF2YXNjcmlwdCBsaWJyYXJ5IHRoYXQgcHJvZ3JhbW1hdGljYWxseSBnZW5lcmF0ZXMgQVdTIENsb3VkRm9ybWF0aW9uIHRlbXBsYXRlcy4gVGhlIGxpYnJhcnkgdGFyZ2V0cyAxMDAlIGZlYXR1cmUgcGFyaXR5IHdpdGggQ2xvdWRGb3JtYXRpb24uIFRoaXMgaXMgYWNjb21wbGlzaGVkIGJ5IHNjcmFwaW5nIHRoZSBwdWJsaWMgZG9jdW1lbnRhdGlvbiBhbmQgdXNpbmcgdGhhdCB0byBidWlsZCB0aGUgZGF0YSBtb2RlbC4gVGhlIHNjcmFwZXIgYW5kIGpzb24gZGF0YSBtb2RlbCBhcmUgaW4gdGhlIGNmbi1kb2MtanNvbi1zdHVicyBwcm9qZWN0LiBNYXJrZG93biBkb2N1bWVudGF0aW9uIGZvciB0aGUgZGF0YSBtb2RlbCBpcyBhdmFpbGFibGUgYXQgZG9jLm1kLlxuICovXG4iXX0=
