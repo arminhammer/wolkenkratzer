@@ -1,6 +1,6 @@
-[submodule "stubs"]
+[submodule "src/stubs"]
 	path = src/stubs
 	url = https://github.com/arminhammer/cfn-doc-json-stubs
-[submodule "ec2info"]
+[submodule "src/ec2info"]
 	path = src/ec2info
 	url = https://github.com/powdahound/ec2instances.info

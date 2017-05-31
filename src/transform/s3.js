@@ -1,7 +1,6 @@
 // @flow
 
 'use strict';
-
 import { Service } from '../service';
 
 const s3Service: any = Service('S3');
