@@ -1,0 +1,67 @@
+{
+  "Resources": {
+    "Repository": {
+      "Name": "AWS::CodeCommit::Repository",
+      "Properties": {
+        "RepositoryDescription": {
+          "Description": "A description about the AWS CodeCommit repository. For constraints, see the CreateRepository action in                                 the AWS CodeCommit API Reference.",
+          "Array": false,
+          "Type": "String",
+          "Required": "No",
+          "UpdateRequires": "No interruption"
+        },
+        "RepositoryName": {
+          "Description": "A name for the AWS CodeCommit repository.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes",
+          "UpdateRequires": "No interruption"
+        },
+        "Triggers": {
+          "Description": "Defines the actions to take in response to events that occur in the repository.                                 For example, you can send email notifications when someone pushes to the                                 repository.",
+          "Array": true,
+          "Type": "aws-properties-codecommit-repository-triggers",
+          "Required": "No",
+          "UpdateRequires": "No interruption"
+        }
+      }
+    }
+  },
+  "Models": {
+    "aws-properties-codecommit-repository-triggers": {
+      "Name": "AWSCodeCommitRepositoryTrigger",
+      "Properties": {
+        "Branches": {
+          "Description": "The names of the branches in the AWS CodeCommit repository that contain events that you want                                 to include in the trigger. If you don't specify at least one branch, the trigger applies                                 to all branches.",
+          "Array": true,
+          "Type": "String",
+          "Required": "No"
+        },
+        "CustomData": {
+          "Description": "When an event is triggered, additional information that AWS CodeCommit includes when it sends                                 information to the target.",
+          "Array": false,
+          "Type": "String",
+          "Required": "No"
+        },
+        "DestinationArn": {
+          "Description": "The Amazon Resource Name (ARN) of the resource that is the target for this trigger.                                 For valid targets, see Manage Triggers for                                    an AWS CodeCommit Repository in the AWS CodeCommit User Guide.",
+          "Array": false,
+          "Type": "String",
+          "Required": "No"
+        },
+        "Events": {
+          "Description": "The repository events for which AWS CodeCommit sends information to the target, which you                                 specified in the DestinationArn property. If you don't specify events, the                                 trigger runs for all repository events. For valid values, see the RepositoryTrigger data type in                                 the AWS CodeCommit API Reference.",
+          "Array": true,
+          "Type": "String",
+          "Required": "No"
+        },
+        "Name": {
+          "Description": "A name for the trigger.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        }
+      }
+    }
+  }
+}

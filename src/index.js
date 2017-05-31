@@ -21,11 +21,13 @@ export { Pseudo } from './pseudo';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const files = fs.readdirSync(path.resolve(__dirname, '../stubs/json/'));
+const files = fs.readdirSync(path.resolve(__dirname, './stubs/json'));
 
 files.map(file => {
-  const service = file.replace('.json', '');
-  exports[service] = Service(service);
+  if (file !== 'json') {
+    const service = file.replace('.json', '');
+    exports[service] = Service(service);
+  }
 });
 
 /**

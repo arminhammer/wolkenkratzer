@@ -2,7 +2,7 @@
 
 'use strict';
 
-const instanceTypes = require('../../ec2info/www/instances.json');
+const instanceTypes = require('../ec2info/www/instances.json');
 const Promise = require('bluebird');
 
 /**

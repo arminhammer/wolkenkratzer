@@ -1,0 +1,191 @@
+{
+  "Resources": {
+    "Table": {
+      "Name": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": {
+          "Description": "A list of AttributeName and AttributeType objects                                 that describe the key schema for the table and indexes.",
+          "Array": true,
+          "Type": "aws-properties-dynamodb-attributedef",
+          "Required": "Yes",
+          "UpdateRequires": "No interruption"
+        },
+        "GlobalSecondaryIndexes": {
+          "Description": "Global secondary indexes to be created on the table. You can create up to 5 global                                 secondary indexes.Important                                    If you update a table to include a new global secondary index, AWS CloudFormation initiates                                       the index creation and then proceeds with the stack update. AWS CloudFormation doesn't wait for                                       the index to complete creation because the backfilling phase can take a long time,                                       depending on the size of the table. You cannot use the index or update the table                                       until the index's status is ACTIVE. You can track its status by using                                       the DynamoDB DescribeTable command.                                                                        If you add or delete an index during an update, we recommend that you don't                                       update any other resources. If your stack fails to update and is rolled back while                                       adding a new index, you must manually delete the index.ImportantIf you update a table to include a new global secondary index, AWS CloudFormation initiates                                       the index creation and then proceeds with the stack update. AWS CloudFormation doesn't wait for                                       the index to complete creation because the backfilling phase can take a long time,                                       depending on the size of the table. You cannot use the index or update the table                                       until the index's status is ACTIVE. You can track its status by using                                       the DynamoDB DescribeTable command.If you add or delete an index during an update, we recommend that you don't                                       update any other resources. If your stack fails to update and is rolled back while                                       adding a new index, you must manually delete the index.If you update only the provisioned throughput values of global secondary                                             indexes, you can update the table without                                                interruption.You can delete or add one global secondary index without interruption. If you do both in the                                             same update (for example, by changing the index's logical ID), the update                                             fails.",
+          "Array": true,
+          "Type": "aws-properties-dynamodb-gsi",
+          "Required": "No",
+          "UpdateRequires": "Updates are not supported. with the following exceptions:\n                                 \n                                    \n                                    \n                                    \n                                    \n                                       \n                                          \n                                          If you update only the provisioned throughput values of global secondary\n                                             indexes, you can update the table without\n                                                interruption.\n                                          \n                                          \n                                       \n                                       \n                                          \n                                          You can delete or add one global secondary index without interruption. If you do both in the\n                                             same update (for example, by changing the index's logical ID), the update\n                                             fails."
+        },
+        "KeySchema": {
+          "Description": "Specifies the attributes that make up the primary key for the table. The                                 attributes in the KeySchema property must also be defined in the                                 AttributeDefinitions property.",
+          "Array": true,
+          "Type": "aws-properties-dynamodb-keyschema",
+          "Required": "Yes",
+          "UpdateRequires": "Replacement"
+        },
+        "LocalSecondaryIndexes": {
+          "Description": "Local secondary indexes to be created on the table. You can create up to 5 local                                 secondary indexes. Each index is scoped to a given hash key value. The size of each hash                                 key can be up to 10 gigabytes.",
+          "Array": true,
+          "Type": "aws-properties-dynamodb-lsi",
+          "Required": "No",
+          "UpdateRequires": "Replacement"
+        },
+        "ProvisionedThroughput": {
+          "Description": "Throughput for the specified table, consisting of values for ReadCapacityUnits and                                 WriteCapacityUnits. For more information about the contents of a provisioned throughput                                 structure, see DynamoDB Provisioned                                    Throughput.",
+          "Array": false,
+          "Type": "aws-properties-dynamodb-provisionedthroughput",
+          "Required": "Yes",
+          "UpdateRequires": "No interruption"
+        },
+        "StreamSpecification": {
+          "Description": "The settings for the DynamoDB table stream, which capture changes to items stored in                                 the table.",
+          "Array": false,
+          "Type": "aws-properties-dynamodb-streamspecification",
+          "Required": "No",
+          "UpdateRequires": "No interruption to the table; however, the stream is replaced."
+        },
+        "TableName": {
+          "Description": "A name for the table. If you don't specify a name, AWS CloudFormation generates a unique                                 physical ID and uses that ID for the table name. For more information, see Name Type.                                                                     Important                                    If you specify a name, you cannot perform updates that require replacement of this resource.                                       You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.ImportantIf you specify a name, you cannot perform updates that require replacement of this resource.                                       You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.",
+          "Array": false,
+          "Type": "String",
+          "Required": "No",
+          "UpdateRequires": "Replacement"
+        }
+      }
+    }
+  },
+  "Models": {
+    "aws-properties-dynamodb-attributedef": {
+      "Name": "DynamoDBAttributeDefinitions",
+      "Properties": {
+        "AttributeName": {
+          "Description": "The name of an attribute. Attribute names can be 1 – 255 characters long                                 and have no character restrictions.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "AttributeType": {
+          "Description": "The data type for the attribute. You can specify S for string                                 data, N for numeric data, or B for binary data.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        }
+      }
+    },
+    "aws-properties-dynamodb-gsi": {
+      "Name": "DynamoDBGlobalSecondaryIndexes",
+      "Properties": {
+        "IndexName": {
+          "Description": "The name of the global secondary index. The index name can be 3 – 255                                 characters long and have no character restrictions.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "KeySchema": {
+          "Description": "The complete index key schema for the global secondary index, which consists of                                 one or more pairs of attribute names and key types.",
+          "Array": false,
+          "Type": "aws-properties-dynamodb-keyschema",
+          "Required": "Yes"
+        },
+        "Projection": {
+          "Description": "Attributes that are copied (projected) from the source table into the index.                                 These attributes are in addition to the primary key attributes and index key                                 attributes, which are automatically projected.",
+          "Array": false,
+          "Type": "aws-properties-dynamodb-projectionobject",
+          "Required": "Yes"
+        },
+        "ProvisionedThroughput": {
+          "Description": "The provisioned throughput settings for the index.",
+          "Array": false,
+          "Type": "aws-properties-dynamodb-provisionedthroughput",
+          "Required": "Yes"
+        }
+      }
+    },
+    "aws-properties-dynamodb-keyschema": {
+      "Name": "DynamoDBKeySchema",
+      "Properties": {
+        "AttributeName": {
+          "Description": "The attribute name that is used as the primary key for this table. Primary key                                 element names can be 1 – 255 characters long and have no character                                 restrictions.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "KeyType": {
+          "Description": "Represents the attribute data, consisting of the data type and the attribute                                 value itself. You can specify HASH or RANGE.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        }
+      }
+    },
+    "aws-properties-dynamodb-projectionobject": {
+      "Name": "DynamoDBProjectionObject",
+      "Properties": {
+        "NonKeyAttributes": {
+          "Description": "The non-key attribute names that are projected into the index.For local secondary indexes, the total count of NonKeyAttributes                                 summed across all of the local secondary indexes must not exceed 20. If you                                 project the same attribute into two different indexes, this counts as two distinct                                 attributes in determining the total.",
+          "Array": true,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "ProjectionType": {
+          "Description": "The set of attributes that are projected into the index:                                                                                                                                                                                                                                                                                                   KEYS_ONLY                                                                                                                                                                  Only the index and primary keys are projected into the                                             index.                                                                                                                                                                                                                                                INCLUDE                                                                                                                                                                  Only the specified table attributes are projected into the index.                                             The list of projected attributes are in                                             NonKeyAttributes.                                                                                                                                                                                                                                                ALL                                                                                                                                                                  All of the table attributes are projected into the index.Only the index and primary keys are projected into the                                             index.Only the specified table attributes are projected into the index.                                             The list of projected attributes are in                                             NonKeyAttributes.All of the table attributes are projected into the index.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        }
+      }
+    },
+    "aws-properties-dynamodb-provisionedthroughput": {
+      "Name": "DynamoDBProvisionedThroughput",
+      "Properties": {
+        "ReadCapacityUnits": {
+          "Description": "Sets the desired minimum number of consistent reads of items (up to 1KB in                                 size) per second for the specified table before Amazon DynamoDB balances the                                 load.",
+          "Array": false,
+          "Type": "Number",
+          "Required": "Yes"
+        },
+        "WriteCapacityUnits": {
+          "Description": "Sets the desired minimum number of consistent writes of items (up to 1KB in                                 size) per second for the specified table before Amazon DynamoDB balances the                                 load.",
+          "Array": false,
+          "Type": "Number",
+          "Required": "Yes"
+        }
+      }
+    },
+    "aws-properties-dynamodb-lsi": {
+      "Name": "DynamoDBLocalSecondaryIndexes",
+      "Properties": {
+        "IndexName": {
+          "Description": "The name of the local secondary index. The index name can be 3 – 255                                 characters long and have no character restrictions.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "KeySchema": {
+          "Description": "The complete index key schema for the local secondary index, which consists of                                 one or more pairs of attribute names and key types. For local secondary indexes,                                 the hash key must be the same as that of the source table.",
+          "Array": false,
+          "Type": "aws-properties-dynamodb-keyschema",
+          "Required": "Yes"
+        },
+        "Projection": {
+          "Description": "Attributes that are copied (projected) from the source table into the index.                                 These attributes are additions to the primary key attributes and index key                                 attributes, which are automatically projected.",
+          "Array": false,
+          "Type": "aws-properties-dynamodb-projectionobject",
+          "Required": "Yes"
+        }
+      }
+    },
+    "aws-properties-dynamodb-streamspecification": {
+      "Name": "DynamoDBTableStreamSpecification",
+      "Properties": {
+        "StreamViewType": {
+          "Description": "Determines the information that the stream captures when an item in the table                                 is modified. For valid values, see StreamSpecification in                                 the Amazon DynamoDB API Reference.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "Resources": {
+    "Pipeline": {
+      "Name": "AWS::DataPipeline::Pipeline",
+      "Properties": {
+        "Activate": {
+          "Description": "Indicates whether to validate and start the pipeline or stop an active pipeline. By                                 default, the value is set to true.",
+          "Array": false,
+          "Type": "Boolean",
+          "Required": "No",
+          "UpdateRequires": "No interruption"
+        },
+        "Description": {
+          "Description": "A description for the pipeline.",
+          "Array": false,
+          "Type": "String",
+          "Required": "No",
+          "UpdateRequires": "Replacement."
+        },
+        "Name": {
+          "Description": "A name for the pipeline. Because AWS CloudFormation assigns each new pipeline a unique                                 identifier, you can use the same name for multiple pipelines that are                                 associated with your AWS account.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes",
+          "UpdateRequires": "Replacement"
+        },
+        "ParameterObjects": {
+          "Description": "Defines the variables that are in the pipeline definition. For more                                 information, see Creating                                    a Pipeline Using Parameterized Templates in the                                 AWS Data Pipeline Developer Guide.",
+          "Array": false,
+          "Type": "aws-properties-datapipeline-pipeline-parameterobjects",
+          "Required": "No",
+          "UpdateRequires": "No interruption"
+        },
+        "ParameterValues": {
+          "Description": "Defines the values for the parameters that are defined in the                                 ParameterObjects property. For more information, see Creating a Pipeline Using Parameterized                                    Templates in the AWS Data Pipeline Developer Guide.",
+          "Array": false,
+          "Type": "aws-properties-datapipeline-pipeline-parametervalues",
+          "Required": "No",
+          "UpdateRequires": "No interruption"
+        },
+        "PipelineObjects": {
+          "Description": "A list of pipeline objects that make up the pipeline. For more information about                                 pipeline objects and a description of each object, see Pipeline Object Reference in the                                 AWS Data Pipeline Developer Guide.",
+          "Array": true,
+          "Type": "aws-properties-datapipeline-pipeline-pipelineobjects",
+          "Required": "Yes",
+          "UpdateRequires": "Some interruptions. Not all objects, fields, and values can be updated.\n                                 Restrictions on what can be updated are documented in Editing Your\n                                    Pipelines in the AWS Data Pipeline Developer Guide."
+        },
+        "PipelineTags": {
+          "Description": "A list of arbitrary tags (key-value pairs) to associate with the pipeline, which you                                 can use to control permissions. For more information, see Controlling Access to                                    Pipelines and Resources in the                                 AWS Data Pipeline Developer Guide.",
+          "Array": false,
+          "Type": "aws-properties-datapipeline-pipeline-pipelinetags",
+          "Required": "No",
+          "UpdateRequires": "No interruption"
+        }
+      }
+    }
+  },
+  "Models": {
+    "aws-properties-datapipeline-pipeline-parameterobjects": {
+      "Name": "AWSDataPipelinePipelineParameterObjects",
+      "Properties": {
+        "Attributes": {
+          "Description": "Key-value pairs that define the attributes of the parameter object.",
+          "Array": false,
+          "Type": "aws-properties-datapipeline-pipeline-parameterobjects-attributes",
+          "Required": "Yes"
+        },
+        "Id": {
+          "Description": "The identifier of the parameter object.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        }
+      }
+    },
+    "aws-properties-datapipeline-pipeline-parameterobjects-attributes": {
+      "Name": "AWSDataPipelineParameterObjectsAttributes",
+      "Properties": {
+        "Key": {
+          "Description": "Specifies the name of a parameter attribute. To view parameter attributes, see                                 Creating a Pipeline Using                                    Parameterized Templates in the                                 AWS Data Pipeline Developer Guide.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "StringValue": {
+          "Description": "A parameter attribute value.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Conditional if the key that you are using requires it."
+        }
+      }
+    },
+    "aws-properties-datapipeline-pipeline-parametervalues": {
+      "Name": "AWSDataPipelinePipelineParameterValues",
+      "Properties": {
+        "Id": {
+          "Description": "The ID of a parameter object.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "StringValue": {
+          "Description": "A value to associate with the parameter object.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        }
+      }
+    },
+    "aws-properties-datapipeline-pipeline-pipelineobjects": {
+      "Name": "AWSDataPipelinePipelineObjects",
+      "Properties": {
+        "Fields": {
+          "Description": "Key-value pairs that define the properties of the object.",
+          "Array": false,
+          "Type": "aws-properties-datapipeline-pipeline-pipelineobjects-fields",
+          "Required": "Yes"
+        },
+        "Id": {
+          "Description": "Identifier of the object.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "Name": {
+          "Description": "Name of the object.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        }
+      }
+    },
+    "aws-properties-datapipeline-pipeline-pipelineobjects-fields": {
+      "Name": "AWSDataPipelineDataPipelineObjectFields",
+      "Properties": {
+        "Key": {
+          "Description": "Specifies the name of a field for a particular object. To view fields for a                                 data pipeline object, see Pipeline Object Reference in the                                 AWS Data Pipeline Developer Guide.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "RefValue": {
+          "Description": "A field value that you specify as an identifier of another object in the same                                 pipeline definition.NoteYou can specify the field value as either a string value                                    (StringValue) or a reference to another object                                    (RefValue), but not both.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Conditional if the key that you are using requires it."
+        },
+        "StringValue": {
+          "Description": "A field value that you specify as a string. To view valid values for a                                 particular field, see Pipeline                                    Object Reference in the AWS Data Pipeline Developer Guide.NoteYou can specify the field value as either a string value                                    (StringValue) or a reference to another object                                    (RefValue), but not both.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Conditional if the key that you are using requires it."
+        }
+      }
+    },
+    "aws-properties-datapipeline-pipeline-pipelinetags": {
+      "Name": "AWSDataPipelinePipelinePipelineTags",
+      "Properties": {
+        "Key": {
+          "Description": "The key name of a tag.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "Value": {
+          "Description": "The value to associate with the key name.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        }
+      }
+    }
+  }
+}

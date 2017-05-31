@@ -1,0 +1,75 @@
+{
+  "Resources": {
+    "FileSystem": {
+      "Name": "AWS::EFS::FileSystem",
+      "Properties": {
+        "FileSystemTags": {
+          "Description": "Tags to associate with the file system.",
+          "Array": false,
+          "Type": "aws-properties-efs-filesystem-filesystemtags",
+          "Required": "No",
+          "UpdateRequires": "No interruption"
+        },
+        "PerformanceMode": {
+          "Description": "The performance mode of the file system. For valid values, see the PerformanceMode parameter for the CreateFileSystem action in the Amazon Elastic File System User Guide.For more information about performance modes, see Amazon EFS Performance in the Amazon Elastic File System User Guide.",
+          "Array": false,
+          "Type": "String",
+          "Required": "No",
+          "UpdateRequires": "Replacement"
+        }
+      }
+    },
+    "MountTarget": {
+      "Name": "AWS::EFS::MountTarget",
+      "Properties": {
+        "FileSystemId": {
+          "Description": "The ID of the file system for which you want to create the mount target.Before updating this property, stop EC2 instances that are using this mount                                 target, and then restart them after the update is complete. This allows the                                 instances to unmount the file system before the mount target is replaced. If you                                 don't stop and restart them, instances or applications that are using those mounts                                 might be disrupted when the mount target is deleted (uncommitted writes might be                                 lost).",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes",
+          "UpdateRequires": "Replacement"
+        },
+        "IpAddress": {
+          "Description": "An IPv4 address that is within the address range of the subnet that is                                 specified in the SubnetId property. If you don't specify an IP                                 address, Amazon EFS automatically assigns an address that is within the range of the                                 subnet.Before updating this property, stop EC2 instances that are using this mount                                 target, and then restart them after the update is complete. This allows the                                 instances to unmount the file system before the mount target is replaced. If you                                 don't stop and restart them, instances or applications that are using those mounts                                 might be disrupted when the mount target is deleted (uncommitted writes might be                                 lost).",
+          "Array": false,
+          "Type": "String",
+          "Required": "No",
+          "UpdateRequires": "Replacement"
+        },
+        "SecurityGroups": {
+          "Description": "A maximum of five VPC security group IDs that are in the same VPC as the subnet                                 that is specified in the SubnetId property. For more information                                 about security groups and mount targets, see Security in the                                 Amazon Elastic File System User Guide.",
+          "Array": true,
+          "Type": "String",
+          "Required": "Yes",
+          "UpdateRequires": "No interruption"
+        },
+        "SubnetId": {
+          "Description": "The ID of the subnet in which you want to add the mount target.NoteFor each file system, you can create only one mount target per Availability                                    Zone (AZ). All EC2 instances in an AZ share a single mount target for a file                                    system. If you create multiple mount targets for a single file system, do not                                    specify a subnet that is an AZ that already has a mount target associated with                                    the same file system.Before updating this property, stop EC2 instances that are using this mount                                 target and then restart them after the update is complete. That way the instances                                 can unmount the file system before the mount target is replaced. If you don't stop                                 and restart them, instances or applications that are using those mounts might be                                 disrupted when the mount target is deleted (uncommitted writes might be                                 lost).",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes",
+          "UpdateRequires": "Replacement"
+        }
+      }
+    }
+  },
+  "Models": {
+    "aws-properties-efs-filesystem-filesystemtags": {
+      "Name": "AmazonElasticFileSystemFileSystemFileSystemTags",
+      "Properties": {
+        "Key": {
+          "Description": "The key name of the tag. You can specify a value that is from 1 to 128 Unicode                                 characters in length, but you cannot use the prefix aws:.",
+          "Array": false,
+          "Type": "String",
+          "Required": "No"
+        },
+        "Value": {
+          "Description": "The value of the tag key. You can specify a value that is from 0 to 128 Unicode                                 characters in length.",
+          "Array": false,
+          "Type": "String",
+          "Required": "No"
+        }
+      }
+    }
+  }
+}

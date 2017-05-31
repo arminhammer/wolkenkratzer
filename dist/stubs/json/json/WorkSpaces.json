@@ -1,0 +1,52 @@
+{
+  "Resources": {
+    "Workspace": {
+      "Name": "AWS::WorkSpaces::Workspace",
+      "Properties": {
+        "BundleId": {
+          "Description": "The identifier of the bundle from which you want to create the workspace. A                                 bundle specifies the details of the workspace, such as the installed applications                                 and the size of CPU, memory, and storage. Use the DescribeWorkspaceBundles action to list the bundles that AWS                                 offers.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes",
+          "UpdateRequires": "Updates are not supported.. To update this property, you must also update another\n                                 property that triggers a replacement, such as the UserName\n                                 property."
+        },
+        "DirectoryId": {
+          "Description": "The identifier of the AWS Directory Service directory in which you want to create the                                 workspace. The directory must already be registered with Amazon WorkSpaces. Use the DescribeWorkspaceDirectories action to list the directories that are                                 available.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes",
+          "UpdateRequires": "Replacement"
+        },
+        "UserName": {
+          "Description": "The name of the user to which the workspace is assigned. This user name must                                 exist in the specified AWS Directory Service directory.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes",
+          "UpdateRequires": "Replacement"
+        },
+        "RootVolumeEncryptionEnabled": {
+          "Description": "Indicates whether Amazon WorkSpaces encrypts data stored on the root volume                                 (C: drive).",
+          "Array": false,
+          "Type": "Boolean",
+          "Required": "No",
+          "UpdateRequires": "Updates are not supported.. To update this property, you must also update another\n                                 property that triggers a replacement, such as the UserName\n                                 property."
+        },
+        "UserVolumeEncryptionEnabled": {
+          "Description": "Indicates whether Amazon WorkSpaces encrypts data stored on the user volume                                 (D: drive).",
+          "Array": false,
+          "Type": "Boolean",
+          "Required": "No",
+          "UpdateRequires": "Updates are not supported.. To update this property, you must also update another\n                                 property that triggers a replacement, such as the UserName\n                                 property."
+        },
+        "VolumeEncryptionKey": {
+          "Description": "The AWS Key Management Service (AWS KMS) key ID that Amazon WorkSpaces uses to encrypt data stored on your                                 workspace.",
+          "Array": false,
+          "Type": "String",
+          "Required": "No",
+          "UpdateRequires": "Updates are not supported.. To update this property, you must also update another\n                                 property that triggers a replacement, such as the UserName\n                                 property."
+        }
+      }
+    }
+  },
+  "Models": {}
+}

@@ -32,7 +32,8 @@
     "prettier": "^1.3.1"
   },
   "scripts": {
-    "build": "babel src/ -d dist/",
+    "cp-sub": "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
+    "build": "babel src/ -d dist/ && npm run cp-sub",
     "test": "npm run build; jest --coverage",
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
