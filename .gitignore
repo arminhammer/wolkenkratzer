@@ -6,5 +6,4 @@ tempExa/
 npm-debug.log
 .nyc_output/
 oldtest/
-.vscode/
 .nyc_output/

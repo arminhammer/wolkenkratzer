@@ -13,6 +13,7 @@ describe('Template', () => {
     const s3static = require('../tests/templates/s3static.json');
     const t = Template().import(s3static);
     console.log(t);
-    expect(t.build()).toEqual(s3static);
+    let res = t.build();
+    expect(res).toEqual(s3static);
   });
 });

@@ -11,7 +11,8 @@ import type { IElement } from './elements/element';
 import { Mapping } from './elements/mapping';
 import { ICreationPolicy } from './attributes/creationpolicy';
 import { IResourceMetadata } from './attributes/metadata';
-import { Ref, FnSub } from './intrinsic';
+import { Ref, FnSub, FnGetAtt } from './intrinsic';
+import { Service } from './service';
 import { Pseudo } from './pseudo';
 import type {
   IRef,
@@ -233,7 +234,7 @@ function _validateRef(t: ITemplate, ref: IRef): void | SyntaxError {
 }
 
 function _validateFnGetAtt(t: ITemplate, att: IFnGetAtt): void | SyntaxError {
-  if (!t.Resources[att.FnGetAtt[0]]) {
+  if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
     throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
   }
   return;
@@ -413,19 +414,23 @@ function _addCondition(t: ITemplate, e: ICondition): ITemplate {
 }
 
 function _addOutput(t: ITemplate, e: IOutput): ITemplate {
-  if (typeof e.Properties.Value !== 'string') {
-    if (e.Properties.Value.Ref) {
-      _validateRef(t, e.Properties.Value);
+  let e0 = _.cloneDeep(e);
+  if (typeof e0.Properties.Value !== 'string') {
+    if (e0.Properties.Value.Ref) {
+      _validateRef(t, e0.Properties.Value);
     } else if (
-      typeof e.Properties.Value !== 'string' &&
-      e.Properties.Value['Fn::GetAtt']
+      typeof e0.Properties.Value !== 'string' &&
+      e0.Properties.Value['Fn::GetAtt']
     ) {
-      _validateFnGetAtt(t, e.Properties.Value);
+      e0.Properties.Value = FnGetAtt(
+        e0.Properties.Value['Fn::GetAtt'][0],
+        e0.Properties.Value['Fn::GetAtt'][1]
+      );
+      _validateFnGetAtt(t, e0.Properties.Value);
     }
   }
-
   let result = { ...t };
-  result.Outputs[e.Name] = e;
+  result.Outputs[e0.Name] = e0;
   return result;
 }
 
@@ -520,25 +525,30 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: mixed) {
       t = t.add(Parameter(p, inputTemplate.Parameters[p]));
     });
   }
+  if (inputTemplate.Resources) {
+    Object.keys(inputTemplate.Resources).map(r => {
+      console.log('r');
+      console.log(inputTemplate.Resources[r]);
+      let split = inputTemplate.Resources[r].Type.split('::');
+      let cat = split[1];
+      let resType = split[2];
+      let service = Service(cat);
+      t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
+    });
+  }
   if (inputTemplate.Outputs) {
     Object.keys(inputTemplate.Outputs).map(o => {
       console.log('o');
       t = t.add(Output(o, inputTemplate.Outputs[o]));
     });
   }
-  /*
-
   if (inputTemplate.Mappings) {
     Object.keys(inputTemplate.Mappings).map(m => {
-      t = t.add(Mapping(m, inputTemplate.Mappings[m]));
+      Object.keys(inputTemplate.Mappings[m]).map(m0 => {
+        t = t.add(Mapping(m, m0, inputTemplate.Mappings[m][m0]));
+      });
     });
   }
-  if (inputTemplate.Resources) {
-    Object.keys(inputTemplate.Resources).map(r => {
-      t = t.add(Mapping(r, inputTemplate.Resources[r]));
-    });
-  }
-  */
   if (inputTemplate.Conditions) {
     Object.keys(inputTemplate.Conditions).map(c => {
       t = t.add(Condition(c, inputTemplate.Conditions[c]));
