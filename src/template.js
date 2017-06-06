@@ -75,33 +75,42 @@ export function Template(inputTemplate?: mixed): ITemplate {
         case 'Output':
           return _addOutput(_t, e);
         case 'Resource':
-          let newT = _addResource(_t, e);
+          let newT = _t;
+          let f = _.cloneDeep(e);
           if (options) {
-            const nameSplit = e.Type.split('::').splice(1);
+            const nameSplit = f.Type.split('::').splice(1);
             const shortName = nameSplit.join('');
-            if (options.Output) {
-              newT = _addOutput(
-                newT,
-                Output(`${e.Name}${shortName}Output`, {
-                  Value: Ref(e.Name),
-                  Export: {
-                    Name: FnSub(
-                      `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${e.Name}`
-                    )
-                  }
-                })
-              );
-            }
             if (options.Parameters) {
               options.Parameters.map(p => {
+                const paramName = `${f.Name}${shortName}Param`;
+                if (!f.Properties) {
+                  f.Properties = {};
+                }
+                f.Properties[p] = Ref(paramName);
                 newT = _addParameter(
                   newT,
-                  Parameter(`${e.Name}${shortName}Param`, {
+                  Parameter(paramName, {
                     Type: 'String'
                   })
                 );
               });
             }
+            newT = _addResource(_t, f);
+            if (options.Output) {
+              newT = _addOutput(
+                newT,
+                Output(`${f.Name}${shortName}Output`, {
+                  Value: Ref(f.Name),
+                  Export: {
+                    Name: FnSub(
+                      `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`
+                    )
+                  }
+                })
+              );
+            }
+          } else {
+            newT = _addResource(_t, f);
           }
           return newT;
         case 'Description':

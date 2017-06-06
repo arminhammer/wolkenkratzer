@@ -65,7 +65,7 @@ let t = Template()
               '          s3',
               '            .putObject({',
               '              Bucket: bucket,',
-              '              Key: `${keyPrefix}/${a}/084220657940/s3.json`,',
+              '              Key: `${keyPrefix}/${a}/123456789012/s3.json`,',
               '              Body: JSON.stringify(asv[a]),',
               "              ServerSideEncryption: 'AES256'",
               '            })',
@@ -91,7 +91,7 @@ let t = Template()
       FunctionName: 'S3ReleaseCacheLambdaFunction',
       Handler: 'index.handler',
       MemorySize: 256,
-      Role: 'arn:aws:iam::084220657940:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
+      Role: 'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
       Runtime: 'nodejs4.3',
       Timeout: 300
     })
@@ -122,7 +122,7 @@ let t = Template()
               '      list.Reservations.map(r => {',
               '        r.Instances.map(i => {',
               '          i.Name = i.InstanceId;',
-              '          i.ARN = `arn:aws:ec2:us-east-1:084220657940:instance/${i.InstanceId}`;',
+              '          i.ARN = `arn:aws:ec2:us-east-1:123456789012:instance/${i.InstanceId}`;',
               '          shortList.push(i);',
               '        });',
               '      });',
@@ -146,7 +146,7 @@ let t = Template()
               '          s3',
               '            .putObject({',
               '              Bucket: bucket,',
-              '              Key: `${keyPrefix}/${a}/084220657940/ec2.json`,',
+              '              Key: `${keyPrefix}/${a}/123456789012/ec2.json`,',
               '              Body: JSON.stringify(asv[a]),',
               "              ServerSideEncryption: 'AES256'",
               '            })',
@@ -172,7 +172,7 @@ let t = Template()
       FunctionName: 'EC2ReleaseCacheLambdaFunction',
       Handler: 'index.handler',
       MemorySize: 256,
-      Role: 'arn:aws:iam::084220657940:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
+      Role: 'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
       Runtime: 'nodejs4.3',
       Timeout: 300
     })
@@ -237,7 +237,7 @@ let t = Template()
               '      elbs.map(block => {',
               '        block.map(elb => {',
               '          elb.Name = elb.LoadBalancerName;',
-              '          elb.ARN = `arn:aws:elasticloadbalancing:us-east-1:084220657940:loadbalancer/${elb.LoadBalancerName}`;',
+              '          elb.ARN = `arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/${elb.LoadBalancerName}`;',
               '          elbResults.push(elb);',
               '        });',
               '      });',
@@ -259,7 +259,7 @@ let t = Template()
               '          s3',
               '            .putObject({',
               '              Bucket: bucket,',
-              '              Key: `${keyPrefix}/${a}/084220657940/elb.json`,',
+              '              Key: `${keyPrefix}/${a}/123456789012/elb.json`,',
               '              Body: JSON.stringify(asv[a]),',
               "              ServerSideEncryption: 'AES256'",
               '            })',
@@ -285,7 +285,7 @@ let t = Template()
       FunctionName: 'ELBReleaseCacheLambdaFunction',
       Handler: 'index.handler',
       MemorySize: 256,
-      Role: 'arn:aws:iam::084220657940:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
+      Role: 'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
       Runtime: 'nodejs4.3',
       Timeout: 300
     })
@@ -315,7 +315,7 @@ let t = Template()
               '      let shortList = [];',
               '      list.SecurityGroups.map(sg => {',
               '        sg.Name = sg.GroupName;',
-              '        sg.ARN = `arn:aws:ec2:us-east-1:084220657940:security-group/${sg.GroupId}`;',
+              '        sg.ARN = `arn:aws:ec2:us-east-1:123456789012:security-group/${sg.GroupId}`;',
               '        shortList.push(sg);',
               '      });',
               '      let asv = shortList.reduce((a, c) => {',
@@ -337,7 +337,7 @@ let t = Template()
               '          s3',
               '            .putObject({',
               '              Bucket: bucket,',
-              '              Key: `${keyPrefix}/${a}/084220657940/sg.json`,',
+              '              Key: `${keyPrefix}/${a}/123456789012/sg.json`,',
               '              Body: JSON.stringify(asv[a]),',
               "              ServerSideEncryption: 'AES256'",
               '            })',
@@ -363,7 +363,7 @@ let t = Template()
       FunctionName: 'SGReleaseCacheLambdaFunction',
       Handler: 'index.handler',
       MemorySize: 256,
-      Role: 'arn:aws:iam::084220657940:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
+      Role: 'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
       Runtime: 'nodejs4.3',
       Timeout: 300
     })
@@ -450,7 +450,7 @@ let t = Template()
               '          s3',
               '            .putObject({',
               '              Bucket: bucket,',
-              '              Key: `${keyPrefix}/${a}/084220657940/rds.json`,',
+              '              Key: `${keyPrefix}/${a}/123456789012/rds.json`,',
               '              Body: JSON.stringify(asv[a]),',
               "              ServerSideEncryption: 'AES256'",
               '            })',
@@ -476,7 +476,7 @@ let t = Template()
       FunctionName: 'RDSReleaseCacheLambdaFunction',
       Handler: 'index.handler',
       MemorySize: 256,
-      Role: 'arn:aws:iam::084220657940:role/CapOne-RetailBank-Dev-CustomRole-',
+      Role: 'arn:aws:iam::123456789012:role/CapOne-RetailBank-Dev-CustomRole-',
       Runtime: 'nodejs4.3',
       Timeout: 300
     })

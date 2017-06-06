@@ -63,7 +63,7 @@ describe('Resource', () => {
         Main: {
           Type: 'AWS::S3::Bucket',
           Properties: {
-            BucketName: 'name'
+            BucketName: { Ref: 'MainS3BucketParam' }
           }
         }
       },
