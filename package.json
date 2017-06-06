@@ -38,7 +38,8 @@
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
     "docs": "documentation readme src/index.js --section=API",
-    "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i"
+    "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
+    "update-submodules": "git submodule update --remote --merge"
   },
   "repository": {
     "type": "git",

@@ -1,17 +1,1 @@
-{
-  "Resources": {
-    "Domain": {
-      "Name": "AWS::SDB::Domain",
-      "Properties": {
-        "Description": {
-          "Description": "Information about the Amazon SimpleDB domain.",
-          "Array": false,
-          "Type": "String",
-          "Required": "No",
-          "UpdateRequires": "Updates are not supported."
-        }
-      }
-    }
-  },
-  "Models": {}
-}
+{"Resources":{"Domain":{"Name":"AWS::SDB::Domain","Properties":{"Description":{"Description":"Information about the Amazon SimpleDB domain.","Array":false,"Type":"String","Required":"No","UpdateRequires":"Updates are not supported."}}}},"Models":{}}
