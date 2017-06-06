@@ -1,5 +1,0 @@
-projectKey=wk0
-serverUrl=http://localhost:9000
-dashboardUrl=http://localhost:9000/dashboard/index/wk0
-ceTaskId=AVxW_CGxYkUg_daW4-ME
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVxW_CGxYkUg_daW4-ME
