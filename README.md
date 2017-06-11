@@ -103,11 +103,18 @@ Please see the examples/ folder for real and tested examples on how to use the l
 
 ## Template
 
-Returns a new Template.
+Returns a new Template object.
+
+Returns **ITemplate** 
+
+## add
+
+Add a new Parameter, Description, Output, Resource, Condition, or Mapping to the template. Returns a new Template with the element added. Does not mutate the original Template object.
 
 **Parameters**
 
--   `inputTemplate` **any** 
+-   `e` **IElement** 
+-   `options` **IAddOptions** 
 
 Returns **ITemplate** 
 

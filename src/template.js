@@ -49,9 +49,9 @@ export interface IAddOptions {
 }
 
 /**
- * Returns a new Template.
+ * Returns a new Template object.
  */
-export function Template(inputTemplate?: mixed): ITemplate {
+export function Template(): ITemplate {
   return {
     AWSTemplateFormatVersion: '2010-09-09',
     Conditions: {},
@@ -59,6 +59,9 @@ export function Template(inputTemplate?: mixed): ITemplate {
     Outputs: {},
     Parameters: {},
     Resources: {},
+    /**
+     * Add a new Parameter, Description, Output, Resource, Condition, or Mapping to the template. Returns a new Template with the element added. Does not mutate the original Template object.
+     */
     add: function(e: IElement, options?: IAddOptions): ITemplate {
       const _t = _.cloneDeep(this);
       switch (e.kind) {
