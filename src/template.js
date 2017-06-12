@@ -27,6 +27,9 @@ import type {
   IFnOr
 } from './intrinsic';
 
+/**
+ * Template Interface
+ */
 export interface ITemplate {
   +kind: 'Template',
   +AWSTemplateFormatVersion: string,
@@ -40,9 +43,14 @@ export interface ITemplate {
   +add: Function,
   +remove: Function,
   +removeDescription: Function,
-  +build: Function
+  +build: Function,
+  +merge: Function,
+  +import: Function
 }
 
+/**
+ * IAddOptions Interface
+ */
 export interface IAddOptions {
   Output: boolean,
   Parameters: Array<string>
@@ -61,6 +69,8 @@ export function Template(): ITemplate {
     Resources: {},
     /**
      * Add a new Parameter, Description, Output, Resource, Condition, or Mapping to the template. Returns a new Template with the element added. Does not mutate the original Template object.
+     * @example
+     * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
      */
     add: function(e: IElement, options?: IAddOptions): ITemplate {
       const _t = _.cloneDeep(this);

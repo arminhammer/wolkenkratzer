@@ -6,9 +6,14 @@
         }
     },
     "Outputs": {
-        "BucketName": {
+        "BucketS3BucketOutput": {
             "Value": {
                 "Ref": "Bucket"
+            },
+            "Export": {
+                "Name": {
+                    "Fn::Sub": "${AWS::StackName}-S3-Bucket-Bucket"
+                }
             }
         }
     },
