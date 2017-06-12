@@ -141,3 +141,16 @@ export interface IFnSelect {
 export function FnSelect(index: string, list: string) {
   return { kind: 'FnSelect', FnSelect: [index, list] };
 }
+
+export function buildIntrinsic(input: mixed) {
+  if (input['Fn::Equals']) {
+    return FnEquals(
+      buildIntrinsic(input['Fn::Equals'][0]),
+      buildIntrinsic(input['Fn::Equals'][1])
+    );
+  } else if (input.Ref) {
+    return Ref(input.Ref);
+  } else {
+    return input;
+  }
+}

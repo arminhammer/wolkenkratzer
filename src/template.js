@@ -1,11 +1,11 @@
 // @flow
 import _ from 'lodash';
 import { IParameter, Parameter } from './elements/parameter';
-import { IDescription } from './elements/description';
+import { IDescription, Description } from './elements/description';
 // import { IMetadata } from './elements/metadata';
 import { IMapping } from './elements/mapping';
-import { ICondition } from './elements/condition';
-import { IResource } from './elements/resource';
+import { ICondition, Condition } from './elements/condition';
+import { IResource, CustomResource } from './elements/resource';
 import { IOutput, Output } from './elements/output';
 import type { IElement } from './elements/element';
 import { Mapping } from './elements/mapping';
@@ -573,6 +573,9 @@ function _removeParameter(t: ITemplate, e: IParameter | string): ITemplate {
 }
 
 function _calcFromExistingTemplate(t: ITemplate, inputTemplate: mixed) {
+  if (inputTemplate.Description) {
+    t = t.add(Description(inputTemplate.Description));
+  }
   if (inputTemplate.Parameters) {
     Object.keys(inputTemplate.Parameters).map(p => {
       t = t.add(Parameter(p, inputTemplate.Parameters[p]));
@@ -585,8 +588,12 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: mixed) {
       let split = inputTemplate.Resources[r].Type.split('::');
       let cat = split[1];
       let resType = split[2];
-      let service = Service(cat);
-      t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
+      if (split[0] === 'AWS') {
+        let service = Service(cat);
+        t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
+      } else if (split[0] === 'Custom') {
+        t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties));
+      }
     });
   }
   if (inputTemplate.Outputs) {
