@@ -27,8 +27,11 @@ import type {
   IFnOr
 } from './intrinsic';
 
+/** @module Template */
+
 /**
  * Template Interface
+ * @member Template
  */
 export interface ITemplate {
   +kind: 'Template',
@@ -50,6 +53,7 @@ export interface ITemplate {
 
 /**
  * IAddOptions Interface
+ * @member Template
  */
 export interface IAddOptions {
   Output: boolean,
@@ -58,6 +62,8 @@ export interface IAddOptions {
 
 /**
  * Returns a new Template object.
+ * @member Template
+ * @returns ITemplate
  */
 export function Template(): ITemplate {
   return {
