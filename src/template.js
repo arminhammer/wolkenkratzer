@@ -134,6 +134,12 @@ export function Template(): ITemplate {
           );
       }
     },
+    /**
+     * Returns a finished CloudFormation template object. This can then be converted into JSON or YAML.
+     * @example
+     * const t = Template();
+     * JSON.stringify(t.build(), null, 2)
+     */
     build: function(): mixed {
       let result: any = {
         AWSTemplateFormatVersion: '2010-09-09',
@@ -175,6 +181,13 @@ export function Template(): ITemplate {
       return result;
     },
     kind: 'Template',
+    /**
+     * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.
+     * @example
+     * let t = Template();
+     * let p = Parameter('NewParam', { Type: 'String' });
+     * t.add(p).remove(p);
+     */
     remove: function(e: IElement | string): ITemplate {
       let result = _.cloneDeep(this);
       let element: IElement;
@@ -215,10 +228,16 @@ export function Template(): ITemplate {
           );
       }
     },
+    /**
+     * Removes the Description from the Template.
+     */
     removeDescription: function(): ITemplate {
       const { Description, ...remaining } = this;
       return remaining;
     },
+    /**
+     * Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
+     */
     merge: function(t: ITemplate): ITemplate {
       const _t = _.cloneDeep(this);
       const combined = {};
@@ -239,6 +258,12 @@ export function Template(): ITemplate {
         ...combined
       };
     },
+    /**
+     * Import an existing CloudFormation JSON template and convert it into a Wolkenkratzer Template object.
+     * @example
+     * const templateJson = require('template.json');
+     * const t = Template().import(templateJson);
+     */
     import: function(inputTemplate: mixed): ITemplate {
       let _t = _.cloneDeep(this);
       return _calcFromExistingTemplate(_t, inputTemplate);

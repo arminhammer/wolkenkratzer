@@ -154,6 +154,70 @@ const t = Template().add(S3.Bucket('Bucket'), { Output: true });
 
 Returns **[ITemplate](#itemplate)** 
 
+## build
+
+Returns a finished CloudFormation template object. This can then be converted into JSON or YAML.
+
+**Examples**
+
+```javascript
+const t = Template();
+JSON.stringify(t.build(), null, 2)
+```
+
+Returns **any** 
+
+## remove
+
+Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.
+
+**Parameters**
+
+-   `e` **(IElement | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** 
+
+**Examples**
+
+```javascript
+let t = Template();
+let p = Parameter('NewParam', { Type: 'String' });
+t.add(p).remove(p);
+```
+
+Returns **[ITemplate](#itemplate)** 
+
+## removeDescription
+
+Removes the Description from the Template.
+
+Returns **[ITemplate](#itemplate)** 
+
+## merge
+
+Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
+
+**Parameters**
+
+-   `t` **[ITemplate](#itemplate)** 
+
+Returns **[ITemplate](#itemplate)** 
+
+## import
+
+Import an existing CloudFormation JSON template and convert it into a Wolkenkratzer Template object.
+
+**Parameters**
+
+-   `inputTemplate` **any** 
+
+**Examples**
+
+```javascript
+const templateJson = require('template.json');
+const t = Template().import(templateJson);
+```
+
+Returns **[ITemplate](#itemplate)** 
+
 ## getInstanceTypeList
 
 Returns an array of all instance types and details.
