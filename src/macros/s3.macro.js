@@ -2,7 +2,6 @@
 
 'use strict';
 
-import * as aws from 'aws-sdk';
 import * as util from '../util';
 import { Service } from '../service';
 
@@ -17,7 +16,7 @@ const types = require('../types');
  * @returns {Promise}
  * @constructor
  */
-function Bucket(name: any, newName: any, region: any) {
+function Bucket(name: any, newName: any, region: any, aws: any) {
   const s3Client = new aws.S3({ region: region });
   return new Promise((resolve, reject) => {
     let bucket = new s3Resource.Bucket(util.safeRename(newName));

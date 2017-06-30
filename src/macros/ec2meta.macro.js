@@ -73,8 +73,7 @@ export function getRegions() {
  * @param regions
  * @returns {Promise.<TResult>}
  */
-export function getAMIMap(filters: any, regions: any) {
-  const aws = require('aws-sdk');
+export function getAMIMap(filters: any, regions: any, aws: any) {
   return Promise.map(regions, (region: any) => {
     let ec2Client = new aws.EC2({ region: region });
     return Promise.map(filters, (filterSet: any) => {

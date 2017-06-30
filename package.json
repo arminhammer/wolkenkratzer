@@ -12,6 +12,7 @@
     "lodash": "^4.13.1"
   },
   "devDependencies": {
+    "aws-sdk": "^2.79.0",
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.5.2",
     "babel-preset-es2015": "^6.24.1",
@@ -39,7 +40,10 @@
     "coverage": "jest --coverage",
     "docs": "documentation readme src/index.js --section=API",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
-    "update-submodules": "git submodule update --remote --merge"
+    "update-submodules": "git submodule update --remote --merge",
+    "release:major": "npm version major && git push --follow-tags && npm publish",
+    "release:minor": "npm version minor && git push --follow-tags && npm publish",
+    "release:patch": "npm version patch && git push --follow-tags && npm publish"
   },
   "repository": {
     "type": "git",
