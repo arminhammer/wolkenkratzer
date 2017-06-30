@@ -60,6 +60,22 @@
             ]
         },
         {
+            "type": "node",
+            "stopOnEntry": true,
+            "request": "launch",
+            "name": "Launch S3 Example",
+            "program": "${workspaceRoot}/examples/s3.js",
+            "restart": true,
+            "protocol": "inspector",
+            "outFiles": [
+                "${workspaceRoot}/out/**/*.js"
+            ],
+            "runtimeArgs": [
+                "-r",
+                "babel-register"
+            ]
+        },
+        {
             "name": "Tests",
             "type": "node",
             "request": "launch",

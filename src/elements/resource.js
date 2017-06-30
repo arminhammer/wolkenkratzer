@@ -27,7 +27,7 @@ export function Resource(name: string, properties: mixed): IResource {
 
 export function CustomResource(name: string, properties: mixed): IResource {
   if (!name) {
-    throw new SyntaxError(`New Resource is invalid. A Name is required.`);
+    throw new SyntaxError('New Resource is invalid. A Name is required.');
   }
   return {
     kind: 'Resource',

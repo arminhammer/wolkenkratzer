@@ -18,11 +18,61 @@ export {
 } from './macros/ec2meta.macro';
 export { Pseudo } from './pseudo';
 
-import * as fs from 'fs';
+//import * as fs from 'fs';
 import * as path from 'path';
 
-const files = fs.readdirSync(path.resolve(__dirname, './stubs/json'));
-
+//const files = fs.readdirSync(path.resolve(__dirname, './stubs/json'));
+const files = [
+  'ApiGateway.json',
+  'CloudWatch.json',
+  'DataPipeline.json',
+  'EMR.json',
+  'GameLift.json',
+  'Logs.json',
+  'SNS.json',
+  'ApplicationAutoScaling.json',
+  'CodeBuild.json',
+  'DirectoryService.json',
+  'ElastiCache.json',
+  'IAM.json',
+  'OpsWorks.json',
+  'SQS.json',
+  'AutoScaling.json',
+  'CodeCommit.json',
+  'DynamoDB.json',
+  'ElasticBeanstalk.json',
+  'IoT.json',
+  'RDS.json',
+  'SSM.json',
+  'CertificateManager.json',
+  'CodeDeploy.json',
+  'EC2.json',
+  'ElasticLoadBalancing.json',
+  'KMS.json',
+  'Redshift.json',
+  'StepFunctions.json',
+  'CloudFormation.json',
+  'CodePipeline.json',
+  'ECR.json',
+  'ElasticLoadBalancingV2.json',
+  'Kinesis.json',
+  'Route53.json',
+  'WAF.json',
+  'CloudFront.json',
+  'Cognito.json',
+  'ECS.json',
+  'Elasticsearch.json',
+  'KinesisFirehose.json',
+  'S3.json',
+  'WAFRegional.json',
+  'CloudTrail.json',
+  'Config.json',
+  'EFS.json',
+  'Events.json',
+  'Lambda.json',
+  'SDB.json',
+  'WorkSpaces.json'
+];
 files.map(file => {
   if (file !== 'json') {
     const service = file.replace('.json', '');
