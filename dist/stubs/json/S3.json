@@ -1,5 +1,23 @@
 {
   "Resources": {
+    "BucketPolicy": {
+      "Name": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Description": "The Amazon S3 bucket that the policy applies to.You cannot update this property. If you want to add or remove a bucket from a                                 bucket policy, you must modify your AWS CloudFormation template by creating a new                                 bucket policy                                 resource and removing the old one. Then use the modified template to update your AWS                                 CloudFormation                                 stack.",
+          "Array": false,
+          "Type": "String",
+          "Required": "Yes"
+        },
+        "PolicyDocument": {
+          "Description": "A policy document containing permissions to add to the specified bucket. For                                 more information, see Access Policy Language Overview in the                                 Amazon Simple Storage Service Developer Guide.",
+          "Array": false,
+          "Type": "Object",
+          "Required": "Yes",
+          "UpdateRequires": "No interruption"
+        }
+      }
+    },
     "Bucket": {
       "Name": "AWS::S3::Bucket",
       "Properties": {
@@ -11,7 +29,7 @@
           "UpdateRequires": "No interruption"
         },
         "BucketName": {
-          "Description": "A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique                                 physical ID and uses that ID for the bucket name. For more information, see Name Type. The bucket                                 name must contain only lowercase letters, numbers, periods (.), and dashes                                 (-).                                                                     Important                                    If you specify a name, you cannot perform updates that require replacement of this resource.                                       You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.ImportantIf you specify a name, you cannot perform updates that require replacement of this resource.                                       You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.",
+          "Description": "A name for the bucket. If you don't specify a name, AWS CloudFormation generates a                                 unique                                 physical ID and uses that ID for the bucket name. For more information, see Name Type. The bucket                                 name must contain only lowercase letters, numbers, periods (.), and dashes                                 (-).ImportantIf you specify a name, you cannot perform updates that require replacement of this                                    resource.                                    You can perform updates that require no or some interruption. If you must replace                                    the resource, specify a new name.",
           "Array": false,
           "Type": "String",
           "Required": "No",
@@ -46,14 +64,14 @@
           "UpdateRequires": "No interruption"
         },
         "ReplicationConfiguration": {
-          "Description": "Configuration for replicating objects in an S3 bucket. To enable replication, you must also enable versioning by using the                                 VersioningConfiguration property.Amazon S3 can store replicated objects in only one destination (S3 bucket). The                                 destination bucket must already exist and be in a different AWS Region than your source                                 bucket.",
+          "Description": "Configuration for replicating objects in an S3 bucket. To enable replication, you                                 must also enable versioning by using the VersioningConfiguration property.Amazon S3 can store replicated objects in only one destination (S3 bucket). The                                 destination bucket must already exist and be in a different AWS Region than your source                                 bucket.",
           "Array": false,
           "Type": "aws-properties-s3-bucket-replicationconfiguration",
           "Required": "No",
           "UpdateRequires": "No interruption"
         },
         "Tags": {
-          "Description": "An arbitrary set of tags (key-value pairs) for this S3 bucket.                                                                     Important                                    We recommend limiting the number of tags to seven. Applying more than seven tags                                       prevents the AWS CLI and the AWS CloudFormation console and API actions from listing the tags                                       for the S3 bucket.ImportantWe recommend limiting the number of tags to seven. Applying more than seven tags                                       prevents the AWS CLI and the AWS CloudFormation console and API actions from listing the tags                                       for the S3 bucket.",
+          "Description": "An arbitrary set of tags (key-value pairs) for this S3 bucket.ImportantWe recommend limiting the number of tags to seven. Applying more than seven tags                                    prevents the AWS CLI and the AWS CloudFormation console and API actions from listing                                    the tags                                    for the S3 bucket.",
           "Array": true,
           "Type": "aws-properties-resource-tags",
           "Required": "No",
@@ -67,28 +85,10 @@
           "UpdateRequires": "No interruption"
         },
         "WebsiteConfiguration": {
-          "Description": "Information used to configure the bucket as a static website. For more information, see Hosting Websites on Amazon                                    S3.",
+          "Description": "Information used to configure the bucket as a static website. For more information,                                 see Hosting Websites on Amazon                                    S3.",
           "Array": false,
           "Type": "aws-properties-s3-websiteconfiguration",
           "Required": "No",
-          "UpdateRequires": "No interruption"
-        }
-      }
-    },
-    "BucketPolicy": {
-      "Name": "AWS::S3::BucketPolicy",
-      "Properties": {
-        "Bucket": {
-          "Description": "The Amazon S3 bucket that the policy applies to.You cannot update this property. If you want to add or remove a bucket from a                                 bucket policy, you must modify your AWS CloudFormation template by creating a new bucket policy                                 resource and removing the old one. Then use the modified template to update your AWS CloudFormation                                 stack.",
-          "Array": false,
-          "Type": "String",
-          "Required": "Yes"
-        },
-        "PolicyDocument": {
-          "Description": "A policy document containing permissions to add to the specified bucket. For                                 more information, see Access Policy Language Overview in the                                 Amazon Simple Storage Service Developer Guide.",
-          "Array": false,
-          "Type": "Object",
-          "Required": "Yes",
           "UpdateRequires": "No interruption"
         }
       }
@@ -162,13 +162,13 @@
       "Name": "AmazonS3LifecycleRule",
       "Properties": {
         "ExpirationDate": {
-          "Description": "Indicates when objects are deleted from Amazon S3 and Amazon Glacier. The date value must be                                 in ISO 8601 format. The time is always midnight UTC. If you specify an expiration                                 and transition time, you must use the same time unit for both properties (either                                 in days or by date). The expiration time must also be later than the transition                                 time.",
+          "Description": "Indicates when objects are deleted from Amazon S3 and Amazon Glacier. The date value                                 must be                                 in ISO 8601 format. The time is always midnight UTC. If you specify an expiration                                 and transition time, you must use the same time unit for both properties (either                                 in days or by date). The expiration time must also be later than the transition                                 time.",
           "Array": false,
           "Type": "String",
           "Required": "Conditional. You must specify at least one of the following properties: ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition, NoncurrentVersionTransitions, Transition, or Transitions."
         },
         "ExpirationInDays": {
-          "Description": "Indicates the number of days after creation when objects are deleted from Amazon S3                                 and Amazon Glacier. If you specify an expiration and transition time, you must use the same                                 time unit for both properties (either in days or by date). The expiration time                                 must also be later than the transition time.",
+          "Description": "Indicates the number of days after creation when objects are deleted from Amazon S3                                 and Amazon Glacier. If you specify an expiration and transition time, you must use                                 the same                                 time unit for both properties (either in days or by date). The expiration time                                 must also be later than the transition time.",
           "Array": false,
           "Type": "Number",
           "Required": "Conditional. You must specify at least one of the following properties: ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition, NoncurrentVersionTransitions, Transition, or Transitions."
@@ -186,13 +186,13 @@
           "Required": "Conditional. You must specify at least one of the following properties: ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition, NoncurrentVersionTransitions, Transition, or Transitions."
         },
         "NoncurrentVersionTransition": {
-          "Description": "For buckets with versioning enabled (or suspended), specifies when non-current objects transition to a specified storage class.                                 If you specify a transition and expiration time, the expiration time must be later than the transition time. If you specify                                 this property, don't specify the NoncurrentVersionTransitions property.",
+          "Description": "For buckets with versioning enabled (or suspended), specifies when non-current objects                                 transition to a specified storage class. If you specify a transition and expiration                                 time, the expiration time must be later than the transition time. If you specify this                                 property, don't specify the NoncurrentVersionTransitions property.",
           "Array": false,
           "Type": "aws-properties-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition",
           "Required": "Conditional. You must specify at least one of the following properties: ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition, NoncurrentVersionTransitions, Transition, or Transitions."
         },
         "NoncurrentVersionTransitions": {
-          "Description": "For buckets with versioning enabled (or suspended), one or more transition rules that specify when non-current objects transition                                 to a specified storage class. If you specify a transition and expiration time, the expiration time must be later than the                                 transition time. If you specify this property, don't specify the NoncurrentVersionTransition property.",
+          "Description": "For buckets with versioning enabled (or suspended), one or more transition rules that                                 specify when non-current objects transition to a specified storage class. If you specify                                 a transition and expiration time, the expiration time must be later than the transition                                 time. If you specify this property, don't specify the NoncurrentVersionTransition property.",
           "Array": true,
           "Type": "aws-properties-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition",
           "Required": "Conditional. You must specify at least one of the following properties: ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition, NoncurrentVersionTransitions, Transition, or Transitions."
@@ -210,13 +210,13 @@
           "Required": "Yes"
         },
         "Transition": {
-          "Description": "Specifies when an object transitions to a specified storage class. If you specify an expiration and transition time, you must                                 use the same time unit for both properties (either in days or by date). The expiration time must also be later than the transition                                 time. If you specify this property, don't specify the Transitions property.",
+          "Description": "Specifies when an object transitions to a specified storage class. If you specify                                 an expiration and transition time, you must use the same time unit for both properties                                 (either in days or by date). The expiration time must also be later than the transition                                 time. If you specify this property, don't specify the Transitions property.",
           "Array": false,
           "Type": "aws-properties-s3-bucket-lifecycleconfig-rule-transition",
           "Required": "Conditional. You must specify at least one of the following properties: ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition, NoncurrentVersionTransitions, Transition, or Transitions."
         },
         "Transitions": {
-          "Description": "One or more transition rules that specify when an object transitions to a specified storage class. If you specify an expiration                                 and transition time, you must use the same time unit for both properties (either in days or by date). The expiration time                                 must also be later than the transition time. If you specify this property, don't specify the Transition property.",
+          "Description": "One or more transition rules that specify when an object transitions to a specified                                 storage class. If you specify an expiration and transition time, you must use the                                 same time unit for both properties (either in days or by date). The expiration time                                 must also be later than the transition time. If you specify this property, don't specify                                 the Transition property.",
           "Array": true,
           "Type": "aws-properties-s3-bucket-lifecycleconfig-rule-transition",
           "Required": "Conditional. You must specify at least one of the following properties: ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition, NoncurrentVersionTransitions, Transition, or Transitions."
@@ -267,13 +267,13 @@
       "Name": "AmazonS3LoggingConfiguration",
       "Properties": {
         "DestinationBucketName": {
-          "Description": "The name of an Amazon S3 bucket where Amazon S3 store server access log files. You can                                 store log files in any bucket that you own. By default, logs are stored in the                                 bucket where the LoggingConfiguration property is defined.",
+          "Description": "The name of an Amazon S3 bucket where Amazon S3 store server access log files. You                                 can                                 store log files in any bucket that you own. By default, logs are stored in the                                 bucket where the LoggingConfiguration property is defined.",
           "Array": false,
           "Type": "String",
           "Required": "No"
         },
         "LogFilePrefix": {
-          "Description": "A prefix for the all log object keys. If you store log files from multiple Amazon S3                                 buckets in a single bucket, you can use a prefix to distinguish which log files                                 came from which bucket.",
+          "Description": "A prefix for the all log object keys. If you store log files from multiple Amazon                                 S3                                 buckets in a single bucket, you can use a prefix to distinguish which log files                                 came from which bucket.",
           "Array": false,
           "Type": "String",
           "Required": "No"
@@ -290,7 +290,7 @@
           "Required": "No"
         },
         "QueueConfigurations": {
-          "Description": "The Amazon Simple Queue Service queues to publish messages to and the events for which to publish                                 messages.",
+          "Description": "The Amazon Simple Queue Service queues to publish messages to and the events for which                                 to publish                                 messages.",
           "Array": true,
           "Type": "aws-properties-s3-bucket-notificationconfig-queueconfig",
           "Required": "No"
@@ -319,7 +319,7 @@
           "Required": "No"
         },
         "Function": {
-          "Description": "The Amazon Resource Name (ARN) of the Lambda function that Amazon S3 invokes when the                                 specified event type occurs.",
+          "Description": "The Amazon Resource Name (ARN) of the Lambda function that Amazon S3 invokes when                                 the                                 specified event type occurs.",
           "Array": false,
           "Type": "String",
           "Required": "Yes"
@@ -369,13 +369,13 @@
       "Name": "AmazonSimpleStorageServiceNotificationConfigurationQueueConfigurations",
       "Properties": {
         "Event": {
-          "Description": "The S3 bucket event about which you want to publish messages to Amazon Simple Queue Service (                                 Amazon SQS). For more information, see Supported Event Types in the                                 Amazon Simple Storage Service Developer Guide.",
+          "Description": "The S3 bucket event about which you want to publish messages to Amazon Simple Queue                                 Service (                                 Amazon SQS). For more information, see Supported Event Types in the                                 Amazon Simple Storage Service Developer Guide.",
           "Array": false,
           "Type": "String",
           "Required": "Yes"
         },
         "Filter": {
-          "Description": "The filtering rules that determine for which objects to send notifications. For                                 example, you can create a filter so that Amazon Simple Storage Service (Amazon S3) sends notifications only                                 when image files with a .jpg extension are added to the                                 bucket.",
+          "Description": "The filtering rules that determine for which objects to send notifications. For                                 example, you can create a filter so that Amazon Simple Storage Service (Amazon S3)                                 sends notifications only                                 when image files with a .jpg extension are added to the                                 bucket.",
           "Array": false,
           "Type": "aws-properties-s3-bucket-notificationconfiguration-config-filter",
           "Required": "No"
@@ -392,13 +392,13 @@
       "Name": "AmazonS3NotificationConfigurationTopicConfigurations",
       "Properties": {
         "Event": {
-          "Description": "The Amazon Simple Storage Service (Amazon S3) bucket event about which to send notifications. For more                                 information, see Supported Event                                    Types in the Amazon Simple Storage Service Developer Guide.",
+          "Description": "The Amazon Simple Storage Service (Amazon S3) bucket event about which to send notifications.                                 For more                                 information, see Supported Event                                    Types in the Amazon Simple Storage Service Developer Guide.",
           "Array": false,
           "Type": "String",
           "Required": "Yes"
         },
         "Filter": {
-          "Description": "The filtering rules that determine for which objects to send notifications. For                                 example, you can create a filter so that Amazon Simple Storage Service (Amazon S3) sends notifications only                                 when image files with a .jpg extension are added to the                                 bucket.",
+          "Description": "The filtering rules that determine for which objects to send notifications. For                                 example, you can create a filter so that Amazon Simple Storage Service (Amazon S3)                                 sends notifications only                                 when image files with a .jpg extension are added to the                                 bucket.",
           "Array": false,
           "Type": "aws-properties-s3-bucket-notificationconfiguration-config-filter",
           "Required": "No"
@@ -415,7 +415,7 @@
       "Name": "AmazonS3ReplicationConfiguration",
       "Properties": {
         "Role": {
-          "Description": "The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that Amazon S3 assumes                                 when replicating objects. For more information, see How to Set Up Cross-Region                                    Replication in the Amazon Simple Storage Service Developer Guide.",
+          "Description": "The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role                                 that Amazon S3 assumes                                 when replicating objects. For more information, see How to Set Up Cross-Region                                    Replication in the Amazon Simple Storage Service Developer Guide.",
           "Array": false,
           "Type": "String",
           "Required": "Yes"
@@ -438,7 +438,7 @@
           "Required": "Yes"
         },
         "Id": {
-          "Description": "A unique identifier for the rule. If you don't specify a value, AWS CloudFormation generates                                 a random ID.",
+          "Description": "A unique identifier for the rule. If you don't specify a value, AWS CloudFormation                                 generates                                 a random ID.",
           "Array": false,
           "Type": "String",
           "Required": "No"
@@ -478,13 +478,13 @@
       "Name": "AWSCloudFormationResourceTagsType",
       "Properties": {
         "Key": {
-          "Description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with                                 aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.",
+          "Description": "The key name of the tag. You can specify a value that is 1 to 127 Unicode characters                                 in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits,                                 whitespace, _, ., /, =, +, and -.",
           "Array": false,
           "Type": "String",
           "Required": "Yes"
         },
         "Value": {
-          "Description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.",
+          "Description": "The value for the tag. You can specify a value that is 1 to 255 Unicode characters                                 in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits,                                 whitespace, _, ., /, =, +, and -.",
           "Array": false,
           "Type": "String",
           "Required": "Yes"
@@ -518,7 +518,7 @@
           "Required": "Yes"
         },
         "RedirectAllRequestsTo": {
-          "Description": "The redirect behavior for every request to this bucket's website endpoint.                                                                     Important                                    If you specify this property, you cannot specify any other                                       property.ImportantIf you specify this property, you cannot specify any other                                       property.",
+          "Description": "The redirect behavior for every request to this bucket's website endpoint.ImportantIf you specify this property, you cannot specify any other                                    property.",
           "Array": false,
           "Type": "aws-properties-s3-websiteconfiguration-redirectallrequeststo",
           "Required": "No"

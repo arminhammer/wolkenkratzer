@@ -4,8 +4,8 @@
 
 import * as util from '../util';
 import { Service } from '../service';
-
-const s3Resource: any = new Service('S3');
+const s3Json = require('../stubs/json/S3.json');
+const s3Resource: any = new Service(s3Json);
 const types = require('../types');
 
 /**

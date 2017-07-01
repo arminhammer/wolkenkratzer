@@ -9,7 +9,7 @@ describe('Template', () => {
     });
   });
 
-  test('Can take an existing Template as a parameter', () => {
+  test('Can take an existing Template as a parameter for .import()', () => {
     const s3static = require('../tests/templates/s3static.json');
     const t = Template().import(s3static);
     let res = t.build();

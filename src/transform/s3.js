@@ -2,8 +2,8 @@
 
 'use strict';
 import { Service } from '../service';
-
-const s3Service: any = Service('S3');
+const s3Json = require('../stubs/json/S3.json');
+const s3Service: any = Service(s3Json);
 
 export function S3BucketTransform(
   bucketName: string,

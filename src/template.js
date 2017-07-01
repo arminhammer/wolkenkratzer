@@ -589,7 +589,8 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: mixed) {
       let cat = split[1];
       let resType = split[2];
       if (split[0] === 'AWS') {
-        let service = Service(cat);
+        const serviceJson = require(`./stubs/json/${cat}.json`);
+        let service = Service(serviceJson);
         t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
       } else if (split[0] === 'Custom') {
         t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties));
