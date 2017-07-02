@@ -18,80 +18,151 @@ export {
 } from './macros/ec2meta.macro';
 export { Pseudo } from './pseudo';
 
-//import * as fs from 'fs';
 import * as path from 'path';
 
-/*const files = fs.readdirSync(path.resolve(__dirname, './stubs/json'));
+import ApiGateway from './stubs/json/ApiGateway.json';
+exports['ApiGateway'] = Service(ApiGateway);
 
-files.map(file => {
-  if (file !== 'json' && file !== 'S3.json') {
-    const service = file.replace('.json', '');
-    exports[service] = Service(service);
-  }
-});*/
+import ApplicationAutoScaling from './stubs/json/ApplicationAutoScaling.json';
+exports['ApplicationAutoScaling'] = Service(ApplicationAutoScaling);
 
-exports['ApiGateway'] = Service(require('./stubs/json/ApiGateway.json'));
-exports['ApplicationAutoScaling'] = Service(
-  require('./stubs/json/ApplicationAutoScaling.json')
-);
-exports['AutoScaling'] = Service(require('./stubs/json/AutoScaling.json'));
-exports['CertificateManager'] = Service(
-  require('./stubs/json/CertificateManager.json')
-);
-exports['CloudFormation'] = Service(
-  require('./stubs/json/CloudFormation.json')
-);
-exports['CloudFront'] = Service(require('./stubs/json/CloudFront.json'));
-exports['CloudTrail'] = Service(require('./stubs/json/CloudTrail.json'));
-exports['CloudWatch'] = Service(require('./stubs/json/CloudWatch.json'));
-exports['CodeBuild'] = Service(require('./stubs/json/CodeBuild.json'));
-exports['CodeCommit'] = Service(require('./stubs/json/CodeCommit.json'));
-exports['CodeDeploy'] = Service(require('./stubs/json/CodeDeploy.json'));
-exports['CodePipeline'] = Service(require('./stubs/json/CodePipeline.json'));
-exports['Cognito'] = Service(require('./stubs/json/Cognito.json'));
-exports['Config'] = Service(require('./stubs/json/Config.json'));
-exports['DataPipeline'] = Service(require('./stubs/json/DataPipeline.json'));
-exports['DirectoryService'] = Service(
-  require('./stubs/json/DirectoryService.json')
-);
-exports['DynamoDB'] = Service(require('./stubs/json/DynamoDB.json'));
-exports['EC2'] = Service(require('./stubs/json/EC2.json'));
-exports['ECR'] = Service(require('./stubs/json/ECR.json'));
-exports['ECS'] = Service(require('./stubs/json/ECS.json'));
-exports['EFS'] = Service(require('./stubs/json/EFS.json'));
-exports['EMR'] = Service(require('./stubs/json/EMR.json'));
-exports['ElastiCache'] = Service(require('./stubs/json/ElastiCache.json'));
-exports['ElasticBeanstalk'] = Service(
-  require('./stubs/json/ElasticBeanstalk.json')
-);
-exports['ElasticLoadBalancing'] = Service(
-  require('./stubs/json/ElasticLoadBalancing.json')
-);
-exports['ElasticLoadBalancingV2'] = Service(
-  require('./stubs/json/ElasticLoadBalancingV2.json')
-);
-exports['Elasticsearch'] = Service(require('./stubs/json/Elasticsearch.json'));
-exports['Events'] = Service(require('./stubs/json/Events.json'));
-exports['GameLift'] = Service(require('./stubs/json/GameLift.json'));
-exports['IAM'] = Service(require('./stubs/json/IAM.json'));
-exports['IoT'] = Service(require('./stubs/json/IoT.json'));
-exports['KMS'] = Service(require('./stubs/json/KMS.json'));
-exports['Kinesis'] = Service(require('./stubs/json/Kinesis.json'));
-exports['KinesisFirehose'] = Service(
-  require('./stubs/json/KinesisFirehose.json')
-);
-exports['Lambda'] = Service(require('./stubs/json/Lambda.json'));
-exports['Logs'] = Service(require('./stubs/json/Logs.json'));
-exports['OpsWorks'] = Service(require('./stubs/json/OpsWorks.json'));
-exports['RDS'] = Service(require('./stubs/json/RDS.json'));
-exports['Redshift'] = Service(require('./stubs/json/Redshift.json'));
-exports['Route53'] = Service(require('./stubs/json/Route53.json'));
-exports['S3'] = Service(require('./stubs/json/S3.json'));
-exports['SDB'] = Service(require('./stubs/json/SDB.json'));
-exports['SNS'] = Service(require('./stubs/json/SNS.json'));
-exports['SQS'] = Service(require('./stubs/json/SQS.json'));
-exports['SSM'] = Service(require('./stubs/json/SSM.json'));
-exports['StepFunctions'] = Service(require('./stubs/json/StepFunctions.json'));
-exports['WAF'] = Service(require('./stubs/json/WAF.json'));
-exports['WAFRegional'] = Service(require('./stubs/json/WAFRegional.json'));
-exports['WorkSpaces'] = Service(require('./stubs/json/WorkSpaces.json'));
+import AutoScaling from './stubs/json/AutoScaling.json';
+exports['AutoScaling'] = Service(AutoScaling);
+
+import CertificateManager from './stubs/json/CertificateManager.json';
+exports['CertificateManager'] = Service(CertificateManager);
+
+import CloudFormation from './stubs/json/CloudFormation.json';
+exports['CloudFormation'] = Service(CloudFormation);
+
+import CloudFront from './stubs/json/CloudFront.json';
+exports['CloudFront'] = Service(CloudFront);
+
+import CloudTrail from './stubs/json/CloudTrail.json';
+exports['CloudTrail'] = Service(CloudTrail);
+
+import CloudWatch from './stubs/json/CloudWatch.json';
+exports['CloudWatch'] = Service(CloudWatch);
+
+import CodeBuild from './stubs/json/CodeBuild.json';
+exports['CodeBuild'] = Service(CodeBuild);
+
+import CodeCommit from './stubs/json/CodeCommit.json';
+exports['CodeCommit'] = Service(CodeCommit);
+
+import CodeDeploy from './stubs/json/CodeDeploy.json';
+exports['CodeDeploy'] = Service(CodeDeploy);
+
+import CodePipeline from './stubs/json/CodePipeline.json';
+exports['CodePipeline'] = Service(CodePipeline);
+
+import Cognito from './stubs/json/Cognito.json';
+exports['Cognito'] = Service(Cognito);
+
+import Config from './stubs/json/Config.json';
+exports['Config'] = Service(Config);
+
+import DataPipeline from './stubs/json/DataPipeline.json';
+exports['DataPipeline'] = Service(DataPipeline);
+
+import DirectoryService from './stubs/json/DirectoryService.json';
+exports['DirectoryService'] = Service(DirectoryService);
+
+import DynamoDB from './stubs/json/DynamoDB.json';
+exports['DynamoDB'] = Service(DynamoDB);
+
+import EC2 from './stubs/json/EC2.json';
+exports['EC2'] = Service(EC2);
+
+import ECR from './stubs/json/ECR.json';
+exports['ECR'] = Service(ECR);
+
+import ECS from './stubs/json/ECS.json';
+exports['ECS'] = Service(ECS);
+
+import EFS from './stubs/json/EFS.json';
+exports['EFS'] = Service(EFS);
+
+import EMR from './stubs/json/EMR.json';
+exports['EMR'] = Service(EMR);
+
+import ElastiCache from './stubs/json/ElastiCache.json';
+exports['ElastiCache'] = Service(ElastiCache);
+
+import ElasticBeanstalk from './stubs/json/ElasticBeanstalk.json';
+exports['ElasticBeanstalk'] = Service(ElasticBeanstalk);
+
+import ElasticLoadBalancing from './stubs/json/ElasticLoadBalancing.json';
+exports['ElasticLoadBalancing'] = Service(ElasticLoadBalancing);
+
+import ElasticLoadBalancingV2 from './stubs/json/ElasticLoadBalancingV2.json';
+exports['ElasticLoadBalancingV2'] = Service(ElasticLoadBalancingV2);
+
+import Elasticsearch from './stubs/json/Elasticsearch.json';
+exports['Elasticsearch'] = Service(Elasticsearch);
+
+import Events from './stubs/json/Events.json';
+exports['Events'] = Service(Events);
+
+import GameLift from './stubs/json/GameLift.json';
+exports['GameLift'] = Service(GameLift);
+
+import IAM from './stubs/json/IAM.json';
+exports['IAM'] = Service(IAM);
+
+import IoT from './stubs/json/IoT.json';
+exports['IoT'] = Service(IoT);
+
+import KMS from './stubs/json/KMS.json';
+exports['KMS'] = Service(KMS);
+
+import Kinesis from './stubs/json/Kinesis.json';
+exports['Kinesis'] = Service(Kinesis);
+
+import KinesisFirehose from './stubs/json/KinesisFirehose.json';
+exports['KinesisFirehose'] = Service(KinesisFirehose);
+
+import Lambda from './stubs/json/Lambda.json';
+exports['Lambda'] = Service(Lambda);
+
+import Logs from './stubs/json/Logs.json';
+exports['Logs'] = Service(Logs);
+
+import OpsWorks from './stubs/json/OpsWorks.json';
+exports['OpsWorks'] = Service(OpsWorks);
+
+import RDS from './stubs/json/RDS.json';
+exports['RDS'] = Service(RDS);
+
+import Redshift from './stubs/json/Redshift.json';
+exports['Redshift'] = Service(Redshift);
+
+import Route53 from './stubs/json/Route53.json';
+exports['Route53'] = Service(Route53);
+
+import S3 from './stubs/json/S3.json';
+exports['S3'] = Service(S3);
+
+import SDB from './stubs/json/SDB.json';
+exports['SDB'] = Service(SDB);
+
+import SNS from './stubs/json/SNS.json';
+exports['SNS'] = Service(SNS);
+
+import SQS from './stubs/json/SQS.json';
+exports['SQS'] = Service(SQS);
+
+import SSM from './stubs/json/SSM.json';
+exports['SSM'] = Service(SSM);
+
+import StepFunctions from './stubs/json/StepFunctions.json';
+exports['StepFunctions'] = Service(StepFunctions);
+
+import WAF from './stubs/json/WAF.json';
+exports['WAF'] = Service(WAF);
+
+import WAFRegional from './stubs/json/WAFRegional.json';
+exports['WAFRegional'] = Service(WAFRegional);
+
+import WorkSpaces from './stubs/json/WorkSpaces.json';
+exports['WorkSpaces'] = Service(WorkSpaces);

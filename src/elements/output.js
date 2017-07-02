@@ -1,7 +1,7 @@
 // @flow
 
 import { IRef, Ref, FnSub, FnJoin, IFnGetAtt } from '../intrinsic';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 export interface IOutputProperties {
   +Description?: string,

@@ -1,17 +1,33 @@
 {
-    "presets": [
+  "env": {
+    "development": {
+      "presets": [
         "flow",
         "stage-0",
         [
-            "env",
-            {
-                "targets": {
-                    "node": "7"
-                }
+          "latest",
+          {
+            "es2015": {
+              "modules": false
             }
+          }
         ]
-    ],
-    "comments": true,
-    "sourceMap": "inline",
-    "retainLines": true
+      ],
+      "plugins": ["external-helpers"]
+    },
+    "test": {
+      "presets": [
+        "flow",
+        "stage-0",
+        [
+          "env",
+          {
+            "targets": {
+              "node": "7"
+            }
+          }
+        ]
+      ]
+    }
+  }
 }

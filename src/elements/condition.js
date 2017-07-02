@@ -7,7 +7,7 @@ import {
   IFnOr,
   buildIntrinsic
 } from '../intrinsic';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 export interface ICondition {
   +kind: 'Condition',

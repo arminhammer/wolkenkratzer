@@ -2,7 +2,11 @@
 
 'use strict';
 
-const instanceTypes = require('../ec2info/www/instances.json');
+import path from 'path';
+const instanceTypes = require(path.resolve(
+  __dirname,
+  '../ec2info/www/instances.json'
+));
 const Promise = require('bluebird');
 
 /**

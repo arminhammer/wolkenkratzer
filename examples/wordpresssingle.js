@@ -20,7 +20,8 @@ let t = Template()
   )
   .add(
     Parameter('KeyName', {
-      Description: 'Name of an existing EC2 KeyPair to enable SSH access to the instances',
+      Description:
+        'Name of an existing EC2 KeyPair to enable SSH access to the instances',
       Type: 'AWS::EC2::KeyPair::KeyName',
       ConstraintDescription: 'must be the name of an existing EC2 KeyPair.'
     })
@@ -36,13 +37,16 @@ let t = Template()
   )
   .add(
     Parameter('SSHLocation', {
-      Description: 'The IP address range that can be used to SSH to the EC2 instances',
+      Description:
+        'The IP address range that can be used to SSH to the EC2 instances',
       Type: 'String',
       MinLength: '9',
       MaxLength: '18',
       Default: '0.0.0.0/0',
-      AllowedPattern: '(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})',
-      ConstraintDescription: 'must be a valid IP CIDR range of the form x.x.x.x/x.'
+      AllowedPattern:
+        '(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})',
+      ConstraintDescription:
+        'must be a valid IP CIDR range of the form x.x.x.x/x.'
     })
   )
   .add(
@@ -53,7 +57,8 @@ let t = Template()
       MinLength: '1',
       MaxLength: '64',
       AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*',
-      ConstraintDescription: 'must begin with a letter and contain only alphanumeric characters.'
+      ConstraintDescription:
+        'must begin with a letter and contain only alphanumeric characters.'
     })
   )
   .add(
@@ -64,7 +69,8 @@ let t = Template()
       MinLength: '1',
       MaxLength: '16',
       AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*',
-      ConstraintDescription: 'must begin with a letter and contain only alphanumeric characters.'
+      ConstraintDescription:
+        'must begin with a letter and contain only alphanumeric characters.'
     })
   )
   .add(
@@ -91,7 +97,8 @@ let t = Template()
   )
   .add(
     EC2.SecurityGroup('WebServerSecurityGroup', {
-      GroupDescription: 'Enable HTTP access via port 80 locked down to the load balancer + SSH access',
+      GroupDescription:
+        'Enable HTTP access via port 80 locked down to the load balancer + SSH access',
       SecurityGroupIngress: [
         {
           IpProtocol: 'tcp',
