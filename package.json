@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "bluebird": "^3.5.0",
-    "lodash": "^4.13.1"
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "aws-sdk": "^2.79.0",
@@ -24,7 +24,7 @@
     "browserify": "^14.4.0",
     "core-js": "^2.4.1",
     "documentation": "^4.0.0-rc.1",
-    "eslint": "^3.19.0",
+    "eslint": "^4.1.1",
     "eslint-config-prettier": "^2.1.1",
     "eslint-plugin-prettier": "^2.1.1",
     "flow-bin": "^0.47.0",
@@ -32,7 +32,7 @@
     "fs-extra": "^3.0.1",
     "jest": "^20.0.4",
     "jsdoc-to-markdown": "^3.0.0",
-    "prettier": "^1.4.4",
+    "prettier": "^1.5.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-flow": "^1.1.1",
@@ -44,7 +44,7 @@
   "scripts": {
     "cp-sub": "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
     "build": "rollup --config rollup.config.js",
-    "test": "jest",
+    "test": "jest .",
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
     "docs": "documentation readme src/index.js --section=API",

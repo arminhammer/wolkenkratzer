@@ -7,7 +7,7 @@ import {
   IFnOr,
   buildIntrinsic
 } from '../intrinsic';
-import * as _ from 'lodash';
+import { cloneDeep } from 'lodash';
 
 export interface ICondition {
   +kind: 'Condition',
@@ -19,7 +19,7 @@ export function Condition(
   name: string,
   conditionFn: IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr
 ): ICondition {
-  let newCondFn = _.cloneDeep(conditionFn);
+  let newCondFn = cloneDeep(conditionFn);
   if (typeof newCondFn === 'object' && !newCondFn.kind) {
     newCondFn = buildIntrinsic(newCondFn);
   }

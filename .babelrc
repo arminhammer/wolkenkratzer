@@ -19,6 +19,7 @@
       "presets": [
         "flow",
         "stage-0",
+        "es2015",
         [
           "env",
           {

@@ -1,5 +1,5 @@
 // @flow
-import * as _ from 'lodash';
+import { cloneDeep } from 'lodash';
 import { IParameter, Parameter } from './elements/parameter';
 import { IDescription, Description } from './elements/description';
 // import { IMetadata } from './elements/metadata';
@@ -79,7 +79,7 @@ export function Template(): ITemplate {
      * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
      */
     add: function(e: IElement, options?: IAddOptions): ITemplate {
-      const _t = _.cloneDeep(this);
+      const _t = cloneDeep(this);
       switch (e.kind) {
         case 'CreationPolicy':
           return _addCreationPolicy(_t, e);
@@ -95,7 +95,7 @@ export function Template(): ITemplate {
           return _addOutput(_t, e);
         case 'Resource':
           let newT = _t;
-          let f = _.cloneDeep(e);
+          let f = cloneDeep(e);
           if (options) {
             const nameSplit = f.Type.split('::').splice(1);
             const shortName = nameSplit.join('');
@@ -195,7 +195,7 @@ export function Template(): ITemplate {
      * t.add(p).remove(p);
      */
     remove: function(e: IElement | string): ITemplate {
-      let result = _.cloneDeep(this);
+      let result = cloneDeep(this);
       let element: IElement;
       if (typeof e === 'string') {
         let parameter: IParameter | void = result.Parameters[e];
@@ -245,7 +245,7 @@ export function Template(): ITemplate {
      * Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
      */
     merge: function(t: ITemplate): ITemplate {
-      const _t = _.cloneDeep(this);
+      const _t = cloneDeep(this);
       const combined = {};
       [
         'Conditions',
@@ -271,7 +271,7 @@ export function Template(): ITemplate {
      * const t = Template().import(templateJson);
      */
     import: function(inputTemplate: mixed): ITemplate {
-      let _t = _.cloneDeep(this);
+      let _t = cloneDeep(this);
       return _calcFromExistingTemplate(_t, inputTemplate);
     }
   };
@@ -467,7 +467,7 @@ function _addCondition(t: ITemplate, e: ICondition): ITemplate {
 }
 
 function _addOutput(t: ITemplate, e: IOutput): ITemplate {
-  let e0 = _.cloneDeep(e);
+  let e0 = cloneDeep(e);
   if (typeof e0.Properties.Value !== 'string') {
     if (e0.Properties.Value.Ref) {
       _validateRef(t, e0.Properties.Value);

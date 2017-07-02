@@ -1,8 +1,8 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('lodash')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'lodash'], factory) :
-	(factory((global.wolkenkratzer = global.wolkenkratzer || {}),global._));
-}(this, (function (exports,_) { 'use strict';
+	(factory((global.wolkenkratzer = global.wolkenkratzer || {}),global.lodash));
+}(this, (function (exports,lodash) { 'use strict';
 
 //      
 
@@ -239,7 +239,7 @@ function buildIntrinsic(input) {
 
 //      
 function Condition(name, conditionFn) {
-  var newCondFn = _.cloneDeep(conditionFn);
+  var newCondFn = lodash.cloneDeep(conditionFn);
   if ((typeof newCondFn === 'undefined' ? 'undefined' : _typeof(newCondFn)) === 'object' && !newCondFn.kind) {
     newCondFn = buildIntrinsic(newCondFn);
   }
@@ -255,7 +255,7 @@ function Output(name, properties) {
       properties: properties
     }) + ' parameters is invalid. Name and Value are required.');
   }
-  var newProps = _.cloneDeep(properties);
+  var newProps = lodash.cloneDeep(properties);
   // If Value is a Ref object, create a Ref object
   if (_typeof(newProps.Value) === 'object' && !newProps.Value.kind) {
     if (newProps.Value.Ref) {
@@ -568,7 +568,7 @@ function Template() {
      * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
      */
     add: function add(e, options) {
-      var _t = _.cloneDeep(this);
+      var _t = lodash.cloneDeep(this);
       switch (e.kind) {
         case 'CreationPolicy':
           return _addCreationPolicy(_t, e);
@@ -584,7 +584,7 @@ function Template() {
           return _addOutput(_t, e);
         case 'Resource':
           var newT = _t;
-          var f = _.cloneDeep(e);
+          var f = lodash.cloneDeep(e);
           if (options) {
             var nameSplit = f.Type.split('::').splice(1);
             var shortName = nameSplit.join('');
@@ -676,7 +676,7 @@ function Template() {
      * t.add(p).remove(p);
      */
     remove: function remove(e) {
-      var result = _.cloneDeep(this);
+      var result = lodash.cloneDeep(this);
       var element = void 0;
       if (typeof e === 'string') {
         var parameter = result.Parameters[e];
@@ -726,7 +726,7 @@ function Template() {
      * Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
      */
     merge: function merge(t) {
-      var _t = _.cloneDeep(this);
+      var _t = lodash.cloneDeep(this);
       var combined = {};
       ['Conditions', 'Mapping', 'Outputs', 'Parameters', 'Resources', 'Description'].map(function (block) {
         if (t[block]) {
@@ -742,7 +742,7 @@ function Template() {
      * const t = Template().import(templateJson);
      */
     import: function _import(inputTemplate) {
-      var _t = _.cloneDeep(this);
+      var _t = lodash.cloneDeep(this);
       return _calcFromExistingTemplate(_t, inputTemplate);
     }
   };
@@ -933,7 +933,7 @@ function _addCondition(t, e) {
 }
 
 function _addOutput(t, e) {
-  var e0 = _.cloneDeep(e);
+  var e0 = lodash.cloneDeep(e);
   if (typeof e0.Properties.Value !== 'string') {
     if (e0.Properties.Value.Ref) {
       _validateRef(t, e0.Properties.Value);

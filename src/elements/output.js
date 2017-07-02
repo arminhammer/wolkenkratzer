@@ -1,7 +1,7 @@
 // @flow
 
 import { IRef, Ref, FnSub, FnJoin, IFnGetAtt } from '../intrinsic';
-import * as _ from 'lodash';
+import { cloneDeep } from 'lodash';
 
 export interface IOutputProperties {
   +Description?: string,
@@ -26,7 +26,7 @@ export function Output(name: string, properties: IOutputProperties): IOutput {
       })} parameters is invalid. Name and Value are required.`
     );
   }
-  const newProps = _.cloneDeep(properties);
+  const newProps = cloneDeep(properties);
   // If Value is a Ref object, create a Ref object
   if (typeof newProps.Value === 'object' && !newProps.Value.kind) {
     if (newProps.Value.Ref) {
