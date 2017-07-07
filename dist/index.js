@@ -809,7 +809,8 @@ function _buildResource(t) {
   var Type = t.Type,
       Properties = t.Properties,
       CreationPolicy$$1 = t.CreationPolicy,
-      Metadata = t.Metadata;
+      Metadata = t.Metadata,
+      Condition$$1 = t.Condition;
 
   var newProps = {};
   if (Properties) {
@@ -827,6 +828,9 @@ function _buildResource(t) {
   }
   if (Metadata) {
     result.Metadata = _json(Metadata);
+  }
+  if (Condition$$1) {
+    result.Condition = Condition$$1;
   }
   return result;
 }
