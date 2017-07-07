@@ -417,6 +417,8 @@ export function _json(
       return { 'Fn::GetAtt': t.FnGetAtt };
     case 'FnJoin':
       return _buildFnJoin(t);
+    case 'FnFindInMap':
+      return { 'Fn::FindInMap': t.FnFindInMap };
     case 'FnEquals':
       return { 'Fn::Equals': t.FnEquals };
     case 'FnSub':

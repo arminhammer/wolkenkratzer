@@ -16,13 +16,14 @@ export default {
     babel({
       exclude: 'node_modules/**' // only transpile our source code
     }),
+    globals(),
     commonjs(),
     resolve(),
-    globals(),
     builtins()
   ],
   moduleName: 'wolkenkratzer',
   dest: 'dist/index.js',
   external: ['lodash', 'bluebird'],
+  globals: { lodash: 'lodash' },
   sourceMap: true
 };

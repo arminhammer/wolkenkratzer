@@ -225,7 +225,12 @@ function FnSub(input) {
 
 
 
-
+function FnFindInMap(mapName, topLevelKey, secondLevelKey) {
+  return {
+    kind: 'FnFindInMap',
+    FnFindInMap: [mapName, topLevelKey, secondLevelKey]
+  };
+}
 
 
 
@@ -891,6 +896,8 @@ function _json(t) {
       return { 'Fn::GetAtt': t.FnGetAtt };
     case 'FnJoin':
       return _buildFnJoin(t);
+    case 'FnFindInMap':
+      return { 'Fn::FindInMap': t.FnFindInMap };
     case 'FnEquals':
       return { 'Fn::Equals': t.FnEquals };
     case 'FnSub':
@@ -1671,6 +1678,7 @@ exports.Ref = Ref;
 exports.FnGetAtt = FnGetAtt;
 exports.FnEquals = FnEquals;
 exports.FnJoin = FnJoin;
+exports.FnFindInMap = FnFindInMap;
 exports.CreationPolicy = CreationPolicy;
 exports.ResourceMetadata = ResourceMetadata;
 exports.S3BucketTransform = S3BucketTransform;

@@ -7,7 +7,7 @@ export { Output } from './elements/output';
 export { Mapping } from './elements/mapping';
 export { Resource, CustomResource } from './elements/resource';
 export { Condition } from './elements/condition';
-export { Ref, FnGetAtt, FnEquals, FnJoin } from './intrinsic';
+export { Ref, FnGetAtt, FnEquals, FnJoin, FnFindInMap } from './intrinsic';
 import { Service, IService } from './service';
 export { CreationPolicy } from './attributes/creationpolicy';
 export { ResourceMetadata } from './attributes/metadata';

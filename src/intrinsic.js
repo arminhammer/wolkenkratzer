@@ -107,17 +107,17 @@ export function FnBase64(input: string) {
 
 export interface IFnFindInMap {
   +kind: 'FnFindInMap',
-  +FnFindInMap: string
+  +FnFindInMap: Array<string>
 }
 
 export function FnFindInMap(
   mapName: string,
   topLevelKey: string,
   secondLevelKey: string
-) {
+): IFnFindInMap {
   return {
     kind: 'FnFindInMap',
-    'Fn::FindInMap': [this.mapName, this.topLevelKey, this.secondLevelKey]
+    FnFindInMap: [mapName, topLevelKey, secondLevelKey]
   };
 }
 
