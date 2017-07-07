@@ -7,22 +7,31 @@ export interface IResource {
   +Name: string,
   +Type: string,
   +Properties: mixed,
+  +Condition?: string,
   +CreationPolicy?: ICreationPolicy
 }
 
-export function Resource(name: string, properties: mixed): IResource {
+export function Resource(
+  name: string,
+  properties: mixed,
+  options: mixed
+): IResource {
   if (!name) {
     throw new SyntaxError(`New Resource is invalid. A Name is required.`);
   }
   if (properties) {
     _validateProperties(properties, this.name, this.json);
   }
-  return {
+  const result = {
     kind: 'Resource',
     Name: name,
     Type: this.json.Resources[this.name].Name,
     Properties: properties
   };
+  if (options && options.Condition) {
+    result.Condition = options.Condition;
+  }
+  return result;
 }
 
 export function CustomResource(name: string, properties: mixed): IResource {

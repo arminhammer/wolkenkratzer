@@ -16,6 +16,7 @@
       "plugins": ["external-helpers"]
     },
     "test": {
+      "sourceMaps": "inline",
       "presets": [
         "flow",
         "stage-0",

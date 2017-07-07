@@ -334,7 +334,7 @@ function _cleanObject(object: any): mixed {
 }
 
 function _buildResource(t: IResource): mixed {
-  let { Type, Properties, CreationPolicy, Metadata } = t;
+  let { Type, Properties, CreationPolicy, Metadata, Condition } = t;
   let newProps: mixed = {};
   if (Properties) {
     Object.keys(Properties).map(p => {
@@ -351,6 +351,9 @@ function _buildResource(t: IResource): mixed {
   }
   if (Metadata) {
     result.Metadata = _json(Metadata);
+  }
+  if (Condition) {
+    result.Condition = Condition;
   }
   return result;
 }
