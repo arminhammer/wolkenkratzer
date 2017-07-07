@@ -669,6 +669,16 @@ function Template() {
     },
     kind: 'Template',
     /**
+     * Add elements to the Template in a functional way.
+     */
+    map: function map(iterable, mapFn) {
+      var result = lodash.cloneDeep(this);
+      iterable.map(function (i) {
+        result = result.add(mapFn(i));
+      });
+      return result;
+    },
+    /**
      * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.
      * @example
      * let t = Template();

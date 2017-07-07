@@ -42,16 +42,12 @@ let t = Template()
       AllowedPattern: '(?!-)[a-zA-Z0-9-.]{1,63}(?<!-)',
       ConstraintDescription: 'must be a valid DNS zone name.'
     })
-  );
-regions.map(r => {
-  t = t.add(
+  )
+  .map(regions, r =>
     Mapping('Region2S3WebsiteSuffix', r, {
       Suffix: `.s3-website-${r}.amazonaws.com`
     })
-  );
-});
-
-t = t
+  )
   .add(
     S3.Bucket('S3BucketForWebsiteContent', {
       AccessControl: 'PublicRead',

@@ -48,7 +48,8 @@ export interface ITemplate {
   +removeDescription: Function,
   +build: Function,
   +merge: Function,
-  +import: Function
+  +import: Function,
+  +map: Function
 }
 
 /**
@@ -187,6 +188,16 @@ export function Template(): ITemplate {
       return result;
     },
     kind: 'Template',
+    /**
+     * Add elements to the Template in a functional way.
+     */
+    map: function(iterable: Array, mapFn: Function): ITemplate {
+      let result = cloneDeep(this);
+      iterable.map(i => {
+        result = result.add(mapFn(i));
+      });
+      return result;
+    },
     /**
      * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.
      * @example
