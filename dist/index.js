@@ -865,7 +865,14 @@ function _buildResourceMetadata(t) {
 
 function _buildFnJoin(t) {
   if (Array.isArray(t.Values)) {
-    return { 'Fn::Join': [t.Delimiter, t.Values] };
+    var jsonValues = t.Values.map(function (x) {
+      if (typeof x === 'string') {
+        return x;
+      } else {
+        return _json(x);
+      }
+    });
+    return { 'Fn::Join': [t.Delimiter, jsonValues] };
   } else {
     return { 'Fn::Join': [t.Delimiter, _json(t.Values)] };
   }
