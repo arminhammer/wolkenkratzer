@@ -380,7 +380,14 @@ function _buildResourceMetadata(t: IResourceMetadata): mixed {
 
 function _buildFnJoin(t: IFnJoin): mixed {
   if (Array.isArray(t.Values)) {
-    return { 'Fn::Join': [t.Delimiter, t.Values] };
+    const jsonValues = t.Values.map(x => {
+      if (typeof x === 'string') {
+        return x;
+      } else {
+        return _json(x);
+      }
+    });
+    return { 'Fn::Join': [t.Delimiter, jsonValues] };
   } else {
     return { 'Fn::Join': [t.Delimiter, _json(t.Values)] };
   }
