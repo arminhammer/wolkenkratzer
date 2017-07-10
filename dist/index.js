@@ -613,6 +613,7 @@ function Template() {
             if (options.Output) {
               newT = _addOutput(newT, Output('' + f.Name + shortName + 'Output', {
                 Value: Ref(f.Name),
+                Condition: f.Condition,
                 Export: {
                   Name: FnSub('${' + Pseudo.AWS_STACK_NAME + '}-' + nameSplit[0] + '-' + nameSplit[1] + '-' + f.Name)
                 }
@@ -870,13 +871,23 @@ function _buildFnJoin(t) {
   }
 }
 
+function _buildFnFindInMap(t) {
+  return t.FnFindInMap.map(function (x) {
+    if (typeof x === 'string') {
+      return x;
+    } else {
+      return _json(x);
+    }
+  });
+}
+
 function _buildMapping(t) {
   var result = t.Content;
   return result;
 }
 
 function _buildOutput(t) {
-  var outputResult = Object.assign({}, t.Properties);
+  var outputResult = lodash.cloneDeep(t.Properties);
   if (typeof outputResult.Value !== 'string') {
     var stripped = _json(outputResult.Value);
     outputResult = _extends({}, outputResult, { Value: stripped });
@@ -897,7 +908,7 @@ function _json(t) {
     case 'FnJoin':
       return _buildFnJoin(t);
     case 'FnFindInMap':
-      return { 'Fn::FindInMap': t.FnFindInMap };
+      return { 'Fn::FindInMap': _buildFnFindInMap(t) };
     case 'FnEquals':
       return { 'Fn::Equals': t.FnEquals };
     case 'FnSub':
