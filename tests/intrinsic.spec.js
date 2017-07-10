@@ -3,9 +3,11 @@ const {
   Ref,
   FnGetAtt,
   FnEquals,
+  FnSub,
   Parameter,
   Pseudo,
   S3,
+  Output,
   FnFindInMap
 } = require('../src/index');
 
@@ -65,6 +67,76 @@ describe('Intrinsic', () => {
   test('Can create an FnEquals', () => {
     const r = FnEquals('Function', 'ARN');
     expect(r).toEqual({ kind: 'FnEquals', FnEquals: ['Function', 'ARN'] });
+  });
+
+  test('Can create an FnSub', () => {
+    const r = FnSub('${AWS::StackName}-EC2-SecurityGroup0');
+    expect(r).toEqual({
+      kind: 'FnSub',
+      FnSub: '${AWS::StackName}-EC2-SecurityGroup0'
+    });
+  });
+
+  test('FnSub turns to valid JSON', () => {
+    let t = Template()
+      .add(Parameter('BucketName', { Type: 'String' }))
+      .add(
+        S3.Bucket('S3Bucket', {
+          BucketName: FnFindInMap('One', 'Two', 'Three'),
+          NotificationConfiguration: {
+            LambdaConfigurations: [
+              {
+                Event: 's3:ObjectCreated:*',
+                Function: FnGetAtt('LambdaFunction', 'Arn')
+              }
+            ]
+          }
+        })
+      )
+      .add(
+        Output('S3Output', {
+          Description: '',
+          Value: Ref('S3Bucket'),
+          Export: {
+            Name: FnSub('${AWS::StackName}-S3Bucket')
+          }
+        })
+      );
+    expect(t.build()).toEqual({
+      AWSTemplateFormatVersion: '2010-09-09',
+      Parameters: { BucketName: { Type: 'String' } },
+      Resources: {
+        S3Bucket: {
+          Properties: {
+            BucketName: {
+              'Fn::FindInMap': ['One', 'Two', 'Three']
+            },
+            NotificationConfiguration: {
+              LambdaConfigurations: [
+                {
+                  Event: 's3:ObjectCreated:*',
+                  Function: { 'Fn::GetAtt': ['LambdaFunction', 'Arn'] }
+                }
+              ]
+            }
+          },
+          Type: 'AWS::S3::Bucket'
+        }
+      },
+      Outputs: {
+        S3Output: {
+          Description: '',
+          Export: {
+            Name: {
+              'Fn::Sub': '${AWS::StackName}-S3Bucket'
+            }
+          },
+          Value: {
+            Ref: 'S3Bucket'
+          }
+        }
+      }
+    });
   });
 
   test('Can create an FnFindInMap', () => {

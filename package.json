@@ -53,20 +53,13 @@
     "update-submodules": "git submodule update --remote --merge",
     "release:major": "npm version major && git push --follow-tags && npm publish",
     "release:minor": "npm version minor && git push --follow-tags && npm publish",
-    "release:patch": "npm version patch && git push --follow-tags && yarn publish"
+    "release:patch": "npm version patch && git push --follow-tags && npm publish"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -75,15 +68,8 @@
   "homepage": "https://github.com/arminhammer/wolkenkratzer#readme",
   "jest": {
     "verbose": true,
-    "collectCoverageFrom": [
-      "!**/node_modules/**",
-      "src/**/*.js"
-    ],
-    "moduleFileExtensions": [
-      "js"
-    ],
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec.js"
-    ]
+    "collectCoverageFrom": ["!**/node_modules/**", "src/**/*.js"],
+    "moduleFileExtensions": ["js"],
+    "testMatch": ["<rootDir>/tests/**/*.spec.js"]
   }
 }

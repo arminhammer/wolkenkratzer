@@ -1690,6 +1690,7 @@ exports.FnGetAtt = FnGetAtt;
 exports.FnEquals = FnEquals;
 exports.FnJoin = FnJoin;
 exports.FnFindInMap = FnFindInMap;
+exports.FnSub = FnSub;
 exports.CreationPolicy = CreationPolicy;
 exports.ResourceMetadata = ResourceMetadata;
 exports.S3BucketTransform = S3BucketTransform;
