@@ -4,6 +4,7 @@ const {
   FnGetAtt,
   FnEquals,
   Parameter,
+  Pseudo,
   S3,
   FnFindInMap
 } = require('../src/index');
@@ -96,6 +97,44 @@ describe('Intrinsic', () => {
           Properties: {
             BucketName: {
               'Fn::FindInMap': ['One', 'Two', 'Three']
+            },
+            NotificationConfiguration: {
+              LambdaConfigurations: [
+                {
+                  Event: 's3:ObjectCreated:*',
+                  Function: { 'Fn::GetAtt': ['LambdaFunction', 'Arn'] }
+                }
+              ]
+            }
+          },
+          Type: 'AWS::S3::Bucket'
+        }
+      }
+    });
+  });
+
+  test('FnFindInMap turns to valid JSON with embedded Ref', () => {
+    let t = Template().add(Parameter('BucketName', { Type: 'String' })).add(
+      S3.Bucket('S3Bucket', {
+        BucketName: FnFindInMap('One', Ref(Pseudo.AWS_REGION), 'Three'),
+        NotificationConfiguration: {
+          LambdaConfigurations: [
+            {
+              Event: 's3:ObjectCreated:*',
+              Function: FnGetAtt('LambdaFunction', 'Arn')
+            }
+          ]
+        }
+      })
+    );
+    expect(t.build()).toEqual({
+      AWSTemplateFormatVersion: '2010-09-09',
+      Parameters: { BucketName: { Type: 'String' } },
+      Resources: {
+        S3Bucket: {
+          Properties: {
+            BucketName: {
+              'Fn::FindInMap': ['One', { Ref: 'AWS::Region' }, 'Three']
             },
             NotificationConfiguration: {
               LambdaConfigurations: [
