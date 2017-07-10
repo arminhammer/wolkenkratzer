@@ -1,4 +1,12 @@
-const { Template, S3, SNS } = require('../../src/index');
+const {
+  Condition,
+  FnEquals,
+  Pseudo,
+  Ref,
+  Template,
+  S3,
+  SNS
+} = require('../../src/index');
 
 describe('Resource', () => {
   test('Check for types of immediate attributes', () => {
@@ -70,6 +78,42 @@ describe('Resource', () => {
       Outputs: {
         MainS3BucketOutput: {
           Value: { Ref: 'Main' },
+          Export: { Name: { 'Fn::Sub': '${AWS::StackName}-S3-Bucket-Main' } }
+        }
+      }
+    });
+  });
+
+  test('Can create a conditional Resource and Output that automatically includes the Condition', () => {
+    let t = Template()
+      .add(Condition('isProd', FnEquals(Ref(Pseudo.AWS_REGION), 'us-east-1')))
+      .add(S3.Bucket('Main', null, { Condition: 'isProd' }), {
+        Output: true
+      });
+    expect(t.build()).toEqual({
+      Resources: {},
+      AWSTemplateFormatVersion: '2010-09-09',
+      Resources: {
+        Main: {
+          Condition: 'isProd',
+          Type: 'AWS::S3::Bucket',
+          Properties: {}
+        }
+      },
+      Conditions: {
+        isProd: {
+          'Fn::Equals': [
+            {
+              Ref: 'AWS::Region'
+            },
+            'us-east-1'
+          ]
+        }
+      },
+      Outputs: {
+        MainS3BucketOutput: {
+          Value: { Ref: 'Main' },
+          Condition: 'isProd',
           Export: { Name: { 'Fn::Sub': '${AWS::StackName}-S3-Bucket-Main' } }
         }
       }

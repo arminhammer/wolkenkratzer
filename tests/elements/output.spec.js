@@ -47,4 +47,20 @@ describe('Output', () => {
       AWSTemplateFormatVersion: '2010-09-09'
     });
   });
+
+  test('Outputs support Conditions', () => {
+    let t = Template().add(
+      Output('NewOutput', { Value: 'String', Condition: 'testCondition' })
+    );
+    expect(t.build()).toEqual({
+      Resources: {},
+      Outputs: {
+        NewOutput: {
+          Value: 'String',
+          Condition: 'testCondition'
+        }
+      },
+      AWSTemplateFormatVersion: '2010-09-09'
+    });
+  });
 });

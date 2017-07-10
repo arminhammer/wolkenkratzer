@@ -8,13 +8,15 @@ export interface IOutputProperties {
   +Value: IRef | string,
   +Export?: {
     Name: string
-  }
+  },
+  +Condition?: string
 }
 
 export interface IOutput {
   +kind: 'Output',
   +Name: string,
-  +Properties: IOutputProperties
+  +Properties: IOutputProperties,
+  +Condition?: string
 }
 
 export function Output(name: string, properties: IOutputProperties): IOutput {

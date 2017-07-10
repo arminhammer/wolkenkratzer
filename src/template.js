@@ -121,6 +121,7 @@ export function Template(): ITemplate {
                 newT,
                 Output(`${f.Name}${shortName}Output`, {
                   Value: Ref(f.Name),
+                  Condition: f.Condition,
                   Export: {
                     Name: FnSub(
                       `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`
@@ -391,7 +392,7 @@ function _buildMapping(t: IMapping): string {
 }
 
 function _buildOutput(t: IOutput): string {
-  let outputResult: any = Object.assign({}, t.Properties);
+  let outputResult: any = cloneDeep(t.Properties);
   if (typeof outputResult.Value !== 'string') {
     let stripped = _json(outputResult.Value);
     outputResult = { ...outputResult, Value: stripped };
