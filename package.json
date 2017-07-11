@@ -51,7 +51,7 @@
     "coverage": "jest --coverage",
     "docs": "documentation readme src/index.js --section=API",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
-    "precommit": "npm build && npm test",
+    "precommit": "npm run build && npm test",
     "update-submodules": "git submodule update --remote --merge",
     "release:major": "npm version major && git push --follow-tags && npm publish",
     "release:minor": "npm version minor && git push --follow-tags && npm publish",
@@ -69,6 +69,7 @@
   },
   "homepage": "https://github.com/arminhammer/wolkenkratzer#readme",
   "jest": {
+    "silent": false,
     "verbose": true,
     "collectCoverageFrom": ["!**/node_modules/**", "src/**/*.js"],
     "moduleFileExtensions": ["js"],

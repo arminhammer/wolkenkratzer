@@ -363,7 +363,9 @@ function _buildCondition(t: ICondition): string {
   let { Condition } = t;
   let result = _json(Condition);
   Object.keys(result).map(k => {
-    result[k][0] = _json(result[k][0]);
+    if (result[k][0].kind) {
+      result[k][0] = _json(result[k][0]);
+    }
   });
   return result;
 }
@@ -404,11 +406,27 @@ function _buildFnFindInMap(t: IFnFindInMap): mixed {
 }
 
 function _buildFnAnd(t: IFnAdd): mixed {
-  return t.FnAdd.map(x => {
+  return t.FnAnd.map(x => {
     if (typeof x === 'string') {
       return x;
     } else {
-      return _json(x);
+      if (x.kind) {
+        return _json(x);
+      }
+      return x;
+    }
+  });
+}
+
+function _buildFnEquals(t: IFnEquals): mixed {
+  return t.FnEquals.map(x => {
+    if (typeof x === 'string') {
+      return x;
+    } else {
+      if (x.kind) {
+        return _json(x);
+      }
+      return x;
     }
   });
 }
@@ -446,11 +464,11 @@ export function _json(
     case 'FnJoin':
       return _buildFnJoin(t);
     case 'FnAnd':
-      return { 'Fn::And': _buildFnAdd(t) };
+      return { 'Fn::And': _buildFnAnd(t) };
     case 'FnFindInMap':
       return { 'Fn::FindInMap': _buildFnFindInMap(t) };
     case 'FnEquals':
-      return { 'Fn::Equals': t.FnEquals };
+      return { 'Fn::Equals': _buildFnEquals(t) };
     case 'FnSub':
       return { 'Fn::Sub': t.FnSub };
     case 'CreationPolicy':

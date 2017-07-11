@@ -219,7 +219,7 @@ function FnJoin(delimiter, values) {
 }
 
 function FnAnd(one, two) {
-  return { kind: 'FnAnd', FnAnd: [one, two] };
+  return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
 }
 
 function FnEquals(one, two) {
@@ -858,7 +858,9 @@ function _buildCondition(t) {
 
   var result = _json(Condition$$1);
   Object.keys(result).map(function (k) {
-    result[k][0] = _json(result[k][0]);
+    if (result[k][0].kind) {
+      result[k][0] = _json(result[k][0]);
+    }
   });
   return result;
 }
@@ -900,6 +902,32 @@ function _buildFnFindInMap(t) {
   });
 }
 
+function _buildFnAnd(t) {
+  return t.FnAnd.map(function (x) {
+    if (typeof x === 'string') {
+      return x;
+    } else {
+      if (x.kind) {
+        return _json(x);
+      }
+      return x;
+    }
+  });
+}
+
+function _buildFnEquals(t) {
+  return t.FnEquals.map(function (x) {
+    if (typeof x === 'string') {
+      return x;
+    } else {
+      if (x.kind) {
+        return _json(x);
+      }
+      return x;
+    }
+  });
+}
+
 function _buildMapping(t) {
   var result = t.Content;
   return result;
@@ -927,11 +955,11 @@ function _json(t) {
     case 'FnJoin':
       return _buildFnJoin(t);
     case 'FnAnd':
-      return { 'Fn::And': _buildFnAdd(t) };
+      return { 'Fn::And': _buildFnAnd(t) };
     case 'FnFindInMap':
       return { 'Fn::FindInMap': _buildFnFindInMap(t) };
     case 'FnEquals':
-      return { 'Fn::Equals': t.FnEquals };
+      return { 'Fn::Equals': _buildFnEquals(t) };
     case 'FnSub':
       return { 'Fn::Sub': t.FnSub };
     case 'CreationPolicy':

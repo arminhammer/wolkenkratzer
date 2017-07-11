@@ -1,6 +1,7 @@
 const {
   Template,
   Ref,
+  Condition,
   FnGetAtt,
   FnEquals,
   FnJoin,
@@ -79,33 +80,68 @@ describe('Intrinsic', () => {
     });
   });
 
-  /*test('FnAnd returns to valid JSON when using an embedded intrinsic', () => {
-    let t = Template().add(Parameter('BucketName', { Type: 'String' })).add(
-      S3.Bucket('S3Bucket', {
-        BucketName: FnJoin('-', [
-          FnFindInMap('Map', 'Variables', 'Value'),
-          `MyBucket`
-        ])
-      })
-    );
+  test('Can create an FnAnd with intrinsics', () => {
+    const r = FnAnd(FnEquals('one', 'two'), 'ARN');
+    expect(r).toEqual({
+      kind: 'FnAnd',
+      FnAnd: [FnEquals('one', 'two'), 'ARN']
+    });
+  });
+
+  test('FnAnd returns to valid JSON when using an embedded intrinsic', () => {
+    let t = Template()
+      .add(
+        Parameter('EnvironmentType', {
+          Type: 'String',
+          AllowedValues: ['dev', 'prod']
+        })
+      )
+      .add(
+        S3.Bucket(
+          'S3Bucket',
+          {
+            BucketName: 'my-bucket'
+          },
+          { Condition: 'isUSEastDev' }
+        )
+      )
+      .add(
+        Condition(
+          'isUSEastDev',
+          FnAnd(
+            FnEquals(Ref(Pseudo.AWS_REGION), 'us-east-1'),
+            FnEquals(Ref('EnvironmentType'), 'dev')
+          )
+        )
+      );
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
-      Parameters: { BucketName: { Type: 'String' } },
+      Parameters: {
+        EnvironmentType: { Type: 'String', AllowedValues: ['dev', 'prod'] }
+      },
+      Conditions: {
+        isUSEastDev: {
+          'Fn::And': [
+            {
+              'Fn::Equals': [{ Ref: 'AWS::Region' }, 'us-east-1']
+            },
+            {
+              'Fn::Equals': [{ Ref: 'EnvironmentType' }, 'dev']
+            }
+          ]
+        }
+      },
       Resources: {
         S3Bucket: {
+          Condition: 'isUSEastDev',
           Properties: {
-            BucketName: {
-              'Fn::Join': [
-                '-',
-                [{ 'Fn::FindInMap': ['Map', 'Variables', 'Value'] }, 'MyBucket']
-              ]
-            }
+            BucketName: 'my-bucket'
           },
           Type: 'AWS::S3::Bucket'
         }
       }
     });
-  });*/
+  });
 
   test('Can create an FnJoin', () => {
     const r = FnJoin('', ['Function', 'ARN']);

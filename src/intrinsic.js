@@ -55,7 +55,7 @@ export interface IFnAnd {
 }
 
 export function FnAnd(one: Conditional, two: Conditional): IFnAnd {
-  return { kind: 'FnAnd', FnAnd: [one, two] };
+  return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
 }
 
 export interface IFnEquals {
