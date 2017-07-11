@@ -403,6 +403,16 @@ function _buildFnFindInMap(t: IFnFindInMap): mixed {
   });
 }
 
+function _buildFnAnd(t: IFnAdd): mixed {
+  return t.FnAdd.map(x => {
+    if (typeof x === 'string') {
+      return x;
+    } else {
+      return _json(x);
+    }
+  });
+}
+
 function _buildMapping(t: IMapping): string {
   let result = t.Content;
   return result;
@@ -435,6 +445,8 @@ export function _json(
       return { 'Fn::GetAtt': t.FnGetAtt };
     case 'FnJoin':
       return _buildFnJoin(t);
+    case 'FnAnd':
+      return { 'Fn::And': _buildFnAdd(t) };
     case 'FnFindInMap':
       return { 'Fn::FindInMap': _buildFnFindInMap(t) };
     case 'FnEquals':

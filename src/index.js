@@ -13,7 +13,8 @@ export {
   FnEquals,
   FnJoin,
   FnFindInMap,
-  FnSub
+  FnSub,
+  FnAnd
 } from './intrinsic';
 import { Service, IService } from './service';
 export { CreationPolicy } from './attributes/creationpolicy';

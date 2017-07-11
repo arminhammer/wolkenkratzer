@@ -4,6 +4,7 @@ const {
   FnGetAtt,
   FnEquals,
   FnJoin,
+  FnAnd,
   FnSub,
   Parameter,
   Pseudo,
@@ -69,6 +70,42 @@ describe('Intrinsic', () => {
     const r = FnEquals('Function', 'ARN');
     expect(r).toEqual({ kind: 'FnEquals', FnEquals: ['Function', 'ARN'] });
   });
+
+  test('Can create an FnAnd', () => {
+    const r = FnAnd('Function', 'ARN');
+    expect(r).toEqual({
+      kind: 'FnAnd',
+      FnAnd: ['Function', 'ARN']
+    });
+  });
+
+  /*test('FnAnd returns to valid JSON when using an embedded intrinsic', () => {
+    let t = Template().add(Parameter('BucketName', { Type: 'String' })).add(
+      S3.Bucket('S3Bucket', {
+        BucketName: FnJoin('-', [
+          FnFindInMap('Map', 'Variables', 'Value'),
+          `MyBucket`
+        ])
+      })
+    );
+    expect(t.build()).toEqual({
+      AWSTemplateFormatVersion: '2010-09-09',
+      Parameters: { BucketName: { Type: 'String' } },
+      Resources: {
+        S3Bucket: {
+          Properties: {
+            BucketName: {
+              'Fn::Join': [
+                '-',
+                [{ 'Fn::FindInMap': ['Map', 'Variables', 'Value'] }, 'MyBucket']
+              ]
+            }
+          },
+          Type: 'AWS::S3::Bucket'
+        }
+      }
+    });
+  });*/
 
   test('Can create an FnJoin', () => {
     const r = FnJoin('', ['Function', 'ARN']);

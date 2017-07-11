@@ -38,14 +38,24 @@ export interface IFnJoin {
 
 export function FnJoin(
   delimiter: string,
-  values: Array<string | IFnGetAtt> | IFnGetAtt
+  values: Array<string | IFnGetAtt | Ref> | IFnGetAtt
 ): IFnJoin {
-  return { kind: 'FnJoin', Delimiter: delimiter, Values: values };
+  let newValues = values;
+  if (Array.isArray(values)) {
+    newValues = values.map(v => {
+      return buildIntrinsic(v);
+    });
+  }
+  return { kind: 'FnJoin', Delimiter: delimiter, Values: newValues };
 }
 
 export interface IFnAnd {
   +kind: 'FnAnd',
   +FnAnd: Array<Conditional>
+}
+
+export function FnAnd(one: Conditional, two: Conditional): IFnAnd {
+  return { kind: 'FnAnd', FnAnd: [one, two] };
 }
 
 export interface IFnEquals {
@@ -150,6 +160,11 @@ export function buildIntrinsic(input: mixed) {
     );
   } else if (input.Ref) {
     return Ref(input.Ref);
+  } else if (input['Fn::GetAtt']) {
+    return FnGetAtt(
+      buildIntrinsic(input['Fn::GetAtt'][0]),
+      buildIntrinsic(input['Fn::GetAtt'][1])
+    );
   } else {
     return input;
   }

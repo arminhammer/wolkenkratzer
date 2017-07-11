@@ -209,7 +209,17 @@ function FnGetAtt(target, attr) {
 }
 
 function FnJoin(delimiter, values) {
-  return { kind: 'FnJoin', Delimiter: delimiter, Values: values };
+  var newValues = values;
+  if (Array.isArray(values)) {
+    newValues = values.map(function (v) {
+      return buildIntrinsic(v);
+    });
+  }
+  return { kind: 'FnJoin', Delimiter: delimiter, Values: newValues };
+}
+
+function FnAnd(one, two) {
+  return { kind: 'FnAnd', FnAnd: [one, two] };
 }
 
 function FnEquals(one, two) {
@@ -241,6 +251,8 @@ function buildIntrinsic(input) {
     return FnEquals(buildIntrinsic(input['Fn::Equals'][0]), buildIntrinsic(input['Fn::Equals'][1]));
   } else if (input.Ref) {
     return Ref(input.Ref);
+  } else if (input['Fn::GetAtt']) {
+    return FnGetAtt(buildIntrinsic(input['Fn::GetAtt'][0]), buildIntrinsic(input['Fn::GetAtt'][1]));
   } else {
     return input;
   }
@@ -914,6 +926,8 @@ function _json(t) {
       return { 'Fn::GetAtt': t.FnGetAtt };
     case 'FnJoin':
       return _buildFnJoin(t);
+    case 'FnAnd':
+      return { 'Fn::And': _buildFnAdd(t) };
     case 'FnFindInMap':
       return { 'Fn::FindInMap': _buildFnFindInMap(t) };
     case 'FnEquals':
@@ -1120,7 +1134,7 @@ function _calcFromExistingTemplate(t, inputTemplate) {
   return t;
 }
 
-var __dirname = '/Users/aet821/projects/wolkenkratzer/src/transform';
+var __dirname = '/Users/aet821/workspaces/wolkenkratzer/src/transform';
 
 var s3Json = require(path.resolve(__dirname, '../stubs/json/S3.json'));
 var s3Service = Service(s3Json);
@@ -1192,7 +1206,7 @@ function S3BucketTransform(bucketName, logicalName, awsObj) {
   });
 }
 
-var __dirname$1 = '/Users/aet821/projects/wolkenkratzer/src/macros';
+var __dirname$1 = '/Users/aet821/workspaces/wolkenkratzer/src/macros';
 
 var instanceTypes = require(path.resolve(__dirname$1, '../ec2info/www/instances.json'));
 var Promise$1 = require('bluebird');
@@ -1698,6 +1712,7 @@ exports.FnEquals = FnEquals;
 exports.FnJoin = FnJoin;
 exports.FnFindInMap = FnFindInMap;
 exports.FnSub = FnSub;
+exports.FnAnd = FnAnd;
 exports.CreationPolicy = CreationPolicy;
 exports.ResourceMetadata = ResourceMetadata;
 exports.S3BucketTransform = S3BucketTransform;

@@ -30,6 +30,7 @@
     "flow-bin": "^0.47.0",
     "flow-remove-types": "^1.2.1",
     "fs-extra": "^3.0.1",
+    "husky": "^0.14.3",
     "jest": "^20.0.4",
     "jsdoc-to-markdown": "^3.0.0",
     "prettier": "^1.5.0",
@@ -50,6 +51,7 @@
     "coverage": "jest --coverage",
     "docs": "documentation readme src/index.js --section=API",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
+    "precommit": "npm build && npm test",
     "update-submodules": "git submodule update --remote --merge",
     "release:major": "npm version major && git push --follow-tags && npm publish",
     "release:minor": "npm version minor && git push --follow-tags && npm publish",
@@ -59,14 +61,7 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -75,15 +70,8 @@
   "homepage": "https://github.com/arminhammer/wolkenkratzer#readme",
   "jest": {
     "verbose": true,
-    "collectCoverageFrom": [
-      "!**/node_modules/**",
-      "src/**/*.js"
-    ],
-    "moduleFileExtensions": [
-      "js"
-    ],
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec.js"
-    ]
+    "collectCoverageFrom": ["!**/node_modules/**", "src/**/*.js"],
+    "moduleFileExtensions": ["js"],
+    "testMatch": ["<rootDir>/tests/**/*.spec.js"]
   }
 }
