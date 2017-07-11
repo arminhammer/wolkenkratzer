@@ -3,7 +3,7 @@
 'use strict';
 import { Service } from '../service';
 import path from 'path';
-const s3Json = require(path.resolve(__dirname, '../stubs/json/S3.json'));
+import s3Json from '../stubs/json/S3.json';
 const s3Service: any = Service(s3Json);
 
 export function S3BucketTransform(
