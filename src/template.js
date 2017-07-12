@@ -339,10 +339,13 @@ function _buildResource(t: IResource): mixed {
   let newProps: mixed = {};
   if (Properties) {
     Object.keys(Properties).map(p => {
-      if (Properties[p].kind) {
-        newProps[p] = _json(Properties[p]);
-      } else {
-        newProps[p] = _cleanObject(Properties[p]);
+      // Ignore empty arrays
+      if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
+        if (Properties[p].kind) {
+          newProps[p] = _json(Properties[p]);
+        } else {
+          newProps[p] = _cleanObject(Properties[p]);
+        }
       }
     });
   }
