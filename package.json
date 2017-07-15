@@ -65,14 +65,7 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -84,13 +77,11 @@
     "verbose": true,
     "collectCoverageFrom": [
       "!**/node_modules/**",
+      "!src/stubs/**/*",
+      "!src/ec2info/**/*",
       "src/**/*.js"
     ],
-    "moduleFileExtensions": [
-      "js"
-    ],
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec.js"
-    ]
+    "moduleFileExtensions": ["js"],
+    "testMatch": ["<rootDir>/tests/**/*.spec.js"]
   }
 }
