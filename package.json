@@ -23,6 +23,7 @@
     "babel-register": "^6.24.1",
     "browserify": "^14.4.0",
     "core-js": "^2.4.1",
+    "coveralls": "^2.13.1",
     "documentation": "^4.0.0-rc.1",
     "eslint": "^4.2.0",
     "eslint-config-prettier": "^2.1.1",
@@ -50,6 +51,7 @@
     "test": "jest .",
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
+    "coveralls": "jest --coverage && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "documentation readme src/index.js --section=API",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
     "precommit": "npm run build && npm test",
@@ -63,14 +65,7 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -80,15 +75,8 @@
   "jest": {
     "silent": false,
     "verbose": true,
-    "collectCoverageFrom": [
-      "!**/node_modules/**",
-      "src/**/*.js"
-    ],
-    "moduleFileExtensions": [
-      "js"
-    ],
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec.js"
-    ]
+    "collectCoverageFrom": ["!**/node_modules/**", "src/**/*.js"],
+    "moduleFileExtensions": ["js"],
+    "testMatch": ["<rootDir>/tests/**/*.spec.js"]
   }
 }
