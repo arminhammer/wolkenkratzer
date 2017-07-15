@@ -19,6 +19,11 @@ export interface IOutput {
   +Condition?: string
 }
 
+/**
+ * Creatr an Output object
+ * @param {*} name 
+ * @param {*} properties 
+ */
 export function Output(name: string, properties: IOutputProperties): IOutput {
   if (!name || !properties || !properties.Value) {
     throw new SyntaxError(

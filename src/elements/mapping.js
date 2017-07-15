@@ -6,6 +6,12 @@ export interface IMapping {
   +Content: { [string]: mixed }
 }
 
+/**
+ * Create a Mapping object
+ * @param {*} name 
+ * @param {*} subName 
+ * @param {*} body 
+ */
 export function Mapping(
   name: string,
   subName: string,

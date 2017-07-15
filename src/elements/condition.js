@@ -15,6 +15,11 @@ export interface ICondition {
   +Condition: IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr
 }
 
+/**
+ * Create a Condition object
+ * @param {*} name 
+ * @param {*} conditionFn 
+ */
 export function Condition(
   name: string,
   conditionFn: IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr

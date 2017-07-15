@@ -119,6 +119,7 @@ Please see the examples/ folder for real and tested examples on how to use the l
 -   `build` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
 -   `merge` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
 -   `import` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
+-   `map` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
 
 ## Template
 
@@ -140,6 +141,7 @@ Template Interface
 -   `build` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
 -   `merge` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
 -   `import` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
+-   `map` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
 
 ## Template
 
@@ -185,6 +187,17 @@ JSON.stringify(t.build(), null, 2)
 ```
 
 Returns **any** 
+
+## map
+
+Add elements to the Template in a functional way.
+
+**Parameters**
+
+-   `iterable` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+-   `mapFn` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
+
+Returns **ITemplate** 
 
 ## remove
 
@@ -237,6 +250,172 @@ const t = Template().import(templateJson);
 
 Returns **ITemplate** 
 
+## Parameter
+
+Create a Parameter object
+
+**Parameters**
+
+-   `name` **any** 
+-   `properties` **any** 
+
+Returns **IParameter** 
+
+## Description
+
+Set the Description of a template
+
+**Parameters**
+
+-   `content` **any** 
+
+Returns **IDescription** 
+
+## Output
+
+Creatr an Output object
+
+**Parameters**
+
+-   `name` **any** 
+-   `properties` **any** 
+
+Returns **IOutput** 
+
+## Mapping
+
+Create a Mapping object
+
+**Parameters**
+
+-   `name` **any** 
+-   `subName` **any** 
+-   `body` **any** 
+
+Returns **IMapping** 
+
+## Resource
+
+Create a Resource object
+
+**Parameters**
+
+-   `name` **any** 
+-   `properties` **any** 
+-   `options` **any** 
+
+Returns **IResource** 
+
+## Condition
+
+Create a Condition object
+
+**Parameters**
+
+-   `name` **any** 
+-   `conditionFn` **any** 
+
+Returns **ICondition** 
+
+## Ref
+
+Returns a Ref object that references another element in the template
+
+**Parameters**
+
+-   `target` **any** 
+
+Returns **IRef** 
+
+## FnGetAtt
+
+Returns an Fn::GetAtt object that references another element in the template
+
+**Parameters**
+
+-   `target` **any** 
+-   `attr` **any** 
+
+Returns **IFnGetAtt** 
+
+## FnJoin
+
+Returns an Fn::Join object
+
+**Parameters**
+
+-   `delimiter` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `values` **([Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | IFnGetAtt | [Ref](#ref))> | IFnGetAtt)** 
+
+Returns **IFnJoin** 
+
+## FnAnd
+
+Returns an Fn::And object
+
+**Parameters**
+
+-   `one` **any** 
+-   `two` **any** 
+
+Returns **IFnAnd** 
+
+## FnEquals
+
+Returns an Fn::Equals object
+
+**Parameters**
+
+-   `one` **any** 
+-   `two` **any** 
+
+Returns **IFnEquals** 
+
+## FnSub
+
+Returns an Fn::Sub object
+
+**Parameters**
+
+-   `input` **any** 
+
+## FnBase64
+
+Returns an Fn::Base64 object
+
+**Parameters**
+
+-   `input` **any** 
+
+## FnFindInMap
+
+Returns an Fn::FindInMap object
+
+**Parameters**
+
+-   `mapName` **any** 
+-   `topLevelKey` **any** 
+-   `secondLevelKey` **any** 
+
+Returns **IFnFindInMap** 
+
+## FnGetAZs
+
+Returns an Fn::GetAZs object
+
+**Parameters**
+
+-   `region` **any** 
+
+## FnSelect
+
+Returns an Fn::Select object
+
+**Parameters**
+
+-   `index` **any** 
+-   `list` **any** 
+
 ## getInstanceTypeList
 
 Returns an array of all instance types and details.
@@ -269,5 +448,26 @@ Returns an AMI Map that can be added to a Mapping.
 
 -   `filters` **any** 
 -   `regions` **any** 
+-   `aws` **any** 
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;TResult>** 
+
+## Pseudo
+
+Strings constants that map to CloudFormation pseudoparameter
+Pseudo.AWS_ACCOUNT_ID
+Pseudo.AWS_NOTIFICATION_ARNS
+Pseudo.AWS_NO_VALUE
+Pseudo.AWS_REGION
+Pseudo.AWS_STACK_ID
+Pseudo.AWS_STACK_NAME
+
+## Service
+
+Return a Service object to create Resources and Attributes
+
+**Parameters**
+
+-   `json` **any** 
+
+Returns **IService** 

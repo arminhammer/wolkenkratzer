@@ -20,6 +20,11 @@ export interface IParameter {
   +Properties: IParameterProperties
 }
 
+/**
+ * Create a Parameter object
+ * @param {*} name 
+ * @param {*} properties 
+ */
 export function Parameter(
   name: string,
   properties: IParameterProperties

@@ -11,6 +11,12 @@ export interface IResource {
   +CreationPolicy?: ICreationPolicy
 }
 
+/**
+ * Create a Resource object
+ * @param {*} name 
+ * @param {*} properties 
+ * @param {*} options 
+ */
 export function Resource(
   name: string,
   properties: mixed,

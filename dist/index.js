@@ -5,10 +5,17 @@
 }(this, (function (exports,lodash) { 'use strict';
 
 //      
-function Parameter(name,properties){if(!name||!properties||!properties.Type){throw new SyntaxError('New Parameter with '+JSON.stringify({name:name,properties:properties})+' parameters is invalid. Name and Type are required.');}return{kind:'Parameter',Name:name,Properties:properties};}
+/**
+ * Create a Parameter object
+ * @param {*} name 
+ * @param {*} properties 
+ */function Parameter(name,properties){if(!name||!properties||!properties.Type){throw new SyntaxError('New Parameter with '+JSON.stringify({name:name,properties:properties})+' parameters is invalid. Name and Type are required.');}return{kind:'Parameter',Name:name,Properties:properties};}
 
 //      
-function Description(content){if(!content){throw new SyntaxError('New Description must have content.');}return{kind:'Description',Content:content};}
+/**
+ * Set the Description of a template
+ * @param {*} content 
+ */function Description(content){if(!content){throw new SyntaxError('New Description must have content.');}return{kind:'Description',Content:content};}
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
@@ -88,7 +95,12 @@ var objectWithoutProperties = function (obj, keys) {
 };
 
 //      
-function Mapping(name,subName,body){if(!name||!subName||!body){throw new SyntaxError('New Mapping with '+JSON.stringify({name:name,subName:subName,body:body})+' parameters is invalid. name, subName, and body are required.');}return{kind:'Mapping',Name:name,Content:defineProperty({},subName,body)};}
+/**
+ * Create a Mapping object
+ * @param {*} name 
+ * @param {*} subName 
+ * @param {*} body 
+ */function Mapping(name,subName,body){if(!name||!subName||!body){throw new SyntaxError('New Mapping with '+JSON.stringify({name:name,subName:subName,body:body})+' parameters is invalid. name, subName, and body are required.');}return{kind:'Mapping',Name:name,Content:defineProperty({},subName,body)};}
 
 //      
 function CreationPolicy(resource,content){if(!resource||!content||!content.AutoScalingCreationPolicy&&!content.ResourceSignal){throw new SyntaxError('New CreationPolicy must have content, '+JSON.stringify(content)+' is invalid.');}return{kind:'CreationPolicy',Resource:resource,Content:content};}
@@ -99,8 +111,40 @@ Object.keys(properties).map(function(p){if(!model.Resources[rType].Properties[p]
 Object.keys(model.Resources[rType].Properties).map(function(p){if(model.Resources[rType].Properties[p].Required==='Yes'){if(!properties[p]){throw new SyntaxError(p+' is required but is not present in '+rType);}}if(model.Resources[rType].Properties[p].Array){if(properties[p]&&!Array.isArray(properties[p])){if(!properties[p].kind&&properties[p].kind!=='FnGetAtt'&&!properties[p]['Fn::GetAtt']){throw new SyntaxError(p+' must be an array in '+rType);}}}else{if(properties[p]&&Array.isArray(properties[p])){throw new SyntaxError(p+' cannot be an array in '+rType);}}});}
 
 //      
-function Ref(target){if(typeof target==='string'){return{kind:'Ref',Ref:target};}else{return{kind:'Ref',Ref:target.Name};}}function FnGetAtt(target,attr){if(typeof target==='string'){return{kind:'FnGetAtt',FnGetAtt:[target,attr]};}else{return{kind:'FnGetAtt',FnGetAtt:[target.Name,attr]};}}function FnJoin(delimiter,values){var newValues=values;if(Array.isArray(values)){newValues=values.map(function(v){return buildIntrinsic(v);});}return{kind:'FnJoin',Delimiter:delimiter,Values:newValues};}function FnAnd(one,two){return{kind:'FnAnd',FnAnd:[buildIntrinsic(one),buildIntrinsic(two)]};}function FnEquals(one,two){return{kind:'FnEquals',FnEquals:[one,two]};}// export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
-function FnSub(input){return{kind:'FnSub',FnSub:input};}function FnFindInMap(mapName,topLevelKey,secondLevelKey){return{kind:'FnFindInMap',FnFindInMap:[mapName,topLevelKey,secondLevelKey]};}function buildIntrinsic(input){if(input['Fn::Equals']){return FnEquals(buildIntrinsic(input['Fn::Equals'][0]),buildIntrinsic(input['Fn::Equals'][1]));}else if(input.Ref){return Ref(input.Ref);}else if(input['Fn::GetAtt']){return FnGetAtt(buildIntrinsic(input['Fn::GetAtt'][0]),buildIntrinsic(input['Fn::GetAtt'][1]));}else{return input;}}
+function Ref(target){if(typeof target==='string'){return{kind:'Ref',Ref:target};}else{return{kind:'Ref',Ref:target.Name};}}/**
+ * Returns an Fn::GetAtt object that references another element in the template
+ * @param {*} target 
+ * @param {*} attr 
+ */function FnGetAtt(target,attr){if(typeof target==='string'){return{kind:'FnGetAtt',FnGetAtt:[target,attr]};}else{return{kind:'FnGetAtt',FnGetAtt:[target.Name,attr]};}}/**
+ * Returns an Fn::Join object
+ */function FnJoin(delimiter,values){var newValues=values;if(Array.isArray(values)){newValues=values.map(function(v){return buildIntrinsic(v);});}return{kind:'FnJoin',Delimiter:delimiter,Values:newValues};}/**
+ * Returns an Fn::And object
+ * @param {*} one 
+ * @param {*} two 
+ */function FnAnd(one,two){return{kind:'FnAnd',FnAnd:[buildIntrinsic(one),buildIntrinsic(two)]};}/**
+ * Returns an Fn::Equals object
+ * @param {*} one 
+ * @param {*} two 
+ */function FnEquals(one,two){return{kind:'FnEquals',FnEquals:[one,two]};}// export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
+/**
+ * Returns an Fn::Sub object
+ * @param {*} input 
+ */function FnSub(input){return{kind:'FnSub',FnSub:input};}/**
+ * Returns an Fn::Base64 object
+ * @param {*} input 
+ *//**
+ * Returns an Fn::FindInMap object
+ * @param {*} mapName 
+ * @param {*} topLevelKey 
+ * @param {*} secondLevelKey 
+ */function FnFindInMap(mapName,topLevelKey,secondLevelKey){return{kind:'FnFindInMap',FnFindInMap:[mapName,topLevelKey,secondLevelKey]};}/**
+ * Returns an Fn::GetAZs object
+ * @param {*} region 
+ *//**
+ * Returns an Fn::Select object
+ * @param {*} index 
+ * @param {*} list 
+ */function buildIntrinsic(input){if(input['Fn::Equals']){return FnEquals(buildIntrinsic(input['Fn::Equals'][0]),buildIntrinsic(input['Fn::Equals'][1]));}else if(input.Ref){return Ref(input.Ref);}else if(input['Fn::GetAtt']){return FnGetAtt(buildIntrinsic(input['Fn::GetAtt'][0]),buildIntrinsic(input['Fn::GetAtt'][1]));}else{return input;}}
 
 //      
 function Condition(name,conditionFn){var newCondFn=lodash.cloneDeep(conditionFn);if((typeof newCondFn==='undefined'?'undefined':_typeof(newCondFn))==='object'&&!newCondFn.kind){newCondFn=buildIntrinsic(newCondFn);}return{kind:'Condition',Name:name,Condition:newCondFn};}
@@ -212,7 +256,15 @@ var substr = 'ab'.substr(-1) === 'b' ?
 //      
 function Service(json){var service={json:json};Object.keys(json.Resources).map(function(r){service[r]=Resource.bind({json:json,name:r});});return service;}
 
-var Pseudo={AWS_ACCOUNT_ID:'AWS::AccountId',AWS_NOTIFICATION_ARNS:'AWS::NotificationARNs',AWS_NO_VALUE:'AWS::NoValue',AWS_REGION:'AWS::Region',AWS_STACK_ID:'AWS::StackId',AWS_STACK_NAME:'AWS::StackName'};
+/**
+ * Strings constants that map to CloudFormation pseudoparameter
+ * Pseudo.AWS_ACCOUNT_ID
+ * Pseudo.AWS_NOTIFICATION_ARNS
+ * Pseudo.AWS_NO_VALUE
+ * Pseudo.AWS_REGION
+ * Pseudo.AWS_STACK_ID
+ * Pseudo.AWS_STACK_NAME
+ */var Pseudo={AWS_ACCOUNT_ID:'AWS::AccountId',AWS_NOTIFICATION_ARNS:'AWS::NotificationARNs',AWS_NO_VALUE:'AWS::NoValue',AWS_REGION:'AWS::Region',AWS_STACK_ID:'AWS::StackId',AWS_STACK_NAME:'AWS::StackName'};
 
 //      
 /**
