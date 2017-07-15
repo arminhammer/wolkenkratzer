@@ -6,6 +6,7 @@ import globals from 'rollup-plugin-node-globals';
 import flow from 'rollup-plugin-flow';
 import json from 'rollup-plugin-json';
 import commonjs from 'rollup-plugin-commonjs';
+import sizes from 'rollup-plugin-sizes';
 
 export default {
   entry: 'src/index.js',
@@ -19,7 +20,8 @@ export default {
     globals(),
     commonjs(),
     resolve(),
-    builtins()
+    builtins(),
+    sizes({ details: true })
   ],
   moduleName: 'wolkenkratzer',
   dest: 'dist/index.js',

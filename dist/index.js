@@ -1,7 +1,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('lodash')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'lodash'], factory) :
-	(factory((global.wolkenkratzer = global.wolkenkratzer || {}),global.lodash));
+	(factory((global.wolkenkratzer = {}),global.lodash));
 }(this, (function (exports,lodash) { 'use strict';
 
 //      
