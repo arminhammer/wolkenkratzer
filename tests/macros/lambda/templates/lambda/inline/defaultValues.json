@@ -1,0 +1,43 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Outputs": {
+        "MyFunctionLambdaFunctionOutput": {
+            "Export": {
+                "Name": {
+                    "Fn::Sub": "${AWS::StackName}-Lambda-Function-MyFunction"
+                }
+            },
+            "Value": {
+                "Ref": "MyFunction"
+            }
+        }
+    },
+    "Resources": {
+        "MyFunction": {
+            "Properties": {
+                "Code": {
+                    "ZipFile": {
+                        "Fn::Join": [
+                            "\n",
+                            [
+                                "const aws = require('aws-sdk');",
+                                "",
+                                "exports.handler = (event, context, callback) => {",
+                                "  callback(null, 'Hello from Default Function');",
+                                "};",
+                                ""
+                            ]
+                        ]
+                    }
+                },
+                "FunctionName": "MyFunction",
+                "Handler": "index.handler",
+                "MemorySize": 128,
+                "Role": "BlankRole",
+                "Runtime": "nodejs6.10",
+                "Timeout": 30
+            },
+            "Type": "AWS::Lambda::Function"
+        }
+    }
+}

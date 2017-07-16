@@ -24,6 +24,7 @@ export {
   getInstanceTypeList,
   getInstanceTypeNameList
 } from './macros/ec2meta.macro';
+export { buildLambda } from './macros/lambda.macro';
 export { Pseudo } from './pseudo';
 
 import * as path from 'path';

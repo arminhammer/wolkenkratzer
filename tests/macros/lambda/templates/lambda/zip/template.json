@@ -1,0 +1,45 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Outputs": {
+    "MyGreatFunctionLambdaFunctionOutput": {
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-Lambda-Function-MyGreatFunction"
+        }
+      },
+      "Value": {
+        "Ref": "MyGreatFunction"
+      }
+    }
+  },
+  "Parameters": {
+    "MyGreatFunctionRole": {
+      "Type": "String"
+    },
+    "MyGreatFunctionS3BucketParam": {
+      "Type": "String"
+    },
+    "MyGreatFunctionS3KeyParam": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "MyGreatFunction": {
+      "Properties": {
+        "Code": {
+          "S3Bucket": { "Ref": "MyGreatFunctionS3BucketParam" },
+          "S3Key": { "Ref": "MyGreatFunctionS3KeyParam" }
+        },
+        "FunctionName": "MyFunction",
+        "Handler": "index.handler",
+        "MemorySize": 256,
+        "Role": {
+          "Ref": "MyGreatFunctionRole"
+        },
+        "Runtime": "nodejs6.10",
+        "Timeout": 30
+      },
+      "Type": "AWS::Lambda::Function"
+    }
+  }
+}
