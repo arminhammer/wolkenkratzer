@@ -41,3 +41,15 @@ tsconfig.json
 .vscode/
 .nyc_output/
 generateReadme.js
+yarn-error.log
+LICENSE
+README.md
+deploy.sh
+documentation.yml
+jsdoc.conf.json
+lib
+rollup.config.js
+shrinkwrap.yaml
+tests
+yarn-error.log
+yarn.lock
