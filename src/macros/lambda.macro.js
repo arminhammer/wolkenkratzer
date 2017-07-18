@@ -3,13 +3,15 @@ import { Parameter } from '../elements/parameter';
 import { Ref } from '../intrinsic';
 import { Service } from '../service';
 import LambdaJson from '../stubs/json/Lambda.json';
-const Lambda = Service(LambdaJson);
-const fs = require('fs-extra');
 import { merge } from 'lodash';
+
+const fs = require('fs-extra');
 const path = require('path');
 const bluebird = require('bluebird');
 const jszip = require('jszip');
 const klaw = require('klaw');
+
+const Lambda = Service(LambdaJson);
 
 const defaultConfig = {
   FunctionName: 'MyFunction',
