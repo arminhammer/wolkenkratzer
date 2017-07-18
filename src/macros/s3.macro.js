@@ -4,7 +4,7 @@
 
 import * as util from '../util';
 import { Service } from '../service';
-import s3Json from '../stubs/json/S3.json';
+import { S3 as s3Json } from 'cfn-doc-json-stubs';
 const s3Resource: any = new Service(s3Json);
 const types = require('../types');
 

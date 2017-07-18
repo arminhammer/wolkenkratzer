@@ -14,6 +14,7 @@ import { IResourceMetadata } from './attributes/metadata';
 import { Ref, FnSub, FnGetAtt } from './intrinsic';
 import { Service } from './service';
 import { Pseudo } from './pseudo';
+import stubs from 'cfn-doc-json-stubs';
 import type {
   IRef,
   IFnGetAtt,
@@ -656,8 +657,7 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: mixed) {
       let cat = split[1];
       let resType = split[2];
       if (split[0] === 'AWS') {
-        const serviceJson = require(`./stubs/json/${cat}.json`);
-        let service = Service(serviceJson);
+        let service = Service(stubs[cat]);
         t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
       } else if (split[0] === 'Custom') {
         t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties));

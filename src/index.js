@@ -29,6 +29,13 @@ export { Pseudo } from './pseudo';
 
 import * as path from 'path';
 
+import stubs from 'cfn-doc-json-stubs';
+
+stubs.resourceList.map(r => {
+  exports[r] = Service(stubs[r]);
+});
+
+/*
 import ApiGateway from './stubs/json/ApiGateway.json';
 exports['ApiGateway'] = Service(ApiGateway);
 
@@ -175,3 +182,4 @@ exports['WAFRegional'] = Service(WAFRegional);
 
 import WorkSpaces from './stubs/json/WorkSpaces.json';
 exports['WorkSpaces'] = Service(WorkSpaces);
+*/

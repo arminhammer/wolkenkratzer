@@ -2,7 +2,7 @@ import { Template } from '../template';
 import { Parameter } from '../elements/parameter';
 import { Ref } from '../intrinsic';
 import { Service } from '../service';
-import LambdaJson from '../stubs/json/Lambda.json';
+import { Lambda as LambdaJson } from 'cfn-doc-json-stubs';
 import { merge } from 'lodash';
 
 const fs = require('fs-extra');

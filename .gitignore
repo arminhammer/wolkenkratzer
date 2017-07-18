@@ -8,3 +8,4 @@ npm-debug.log
 oldtest/
 .nyc_output/
 yarn-error.log
+test.js

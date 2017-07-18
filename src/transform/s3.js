@@ -3,7 +3,7 @@
 'use strict';
 import { Service } from '../service';
 import path from 'path';
-import s3Json from '../stubs/json/S3.json';
+import { S3 as s3Json } from 'cfn-doc-json-stubs';
 const s3Service: any = Service(s3Json);
 
 export function S3BucketTransform(
