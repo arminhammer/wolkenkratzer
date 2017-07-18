@@ -1,6 +1,6 @@
 {
   "name": "wolkenkratzer",
-  "version": "0.7.23",
+  "version": "0.7.24",
   "description": "Library for generating CloudFormation templates",
   "main": "dist/index.js",
   "directories": {
@@ -67,7 +67,14 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
+  "keywords": [
+    "CloudFormation",
+    "AWS",
+    "Template",
+    "Cloud",
+    "aws-sdk",
+    "ecs"
+  ],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -83,7 +90,11 @@
       "!src/ec2info/**/*",
       "src/**/*.js"
     ],
-    "moduleFileExtensions": ["js"],
-    "testMatch": ["<rootDir>/tests/**/*.spec.js"]
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "testMatch": [
+      "<rootDir>/tests/**/*.spec.js"
+    ]
   }
 }
