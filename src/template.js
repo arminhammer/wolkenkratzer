@@ -651,8 +651,6 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: mixed) {
   }
   if (inputTemplate.Resources) {
     Object.keys(inputTemplate.Resources).map(r => {
-      console.log('r');
-      console.log(inputTemplate.Resources[r]);
       let split = inputTemplate.Resources[r].Type.split('::');
       let cat = split[1];
       let resType = split[2];
@@ -666,7 +664,6 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: mixed) {
   }
   if (inputTemplate.Outputs) {
     Object.keys(inputTemplate.Outputs).map(o => {
-      console.log('o');
       t = t.add(Output(o, inputTemplate.Outputs[o]));
     });
   }

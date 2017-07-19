@@ -10,11 +10,7 @@ const results = ec2info.map(i => {
   };
 });
 
-console.log(results);
-
 fs
   .writeJson(path.resolve(__dirname, '..', 'ec2info.json'), results)
-  .then(() => {
-    console.log('Written');
-  })
+  .then(() => {})
   .catch(console.error);

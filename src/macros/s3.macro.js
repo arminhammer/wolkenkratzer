@@ -35,8 +35,6 @@ function Bucket(name: any, newName: any, region: any, aws: any) {
           return s3Client.getBucketCors({ Bucket: name }).promise();
         })
         /* .then(function (aclData) {
-      console.log('2')
-      console.log(JSON.stringify(aclData))
       bucket.AccessControl = aclData
     })*/
         .then(function(corsData: any) {

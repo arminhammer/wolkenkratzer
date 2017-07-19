@@ -27,12 +27,9 @@ export function S3BucketTransform(
           return s3Client.getBucketCors({ Bucket: bucketName }).promise();
         })
         /* .then(function (aclData) {
-      console.log('2')
-      console.log(JSON.stringify(aclData))
       bucket.AccessControl = aclData
     })*/
         .then(corsData => {
-          console.log('cors');
           bucket.CorsConfiguration = corsData;
           return s3Client
             .getBucketLifecycleConfiguration({ Bucket: bucketName })
@@ -45,7 +42,6 @@ export function S3BucketTransform(
             .promise();
         })
         .then(lifeData => {
-          console.log('life');
           bucket.LifecycleConfiguration = lifeData;
           return s3Client.getBucketLogging({ Bucket: bucketName }).promise();
         })
