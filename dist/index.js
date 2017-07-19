@@ -349,163 +349,19 @@ var Promise$1=require('bluebird');/**
 
 var fs=require('fs-extra');var path$1=require('path');var bluebird=require('bluebird');var jszip=require('jszip');var klaw=require('klaw');var Lambda$1=Service(stubs.Lambda);var defaultConfig={FunctionName:'MyFunction',MemorySize:128,Timeout:30,Runtime:'nodejs6.10',//env: {},
 Role:'BlankRole',//kms: '',
-Handler:'index.handler',Tags:[]};function _createInlineTemplate(_ref){var inputPath=_ref.path,name=_ref.name,options=_ref.options,parameters=_ref.parameters;return new Promise(function(resolve,reject){fs.readFile(inputPath).then(function(functionCode){var t=Template();if(parameters&&parameters.length>0){parameters.map(function(p){t=t.add(Parameter(''+name+p,{Type:'String'}));});}t=t.add(Lambda$1.Function(name,{FunctionName:options.FunctionName,Handler:options.Handler,MemorySize:options.MemorySize,Role:parameters&&parameters.includes('Role')?Ref(name+'Role'):options.Role,Runtime:options.Runtime,Timeout:options.Timeout,Code:{ZipFile:{'Fn::Join':['\n',functionCode.toString().split('\n')]}//Tags: options.Tags ? options.Tags.length > 0 : null
-}}),{Output:true});resolve(t);}).catch(function(e){reject(e);});});}/**
+Handler:'index.handler',Tags:[]};function _createInlineFunction(_ref){var inputPath=_ref.path,name=_ref.name,options=_ref.options,parameters=_ref.parameters;return new Promise(function(resolve,reject){fs.readFile(inputPath).then(function(functionCode){var fn=Lambda$1.Function(name,{FunctionName:options.FunctionName,Handler:options.Handler,MemorySize:options.MemorySize,Role:parameters&&parameters.includes('Role')?Ref(name+'Role'):options.Role,Runtime:options.Runtime,Timeout:options.Timeout,Code:{ZipFile:{'Fn::Join':['\n',functionCode.toString().split('\n')]}//Tags: options.Tags ? options.Tags.length > 0 : null
+}});resolve(fn);}).catch(function(e){reject(e);});});}function _createInlineTemplate(_ref2){var inputPath=_ref2.path,name=_ref2.name,options=_ref2.options,parameters=_ref2.parameters;return new Promise(function(resolve,reject){_createInlineFunction({path:inputPath,name:name,options:options,parameters:parameters}).then(function(fnBlock){var t=Template();if(parameters&&parameters.length>0){parameters.map(function(p){t=t.add(Parameter(''+name+p,{Type:'String'}));});}t=t.add(fnBlock,{Output:true});resolve(t);}).catch(function(e){reject(e);});});}/**
  * Create a Lambda function from a folder or source file
  * @param {} param0 
- */function buildLambda(_ref2){var inputPath=_ref2.path,name=_ref2.name,options=_ref2.options,parameters=_ref2.parameters,output=_ref2.output;name=name?name:defaultConfig.FunctionName;options=options?lodash.merge({},defaultConfig,options):defaultConfig;inputPath=path$1.resolve(inputPath);return new Promise(function(resolve,reject){fs.stat(inputPath).then(function(stat){if(stat.isFile()){_createInlineTemplate({path:inputPath,name:name,options:options,parameters:parameters}).then(function(t){resolve({Template:t.build()});}).catch(function(e){reject(e);});}else if(stat.isDirectory()){var zip=new jszip();var files=[];klaw(inputPath).on('data',function(_ref3){var location=_ref3.path,stats=_ref3.stats;if(stats.isFile()){files.push(location);}}).on('end',function(){if(files.length===1&&path$1.relative(inputPath,files[0])==='index.js'){_createInlineTemplate({path:files[0],name:name,options:options,parameters:parameters}).then(function(t){resolve({Template:t.build()});}).catch(function(e){reject(e);});}else{bluebird.map(files,function(file){return fs.readFile(file).then(function(contents){var relPath=path$1.relative(inputPath,file);zip.file(relPath,contents);});}).then(function(results){zip.generateAsync({type:'nodebuffer'}).then(function(blob){//fs.writeFileSync('final.zip', blob);
+ *//**
+ * Create a Lambda function from a folder or source file
+ * @param {} param0 
+ */function buildLambdaTemplate(_ref5){var inputPath=_ref5.path,name=_ref5.name,options=_ref5.options,parameters=_ref5.parameters,output=_ref5.output;name=name?name:defaultConfig.FunctionName;options=options?lodash.merge({},defaultConfig,options):defaultConfig;inputPath=path$1.resolve(inputPath);return new Promise(function(resolve,reject){fs.stat(inputPath).then(function(stat){if(stat.isFile()){_createInlineTemplate({path:inputPath,name:name,options:options,parameters:parameters}).then(function(t){resolve({Template:t.build()});}).catch(function(e){reject(e);});}else if(stat.isDirectory()){var zip=new jszip();var files=[];klaw(inputPath).on('data',function(_ref6){var location=_ref6.path,stats=_ref6.stats;if(stats.isFile()){files.push(location);}}).on('end',function(){if(files.length===1&&path$1.relative(inputPath,files[0])==='index.js'){_createInlineTemplate({path:files[0],name:name,options:options,parameters:parameters}).then(function(t){resolve({Template:t.build()});}).catch(function(e){reject(e);});}else{bluebird.map(files,function(file){return fs.readFile(file).then(function(contents){var relPath=path$1.relative(inputPath,file);zip.file(relPath,contents);});}).then(function(results){zip.generateAsync({type:'nodebuffer'}).then(function(blob){//fs.writeFileSync('final.zip', blob);
 var t=Template().add(Parameter(name+'S3BucketParam',{Type:'String'})).add(Parameter(name+'S3KeyParam',{Type:'String'}));if(parameters&&parameters.length>0){parameters.map(function(p){t=t.add(Parameter(''+name+p,{Type:'String'}));});}t=t.add(Lambda$1.Function(name,{FunctionName:options.FunctionName,Handler:options.Handler,MemorySize:options.MemorySize,Role:parameters&&parameters.includes('Role')?Ref(name+'Role'):options.Role,Runtime:options.Runtime,Timeout:options.Timeout,Code:{S3Bucket:Ref('MyGreatFunctionS3BucketParam'),S3Key:Ref('MyGreatFunctionS3KeyParam')//Tags: options.Tags ? options.Tags.length > 0 : null
 }}),{Output:true});resolve({Template:t.build(),Zip:blob});});});}});}}).catch(function(e){reject(e);});});}
 
 //      
-stubs__default.resourceList.map(function(r){exports[r]=Service(stubs__default[r]);});/*
-import ApiGateway from './stubs/json/ApiGateway.json';
-exports['ApiGateway'] = Service(ApiGateway);
-
-import ApplicationAutoScaling from './stubs/json/ApplicationAutoScaling.json';
-exports['ApplicationAutoScaling'] = Service(ApplicationAutoScaling);
-
-import AutoScaling from './stubs/json/AutoScaling.json';
-exports['AutoScaling'] = Service(AutoScaling);
-
-import CertificateManager from './stubs/json/CertificateManager.json';
-exports['CertificateManager'] = Service(CertificateManager);
-
-import CloudFormation from './stubs/json/CloudFormation.json';
-exports['CloudFormation'] = Service(CloudFormation);
-
-import CloudFront from './stubs/json/CloudFront.json';
-exports['CloudFront'] = Service(CloudFront);
-
-import CloudTrail from './stubs/json/CloudTrail.json';
-exports['CloudTrail'] = Service(CloudTrail);
-
-import CloudWatch from './stubs/json/CloudWatch.json';
-exports['CloudWatch'] = Service(CloudWatch);
-
-import CodeBuild from './stubs/json/CodeBuild.json';
-exports['CodeBuild'] = Service(CodeBuild);
-
-import CodeCommit from './stubs/json/CodeCommit.json';
-exports['CodeCommit'] = Service(CodeCommit);
-
-import CodeDeploy from './stubs/json/CodeDeploy.json';
-exports['CodeDeploy'] = Service(CodeDeploy);
-
-import CodePipeline from './stubs/json/CodePipeline.json';
-exports['CodePipeline'] = Service(CodePipeline);
-
-import Cognito from './stubs/json/Cognito.json';
-exports['Cognito'] = Service(Cognito);
-
-import Config from './stubs/json/Config.json';
-exports['Config'] = Service(Config);
-
-import DataPipeline from './stubs/json/DataPipeline.json';
-exports['DataPipeline'] = Service(DataPipeline);
-
-import DirectoryService from './stubs/json/DirectoryService.json';
-exports['DirectoryService'] = Service(DirectoryService);
-
-import DynamoDB from './stubs/json/DynamoDB.json';
-exports['DynamoDB'] = Service(DynamoDB);
-
-import EC2 from './stubs/json/EC2.json';
-exports['EC2'] = Service(EC2);
-
-import ECR from './stubs/json/ECR.json';
-exports['ECR'] = Service(ECR);
-
-import ECS from './stubs/json/ECS.json';
-exports['ECS'] = Service(ECS);
-
-import EFS from './stubs/json/EFS.json';
-exports['EFS'] = Service(EFS);
-
-import EMR from './stubs/json/EMR.json';
-exports['EMR'] = Service(EMR);
-
-import ElastiCache from './stubs/json/ElastiCache.json';
-exports['ElastiCache'] = Service(ElastiCache);
-
-import ElasticBeanstalk from './stubs/json/ElasticBeanstalk.json';
-exports['ElasticBeanstalk'] = Service(ElasticBeanstalk);
-
-import ElasticLoadBalancing from './stubs/json/ElasticLoadBalancing.json';
-exports['ElasticLoadBalancing'] = Service(ElasticLoadBalancing);
-
-import ElasticLoadBalancingV2 from './stubs/json/ElasticLoadBalancingV2.json';
-exports['ElasticLoadBalancingV2'] = Service(ElasticLoadBalancingV2);
-
-import Elasticsearch from './stubs/json/Elasticsearch.json';
-exports['Elasticsearch'] = Service(Elasticsearch);
-
-import Events from './stubs/json/Events.json';
-exports['Events'] = Service(Events);
-
-import GameLift from './stubs/json/GameLift.json';
-exports['GameLift'] = Service(GameLift);
-
-import IAM from './stubs/json/IAM.json';
-exports['IAM'] = Service(IAM);
-
-import IoT from './stubs/json/IoT.json';
-exports['IoT'] = Service(IoT);
-
-import KMS from './stubs/json/KMS.json';
-exports['KMS'] = Service(KMS);
-
-import Kinesis from './stubs/json/Kinesis.json';
-exports['Kinesis'] = Service(Kinesis);
-
-import KinesisFirehose from './stubs/json/KinesisFirehose.json';
-exports['KinesisFirehose'] = Service(KinesisFirehose);
-
-import Lambda from './stubs/json/Lambda.json';
-exports['Lambda'] = Service(Lambda);
-
-import Logs from './stubs/json/Logs.json';
-exports['Logs'] = Service(Logs);
-
-import OpsWorks from './stubs/json/OpsWorks.json';
-exports['OpsWorks'] = Service(OpsWorks);
-
-import RDS from './stubs/json/RDS.json';
-exports['RDS'] = Service(RDS);
-
-import Redshift from './stubs/json/Redshift.json';
-exports['Redshift'] = Service(Redshift);
-
-import Route53 from './stubs/json/Route53.json';
-exports['Route53'] = Service(Route53);
-
-import S3 from './stubs/json/S3.json';
-exports['S3'] = Service(S3);
-
-import SDB from './stubs/json/SDB.json';
-exports['SDB'] = Service(SDB);
-
-import SNS from './stubs/json/SNS.json';
-exports['SNS'] = Service(SNS);
-
-import SQS from './stubs/json/SQS.json';
-exports['SQS'] = Service(SQS);
-
-import SSM from './stubs/json/SSM.json';
-exports['SSM'] = Service(SSM);
-
-import StepFunctions from './stubs/json/StepFunctions.json';
-exports['StepFunctions'] = Service(StepFunctions);
-
-import WAF from './stubs/json/WAF.json';
-exports['WAF'] = Service(WAF);
-
-import WAFRegional from './stubs/json/WAFRegional.json';
-exports['WAFRegional'] = Service(WAFRegional);
-
-import WorkSpaces from './stubs/json/WorkSpaces.json';
-exports['WorkSpaces'] = Service(WorkSpaces);
-*/
+stubs__default.resourceList.map(function(r){exports[r]=Service(stubs__default[r]);});
 
 exports.Template = Template;
 exports.Parameter = Parameter;
@@ -527,7 +383,7 @@ exports.ResourceMetadata = ResourceMetadata;
 exports.S3BucketTransform = S3BucketTransform;
 exports.getInstanceTypeList = getInstanceTypeList;
 exports.getInstanceTypeNameList = getInstanceTypeNameList;
-exports.buildLambda = buildLambda;
+exports.buildLambdaTemplate = buildLambdaTemplate;
 exports.Pseudo = Pseudo;
 
 Object.defineProperty(exports, '__esModule', { value: true });

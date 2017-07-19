@@ -1,4 +1,4 @@
-import { buildLambda } from '../../../src/macros/lambda.macro';
+import { buildLambdaTemplate } from '../../../src/macros/lambda.macro';
 const path = require('path');
 const fs = require('fs-extra');
 
@@ -12,7 +12,7 @@ describe('Lambda Macro', () => {
         .readFile(path.resolve(__dirname, './templates/lambda/zip/src.zip'))
         .then(contents => {
           zipFile = contents;
-          return buildLambda({
+          return buildLambdaTemplate({
             path: path.resolve(__dirname, './examples/zip/'),
             name: 'MyGreatFunction',
             options: {
