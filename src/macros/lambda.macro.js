@@ -87,7 +87,28 @@ export function buildInlineLambda({
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
   inputPath = path.resolve(inputPath);
-  return _createInlineFunction({ path: inputPath, name, options, parameters });
+  return fs.stat(inputPath).then(stat => {
+    if (stat.isFile()) {
+      return _createInlineFunction({
+        path: inputPath,
+        name,
+        options,
+        parameters
+      });
+    } else {
+      const indexPath = path.resolve(inputPath, 'index.js');
+      return fs.stat(indexPath).then(statIndex => {
+        if (statIndex.isFile()) {
+          return _createInlineFunction({
+            path: indexPath,
+            name,
+            options,
+            parameters
+          });
+        }
+      });
+    }
+  });
 }
 
 /**

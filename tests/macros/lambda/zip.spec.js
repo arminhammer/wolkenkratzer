@@ -24,7 +24,6 @@ describe('Lambda Macro', () => {
             parameters: ['Role'],
             output: true
           }).then(({ FunctionResource, Zip }) => {
-            console.log(JSON.stringify(FunctionResource, null, 2));
             expect(Zip.size).toEqual(zipFile.size);
             expect(FunctionResource).toEqual({
               Name: 'MyGreatFunction',

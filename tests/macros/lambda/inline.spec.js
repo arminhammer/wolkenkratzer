@@ -199,6 +199,42 @@ describe('Lambda Macro', () => {
         });
       });
     });
+
+    test('Can build a Template with an inline Lambda function if the folder is empty except for index.js', () => {
+      return buildInlineLambda({
+        path: path.resolve(__dirname, './examples/zipEmpty')
+      }).then(fn => {
+        console.log('EXPECTED');
+        //console.log(JSON.stringify(Template, null, 2));
+        return expect(fn).toEqual({
+          Name: 'MyFunction',
+          Properties: {
+            Code: {
+              ZipFile: {
+                kind: 'FnJoin',
+                Values: [
+                  "const aws = require('aws-sdk');",
+                  '',
+                  'exports.handler = (event, context, callback) => {',
+                  "  callback(null, 'Hello from Default Function');",
+                  '};',
+                  ''
+                ],
+                Delimiter: '\n'
+              }
+            },
+            FunctionName: 'MyFunction',
+            Handler: 'index.handler',
+            MemorySize: 128,
+            Role: 'BlankRole',
+            Runtime: 'nodejs6.10',
+            Timeout: 30
+          },
+          Type: 'AWS::Lambda::Function',
+          kind: 'Resource'
+        });
+      });
+    });
   });
 
   describe('buildLambdaTemplate', () => {

@@ -12,7 +12,6 @@ export default {
   entry: 'src/index.js',
   format: 'umd',
   plugins: [
-    flow(),
     json(),
     babel({
       exclude: 'node_modules/**' // only transpile our source code
@@ -21,6 +20,7 @@ export default {
     commonjs(),
     resolve(),
     builtins(),
+    flow({ all: true }),
     sizes({ details: true })
   ],
   moduleName: 'wolkenkratzer',
