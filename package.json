@@ -35,7 +35,7 @@
     "flow-bin": "^0.50.0",
     "flow-remove-types": "^1.2.1",
     "husky": "^0.14.3",
-    "jest": "^20.0.4",
+    "jest": "19.0.2",
     "jsdoc-to-markdown": "^3.0.0",
     "prettier": "^1.5.3",
     "rollup": "^0.45.2",
@@ -68,14 +68,7 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -87,15 +80,10 @@
     "verbose": true,
     "collectCoverageFrom": [
       "!**/node_modules/**",
-      "!src/stubs/**/*",
       "!src/ec2info/**/*",
       "src/**/*.js"
     ],
-    "moduleFileExtensions": [
-      "js"
-    ],
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec.js"
-    ]
+    "moduleFileExtensions": ["js"],
+    "testMatch": ["<rootDir>/tests/**/*.spec.js"]
   }
 }

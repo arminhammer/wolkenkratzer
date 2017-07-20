@@ -1,6 +1,6 @@
 import { Template } from '../template';
 import { Parameter } from '../elements/parameter';
-import { Ref } from '../intrinsic';
+import { Ref, FnJoin } from '../intrinsic';
 import { Service } from '../service';
 import { Lambda as LambdaJson } from 'cfn-doc-json-stubs';
 import { merge } from 'lodash';
@@ -41,9 +41,7 @@ function _createInlineFunction({ path: inputPath, name, options, parameters }) {
           Runtime: options.Runtime,
           Timeout: options.Timeout,
           Code: {
-            ZipFile: {
-              'Fn::Join': [`\n`, functionCode.toString().split('\n')]
-            }
+            ZipFile: FnJoin('\n', functionCode.toString().split('\n'))
           }
           //Tags: options.Tags ? options.Tags.length > 0 : null
         });
@@ -74,6 +72,22 @@ function _createInlineTemplate({ path: inputPath, name, options, parameters }) {
         reject(e);
       });
   });
+}
+
+/**
+ * Create an inline Lambda function
+ * @param {*} param0 
+ */
+export function buildInlineLambda({
+  path: inputPath,
+  name,
+  options,
+  parameters
+}) {
+  name = name ? name : defaultConfig.FunctionName;
+  options = options ? merge({}, defaultConfig, options) : defaultConfig;
+  inputPath = path.resolve(inputPath);
+  return _createInlineFunction({ path: inputPath, name, options, parameters });
 }
 
 /**
@@ -121,14 +135,14 @@ export function buildLambda({
                 files.length === 1 &&
                 path.relative(inputPath, files[0]) === 'index.js'
               ) {
-                _createInlineTemplate({
+                _createInlineFunction({
                   path: files[0],
                   name: name,
                   options: options,
                   parameters: parameters
                 })
-                  .then(t => {
-                    resolve({ FunctionResource: t.build() });
+                  .then(fn => {
+                    resolve({ FunctionResource: fn });
                   })
                   .catch(e => {
                     reject(e);
@@ -158,28 +172,25 @@ export function buildLambda({
                           );
                         });
                       }
-                      t = t.add(
-                        Lambda.Function(name, {
-                          FunctionName: options.FunctionName,
-                          Handler: options.Handler,
-                          MemorySize: options.MemorySize,
-                          Role:
-                            parameters && parameters.includes('Role')
-                              ? Ref(`${name}Role`)
-                              : options.Role,
-                          Runtime: options.Runtime,
-                          Timeout: options.Timeout,
-                          Code: {
-                            S3Bucket: Ref('MyGreatFunctionS3BucketParam'),
-                            S3Key: Ref('MyGreatFunctionS3KeyParam')
-                          }
-                          //Tags: options.Tags ? options.Tags.length > 0 : null
-                        }),
-                        { Output: true }
-                      );
+                      const fn = Lambda.Function(name, {
+                        FunctionName: options.FunctionName,
+                        Handler: options.Handler,
+                        MemorySize: options.MemorySize,
+                        Role:
+                          parameters && parameters.includes('Role')
+                            ? Ref(`${name}Role`)
+                            : options.Role,
+                        Runtime: options.Runtime,
+                        Timeout: options.Timeout,
+                        Code: {
+                          S3Bucket: Ref('MyGreatFunctionS3BucketParam'),
+                          S3Key: Ref('MyGreatFunctionS3KeyParam')
+                        }
+                        //Tags: options.Tags ? options.Tags.length > 0 : null
+                      });
 
                       resolve({
-                        FunctionResource: t.build(),
+                        FunctionResource: fn,
                         Zip: blob
                       });
                     });

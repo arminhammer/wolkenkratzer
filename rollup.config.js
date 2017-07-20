@@ -26,6 +26,6 @@ export default {
   moduleName: 'wolkenkratzer',
   dest: 'dist/index.js',
   external: ['lodash', 'bluebird', 'cfn-doc-json-stubs'],
-  globals: { lodash: 'lodash' },
+  globals: { lodash: 'lodash', 'cfn-doc-json-stubs': 'cfn-doc-json-stubs' },
   sourceMap: true
 };
