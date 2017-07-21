@@ -3,8 +3,7 @@ import { Parameter } from '../elements/parameter';
 import { Ref, FnJoin } from '../intrinsic';
 import { Service } from '../service';
 import { Lambda as LambdaJson } from 'cfn-doc-json-stubs';
-import { merge } from 'lodash';
-
+const merge = require('lodash.merge');
 const fs = require('fs-extra');
 const path = require('path');
 const bluebird = require('bluebird');

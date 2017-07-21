@@ -13,9 +13,12 @@ export default {
   format: 'umd',
   plugins: [
     json(),
-    babel({
-      exclude: 'node_modules/**' // only transpile our source code
-    }),
+    babel(
+      {
+        //exclude: 'node_modules/**', // only transpile our source code,
+        //include: 'node_modules/lodash-es/**/*'
+      }
+    ),
     globals(),
     commonjs(),
     resolve(),
@@ -25,7 +28,7 @@ export default {
   ],
   moduleName: 'wolkenkratzer',
   dest: 'dist/index.js',
-  external: ['lodash', 'bluebird', 'cfn-doc-json-stubs'],
-  globals: { lodash: 'lodash', 'cfn-doc-json-stubs': 'cfn-doc-json-stubs' },
+  //external: ['cfn-doc-json-stubs'],
+  //globals: { 'cfn-doc-json-stubs': 'cfn-doc-json-stubs' },
   sourceMap: true
 };

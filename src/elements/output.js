@@ -1,7 +1,7 @@
 // @flow
 
 import { IRef, Ref, FnSub, FnJoin, IFnGetAtt } from '../intrinsic';
-import { cloneDeep } from 'lodash';
+const cloneDeep = require('lodash.clonedeep');
 
 export interface IOutputProperties {
   +Description?: string,
