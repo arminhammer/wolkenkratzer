@@ -52,7 +52,7 @@
   },
   "scripts": {
     "cp-sub": "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
-    "build": "node_modules/.bin/rollup --config rollup.config.js",
+    "build": "node_modules/.bin/rollup --config rollup.config.js && node_modules/.bin/rollup --config rollup.config.browser.js",
     "test": "jest .",
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
@@ -70,14 +70,7 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -92,17 +85,11 @@
       "!src/ec2info/**/*",
       "src/**/*.js"
     ],
-    "moduleFileExtensions": [
-      "js"
-    ],
+    "moduleFileExtensions": ["js"],
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!lodash-es/.*)"
-    ],
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec.js"
-    ]
+    "transformIgnorePatterns": ["<rootDir>/node_modules/(?!lodash-es/.*)"],
+    "testMatch": ["<rootDir>/tests/**/*.spec.js"]
   }
 }

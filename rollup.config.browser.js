@@ -9,7 +9,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import sizes from 'rollup-plugin-sizes';
 
 export default {
-  entry: 'src/index.js',
+  entry: 'src/index.browser.js',
   format: 'umd',
   plugins: [
     json(),
@@ -35,8 +35,8 @@ export default {
     sizes({ details: true })
   ],
   moduleName: 'wolkenkratzer',
-  dest: 'dist/index.js',
-  external: ['bluebird', 'cfn-doc-json-stubs'],
+  dest: 'dist/browser/index.js',
+  //external: ['cfn-doc-json-stubs'],
   //globals: { 'cfn-doc-json-stubs': 'cfn-doc-json-stubs' },
   sourceMap: true
 };
