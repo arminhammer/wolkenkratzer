@@ -1,5 +1,5 @@
 // @flow
-const cloneDeep = require('lodash.clonedeep');
+import { cloneDeep } from 'lodash-es';
 import { IParameter, Parameter } from './elements/parameter';
 import { IDescription, Description } from './elements/description';
 // import { IMetadata } from './elements/metadata';

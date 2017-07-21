@@ -7,7 +7,7 @@ import {
   IFnOr,
   buildIntrinsic
 } from '../intrinsic';
-const cloneDeep = require('lodash.clonedeep');
+import { cloneDeep } from 'lodash-es';
 
 export interface ICondition {
   +kind: 'Condition',

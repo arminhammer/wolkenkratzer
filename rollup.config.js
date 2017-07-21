@@ -13,15 +13,18 @@ export default {
   format: 'umd',
   plugins: [
     json(),
-    babel(
-      {
-        //exclude: 'node_modules/**', // only transpile our source code,
-        //include: 'node_modules/lodash-es/**/*'
-      }
-    ),
+    babel(),
     globals(),
     commonjs(),
-    resolve(),
+    resolve({
+      module: true, // Default: true
+      jsnext: true, // Default: false
+      main: true, // Default: true
+      browser: true, // Default: false
+      extensions: ['.js', '.json'], // Default: ['.js']
+      preferBuiltins: true, // Default: true
+      modulesOnly: false // Default: false
+    }),
     builtins(),
     flow({ all: true }),
     sizes({ details: true })

@@ -3,9 +3,10 @@ import { Parameter } from '../elements/parameter';
 import { Ref, FnJoin } from '../intrinsic';
 import { Service } from '../service';
 import { Lambda as LambdaJson } from 'cfn-doc-json-stubs';
-const merge = require('lodash.merge');
+import { merge } from 'lodash-es';
+import path from 'path';
+
 const fs = require('fs-extra');
-const path = require('path');
 const bluebird = require('bluebird');
 const jszip = require('jszip');
 const klaw = require('klaw');

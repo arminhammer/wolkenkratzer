@@ -6,7 +6,6 @@ import * as util from '../util';
 import { Service } from '../service';
 import { S3 as s3Json } from 'cfn-doc-json-stubs';
 const s3Resource: any = new Service(s3Json);
-const types = require('../types');
 
 /**
  * @memberof module:Macro
@@ -17,6 +16,7 @@ const types = require('../types');
  * @constructor
  */
 function Bucket(name: any, newName: any, region: any, aws: any) {
+  /*
   const s3Client = new aws.S3({ region: region });
   return new Promise((resolve, reject) => {
     let bucket = new s3Resource.Bucket(util.safeRename(newName));
@@ -34,9 +34,9 @@ function Bucket(name: any, newName: any, region: any, aws: any) {
           // return s3Client.getBucketAcl({ Bucket: name }).promise()
           return s3Client.getBucketCors({ Bucket: name }).promise();
         })
-        /* .then(function (aclData) {
-      bucket.AccessControl = aclData
-    })*/
+        //.then(function (aclData) {
+      //bucket.AccessControl = aclData
+    //})
         .then(function(corsData: any) {
           bucket.CorsConfiguration = new types.AmazonS3CorsConfiguration(
             corsData
@@ -105,6 +105,7 @@ function Bucket(name: any, newName: any, region: any, aws: any) {
         })
     );
   });
+  */
 }
 
 module.exports = {

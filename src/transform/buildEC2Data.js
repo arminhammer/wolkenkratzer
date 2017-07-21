@@ -1,6 +1,6 @@
-const fs = require('fs-extra');
-const path = require('path');
-const ec2info = require('../ec2info/www/instances.json');
+import fs from 'fs-extra';
+import path from 'path';
+import ec2info from '../ec2info/www/instances.json';
 
 const results = ec2info.map(i => {
   return {
