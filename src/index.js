@@ -31,8 +31,6 @@ export {
 } from './macros/lambda.macro';
 export { Pseudo } from './pseudo';
 
-import * as path from 'path';
-
 import stubs from 'cfn-doc-json-stubs';
 
 stubs.resourceList.map(r => {

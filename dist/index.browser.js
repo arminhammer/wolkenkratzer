@@ -1,8 +1,5 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-	typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	(factory((global.wolkenkratzer = {})));
-}(this, (function (exports) { 'use strict';
+var wolkenkratzer = (function (exports) {
+'use strict';
 
 var global$1 = typeof global!=="undefined"?global:typeof self!=="undefined"?self:typeof window!=="undefined"?window:{};
 
@@ -5672,7 +5669,7 @@ exports.ResourceMetadata = ResourceMetadata;
 exports.S3BucketTransform = S3BucketTransform;
 exports.Pseudo = Pseudo;
 
-Object.defineProperty(exports, '__esModule', { value: true });
+return exports;
 
-})));
-//# sourceMappingURL=index.js.map
+}({}));
+//# sourceMappingURL=index.browser.js.map

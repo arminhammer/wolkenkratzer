@@ -22,8 +22,6 @@ export { ResourceMetadata } from './attributes/metadata';
 export { S3BucketTransform } from './transform/s3';
 export { Pseudo } from './pseudo';
 
-import * as path from 'path';
-
 import stubs from 'cfn-doc-json-stubs';
 
 stubs.resourceList.map(r => {

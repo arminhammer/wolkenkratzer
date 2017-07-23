@@ -1,7 +1,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('cfn-doc-json-stubs')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'cfn-doc-json-stubs'], factory) :
-	(factory((global.wolkenkratzer = {}),global.stubs));
+	(factory((global.wolkenkratzer = {}),global['cfn-doc-json-stubs']));
 }(this, (function (exports,stubs) { 'use strict';
 
 var stubs__default = 'default' in stubs ? stubs['default'] : stubs;

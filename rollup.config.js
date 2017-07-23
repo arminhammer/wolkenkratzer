@@ -18,7 +18,7 @@ export default {
     commonjs({
       include: ['node_modules/**'],
       addExports: {
-        'node_modules/bluebird/js/release/bluebird.js': ['default']
+        'node_modules/lodash-es': ['default']
       }
     }),
     resolve({
@@ -36,7 +36,9 @@ export default {
   ],
   moduleName: 'wolkenkratzer',
   dest: 'dist/index.js',
-  external: ['bluebird', 'cfn-doc-json-stubs'],
-  //globals: { 'cfn-doc-json-stubs': 'cfn-doc-json-stubs' },
+  external: ['fs-extra', 'klaw', 'bluebird', 'cfn-doc-json-stubs'],
+  globals: {
+    'cfn-doc-json-stubs': 'cfn-doc-json-stubs'
+  },
   sourceMap: true
 };
