@@ -22,7 +22,8 @@ const defaultConfig = {
   Role: 'BlankRole',
   //kms: '',
   Handler: 'index.handler',
-  Tags: []
+  Tags: [],
+  Environment: {}
 };
 
 function _createInlineFunction({ path: inputPath, name, options, parameters }) {
@@ -30,7 +31,7 @@ function _createInlineFunction({ path: inputPath, name, options, parameters }) {
     fs
       .readFile(inputPath)
       .then(functionCode => {
-        const fn = Lambda.Function(name, {
+        const props = {
           FunctionName: options.FunctionName,
           Handler: options.Handler,
           MemorySize: options.MemorySize,
@@ -44,7 +45,11 @@ function _createInlineFunction({ path: inputPath, name, options, parameters }) {
             ZipFile: FnJoin('\n', functionCode.toString().split('\n'))
           }
           //Tags: options.Tags ? options.Tags.length > 0 : null
-        });
+        };
+        if (Object.keys(options.Environment).length > 0) {
+          props.Environment = options.Environment;
+        }
+        const fn = Lambda.Function(name, props);
         resolve(fn);
       })
       .catch(e => {

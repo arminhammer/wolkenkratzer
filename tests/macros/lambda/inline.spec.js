@@ -122,7 +122,7 @@ describe('Lambda Macro', () => {
   });
 
   describe('buildInlineLambda', () => {
-    test('Can build a Template with an inline Lambda function', () => {
+    test('Can build an inline Lambda function', () => {
       return buildInlineLambda({
         path: path.resolve(__dirname, './examples/inline/index.js'),
         name: 'MyGreatFunction',
@@ -166,7 +166,61 @@ describe('Lambda Macro', () => {
       });
     });
 
-    test('Can build a Template with an inline Lambda function with default values', () => {
+    test('Can build an inline Lambda function with environmental variables', () => {
+      return buildInlineLambda({
+        path: path.resolve(__dirname, './examples/inline/index.js'),
+        name: 'MyGreatFunction',
+        options: {
+          MemorySize: 256,
+          Environment: {
+            Variables: {
+              DDB_TABLE: `main-table`
+            }
+          }
+        },
+        parameters: ['Role'],
+        output: true
+      }).then(fn => {
+        //console.log(JSON.stringify(Template, null, 2));
+        return expect(fn).toEqual({
+          Name: 'MyGreatFunction',
+          Properties: {
+            Code: {
+              ZipFile: {
+                kind: 'FnJoin',
+                Values: [
+                  "const aws = require('aws-sdk');",
+                  '',
+                  'exports.handler = (event, context, callback) => {',
+                  "  callback(null, 'Hello from Default Function');",
+                  '};',
+                  ''
+                ],
+                Delimiter: '\n'
+              }
+            },
+            Environment: {
+              Variables: {
+                DDB_TABLE: `main-table`
+              }
+            },
+            FunctionName: 'MyFunction',
+            Handler: 'index.handler',
+            MemorySize: 256,
+            Role: {
+              Ref: 'MyGreatFunctionRole',
+              kind: 'Ref'
+            },
+            Runtime: 'nodejs6.10',
+            Timeout: 30
+          },
+          Type: 'AWS::Lambda::Function',
+          kind: 'Resource'
+        });
+      });
+    });
+
+    test('Can build an inline Lambda function with default values', () => {
       return buildInlineLambda({
         path: path.resolve(__dirname, './examples/inline/index.js')
       }).then(fn => {
@@ -200,11 +254,10 @@ describe('Lambda Macro', () => {
       });
     });
 
-    test('Can build a Template with an inline Lambda function if the folder is empty except for index.js', () => {
+    test('Can build an inline Lambda function if the folder is empty except for index.js', () => {
       return buildInlineLambda({
         path: path.resolve(__dirname, './examples/zipEmpty')
       }).then(fn => {
-        console.log('EXPECTED');
         //console.log(JSON.stringify(Template, null, 2));
         return expect(fn).toEqual({
           Name: 'MyFunction',

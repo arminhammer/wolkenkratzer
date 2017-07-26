@@ -289,6 +289,10 @@ export function Template(): ITemplate {
   };
 }
 
+function _isEmptyObject(obj) {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
 function _validateRef(t: ITemplate, ref: IRef): void | SyntaxError {
   if (ref.Ref) {
     if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
@@ -343,7 +347,7 @@ function _buildResource(t: IResource): mixed {
       if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
         if (Properties[p].kind) {
           newProps[p] = _json(Properties[p]);
-        } else {
+        } else if (!_isEmptyObject(Properties[p])) {
           newProps[p] = _cleanObject(Properties[p]);
         }
       }
