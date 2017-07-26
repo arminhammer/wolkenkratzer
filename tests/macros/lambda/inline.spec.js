@@ -220,6 +220,62 @@ describe('Lambda Macro', () => {
       });
     });
 
+    test('Can build an inline Lambda function with tags', () => {
+      return buildInlineLambda({
+        path: path.resolve(__dirname, './examples/inline/index.js'),
+        name: 'MyGreatFunction',
+        options: {
+          MemorySize: 256,
+          Tags: [
+            {
+              Key: 'Owner',
+              Value: 'Me'
+            }
+          ]
+        },
+        parameters: ['Role'],
+        output: true
+      }).then(fn => {
+        //console.log(JSON.stringify(Template, null, 2));
+        return expect(fn).toEqual({
+          Name: 'MyGreatFunction',
+          Properties: {
+            Code: {
+              ZipFile: {
+                kind: 'FnJoin',
+                Values: [
+                  "const aws = require('aws-sdk');",
+                  '',
+                  'exports.handler = (event, context, callback) => {',
+                  "  callback(null, 'Hello from Default Function');",
+                  '};',
+                  ''
+                ],
+                Delimiter: '\n'
+              }
+            },
+            Tags: [
+              {
+                Key: 'Owner',
+                Value: 'Me'
+              }
+            ],
+            FunctionName: 'MyFunction',
+            Handler: 'index.handler',
+            MemorySize: 256,
+            Role: {
+              Ref: 'MyGreatFunctionRole',
+              kind: 'Ref'
+            },
+            Runtime: 'nodejs6.10',
+            Timeout: 30
+          },
+          Type: 'AWS::Lambda::Function',
+          kind: 'Resource'
+        });
+      });
+    });
+
     test('Can build an inline Lambda function with default values', () => {
       return buildInlineLambda({
         path: path.resolve(__dirname, './examples/inline/index.js')

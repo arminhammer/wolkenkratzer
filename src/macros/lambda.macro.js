@@ -49,6 +49,9 @@ function _createInlineFunction({ path: inputPath, name, options, parameters }) {
         if (Object.keys(options.Environment).length > 0) {
           props.Environment = options.Environment;
         }
+        if (options.Tags.length > 0) {
+          props.Tags = options.Tags;
+        }
         const fn = Lambda.Function(name, props);
         resolve(fn);
       })
