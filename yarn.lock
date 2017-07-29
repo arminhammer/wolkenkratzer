@@ -1441,9 +1441,9 @@ center-align@^0.1.1:
     align-text "^0.1.3"
     lazy-cache "^1.0.3"
 
-cfn-doc-json-stubs@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/cfn-doc-json-stubs/-/cfn-doc-json-stubs-0.1.6.tgz#53f39f7b2ef36072e3fad1d171374ed9fe6136d5"
+cfn-doc-json-stubs@0.1.13:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/cfn-doc-json-stubs/-/cfn-doc-json-stubs-0.1.12.tgz#10537c50d212389b3655cbb2abd125e85f56c2d2"
 
 chalk@^1.0.0, chalk@^1.1.0, chalk@^1.1.1, chalk@^1.1.3:
   version "1.1.3"
@@ -3815,10 +3815,6 @@ lodash-es@^4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
 
-lodash.clonedeep@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
-
 lodash.foreach@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.foreach/-/lodash.foreach-4.5.0.tgz#1a6a35eace401280c7f06dddec35165ab27e3e53"
@@ -3830,10 +3826,6 @@ lodash.isequal@^4.0.0:
 lodash.memoize@~3.0.3:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-3.0.4.tgz#2dcbd2c287cbc0a55cc42328bd0c736150d53e3f"
-
-lodash.merge@^4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.0.tgz#69884ba144ac33fe699737a6086deffadd0f89c5"
 
 lodash.omit@^4.5.0:
   version "4.5.0"
