@@ -1,23 +1,21 @@
-// @flow
-
 export interface IParameterProperties {
-  +Type: string,
-  +AllowedPattern?: string,
-  +AllowedValues?: string,
-  +ConstraintDescription?: string,
-  +Default?: string,
-  +Description?: string,
-  +MaxLength?: string,
-  +MaxValue?: string,
-  +MinLength?: string,
-  +MinValue?: string,
-  +NoEcho?: string
+  readonly Type: string;
+  readonly AllowedPattern?: string;
+  readonly AllowedValues?: string;
+  readonly ConstraintDescription?: string;
+  readonly Default?: string;
+  readonly Description?: string;
+  readonly MaxLength?: string;
+  readonly MaxValue?: string;
+  readonly MinLength?: string;
+  readonly MinValue?: string;
+  readonly NoEcho?: string;
 }
 
 export interface IParameter {
-  +kind: 'Parameter',
-  +Name: string,
-  +Properties: IParameterProperties
+  readonly kind: 'Parameter';
+  readonly Name: string;
+  readonly Properties: IParameterProperties;
 }
 
 /**

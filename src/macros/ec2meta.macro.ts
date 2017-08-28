@@ -1,5 +1,3 @@
-// @flow
-
 'use strict';
 
 import path from 'path';

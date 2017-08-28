@@ -1,8 +1,6 @@
-// @flow
-
 export interface IDescription {
-  +kind: 'Description',
-  +Content: string
+  readonly kind: 'Description',
+  readonly Content: string
 }
 
 /**

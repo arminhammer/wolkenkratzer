@@ -1,22 +1,20 @@
-// @flow
-
 import { IRef, Ref, FnSub, FnJoin, IFnGetAtt } from '../intrinsic';
 import { cloneDeep } from 'lodash-es';
 
 export interface IOutputProperties {
-  +Description?: string,
-  +Value: IRef | string,
-  +Export?: {
-    Name: string
-  },
-  +Condition?: string
+  readonly Description?: string;
+  readonly Value: IRef | string;
+  readonly Export?: {
+    Name: string;
+  };
+  readonly Condition?: string;
 }
 
 export interface IOutput {
-  +kind: 'Output',
-  +Name: string,
-  +Properties: IOutputProperties,
-  +Condition?: string
+  readonly kind: 'Output';
+  readonly Name: string;
+  readonly Properties: IOutputProperties;
+  readonly Condition?: string;
 }
 
 /**

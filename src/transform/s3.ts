@@ -1,5 +1,3 @@
-// @flow
-
 'use strict';
 import { Service } from '../service';
 import path from 'path';

@@ -1,9 +1,7 @@
-// @flow
-
 export interface IMapping {
-  +kind: 'Mapping',
-  +Name: string,
-  +Content: { [string]: mixed }
+  readonly kind: 'Mapping';
+  readonly Name: string;
+  readonly Content: { [string]: any };
 }
 
 /**
@@ -15,7 +13,7 @@ export interface IMapping {
 export function Mapping(
   name: string,
   subName: string,
-  body: { [string]: mixed }
+  body: { [string]: any }
 ): IMapping {
   if (!name || !subName || !body) {
     throw new SyntaxError(

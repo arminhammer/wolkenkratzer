@@ -1,12 +1,10 @@
-// @flow
-
 import { IResource } from './elements/resource';
 import { IParameter } from './elements/parameter';
 import { ITemplate } from './template';
 
 export interface IRef {
-  +kind: 'Ref',
-  +Ref: string
+  readonly kind: 'Ref';
+  readonly Ref: string;
 }
 
 /**
@@ -22,8 +20,8 @@ export function Ref(target: IResource | IParameter | string): IRef {
 }
 
 export interface IFnGetAtt {
-  +kind: 'FnGetAtt',
-  +FnGetAtt: Array<string>
+  readonly kind: 'FnGetAtt';
+  readonly FnGetAtt: Array<string>;
 }
 
 /**
@@ -40,9 +38,9 @@ export function FnGetAtt(target: IResource | string, attr: string): IFnGetAtt {
 }
 
 export interface IFnJoin {
-  +kind: 'FnJoin',
-  +Delimiter: string,
-  +Values: Array<string | IFnGetAtt> | IFnGetAtt
+  readonly kind: 'FnJoin';
+  readonly Delimiter: string;
+  readonly Values: Array<string | IFnGetAtt | IRef> | IFnGetAtt;
 }
 
 /**
@@ -50,7 +48,7 @@ export interface IFnJoin {
  */
 export function FnJoin(
   delimiter: string,
-  values: Array<string | IFnGetAtt | Ref> | IFnGetAtt
+  values: Array<string | IFnGetAtt | IRef> | IFnGetAtt
 ): IFnJoin {
   let newValues = values;
   if (Array.isArray(values)) {
@@ -62,8 +60,8 @@ export function FnJoin(
 }
 
 export interface IFnAnd {
-  +kind: 'FnAnd',
-  +FnAnd: Array<Conditional>
+  readonly kind: 'FnAnd';
+  readonly FnAnd: Array<Conditional>;
 }
 
 /**
@@ -76,8 +74,8 @@ export function FnAnd(one: Conditional, two: Conditional): IFnAnd {
 }
 
 export interface IFnEquals {
-  +kind: 'FnEquals',
-  +FnEquals: Array<Conditional>
+  readonly kind: 'FnEquals';
+  readonly FnEquals: Array<Conditional>;
 }
 
 /**
@@ -90,18 +88,18 @@ export function FnEquals(one: Conditional, two: Conditional): IFnEquals {
 }
 
 export interface IFnIf {
-  +kind: 'FnIf',
-  +FnIf: Array<Conditional>
+  readonly kind: 'FnIf';
+  readonly FnIf: Array<Conditional>;
 }
 
 export interface IFnNot {
-  +kind: 'FnNot',
-  +FnNot: Array<Conditional>
+  readonly kind: 'FnNot';
+  readonly FnNot: Array<Conditional>;
 }
 
 export interface IFnOr {
-  +kind: 'FnOr',
-  +FnOr: Array<Conditional>
+  readonly kind: 'FnOr';
+  readonly FnOr: Array<Conditional>;
 }
 
 // export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
@@ -120,8 +118,8 @@ export type Conditional = string | IRef | IFnGetAtt;
 export type ConditionFunction = IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 
 export interface IFnSub {
-  +kind: 'FnSub',
-  +FnSub: string
+  readonly kind: 'FnSub';
+  readonly FnSub: string;
 }
 
 /**
@@ -133,8 +131,8 @@ export function FnSub(input: string) {
 }
 
 export interface IFnBase64 {
-  +kind: 'FnBase64',
-  +FnBase64: string
+  readonly kind: 'FnBase64';
+  readonly FnBase64: string;
 }
 
 /**
@@ -146,8 +144,8 @@ export function FnBase64(input: string) {
 }
 
 export interface IFnFindInMap {
-  +kind: 'FnFindInMap',
-  +FnFindInMap: Array<string>
+  readonly kind: 'FnFindInMap';
+  readonly FnFindInMap: Array<string>;
 }
 
 /**
@@ -168,8 +166,8 @@ export function FnFindInMap(
 }
 
 export interface IFnGetAZs {
-  +kind: 'FnGetAZs',
-  +FnGetAZs: string
+  readonly kind: 'FnGetAZs';
+  readonly FnGetAZs: string;
 }
 
 /**
@@ -184,8 +182,8 @@ export function FnGetAZs(region: string | Object) {
 }
 
 export interface IFnSelect {
-  +kind: 'FnSelect',
-  +FnFindInMap: string
+  readonly kind: 'FnSelect';
+  readonly FnFindInMap: string;
 }
 
 /**
@@ -197,7 +195,7 @@ export function FnSelect(index: string, list: string) {
   return { kind: 'FnSelect', FnSelect: [index, list] };
 }
 
-export function buildIntrinsic(input: mixed) {
+export function buildIntrinsic(input) {
   if (input['Fn::Equals']) {
     return FnEquals(
       buildIntrinsic(input['Fn::Equals'][0]),

@@ -1,4 +1,3 @@
-// @flow
 import {
   IFnAnd,
   IFnEquals,
@@ -10,9 +9,9 @@ import {
 import { cloneDeep } from 'lodash-es';
 
 export interface ICondition {
-  +kind: 'Condition',
-  +Name: string,
-  +Condition: IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr
+  readonly kind: 'Condition';
+  readonly Name: string;
+  readonly Condition: IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 }
 
 /**

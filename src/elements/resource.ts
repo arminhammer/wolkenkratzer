@@ -1,14 +1,12 @@
-// @flow
-
 import { ICreationPolicy } from '../attributes/creationpolicy';
 
 export interface IResource {
-  +kind: 'Resource',
-  +Name: string,
-  +Type: string,
-  +Properties: mixed,
-  +Condition?: string,
-  +CreationPolicy?: ICreationPolicy
+  readonly kind: 'Resource';
+  readonly Name: string;
+  readonly Type: string;
+  readonly Properties;
+  readonly Condition?: string;
+  readonly CreationPolicy?: ICreationPolicy;
 }
 
 /**
@@ -17,11 +15,7 @@ export interface IResource {
  * @param {*} properties 
  * @param {*} options 
  */
-export function Resource(
-  name: string,
-  properties: mixed,
-  options: mixed
-): IResource {
+export function Resource(name: string, properties, options): IResource {
   if (!name) {
     throw new SyntaxError(`New Resource is invalid. A Name is required.`);
   }
@@ -40,7 +34,7 @@ export function Resource(
   return result;
 }
 
-export function CustomResource(name: string, properties: mixed): IResource {
+export function CustomResource(name: string, properties): IResource {
   if (!name) {
     throw new SyntaxError(`New Resource is invalid. A Name is required.`);
   }
@@ -52,7 +46,7 @@ export function CustomResource(name: string, properties: mixed): IResource {
   };
 }
 
-function _validateProperties(properties: mixed, rType: string, model: mixed) {
+function _validateProperties(properties, rType: string, model) {
   //Check if keys other than the defined ones are present
   Object.keys(properties).map(p => {
     if (!model.Resources[rType].Properties[p]) {

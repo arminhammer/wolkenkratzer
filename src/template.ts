@@ -1,5 +1,4 @@
-// @flow
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, omit } from 'lodash-es';
 import { IParameter, Parameter } from './elements/parameter';
 import { IDescription, Description } from './elements/description';
 // import { IMetadata } from './elements/metadata';
@@ -7,14 +6,14 @@ import { IMapping, Mapping } from './elements/mapping';
 import { ICondition, Condition } from './elements/condition';
 import { IResource, CustomResource } from './elements/resource';
 import { IOutput, Output } from './elements/output';
-import type { IElement } from './elements/element';
+import { IElement } from './elements/element';
 import { ICreationPolicy } from './attributes/creationpolicy';
 import { IResourceMetadata } from './attributes/metadata';
 import { Ref, FnSub, FnGetAtt } from './intrinsic';
 import { Service } from './service';
 import { Pseudo } from './pseudo';
 import stubs from 'cfn-doc-json-stubs';
-import type {
+import {
   IRef,
   IFnGetAtt,
   IFnJoin,
@@ -24,7 +23,8 @@ import type {
   IFnEquals,
   IFnIf,
   IFnNot,
-  IFnOr
+  IFnOr,
+  IFnSub
 } from './intrinsic';
 
 /** @module Template */
@@ -34,22 +34,22 @@ import type {
  * @member Template
  */
 export interface ITemplate {
-  +kind: 'Template',
-  +AWSTemplateFormatVersion: string,
-  +Description?: void | string,
-  +Parameters: { +[s: string]: IParameter },
-  // +Metadata: { +[s: string]: IMetadata };
-  +Mappings: { +[s: string]: IMapping },
-  +Conditions: { +[s: string]: ICondition },
-  +Resources: { +[s: string]: IResource },
-  +Outputs: { +[s: string]: IOutput },
-  +add: Function,
-  +remove: Function,
-  +removeDescription: Function,
-  +build: Function,
-  +merge: Function,
-  +import: Function,
-  +map: Function
+  readonly kind: 'Template';
+  readonly AWSTemplateFormatVersion: string;
+  readonly Description?: void | string;
+  readonly Parameters: { readonly [s: string]: IParameter };
+  // readonly Metadata: { readonly [s: string]: IMetadata };
+  readonly Mappings: { readonly [s: string]: IMapping };
+  readonly Conditions: { readonly [s: string]: ICondition };
+  readonly Resources: { readonly [s: string]: IResource };
+  readonly Outputs: { readonly [s: string]: IOutput };
+  readonly add: Function;
+  readonly remove: Function;
+  readonly removeDescription: Function;
+  readonly build: Function;
+  readonly merge: Function;
+  readonly import: Function;
+  readonly map: Function;
 }
 
 /**
@@ -57,8 +57,8 @@ export interface ITemplate {
  * @member Template
  */
 export interface IAddOptions {
-  Output: boolean,
-  Parameters: Array<string>
+  Output: boolean;
+  Parameters: Array<string>;
 }
 
 /**
@@ -148,7 +148,7 @@ export function Template(): ITemplate {
      * const t = Template();
      * JSON.stringify(t.build(), null, 2)
      */
-    build: function(): mixed {
+    build: function() {
       let result: any = {
         AWSTemplateFormatVersion: '2010-09-09',
         Resources: {}
@@ -282,7 +282,7 @@ export function Template(): ITemplate {
      * const templateJson = require('template.json');
      * const t = Template().import(templateJson);
      */
-    import: function(inputTemplate: mixed): ITemplate {
+    import: function(inputTemplate): ITemplate {
       let _t = cloneDeep(this);
       return _calcFromExistingTemplate(_t, inputTemplate);
     }
@@ -314,12 +314,12 @@ function _strip(t: IParameter | IOutput | IResource | ICondition): any {
   return rest;
 }
 
-function _stripKind(target: any): mixed {
+function _stripKind(target: any) {
   let { kind, ...rest } = target;
   return rest;
 }
 
-function _cleanObject(object: any): mixed {
+function _cleanObject(object: any) {
   if (Array.isArray(object)) {
     for (let v = 0; v < object.length; v++) {
       object[v] = _cleanObject(object[v]);
@@ -338,9 +338,9 @@ function _cleanObject(object: any): mixed {
   return object;
 }
 
-function _buildResource(t: IResource): mixed {
+function _buildResource(t: IResource) {
   let { Type, Properties, CreationPolicy, Metadata, Condition } = t;
-  let newProps: mixed = {};
+  let newProps = {};
   if (Properties) {
     Object.keys(Properties).map(p => {
       // Ignore empty arrays
@@ -377,17 +377,17 @@ function _buildCondition(t: ICondition): string {
   return result;
 }
 
-function _buildCreationPolicy(t: ICreationPolicy): mixed {
+function _buildCreationPolicy(t: ICreationPolicy) {
   let { Content } = t;
   return Content;
 }
 
-function _buildResourceMetadata(t: IResourceMetadata): mixed {
+function _buildResourceMetadata(t: IResourceMetadata) {
   let { Content } = t;
   return Content;
 }
 
-function _buildFnJoin(t: IFnJoin): mixed {
+function _buildFnJoin(t: IFnJoin) {
   if (Array.isArray(t.Values)) {
     const jsonValues = t.Values.map(x => {
       if (typeof x === 'string') {
@@ -402,7 +402,7 @@ function _buildFnJoin(t: IFnJoin): mixed {
   }
 }
 
-function _buildFnFindInMap(t: IFnFindInMap): mixed {
+function _buildFnFindInMap(t: IFnFindInMap) {
   return t.FnFindInMap.map(x => {
     if (typeof x === 'string') {
       return x;
@@ -412,7 +412,7 @@ function _buildFnFindInMap(t: IFnFindInMap): mixed {
   });
 }
 
-function _buildFnAnd(t: IFnAdd): mixed {
+function _buildFnAnd(t: IFnAdd) {
   return t.FnAnd.map(x => {
     if (typeof x === 'string') {
       return x;
@@ -425,7 +425,7 @@ function _buildFnAnd(t: IFnAdd): mixed {
   });
 }
 
-function _buildFnEquals(t: IFnEquals): mixed {
+function _buildFnEquals(t: IFnEquals) {
   return t.FnEquals.map(x => {
     if (typeof x === 'string') {
       return x;
@@ -461,8 +461,8 @@ function _buildOutput(t: IOutput): string {
 }
 
 export function _json(
-  t: IElement | IRef | IFnGetAtt | IFnJoin | FnSub | ICreationPolicy
-): mixed {
+  t: IElement | IRef | IFnGetAtt | IFnJoin | IFnSub | ICreationPolicy
+) {
   switch (t.kind) {
     case 'Ref':
       return { Ref: t.Ref };
@@ -579,7 +579,9 @@ function _addMapping(t: ITemplate, e: IMapping): ITemplate {
 
 function _addResource(t: ITemplate, e: IResource): ITemplate {
   let result = { ...t };
-  result.Resources[e.Name] = e;
+  let newResources = cloneDeep(result.Resources);
+  newResources[e.Name] = e;
+  result.Resources = newResources;
   return result;
 }
 
@@ -596,7 +598,7 @@ function _removeMapping(t: ITemplate, e: IMapping | string): ITemplate {
     mapping = e;
   }
   if (result.Mappings[mapping.Name]) {
-    delete result.Mappings[mapping.Name];
+    result.Mappings = omit(result.Mappings, mapping.Name);
   } else {
     throw new SyntaxError(`Could not find ${JSON.stringify(mapping)}`);
   }
@@ -616,7 +618,7 @@ function _removeOutput(t: ITemplate, e: IOutput | string): ITemplate {
     out = e;
   }
   if (result.Outputs[out.Name]) {
-    delete result.Outputs[out.Name];
+    result.Outputs = omit(result.Outputs, out.Name);
   } else {
     throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
   }
@@ -636,14 +638,14 @@ function _removeParameter(t: ITemplate, e: IParameter | string): ITemplate {
     param = e;
   }
   if (result.Parameters[param.Name]) {
-    delete result.Parameters[param.Name];
+    result.Parameters = omit(result.Parameters, param.Name);
   } else {
     throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
   }
   return result;
 }
 
-function _calcFromExistingTemplate(t: ITemplate, inputTemplate: mixed) {
+function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
   if (inputTemplate.Description) {
     t = t.add(Description(inputTemplate.Description));
   }
