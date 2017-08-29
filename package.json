@@ -10,13 +10,14 @@
   "dependencies": {
     "@types/bluebird": "^3.5.8",
     "bluebird": "^3.5.0",
-    "cfn-doc-json-stubs": "0.1.13",
+    "cfn-doc-json-stubs": "0.1.16",
     "fs-extra": "^4.0.0",
     "jszip": "^3.1.3",
     "klaw": "^2.0.0",
     "lodash-es": "^4.17.4"
   },
   "devDependencies": {
+    "@types/jest": "^20.0.8",
     "@types/node": "^8.0.25",
     "aws-sdk": "^2.85.0",
     "babel-cli": "^6.24.1",
@@ -30,25 +31,24 @@
     "browserify": "^14.4.0",
     "core-js": "^2.4.1",
     "coveralls": "^2.13.1",
-    "documentation": "^4.0.0-rc.1",
+    "documentation": "^5.2.2",
     "eslint": "^4.2.0",
     "eslint-config-prettier": "^2.1.1",
     "eslint-plugin-prettier": "^2.1.1",
-    "flow-bin": "^0.50.0",
-    "flow-remove-types": "^1.2.1",
     "husky": "^0.14.3",
-    "jest": "19.0.2",
+    "jest": "20.0.4",
     "jsdoc-to-markdown": "^3.0.0",
     "prettier": "^1.5.3",
-    "rollup": "^0.45.2",
-    "rollup-plugin-babel": "^2.7.1",
+    "rollup": "^0.49.2",
+    "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-flow": "^1.1.1",
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-sizes": "^0.4.0"
+    "rollup-plugin-sizes": "^0.4.0",
+    "ts-jest": "^20.0.11"
   },
   "scripts": {
     "cp-sub": "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
@@ -70,14 +70,7 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -92,17 +85,11 @@
       "!src/ec2info/**/*",
       "src/**/*.js"
     ],
-    "moduleFileExtensions": [
-      "js"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!lodash-es/.*)"
-    ],
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec.js"
-    ]
+    "transformIgnorePatterns": ["<rootDir>/node_modules/(?!lodash-es/.*)"],
+    "testMatch": ["<rootDir>/tests/**/*.spec\\.(js|ts)"]
   }
 }
