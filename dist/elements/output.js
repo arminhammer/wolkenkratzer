@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const intrinsic_1 = require("../intrinsic");
-const lodash_es_1 = require("lodash-es");
+const lodash_1 = require("lodash");
 /**
  * Creatr an Output object
  * @param {*} name
@@ -14,7 +14,7 @@ function Output(name, properties) {
             properties
         })} parameters is invalid. Name and Value are required.`);
     }
-    const newProps = lodash_es_1.cloneDeep(properties);
+    const newProps = lodash_1.cloneDeep(properties);
     // If Value is a Ref object, create a Ref object
     if (typeof newProps.Value === 'object' && !newProps.Value.kind) {
         if (newProps.Value.Ref) {

@@ -3,7 +3,7 @@ import { Parameter } from '../elements/parameter';
 import { Ref, FnJoin } from '../intrinsic';
 import { Service } from '../service';
 import { Lambda as LambdaJson } from 'cfn-doc-json-stubs';
-import { merge } from 'lodash-es';
+import { merge } from 'lodash';
 import { IResource } from '../elements/resource';
 import { ITemplate } from '../template';
 import path from 'path';

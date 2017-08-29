@@ -7,7 +7,7 @@ import {
   IFnSub,
   IFnJoin
 } from '../intrinsic';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep } from 'lodash';
 
 export interface IOutputProperties {
   readonly Description?: string;

@@ -1,4 +1,4 @@
-import { cloneDeep, omit } from 'lodash-es';
+import { cloneDeep, omit } from 'lodash';
 import { IParameter, Parameter } from './elements/parameter';
 import { IDescription, Description } from './elements/description';
 // import { IMetadata } from './elements/metadata';

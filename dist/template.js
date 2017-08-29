@@ -9,7 +9,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_es_1 = require("lodash-es");
+const lodash_1 = require("lodash");
 const parameter_1 = require("./elements/parameter");
 const description_1 = require("./elements/description");
 // import { IMetadata } from './elements/metadata';
@@ -40,7 +40,7 @@ function Template() {
          * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
          */
         add: function (e, options) {
-            const _t = lodash_es_1.cloneDeep(this);
+            const _t = lodash_1.cloneDeep(this);
             switch (e.kind) {
                 case 'CreationPolicy':
                     return _addCreationPolicy(_t, e);
@@ -56,7 +56,7 @@ function Template() {
                     return _addOutput(_t, e);
                 case 'Resource':
                     let newT = _t;
-                    let f = lodash_es_1.cloneDeep(e);
+                    let f = lodash_1.cloneDeep(e);
                     if (options) {
                         const nameSplit = f.Type.split('::').splice(1);
                         const shortName = nameSplit.join('');
@@ -144,7 +144,7 @@ function Template() {
          * Add elements to the Template in a functional way.
          */
         map: function (iterable, mapFn) {
-            let result = lodash_es_1.cloneDeep(this);
+            let result = lodash_1.cloneDeep(this);
             iterable.map(i => {
                 result = result.add(mapFn(i));
             });
@@ -158,7 +158,7 @@ function Template() {
          * t.add(p).remove(p);
          */
         remove: function (e) {
-            let result = lodash_es_1.cloneDeep(this);
+            let result = lodash_1.cloneDeep(this);
             let element;
             if (typeof e === 'string') {
                 let parameter = result.Parameters[e];
@@ -210,7 +210,7 @@ function Template() {
          * Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
          */
         merge: function (t) {
-            const _t = lodash_es_1.cloneDeep(this);
+            const _t = lodash_1.cloneDeep(this);
             const combined = {};
             [
                 'Conditions',
@@ -233,7 +233,7 @@ function Template() {
          * const t = Template().import(templateJson);
          */
         import: function (inputTemplate) {
-            let _t = lodash_es_1.cloneDeep(this);
+            let _t = lodash_1.cloneDeep(this);
             return _calcFromExistingTemplate(_t, inputTemplate);
         }
     };
@@ -387,7 +387,7 @@ function _buildMapping(t) {
     return result;
 }
 function _buildOutput(t) {
-    let outputResult = lodash_es_1.cloneDeep(t.Properties);
+    let outputResult = lodash_1.cloneDeep(t.Properties);
     if (typeof outputResult.Value !== 'string') {
         let stripped = _json(outputResult.Value);
         outputResult = Object.assign({}, outputResult, { Value: stripped });
@@ -442,7 +442,7 @@ function _addDescription(t, e) {
     return result;
 }
 function _addCreationPolicy(t, e) {
-    let result = lodash_es_1.cloneDeep(t);
+    let result = lodash_1.cloneDeep(t);
     if (!result.Resources[e.Resource]) {
         throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.');
     }
@@ -452,7 +452,7 @@ function _addCreationPolicy(t, e) {
     return result;
 }
 function _addResourceMetadata(t, e) {
-    let result = lodash_es_1.cloneDeep(t);
+    let result = lodash_1.cloneDeep(t);
     if (!result.Resources[e.Resource]) {
         throw new SyntaxError('Cannot add Metadata to a Resource that does not exist in the template.');
     }
@@ -463,12 +463,12 @@ function _addResourceMetadata(t, e) {
 }
 function _addCondition(t, e) {
     // TODO: Validate intrinsics
-    let result = lodash_es_1.cloneDeep(t);
+    let result = lodash_1.cloneDeep(t);
     result.Conditions[e.Name] = e;
     return result;
 }
 function _addOutput(t, e) {
-    let e0 = lodash_es_1.cloneDeep(e);
+    let e0 = lodash_1.cloneDeep(e);
     if (typeof e0.Properties.Value !== 'string') {
         if (e0.Properties.Value.Ref) {
             _validateRef(t, e0.Properties.Value);
@@ -479,24 +479,24 @@ function _addOutput(t, e) {
             _validateFnGetAtt(t, e0.Properties.Value);
         }
     }
-    let result = lodash_es_1.cloneDeep(t);
+    let result = lodash_1.cloneDeep(t);
     result.Outputs[e0.Name] = e0;
     return result;
 }
 function _addParameter(t, e) {
-    const result = lodash_es_1.cloneDeep(t);
+    const result = lodash_1.cloneDeep(t);
     result.Parameters[e.Name] = e;
     return result;
 }
 function _addMapping(t, e) {
     let result = Object.assign({}, t);
     if (result.Mappings[e.Name]) {
-        const newMappings = lodash_es_1.cloneDeep(result.Mappings);
+        const newMappings = lodash_1.cloneDeep(result.Mappings);
         newMappings[e.Name] = Object.assign({}, e, { Content: Object.assign({}, result.Mappings[e.Name].Content, e.Content) });
         result.Mappings = newMappings;
     }
     else {
-        const newMappings = lodash_es_1.cloneDeep(result.Mappings);
+        const newMappings = lodash_1.cloneDeep(result.Mappings);
         newMappings[e.Name] = e;
         result.Mappings = newMappings;
     }
@@ -504,7 +504,7 @@ function _addMapping(t, e) {
 }
 function _addResource(t, e) {
     let result = Object.assign({}, t);
-    let newResources = lodash_es_1.cloneDeep(result.Resources);
+    let newResources = lodash_1.cloneDeep(result.Resources);
     newResources[e.Name] = e;
     result.Resources = newResources;
     return result;
@@ -524,7 +524,7 @@ function _removeMapping(t, e) {
         mapping = e;
     }
     if (result.Mappings[mapping.Name]) {
-        result.Mappings = lodash_es_1.omit(result.Mappings, mapping.Name);
+        result.Mappings = lodash_1.omit(result.Mappings, mapping.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(mapping)}`);
@@ -546,7 +546,7 @@ function _removeOutput(t, e) {
         out = e;
     }
     if (result.Outputs[out.Name]) {
-        result.Outputs = lodash_es_1.omit(result.Outputs, out.Name);
+        result.Outputs = lodash_1.omit(result.Outputs, out.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
@@ -568,7 +568,7 @@ function _removeParameter(t, e) {
         param = e;
     }
     if (result.Parameters[param.Name]) {
-        result.Parameters = lodash_es_1.omit(result.Parameters, param.Name);
+        result.Parameters = lodash_1.omit(result.Parameters, param.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);

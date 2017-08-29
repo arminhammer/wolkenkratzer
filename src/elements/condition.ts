@@ -6,7 +6,7 @@ import {
   IFnOr,
   buildIntrinsic
 } from '../intrinsic';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep } from 'lodash';
 
 export interface ICondition {
   readonly kind: 'Condition';

@@ -5,7 +5,7 @@ const parameter_1 = require("../elements/parameter");
 const intrinsic_1 = require("../intrinsic");
 const service_1 = require("../service");
 const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
-const lodash_es_1 = require("lodash-es");
+const lodash_1 = require("lodash");
 const path_1 = require("path");
 const fs = require('fs-extra');
 const bluebird = require('bluebird');
@@ -83,7 +83,7 @@ function _createInlineTemplate({ path: inputPath, name, options, parameters }) {
  */
 function buildInlineLambda({ path: inputPath, name, options, parameters }) {
     name = name ? name : defaultConfig.FunctionName;
-    options = options ? lodash_es_1.merge({}, defaultConfig, options) : defaultConfig;
+    options = options ? lodash_1.merge({}, defaultConfig, options) : defaultConfig;
     inputPath = path_1.default.resolve(inputPath);
     return fs.stat(inputPath).then(stat => {
         if (stat.isFile()) {
@@ -118,7 +118,7 @@ exports.buildInlineLambda = buildInlineLambda;
  */
 function buildLambda({ path: inputPath, name, options, parameters, output }) {
     name = name ? name : defaultConfig.FunctionName;
-    options = options ? lodash_es_1.merge({}, defaultConfig, options) : defaultConfig;
+    options = options ? lodash_1.merge({}, defaultConfig, options) : defaultConfig;
     inputPath = path_1.default.resolve(inputPath);
     return new Promise((resolve, reject) => {
         fs
@@ -219,7 +219,7 @@ exports.buildLambda = buildLambda;
  */
 function buildLambdaTemplate({ path: inputPath, name, options, parameters, output }) {
     name = name ? name : defaultConfig.FunctionName;
-    options = options ? lodash_es_1.merge({}, defaultConfig, options) : defaultConfig;
+    options = options ? lodash_1.merge({}, defaultConfig, options) : defaultConfig;
     inputPath = path_1.default.resolve(inputPath);
     return new Promise((resolve, reject) => {
         fs
