@@ -1,9 +1,9 @@
 'use strict';
 
-import * as util from '../util';
+//import util from '../util';
 import { Service } from '../service';
 import { S3 as s3Json } from 'cfn-doc-json-stubs';
-const s3Resource: any = new Service(s3Json);
+const s3Resource: any = Service(s3Json);
 
 /**
  * @memberof module:Macro

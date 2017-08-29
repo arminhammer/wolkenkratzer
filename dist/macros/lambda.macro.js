@@ -49,7 +49,7 @@ function _createInlineFunction({ path: inputPath, name, options, parameters }) {
             if (options.Tags.length > 0) {
                 props.Tags = options.Tags;
             }
-            const fn = Lambda.Function(name, props);
+            const fn = Lambda['Function'](name, props);
             resolve(fn);
         })
             .catch(e => {
@@ -105,6 +105,8 @@ function buildInlineLambda({ path: inputPath, name, options, parameters }) {
                         parameters
                     });
                 }
+                else
+                    return null;
             });
         }
     });
@@ -180,7 +182,7 @@ function buildLambda({ path: inputPath, name, options, parameters, output }) {
                                         t = t.add(parameter_1.Parameter(`${name}${p}`, { Type: 'String' }));
                                     });
                                 }
-                                const fn = Lambda.Function(name, {
+                                const fn = Lambda['Function'](name, {
                                     FunctionName: options.FunctionName,
                                     Handler: options.Handler,
                                     MemorySize: options.MemorySize,
@@ -281,7 +283,7 @@ function buildLambdaTemplate({ path: inputPath, name, options, parameters, outpu
                                         t = t.add(parameter_1.Parameter(`${name}${p}`, { Type: 'String' }));
                                     });
                                 }
-                                t = t.add(Lambda.Function(name, {
+                                t = t.add(Lambda['Function'](name, {
                                     FunctionName: options.FunctionName,
                                     Handler: options.Handler,
                                     MemorySize: options.MemorySize,

@@ -1,9 +1,10 @@
 'use strict';
 
 import path from 'path';
-import instanceTypes from '../ec2info.json';
 //import bluebird from '../../node_modules/bluebird/js/browser/bluebird';
-const Promise = require('bluebird');
+import bluebird from 'bluebird';
+
+const instanceTypes = require('../ec2info.json');
 
 /**
  * Returns an array of all instance types and details.

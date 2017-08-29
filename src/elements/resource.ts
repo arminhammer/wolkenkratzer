@@ -6,6 +6,7 @@ export interface IResource {
   readonly Type: string;
   readonly Properties;
   readonly Condition?: string;
+  readonly Metadata?: any;
   readonly CreationPolicy?: ICreationPolicy;
 }
 
@@ -22,7 +23,7 @@ export function Resource(name: string, properties, options): IResource {
   if (properties) {
     _validateProperties(properties, this.name, this.json);
   }
-  const result = {
+  const result: any = {
     kind: 'Resource',
     Name: name,
     Type: this.json.Resources[this.name].Name,

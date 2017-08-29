@@ -442,7 +442,7 @@ function _addDescription(t, e) {
     return result;
 }
 function _addCreationPolicy(t, e) {
-    let result = Object.assign({}, t);
+    let result = lodash_es_1.cloneDeep(t);
     if (!result.Resources[e.Resource]) {
         throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.');
     }
@@ -452,7 +452,7 @@ function _addCreationPolicy(t, e) {
     return result;
 }
 function _addResourceMetadata(t, e) {
-    let result = Object.assign({}, t);
+    let result = lodash_es_1.cloneDeep(t);
     if (!result.Resources[e.Resource]) {
         throw new SyntaxError('Cannot add Metadata to a Resource that does not exist in the template.');
     }
@@ -463,7 +463,7 @@ function _addResourceMetadata(t, e) {
 }
 function _addCondition(t, e) {
     // TODO: Validate intrinsics
-    let result = Object.assign({}, t);
+    let result = lodash_es_1.cloneDeep(t);
     result.Conditions[e.Name] = e;
     return result;
 }
@@ -479,22 +479,26 @@ function _addOutput(t, e) {
             _validateFnGetAtt(t, e0.Properties.Value);
         }
     }
-    let result = Object.assign({}, t);
+    let result = lodash_es_1.cloneDeep(t);
     result.Outputs[e0.Name] = e0;
     return result;
 }
 function _addParameter(t, e) {
-    let result = Object.assign({}, t);
+    const result = lodash_es_1.cloneDeep(t);
     result.Parameters[e.Name] = e;
     return result;
 }
 function _addMapping(t, e) {
     let result = Object.assign({}, t);
     if (result.Mappings[e.Name]) {
-        result.Mappings[e.Name] = Object.assign({}, e, { Content: Object.assign({}, result.Mappings[e.Name].Content, e.Content) });
+        const newMappings = lodash_es_1.cloneDeep(result.Mappings);
+        newMappings[e.Name] = Object.assign({}, e, { Content: Object.assign({}, result.Mappings[e.Name].Content, e.Content) });
+        result.Mappings = newMappings;
     }
     else {
-        result.Mappings[e.Name] = e;
+        const newMappings = lodash_es_1.cloneDeep(result.Mappings);
+        newMappings[e.Name] = e;
+        result.Mappings = newMappings;
     }
     return result;
 }

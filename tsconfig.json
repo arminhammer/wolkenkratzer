@@ -3,7 +3,7 @@
     "module": "commonjs",
     "target": "es2015",
     "declaration": false,
-    "allowJs": true,
+    "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "outDir": "./dist",
     "noImplicitReturns": true,
@@ -16,6 +16,5 @@
     "types": ["node"]
   },
   "exclude": ["node_modules", "typings", "dist"],
-  "filesGlob": ["./src/**/*.ts"],
-  "files": ["./src/index.js"]
+  "filesGlob": ["./src/**/*.ts"]
 }

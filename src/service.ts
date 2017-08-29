@@ -1,5 +1,6 @@
 import { Resource } from './elements/resource';
 import * as path from 'path';
+
 export interface IService {}
 
 /**

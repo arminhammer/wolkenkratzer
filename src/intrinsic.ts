@@ -126,7 +126,7 @@ export interface IFnSub {
  * Returns an Fn::Sub object
  * @param {*} input 
  */
-export function FnSub(input: string) {
+export function FnSub(input: string): IFnSub {
   return { kind: 'FnSub', FnSub: input };
 }
 

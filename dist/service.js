@@ -1,5 +1,4 @@
 "use strict";
-// @flow
 Object.defineProperty(exports, "__esModule", { value: true });
 const resource_1 = require("./elements/resource");
 /**

@@ -4,6 +4,8 @@ import { Ref, FnJoin } from '../intrinsic';
 import { Service } from '../service';
 import { Lambda as LambdaJson } from 'cfn-doc-json-stubs';
 import { merge } from 'lodash-es';
+import { IResource } from '../elements/resource';
+import { ITemplate } from '../template';
 import path from 'path';
 
 const fs = require('fs-extra');
@@ -26,12 +28,17 @@ const defaultConfig = {
   Environment: {}
 };
 
-function _createInlineFunction({ path: inputPath, name, options, parameters }) {
+function _createInlineFunction({
+  path: inputPath,
+  name,
+  options,
+  parameters
+}): Promise<IResource> {
   return new Promise((resolve, reject) => {
     fs
       .readFile(inputPath)
       .then(functionCode => {
-        const props = {
+        const props: any = {
           FunctionName: options.FunctionName,
           Handler: options.Handler,
           MemorySize: options.MemorySize,
@@ -52,7 +59,7 @@ function _createInlineFunction({ path: inputPath, name, options, parameters }) {
         if (options.Tags.length > 0) {
           props.Tags = options.Tags;
         }
-        const fn = Lambda.Function(name, props);
+        const fn = Lambda['Function'](name, props);
         resolve(fn);
       })
       .catch(e => {
@@ -61,7 +68,12 @@ function _createInlineFunction({ path: inputPath, name, options, parameters }) {
   });
 }
 
-function _createInlineTemplate({ path: inputPath, name, options, parameters }) {
+function _createInlineTemplate({
+  path: inputPath,
+  name,
+  options,
+  parameters
+}): Promise<ITemplate> {
   return new Promise((resolve, reject) => {
     _createInlineFunction({ path: inputPath, name, options, parameters })
       .then(fnBlock => {
@@ -113,7 +125,7 @@ export function buildInlineLambda({
             options,
             parameters
           });
-        }
+        } else return null;
       });
     }
   });
@@ -152,7 +164,7 @@ export function buildLambda({
             });
         } else if (stat.isDirectory()) {
           const zip = new jszip();
-          const files = [];
+          const files: Array<string> = [];
           klaw(inputPath)
             .on('data', ({ path: location, stats }) => {
               if (stats.isFile()) {
@@ -201,7 +213,7 @@ export function buildLambda({
                           );
                         });
                       }
-                      const fn = Lambda.Function(name, {
+                      const fn = Lambda['Function'](name, {
                         FunctionName: options.FunctionName,
                         Handler: options.Handler,
                         MemorySize: options.MemorySize,
@@ -267,7 +279,7 @@ export function buildLambdaTemplate({
             });
         } else if (stat.isDirectory()) {
           const zip = new jszip();
-          const files = [];
+          const files: Array<string> = [];
           klaw(inputPath)
             .on('data', ({ path: location, stats }) => {
               if (stats.isFile()) {
@@ -317,7 +329,7 @@ export function buildLambdaTemplate({
                         });
                       }
                       t = t.add(
-                        Lambda.Function(name, {
+                        Lambda['Function'](name, {
                           FunctionName: options.FunctionName,
                           Handler: options.Handler,
                           MemorySize: options.MemorySize,

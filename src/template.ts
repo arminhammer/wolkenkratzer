@@ -21,6 +21,7 @@ import {
   IIntrinsic,
   IFnAnd,
   IFnEquals,
+  IFnFindInMap,
   IFnIf,
   IFnNot,
   IFnOr,
@@ -79,7 +80,10 @@ export function Template(): ITemplate {
      * @example
      * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
      */
-    add: function(e: IElement, options?: IAddOptions): ITemplate {
+    add: function(
+      e: IElement | ICreationPolicy | IResourceMetadata,
+      options?: IAddOptions
+    ): ITemplate {
       const _t = cloneDeep(this);
       switch (e.kind) {
         case 'CreationPolicy':
@@ -192,7 +196,7 @@ export function Template(): ITemplate {
     /**
      * Add elements to the Template in a functional way.
      */
-    map: function(iterable: Array, mapFn: Function): ITemplate {
+    map: function(iterable: Array<IElement>, mapFn: Function): ITemplate {
       let result = cloneDeep(this);
       iterable.map(i => {
         result = result.add(mapFn(i));
@@ -353,7 +357,7 @@ function _buildResource(t: IResource) {
       }
     });
   }
-  let result = { Type, Properties: newProps };
+  let result: any = { Type, Properties: newProps };
   if (CreationPolicy) {
     result.CreationPolicy = _json(CreationPolicy);
   }
@@ -412,7 +416,7 @@ function _buildFnFindInMap(t: IFnFindInMap) {
   });
 }
 
-function _buildFnAnd(t: IFnAdd) {
+function _buildFnAnd(t: IFnAnd) {
   return t.FnAnd.map(x => {
     if (typeof x === 'string') {
       return x;
@@ -438,7 +442,7 @@ function _buildFnEquals(t: IFnEquals) {
   });
 }
 
-function _buildMapping(t: IMapping): string {
+function _buildMapping(t: IMapping) {
   let result = t.Content;
   return result;
 }
@@ -461,7 +465,20 @@ function _buildOutput(t: IOutput): string {
 }
 
 export function _json(
-  t: IElement | IRef | IFnGetAtt | IFnJoin | IFnSub | ICreationPolicy
+  t:
+    | IElement
+    | IFnAnd
+    | IFnFindInMap
+    | IRef
+    | IFnGetAtt
+    | IFnJoin
+    | IFnSub
+    | ICreationPolicy
+    | IFnEquals
+    | IFnIf
+    | IFnNot
+    | IFnOr
+    | IResourceMetadata
 ) {
   switch (t.kind) {
     case 'Ref':
@@ -505,7 +522,7 @@ function _addDescription(t: ITemplate, e: IDescription): ITemplate {
 }
 
 function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
-  let result = { ...t };
+  let result = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
     throw new SyntaxError(
       'Cannot add CreationPolicy to a Resource that does not exist in the template.'
@@ -518,7 +535,7 @@ function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
 }
 
 function _addResourceMetadata(t: ITemplate, e: IResourceMetadata): ITemplate {
-  let result = { ...t };
+  let result = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
     throw new SyntaxError(
       'Cannot add Metadata to a Resource that does not exist in the template.'
@@ -532,7 +549,7 @@ function _addResourceMetadata(t: ITemplate, e: IResourceMetadata): ITemplate {
 
 function _addCondition(t: ITemplate, e: ICondition): ITemplate {
   // TODO: Validate intrinsics
-  let result = { ...t };
+  let result = cloneDeep(t);
   result.Conditions[e.Name] = e;
   return result;
 }
@@ -553,13 +570,13 @@ function _addOutput(t: ITemplate, e: IOutput): ITemplate {
       _validateFnGetAtt(t, e0.Properties.Value);
     }
   }
-  let result = { ...t };
+  let result = cloneDeep(t);
   result.Outputs[e0.Name] = e0;
   return result;
 }
 
 function _addParameter(t: ITemplate, e: IParameter): ITemplate {
-  let result = { ...t };
+  const result = cloneDeep(t);
   result.Parameters[e.Name] = e;
   return result;
 }
@@ -567,12 +584,16 @@ function _addParameter(t: ITemplate, e: IParameter): ITemplate {
 function _addMapping(t: ITemplate, e: IMapping): ITemplate {
   let result = { ...t };
   if (result.Mappings[e.Name]) {
-    result.Mappings[e.Name] = {
+    const newMappings = cloneDeep(result.Mappings);
+    newMappings[e.Name] = {
       ...e,
       Content: { ...result.Mappings[e.Name].Content, ...e.Content }
     };
+    result.Mappings = newMappings;
   } else {
-    result.Mappings[e.Name] = e;
+    const newMappings = cloneDeep(result.Mappings);
+    newMappings[e.Name] = e;
+    result.Mappings = newMappings;
   }
   return result;
 }

@@ -1,16 +1,15 @@
-// @flow
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const ec2info_json_1 = require("../ec2info.json");
 //import bluebird from '../../node_modules/bluebird/js/browser/bluebird';
-const Promise = require('bluebird');
+const bluebird_1 = require("bluebird");
+const instanceTypes = require('../ec2info.json');
 /**
  * Returns an array of all instance types and details.
  * @memberof module:Macro
  * @returns {Array}
  */
 function getInstanceTypeList() {
-    return ec2info_json_1.default;
+    return instanceTypes;
 }
 exports.getInstanceTypeList = getInstanceTypeList;
 /**
@@ -20,7 +19,7 @@ exports.getInstanceTypeList = getInstanceTypeList;
  */
 function getInstanceTypeNameList() {
     let results = [];
-    ec2info_json_1.default.forEach((instanceType) => {
+    instanceTypes.forEach((instanceType) => {
         results.push(instanceType.instance_type);
     });
     return results;
@@ -33,7 +32,7 @@ exports.getInstanceTypeNameList = getInstanceTypeNameList;
  */
 function getInstanceTypeMap() {
     let results = {};
-    ec2info_json_1.default.forEach((instanceType) => {
+    instanceTypes.forEach((instanceType) => {
         results[instanceType.instance_type] = instanceType;
     });
     return results;
@@ -73,10 +72,10 @@ exports.getRegions = getRegions;
  * @returns {Promise.<TResult>}
  */
 function getAMIMap(filters, regions, aws) {
-    return bluebird
+    return bluebird_1.default
         .map(regions, (region) => {
         let ec2Client = new aws.EC2({ region: region });
-        return bluebird
+        return bluebird_1.default
             .map(filters, (filterSet) => {
             return ec2Client
                 .describeImages({

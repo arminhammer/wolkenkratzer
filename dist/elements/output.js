@@ -1,5 +1,4 @@
 "use strict";
-// @flow
 Object.defineProperty(exports, "__esModule", { value: true });
 const intrinsic_1 = require("../intrinsic");
 const lodash_es_1 = require("lodash-es");

@@ -1,11 +1,19 @@
-import { IRef, Ref, FnSub, FnJoin, IFnGetAtt } from '../intrinsic';
+import {
+  IRef,
+  Ref,
+  FnSub,
+  FnJoin,
+  IFnGetAtt,
+  IFnSub,
+  IFnJoin
+} from '../intrinsic';
 import { cloneDeep } from 'lodash-es';
 
 export interface IOutputProperties {
   readonly Description?: string;
   readonly Value: IRef | string;
   readonly Export?: {
-    Name: string;
+    Name: IFnSub | IFnJoin | string;
   };
   readonly Condition?: string;
 }

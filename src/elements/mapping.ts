@@ -1,7 +1,7 @@
 export interface IMapping {
   readonly kind: 'Mapping';
   readonly Name: string;
-  readonly Content: { [string]: any };
+  readonly Content: { [s: string]: any };
 }
 
 /**
@@ -13,7 +13,7 @@ export interface IMapping {
 export function Mapping(
   name: string,
   subName: string,
-  body: { [string]: any }
+  body: { [s: string]: any }
 ): IMapping {
   if (!name || !subName || !body) {
     throw new SyntaxError(
