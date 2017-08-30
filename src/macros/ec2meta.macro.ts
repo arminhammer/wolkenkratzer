@@ -1,8 +1,7 @@
 'use strict';
 
-import path from 'path';
-//import bluebird from '../../node_modules/bluebird/js/browser/bluebird';
 import bluebird from 'bluebird';
+import path from 'path';
 
 const instanceTypes = require('../ec2info.json');
 
@@ -21,7 +20,7 @@ export function getInstanceTypeList() {
  * @returns {Array}
  */
 export function getInstanceTypeNameList() {
-  let results: string[] = [];
+  const results: string[] = [];
   instanceTypes.forEach((instanceType: any) => {
     results.push(instanceType.instance_type);
   });
@@ -34,7 +33,7 @@ export function getInstanceTypeNameList() {
  * @returns {{}}
  */
 export function getInstanceTypeMap() {
-  let results: any = {};
+  const results: any = {};
   instanceTypes.forEach((instanceType: any) => {
     results[instanceType.instance_type] = instanceType;
   });
@@ -77,7 +76,7 @@ export function getRegions() {
 export function getAMIMap(filters: any, regions: any, aws: any) {
   return bluebird
     .map(regions, (region: any) => {
-      let ec2Client = new aws.EC2({ region: region });
+      const ec2Client = new aws.EC2({ region: region });
       return bluebird
         .map(filters, (filterSet: any) => {
           return ec2Client
@@ -86,13 +85,11 @@ export function getAMIMap(filters: any, regions: any, aws: any) {
             })
             .promise()
             .then((ami: any) => {
-              let set: any = {};
+              const set: any = {};
               if (ami.Images[0]) {
-                if (ami.Images[0].ImageId) {
-                  set[filterSet.Name] = ami.Images[0].ImageId;
-                } else {
-                  set[filterSet.Name] = 'NOT_SUPPORTED';
-                }
+                set[filterSet.Name] = ami.Images[0].ImageId
+                  ? ami.Images[0].ImageId
+                  : 'NOT_SUPPORTED';
               } else {
                 set[filterSet.Name] = 'NOT_SUPPORTED';
               }
@@ -101,15 +98,15 @@ export function getAMIMap(filters: any, regions: any, aws: any) {
         })
         .then((results: any) => {
           results = results.reduce((prev: any, current: any) => {
-            let key = Object.keys(current)[0];
+            const key = Object.keys(current)[0];
             prev[key] = current[key];
             return prev;
           }, {});
           return { region: region, images: results };
         });
     })
-    .then(function(results: any) {
-      let final: any = {};
+    .then((results: any) => {
+      const final: any = {};
       results.forEach((result: any) => {
         final[result.region] = result.images;
       });

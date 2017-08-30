@@ -1,5 +1,5 @@
-import { IResource } from './elements/resource';
 import { IParameter } from './elements/parameter';
+import { IResource } from './elements/resource';
 import { ITemplate } from './template';
 
 export interface IRef {
@@ -160,8 +160,8 @@ export function FnFindInMap(
   secondLevelKey: string
 ): IFnFindInMap {
   return {
-    kind: 'FnFindInMap',
-    FnFindInMap: [mapName, topLevelKey, secondLevelKey]
+    FnFindInMap: [mapName, topLevelKey, secondLevelKey],
+    kind: 'FnFindInMap'
   };
 }
 
@@ -174,7 +174,7 @@ export interface IFnGetAZs {
  * Returns an Fn::GetAZs object
  * @param {*} region 
  */
-export function FnGetAZs(region: string | Object) {
+export function FnGetAZs(region: string | object) {
   if (!region) {
     region = { Ref: 'AWS::Region' };
   }

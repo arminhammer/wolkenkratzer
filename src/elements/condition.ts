@@ -1,12 +1,12 @@
+import { cloneDeep } from 'lodash';
 import {
+  buildIntrinsic,
   IFnAnd,
   IFnEquals,
   IFnIf,
   IFnNot,
-  IFnOr,
-  buildIntrinsic
+  IFnOr
 } from '../intrinsic';
-import { cloneDeep } from 'lodash';
 
 export interface ICondition {
   readonly kind: 'Condition';

@@ -2,6 +2,16 @@
   "extends": ["tslint:latest", "tslint-immutable", "tslint-config-prettier"],
   "rules": {
     "no-var-requires": false,
-    "no-console": false
+    "no-console": false,
+    "array-type": [false, "array"],
+    "no-empty-interface": false,
+    "object-literal-shorthand": false,
+    "ban-types": [true, ["Object", "Use {} instead."], ["String"]],
+    "variable-name": [
+      false,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore"
+    ]
   }
 }

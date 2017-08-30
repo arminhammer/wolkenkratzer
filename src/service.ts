@@ -1,7 +1,9 @@
+import path from 'path';
 import { Resource } from './elements/resource';
-import * as path from 'path';
 
-export interface IService {}
+export interface IService {
+  Function?: any;
+}
 
 /**
  * Return a Service object to create Resources and Attributes

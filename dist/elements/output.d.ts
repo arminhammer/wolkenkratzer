@@ -1,4 +1,4 @@
-import { IRef, IFnSub, IFnJoin } from '../intrinsic';
+import { IFnJoin, IFnSub, IRef } from '../intrinsic';
 export interface IOutputProperties {
     readonly Description?: string;
     readonly Value: IRef | string;

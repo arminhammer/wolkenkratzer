@@ -18,9 +18,9 @@ export function Mapping(
   if (!name || !subName || !body) {
     throw new SyntaxError(
       `New Mapping with ${JSON.stringify({
+        body,
         name,
-        subName,
-        body
+        subName
       })} parameters is invalid. name, subName, and body are required.`
     );
   }

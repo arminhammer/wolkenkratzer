@@ -1,8 +1,7 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-//import util from '../util';
-const service_1 = require("../service");
 const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
+const service_1 = require("../service");
 const s3Resource = service_1.Service(cfn_doc_json_stubs_1.S3);
 /**
  * @memberof module:Macro
@@ -105,6 +104,6 @@ function Bucket(name, newName, region, aws) {
     */
 }
 module.exports = {
-    Bucket: Bucket
+    Bucket
 };
 //# sourceMappingURL=s3.macro.js.map

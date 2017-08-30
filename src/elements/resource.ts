@@ -24,10 +24,10 @@ export function Resource(name: string, properties, options): IResource {
     _validateProperties(properties, this.name, this.json);
   }
   const result: any = {
-    kind: 'Resource',
     Name: name,
+    Properties: properties,
     Type: this.json.Resources[this.name].Name,
-    Properties: properties
+    kind: 'Resource'
   };
   if (options && options.Condition) {
     result.Condition = options.Condition;
@@ -40,15 +40,15 @@ export function CustomResource(name: string, properties): IResource {
     throw new SyntaxError(`New Resource is invalid. A Name is required.`);
   }
   return {
-    kind: 'Resource',
     Name: name,
+    Properties: properties,
     Type: `Custom::${name}`,
-    Properties: properties
+    kind: 'Resource'
   };
 }
 
 function _validateProperties(properties, rType: string, model) {
-  //Check if keys other than the defined ones are present
+  // Check if keys other than the defined ones are present
   Object.keys(properties).map(p => {
     if (!model.Resources[rType].Properties[p]) {
       throw new SyntaxError(`${p} is not a valid attribute of ${rType}`);

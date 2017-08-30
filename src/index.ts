@@ -14,9 +14,11 @@ export {
   FnSub,
   FnAnd
 } from './intrinsic';
-import { Service, IService } from './service';
+
 export { CreationPolicy } from './attributes/creationpolicy';
 export { ResourceMetadata } from './attributes/metadata';
+import stubs from 'cfn-doc-json-stubs';
+import { IService, Service } from './service';
 export { S3BucketTransform } from './transform/s3';
 export {
   getInstanceTypeList,
@@ -28,10 +30,6 @@ export {
   buildInlineLambda
 } from './macros/lambda.macro';
 export { Pseudo } from './pseudo';
-
-import stubs from 'cfn-doc-json-stubs';
-//console.log('stubs');
-//console.log(stubs);
 
 stubs.resourceList.map(r => {
   exports[r] = Service(stubs[r]);

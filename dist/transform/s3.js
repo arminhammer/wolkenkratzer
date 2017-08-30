@@ -1,12 +1,12 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const service_1 = require("../service");
 const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
+const service_1 = require("../service");
 const s3Service = service_1.Service(cfn_doc_json_stubs_1.S3);
 function S3BucketTransform(bucketName, logicalName, awsObj) {
     const s3Client = new awsObj.S3();
     return new Promise((resolve, reject) => {
-        //let bucket = new s3Resource.Bucket(newName);
+        // let bucket = new s3Resource.Bucket(newName);
         const bucket = {};
         return (s3Client
             .getBucketVersioning({ Bucket: bucketName })

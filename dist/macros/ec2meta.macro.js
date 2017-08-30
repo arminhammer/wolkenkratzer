@@ -1,6 +1,5 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-//import bluebird from '../../node_modules/bluebird/js/browser/bluebird';
 const bluebird_1 = require("bluebird");
 const instanceTypes = require('../ec2info.json');
 /**
@@ -18,7 +17,7 @@ exports.getInstanceTypeList = getInstanceTypeList;
  * @returns {Array}
  */
 function getInstanceTypeNameList() {
-    let results = [];
+    const results = [];
     instanceTypes.forEach((instanceType) => {
         results.push(instanceType.instance_type);
     });
@@ -31,7 +30,7 @@ exports.getInstanceTypeNameList = getInstanceTypeNameList;
  * @returns {{}}
  */
 function getInstanceTypeMap() {
-    let results = {};
+    const results = {};
     instanceTypes.forEach((instanceType) => {
         results[instanceType.instance_type] = instanceType;
     });
@@ -74,7 +73,7 @@ exports.getRegions = getRegions;
 function getAMIMap(filters, regions, aws) {
     return bluebird_1.default
         .map(regions, (region) => {
-        let ec2Client = new aws.EC2({ region: region });
+        const ec2Client = new aws.EC2({ region: region });
         return bluebird_1.default
             .map(filters, (filterSet) => {
             return ec2Client
@@ -83,14 +82,11 @@ function getAMIMap(filters, regions, aws) {
             })
                 .promise()
                 .then((ami) => {
-                let set = {};
+                const set = {};
                 if (ami.Images[0]) {
-                    if (ami.Images[0].ImageId) {
-                        set[filterSet.Name] = ami.Images[0].ImageId;
-                    }
-                    else {
-                        set[filterSet.Name] = 'NOT_SUPPORTED';
-                    }
+                    set[filterSet.Name] = ami.Images[0].ImageId
+                        ? ami.Images[0].ImageId
+                        : 'NOT_SUPPORTED';
                 }
                 else {
                     set[filterSet.Name] = 'NOT_SUPPORTED';
@@ -100,15 +96,15 @@ function getAMIMap(filters, regions, aws) {
         })
             .then((results) => {
             results = results.reduce((prev, current) => {
-                let key = Object.keys(current)[0];
+                const key = Object.keys(current)[0];
                 prev[key] = current[key];
                 return prev;
             }, {});
             return { region: region, images: results };
         });
     })
-        .then(function (results) {
-        let final = {};
+        .then((results) => {
+        const final = {};
         results.forEach((result) => {
             final[result.region] = result.images;
         });

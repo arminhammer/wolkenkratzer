@@ -1,28 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const template_1 = require("../template");
-const parameter_1 = require("../elements/parameter");
-const intrinsic_1 = require("../intrinsic");
-const service_1 = require("../service");
 const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
 const lodash_1 = require("lodash");
 const path_1 = require("path");
+const parameter_1 = require("../elements/parameter");
+const intrinsic_1 = require("../intrinsic");
+const service_1 = require("../service");
+const template_1 = require("../template");
 const fs = require('fs-extra');
 const bluebird = require('bluebird');
 const jszip = require('jszip');
 const klaw = require('klaw');
 const Lambda = service_1.Service(cfn_doc_json_stubs_1.Lambda);
 const defaultConfig = {
+    Environment: {},
     FunctionName: 'MyFunction',
-    MemorySize: 128,
-    Timeout: 30,
-    Runtime: 'nodejs6.10',
-    //env: {},
-    Role: 'BlankRole',
-    //kms: '',
     Handler: 'index.handler',
+    MemorySize: 128,
+    Role: 'BlankRole',
+    Runtime: 'nodejs6.10',
     Tags: [],
-    Environment: {}
+    Timeout: 30
+    // env: {},
+    // kms: '',
 };
 function _createInlineFunction({ path: inputPath, name, options, parameters }) {
     return new Promise((resolve, reject) => {
@@ -30,6 +30,9 @@ function _createInlineFunction({ path: inputPath, name, options, parameters }) {
             .readFile(inputPath)
             .then(functionCode => {
             const props = {
+                Code: {
+                    ZipFile: intrinsic_1.FnJoin('\n', functionCode.toString().split('\n'))
+                },
                 FunctionName: options.FunctionName,
                 Handler: options.Handler,
                 MemorySize: options.MemorySize,
@@ -37,11 +40,8 @@ function _createInlineFunction({ path: inputPath, name, options, parameters }) {
                     ? intrinsic_1.Ref(`${name}Role`)
                     : options.Role,
                 Runtime: options.Runtime,
-                Timeout: options.Timeout,
-                Code: {
-                    ZipFile: intrinsic_1.FnJoin('\n', functionCode.toString().split('\n'))
-                }
-                //Tags: options.Tags ? options.Tags.length > 0 : null
+                Timeout: options.Timeout
+                // Tags: options.Tags ? options.Tags.length > 0 : null
             };
             if (Object.keys(options.Environment).length > 0) {
                 props.Environment = options.Environment;
@@ -49,7 +49,7 @@ function _createInlineFunction({ path: inputPath, name, options, parameters }) {
             if (options.Tags.length > 0) {
                 props.Tags = options.Tags;
             }
-            const fn = Lambda['Function'](name, props);
+            const fn = Lambda.Function(name, props);
             resolve(fn);
         })
             .catch(e => {
@@ -88,10 +88,10 @@ function buildInlineLambda({ path: inputPath, name, options, parameters }) {
     return fs.stat(inputPath).then(stat => {
         if (stat.isFile()) {
             return _createInlineFunction({
-                path: inputPath,
                 name,
                 options,
-                parameters
+                parameters,
+                path: inputPath
             });
         }
         else {
@@ -99,19 +99,99 @@ function buildInlineLambda({ path: inputPath, name, options, parameters }) {
             return fs.stat(indexPath).then(statIndex => {
                 if (statIndex.isFile()) {
                     return _createInlineFunction({
-                        path: indexPath,
                         name,
                         options,
-                        parameters
+                        parameters,
+                        path: indexPath
                     });
                 }
-                else
+                else {
                     return null;
+                }
             });
         }
     });
 }
 exports.buildInlineLambda = buildInlineLambda;
+/**
+ * Create a Lambda function from a folder or source file
+ * @param {} param0
+ */
+function _buildZipLambda({ path: inputPath, name, options, parameters, output }) {
+    name = name ? name : defaultConfig.FunctionName;
+    options = options ? lodash_1.merge({}, defaultConfig, options) : defaultConfig;
+    inputPath = path_1.default.resolve(inputPath);
+    return new Promise((resolve, reject) => {
+        const zip = new jszip();
+        const files = [];
+        klaw(inputPath)
+            .on('data', ({ path: location, stats }) => {
+            if (stats.isFile()) {
+                files.push(location);
+            }
+        })
+            .on('end', () => {
+            bluebird
+                .map(files, file => {
+                return fs.readFile(file).then(contents => {
+                    const relPath = path_1.default.relative(inputPath, file);
+                    zip.file(relPath, contents);
+                });
+            })
+                .then(results => {
+                zip.generateAsync({ type: 'nodebuffer' }).then(blob => {
+                    // fs.writeFileSync('final.zip', blob);
+                    let t = template_1.Template()
+                        .add(parameter_1.Parameter(`${name}S3BucketParam`, { Type: 'String' }))
+                        .add(parameter_1.Parameter(`${name}S3KeyParam`, { Type: 'String' }));
+                    if (parameters && parameters.length > 0) {
+                        parameters.map(p => {
+                            t = t.add(parameter_1.Parameter(`${name}${p}`, { Type: 'String' }));
+                        });
+                    }
+                    const fn = Lambda.Function(name, {
+                        Code: {
+                            S3Bucket: intrinsic_1.Ref('MyGreatFunctionS3BucketParam'),
+                            S3Key: intrinsic_1.Ref('MyGreatFunctionS3KeyParam')
+                        },
+                        FunctionName: options.FunctionName,
+                        Handler: options.Handler,
+                        MemorySize: options.MemorySize,
+                        Role: parameters && parameters.includes('Role')
+                            ? intrinsic_1.Ref(`${name}Role`)
+                            : options.Role,
+                        Runtime: options.Runtime,
+                        Timeout: options.Timeout
+                        // Tags: options.Tags ? options.Tags.length > 0 : null
+                    });
+                    resolve({
+                        FunctionResource: fn,
+                        Zip: blob
+                    });
+                });
+            });
+            // });
+        })
+            .catch(e => {
+            reject(e);
+        });
+    });
+}
+exports._buildZipLambda = _buildZipLambda;
+/**
+ * Create a Lambda function from a folder or source file
+ * @param {} param0
+ */
+function buildZipLambda({ path: inputPath, name, options, parameters, output }) {
+    return _buildZipLambda({
+        name,
+        options,
+        output,
+        parameters,
+        path: inputPath
+    });
+}
+exports.buildZipLambda = buildZipLambda;
 /**
  * Create a Lambda function from a folder or source file
  * @param {} param0
@@ -126,10 +206,10 @@ function buildLambda({ path: inputPath, name, options, parameters, output }) {
             .then(stat => {
             if (stat.isFile()) {
                 _createInlineFunction({
-                    path: inputPath,
                     name: name,
                     options: options,
-                    parameters: parameters
+                    parameters: parameters,
+                    path: inputPath
                 })
                     .then(fn => {
                     resolve({ FunctionResource: fn });
@@ -147,14 +227,14 @@ function buildLambda({ path: inputPath, name, options, parameters, output }) {
                         files.push(location);
                     }
                 })
-                    .on('end', function () {
+                    .on('end', () => {
                     if (files.length === 1 &&
                         path_1.default.relative(inputPath, files[0]) === 'index.js') {
                         _createInlineFunction({
-                            path: files[0],
                             name: name,
                             options: options,
-                            parameters: parameters
+                            parameters: parameters,
+                            path: files[0]
                         })
                             .then(fn => {
                             resolve({ FunctionResource: fn });
@@ -173,7 +253,7 @@ function buildLambda({ path: inputPath, name, options, parameters, output }) {
                         })
                             .then(results => {
                             zip.generateAsync({ type: 'nodebuffer' }).then(blob => {
-                                //fs.writeFileSync('final.zip', blob);
+                                // fs.writeFileSync('final.zip', blob);
                                 let t = template_1.Template()
                                     .add(parameter_1.Parameter(`${name}S3BucketParam`, { Type: 'String' }))
                                     .add(parameter_1.Parameter(`${name}S3KeyParam`, { Type: 'String' }));
@@ -182,7 +262,11 @@ function buildLambda({ path: inputPath, name, options, parameters, output }) {
                                         t = t.add(parameter_1.Parameter(`${name}${p}`, { Type: 'String' }));
                                     });
                                 }
-                                const fn = Lambda['Function'](name, {
+                                const fn = Lambda.Function(name, {
+                                    Code: {
+                                        S3Bucket: intrinsic_1.Ref('MyGreatFunctionS3BucketParam'),
+                                        S3Key: intrinsic_1.Ref('MyGreatFunctionS3KeyParam')
+                                    },
                                     FunctionName: options.FunctionName,
                                     Handler: options.Handler,
                                     MemorySize: options.MemorySize,
@@ -190,12 +274,8 @@ function buildLambda({ path: inputPath, name, options, parameters, output }) {
                                         ? intrinsic_1.Ref(`${name}Role`)
                                         : options.Role,
                                     Runtime: options.Runtime,
-                                    Timeout: options.Timeout,
-                                    Code: {
-                                        S3Bucket: intrinsic_1.Ref('MyGreatFunctionS3BucketParam'),
-                                        S3Key: intrinsic_1.Ref('MyGreatFunctionS3KeyParam')
-                                    }
-                                    //Tags: options.Tags ? options.Tags.length > 0 : null
+                                    Timeout: options.Timeout
+                                    // Tags: options.Tags ? options.Tags.length > 0 : null
                                 });
                                 resolve({
                                     FunctionResource: fn,
@@ -217,7 +297,7 @@ exports.buildLambda = buildLambda;
  * Create a Lambda function from a folder or source file
  * @param {} param0
  */
-function buildLambdaTemplate({ path: inputPath, name, options, parameters, output }) {
+function buildZipLambdaTemplate({ path: inputPath, name, options, parameters, output }) {
     name = name ? name : defaultConfig.FunctionName;
     options = options ? lodash_1.merge({}, defaultConfig, options) : defaultConfig;
     inputPath = path_1.default.resolve(inputPath);
@@ -227,10 +307,10 @@ function buildLambdaTemplate({ path: inputPath, name, options, parameters, outpu
             .then(stat => {
             if (stat.isFile()) {
                 _createInlineTemplate({
-                    path: inputPath,
                     name: name,
                     options: options,
-                    parameters: parameters
+                    parameters: parameters,
+                    path: inputPath
                 })
                     .then(t => {
                     resolve({ Template: t.build() });
@@ -248,14 +328,14 @@ function buildLambdaTemplate({ path: inputPath, name, options, parameters, outpu
                         files.push(location);
                     }
                 })
-                    .on('end', function () {
+                    .on('end', () => {
                     if (files.length === 1 &&
                         path_1.default.relative(inputPath, files[0]) === 'index.js') {
                         _createInlineTemplate({
-                            path: files[0],
                             name: name,
                             options: options,
-                            parameters: parameters
+                            parameters: parameters,
+                            path: files[0]
                         })
                             .then(t => {
                             resolve({ Template: t.build() });
@@ -274,7 +354,7 @@ function buildLambdaTemplate({ path: inputPath, name, options, parameters, outpu
                         })
                             .then(results => {
                             zip.generateAsync({ type: 'nodebuffer' }).then(blob => {
-                                //fs.writeFileSync('final.zip', blob);
+                                // fs.writeFileSync('final.zip', blob);
                                 let t = template_1.Template()
                                     .add(parameter_1.Parameter(`${name}S3BucketParam`, { Type: 'String' }))
                                     .add(parameter_1.Parameter(`${name}S3KeyParam`, { Type: 'String' }));
@@ -283,7 +363,11 @@ function buildLambdaTemplate({ path: inputPath, name, options, parameters, outpu
                                         t = t.add(parameter_1.Parameter(`${name}${p}`, { Type: 'String' }));
                                     });
                                 }
-                                t = t.add(Lambda['Function'](name, {
+                                t = t.add(Lambda.Function(name, {
+                                    Code: {
+                                        S3Bucket: intrinsic_1.Ref('MyGreatFunctionS3BucketParam'),
+                                        S3Key: intrinsic_1.Ref('MyGreatFunctionS3KeyParam')
+                                    },
                                     FunctionName: options.FunctionName,
                                     Handler: options.Handler,
                                     MemorySize: options.MemorySize,
@@ -291,12 +375,109 @@ function buildLambdaTemplate({ path: inputPath, name, options, parameters, outpu
                                         ? intrinsic_1.Ref(`${name}Role`)
                                         : options.Role,
                                     Runtime: options.Runtime,
-                                    Timeout: options.Timeout,
+                                    Timeout: options.Timeout
+                                    // Tags: options.Tags ? options.Tags.length > 0 : null
+                                }), { Output: true });
+                                resolve({
+                                    Template: t.build(),
+                                    Zip: blob
+                                });
+                            });
+                        });
+                    }
+                });
+            }
+        })
+            .catch(e => {
+            reject(e);
+        });
+    });
+}
+exports.buildZipLambdaTemplate = buildZipLambdaTemplate;
+/**
+ * Create a Lambda function from a folder or source file
+ * @param {} param0
+ */
+function buildLambdaTemplate({ path: inputPath, name, options, parameters, output }) {
+    name = name ? name : defaultConfig.FunctionName;
+    options = options ? lodash_1.merge({}, defaultConfig, options) : defaultConfig;
+    inputPath = path_1.default.resolve(inputPath);
+    return new Promise((resolve, reject) => {
+        fs
+            .stat(inputPath)
+            .then(stat => {
+            if (stat.isFile()) {
+                _createInlineTemplate({
+                    name: name,
+                    options: options,
+                    parameters: parameters,
+                    path: inputPath
+                })
+                    .then(t => {
+                    resolve({ Template: t.build() });
+                })
+                    .catch(e => {
+                    reject(e);
+                });
+            }
+            else if (stat.isDirectory()) {
+                const zip = new jszip();
+                const files = [];
+                klaw(inputPath)
+                    .on('data', ({ path: location, stats }) => {
+                    if (stats.isFile()) {
+                        files.push(location);
+                    }
+                })
+                    .on('end', () => {
+                    if (files.length === 1 &&
+                        path_1.default.relative(inputPath, files[0]) === 'index.js') {
+                        _createInlineTemplate({
+                            name: name,
+                            options: options,
+                            parameters: parameters,
+                            path: files[0]
+                        })
+                            .then(t => {
+                            resolve({ Template: t.build() });
+                        })
+                            .catch(e => {
+                            reject(e);
+                        });
+                    }
+                    else {
+                        bluebird
+                            .map(files, file => {
+                            return fs.readFile(file).then(contents => {
+                                const relPath = path_1.default.relative(inputPath, file);
+                                zip.file(relPath, contents);
+                            });
+                        })
+                            .then(results => {
+                            zip.generateAsync({ type: 'nodebuffer' }).then(blob => {
+                                // fs.writeFileSync('final.zip', blob);
+                                let t = template_1.Template()
+                                    .add(parameter_1.Parameter(`${name}S3BucketParam`, { Type: 'String' }))
+                                    .add(parameter_1.Parameter(`${name}S3KeyParam`, { Type: 'String' }));
+                                if (parameters && parameters.length > 0) {
+                                    parameters.map(p => {
+                                        t = t.add(parameter_1.Parameter(`${name}${p}`, { Type: 'String' }));
+                                    });
+                                }
+                                t = t.add(Lambda.Function(name, {
                                     Code: {
                                         S3Bucket: intrinsic_1.Ref('MyGreatFunctionS3BucketParam'),
                                         S3Key: intrinsic_1.Ref('MyGreatFunctionS3KeyParam')
-                                    }
-                                    //Tags: options.Tags ? options.Tags.length > 0 : null
+                                    },
+                                    FunctionName: options.FunctionName,
+                                    Handler: options.Handler,
+                                    MemorySize: options.MemorySize,
+                                    Role: parameters && parameters.includes('Role')
+                                        ? intrinsic_1.Ref(`${name}Role`)
+                                        : options.Role,
+                                    Runtime: options.Runtime,
+                                    Timeout: options.Timeout
+                                    // Tags: options.Tags ? options.Tags.length > 0 : null
                                 }), { Output: true });
                                 resolve({
                                     Template: t.build(),

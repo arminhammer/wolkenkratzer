@@ -1,7 +1,8 @@
 'use strict';
-import { Service } from '../service';
-import path from 'path';
+
 import { S3 as s3Json } from 'cfn-doc-json-stubs';
+import path from 'path';
+import { Service } from '../service';
 const s3Service: any = Service(s3Json);
 
 export function S3BucketTransform(
@@ -11,7 +12,7 @@ export function S3BucketTransform(
 ) {
   const s3Client = new awsObj.S3();
   return new Promise((resolve, reject) => {
-    //let bucket = new s3Resource.Bucket(newName);
+    // let bucket = new s3Resource.Bucket(newName);
     const bucket: any = {};
     return (
       s3Client

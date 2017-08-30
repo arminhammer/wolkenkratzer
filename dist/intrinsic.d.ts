@@ -1,5 +1,5 @@
-import { IResource } from './elements/resource';
 import { IParameter } from './elements/parameter';
+import { IResource } from './elements/resource';
 export interface IRef {
     readonly kind: 'Ref';
     readonly Ref: string;
@@ -103,9 +103,9 @@ export interface IFnGetAZs {
  * Returns an Fn::GetAZs object
  * @param {*} region
  */
-export declare function FnGetAZs(region: string | Object): {
+export declare function FnGetAZs(region: string | object): {
     kind: string;
-    FnGetAZs: string | Object;
+    FnGetAZs: string | object;
 };
 export interface IFnSelect {
     readonly kind: 'FnSelect';

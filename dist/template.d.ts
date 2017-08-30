@@ -1,12 +1,12 @@
-import { IParameter } from './elements/parameter';
-import { IMapping } from './elements/mapping';
-import { ICondition } from './elements/condition';
-import { IResource } from './elements/resource';
-import { IOutput } from './elements/output';
-import { IElement } from './elements/element';
 import { ICreationPolicy } from './attributes/creationpolicy';
 import { IResourceMetadata } from './attributes/metadata';
-import { IRef, IFnGetAtt, IFnJoin, IFnAnd, IFnEquals, IFnFindInMap, IFnIf, IFnNot, IFnOr, IFnSub } from './intrinsic';
+import { ICondition } from './elements/condition';
+import { IElement } from './elements/element';
+import { IMapping } from './elements/mapping';
+import { IOutput } from './elements/output';
+import { IParameter } from './elements/parameter';
+import { IResource } from './elements/resource';
+import { IFnAnd, IFnEquals, IFnFindInMap, IFnGetAtt, IFnIf, IFnJoin, IFnNot, IFnOr, IFnSub, IRef } from './intrinsic';
 /** @module Template */
 /**
  * Template Interface
@@ -31,13 +31,13 @@ export interface ITemplate {
     readonly Outputs: {
         readonly [s: string]: IOutput;
     };
-    readonly add: Function;
+    readonly add: (e: IElement | ICreationPolicy | IResourceMetadata, options?: IAddOptions) => ITemplate;
     readonly remove: Function;
     readonly removeDescription: Function;
-    readonly build: Function;
+    readonly build: () => object;
     readonly merge: Function;
     readonly import: Function;
-    readonly map: Function;
+    readonly map: (iterable: Array<IElement>, mapFn: Function) => ITemplate;
 }
 /**
  * IAddOptions Interface
@@ -45,7 +45,7 @@ export interface ITemplate {
  */
 export interface IAddOptions {
     Output: boolean;
-    Parameters: Array<string>;
+    Parameters?: Array<string>;
 }
 /**
  * Returns a new Template object.

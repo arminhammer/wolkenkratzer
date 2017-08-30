@@ -9,18 +9,18 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_1 = require("lodash");
-const parameter_1 = require("./elements/parameter");
-const description_1 = require("./elements/description");
-// import { IMetadata } from './elements/metadata';
-const mapping_1 = require("./elements/mapping");
-const condition_1 = require("./elements/condition");
-const resource_1 = require("./elements/resource");
-const output_1 = require("./elements/output");
-const intrinsic_1 = require("./intrinsic");
-const service_1 = require("./service");
-const pseudo_1 = require("./pseudo");
 const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
+const lodash_1 = require("lodash");
+const condition_1 = require("./elements/condition");
+const description_1 = require("./elements/description");
+const mapping_1 = require("./elements/mapping");
+const output_1 = require("./elements/output");
+const parameter_1 = require("./elements/parameter");
+const resource_1 = require("./elements/resource");
+const intrinsic_1 = require("./intrinsic");
+// import { IMetadata } from './elements/metadata';
+const pseudo_1 = require("./pseudo");
+const service_1 = require("./service");
 /**
  * Returns a new Template object.
  * @member Template
@@ -56,7 +56,7 @@ function Template() {
                     return _addOutput(_t, e);
                 case 'Resource':
                     let newT = _t;
-                    let f = lodash_1.cloneDeep(e);
+                    const f = lodash_1.cloneDeep(e);
                     if (options) {
                         const nameSplit = f.Type.split('::').splice(1);
                         const shortName = nameSplit.join('');
@@ -75,11 +75,11 @@ function Template() {
                         newT = _addResource(newT, f);
                         if (options.Output) {
                             newT = _addOutput(newT, output_1.Output(`${f.Name}${shortName}Output`, {
-                                Value: intrinsic_1.Ref(f.Name),
                                 Condition: f.Condition,
                                 Export: {
                                     Name: intrinsic_1.FnSub(`\$\{${pseudo_1.Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`)
-                                }
+                                },
+                                Value: intrinsic_1.Ref(f.Name)
                             }));
                         }
                     }
@@ -100,7 +100,7 @@ function Template() {
          * JSON.stringify(t.build(), null, 2)
          */
         build: function () {
-            let result = {
+            const result = {
                 AWSTemplateFormatVersion: '2010-09-09',
                 Resources: {}
             };
@@ -139,6 +139,16 @@ function Template() {
             }
             return result;
         },
+        /**
+         * Import an existing CloudFormation JSON template and convert it into a Wolkenkratzer Template object.
+         * @example
+         * const templateJson = require('template.json');
+         * const t = Template().import(templateJson);
+         */
+        import: function (inputTemplate) {
+            const _t = lodash_1.cloneDeep(this);
+            return _calcFromExistingTemplate(_t, inputTemplate);
+        },
         kind: 'Template',
         /**
          * Add elements to the Template in a functional way.
@@ -151,6 +161,26 @@ function Template() {
             return result;
         },
         /**
+         * Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
+         */
+        merge: function (t) {
+            const _t = lodash_1.cloneDeep(this);
+            const combined = {};
+            [
+                'Conditions',
+                'Mapping',
+                'Outputs',
+                'Parameters',
+                'Resources',
+                'Description'
+            ].map(block => {
+                if (t[block]) {
+                    combined[block] = Object.assign({}, _t[block], t[block]);
+                }
+            });
+            return Object.assign({}, _t, combined);
+        },
+        /**
          * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.
          * @example
          * let t = Template();
@@ -158,20 +188,20 @@ function Template() {
          * t.add(p).remove(p);
          */
         remove: function (e) {
-            let result = lodash_1.cloneDeep(this);
+            const result = lodash_1.cloneDeep(this);
             let element;
             if (typeof e === 'string') {
-                let parameter = result.Parameters[e];
+                const parameter = result.Parameters[e];
                 if (parameter) {
                     element = parameter;
                 }
                 else {
-                    let output = result.Outputs[e];
+                    const output = result.Outputs[e];
                     if (output) {
                         element = output;
                     }
                     else {
-                        let mapping = result.Mappings[e];
+                        const mapping = result.Mappings[e];
                         if (mapping) {
                             element = mapping;
                         }
@@ -203,38 +233,9 @@ function Template() {
          * Removes the Description from the Template.
          */
         removeDescription: function () {
-            const _a = this, { Description } = _a, remaining = __rest(_a, ["Description"]);
-            return remaining;
-        },
-        /**
-         * Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
-         */
-        merge: function (t) {
-            const _t = lodash_1.cloneDeep(this);
-            const combined = {};
-            [
-                'Conditions',
-                'Mapping',
-                'Outputs',
-                'Parameters',
-                'Resources',
-                'Description'
-            ].map(block => {
-                if (t[block]) {
-                    combined[block] = Object.assign({}, _t[block], t[block]);
-                }
-            });
-            return Object.assign({}, _t, combined);
-        },
-        /**
-         * Import an existing CloudFormation JSON template and convert it into a Wolkenkratzer Template object.
-         * @example
-         * const templateJson = require('template.json');
-         * const t = Template().import(templateJson);
-         */
-        import: function (inputTemplate) {
-            let _t = lodash_1.cloneDeep(this);
-            return _calcFromExistingTemplate(_t, inputTemplate);
+            const newT = lodash_1.cloneDeep(this);
+            delete newT.Description;
+            return newT;
         }
     };
 }
@@ -257,11 +258,11 @@ function _validateFnGetAtt(t, att) {
     return;
 }
 function _strip(t) {
-    let { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
+    const { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
     return rest;
 }
 function _stripKind(target) {
-    let { kind } = target, rest = __rest(target, ["kind"]);
+    const { kind } = target, rest = __rest(target, ["kind"]);
     return rest;
 }
 function _cleanObject(object) {
@@ -275,7 +276,7 @@ function _cleanObject(object) {
             object = _json(object);
         }
         else {
-            for (let o in object) {
+            for (const o in object) {
                 if (object[o] !== null && typeof object[o] === 'object') {
                     object[o] = _cleanObject(object[o]);
                 }
@@ -285,8 +286,9 @@ function _cleanObject(object) {
     return object;
 }
 function _buildResource(t) {
-    let { Type, Properties, CreationPolicy, Metadata, Condition } = t;
-    let newProps = {};
+    const newT = lodash_1.cloneDeep(t);
+    const { Type, Properties, CreationPolicy, Metadata, Condition: condition } = newT;
+    const newProps = {};
     if (Properties) {
         Object.keys(Properties).map(p => {
             // Ignore empty arrays
@@ -300,21 +302,21 @@ function _buildResource(t) {
             }
         });
     }
-    let result = { Type, Properties: newProps };
+    const result = { Type, Properties: newProps };
     if (CreationPolicy) {
         result.CreationPolicy = _json(CreationPolicy);
     }
     if (Metadata) {
         result.Metadata = _json(Metadata);
     }
-    if (Condition) {
-        result.Condition = Condition;
+    if (condition) {
+        result.Condition = condition;
     }
     return result;
 }
 function _buildCondition(t) {
-    let { Condition } = t;
-    let result = _json(Condition);
+    const { Condition: condition } = t;
+    const result = _json(condition);
     Object.keys(result).map(k => {
         if (result[k][0].kind) {
             result[k][0] = _json(result[k][0]);
@@ -323,11 +325,11 @@ function _buildCondition(t) {
     return result;
 }
 function _buildCreationPolicy(t) {
-    let { Content } = t;
+    const { Content } = t;
     return Content;
 }
 function _buildResourceMetadata(t) {
-    let { Content } = t;
+    const { Content } = t;
     return Content;
 }
 function _buildFnJoin(t) {
@@ -383,19 +385,19 @@ function _buildFnEquals(t) {
     });
 }
 function _buildMapping(t) {
-    let result = t.Content;
+    const result = t.Content;
     return result;
 }
 function _buildOutput(t) {
     let outputResult = lodash_1.cloneDeep(t.Properties);
     if (typeof outputResult.Value !== 'string') {
-        let stripped = _json(outputResult.Value);
+        const stripped = _json(outputResult.Value);
         outputResult = Object.assign({}, outputResult, { Value: stripped });
     }
     if (outputResult.Export &&
         outputResult.Export.Name &&
         typeof outputResult.Export.Name !== 'string') {
-        let stripped = _json(outputResult.Export.Name);
+        const stripped = _json(outputResult.Export.Name);
         outputResult = Object.assign({}, outputResult, { Export: { Name: stripped } });
     }
     return outputResult;
@@ -437,38 +439,38 @@ function _json(t) {
 exports._json = _json;
 function _addDescription(t, e) {
     let result = Object.assign({}, t);
-    let desc = { Description: e.Content };
+    const desc = { Description: e.Content };
     result = Object.assign({}, t, desc);
     return result;
 }
 function _addCreationPolicy(t, e) {
-    let result = lodash_1.cloneDeep(t);
+    const result = lodash_1.cloneDeep(t);
     if (!result.Resources[e.Resource]) {
         throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.');
     }
-    let resource = Object.assign({}, result.Resources[e.Resource]);
+    const resource = Object.assign({}, result.Resources[e.Resource]);
     resource.CreationPolicy = e;
     result.Resources[e.Resource] = resource;
     return result;
 }
 function _addResourceMetadata(t, e) {
-    let result = lodash_1.cloneDeep(t);
+    const result = lodash_1.cloneDeep(t);
     if (!result.Resources[e.Resource]) {
         throw new SyntaxError('Cannot add Metadata to a Resource that does not exist in the template.');
     }
-    let resource = Object.assign({}, result.Resources[e.Resource]);
+    const resource = Object.assign({}, result.Resources[e.Resource]);
     resource.Metadata = e;
     result.Resources[e.Resource] = resource;
     return result;
 }
 function _addCondition(t, e) {
     // TODO: Validate intrinsics
-    let result = lodash_1.cloneDeep(t);
+    const result = lodash_1.cloneDeep(t);
     result.Conditions[e.Name] = e;
     return result;
 }
 function _addOutput(t, e) {
-    let e0 = lodash_1.cloneDeep(e);
+    const e0 = lodash_1.cloneDeep(e);
     if (typeof e0.Properties.Value !== 'string') {
         if (e0.Properties.Value.Ref) {
             _validateRef(t, e0.Properties.Value);
@@ -479,7 +481,7 @@ function _addOutput(t, e) {
             _validateFnGetAtt(t, e0.Properties.Value);
         }
     }
-    let result = lodash_1.cloneDeep(t);
+    const result = lodash_1.cloneDeep(t);
     result.Outputs[e0.Name] = e0;
     return result;
 }
@@ -489,7 +491,7 @@ function _addParameter(t, e) {
     return result;
 }
 function _addMapping(t, e) {
-    let result = Object.assign({}, t);
+    const result = Object.assign({}, t);
     if (result.Mappings[e.Name]) {
         const newMappings = lodash_1.cloneDeep(result.Mappings);
         newMappings[e.Name] = Object.assign({}, e, { Content: Object.assign({}, result.Mappings[e.Name].Content, e.Content) });
@@ -503,14 +505,14 @@ function _addMapping(t, e) {
     return result;
 }
 function _addResource(t, e) {
-    let result = Object.assign({}, t);
-    let newResources = lodash_1.cloneDeep(result.Resources);
+    const result = Object.assign({}, t);
+    const newResources = lodash_1.cloneDeep(result.Resources);
     newResources[e.Name] = e;
     result.Resources = newResources;
     return result;
 }
 function _removeMapping(t, e) {
-    let result = Object.assign({}, t);
+    const result = Object.assign({}, t);
     let mapping;
     if (typeof e === 'string') {
         if (result.Mappings[e]) {
@@ -532,7 +534,7 @@ function _removeMapping(t, e) {
     return result;
 }
 function _removeOutput(t, e) {
-    let result = Object.assign({}, t);
+    const result = Object.assign({}, t);
     let out;
     if (typeof e === 'string') {
         if (result.Outputs[e]) {
@@ -554,7 +556,7 @@ function _removeOutput(t, e) {
     return result;
 }
 function _removeParameter(t, e) {
-    let result = Object.assign({}, t);
+    const result = Object.assign({}, t);
     let param;
     if (typeof e === 'string') {
         if (result.Parameters[e]) {
@@ -586,11 +588,11 @@ function _calcFromExistingTemplate(t, inputTemplate) {
     }
     if (inputTemplate.Resources) {
         Object.keys(inputTemplate.Resources).map(r => {
-            let split = inputTemplate.Resources[r].Type.split('::');
-            let cat = split[1];
-            let resType = split[2];
+            const split = inputTemplate.Resources[r].Type.split('::');
+            const cat = split[1];
+            const resType = split[2];
             if (split[0] === 'AWS') {
-                let service = service_1.Service(cfn_doc_json_stubs_1.default[cat]);
+                const service = service_1.Service(cfn_doc_json_stubs_1.default[cat]);
                 t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
             }
             else if (split[0] === 'Custom') {

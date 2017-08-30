@@ -82,8 +82,8 @@ exports.FnBase64 = FnBase64;
  */
 function FnFindInMap(mapName, topLevelKey, secondLevelKey) {
     return {
-        kind: 'FnFindInMap',
-        FnFindInMap: [mapName, topLevelKey, secondLevelKey]
+        FnFindInMap: [mapName, topLevelKey, secondLevelKey],
+        kind: 'FnFindInMap'
     };
 }
 exports.FnFindInMap = FnFindInMap;

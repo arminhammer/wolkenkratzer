@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const intrinsic_1 = require("../intrinsic");
 const lodash_1 = require("lodash");
+const intrinsic_1 = require("../intrinsic");
 /**
  * Create a Condition object
  * @param {*} name

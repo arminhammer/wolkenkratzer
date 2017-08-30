@@ -1,32 +1,34 @@
+import stubs from 'cfn-doc-json-stubs';
 import { cloneDeep, omit } from 'lodash';
-import { IParameter, Parameter } from './elements/parameter';
-import { IDescription, Description } from './elements/description';
-// import { IMetadata } from './elements/metadata';
-import { IMapping, Mapping } from './elements/mapping';
-import { ICondition, Condition } from './elements/condition';
-import { IResource, CustomResource } from './elements/resource';
-import { IOutput, Output } from './elements/output';
-import { IElement } from './elements/element';
 import { ICreationPolicy } from './attributes/creationpolicy';
 import { IResourceMetadata } from './attributes/metadata';
-import { Ref, FnSub, FnGetAtt } from './intrinsic';
-import { Service } from './service';
-import { Pseudo } from './pseudo';
-import stubs from 'cfn-doc-json-stubs';
+import { Condition, ICondition } from './elements/condition';
+import { Description, IDescription } from './elements/description';
+import { IElement } from './elements/element';
+import { IMapping, Mapping } from './elements/mapping';
+import { IOutput, Output } from './elements/output';
+import { IParameter, Parameter } from './elements/parameter';
+import { CustomResource, IResource } from './elements/resource';
 import {
-  IRef,
-  IFnGetAtt,
-  IFnJoin,
   Conditional,
-  IIntrinsic,
+  FnGetAtt,
+  FnSub,
   IFnAnd,
   IFnEquals,
   IFnFindInMap,
+  IFnGetAtt,
   IFnIf,
+  IFnJoin,
   IFnNot,
   IFnOr,
-  IFnSub
+  IFnSub,
+  IIntrinsic,
+  IRef,
+  Ref
 } from './intrinsic';
+// import { IMetadata } from './elements/metadata';
+import { Pseudo } from './pseudo';
+import { Service } from './service';
 
 /** @module Template */
 
@@ -44,13 +46,16 @@ export interface ITemplate {
   readonly Conditions: { readonly [s: string]: ICondition };
   readonly Resources: { readonly [s: string]: IResource };
   readonly Outputs: { readonly [s: string]: IOutput };
-  readonly add: Function;
+  readonly add: (
+    e: IElement | ICreationPolicy | IResourceMetadata,
+    options?: IAddOptions
+  ) => ITemplate;
   readonly remove: Function;
   readonly removeDescription: Function;
-  readonly build: Function;
+  readonly build: () => object;
   readonly merge: Function;
   readonly import: Function;
-  readonly map: Function;
+  readonly map: (iterable: Array<IElement>, mapFn: Function) => ITemplate;
 }
 
 /**
@@ -59,7 +64,7 @@ export interface ITemplate {
  */
 export interface IAddOptions {
   Output: boolean;
-  Parameters: Array<string>;
+  Parameters?: Array<string>;
 }
 
 /**
@@ -100,7 +105,7 @@ export function Template(): ITemplate {
           return _addOutput(_t, e);
         case 'Resource':
           let newT = _t;
-          let f: any = cloneDeep(e);
+          const f: any = cloneDeep(e);
           if (options) {
             const nameSplit = f.Type.split('::').splice(1);
             const shortName = nameSplit.join('');
@@ -124,13 +129,13 @@ export function Template(): ITemplate {
               newT = _addOutput(
                 newT,
                 Output(`${f.Name}${shortName}Output`, {
-                  Value: Ref(f.Name),
                   Condition: f.Condition,
                   Export: {
                     Name: FnSub(
                       `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`
                     )
-                  }
+                  },
+                  Value: Ref(f.Name)
                 })
               );
             }
@@ -152,8 +157,8 @@ export function Template(): ITemplate {
      * const t = Template();
      * JSON.stringify(t.build(), null, 2)
      */
-    build: function() {
-      let result: any = {
+    build: function(): object {
+      const result: any = {
         AWSTemplateFormatVersion: '2010-09-09',
         Resources: {}
       };
@@ -192,6 +197,16 @@ export function Template(): ITemplate {
       }
       return result;
     },
+    /**
+     * Import an existing CloudFormation JSON template and convert it into a Wolkenkratzer Template object.
+     * @example
+     * const templateJson = require('template.json');
+     * const t = Template().import(templateJson);
+     */
+    import: function(inputTemplate): ITemplate {
+      const _t = cloneDeep(this);
+      return _calcFromExistingTemplate(_t, inputTemplate);
+    },
     kind: 'Template',
     /**
      * Add elements to the Template in a functional way.
@@ -204,6 +219,29 @@ export function Template(): ITemplate {
       return result;
     },
     /**
+     * Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
+     */
+    merge: function(t: ITemplate): ITemplate {
+      const _t = cloneDeep(this);
+      const combined = {};
+      [
+        'Conditions',
+        'Mapping',
+        'Outputs',
+        'Parameters',
+        'Resources',
+        'Description'
+      ].map(block => {
+        if (t[block]) {
+          combined[block] = { ..._t[block], ...t[block] };
+        }
+      });
+      return {
+        ..._t,
+        ...combined
+      };
+    },
+    /**
      * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.
      * @example
      * let t = Template();
@@ -211,18 +249,18 @@ export function Template(): ITemplate {
      * t.add(p).remove(p);
      */
     remove: function(e: IElement | string): ITemplate {
-      let result = cloneDeep(this);
+      const result = cloneDeep(this);
       let element: IElement;
       if (typeof e === 'string') {
-        let parameter: IParameter | void = result.Parameters[e];
+        const parameter: IParameter | void = result.Parameters[e];
         if (parameter) {
           element = parameter;
         } else {
-          let output: IOutput | void = result.Outputs[e];
+          const output: IOutput | void = result.Outputs[e];
           if (output) {
             element = output;
           } else {
-            let mapping: IMapping | void = result.Mappings[e];
+            const mapping: IMapping | void = result.Mappings[e];
             if (mapping) {
               element = mapping;
             } else {
@@ -254,41 +292,9 @@ export function Template(): ITemplate {
      * Removes the Description from the Template.
      */
     removeDescription: function(): ITemplate {
-      const { Description, ...remaining } = this;
-      return remaining;
-    },
-    /**
-     * Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
-     */
-    merge: function(t: ITemplate): ITemplate {
-      const _t = cloneDeep(this);
-      const combined = {};
-      [
-        'Conditions',
-        'Mapping',
-        'Outputs',
-        'Parameters',
-        'Resources',
-        'Description'
-      ].map(block => {
-        if (t[block]) {
-          combined[block] = { ..._t[block], ...t[block] };
-        }
-      });
-      return {
-        ..._t,
-        ...combined
-      };
-    },
-    /**
-     * Import an existing CloudFormation JSON template and convert it into a Wolkenkratzer Template object.
-     * @example
-     * const templateJson = require('template.json');
-     * const t = Template().import(templateJson);
-     */
-    import: function(inputTemplate): ITemplate {
-      let _t = cloneDeep(this);
-      return _calcFromExistingTemplate(_t, inputTemplate);
+      const newT = cloneDeep(this);
+      delete newT.Description;
+      return newT;
     }
   };
 }
@@ -314,12 +320,12 @@ function _validateFnGetAtt(t: ITemplate, att: IFnGetAtt): void | SyntaxError {
 }
 
 function _strip(t: IParameter | IOutput | IResource | ICondition): any {
-  let { kind, Name, ...rest } = t;
+  const { kind, Name, ...rest } = t;
   return rest;
 }
 
 function _stripKind(target: any) {
-  let { kind, ...rest } = target;
+  const { kind, ...rest } = target;
   return rest;
 }
 
@@ -332,7 +338,7 @@ function _cleanObject(object: any) {
     if (object.kind) {
       object = _json(object);
     } else {
-      for (let o in object) {
+      for (const o in object) {
         if (object[o] !== null && typeof object[o] === 'object') {
           object[o] = _cleanObject(object[o]);
         }
@@ -343,8 +349,15 @@ function _cleanObject(object: any) {
 }
 
 function _buildResource(t: IResource) {
-  let { Type, Properties, CreationPolicy, Metadata, Condition } = t;
-  let newProps = {};
+  const newT = cloneDeep(t);
+  const {
+    Type,
+    Properties,
+    CreationPolicy,
+    Metadata,
+    Condition: condition
+  } = newT;
+  const newProps = {};
   if (Properties) {
     Object.keys(Properties).map(p => {
       // Ignore empty arrays
@@ -357,22 +370,22 @@ function _buildResource(t: IResource) {
       }
     });
   }
-  let result: any = { Type, Properties: newProps };
+  const result: any = { Type, Properties: newProps };
   if (CreationPolicy) {
     result.CreationPolicy = _json(CreationPolicy);
   }
   if (Metadata) {
     result.Metadata = _json(Metadata);
   }
-  if (Condition) {
-    result.Condition = Condition;
+  if (condition) {
+    result.Condition = condition;
   }
   return result;
 }
 
 function _buildCondition(t: ICondition): string {
-  let { Condition } = t;
-  let result = _json(Condition);
+  const { Condition: condition } = t;
+  const result = _json(condition);
   Object.keys(result).map(k => {
     if (result[k][0].kind) {
       result[k][0] = _json(result[k][0]);
@@ -382,12 +395,12 @@ function _buildCondition(t: ICondition): string {
 }
 
 function _buildCreationPolicy(t: ICreationPolicy) {
-  let { Content } = t;
+  const { Content } = t;
   return Content;
 }
 
 function _buildResourceMetadata(t: IResourceMetadata) {
-  let { Content } = t;
+  const { Content } = t;
   return Content;
 }
 
@@ -443,14 +456,14 @@ function _buildFnEquals(t: IFnEquals) {
 }
 
 function _buildMapping(t: IMapping) {
-  let result = t.Content;
+  const result = t.Content;
   return result;
 }
 
 function _buildOutput(t: IOutput): string {
   let outputResult: any = cloneDeep(t.Properties);
   if (typeof outputResult.Value !== 'string') {
-    let stripped = _json(outputResult.Value);
+    const stripped = _json(outputResult.Value);
     outputResult = { ...outputResult, Value: stripped };
   }
   if (
@@ -458,7 +471,7 @@ function _buildOutput(t: IOutput): string {
     outputResult.Export.Name &&
     typeof outputResult.Export.Name !== 'string'
   ) {
-    let stripped = _json(outputResult.Export.Name);
+    const stripped = _json(outputResult.Export.Name);
     outputResult = { ...outputResult, Export: { Name: stripped } };
   }
   return outputResult;
@@ -516,32 +529,32 @@ export function _json(
 
 function _addDescription(t: ITemplate, e: IDescription): ITemplate {
   let result = { ...t };
-  let desc = { Description: e.Content };
+  const desc = { Description: e.Content };
   result = { ...t, ...desc };
   return result;
 }
 
 function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
-  let result: any = cloneDeep(t);
+  const result: any = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
     throw new SyntaxError(
       'Cannot add CreationPolicy to a Resource that does not exist in the template.'
     );
   }
-  let resource = { ...result.Resources[e.Resource] };
+  const resource = { ...result.Resources[e.Resource] };
   resource.CreationPolicy = e;
   result.Resources[e.Resource] = resource;
   return result;
 }
 
 function _addResourceMetadata(t: ITemplate, e: IResourceMetadata): ITemplate {
-  let result: any = cloneDeep(t);
+  const result: any = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
     throw new SyntaxError(
       'Cannot add Metadata to a Resource that does not exist in the template.'
     );
   }
-  let resource = { ...result.Resources[e.Resource] };
+  const resource = { ...result.Resources[e.Resource] };
   resource.Metadata = e;
   result.Resources[e.Resource] = resource;
   return result;
@@ -549,13 +562,13 @@ function _addResourceMetadata(t: ITemplate, e: IResourceMetadata): ITemplate {
 
 function _addCondition(t: ITemplate, e: ICondition): ITemplate {
   // TODO: Validate intrinsics
-  let result: any = cloneDeep(t);
+  const result: any = cloneDeep(t);
   result.Conditions[e.Name] = e;
   return result;
 }
 
 function _addOutput(t: ITemplate, e: IOutput): ITemplate {
-  let e0: any = cloneDeep(e);
+  const e0: any = cloneDeep(e);
   if (typeof e0.Properties.Value !== 'string') {
     if (e0.Properties.Value.Ref) {
       _validateRef(t, e0.Properties.Value);
@@ -570,7 +583,7 @@ function _addOutput(t: ITemplate, e: IOutput): ITemplate {
       _validateFnGetAtt(t, e0.Properties.Value);
     }
   }
-  let result: any = cloneDeep(t);
+  const result: any = cloneDeep(t);
   result.Outputs[e0.Name] = e0;
   return result;
 }
@@ -582,7 +595,7 @@ function _addParameter(t: ITemplate, e: IParameter): ITemplate {
 }
 
 function _addMapping(t: ITemplate, e: IMapping): ITemplate {
-  let result = { ...t };
+  const result = { ...t };
   if (result.Mappings[e.Name]) {
     const newMappings: any = cloneDeep(result.Mappings);
     newMappings[e.Name] = {
@@ -599,15 +612,15 @@ function _addMapping(t: ITemplate, e: IMapping): ITemplate {
 }
 
 function _addResource(t: ITemplate, e: IResource): ITemplate {
-  let result = { ...t };
-  let newResources: any = cloneDeep(result.Resources);
+  const result = { ...t };
+  const newResources: any = cloneDeep(result.Resources);
   newResources[e.Name] = e;
   result.Resources = newResources;
   return result;
 }
 
 function _removeMapping(t: ITemplate, e: IMapping | string): ITemplate {
-  let result = { ...t };
+  const result = { ...t };
   let mapping: IMapping;
   if (typeof e === 'string') {
     if (result.Mappings[e]) {
@@ -627,7 +640,7 @@ function _removeMapping(t: ITemplate, e: IMapping | string): ITemplate {
 }
 
 function _removeOutput(t: ITemplate, e: IOutput | string): ITemplate {
-  let result = { ...t };
+  const result = { ...t };
   let out: IOutput;
   if (typeof e === 'string') {
     if (result.Outputs[e]) {
@@ -647,7 +660,7 @@ function _removeOutput(t: ITemplate, e: IOutput | string): ITemplate {
 }
 
 function _removeParameter(t: ITemplate, e: IParameter | string): ITemplate {
-  let result = { ...t };
+  const result = { ...t };
   let param: IParameter;
   if (typeof e === 'string') {
     if (result.Parameters[e]) {
@@ -677,11 +690,11 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
   }
   if (inputTemplate.Resources) {
     Object.keys(inputTemplate.Resources).map(r => {
-      let split = inputTemplate.Resources[r].Type.split('::');
-      let cat = split[1];
-      let resType = split[2];
+      const split = inputTemplate.Resources[r].Type.split('::');
+      const cat = split[1];
+      const resType = split[2];
       if (split[0] === 'AWS') {
-        let service = Service(stubs[cat]);
+        const service = Service(stubs[cat]);
         t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
       } else if (split[0] === 'Custom') {
         t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties));
