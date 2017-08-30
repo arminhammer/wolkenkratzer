@@ -72,7 +72,7 @@ function Template() {
                                 }));
                             });
                         }
-                        newT = _addResource(newT, f);
+                        newT = _addResource(_t, f);
                         if (options.Output) {
                             newT = _addOutput(newT, output_1.Output(`${f.Name}${shortName}Output`, {
                                 Value: intrinsic_1.Ref(f.Name),

@@ -40,8 +40,6 @@ exports.buildInlineLambda = lambda_macro_1.buildInlineLambda;
 var pseudo_1 = require("./pseudo");
 exports.Pseudo = pseudo_1.Pseudo;
 const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
-//console.log('stubs');
-//console.log(stubs);
 cfn_doc_json_stubs_1.default.resourceList.map(r => {
     exports[r] = service_1.Service(cfn_doc_json_stubs_1.default[r]);
 });

@@ -5,34 +5,8 @@ export { Output } from './elements/output';
 export { Mapping } from './elements/mapping';
 export { Resource, CustomResource } from './elements/resource';
 export { Condition } from './elements/condition';
-export {
-  Ref,
-  FnGetAtt,
-  FnEquals,
-  FnJoin,
-  FnFindInMap,
-  FnSub,
-  FnAnd
-} from './intrinsic';
-import { Service, IService } from './service';
+export { Ref, FnGetAtt, FnEquals, FnJoin, FnFindInMap, FnSub, FnAnd } from './intrinsic';
 export { CreationPolicy } from './attributes/creationpolicy';
 export { ResourceMetadata } from './attributes/metadata';
 export { S3BucketTransform } from './transform/s3';
-export {
-  getInstanceTypeList,
-  getInstanceTypeNameList
-} from './macros/ec2meta.macro';
-export {
-  buildLambda,
-  buildLambdaTemplate,
-  buildInlineLambda
-} from './macros/lambda.macro';
 export { Pseudo } from './pseudo';
-
-import stubs from 'cfn-doc-json-stubs';
-//console.log('stubs');
-//console.log(stubs);
-
-stubs.resourceList.map(r => {
-  exports[r] = Service(stubs[r]);
-});

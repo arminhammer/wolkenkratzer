@@ -119,7 +119,7 @@ export function Template(): ITemplate {
                 );
               });
             }
-            newT = _addResource(_t, f);
+            newT = _addResource(newT, f);
             if (options.Output) {
               newT = _addOutput(
                 newT,

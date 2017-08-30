@@ -1,4 +1,4 @@
-const { Template, Parameter, Output } = require('../dist/index');
+const { Template, Parameter, Output } = require('../src/index');
 
 describe('Template Merge', () => {
   test('Can merge two templates to JSON', () => {
