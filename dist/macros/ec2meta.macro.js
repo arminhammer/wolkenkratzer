@@ -116,3 +116,4 @@ function getAMIMap(filters, regions, aws) {
     });
 }
 exports.getAMIMap = getAMIMap;
+//# sourceMappingURL=ec2meta.macro.js.map

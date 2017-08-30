@@ -13,3 +13,4 @@ function Service(json) {
     return service;
 }
 exports.Service = Service;
+//# sourceMappingURL=service.js.map

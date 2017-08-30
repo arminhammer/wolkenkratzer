@@ -314,3 +314,4 @@ function buildLambdaTemplate({ path: inputPath, name, options, parameters, outpu
     });
 }
 exports.buildLambdaTemplate = buildLambdaTemplate;
+//# sourceMappingURL=lambda.macro.js.map

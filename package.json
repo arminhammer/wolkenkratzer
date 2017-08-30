@@ -18,13 +18,13 @@
   },
   "devDependencies": {
     "@types/jest": "^20.0.8",
+    "@types/lodash": "^4.14.74",
     "@types/node": "^8.0.25",
     "aws-sdk": "^2.85.0",
     "babel-cli": "^6.24.1",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-flow": "^6.23.0",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
@@ -42,14 +42,15 @@
     "rollup": "^0.49.2",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-flow": "^1.1.1",
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sizes": "^0.4.0",
     "ts-jest": "^20.0.11",
-    "typescript": "^2.4.2"
+    "ts-loader": "^2.3.4",
+    "typescript": "2.4.2",
+    "webpack": "^3.5.5"
   },
   "scripts": {
     "cp-sub": "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
@@ -62,25 +63,19 @@
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "documentation readme src/index.js --section=API",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
-    "precommit": "",
+    "precommit": "npm run build && npm run test",
     "update-submodules": "git submodule update --remote --merge",
     "update-ec2info": "node src/transform/buildEC2Data.js",
     "release:major": "npm version major && git push --follow-tags && npm publish",
     "release:minor": "npm version minor && git push --follow-tags && npm publish",
-    "release:patch": "npm version patch && git push --follow-tags && npm publish"
+    "release:patch": "npm version patch && git push --follow-tags && npm publish",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -95,17 +90,10 @@
       "!src/ec2info/**/*",
       "src/**/*.ts"
     ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec\\.(js|ts)"
-    ]
+    "testMatch": ["<rootDir>/tests/**/*.spec\\.(js|ts)"]
   }
 }

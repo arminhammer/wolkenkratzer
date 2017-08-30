@@ -107,3 +107,4 @@ function Bucket(name, newName, region, aws) {
 module.exports = {
     Bucket: Bucket
 };
+//# sourceMappingURL=s3.macro.js.map

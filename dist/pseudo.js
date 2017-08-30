@@ -17,3 +17,4 @@ exports.Pseudo = {
     AWS_STACK_ID: 'AWS::StackId',
     AWS_STACK_NAME: 'AWS::StackName'
 };
+//# sourceMappingURL=pseudo.js.map

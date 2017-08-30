@@ -45,3 +45,4 @@ const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
 cfn_doc_json_stubs_1.default.resourceList.map(r => {
     exports[r] = service_1.Service(cfn_doc_json_stubs_1.default[r]);
 });
+//# sourceMappingURL=index.js.map

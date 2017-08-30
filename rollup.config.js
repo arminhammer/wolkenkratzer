@@ -31,7 +31,6 @@ export default {
       modulesOnly: false // Default: false
     }),
     builtins(),
-    flow({ all: true }),
     sizes({ details: true })
   ],
   moduleName: 'wolkenkratzer',

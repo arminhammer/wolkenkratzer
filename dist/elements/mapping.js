@@ -17,3 +17,4 @@ function Mapping(name, subName, body) {
     return { kind: 'Mapping', Name: name, Content: { [subName]: body } };
 }
 exports.Mapping = Mapping;
+//# sourceMappingURL=mapping.js.map

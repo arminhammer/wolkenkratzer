@@ -15,3 +15,4 @@ function Condition(name, conditionFn) {
     return { kind: 'Condition', Name: name, Condition: newCondFn };
 }
 exports.Condition = Condition;
+//# sourceMappingURL=condition.js.map

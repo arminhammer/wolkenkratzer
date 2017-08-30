@@ -13,9 +13,10 @@
     "alwaysStrict": true,
     "forceConsistentCasingInFileNames": true,
     "pretty": true,
+    "sourceMap": true,
     "types": ["node"]
   },
   "compileOnSave": true,
-  "exclude": ["node_modules", "typings", "dist", "tests"],
+  "exclude": ["node_modules", "typings", "dist", "tests", "src/index.umd.ts"],
   "filesGlob": ["./src/**/*.ts"]
 }

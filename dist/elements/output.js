@@ -35,3 +35,4 @@ function Output(name, properties) {
     return { kind: 'Output', Name: name, Properties: newProps };
 }
 exports.Output = Output;
+//# sourceMappingURL=output.js.map

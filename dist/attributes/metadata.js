@@ -7,3 +7,4 @@ function ResourceMetadata(resource, content) {
     return { kind: 'ResourceMetadata', Resource: resource, Content: content };
 }
 exports.ResourceMetadata = ResourceMetadata;
+//# sourceMappingURL=metadata.js.map

@@ -15,3 +15,4 @@ function Parameter(name, properties) {
     return { kind: 'Parameter', Name: name, Properties: properties };
 }
 exports.Parameter = Parameter;
+//# sourceMappingURL=parameter.js.map

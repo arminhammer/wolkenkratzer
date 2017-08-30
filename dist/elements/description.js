@@ -11,3 +11,4 @@ function Description(content) {
     return { kind: 'Description', Content: content };
 }
 exports.Description = Description;
+//# sourceMappingURL=description.js.map

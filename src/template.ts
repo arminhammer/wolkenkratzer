@@ -100,7 +100,7 @@ export function Template(): ITemplate {
           return _addOutput(_t, e);
         case 'Resource':
           let newT = _t;
-          let f = cloneDeep(e);
+          let f: any = cloneDeep(e);
           if (options) {
             const nameSplit = f.Type.split('::').splice(1);
             const shortName = nameSplit.join('');
@@ -522,7 +522,7 @@ function _addDescription(t: ITemplate, e: IDescription): ITemplate {
 }
 
 function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
-  let result = cloneDeep(t);
+  let result: any = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
     throw new SyntaxError(
       'Cannot add CreationPolicy to a Resource that does not exist in the template.'
@@ -535,7 +535,7 @@ function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
 }
 
 function _addResourceMetadata(t: ITemplate, e: IResourceMetadata): ITemplate {
-  let result = cloneDeep(t);
+  let result: any = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
     throw new SyntaxError(
       'Cannot add Metadata to a Resource that does not exist in the template.'
@@ -549,13 +549,13 @@ function _addResourceMetadata(t: ITemplate, e: IResourceMetadata): ITemplate {
 
 function _addCondition(t: ITemplate, e: ICondition): ITemplate {
   // TODO: Validate intrinsics
-  let result = cloneDeep(t);
+  let result: any = cloneDeep(t);
   result.Conditions[e.Name] = e;
   return result;
 }
 
 function _addOutput(t: ITemplate, e: IOutput): ITemplate {
-  let e0 = cloneDeep(e);
+  let e0: any = cloneDeep(e);
   if (typeof e0.Properties.Value !== 'string') {
     if (e0.Properties.Value.Ref) {
       _validateRef(t, e0.Properties.Value);
@@ -570,13 +570,13 @@ function _addOutput(t: ITemplate, e: IOutput): ITemplate {
       _validateFnGetAtt(t, e0.Properties.Value);
     }
   }
-  let result = cloneDeep(t);
+  let result: any = cloneDeep(t);
   result.Outputs[e0.Name] = e0;
   return result;
 }
 
 function _addParameter(t: ITemplate, e: IParameter): ITemplate {
-  const result = cloneDeep(t);
+  const result: any = cloneDeep(t);
   result.Parameters[e.Name] = e;
   return result;
 }
@@ -584,14 +584,14 @@ function _addParameter(t: ITemplate, e: IParameter): ITemplate {
 function _addMapping(t: ITemplate, e: IMapping): ITemplate {
   let result = { ...t };
   if (result.Mappings[e.Name]) {
-    const newMappings = cloneDeep(result.Mappings);
+    const newMappings: any = cloneDeep(result.Mappings);
     newMappings[e.Name] = {
       ...e,
       Content: { ...result.Mappings[e.Name].Content, ...e.Content }
     };
     result.Mappings = newMappings;
   } else {
-    const newMappings = cloneDeep(result.Mappings);
+    const newMappings: any = cloneDeep(result.Mappings);
     newMappings[e.Name] = e;
     result.Mappings = newMappings;
   }
@@ -600,7 +600,7 @@ function _addMapping(t: ITemplate, e: IMapping): ITemplate {
 
 function _addResource(t: ITemplate, e: IResource): ITemplate {
   let result = { ...t };
-  let newResources = cloneDeep(result.Resources);
+  let newResources: any = cloneDeep(result.Resources);
   newResources[e.Name] = e;
   result.Resources = newResources;
   return result;

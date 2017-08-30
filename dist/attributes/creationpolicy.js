@@ -9,3 +9,4 @@ function CreationPolicy(resource, content) {
     return { kind: 'CreationPolicy', Resource: resource, Content: content };
 }
 exports.CreationPolicy = CreationPolicy;
+//# sourceMappingURL=creationpolicy.js.map

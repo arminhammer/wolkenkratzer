@@ -39,7 +39,7 @@ export function Output(name: string, properties: IOutputProperties): IOutput {
       })} parameters is invalid. Name and Value are required.`
     );
   }
-  const newProps = cloneDeep(properties);
+  const newProps: any = cloneDeep(properties);
   // If Value is a Ref object, create a Ref object
   if (typeof newProps.Value === 'object' && !newProps.Value.kind) {
     if (newProps.Value.Ref) {

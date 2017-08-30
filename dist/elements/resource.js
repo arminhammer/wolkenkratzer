@@ -67,3 +67,4 @@ function _validateProperties(properties, rType, model) {
         }
     });
 }
+//# sourceMappingURL=resource.js.map

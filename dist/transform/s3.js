@@ -86,3 +86,4 @@ function S3BucketTransform(bucketName, logicalName, awsObj) {
     });
 }
 exports.S3BucketTransform = S3BucketTransform;
+//# sourceMappingURL=s3.js.map

@@ -14,3 +14,4 @@ fs_extra_1.default
     .writeJson(path_1.default.resolve(__dirname, '..', 'ec2info.json'), results)
     .then(() => { })
     .catch(console.error);
+//# sourceMappingURL=buildEC2Data.js.map
