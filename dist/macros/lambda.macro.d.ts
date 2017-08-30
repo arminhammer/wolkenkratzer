@@ -1,6 +1,11 @@
 import { IResource } from '../elements/resource';
+import { ITemplate } from '../template';
 export interface IZipLambdaResult {
     FunctionResource: IResource;
+    Zip: any;
+}
+export interface IZipLambdaTemplateResult {
+    Template: ITemplate;
     Zip: any;
 }
 /**
@@ -56,7 +61,7 @@ export declare function buildZipLambdaTemplate({path: inputPath, name, options, 
     options: any;
     parameters: any;
     output: any;
-}): Promise<{}>;
+}): Promise<IZipLambdaTemplateResult>;
 /**
  * Create a Lambda function from a folder or source file
  * @param {} param0

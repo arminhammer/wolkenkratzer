@@ -74,10 +74,8 @@ describe('Lambda Macro', () => {
             parameters: ['Role'],
             output: true
           }).then(({ Template, Zip }) => {
-            console.log('Here');
-            //console.log(JSON.stringify(Template, null, 2));
             expect(Zip.size).toEqual(zipFile.size);
-            expect(Template).toEqual(testTemplate);
+            expect(Template.build()).toEqual(testTemplate);
           });
         });
     },

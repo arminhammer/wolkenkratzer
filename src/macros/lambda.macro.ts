@@ -32,6 +32,11 @@ export interface IZipLambdaResult {
   Zip: any;
 }
 
+export interface IZipLambdaTemplateResult {
+  Template: ITemplate;
+  Zip: any;
+}
+
 function _createInlineFunction({
   path: inputPath,
   name,
@@ -201,10 +206,6 @@ export function _buildZipLambda({
               });
             });
           });
-        // });
-      })
-      .catch(e => {
-        reject(e);
       });
   });
 }
@@ -354,112 +355,34 @@ export function buildZipLambdaTemplate({
   options,
   parameters,
   output
-}) {
-  name = name ? name : defaultConfig.FunctionName;
-  options = options ? merge({}, defaultConfig, options) : defaultConfig;
-  inputPath = path.resolve(inputPath);
-  return new Promise((resolve, reject) => {
-    fs
-      .stat(inputPath)
-      .then(stat => {
-        if (stat.isFile()) {
-          _createInlineTemplate({
-            name: name,
-            options: options,
-            parameters: parameters,
-            path: inputPath
-          })
-            .then(t => {
-              resolve({ Template: t.build() });
-            })
-            .catch(e => {
-              reject(e);
-            });
-        } else if (stat.isDirectory()) {
-          const zip = new jszip();
-          const files: Array<string> = [];
-          klaw(inputPath)
-            .on('data', ({ path: location, stats }) => {
-              if (stats.isFile()) {
-                files.push(location);
-              }
-            })
-            .on('end', () => {
-              if (
-                files.length === 1 &&
-                path.relative(inputPath, files[0]) === 'index.js'
-              ) {
-                _createInlineTemplate({
-                  name: name,
-                  options: options,
-                  parameters: parameters,
-                  path: files[0]
-                })
-                  .then(t => {
-                    resolve({ Template: t.build() });
-                  })
-                  .catch(e => {
-                    reject(e);
-                  });
-              } else {
-                bluebird
-                  .map(files, file => {
-                    return fs.readFile(file).then(contents => {
-                      const relPath = path.relative(inputPath, file);
-                      zip.file(relPath, contents);
-                    });
-                  })
-                  .then(results => {
-                    zip.generateAsync({ type: 'nodebuffer' }).then(blob => {
-                      // fs.writeFileSync('final.zip', blob);
-                      let t = Template()
-                        .add(
-                          Parameter(`${name}S3BucketParam`, { Type: 'String' })
-                        )
-                        .add(
-                          Parameter(`${name}S3KeyParam`, { Type: 'String' })
-                        );
-                      if (parameters && parameters.length > 0) {
-                        parameters.map(p => {
-                          t = t.add(
-                            Parameter(`${name}${p}`, { Type: 'String' })
-                          );
-                        });
-                      }
-                      t = t.add(
-                        Lambda.Function(name, {
-                          Code: {
-                            S3Bucket: Ref('MyGreatFunctionS3BucketParam'),
-                            S3Key: Ref('MyGreatFunctionS3KeyParam')
-                          },
-                          FunctionName: options.FunctionName,
-                          Handler: options.Handler,
-                          MemorySize: options.MemorySize,
-                          Role:
-                            parameters && parameters.includes('Role')
-                              ? Ref(`${name}Role`)
-                              : options.Role,
-                          Runtime: options.Runtime,
-                          Timeout: options.Timeout
-                          // Tags: options.Tags ? options.Tags.length > 0 : null
-                        }),
-                        { Output: true }
-                      );
-
-                      resolve({
-                        Template: t.build(),
-                        Zip: blob
-                      });
-                    });
-                  });
-              }
-            });
+}): Promise<IZipLambdaTemplateResult> {
+  return _buildZipLambda({
+    name,
+    options,
+    output,
+    parameters,
+    path: inputPath
+  })
+    .then(({ FunctionResource, Zip }): Promise<IZipLambdaTemplateResult> => {
+      return new Promise((resolve, reject) => {
+        let t = Template()
+          .add(Parameter(`${name}S3BucketParam`, { Type: 'String' }))
+          .add(Parameter(`${name}S3KeyParam`, { Type: 'String' }));
+        if (parameters && parameters.length > 0) {
+          parameters.map(p => {
+            t = t.add(Parameter(`${name}${p}`, { Type: 'String' }));
+          });
         }
-      })
-      .catch(e => {
-        reject(e);
+        t = t.add(FunctionResource, { Output: true });
+        resolve({
+          Template: t,
+          Zip
+        });
       });
-  });
+    })
+    .catch(e => {
+      throw new SyntaxError(`There was an error: ${e}`);
+    });
 }
 
 /**
