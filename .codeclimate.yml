@@ -2,6 +2,7 @@ engines:
   tslint:
     enabled: true
     channel: beta
+    config: tslint.json
   duplication:
     enabled: true
     config:
