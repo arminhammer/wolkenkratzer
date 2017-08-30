@@ -49,6 +49,9 @@
     "rollup-plugin-sizes": "^0.4.0",
     "ts-jest": "^20.0.11",
     "ts-loader": "^2.3.4",
+    "tslint": "^5.7.0",
+    "tslint-config-prettier": "^1.4.0",
+    "tslint-immutable": "^4.1.0",
     "typescript": "2.4.2",
     "webpack": "^3.5.5"
   },
@@ -63,13 +66,14 @@
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "documentation readme src/index.js --section=API",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
-    "precommit": "npm run build && npm run test",
+    "precommit": "npm run build && npm run lint && npm run test",
     "update-submodules": "git submodule update --remote --merge",
     "update-ec2info": "node src/transform/buildEC2Data.js",
     "release:major": "npm version major && git push --follow-tags && npm publish",
     "release:minor": "npm version minor && git push --follow-tags && npm publish",
     "release:patch": "npm version patch && git push --follow-tags && npm publish",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "lint": "tslint --project ."
   },
   "repository": {
     "type": "git",
