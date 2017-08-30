@@ -1,0 +1,16 @@
+engines:
+  tslint:
+    enabled: true
+    channel: beta
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript:
+      - typescript:
+ratings:
+  paths:
+  - src/**/*
+exclude_paths:
+- tests/**/*
+- examples/**/*
