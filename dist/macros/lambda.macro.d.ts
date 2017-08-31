@@ -9,6 +9,16 @@ export interface IZipLambdaTemplateResult {
     Zip: any;
 }
 /**
+ * Create an inline Lambda function from a folder or source file
+ * @param {} param0
+ */
+export declare function buildInlineLambdaTemplate({path: inputPath, name, options, parameters}: {
+    path: any;
+    name: any;
+    options: any;
+    parameters: any;
+}): Promise<ITemplate>;
+/**
  * Create an inline Lambda function
  * @param {*} param0
  */

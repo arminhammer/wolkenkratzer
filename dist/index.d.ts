@@ -10,5 +10,5 @@ export { CreationPolicy } from './attributes/creationpolicy';
 export { ResourceMetadata } from './attributes/metadata';
 export { S3BucketTransform } from './transform/s3';
 export { getInstanceTypeList, getInstanceTypeNameList } from './macros/ec2meta.macro';
-export { buildLambda, buildLambdaTemplate, buildInlineLambda } from './macros/lambda.macro';
+export { buildLambda, buildLambdaTemplate, buildInlineLambda, buildInlineLambdaTemplate, buildZipLambda, buildZipLambdaTemplate } from './macros/lambda.macro';
 export { Pseudo } from './pseudo';

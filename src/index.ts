@@ -27,7 +27,10 @@ export {
 export {
   buildLambda,
   buildLambdaTemplate,
-  buildInlineLambda
+  buildInlineLambda,
+  buildInlineLambdaTemplate,
+  buildZipLambda,
+  buildZipLambdaTemplate
 } from './macros/lambda.macro';
 export { Pseudo } from './pseudo';
 

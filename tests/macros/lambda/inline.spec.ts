@@ -1,7 +1,7 @@
 import {
+  buildInlineLambda,
   buildLambda,
-  buildLambdaTemplate,
-  buildInlineLambda
+  buildLambdaTemplate
 } from '../../../src/macros/lambda.macro';
 const path = require('path');
 

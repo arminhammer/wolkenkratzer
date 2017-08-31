@@ -1,6 +1,6 @@
 import { Lambda as LambdaJson } from 'cfn-doc-json-stubs';
 import { merge } from 'lodash';
-import path from 'path';
+import { relative, resolve } from 'path';
 import { Parameter } from '../elements/parameter';
 import { IResource } from '../elements/resource';
 import { FnJoin, Ref } from '../intrinsic';
@@ -43,7 +43,7 @@ function _createInlineFunction({
   options,
   parameters
 }): Promise<IResource> {
-  return new Promise((resolve, reject) => {
+  return new Promise((res, rej) => {
     fs
       .readFile(inputPath)
       .then(functionCode => {
@@ -69,10 +69,10 @@ function _createInlineFunction({
           props.Tags = options.Tags;
         }
         const fn = Lambda.Function(name, props);
-        resolve(fn);
+        res(fn);
       })
       .catch(e => {
-        reject(e);
+        rej(e);
       });
   });
 }
@@ -83,7 +83,7 @@ function _createInlineTemplate({
   options,
   parameters
 }): Promise<ITemplate> {
-  return new Promise((resolve, reject) => {
+  return new Promise((res, rej) => {
     _createInlineFunction({ path: inputPath, name, options, parameters })
       .then(fnBlock => {
         let t = Template();
@@ -95,11 +95,32 @@ function _createInlineTemplate({
         t = t.add(fnBlock, {
           Output: true
         });
-        resolve(t);
+        res(t);
       })
       .catch(e => {
-        reject(e);
+        rej(e);
       });
+  });
+}
+
+/**
+ * Create an inline Lambda function from a folder or source file
+ * @param {} param0 
+ */
+export function buildInlineLambdaTemplate({
+  path: inputPath,
+  name,
+  options,
+  parameters
+}): Promise<ITemplate> {
+  name = name ? name : defaultConfig.FunctionName;
+  options = options ? merge({}, defaultConfig, options) : defaultConfig;
+  inputPath = resolve(inputPath);
+  return _createInlineTemplate({
+    name,
+    options,
+    parameters,
+    path: inputPath
   });
 }
 
@@ -115,7 +136,7 @@ export function buildInlineLambda({
 }) {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
-  inputPath = path.resolve(inputPath);
+  inputPath = resolve(inputPath);
   return fs.stat(inputPath).then(stat => {
     if (stat.isFile()) {
       return _createInlineFunction({
@@ -125,7 +146,7 @@ export function buildInlineLambda({
         path: inputPath
       });
     } else {
-      const indexPath = path.resolve(inputPath, 'index.js');
+      const indexPath = resolve(inputPath, 'index.js');
       return fs.stat(indexPath).then(statIndex => {
         if (statIndex.isFile()) {
           return _createInlineFunction({
@@ -155,8 +176,8 @@ export function _buildZipLambda({
 }): Promise<IZipLambdaResult> {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
-  inputPath = path.resolve(inputPath);
-  return new Promise((resolve, reject) => {
+  inputPath = resolve(inputPath);
+  return new Promise((res, rej) => {
     const zip = new jszip();
     const files: Array<string> = [];
     klaw(inputPath)
@@ -169,7 +190,7 @@ export function _buildZipLambda({
         bluebird
           .map(files, file => {
             return fs.readFile(file).then(contents => {
-              const relPath = path.relative(inputPath, file);
+              const relPath = relative(inputPath, file);
               zip.file(relPath, contents);
             });
           })
@@ -200,7 +221,7 @@ export function _buildZipLambda({
                 Timeout: options.Timeout
                 // Tags: options.Tags ? options.Tags.length > 0 : null
               });
-              resolve({
+              res({
                 FunctionResource: fn,
                 Zip: blob
               });
@@ -243,8 +264,8 @@ export function buildLambda({
 }) {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
-  inputPath = path.resolve(inputPath);
-  return new Promise((resolve, reject) => {
+  inputPath = resolve(inputPath);
+  return new Promise((res, rej) => {
     fs
       .stat(inputPath)
       .then(stat => {
@@ -256,10 +277,10 @@ export function buildLambda({
             path: inputPath
           })
             .then(fn => {
-              resolve({ FunctionResource: fn });
+              res({ FunctionResource: fn });
             })
             .catch(e => {
-              reject(e);
+              rej(e);
             });
         } else if (stat.isDirectory()) {
           const zip = new jszip();
@@ -273,7 +294,7 @@ export function buildLambda({
             .on('end', () => {
               if (
                 files.length === 1 &&
-                path.relative(inputPath, files[0]) === 'index.js'
+                relative(inputPath, files[0]) === 'index.js'
               ) {
                 _createInlineFunction({
                   name: name,
@@ -282,16 +303,16 @@ export function buildLambda({
                   path: files[0]
                 })
                   .then(fn => {
-                    resolve({ FunctionResource: fn });
+                    res({ FunctionResource: fn });
                   })
                   .catch(e => {
-                    reject(e);
+                    rej(e);
                   });
               } else {
                 bluebird
                   .map(files, file => {
                     return fs.readFile(file).then(contents => {
-                      const relPath = path.relative(inputPath, file);
+                      const relPath = relative(inputPath, file);
                       zip.file(relPath, contents);
                     });
                   })
@@ -329,7 +350,7 @@ export function buildLambda({
                         // Tags: options.Tags ? options.Tags.length > 0 : null
                       });
 
-                      resolve({
+                      res({
                         FunctionResource: fn,
                         Zip: blob
                       });
@@ -340,7 +361,7 @@ export function buildLambda({
         }
       })
       .catch(e => {
-        reject(e);
+        rej(e);
       });
   });
 }
@@ -364,7 +385,7 @@ export function buildZipLambdaTemplate({
     path: inputPath
   })
     .then(({ FunctionResource, Zip }): Promise<IZipLambdaTemplateResult> => {
-      return new Promise((resolve, reject) => {
+      return new Promise((res, rej) => {
         let t = Template()
           .add(Parameter(`${name}S3BucketParam`, { Type: 'String' }))
           .add(Parameter(`${name}S3KeyParam`, { Type: 'String' }));
@@ -374,7 +395,7 @@ export function buildZipLambdaTemplate({
           });
         }
         t = t.add(FunctionResource, { Output: true });
-        resolve({
+        res({
           Template: t,
           Zip
         });
@@ -398,8 +419,8 @@ export function buildLambdaTemplate({
 }) {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
-  inputPath = path.resolve(inputPath);
-  return new Promise((resolve, reject) => {
+  inputPath = resolve(inputPath);
+  return new Promise((res, rej) => {
     fs
       .stat(inputPath)
       .then(stat => {
@@ -411,10 +432,10 @@ export function buildLambdaTemplate({
             path: inputPath
           })
             .then(t => {
-              resolve({ Template: t.build() });
+              res({ Template: t.build() });
             })
             .catch(e => {
-              reject(e);
+              rej(e);
             });
         } else if (stat.isDirectory()) {
           const zip = new jszip();
@@ -428,7 +449,7 @@ export function buildLambdaTemplate({
             .on('end', () => {
               if (
                 files.length === 1 &&
-                path.relative(inputPath, files[0]) === 'index.js'
+                relative(inputPath, files[0]) === 'index.js'
               ) {
                 _createInlineTemplate({
                   name: name,
@@ -437,16 +458,16 @@ export function buildLambdaTemplate({
                   path: files[0]
                 })
                   .then(t => {
-                    resolve({ Template: t.build() });
+                    res({ Template: t.build() });
                   })
                   .catch(e => {
-                    reject(e);
+                    rej(e);
                   });
               } else {
                 bluebird
                   .map(files, file => {
                     return fs.readFile(file).then(contents => {
-                      const relPath = path.relative(inputPath, file);
+                      const relPath = relative(inputPath, file);
                       zip.file(relPath, contents);
                     });
                   })
@@ -487,7 +508,7 @@ export function buildLambdaTemplate({
                         { Output: true }
                       );
 
-                      resolve({
+                      res({
                         Template: t.build(),
                         Zip: blob
                       });
@@ -498,7 +519,7 @@ export function buildLambdaTemplate({
         }
       })
       .catch(e => {
-        reject(e);
+        rej(e);
       });
   });
 }
