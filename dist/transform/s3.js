@@ -1,44 +1,44 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-var cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
-var service_1 = require("../service");
-var s3Service = service_1.Service(cfn_doc_json_stubs_1.default.S3);
+const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
+const service_1 = require("../service");
+const s3Service = service_1.Service(cfn_doc_json_stubs_1.default.S3);
 function S3BucketTransform(bucketName, logicalName, awsObj) {
-    var s3Client = new awsObj.S3();
-    return new Promise(function (resolve, reject) {
+    const s3Client = new awsObj.S3();
+    return new Promise((resolve, reject) => {
         // let bucket = new s3Resource.Bucket(newName);
-        var bucket = {};
+        const bucket = {};
         return (s3Client
             .getBucketVersioning({ Bucket: bucketName })
             .promise()
-            .then(function (versionData) {
+            .then(versionData => {
             if (Object.keys(versionData)) {
                 bucket.VersioningConfiguration = versionData;
             }
             // return s3Client.getBucketAcl({ Bucket: bucketName }).promise()
             return s3Client.getBucketCors({ Bucket: bucketName }).promise();
         })
-            .then(function (corsData) {
+            .then(corsData => {
             bucket.CorsConfiguration = corsData;
             return s3Client
                 .getBucketLifecycleConfiguration({ Bucket: bucketName })
                 .promise();
         })
-            .catch(function (e) {
+            .catch(e => {
             // Silently catch the NoSuchCORSConfiguration
             return s3Client
                 .getBucketLifecycleConfiguration({ Bucket: bucketName })
                 .promise();
         })
-            .then(function (lifeData) {
+            .then(lifeData => {
             bucket.LifecycleConfiguration = lifeData;
             return s3Client.getBucketLogging({ Bucket: bucketName }).promise();
         })
-            .catch(function (e) {
+            .catch(e => {
             // Silently catch the NoSuchLifecycleConfiguration
             return s3Client.getBucketLogging({ Bucket: bucketName }).promise();
         })
-            .then(function (loggingData) {
+            .then(loggingData => {
             bucket.LoggingConfiguration = {
                 DestinationBucketName: loggingData.LoggingEnabled.TargetBucket,
                 LogFilePrefix: loggingData.LoggingEnabled.TargetPrefix
@@ -47,7 +47,7 @@ function S3BucketTransform(bucketName, logicalName, awsObj) {
                 .getBucketNotification({ Bucket: bucketName })
                 .promise();
         })
-            .then(function (notificationData) {
+            .then(notificationData => {
             if (Object.keys(notificationData).length > 0) {
                 bucket.NotificationConfiguration = notificationData;
             }
@@ -55,31 +55,31 @@ function S3BucketTransform(bucketName, logicalName, awsObj) {
                 .getBucketReplication({ Bucket: bucketName })
                 .promise();
         })
-            .then(function (replData) {
+            .then(replData => {
             bucket.ReplicationConfiguration = replData;
             return s3Client.getBucketTagging({ Bucket: bucketName }).promise();
         })
-            .then(function (tagsData) {
-            tagsData.TagSet.forEach(function (tag) {
+            .then(tagsData => {
+            tagsData.TagSet.forEach((tag) => {
                 bucket.Tags.add(tag);
             });
             return s3Client.getBucketWebsite({ Bucket: bucketName }).promise();
         })
-            .catch(function (e) {
+            .catch(e => {
             // Silently catch the NoSuchTagSet
             return s3Client.getBucketWebsite({ Bucket: bucketName }).promise();
         })
-            .then(function (websiteData) {
+            .then(websiteData => {
             bucket.WebsiteConfiguration = new websiteData();
         })
-            .catch(function (e) {
+            .catch(e => {
             // Silently catch the NoSuchWebsiteConfiguration
             return;
         })
-            .then(function () {
+            .then(() => {
             resolve(s3Service.Bucket(logicalName, bucket));
         })
-            .catch(function (e) {
+            .catch(e => {
             // Silently catch the NoSuchWebsiteConfiguration
             reject(e);
         }));

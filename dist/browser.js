@@ -23,7 +23,7 @@ exports.FnJoin = intrinsic_1.FnJoin;
 exports.FnFindInMap = intrinsic_1.FnFindInMap;
 exports.FnSub = intrinsic_1.FnSub;
 exports.FnAnd = intrinsic_1.FnAnd;
-var service_1 = require("./service");
+const service_1 = require("./service");
 var creationpolicy_1 = require("./attributes/creationpolicy");
 exports.CreationPolicy = creationpolicy_1.CreationPolicy;
 var metadata_1 = require("./attributes/metadata");
@@ -32,8 +32,8 @@ var s3_1 = require("./transform/s3");
 exports.S3BucketTransform = s3_1.S3BucketTransform;
 var pseudo_1 = require("./pseudo");
 exports.Pseudo = pseudo_1.Pseudo;
-var cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
-cfn_doc_json_stubs_1.default.resourceList.map(function (r) {
+const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
+cfn_doc_json_stubs_1.default.resourceList.map(r => {
     exports[r] = service_1.Service(cfn_doc_json_stubs_1.default[r]);
 });
 //# sourceMappingURL=browser.js.map

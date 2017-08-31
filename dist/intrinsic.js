@@ -31,9 +31,9 @@ exports.FnGetAtt = FnGetAtt;
  * Returns an Fn::Join object
  */
 function FnJoin(delimiter, values) {
-    var newValues = values;
+    let newValues = values;
     if (Array.isArray(values)) {
-        newValues = values.map(function (v) {
+        newValues = values.map(v => {
             return buildIntrinsic(v);
         });
     }
