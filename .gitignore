@@ -9,3 +9,4 @@ oldtest/
 .nyc_output/
 yarn-error.log
 test.js
+.rpt2_cache/

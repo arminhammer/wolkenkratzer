@@ -12,6 +12,7 @@
       "ban-keywords",
       "check-format",
       "allow-leading-underscore"
-    ]
+    ],
+    "no-submodule-imports": false
   }
 }

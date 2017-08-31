@@ -4,16 +4,40 @@
 	(factory((global.wolkenkratzer = {})));
 }(this, (function (exports) { 'use strict';
 
-var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
 
 
 
-function unwrapExports (x) {
-	return x && x.__esModule ? x['default'] : x;
-}
+var __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+};
 
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
 }
 
 const resourceList = ["AutoScaling","ElasticBeanstalk","CloudWatch","CloudFront","EC2","ElasticLoadBalancing","ElastiCache","IAM","RDS","Route53","S3","SDB","SNS","SQS","CloudFormation","ApiGateway","ApplicationAutoScaling","CertificateManager","Batch","CodeBuild","CodeCommit","CloudTrail","CodeDeploy","CodePipeline","Cognito","Config","DAX","DataPipeline","DirectoryService","DMS","DynamoDB","ECR","ECS","EFS","ElasticLoadBalancingV2","EMR","Elasticsearch","Events","GameLift","IoT","Kinesis","KinesisAnalytics","KMS","KinesisFirehose","Lambda","Logs","OpsWorks","Redshift","SSM","StepFunctions","WAF","WAFRegional","WorkSpaces"];
@@ -237,10 +261,17 @@ var cfnDocJsonStubs = {
     WorkSpaces: WorkSpaces 
 };
 
-var global$1 = typeof global !== "undefined" ? global :
-            typeof self !== "undefined" ? self :
-            typeof window !== "undefined" ? window : {};
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
+
+
+
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var lodash$1 = createCommonjsModule(function (module, exports) {
 /**
  * @license
  * Lodash <https://lodash.com/>
@@ -657,7 +688,7 @@ var global$1 = typeof global !== "undefined" ? global :
       freeParseInt = parseInt;
 
   /** Detect free variable `global` from Node.js. */
-  var freeGlobal = typeof global$1 == 'object' && global$1 && global$1.Object === Object && global$1;
+  var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
 
   /** Detect free variable `self`. */
   var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -666,10 +697,10 @@ var global$1 = typeof global !== "undefined" ? global :
   var root = freeGlobal || freeSelf || Function('return this')();
 
   /** Detect free variable `exports`. */
-  var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+  var freeExports = 'object' == 'object' && exports && !exports.nodeType && exports;
 
   /** Detect free variable `module`. */
-  var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+  var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
 
   /** Detect the popular CommonJS extension `module.exports`. */
   var moduleExports = freeModule && freeModule.exports === freeExports;
@@ -17300,7 +17331,7 @@ var global$1 = typeof global !== "undefined" ? global :
   var _ = runInContext();
 
   // Some AMD build optimizers, like r.js, check for condition patterns like:
-  if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) {
+  if (typeof undefined == 'function' && typeof undefined.amd == 'object' && undefined.amd) {
     // Expose Lodash on the global object to prevent errors when Lodash is
     // loaded by a script tag in the presence of an AMD loader.
     // See http://requirejs.org/docs/errors.html#mismatch for more details.
@@ -17309,9 +17340,7 @@ var global$1 = typeof global !== "undefined" ? global :
 
     // Define as an anonymous module so, through path mapping, it can be
     // referenced as the "underscore" module.
-    define(function() {
-      return _;
-    });
+    
   }
   // Check for `exports` after `define` in case a build optimizer adds it.
   else if (freeModule) {
@@ -17324,16 +17353,12 @@ var global$1 = typeof global !== "undefined" ? global :
     // Export to the global object.
     root._ = _;
   }
-}.call(undefined));
-
-
-var lodash = Object.freeze({
-
+}.call(commonjsGlobal));
 });
 
-var intrinsic = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+var lodash_1 = lodash$1.cloneDeep;
+var lodash_2 = lodash$1.omit;
+
 /**
  * Returns a Ref object that references another element in the template
  * @param {*} target
@@ -17346,7 +17371,6 @@ function Ref(target) {
         return { kind: 'Ref', Ref: target.Name };
     }
 }
-exports.Ref = Ref;
 /**
  * Returns an Fn::GetAtt object that references another element in the template
  * @param {*} target
@@ -17360,7 +17384,6 @@ function FnGetAtt(target, attr) {
         return { kind: 'FnGetAtt', FnGetAtt: [target.Name, attr] };
     }
 }
-exports.FnGetAtt = FnGetAtt;
 /**
  * Returns an Fn::Join object
  */
@@ -17373,7 +17396,6 @@ function FnJoin(delimiter, values) {
     }
     return { kind: 'FnJoin', Delimiter: delimiter, Values: newValues };
 }
-exports.FnJoin = FnJoin;
 /**
  * Returns an Fn::And object
  * @param {*} one
@@ -17382,7 +17404,6 @@ exports.FnJoin = FnJoin;
 function FnAnd(one, two) {
     return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
 }
-exports.FnAnd = FnAnd;
 /**
  * Returns an Fn::Equals object
  * @param {*} one
@@ -17391,7 +17412,6 @@ exports.FnAnd = FnAnd;
 function FnEquals(one, two) {
     return { kind: 'FnEquals', FnEquals: [one, two] };
 }
-exports.FnEquals = FnEquals;
 /**
  * Returns an Fn::Sub object
  * @param {*} input
@@ -17399,15 +17419,11 @@ exports.FnEquals = FnEquals;
 function FnSub(input) {
     return { kind: 'FnSub', FnSub: input };
 }
-exports.FnSub = FnSub;
 /**
  * Returns an Fn::Base64 object
  * @param {*} input
  */
-function FnBase64(input) {
-    return { kind: 'FnBase64', FnBase64: input };
-}
-exports.FnBase64 = FnBase64;
+
 /**
  * Returns an Fn::FindInMap object
  * @param {*} mapName
@@ -17420,27 +17436,17 @@ function FnFindInMap(mapName, topLevelKey, secondLevelKey) {
         kind: 'FnFindInMap'
     };
 }
-exports.FnFindInMap = FnFindInMap;
 /**
  * Returns an Fn::GetAZs object
  * @param {*} region
  */
-function FnGetAZs(region) {
-    if (!region) {
-        region = { Ref: 'AWS::Region' };
-    }
-    return { kind: 'FnGetAZs', FnGetAZs: region };
-}
-exports.FnGetAZs = FnGetAZs;
+
 /**
  * Returns an Fn::Select object
  * @param {*} index
  * @param {*} list
  */
-function FnSelect(index, list) {
-    return { kind: 'FnSelect', FnSelect: [index, list] };
-}
-exports.FnSelect = FnSelect;
+
 function buildIntrinsic(input) {
     if (input['Fn::Equals']) {
         return FnEquals(buildIntrinsic(input['Fn::Equals'][0]), buildIntrinsic(input['Fn::Equals'][1]));
@@ -17455,18 +17461,6 @@ function buildIntrinsic(input) {
         return input;
     }
 }
-exports.buildIntrinsic = buildIntrinsic;
-
-});
-
-unwrapExports(intrinsic);
-
-var lodash_1 = ( lodash && undefined ) || lodash;
-
-var condition = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-
 
 /**
  * Create a Condition object
@@ -17474,21 +17468,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {*} conditionFn
  */
 function Condition(name, conditionFn) {
-    var newCondFn = lodash_1.cloneDeep(conditionFn);
+    var newCondFn = lodash_1(conditionFn);
     if (typeof newCondFn === 'object' && !newCondFn.kind) {
-        newCondFn = intrinsic.buildIntrinsic(newCondFn);
+        newCondFn = buildIntrinsic(newCondFn);
     }
     return { kind: 'Condition', Name: name, Condition: newCondFn };
 }
-exports.Condition = Condition;
 
-});
-
-unwrapExports(condition);
-
-var description = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Set the Description of a template
  * @param {*} content
@@ -17499,15 +17485,7 @@ function Description(content) {
     }
     return { kind: 'Description', Content: content };
 }
-exports.Description = Description;
 
-});
-
-unwrapExports(description);
-
-var mapping = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Create a Mapping object
  * @param {*} name
@@ -17525,16 +17503,6 @@ function Mapping(name, subName, body) {
     return { kind: 'Mapping', Name: name, Content: (_a = {}, _a[subName] = body, _a) };
     var _a;
 }
-exports.Mapping = Mapping;
-
-});
-
-unwrapExports(mapping);
-
-var output = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-
 
 /**
  * Creatr an Output object
@@ -17548,14 +17516,14 @@ function Output(name, properties) {
             properties: properties
         }) + " parameters is invalid. Name and Value are required.");
     }
-    var newProps = lodash_1.cloneDeep(properties);
+    var newProps = lodash_1(properties);
     // If Value is a Ref object, create a Ref object
     if (typeof newProps.Value === 'object' && !newProps.Value.kind) {
         if (newProps.Value.Ref) {
-            newProps.Value = intrinsic.Ref(newProps.Value.Ref);
+            newProps.Value = Ref(newProps.Value.Ref);
         }
         else if (newProps.Value['Fn::Join']) {
-            newProps.Value = intrinsic.FnJoin(newProps.Value['Fn::Join'][0], newProps.Value['Fn::Join'][1]);
+            newProps.Value = FnJoin(newProps.Value['Fn::Join'][0], newProps.Value['Fn::Join'][1]);
         }
     }
     // If Export Name is Intrinsic, create an Intrinsic object
@@ -17564,19 +17532,11 @@ function Output(name, properties) {
         typeof newProps.Export.Name === 'object' &&
         newProps.Export.Name['Fn::Sub'] &&
         !newProps.Export.Name.kind) {
-        newProps.Export.Name = intrinsic.FnSub(newProps.Export.Name['Fn::Sub']);
+        newProps.Export.Name = FnSub(newProps.Export.Name['Fn::Sub']);
     }
     return { kind: 'Output', Name: name, Properties: newProps };
 }
-exports.Output = Output;
 
-});
-
-unwrapExports(output);
-
-var parameter = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Create a Parameter object
  * @param {*} name
@@ -17591,15 +17551,7 @@ function Parameter(name, properties) {
     }
     return { kind: 'Parameter', Name: name, Properties: properties };
 }
-exports.Parameter = Parameter;
 
-});
-
-unwrapExports(parameter);
-
-var resource = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Create a Resource object
  * @param {*} name
@@ -17624,7 +17576,6 @@ function Resource(name, properties, options) {
     }
     return result;
 }
-exports.Resource = Resource;
 function CustomResource(name, properties) {
     if (!name) {
         throw new SyntaxError("New Resource is invalid. A Name is required.");
@@ -17636,7 +17587,6 @@ function CustomResource(name, properties) {
         kind: 'Resource'
     };
 }
-exports.CustomResource = CustomResource;
 function _validateProperties(properties, rType, model) {
     // Check if keys other than the defined ones are present
     Object.keys(properties).map(function (p) {
@@ -17668,13 +17618,6 @@ function _validateProperties(properties, rType, model) {
     });
 }
 
-});
-
-unwrapExports(resource);
-
-var pseudo = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Strings constants that map to CloudFormation pseudoparameter
  * Pseudo.AWS_ACCOUNT_ID
@@ -17684,7 +17627,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Pseudo.AWS_STACK_ID
  * Pseudo.AWS_STACK_NAME
  */
-exports.Pseudo = {
+var Pseudo = {
     AWS_ACCOUNT_ID: 'AWS::AccountId',
     AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
     AWS_NO_VALUE: 'AWS::NoValue',
@@ -17693,14 +17636,6 @@ exports.Pseudo = {
     AWS_STACK_NAME: 'AWS::StackName'
 };
 
-});
-
-unwrapExports(pseudo);
-
-var service = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-
 /**
  * Return a Service object to create Resources and Attributes
  * @param {*} json
@@ -17708,48 +17643,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function Service(json) {
     var service = { json: json };
     Object.keys(json.Resources).map(function (r) {
-        service[r] = resource.Resource.bind({ json: json, name: r });
+        service[r] = Resource.bind({ json: json, name: r });
     });
     return service;
 }
-exports.Service = Service;
-
-});
-
-unwrapExports(service);
-
-var template = createCommonjsModule(function (module, exports) {
-"use strict";
-var __assign = (commonjsGlobal && commonjsGlobal.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var __rest = (commonjsGlobal && commonjsGlobal.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-
-
-
-
-
-
 
 // import { IMetadata } from './elements/metadata';
-
-
 /**
  * Returns a new Template object.
  * @member Template
@@ -17769,7 +17668,7 @@ function Template() {
          * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
          */
         add: function (e, options) {
-            var _t = lodash_1.cloneDeep(this);
+            var _t = lodash_1(this);
             switch (e.kind) {
                 case 'CreationPolicy':
                     return _addCreationPolicy(_t, e);
@@ -17785,7 +17684,7 @@ function Template() {
                     return _addOutput(_t, e);
                 case 'Resource':
                     var newT_1 = _t;
-                    var f_1 = lodash_1.cloneDeep(e);
+                    var f_1 = lodash_1(e);
                     if (options) {
                         var nameSplit = f_1.Type.split('::').splice(1);
                         var shortName_1 = nameSplit.join('');
@@ -17795,20 +17694,20 @@ function Template() {
                                 if (!f_1.Properties) {
                                     f_1.Properties = {};
                                 }
-                                f_1.Properties[p] = intrinsic.Ref(paramName);
-                                newT_1 = _addParameter(newT_1, parameter.Parameter(paramName, {
+                                f_1.Properties[p] = Ref(paramName);
+                                newT_1 = _addParameter(newT_1, Parameter(paramName, {
                                     Type: 'String'
                                 }));
                             });
                         }
                         newT_1 = _addResource(newT_1, f_1);
                         if (options.Output) {
-                            newT_1 = _addOutput(newT_1, output.Output("" + f_1.Name + shortName_1 + "Output", {
+                            newT_1 = _addOutput(newT_1, Output("" + f_1.Name + shortName_1 + "Output", {
                                 Condition: f_1.Condition,
                                 Export: {
-                                    Name: intrinsic.FnSub("${" + pseudo.Pseudo.AWS_STACK_NAME + "}-" + nameSplit[0] + "-" + nameSplit[1] + "-" + f_1.Name)
+                                    Name: FnSub("${" + Pseudo.AWS_STACK_NAME + "}-" + nameSplit[0] + "-" + nameSplit[1] + "-" + f_1.Name)
                                 },
-                                Value: intrinsic.Ref(f_1.Name)
+                                Value: Ref(f_1.Name)
                             }));
                         }
                     }
@@ -17876,7 +17775,7 @@ function Template() {
          * const t = Template().import(templateJson);
          */
         import: function (inputTemplate) {
-            var _t = lodash_1.cloneDeep(this);
+            var _t = lodash_1(this);
             return _calcFromExistingTemplate(_t, inputTemplate);
         },
         kind: 'Template',
@@ -17884,7 +17783,7 @@ function Template() {
          * Add elements to the Template in a functional way.
          */
         map: function (iterable, mapFn) {
-            var result = lodash_1.cloneDeep(this);
+            var result = lodash_1(this);
             iterable.map(function (i) {
                 result = result.add(mapFn(i));
             });
@@ -17894,7 +17793,7 @@ function Template() {
          * Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
          */
         merge: function (t) {
-            var _t = lodash_1.cloneDeep(this);
+            var _t = lodash_1(this);
             var combined = {};
             [
                 'Conditions',
@@ -17918,22 +17817,22 @@ function Template() {
          * t.add(p).remove(p);
          */
         remove: function (e) {
-            var result = lodash_1.cloneDeep(this);
+            var result = lodash_1(this);
             var element;
             if (typeof e === 'string') {
-                var parameter$$1 = result.Parameters[e];
-                if (parameter$$1) {
-                    element = parameter$$1;
+                var parameter = result.Parameters[e];
+                if (parameter) {
+                    element = parameter;
                 }
                 else {
-                    var output$$1 = result.Outputs[e];
-                    if (output$$1) {
-                        element = output$$1;
+                    var output = result.Outputs[e];
+                    if (output) {
+                        element = output;
                     }
                     else {
-                        var mapping$$1 = result.Mappings[e];
-                        if (mapping$$1) {
-                            element = mapping$$1;
+                        var mapping = result.Mappings[e];
+                        if (mapping) {
+                            element = mapping;
                         }
                         else {
                             throw new SyntaxError("Could not find " + JSON.stringify(e));
@@ -17963,13 +17862,12 @@ function Template() {
          * Removes the Description from the Template.
          */
         removeDescription: function () {
-            var newT = lodash_1.cloneDeep(this);
+            var newT = lodash_1(this);
             delete newT.Description;
             return newT;
         }
     };
 }
-exports.Template = Template;
 function _isEmptyObject(obj) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
@@ -18012,8 +17910,8 @@ function _cleanObject(object) {
     return object;
 }
 function _buildResource(t) {
-    var newT = lodash_1.cloneDeep(t);
-    var Type = newT.Type, Properties = newT.Properties, CreationPolicy = newT.CreationPolicy, Metadata = newT.Metadata, condition$$1 = newT.Condition;
+    var newT = lodash_1(t);
+    var Type = newT.Type, Properties = newT.Properties, CreationPolicy = newT.CreationPolicy, Metadata = newT.Metadata, condition = newT.Condition;
     var newProps = {};
     if (Properties) {
         Object.keys(Properties).map(function (p) {
@@ -18035,14 +17933,14 @@ function _buildResource(t) {
     if (Metadata) {
         result.Metadata = _json(Metadata);
     }
-    if (condition$$1) {
-        result.Condition = condition$$1;
+    if (condition) {
+        result.Condition = condition;
     }
     return result;
 }
 function _buildCondition(t) {
-    var condition$$1 = t.Condition;
-    var result = _json(condition$$1);
+    var condition = t.Condition;
+    var result = _json(condition);
     Object.keys(result).map(function (k) {
         if (result[k][0].kind) {
             result[k][0] = _json(result[k][0]);
@@ -18115,7 +18013,7 @@ function _buildMapping(t) {
     return result;
 }
 function _buildOutput(t) {
-    var outputResult = lodash_1.cloneDeep(t.Properties);
+    var outputResult = lodash_1(t.Properties);
     if (typeof outputResult.Value !== 'string') {
         var stripped = _json(outputResult.Value);
         outputResult = __assign({}, outputResult, { Value: stripped });
@@ -18162,7 +18060,6 @@ function _json(t) {
             throw new SyntaxError("Can't call _json on " + JSON.stringify(t));
     }
 }
-exports._json = _json;
 function _addDescription(t, e) {
     var result = __assign({}, t);
     var desc = { Description: e.Content };
@@ -18170,61 +18067,61 @@ function _addDescription(t, e) {
     return result;
 }
 function _addCreationPolicy(t, e) {
-    var result = lodash_1.cloneDeep(t);
+    var result = lodash_1(t);
     if (!result.Resources[e.Resource]) {
         throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.');
     }
-    var resource$$1 = __assign({}, result.Resources[e.Resource]);
-    resource$$1.CreationPolicy = e;
-    result.Resources[e.Resource] = resource$$1;
+    var resource = __assign({}, result.Resources[e.Resource]);
+    resource.CreationPolicy = e;
+    result.Resources[e.Resource] = resource;
     return result;
 }
 function _addResourceMetadata(t, e) {
-    var result = lodash_1.cloneDeep(t);
+    var result = lodash_1(t);
     if (!result.Resources[e.Resource]) {
         throw new SyntaxError('Cannot add Metadata to a Resource that does not exist in the template.');
     }
-    var resource$$1 = __assign({}, result.Resources[e.Resource]);
-    resource$$1.Metadata = e;
-    result.Resources[e.Resource] = resource$$1;
+    var resource = __assign({}, result.Resources[e.Resource]);
+    resource.Metadata = e;
+    result.Resources[e.Resource] = resource;
     return result;
 }
 function _addCondition(t, e) {
     // TODO: Validate intrinsics
-    var result = lodash_1.cloneDeep(t);
+    var result = lodash_1(t);
     result.Conditions[e.Name] = e;
     return result;
 }
 function _addOutput(t, e) {
-    var e0 = lodash_1.cloneDeep(e);
+    var e0 = lodash_1(e);
     if (typeof e0.Properties.Value !== 'string') {
         if (e0.Properties.Value.Ref) {
             _validateRef(t, e0.Properties.Value);
         }
         else if (typeof e0.Properties.Value !== 'string' &&
             e0.Properties.Value['Fn::GetAtt']) {
-            e0.Properties.Value = intrinsic.FnGetAtt(e0.Properties.Value['Fn::GetAtt'][0], e0.Properties.Value['Fn::GetAtt'][1]);
+            e0.Properties.Value = FnGetAtt(e0.Properties.Value['Fn::GetAtt'][0], e0.Properties.Value['Fn::GetAtt'][1]);
             _validateFnGetAtt(t, e0.Properties.Value);
         }
     }
-    var result = lodash_1.cloneDeep(t);
+    var result = lodash_1(t);
     result.Outputs[e0.Name] = e0;
     return result;
 }
 function _addParameter(t, e) {
-    var result = lodash_1.cloneDeep(t);
+    var result = lodash_1(t);
     result.Parameters[e.Name] = e;
     return result;
 }
 function _addMapping(t, e) {
     var result = __assign({}, t);
     if (result.Mappings[e.Name]) {
-        var newMappings = lodash_1.cloneDeep(result.Mappings);
+        var newMappings = lodash_1(result.Mappings);
         newMappings[e.Name] = __assign({}, e, { Content: __assign({}, result.Mappings[e.Name].Content, e.Content) });
         result.Mappings = newMappings;
     }
     else {
-        var newMappings = lodash_1.cloneDeep(result.Mappings);
+        var newMappings = lodash_1(result.Mappings);
         newMappings[e.Name] = e;
         result.Mappings = newMappings;
     }
@@ -18232,30 +18129,30 @@ function _addMapping(t, e) {
 }
 function _addResource(t, e) {
     var result = __assign({}, t);
-    var newResources = lodash_1.cloneDeep(result.Resources);
+    var newResources = lodash_1(result.Resources);
     newResources[e.Name] = e;
     result.Resources = newResources;
     return result;
 }
 function _removeMapping(t, e) {
     var result = __assign({}, t);
-    var mapping$$1;
+    var mapping;
     if (typeof e === 'string') {
         if (result.Mappings[e]) {
-            mapping$$1 = result.Mappings[e];
+            mapping = result.Mappings[e];
         }
         else {
             throw new SyntaxError("Could not find " + JSON.stringify(e));
         }
     }
     else {
-        mapping$$1 = e;
+        mapping = e;
     }
-    if (result.Mappings[mapping$$1.Name]) {
-        result.Mappings = lodash_1.omit(result.Mappings, mapping$$1.Name);
+    if (result.Mappings[mapping.Name]) {
+        result.Mappings = lodash_2(result.Mappings, mapping.Name);
     }
     else {
-        throw new SyntaxError("Could not find " + JSON.stringify(mapping$$1));
+        throw new SyntaxError("Could not find " + JSON.stringify(mapping));
     }
     return result;
 }
@@ -18274,7 +18171,7 @@ function _removeOutput(t, e) {
         out = e;
     }
     if (result.Outputs[out.Name]) {
-        result.Outputs = lodash_1.omit(result.Outputs, out.Name);
+        result.Outputs = lodash_2(result.Outputs, out.Name);
     }
     else {
         throw new SyntaxError("Could not find " + JSON.stringify(out));
@@ -18296,7 +18193,7 @@ function _removeParameter(t, e) {
         param = e;
     }
     if (result.Parameters[param.Name]) {
-        result.Parameters = lodash_1.omit(result.Parameters, param.Name);
+        result.Parameters = lodash_2(result.Parameters, param.Name);
     }
     else {
         throw new SyntaxError("Could not find " + JSON.stringify(param));
@@ -18305,11 +18202,11 @@ function _removeParameter(t, e) {
 }
 function _calcFromExistingTemplate(t, inputTemplate) {
     if (inputTemplate.Description) {
-        t = t.add(description.Description(inputTemplate.Description));
+        t = t.add(Description(inputTemplate.Description));
     }
     if (inputTemplate.Parameters) {
         Object.keys(inputTemplate.Parameters).map(function (p) {
-            t = t.add(parameter.Parameter(p, inputTemplate.Parameters[p]));
+            t = t.add(Parameter(p, inputTemplate.Parameters[p]));
         });
     }
     if (inputTemplate.Resources) {
@@ -18318,41 +18215,34 @@ function _calcFromExistingTemplate(t, inputTemplate) {
             var cat = split[1];
             var resType = split[2];
             if (split[0] === 'AWS') {
-                var service$$1 = service.Service(cfnDocJsonStubs.default[cat]);
-                t = t.add(service$$1[resType](r, inputTemplate.Resources[r].Properties));
+                var service = Service(cfnDocJsonStubs[cat]);
+                t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
             }
             else if (split[0] === 'Custom') {
-                t = t.add(resource.CustomResource(r, inputTemplate.Resources[r].Properties));
+                t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties));
             }
         });
     }
     if (inputTemplate.Outputs) {
         Object.keys(inputTemplate.Outputs).map(function (o) {
-            t = t.add(output.Output(o, inputTemplate.Outputs[o]));
+            t = t.add(Output(o, inputTemplate.Outputs[o]));
         });
     }
     if (inputTemplate.Mappings) {
         Object.keys(inputTemplate.Mappings).map(function (m) {
             Object.keys(inputTemplate.Mappings[m]).map(function (m0) {
-                t = t.add(mapping.Mapping(m, m0, inputTemplate.Mappings[m][m0]));
+                t = t.add(Mapping(m, m0, inputTemplate.Mappings[m][m0]));
             });
         });
     }
     if (inputTemplate.Conditions) {
         Object.keys(inputTemplate.Conditions).map(function (c) {
-            t = t.add(condition.Condition(c, inputTemplate.Conditions[c]));
+            t = t.add(Condition(c, inputTemplate.Conditions[c]));
         });
     }
     return t;
 }
 
-});
-
-unwrapExports(template);
-
-var creationpolicy = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 function CreationPolicy(resource, content) {
     if (!resource ||
         !content ||
@@ -18361,33 +18251,16 @@ function CreationPolicy(resource, content) {
     }
     return { kind: 'CreationPolicy', Resource: resource, Content: content };
 }
-exports.CreationPolicy = CreationPolicy;
 
-});
-
-unwrapExports(creationpolicy);
-
-var metadata = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 function ResourceMetadata(resource, content) {
     if (!resource || !content) {
         throw new SyntaxError("New Metadata must have content, " + JSON.stringify(content) + " is invalid.");
     }
     return { kind: 'ResourceMetadata', Resource: resource, Content: content };
 }
-exports.ResourceMetadata = ResourceMetadata;
 
-});
-
-unwrapExports(metadata);
-
-var s3 = createCommonjsModule(function (module, exports) {
 'use strict';
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-var s3Service = service.Service(cfnDocJsonStubs.S3);
+var s3Service = Service(cfnDocJsonStubs.S3);
 function S3BucketTransform(bucketName, logicalName, awsObj) {
     var s3Client = new awsObj.S3();
     return new Promise(function (resolve, reject) {
@@ -18470,95 +18343,30 @@ function S3BucketTransform(bucketName, logicalName, awsObj) {
         }));
     });
 }
+
+cfnDocJsonStubs.resourceList.map(function (r) {
+    exports[r] = Service(cfnDocJsonStubs[r]);
+});
+
+exports.Template = Template;
+exports.Parameter = Parameter;
+exports.Description = Description;
+exports.Output = Output;
+exports.Mapping = Mapping;
+exports.Resource = Resource;
+exports.CustomResource = CustomResource;
+exports.Condition = Condition;
+exports.Ref = Ref;
+exports.FnGetAtt = FnGetAtt;
+exports.FnEquals = FnEquals;
+exports.FnJoin = FnJoin;
+exports.FnFindInMap = FnFindInMap;
+exports.FnSub = FnSub;
+exports.FnAnd = FnAnd;
+exports.CreationPolicy = CreationPolicy;
+exports.ResourceMetadata = ResourceMetadata;
 exports.S3BucketTransform = S3BucketTransform;
-
-});
-
-unwrapExports(s3);
-
-var browser = createCommonjsModule(function (module, exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-
-exports.Template = template.Template;
-
-exports.Parameter = parameter.Parameter;
-
-exports.Description = description.Description;
-
-exports.Output = output.Output;
-
-exports.Mapping = mapping.Mapping;
-
-exports.Resource = resource.Resource;
-exports.CustomResource = resource.CustomResource;
-
-exports.Condition = condition.Condition;
-
-exports.Ref = intrinsic.Ref;
-exports.FnGetAtt = intrinsic.FnGetAtt;
-exports.FnEquals = intrinsic.FnEquals;
-exports.FnJoin = intrinsic.FnJoin;
-exports.FnFindInMap = intrinsic.FnFindInMap;
-exports.FnSub = intrinsic.FnSub;
-exports.FnAnd = intrinsic.FnAnd;
-
-
-exports.CreationPolicy = creationpolicy.CreationPolicy;
-
-exports.ResourceMetadata = metadata.ResourceMetadata;
-
-exports.S3BucketTransform = s3.S3BucketTransform;
-
-exports.Pseudo = pseudo.Pseudo;
-
-cfnDocJsonStubs.default.resourceList.map(function (r) {
-    exports[r] = service.Service(cfnDocJsonStubs.default[r]);
-});
-
-});
-
-var browser$1 = unwrapExports(browser);
-var browser_1 = browser.Template;
-var browser_2 = browser.Parameter;
-var browser_3 = browser.Description;
-var browser_4 = browser.Output;
-var browser_5 = browser.Mapping;
-var browser_6 = browser.Resource;
-var browser_7 = browser.CustomResource;
-var browser_8 = browser.Condition;
-var browser_9 = browser.Ref;
-var browser_10 = browser.FnGetAtt;
-var browser_11 = browser.FnEquals;
-var browser_12 = browser.FnJoin;
-var browser_13 = browser.FnFindInMap;
-var browser_14 = browser.FnSub;
-var browser_15 = browser.FnAnd;
-var browser_16 = browser.CreationPolicy;
-var browser_17 = browser.ResourceMetadata;
-var browser_18 = browser.S3BucketTransform;
-var browser_19 = browser.Pseudo;
-
-exports['default'] = browser$1;
-exports.Template = browser_1;
-exports.Parameter = browser_2;
-exports.Description = browser_3;
-exports.Output = browser_4;
-exports.Mapping = browser_5;
-exports.Resource = browser_6;
-exports.CustomResource = browser_7;
-exports.Condition = browser_8;
-exports.Ref = browser_9;
-exports.FnGetAtt = browser_10;
-exports.FnEquals = browser_11;
-exports.FnJoin = browser_12;
-exports.FnFindInMap = browser_13;
-exports.FnSub = browser_14;
-exports.FnAnd = browser_15;
-exports.CreationPolicy = browser_16;
-exports.ResourceMetadata = browser_17;
-exports.S3BucketTransform = browser_18;
-exports.Pseudo = browser_19;
+exports.Pseudo = Pseudo;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

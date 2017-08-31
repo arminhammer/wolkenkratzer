@@ -1,9 +1,9 @@
 'use strict';
 
-import { S3 as s3Json } from 'cfn-doc-json-stubs';
+import stubs from 'cfn-doc-json-stubs';
 import * as path from 'path';
 import { Service } from '../service';
-const s3Service: any = Service(s3Json);
+const s3Service: any = Service(stubs.S3);
 
 export function S3BucketTransform(
   bucketName: string,

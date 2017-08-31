@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
 var service_1 = require("../service");
-var s3Service = service_1.Service(cfn_doc_json_stubs_1.S3);
+var s3Service = service_1.Service(cfn_doc_json_stubs_1.default.S3);
 function S3BucketTransform(bucketName, logicalName, awsObj) {
     var s3Client = new awsObj.S3();
     return new Promise(function (resolve, reject) {

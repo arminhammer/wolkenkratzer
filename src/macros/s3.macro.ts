@@ -1,9 +1,9 @@
 'use strict';
 
-import { S3 as S3Json } from 'cfn-doc-json-stubs';
+import stubs from 'cfn-doc-json-stubs';
 import { Service } from '../service';
 
-const s3Resource: any = Service(S3Json);
+const s3Resource: any = Service(stubs.S3);
 
 /**
  * @memberof module:Macro
@@ -13,7 +13,7 @@ const s3Resource: any = Service(S3Json);
  * @returns {Promise}
  * @constructor
  */
-function Bucket(name: any, newName: any, region: any, aws: any) {
+export function Bucket(name: any, newName: any, region: any, aws: any) {
   /*
   const s3Client = new aws.S3({ region: region });
   return new Promise((resolve, reject) => {
@@ -105,7 +105,3 @@ function Bucket(name: any, newName: any, region: any, aws: any) {
   });
   */
 }
-
-module.exports = {
-  Bucket
-};

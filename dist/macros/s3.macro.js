@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
 var service_1 = require("../service");
-var s3Resource = service_1.Service(cfn_doc_json_stubs_1.S3);
+var s3Resource = service_1.Service(cfn_doc_json_stubs_1.default.S3);
 /**
  * @memberof module:Macro
  * @param name
@@ -103,7 +103,5 @@ function Bucket(name, newName, region, aws) {
     });
     */
 }
-module.exports = {
-    Bucket: Bucket
-};
+exports.Bucket = Bucket;
 //# sourceMappingURL=s3.macro.js.map
