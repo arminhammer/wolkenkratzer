@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint:latest", "tslint-immutable", "tslint-config-prettier"],
+  "extends": ["tslint:latest", "tslint-config-prettier"],
   "rules": {
     "no-var-requires": false,
     "no-console": false,
