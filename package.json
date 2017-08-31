@@ -17,6 +17,7 @@
     "lodash-es": "^4.17.4"
   },
   "devDependencies": {
+    "@types/core-js": "^0.9.43",
     "@types/jest": "^20.0.8",
     "@types/lodash": "^4.14.74",
     "@types/node": "^8.0.25",
@@ -47,6 +48,7 @@
     "rollup-plugin-node-globals": "^1.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sizes": "^0.4.0",
+    "rollup-plugin-typescript2": "^0.5.2",
     "ts-jest": "^20.0.11",
     "ts-loader": "^2.3.4",
     "tslint": "^5.7.0",
@@ -56,22 +58,27 @@
     "webpack": "^3.5.5"
   },
   "scripts": {
-    "cp-sub": "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
+    "cp-sub":
+      "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
     "cp-ec2info": "cp -R src/ec2info.json dist/ec2info.json",
-    "rollup": "node_modules/.bin/rollup --config rollup.config.js && node_modules/.bin/rollup --config rollup.config.browser.js",
-    "build": "tsc && npm run cp-ec2info",
+    "rollup": "node_modules/.bin/rollup --config rollup.config.browser.js",
+    "build": "tsc && npm run cp-ec2info && npm run rollup",
     "test": "jest",
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
-    "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coveralls":
+      "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "documentation readme src/index.js --section=API",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
     "precommit": "npm run build && npm run lint && npm run test",
     "update-submodules": "git submodule update --remote --merge",
     "update-ec2info": "node src/transform/buildEC2Data.js",
-    "release:major": "npm version major && git push --follow-tags && npm publish",
-    "release:minor": "npm version minor && git push --follow-tags && npm publish",
-    "release:patch": "npm version patch && git push --follow-tags && npm publish",
+    "release:major":
+      "npm version major && git push --follow-tags && npm publish",
+    "release:minor":
+      "npm version minor && git push --follow-tags && npm publish",
+    "release:patch":
+      "npm version patch && git push --follow-tags && npm publish",
     "webpack": "webpack",
     "lint": "tslint --project ."
   },
@@ -79,14 +86,7 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -101,17 +101,10 @@
       "!src/ec2info/**/*",
       "src/**/*.ts"
     ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec\\.(js|ts)"
-    ]
+    "testMatch": ["<rootDir>/tests/**/*.spec\\.(js|ts)"]
   }
 }

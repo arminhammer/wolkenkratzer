@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_1 = require("lodash");
-const intrinsic_1 = require("../intrinsic");
+var lodash_1 = require("lodash");
+var intrinsic_1 = require("../intrinsic");
 /**
  * Creatr an Output object
  * @param {*} name
@@ -9,12 +9,12 @@ const intrinsic_1 = require("../intrinsic");
  */
 function Output(name, properties) {
     if (!name || !properties || !properties.Value) {
-        throw new SyntaxError(`New Output with ${JSON.stringify({
-            name,
-            properties
-        })} parameters is invalid. Name and Value are required.`);
+        throw new SyntaxError("New Output with " + JSON.stringify({
+            name: name,
+            properties: properties
+        }) + " parameters is invalid. Name and Value are required.");
     }
-    const newProps = lodash_1.cloneDeep(properties);
+    var newProps = lodash_1.cloneDeep(properties);
     // If Value is a Ref object, create a Ref object
     if (typeof newProps.Value === 'object' && !newProps.Value.kind) {
         if (newProps.Value.Ref) {

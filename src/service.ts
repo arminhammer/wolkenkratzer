@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'path';
 import { Resource } from './elements/resource';
 
 export interface IService {

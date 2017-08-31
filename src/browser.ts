@@ -14,7 +14,7 @@ export {
   FnSub,
   FnAnd
 } from './intrinsic';
-import { Service, IService } from './service';
+import { IService, Service } from './service';
 export { CreationPolicy } from './attributes/creationpolicy';
 export { ResourceMetadata } from './attributes/metadata';
 export { S3BucketTransform } from './transform/s3';

@@ -27,8 +27,8 @@ var creationpolicy_1 = require("./attributes/creationpolicy");
 exports.CreationPolicy = creationpolicy_1.CreationPolicy;
 var metadata_1 = require("./attributes/metadata");
 exports.ResourceMetadata = metadata_1.ResourceMetadata;
-const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
-const service_1 = require("./service");
+var cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
+var service_1 = require("./service");
 var s3_1 = require("./transform/s3");
 exports.S3BucketTransform = s3_1.S3BucketTransform;
 var ec2meta_macro_1 = require("./macros/ec2meta.macro");
@@ -40,7 +40,7 @@ exports.buildLambdaTemplate = lambda_macro_1.buildLambdaTemplate;
 exports.buildInlineLambda = lambda_macro_1.buildInlineLambda;
 var pseudo_1 = require("./pseudo");
 exports.Pseudo = pseudo_1.Pseudo;
-cfn_doc_json_stubs_1.default.resourceList.map(r => {
+cfn_doc_json_stubs_1.default.resourceList.map(function (r) {
     exports[r] = service_1.Service(cfn_doc_json_stubs_1.default[r]);
 });
 //# sourceMappingURL=index.js.map

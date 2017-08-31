@@ -14,6 +14,6 @@ const results = ec2info.map(i => {
 fs
   .writeJson(path.resolve(__dirname, '..', 'ec2info.json'), results)
   .then(() => {
-    console.debug('Finished.');
+    console.log('Finished.');
   })
   .catch(console.error);

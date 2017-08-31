@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2015",
+    "target": "es5",
     "declaration": true,
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
@@ -14,9 +14,10 @@
     "forceConsistentCasingInFileNames": true,
     "pretty": true,
     "sourceMap": true,
-    "types": ["node"]
+    "types": ["node", "core-js"],
+    "lib": ["es5", "es2015"]
   },
   "compileOnSave": true,
-  "exclude": ["node_modules", "typings", "dist", "tests", "src/index.umd.ts"],
+  "exclude": ["node_modules", "typings", "dist", "tests"],
   "filesGlob": ["./src/**/*.ts"]
 }
