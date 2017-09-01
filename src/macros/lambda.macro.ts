@@ -172,6 +172,8 @@ export function _buildZipLambda({
   name,
   options,
   parameters,
+  bucket,
+  key,
   output
 }): Promise<IZipLambdaResult> {
   name = name ? name : defaultConfig.FunctionName;
@@ -197,9 +199,19 @@ export function _buildZipLambda({
           .then(results => {
             zip.generateAsync({ type: 'nodebuffer' }).then(blob => {
               // fs.writeFileSync('final.zip', blob);
-              let t = Template()
-                .add(Parameter(`${name}S3BucketParam`, { Type: 'String' }))
-                .add(Parameter(`${name}S3KeyParam`, { Type: 'String' }));
+              let t = Template();
+              let s3BucketVal = Ref(`${name}S3BucketParam`);
+              let s3KeyVal = Ref(`${name}S3KeyParam`);
+              if (bucket) {
+                s3BucketVal = bucket;
+                t = t.add(
+                  Parameter(`${name}S3BucketParam`, { Type: 'String' })
+                );
+              }
+              if (key) {
+                s3KeyVal = key;
+                t = t.add(Parameter(`${name}S3KeyParam`, { Type: 'String' }));
+              }
               if (parameters && parameters.length > 0) {
                 parameters.map(p => {
                   t = t.add(Parameter(`${name}${p}`, { Type: 'String' }));
@@ -207,8 +219,8 @@ export function _buildZipLambda({
               }
               const fn = Lambda.Function(name, {
                 Code: {
-                  S3Bucket: Ref('MyGreatFunctionS3BucketParam'),
-                  S3Key: Ref('MyGreatFunctionS3KeyParam')
+                  S3Bucket: s3BucketVal,
+                  S3Key: s3KeyVal
                 },
                 FunctionName: options.FunctionName,
                 Handler: options.Handler,
@@ -240,9 +252,13 @@ export function buildZipLambda({
   name,
   options,
   parameters,
+  bucket,
+  key,
   output
 }): Promise<IZipLambdaResult> {
   return _buildZipLambda({
+    bucket,
+    key,
     name,
     options,
     output,
@@ -335,8 +351,8 @@ export function buildLambda({
                       }
                       const fn = Lambda.Function(name, {
                         Code: {
-                          S3Bucket: Ref('MyGreatFunctionS3BucketParam'),
-                          S3Key: Ref('MyGreatFunctionS3KeyParam')
+                          S3Bucket: Ref(`${name}S3BucketParam`),
+                          S3Key: Ref(`${name}S3KeyParam`)
                         },
                         FunctionName: options.FunctionName,
                         Handler: options.Handler,
@@ -375,9 +391,13 @@ export function buildZipLambdaTemplate({
   name,
   options,
   parameters,
+  bucket,
+  key,
   output
 }): Promise<IZipLambdaTemplateResult> {
   return _buildZipLambda({
+    bucket,
+    key,
     name,
     options,
     output,
@@ -491,8 +511,8 @@ export function buildLambdaTemplate({
                       t = t.add(
                         Lambda.Function(name, {
                           Code: {
-                            S3Bucket: Ref('MyGreatFunctionS3BucketParam'),
-                            S3Key: Ref('MyGreatFunctionS3KeyParam')
+                            S3Bucket: Ref(`${name}S3BucketParam`),
+                            S3Key: Ref(`${name}S3KeyParam`)
                           },
                           FunctionName: options.FunctionName,
                           Handler: options.Handler,

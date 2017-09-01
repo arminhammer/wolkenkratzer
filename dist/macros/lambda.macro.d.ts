@@ -32,22 +32,26 @@ export declare function buildInlineLambda({path: inputPath, name, options, param
  * Create a Lambda function from a folder or source file
  * @param {} param0
  */
-export declare function _buildZipLambda({path: inputPath, name, options, parameters, output}: {
+export declare function _buildZipLambda({path: inputPath, name, options, parameters, bucket, key, output}: {
     path: any;
     name: any;
     options: any;
     parameters: any;
+    bucket: any;
+    key: any;
     output: any;
 }): Promise<IZipLambdaResult>;
 /**
  * Create a Lambda function from a folder or source file
  * @param {} param0
  */
-export declare function buildZipLambda({path: inputPath, name, options, parameters, output}: {
+export declare function buildZipLambda({path: inputPath, name, options, parameters, bucket, key, output}: {
     path: any;
     name: any;
     options: any;
     parameters: any;
+    bucket: any;
+    key: any;
     output: any;
 }): Promise<IZipLambdaResult>;
 /**
@@ -65,11 +69,13 @@ export declare function buildLambda({path: inputPath, name, options, parameters,
  * Create a Lambda function from a folder or source file
  * @param {} param0
  */
-export declare function buildZipLambdaTemplate({path: inputPath, name, options, parameters, output}: {
+export declare function buildZipLambdaTemplate({path: inputPath, name, options, parameters, bucket, key, output}: {
     path: any;
     name: any;
     options: any;
     parameters: any;
+    bucket: any;
+    key: any;
     output: any;
 }): Promise<IZipLambdaTemplateResult>;
 /**

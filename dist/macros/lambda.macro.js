@@ -133,7 +133,7 @@ exports.buildInlineLambda = buildInlineLambda;
  * Create a Lambda function from a folder or source file
  * @param {} param0
  */
-function _buildZipLambda({ path: inputPath, name, options, parameters, output }) {
+function _buildZipLambda({ path: inputPath, name, options, parameters, bucket, key, output }) {
     name = name ? name : defaultConfig.FunctionName;
     options = options ? lodash_1.merge({}, defaultConfig, options) : defaultConfig;
     inputPath = path_1.resolve(inputPath);
@@ -157,9 +157,17 @@ function _buildZipLambda({ path: inputPath, name, options, parameters, output })
                 .then(results => {
                 zip.generateAsync({ type: 'nodebuffer' }).then(blob => {
                     // fs.writeFileSync('final.zip', blob);
-                    let t = template_1.Template()
-                        .add(parameter_1.Parameter(`${name}S3BucketParam`, { Type: 'String' }))
-                        .add(parameter_1.Parameter(`${name}S3KeyParam`, { Type: 'String' }));
+                    let t = template_1.Template();
+                    let s3BucketVal = intrinsic_1.Ref(`${name}S3BucketParam`);
+                    let s3KeyVal = intrinsic_1.Ref(`${name}S3KeyParam`);
+                    if (bucket) {
+                        s3BucketVal = bucket;
+                        t = t.add(parameter_1.Parameter(`${name}S3BucketParam`, { Type: 'String' }));
+                    }
+                    if (key) {
+                        s3KeyVal = key;
+                        t = t.add(parameter_1.Parameter(`${name}S3KeyParam`, { Type: 'String' }));
+                    }
                     if (parameters && parameters.length > 0) {
                         parameters.map(p => {
                             t = t.add(parameter_1.Parameter(`${name}${p}`, { Type: 'String' }));
@@ -167,8 +175,8 @@ function _buildZipLambda({ path: inputPath, name, options, parameters, output })
                     }
                     const fn = Lambda.Function(name, {
                         Code: {
-                            S3Bucket: intrinsic_1.Ref('MyGreatFunctionS3BucketParam'),
-                            S3Key: intrinsic_1.Ref('MyGreatFunctionS3KeyParam')
+                            S3Bucket: s3BucketVal,
+                            S3Key: s3KeyVal
                         },
                         FunctionName: options.FunctionName,
                         Handler: options.Handler,
@@ -194,12 +202,14 @@ exports._buildZipLambda = _buildZipLambda;
  * Create a Lambda function from a folder or source file
  * @param {} param0
  */
-function buildZipLambda({ path: inputPath, name, options, parameters, output }) {
+function buildZipLambda({ path: inputPath, name, options, parameters, bucket, key, output }) {
     return _buildZipLambda({
         name,
         options,
         output,
         parameters,
+        bucket,
+        key,
         path: inputPath
     });
 }
@@ -276,8 +286,8 @@ function buildLambda({ path: inputPath, name, options, parameters, output }) {
                                 }
                                 const fn = Lambda.Function(name, {
                                     Code: {
-                                        S3Bucket: intrinsic_1.Ref('MyGreatFunctionS3BucketParam'),
-                                        S3Key: intrinsic_1.Ref('MyGreatFunctionS3KeyParam')
+                                        S3Bucket: intrinsic_1.Ref(`${name}S3BucketParam`),
+                                        S3Key: intrinsic_1.Ref(`${name}S3KeyParam`)
                                     },
                                     FunctionName: options.FunctionName,
                                     Handler: options.Handler,
@@ -309,8 +319,10 @@ exports.buildLambda = buildLambda;
  * Create a Lambda function from a folder or source file
  * @param {} param0
  */
-function buildZipLambdaTemplate({ path: inputPath, name, options, parameters, output }) {
+function buildZipLambdaTemplate({ path: inputPath, name, options, parameters, bucket, key, output }) {
     return _buildZipLambda({
+        bucket,
+        key,
         name,
         options,
         output,
@@ -411,8 +423,8 @@ function buildLambdaTemplate({ path: inputPath, name, options, parameters, outpu
                                 }
                                 t = t.add(Lambda.Function(name, {
                                     Code: {
-                                        S3Bucket: intrinsic_1.Ref('MyGreatFunctionS3BucketParam'),
-                                        S3Key: intrinsic_1.Ref('MyGreatFunctionS3KeyParam')
+                                        S3Bucket: intrinsic_1.Ref(`${name}S3BucketParam`),
+                                        S3Key: intrinsic_1.Ref(`${name}S3KeyParam`)
                                     },
                                     FunctionName: options.FunctionName,
                                     Handler: options.Handler,
