@@ -204,12 +204,12 @@ exports._buildZipLambda = _buildZipLambda;
  */
 function buildZipLambda({ path: inputPath, name, options, parameters, bucket, key, output }) {
     return _buildZipLambda({
+        bucket,
+        key,
         name,
         options,
         output,
         parameters,
-        bucket,
-        key,
         path: inputPath
     });
 }
