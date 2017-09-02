@@ -1,6 +1,7 @@
 import { ICreationPolicy } from '../attributes/creationpolicy';
 import { IDeletionPolicy } from '../attributes/deletionpolicy';
 import { IDependsOn } from '../attributes/dependson';
+import { IUpdatePolicy } from '../attributes/updatepolicy';
 export interface IResource {
     readonly kind: 'Resource';
     readonly Name: string;
@@ -11,6 +12,7 @@ export interface IResource {
     readonly CreationPolicy?: ICreationPolicy;
     readonly DeletionPolicy?: IDeletionPolicy;
     readonly DependsOn?: IDependsOn;
+    readonly UpdatePolicy?: IUpdatePolicy;
 }
 /**
  * Create a Resource object
