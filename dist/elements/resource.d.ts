@@ -1,4 +1,5 @@
 import { ICreationPolicy } from '../attributes/creationpolicy';
+import { IDeletionPolicy } from '../attributes/deletionpolicy';
 export interface IResource {
     readonly kind: 'Resource';
     readonly Name: string;
@@ -7,6 +8,7 @@ export interface IResource {
     readonly Condition?: string;
     readonly Metadata?: any;
     readonly CreationPolicy?: ICreationPolicy;
+    readonly DeletionPolicy?: IDeletionPolicy;
 }
 /**
  * Create a Resource object

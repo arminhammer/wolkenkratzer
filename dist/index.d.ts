@@ -7,6 +7,8 @@ export { Resource, CustomResource } from './elements/resource';
 export { Condition } from './elements/condition';
 export { Ref, FnGetAtt, FnEquals, FnJoin, FnFindInMap, FnSub, FnAnd } from './intrinsic';
 export { CreationPolicy } from './attributes/creationpolicy';
+export { DeletionPolicy } from './attributes/deletionpolicy';
+export { DependsOn } from './attributes/dependson';
 export { ResourceMetadata } from './attributes/metadata';
 export { S3BucketTransform } from './transform/s3';
 export { getInstanceTypeList, getInstanceTypeNameList } from './macros/ec2meta.macro';

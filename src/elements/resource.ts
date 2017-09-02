@@ -1,5 +1,6 @@
 import { ICreationPolicy } from '../attributes/creationpolicy';
 import { IDeletionPolicy } from '../attributes/deletionpolicy';
+import { IDependsOn } from '../attributes/dependson';
 
 export interface IResource {
   readonly kind: 'Resource';
@@ -10,6 +11,7 @@ export interface IResource {
   readonly Metadata?: any;
   readonly CreationPolicy?: ICreationPolicy;
   readonly DeletionPolicy?: IDeletionPolicy;
+  readonly DependsOn?: IDependsOn;
 }
 
 /**

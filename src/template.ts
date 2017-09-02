@@ -2,6 +2,7 @@ import stubs from 'cfn-doc-json-stubs';
 import { cloneDeep, omit } from 'lodash';
 import { ICreationPolicy } from './attributes/creationpolicy';
 import { IDeletionPolicy } from './attributes/deletionpolicy';
+import { IDependsOn } from './attributes/dependson';
 import { IResourceMetadata } from './attributes/metadata';
 import { Condition, ICondition } from './elements/condition';
 import { Description, IDescription } from './elements/description';
@@ -87,7 +88,12 @@ export function Template(): ITemplate {
      * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
      */
     add: function(
-      e: IElement | ICreationPolicy | IDeletionPolicy | IResourceMetadata,
+      e:
+        | IElement
+        | ICreationPolicy
+        | IDeletionPolicy
+        | IResourceMetadata
+        | IDependsOn,
       options?: IAddOptions
     ): ITemplate {
       const _t = cloneDeep(this);
@@ -96,6 +102,8 @@ export function Template(): ITemplate {
           return _addCreationPolicy(_t, e);
         case 'DeletionPolicy':
           return _addDeletionPolicy(_t, e);
+        case 'DependsOn':
+          return _addDependsOn(_t, e);
         case 'ResourceMetadata':
           return _addResourceMetadata(_t, e);
         case 'Condition':
@@ -358,6 +366,7 @@ function _buildResource(t: IResource) {
     Properties,
     CreationPolicy,
     DeletionPolicy,
+    DependsOn,
     Metadata,
     Condition: condition
   } = newT;
@@ -381,6 +390,9 @@ function _buildResource(t: IResource) {
   }
   if (DeletionPolicy) {
     result.DeletionPolicy = _json(DeletionPolicy);
+  }
+  if (DependsOn) {
+    result.DependsOn = _json(DependsOn);
   }
   if (Metadata) {
     result.Metadata = _json(Metadata);
@@ -409,7 +421,11 @@ function _buildCreationPolicy(t: ICreationPolicy) {
 
 function _buildDeletionPolicy(t: IDeletionPolicy) {
   const { Content } = t;
-  console.log('here');
+  return Content;
+}
+
+function _buildDependsOn(t: IDependsOn) {
+  const { Content } = t;
   return Content;
 }
 
@@ -502,6 +518,7 @@ export function _json(
     | IFnSub
     | ICreationPolicy
     | IDeletionPolicy
+    | IDependsOn
     | IFnEquals
     | IFnIf
     | IFnNot
@@ -527,6 +544,8 @@ export function _json(
       return _buildCreationPolicy(t);
     case 'DeletionPolicy':
       return _buildDeletionPolicy(t);
+    case 'DependsOn':
+      return _buildDependsOn(t);
     case 'ResourceMetadata':
       return _buildResourceMetadata(t);
     case 'Condition':
@@ -573,6 +592,19 @@ function _addDeletionPolicy(t: ITemplate, e: IDeletionPolicy): ITemplate {
   }
   const resource = { ...result.Resources[e.Resource] };
   resource.DeletionPolicy = e;
+  result.Resources[e.Resource] = resource;
+  return result;
+}
+
+function _addDependsOn(t: ITemplate, e: IDependsOn): ITemplate {
+  const result: any = cloneDeep(t);
+  if (!result.Resources[e.Resource]) {
+    throw new SyntaxError(
+      'Cannot add DeletionPolicy to a Resource that does not exist in the template.'
+    );
+  }
+  const resource = { ...result.Resources[e.Resource] };
+  resource.DependsOn = e;
   result.Resources[e.Resource] = resource;
   return result;
 }

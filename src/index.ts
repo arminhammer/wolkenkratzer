@@ -17,6 +17,7 @@ export {
 
 export { CreationPolicy } from './attributes/creationpolicy';
 export { DeletionPolicy } from './attributes/deletionpolicy';
+export { DependsOn } from './attributes/dependson';
 export { ResourceMetadata } from './attributes/metadata';
 import stubs from 'cfn-doc-json-stubs';
 import { IService, Service } from './service';
