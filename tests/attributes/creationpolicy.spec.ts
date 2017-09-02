@@ -2,7 +2,7 @@ const { Template, CloudFormation, CreationPolicy } = require('../../src/index');
 
 describe('CreationPolicy', () => {
   test('Can add a CreationPolicy', () => {
-    let t = Template()
+    const t = Template()
       .add(CloudFormation.WaitCondition('WaitCondition'))
       .add(
         CreationPolicy('WaitCondition', {

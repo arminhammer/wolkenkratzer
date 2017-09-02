@@ -2,6 +2,7 @@ import { ICreationPolicy } from './attributes/creationpolicy';
 import { IDeletionPolicy } from './attributes/deletionpolicy';
 import { IDependsOn } from './attributes/dependson';
 import { IResourceMetadata } from './attributes/metadata';
+import { IUpdatePolicy } from './attributes/updatepolicy';
 import { ICondition } from './elements/condition';
 import { IElement } from './elements/element';
 import { IMapping } from './elements/mapping';
@@ -55,4 +56,4 @@ export interface IAddOptions {
  * @returns ITemplate
  */
 export declare function Template(): ITemplate;
-export declare function _json(t: IElement | IFnAnd | IFnFindInMap | IRef | IFnGetAtt | IFnJoin | IFnSub | ICreationPolicy | IDeletionPolicy | IDependsOn | IFnEquals | IFnIf | IFnNot | IFnOr | IResourceMetadata): any;
+export declare function _json(t: IElement | IFnAnd | IFnFindInMap | IRef | IFnGetAtt | IFnJoin | IFnSub | ICreationPolicy | IDeletionPolicy | IDependsOn | IFnEquals | IFnIf | IFnNot | IFnOr | IResourceMetadata | IUpdatePolicy): any;

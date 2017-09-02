@@ -4,6 +4,7 @@ import { ICreationPolicy } from './attributes/creationpolicy';
 import { IDeletionPolicy } from './attributes/deletionpolicy';
 import { IDependsOn } from './attributes/dependson';
 import { IResourceMetadata } from './attributes/metadata';
+import { IUpdatePolicy } from './attributes/updatepolicy';
 import { Condition, ICondition } from './elements/condition';
 import { Description, IDescription } from './elements/description';
 import { IElement } from './elements/element';
@@ -93,7 +94,8 @@ export function Template(): ITemplate {
         | ICreationPolicy
         | IDeletionPolicy
         | IResourceMetadata
-        | IDependsOn,
+        | IDependsOn
+        | IUpdatePolicy,
       options?: IAddOptions
     ): ITemplate {
       const _t = cloneDeep(this);
@@ -106,6 +108,8 @@ export function Template(): ITemplate {
           return _addDependsOn(_t, e);
         case 'ResourceMetadata':
           return _addResourceMetadata(_t, e);
+        case 'UpdatePolicy':
+          return _addUpdatePolicy(_t, e);
         case 'Condition':
           return _addCondition(_t, e);
         case 'Mapping':
@@ -368,7 +372,8 @@ function _buildResource(t: IResource) {
     DeletionPolicy,
     DependsOn,
     Metadata,
-    Condition: condition
+    Condition: condition,
+    UpdatePolicy
   } = newT;
   const newProps = {};
   const result: any = { Type };
@@ -397,6 +402,9 @@ function _buildResource(t: IResource) {
   if (Metadata) {
     result.Metadata = _json(Metadata);
   }
+  if (UpdatePolicy) {
+    result.UpdatePolicy = _json(UpdatePolicy);
+  }
   if (condition) {
     result.Condition = condition;
   }
@@ -420,6 +428,11 @@ function _buildCreationPolicy(t: ICreationPolicy) {
 }
 
 function _buildDeletionPolicy(t: IDeletionPolicy) {
+  const { Content } = t;
+  return Content;
+}
+
+function _buildUpdatePolicy(t: IUpdatePolicy) {
   const { Content } = t;
   return Content;
 }
@@ -524,6 +537,7 @@ export function _json(
     | IFnNot
     | IFnOr
     | IResourceMetadata
+    | IUpdatePolicy
 ) {
   switch (t.kind) {
     case 'Ref':
@@ -548,6 +562,8 @@ export function _json(
       return _buildDependsOn(t);
     case 'ResourceMetadata':
       return _buildResourceMetadata(t);
+    case 'UpdatePolicy':
+      return _buildUpdatePolicy(t);
     case 'Condition':
       return _buildCondition(t);
     case 'Mapping':
@@ -592,6 +608,19 @@ function _addDeletionPolicy(t: ITemplate, e: IDeletionPolicy): ITemplate {
   }
   const resource = { ...result.Resources[e.Resource] };
   resource.DeletionPolicy = e;
+  result.Resources[e.Resource] = resource;
+  return result;
+}
+
+function _addUpdatePolicy(t: ITemplate, e: IUpdatePolicy): ITemplate {
+  const result: any = cloneDeep(t);
+  if (!result.Resources[e.Resource]) {
+    throw new SyntaxError(
+      'Cannot add DeletionPolicy to a Resource that does not exist in the template.'
+    );
+  }
+  const resource = { ...result.Resources[e.Resource] };
+  resource.UpdatePolicy = e;
   result.Resources[e.Resource] = resource;
   return result;
 }

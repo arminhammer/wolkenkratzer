@@ -8,6 +8,7 @@ export { Condition } from './elements/condition';
 export { Ref, FnGetAtt, FnEquals, FnJoin, FnFindInMap, FnSub, FnAnd } from './intrinsic';
 export { CreationPolicy } from './attributes/creationpolicy';
 export { DeletionPolicy } from './attributes/deletionpolicy';
+export { UpdatePolicy } from './attributes/updatepolicy';
 export { DependsOn } from './attributes/dependson';
 export { ResourceMetadata } from './attributes/metadata';
 export { S3BucketTransform } from './transform/s3';

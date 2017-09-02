@@ -50,6 +50,8 @@ function Template() {
                     return _addDependsOn(_t, e);
                 case 'ResourceMetadata':
                     return _addResourceMetadata(_t, e);
+                case 'UpdatePolicy':
+                    return _addUpdatePolicy(_t, e);
                 case 'Condition':
                     return _addCondition(_t, e);
                 case 'Mapping':
@@ -291,7 +293,7 @@ function _cleanObject(object) {
 }
 function _buildResource(t) {
     const newT = lodash_1.cloneDeep(t);
-    const { Type, Properties, CreationPolicy, DeletionPolicy, DependsOn, Metadata, Condition: condition } = newT;
+    const { Type, Properties, CreationPolicy, DeletionPolicy, DependsOn, Metadata, Condition: condition, UpdatePolicy } = newT;
     const newProps = {};
     const result = { Type };
     if (Properties) {
@@ -320,6 +322,9 @@ function _buildResource(t) {
     if (Metadata) {
         result.Metadata = _json(Metadata);
     }
+    if (UpdatePolicy) {
+        result.UpdatePolicy = _json(UpdatePolicy);
+    }
     if (condition) {
         result.Condition = condition;
     }
@@ -340,6 +345,10 @@ function _buildCreationPolicy(t) {
     return Content;
 }
 function _buildDeletionPolicy(t) {
+    const { Content } = t;
+    return Content;
+}
+function _buildUpdatePolicy(t) {
     const { Content } = t;
     return Content;
 }
@@ -445,6 +454,8 @@ function _json(t) {
             return _buildDependsOn(t);
         case 'ResourceMetadata':
             return _buildResourceMetadata(t);
+        case 'UpdatePolicy':
+            return _buildUpdatePolicy(t);
         case 'Condition':
             return _buildCondition(t);
         case 'Mapping':
@@ -483,6 +494,16 @@ function _addDeletionPolicy(t, e) {
     }
     const resource = Object.assign({}, result.Resources[e.Resource]);
     resource.DeletionPolicy = e;
+    result.Resources[e.Resource] = resource;
+    return result;
+}
+function _addUpdatePolicy(t, e) {
+    const result = lodash_1.cloneDeep(t);
+    if (!result.Resources[e.Resource]) {
+        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
+    }
+    const resource = Object.assign({}, result.Resources[e.Resource]);
+    resource.UpdatePolicy = e;
     result.Resources[e.Resource] = resource;
     return result;
 }
