@@ -17905,6 +17905,7 @@ function _buildResource(t) {
     const newT = lodash_1(t);
     const { Type, Properties, CreationPolicy, Metadata, Condition: condition } = newT;
     const newProps = {};
+    const result = { Type };
     if (Properties) {
         Object.keys(Properties).map(p => {
             // Ignore empty arrays
@@ -17917,8 +17918,8 @@ function _buildResource(t) {
                 }
             }
         });
+        result.Properties = newProps;
     }
-    const result = { Type, Properties: newProps };
     if (CreationPolicy) {
         result.CreationPolicy = _json(CreationPolicy);
     }

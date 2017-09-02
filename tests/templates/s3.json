@@ -1,21 +1,20 @@
 {
-    "Resources": {
-        "Bucket": {
-            "Type": "AWS::S3::Bucket",
-            "Properties": {}
+  "Resources": {
+    "Bucket": {
+      "Type": "AWS::S3::Bucket"
+    }
+  },
+  "Outputs": {
+    "BucketS3BucketOutput": {
+      "Value": {
+        "Ref": "Bucket"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-S3-Bucket-Bucket"
         }
-    },
-    "Outputs": {
-        "BucketS3BucketOutput": {
-            "Value": {
-                "Ref": "Bucket"
-            },
-            "Export": {
-                "Name": {
-                    "Fn::Sub": "${AWS::StackName}-S3-Bucket-Bucket"
-                }
-            }
-        }
-    },
-    "AWSTemplateFormatVersion": "2010-09-09"
+      }
+    }
+  },
+  "AWSTemplateFormatVersion": "2010-09-09"
 }

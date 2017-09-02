@@ -39,8 +39,7 @@ describe('Condition', () => {
       Resources: {
         Bucket: {
           Condition: 'isProd',
-          Type: 'AWS::S3::Bucket',
-          Properties: {}
+          Type: 'AWS::S3::Bucket'
         }
       },
       Conditions: {

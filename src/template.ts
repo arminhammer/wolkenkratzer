@@ -1,6 +1,7 @@
 import stubs from 'cfn-doc-json-stubs';
 import { cloneDeep, omit } from 'lodash';
 import { ICreationPolicy } from './attributes/creationpolicy';
+import { IDeletionPolicy } from './attributes/deletionpolicy';
 import { IResourceMetadata } from './attributes/metadata';
 import { Condition, ICondition } from './elements/condition';
 import { Description, IDescription } from './elements/description';
@@ -86,13 +87,15 @@ export function Template(): ITemplate {
      * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
      */
     add: function(
-      e: IElement | ICreationPolicy | IResourceMetadata,
+      e: IElement | ICreationPolicy | IDeletionPolicy | IResourceMetadata,
       options?: IAddOptions
     ): ITemplate {
       const _t = cloneDeep(this);
       switch (e.kind) {
         case 'CreationPolicy':
           return _addCreationPolicy(_t, e);
+        case 'DeletionPolicy':
+          return _addDeletionPolicy(_t, e);
         case 'ResourceMetadata':
           return _addResourceMetadata(_t, e);
         case 'Condition':
@@ -354,10 +357,12 @@ function _buildResource(t: IResource) {
     Type,
     Properties,
     CreationPolicy,
+    DeletionPolicy,
     Metadata,
     Condition: condition
   } = newT;
   const newProps = {};
+  const result: any = { Type };
   if (Properties) {
     Object.keys(Properties).map(p => {
       // Ignore empty arrays
@@ -369,10 +374,13 @@ function _buildResource(t: IResource) {
         }
       }
     });
+    result.Properties = newProps;
   }
-  const result: any = { Type, Properties: newProps };
   if (CreationPolicy) {
     result.CreationPolicy = _json(CreationPolicy);
+  }
+  if (DeletionPolicy) {
+    result.DeletionPolicy = _json(DeletionPolicy);
   }
   if (Metadata) {
     result.Metadata = _json(Metadata);
@@ -396,6 +404,12 @@ function _buildCondition(t: ICondition): string {
 
 function _buildCreationPolicy(t: ICreationPolicy) {
   const { Content } = t;
+  return Content;
+}
+
+function _buildDeletionPolicy(t: IDeletionPolicy) {
+  const { Content } = t;
+  console.log('here');
   return Content;
 }
 
@@ -487,6 +501,7 @@ export function _json(
     | IFnJoin
     | IFnSub
     | ICreationPolicy
+    | IDeletionPolicy
     | IFnEquals
     | IFnIf
     | IFnNot
@@ -510,6 +525,8 @@ export function _json(
       return { 'Fn::Sub': t.FnSub };
     case 'CreationPolicy':
       return _buildCreationPolicy(t);
+    case 'DeletionPolicy':
+      return _buildDeletionPolicy(t);
     case 'ResourceMetadata':
       return _buildResourceMetadata(t);
     case 'Condition':
@@ -543,6 +560,19 @@ function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
   }
   const resource = { ...result.Resources[e.Resource] };
   resource.CreationPolicy = e;
+  result.Resources[e.Resource] = resource;
+  return result;
+}
+
+function _addDeletionPolicy(t: ITemplate, e: IDeletionPolicy): ITemplate {
+  const result: any = cloneDeep(t);
+  if (!result.Resources[e.Resource]) {
+    throw new SyntaxError(
+      'Cannot add DeletionPolicy to a Resource that does not exist in the template.'
+    );
+  }
+  const resource = { ...result.Resources[e.Resource] };
+  resource.DeletionPolicy = e;
   result.Resources[e.Resource] = resource;
   return result;
 }

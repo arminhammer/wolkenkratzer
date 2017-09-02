@@ -16,6 +16,7 @@ export {
 } from './intrinsic';
 
 export { CreationPolicy } from './attributes/creationpolicy';
+export { DeletionPolicy } from './attributes/deletionpolicy';
 export { ResourceMetadata } from './attributes/metadata';
 import stubs from 'cfn-doc-json-stubs';
 import { IService, Service } from './service';
