@@ -217,7 +217,7 @@ export function _buildZipLambda({
                   t = t.add(Parameter(`${name}${p}`, { Type: 'String' }));
                 });
               }
-              const fn = Lambda.Function(name, {
+              const props: any = {
                 Code: {
                   S3Bucket: s3BucketVal,
                   S3Key: s3KeyVal
@@ -232,7 +232,14 @@ export function _buildZipLambda({
                 Runtime: options.Runtime,
                 Timeout: options.Timeout
                 // Tags: options.Tags ? options.Tags.length > 0 : null
-              });
+              };
+              if (Object.keys(options.Environment).length > 0) {
+                props.Environment = options.Environment;
+              }
+              if (options.Tags.length > 0) {
+                props.Tags = options.Tags;
+              }
+              const fn = Lambda.Function(name, props);
               res({
                 FunctionResource: fn,
                 Zip: blob
