@@ -383,35 +383,28 @@ describe('Intrinsic', () => {
 
   test('FnBase64, FnSplit, FnGetAZs, and FnImportValue return valid JSON', () => {
     let t = Template()
-      .add(Parameter('BucketName', { Type: 'String' }))
+      .add(Parameter('NetworkStackNameParameter', { Type: 'String' }))
       .add(
         EC2.Instance('Instance', {
           AvailabilityZone: FnSelect(0, FnGetAZs()),
           ImageId: 'ami-123456',
           InstanceType: 'm2.4xlarge',
           SecurityGroupIds: FnSplit(',', 'sg-123456,sg-234567'),
-          SubnetId: {
-            'Fn::ImportValue': {
-              'Fn::Sub': '${NetworkStackNameParameter}-SubnetID'
-            }
-          },
-          UserData: {
-            'Fn::Base64': {
-              'Fn::Join': [
-                '',
-                [
-                  '#!/bin/bash -e\n',
-                  'wget https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chef_11.6.2-1.ubuntu.12.04_amd64.deb\n',
-                  'dpkg -i chef_11.6.2-1.ubuntu.12.04_amd64.deb\n'
-                ]
-              ]
-            }
-          }
+          SubnetId: FnImportValue(
+            FnSub('${NetworkStackNameParameter}-SubnetID')
+          ),
+          UserData: FnBase64(
+            FnJoin('', [
+              '#!/bin/bash -e\n',
+              'wget https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chef_11.6.2-1.ubuntu.12.04_amd64.deb\n',
+              'dpkg -i chef_11.6.2-1.ubuntu.12.04_amd64.deb\n'
+            ])
+          )
         })
       );
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
-      Parameters: { BucketName: { Type: 'String' } },
+      Parameters: { NetworkStackNameParameter: { Type: 'String' } },
       Resources: {
         Instance: {
           Type: 'AWS::EC2::Instance',

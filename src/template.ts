@@ -496,6 +496,22 @@ function _buildFnSplit(t: IFnSplit) {
   }
 }
 
+function _buildFnImportValue(t: IFnImportValue) {
+  if (typeof t.FnImportValue === 'string') {
+    return t.FnImportValue;
+  } else {
+    return _json(t.FnImportValue);
+  }
+}
+
+function _buildFnBase64(t: IFnBase64) {
+  if (typeof t.FnBase64 === 'string') {
+    return t.FnBase64;
+  } else {
+    return _json(t.FnBase64);
+  }
+}
+
 function _buildFnAnd(t: IFnAnd) {
   return t.FnAnd.map(x => {
     if (typeof x === 'string') {
@@ -572,6 +588,7 @@ export function _json(
     | IRef
     | IFnGetAtt
     | IFnGetAZs
+    | IFnImportValue
     | IFnJoin
     | IFnSelect
     | IFnSplit
@@ -589,6 +606,8 @@ export function _json(
   switch (t.kind) {
     case 'Ref':
       return { Ref: t.Ref };
+    case 'FnBase64':
+      return { 'Fn::Base64': _buildFnBase64(t) };
     case 'FnGetAtt':
       return { 'Fn::GetAtt': t.FnGetAtt };
     case 'FnGetAZs':
@@ -601,6 +620,8 @@ export function _json(
       return { 'Fn::FindInMap': _buildFnFindInMap(t) };
     case 'FnEquals':
       return { 'Fn::Equals': _buildFnEquals(t) };
+    case 'FnImportValue':
+      return { 'Fn::ImportValue': _buildFnImportValue(t) };
     case 'FnSelect':
       return { 'Fn::Select': _buildFnSelect(t) };
     case 'FnSplit':
