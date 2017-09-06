@@ -167,16 +167,16 @@ export function FnFindInMap(
 
 export interface IFnGetAZs {
   readonly kind: 'FnGetAZs';
-  readonly FnGetAZs: string;
+  readonly FnGetAZs: string | IRef;
 }
 
 /**
  * Returns an Fn::GetAZs object
  * @param {*} region 
  */
-export function FnGetAZs(region: string | object) {
+export function FnGetAZs(region: string | IRef) {
   if (!region) {
-    region = { Ref: 'AWS::Region' };
+    region = Ref('AWS::Region');
   }
   return { kind: 'FnGetAZs', FnGetAZs: region };
 }
@@ -211,4 +211,55 @@ export function buildIntrinsic(input) {
   } else {
     return input;
   }
+}
+
+export interface IFnImportValue {
+  readonly kind: 'FnImportValue';
+  readonly FnImportValue:
+    | string
+    | IFnBase64
+    | IFnFindInMap
+    | IFnIf
+    | IFnJoin
+    | IFnSelect
+    | IFnSplit
+    | IFnSub
+    | IRef;
+}
+
+/**
+ * Returns an Fn::ImportValue object
+ * @param {*} region 
+ */
+export function FnImportValue(
+  value:
+    | string
+    | IFnBase64
+    | IFnFindInMap
+    | IFnIf
+    | IFnJoin
+    | IFnSelect
+    | IFnSplit
+    | IFnSub
+    | IRef
+): IFnImportValue {
+  return { kind: 'FnImportValue', FnImportValue: value };
+}
+
+export interface IFnSplit {
+  readonly kind: 'FnSplit';
+  readonly FnSplit: Array<string>;
+}
+
+/**
+ * Returns an Fn::Split object
+ * @param {*} mapName 
+ * @param {*} topLevelKey 
+ * @param {*} secondLevelKey 
+ */
+export function FnSplit(delimiter: string, value: string): IFnSplit {
+  return {
+    FnSplit: [delimiter, value],
+    kind: 'FnSplit'
+  };
 }

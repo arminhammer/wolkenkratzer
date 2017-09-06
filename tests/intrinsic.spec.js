@@ -2,10 +2,14 @@ const {
   Template,
   Ref,
   Condition,
+  FnBase64,
   FnGetAtt,
+  FnGetAZs,
   FnEquals,
+  FnImportValue,
   FnJoin,
   FnAnd,
+  FnSplit,
   FnSub,
   Parameter,
   Pseudo,
@@ -32,19 +36,21 @@ describe('Intrinsic', () => {
   });
 
   test('FnGetAtt turns to valid JSON', () => {
-    let t = Template().add(Parameter('BucketName', { Type: 'String' })).add(
-      S3.Bucket('S3Bucket', {
-        BucketName: Ref('BucketName'),
-        NotificationConfiguration: {
-          LambdaConfigurations: [
-            {
-              Event: 's3:ObjectCreated:*',
-              Function: FnGetAtt('LambdaFunction', 'Arn')
-            }
-          ]
-        }
-      })
-    );
+    let t = Template()
+      .add(Parameter('BucketName', { Type: 'String' }))
+      .add(
+        S3.Bucket('S3Bucket', {
+          BucketName: Ref('BucketName'),
+          NotificationConfiguration: {
+            LambdaConfigurations: [
+              {
+                Event: 's3:ObjectCreated:*',
+                Function: FnGetAtt('LambdaFunction', 'Arn')
+              }
+            ]
+          }
+        })
+      );
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
       Parameters: { BucketName: { Type: 'String' } },
@@ -153,14 +159,16 @@ describe('Intrinsic', () => {
   });
 
   test('FnJoin returns to valid JSON when using an embedded intrinsic', () => {
-    let t = Template().add(Parameter('BucketName', { Type: 'String' })).add(
-      S3.Bucket('S3Bucket', {
-        BucketName: FnJoin('-', [
-          FnFindInMap('Map', 'Variables', 'Value'),
-          `MyBucket`
-        ])
-      })
-    );
+    let t = Template()
+      .add(Parameter('BucketName', { Type: 'String' }))
+      .add(
+        S3.Bucket('S3Bucket', {
+          BucketName: FnJoin('-', [
+            FnFindInMap('Map', 'Variables', 'Value'),
+            `MyBucket`
+          ])
+        })
+      );
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
       Parameters: { BucketName: { Type: 'String' } },
@@ -259,19 +267,21 @@ describe('Intrinsic', () => {
   });
 
   test('FnFindInMap turns to valid JSON', () => {
-    let t = Template().add(Parameter('BucketName', { Type: 'String' })).add(
-      S3.Bucket('S3Bucket', {
-        BucketName: FnFindInMap('One', 'Two', 'Three'),
-        NotificationConfiguration: {
-          LambdaConfigurations: [
-            {
-              Event: 's3:ObjectCreated:*',
-              Function: FnGetAtt('LambdaFunction', 'Arn')
-            }
-          ]
-        }
-      })
-    );
+    let t = Template()
+      .add(Parameter('BucketName', { Type: 'String' }))
+      .add(
+        S3.Bucket('S3Bucket', {
+          BucketName: FnFindInMap('One', 'Two', 'Three'),
+          NotificationConfiguration: {
+            LambdaConfigurations: [
+              {
+                Event: 's3:ObjectCreated:*',
+                Function: FnGetAtt('LambdaFunction', 'Arn')
+              }
+            ]
+          }
+        })
+      );
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
       Parameters: { BucketName: { Type: 'String' } },
@@ -297,19 +307,21 @@ describe('Intrinsic', () => {
   });
 
   test('FnFindInMap turns to valid JSON with embedded Ref', () => {
-    let t = Template().add(Parameter('BucketName', { Type: 'String' })).add(
-      S3.Bucket('S3Bucket', {
-        BucketName: FnFindInMap('One', Ref(Pseudo.AWS_REGION), 'Three'),
-        NotificationConfiguration: {
-          LambdaConfigurations: [
-            {
-              Event: 's3:ObjectCreated:*',
-              Function: FnGetAtt('LambdaFunction', 'Arn')
-            }
-          ]
-        }
-      })
-    );
+    let t = Template()
+      .add(Parameter('BucketName', { Type: 'String' }))
+      .add(
+        S3.Bucket('S3Bucket', {
+          BucketName: FnFindInMap('One', Ref(Pseudo.AWS_REGION), 'Three'),
+          NotificationConfiguration: {
+            LambdaConfigurations: [
+              {
+                Event: 's3:ObjectCreated:*',
+                Function: FnGetAtt('LambdaFunction', 'Arn')
+              }
+            ]
+          }
+        })
+      );
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
       Parameters: { BucketName: { Type: 'String' } },
@@ -333,4 +345,89 @@ describe('Intrinsic', () => {
       }
     });
   });
+
+  test('Can create an FnBase64', () => {
+    const r = FnBase64('One, Two, Three');
+    expect(r).toEqual({
+      kind: 'FnBase64',
+      FnBase64: 'One, Two, Three'
+    });
+  });
+
+  test('Can create an FnGetAZs', () => {
+    const r = FnGetAZs('us-east-1');
+    expect(r).toEqual({
+      kind: 'FnGetAZs',
+      FnGetAZs: 'us-east-1'
+    });
+  });
+
+  test('Can create an FnImportValue', () => {
+    const r = FnImportValue('One, Two, Three');
+    expect(r).toEqual({
+      kind: 'FnImportValue',
+      FnImportValue: 'One, Two, Three'
+    });
+  });
+
+  test('Can create an FnSplit', () => {
+    const r = FnSplit(',', 'One,Two,Three');
+    expect(r).toEqual({
+      kind: 'FnSplit',
+      FnSplit: [',', 'One,Two,Three']
+    });
+  });
+
+  /*
+  test('FnBase64, FnSplit, FnGetAZs, and FnImportValue return valid JSON', () => {
+    let t = Template()
+      .add(Parameter('BucketName', { Type: 'String' }))
+      .add(
+        S3.Bucket('S3Bucket', {
+          BucketName: FnFindInMap('One', 'Two', 'Three'),
+          NotificationConfiguration: {
+            LambdaConfigurations: [
+              {
+                Event: 's3:ObjectCreated:*',
+                Function: FnGetAtt('LambdaFunction', 'Arn')
+              }
+            ]
+          }
+        })
+      );
+    expect(t.build()).toEqual({
+      AWSTemplateFormatVersion: '2010-09-09',
+      Parameters: { BucketName: { Type: 'String' } },
+      Resources: {
+        Instance: {
+          Type: 'AWS::EC2::Instance',
+          Properties: {
+            AvailabilityZone: {
+              'Fn::Select': ['0', { 'Fn::GetAZs': '' }]
+            },
+            InstanceType: 'm2.4xlarge',
+            SecurityGroupIds: { 'Fn::Split': [',', 'sg-123456,sg-234567'] },
+            SubnetId: {
+              'Fn::ImportValue': {
+                'Fn::Sub': '${NetworkStackNameParameter}-SubnetID'
+              }
+            },
+            UserData: {
+              'Fn::Base64': {
+                'Fn::Join': [
+                  '',
+                  [
+                    '#!/bin/bash -e\n',
+                    'wget https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chef_11.6.2-1.ubuntu.12.04_amd64.deb\n',
+                    'dpkg -i chef_11.6.2-1.ubuntu.12.04_amd64.deb\n'
+                  ]
+                ]
+              }
+            }
+          }
+        }
+      }
+    });
+  });
+  */
 });

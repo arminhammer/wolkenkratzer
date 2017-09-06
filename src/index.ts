@@ -7,10 +7,14 @@ export { Resource, CustomResource } from './elements/resource';
 export { Condition } from './elements/condition';
 export {
   Ref,
+  FnBase64,
   FnGetAtt,
+  FnGetAZs,
   FnEquals,
+  FnImportValue,
   FnJoin,
   FnFindInMap,
+  FnSplit,
   FnSub,
   FnAnd
 } from './intrinsic';
