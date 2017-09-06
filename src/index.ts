@@ -14,6 +14,7 @@ export {
   FnImportValue,
   FnJoin,
   FnFindInMap,
+  FnSelect,
   FnSplit,
   FnSub,
   FnAnd

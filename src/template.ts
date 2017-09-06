@@ -14,16 +14,24 @@ import { IParameter, Parameter } from './elements/parameter';
 import { CustomResource, IResource } from './elements/resource';
 import {
   Conditional,
+  FnBase64,
   FnGetAtt,
+  FnGetAZs,
+  FnSplit,
   FnSub,
   IFnAnd,
+  IFnBase64,
   IFnEquals,
   IFnFindInMap,
   IFnGetAtt,
+  IFnGetAZs,
   IFnIf,
+  IFnImportValue,
   IFnJoin,
   IFnNot,
   IFnOr,
+  IFnSelect,
+  IFnSplit,
   IFnSub,
   IIntrinsic,
   IRef,
@@ -472,6 +480,22 @@ function _buildFnFindInMap(t: IFnFindInMap) {
   });
 }
 
+function _buildGetAZs(t: IFnGetAZs) {
+  if (typeof t.FnGetAZs === 'string') {
+    return t.FnGetAZs;
+  } else {
+    return _json(t.FnGetAZs);
+  }
+}
+
+function _buildFnSplit(t: IFnSplit) {
+  if (typeof t.value === 'string') {
+    return [t.delimiter, t.value];
+  } else {
+    return [t.delimiter, _json(t.value)];
+  }
+}
+
 function _buildFnAnd(t: IFnAnd) {
   return t.FnAnd.map(x => {
     if (typeof x === 'string') {
@@ -496,6 +520,25 @@ function _buildFnEquals(t: IFnEquals) {
       return x;
     }
   });
+}
+
+function _buildFnSelect(t: IFnSelect) {
+  let values = t.FnSelect;
+  if (Array.isArray(t.FnSelect)) {
+    values = t.FnSelect.map(x => {
+      if (typeof x === 'string') {
+        return x;
+      } else {
+        if (x.kind) {
+          return _json(x);
+        }
+        return x;
+      }
+    });
+  } else {
+    values = _json(t.FnSelect);
+  }
+  return [t.index, values];
 }
 
 function _buildMapping(t: IMapping) {
@@ -524,10 +567,14 @@ export function _json(
   t:
     | IElement
     | IFnAnd
+    | IFnBase64
     | IFnFindInMap
     | IRef
     | IFnGetAtt
+    | IFnGetAZs
     | IFnJoin
+    | IFnSelect
+    | IFnSplit
     | IFnSub
     | ICreationPolicy
     | IDeletionPolicy
@@ -544,6 +591,8 @@ export function _json(
       return { Ref: t.Ref };
     case 'FnGetAtt':
       return { 'Fn::GetAtt': t.FnGetAtt };
+    case 'FnGetAZs':
+      return { 'Fn::GetAZs': _buildGetAZs(t) };
     case 'FnJoin':
       return _buildFnJoin(t);
     case 'FnAnd':
@@ -552,6 +601,10 @@ export function _json(
       return { 'Fn::FindInMap': _buildFnFindInMap(t) };
     case 'FnEquals':
       return { 'Fn::Equals': _buildFnEquals(t) };
+    case 'FnSelect':
+      return { 'Fn::Select': _buildFnSelect(t) };
+    case 'FnSplit':
+      return { 'Fn::Split': _buildFnSplit(t) };
     case 'FnSub':
       return { 'Fn::Sub': t.FnSub };
     case 'CreationPolicy':

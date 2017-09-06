@@ -5,7 +5,7 @@ export { Output } from './elements/output';
 export { Mapping } from './elements/mapping';
 export { Resource, CustomResource } from './elements/resource';
 export { Condition } from './elements/condition';
-export { Ref, FnGetAtt, FnEquals, FnJoin, FnFindInMap, FnSub, FnAnd } from './intrinsic';
+export { Ref, FnBase64, FnGetAtt, FnGetAZs, FnEquals, FnImportValue, FnJoin, FnFindInMap, FnSelect, FnSplit, FnSub, FnAnd } from './intrinsic';
 export { CreationPolicy } from './attributes/creationpolicy';
 export { DeletionPolicy } from './attributes/deletionpolicy';
 export { UpdatePolicy } from './attributes/updatepolicy';

@@ -2,6 +2,7 @@ const {
   Template,
   Ref,
   Condition,
+  EC2,
   FnBase64,
   FnGetAtt,
   FnGetAZs,
@@ -9,6 +10,7 @@ const {
   FnImportValue,
   FnJoin,
   FnAnd,
+  FnSelect,
   FnSplit,
   FnSub,
   Parameter,
@@ -374,24 +376,36 @@ describe('Intrinsic', () => {
     const r = FnSplit(',', 'One,Two,Three');
     expect(r).toEqual({
       kind: 'FnSplit',
-      FnSplit: [',', 'One,Two,Three']
+      delimiter: ',',
+      value: 'One,Two,Three'
     });
   });
 
-  /*
   test('FnBase64, FnSplit, FnGetAZs, and FnImportValue return valid JSON', () => {
     let t = Template()
       .add(Parameter('BucketName', { Type: 'String' }))
       .add(
-        S3.Bucket('S3Bucket', {
-          BucketName: FnFindInMap('One', 'Two', 'Three'),
-          NotificationConfiguration: {
-            LambdaConfigurations: [
-              {
-                Event: 's3:ObjectCreated:*',
-                Function: FnGetAtt('LambdaFunction', 'Arn')
-              }
-            ]
+        EC2.Instance('Instance', {
+          AvailabilityZone: FnSelect(0, FnGetAZs()),
+          ImageId: 'ami-123456',
+          InstanceType: 'm2.4xlarge',
+          SecurityGroupIds: FnSplit(',', 'sg-123456,sg-234567'),
+          SubnetId: {
+            'Fn::ImportValue': {
+              'Fn::Sub': '${NetworkStackNameParameter}-SubnetID'
+            }
+          },
+          UserData: {
+            'Fn::Base64': {
+              'Fn::Join': [
+                '',
+                [
+                  '#!/bin/bash -e\n',
+                  'wget https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chef_11.6.2-1.ubuntu.12.04_amd64.deb\n',
+                  'dpkg -i chef_11.6.2-1.ubuntu.12.04_amd64.deb\n'
+                ]
+              ]
+            }
           }
         })
       );
@@ -403,8 +417,9 @@ describe('Intrinsic', () => {
           Type: 'AWS::EC2::Instance',
           Properties: {
             AvailabilityZone: {
-              'Fn::Select': ['0', { 'Fn::GetAZs': '' }]
+              'Fn::Select': [0, { 'Fn::GetAZs': { Ref: 'AWS::Region' } }]
             },
+            ImageId: 'ami-123456',
             InstanceType: 'm2.4xlarge',
             SecurityGroupIds: { 'Fn::Split': [',', 'sg-123456,sg-234567'] },
             SubnetId: {
@@ -429,5 +444,4 @@ describe('Intrinsic', () => {
       }
     });
   });
-  */
 });

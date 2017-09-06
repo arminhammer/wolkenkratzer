@@ -80,10 +80,7 @@ export interface IFnBase64 {
  * Returns an Fn::Base64 object
  * @param {*} input
  */
-export declare function FnBase64(input: string): {
-    kind: string;
-    FnBase64: string;
-};
+export declare function FnBase64(input: string): IFnBase64;
 export interface IFnFindInMap {
     readonly kind: 'FnFindInMap';
     readonly FnFindInMap: Array<string>;
@@ -97,27 +94,43 @@ export interface IFnFindInMap {
 export declare function FnFindInMap(mapName: string, topLevelKey: string, secondLevelKey: string): IFnFindInMap;
 export interface IFnGetAZs {
     readonly kind: 'FnGetAZs';
-    readonly FnGetAZs: string;
+    readonly FnGetAZs: string | IRef;
 }
 /**
  * Returns an Fn::GetAZs object
  * @param {*} region
  */
-export declare function FnGetAZs(region: string | object): {
-    kind: string;
-    FnGetAZs: string | object;
-};
+export declare function FnGetAZs(region: string | IRef): IFnGetAZs;
 export interface IFnSelect {
     readonly kind: 'FnSelect';
-    readonly FnFindInMap: string;
+    readonly index: number;
+    readonly FnSelect: Array<string | IFnFindInMap | IFnGetAtt | IFnGetAZs | IFnIf | IFnSplit | IRef>;
 }
 /**
  * Returns an Fn::Select object
  * @param {*} index
  * @param {*} list
  */
-export declare function FnSelect(index: string, list: string): {
-    kind: string;
-    FnSelect: string[];
-};
+export declare function FnSelect(index: string | number, list: Array<string | IFnFindInMap | IFnGetAtt | IFnGetAZs | IFnIf | IFnSplit | IRef>): IFnSelect;
 export declare function buildIntrinsic(input: any): any;
+export interface IFnImportValue {
+    readonly kind: 'FnImportValue';
+    readonly FnImportValue: string | IFnBase64 | IFnFindInMap | IFnIf | IFnJoin | IFnSelect | IFnSplit | IFnSub | IRef;
+}
+/**
+ * Returns an Fn::ImportValue object
+ * @param {*} region
+ */
+export declare function FnImportValue(value: string | IFnBase64 | IFnFindInMap | IFnIf | IFnJoin | IFnSelect | IFnSplit | IFnSub | IRef): IFnImportValue;
+export interface IFnSplit {
+    readonly kind: 'FnSplit';
+    readonly delimiter: string;
+    readonly value: string | IFnBase64 | IFnFindInMap | IFnGetAtt | IFnGetAZs | IFnIf | IFnJoin | IFnSelect | IRef;
+}
+/**
+ * Returns an Fn::Split object
+ * @param {*} mapName
+ * @param {*} topLevelKey
+ * @param {*} secondLevelKey
+ */
+export declare function FnSplit(delimiter: string, value: string): IFnSplit;

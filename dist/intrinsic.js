@@ -93,7 +93,7 @@ exports.FnFindInMap = FnFindInMap;
  */
 function FnGetAZs(region) {
     if (!region) {
-        region = { Ref: 'AWS::Region' };
+        region = Ref('AWS::Region');
     }
     return { kind: 'FnGetAZs', FnGetAZs: region };
 }
@@ -104,7 +104,14 @@ exports.FnGetAZs = FnGetAZs;
  * @param {*} list
  */
 function FnSelect(index, list) {
-    return { kind: 'FnSelect', FnSelect: [index, list] };
+    if (typeof index === 'string') {
+        index = parseInt(index, 10);
+    }
+    return {
+        FnSelect: list,
+        index: index,
+        kind: 'FnSelect'
+    };
 }
 exports.FnSelect = FnSelect;
 function buildIntrinsic(input) {
@@ -122,4 +129,26 @@ function buildIntrinsic(input) {
     }
 }
 exports.buildIntrinsic = buildIntrinsic;
+/**
+ * Returns an Fn::ImportValue object
+ * @param {*} region
+ */
+function FnImportValue(value) {
+    return { kind: 'FnImportValue', FnImportValue: value };
+}
+exports.FnImportValue = FnImportValue;
+/**
+ * Returns an Fn::Split object
+ * @param {*} mapName
+ * @param {*} topLevelKey
+ * @param {*} secondLevelKey
+ */
+function FnSplit(delimiter, value) {
+    return {
+        delimiter: delimiter,
+        kind: 'FnSplit',
+        value: value
+    };
+}
+exports.FnSplit = FnSplit;
 //# sourceMappingURL=intrinsic.js.map

@@ -139,7 +139,7 @@ export interface IFnBase64 {
  * Returns an Fn::Base64 object
  * @param {*} input 
  */
-export function FnBase64(input: string) {
+export function FnBase64(input: string): IFnBase64 {
   return { kind: 'FnBase64', FnBase64: input };
 }
 
@@ -174,7 +174,7 @@ export interface IFnGetAZs {
  * Returns an Fn::GetAZs object
  * @param {*} region 
  */
-export function FnGetAZs(region: string | IRef) {
+export function FnGetAZs(region: string | IRef): IFnGetAZs {
   if (!region) {
     region = Ref('AWS::Region');
   }
@@ -183,7 +183,10 @@ export function FnGetAZs(region: string | IRef) {
 
 export interface IFnSelect {
   readonly kind: 'FnSelect';
-  readonly FnFindInMap: string;
+  readonly index: number;
+  readonly FnSelect: Array<
+    string | IFnFindInMap | IFnGetAtt | IFnGetAZs | IFnIf | IFnSplit | IRef
+  >;
 }
 
 /**
@@ -191,8 +194,20 @@ export interface IFnSelect {
  * @param {*} index 
  * @param {*} list 
  */
-export function FnSelect(index: string, list: string) {
-  return { kind: 'FnSelect', FnSelect: [index, list] };
+export function FnSelect(
+  index: string | number,
+  list: Array<
+    string | IFnFindInMap | IFnGetAtt | IFnGetAZs | IFnIf | IFnSplit | IRef
+  >
+): IFnSelect {
+  if (typeof index === 'string') {
+    index = parseInt(index, 10);
+  }
+  return {
+    FnSelect: list,
+    index: index,
+    kind: 'FnSelect'
+  };
 }
 
 export function buildIntrinsic(input) {
@@ -248,7 +263,17 @@ export function FnImportValue(
 
 export interface IFnSplit {
   readonly kind: 'FnSplit';
-  readonly FnSplit: Array<string>;
+  readonly delimiter: string;
+  readonly value:
+    | string
+    | IFnBase64
+    | IFnFindInMap
+    | IFnGetAtt
+    | IFnGetAZs
+    | IFnIf
+    | IFnJoin
+    | IFnSelect
+    | IRef;
 }
 
 /**
@@ -259,7 +284,8 @@ export interface IFnSplit {
  */
 export function FnSplit(delimiter: string, value: string): IFnSplit {
   return {
-    FnSplit: [delimiter, value],
-    kind: 'FnSplit'
+    delimiter: delimiter,
+    kind: 'FnSplit',
+    value: value
   };
 }
