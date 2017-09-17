@@ -17354,6 +17354,14 @@ var lodash_1 = lodash$1.cloneDeep;
 var lodash_2 = lodash$1.omit;
 
 /**
+ * Returns an Fn::And object
+ * @param {*} one
+ * @param {*} two
+ */
+function FnAnd(one, two) {
+    return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
+}
+/**
  * Returns a Ref object that references another element in the template
  * @param {*} target
  */
@@ -17389,14 +17397,6 @@ function FnJoin(delimiter, values) {
         });
     }
     return { kind: 'FnJoin', Delimiter: delimiter, Values: newValues };
-}
-/**
- * Returns an Fn::And object
- * @param {*} one
- * @param {*} two
- */
-function FnAnd(one, two) {
-    return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
 }
 /**
  * Returns an Fn::Equals object
@@ -17654,6 +17654,7 @@ function Service(json) {
 }
 
 // import { IMetadata } from './elements/metadata';
+/** @module Template */
 /**
  * Returns a new Template object.
  * @member Template

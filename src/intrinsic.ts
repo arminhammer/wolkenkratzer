@@ -1,9 +1,32 @@
-import { ITemplate } from './template';
-import { IParameter, IResource } from './types';
+import {
+  Conditional,
+  IFnAnd,
+  IFnBase64,
+  IFnEquals,
+  IFnFindInMap,
+  IFnGetAtt,
+  IFnGetAZs,
+  IFnIf,
+  IFnImportValue,
+  IFnJoin,
+  IFnNot,
+  IFnOr,
+  IFnSelect,
+  IFnSplit,
+  IFnSub,
+  IParameter,
+  IRef,
+  IResource,
+  ITemplate
+} from './types';
 
-export interface IRef {
-  readonly kind: 'Ref';
-  readonly Ref: string;
+/**
+ * Returns an Fn::And object
+ * @param {*} one 
+ * @param {*} two 
+ */
+export function FnAnd(one: Conditional, two: Conditional): IFnAnd {
+  return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
 }
 
 /**
@@ -18,11 +41,6 @@ export function Ref(target: IResource | IParameter | string): IRef {
   }
 }
 
-export interface IFnGetAtt {
-  readonly kind: 'FnGetAtt';
-  readonly FnGetAtt: Array<string>;
-}
-
 /**
  * Returns an Fn::GetAtt object that references another element in the template
  * @param {*} target 
@@ -34,12 +52,6 @@ export function FnGetAtt(target: IResource | string, attr: string): IFnGetAtt {
   } else {
     return { kind: 'FnGetAtt', FnGetAtt: [target.Name, attr] };
   }
-}
-
-export interface IFnJoin {
-  readonly kind: 'FnJoin';
-  readonly Delimiter: string;
-  readonly Values: Array<string | IFnGetAtt | IRef> | IFnGetAtt;
 }
 
 /**
@@ -58,25 +70,6 @@ export function FnJoin(
   return { kind: 'FnJoin', Delimiter: delimiter, Values: newValues };
 }
 
-export interface IFnAnd {
-  readonly kind: 'FnAnd';
-  readonly FnAnd: Array<Conditional>;
-}
-
-/**
- * Returns an Fn::And object
- * @param {*} one 
- * @param {*} two 
- */
-export function FnAnd(one: Conditional, two: Conditional): IFnAnd {
-  return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
-}
-
-export interface IFnEquals {
-  readonly kind: 'FnEquals';
-  readonly FnEquals: Array<Conditional>;
-}
-
 /**
  * Returns an Fn::Equals object
  * @param {*} one 
@@ -84,41 +77,6 @@ export interface IFnEquals {
  */
 export function FnEquals(one: Conditional, two: Conditional): IFnEquals {
   return { kind: 'FnEquals', FnEquals: [one, two] };
-}
-
-export interface IFnIf {
-  readonly kind: 'FnIf';
-  readonly FnIf: Array<Conditional>;
-}
-
-export interface IFnNot {
-  readonly kind: 'FnNot';
-  readonly FnNot: Array<Conditional>;
-}
-
-export interface IFnOr {
-  readonly kind: 'FnOr';
-  readonly FnOr: Array<Conditional>;
-}
-
-// export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
-export type IIntrinsic =
-  | IRef
-  | IFnGetAtt
-  | IFnJoin
-  | IFnAnd
-  | IFnEquals
-  | IFnIf
-  | IFnNot
-  | IFnOr
-  | ConditionFunction;
-
-export type Conditional = string | IRef | IFnGetAtt;
-export type ConditionFunction = IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
-
-export interface IFnSub {
-  readonly kind: 'FnSub';
-  readonly FnSub: string;
 }
 
 /**
@@ -129,22 +87,12 @@ export function FnSub(input: string): IFnSub {
   return { kind: 'FnSub', FnSub: input };
 }
 
-export interface IFnBase64 {
-  readonly kind: 'FnBase64';
-  readonly FnBase64: string;
-}
-
 /**
  * Returns an Fn::Base64 object
  * @param {*} input 
  */
 export function FnBase64(input: string): IFnBase64 {
   return { kind: 'FnBase64', FnBase64: input };
-}
-
-export interface IFnFindInMap {
-  readonly kind: 'FnFindInMap';
-  readonly FnFindInMap: Array<string>;
 }
 
 /**
@@ -164,11 +112,6 @@ export function FnFindInMap(
   };
 }
 
-export interface IFnGetAZs {
-  readonly kind: 'FnGetAZs';
-  readonly FnGetAZs: string | IRef;
-}
-
 /**
  * Returns an Fn::GetAZs object
  * @param {*} region 
@@ -178,14 +121,6 @@ export function FnGetAZs(region: string | IRef): IFnGetAZs {
     region = Ref('AWS::Region');
   }
   return { kind: 'FnGetAZs', FnGetAZs: region };
-}
-
-export interface IFnSelect {
-  readonly kind: 'FnSelect';
-  readonly index: number;
-  readonly FnSelect: Array<
-    string | IFnFindInMap | IFnGetAtt | IFnGetAZs | IFnIf | IFnSplit | IRef
-  >;
 }
 
 /**
@@ -227,20 +162,6 @@ export function buildIntrinsic(input) {
   }
 }
 
-export interface IFnImportValue {
-  readonly kind: 'FnImportValue';
-  readonly FnImportValue:
-    | string
-    | IFnBase64
-    | IFnFindInMap
-    | IFnIf
-    | IFnJoin
-    | IFnSelect
-    | IFnSplit
-    | IFnSub
-    | IRef;
-}
-
 /**
  * Returns an Fn::ImportValue object
  * @param {*} region 
@@ -258,21 +179,6 @@ export function FnImportValue(
     | IRef
 ): IFnImportValue {
   return { kind: 'FnImportValue', FnImportValue: value };
-}
-
-export interface IFnSplit {
-  readonly kind: 'FnSplit';
-  readonly delimiter: string;
-  readonly value:
-    | string
-    | IFnBase64
-    | IFnFindInMap
-    | IFnGetAtt
-    | IFnGetAZs
-    | IFnIf
-    | IFnJoin
-    | IFnSelect
-    | IRef;
 }
 
 /**

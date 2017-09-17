@@ -1,13 +1,6 @@
 import { cloneDeep } from 'lodash';
-import {
-  buildIntrinsic,
-  IFnAnd,
-  IFnEquals,
-  IFnIf,
-  IFnNot,
-  IFnOr
-} from '../intrinsic';
-import { ICondition } from '../types';
+import { buildIntrinsic } from '../intrinsic';
+import { ICondition, IFnAnd, IFnEquals, IFnIf, IFnNot, IFnOr } from '../types';
 
 /**
  * Create a Condition object

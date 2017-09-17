@@ -21,6 +21,7 @@ const intrinsic_1 = require("./intrinsic");
 // import { IMetadata } from './elements/metadata';
 const pseudo_1 = require("./pseudo");
 const service_1 = require("./service");
+/** @module Template */
 /**
  * Returns a new Template object.
  * @member Template

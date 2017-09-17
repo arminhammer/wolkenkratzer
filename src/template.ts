@@ -6,13 +6,18 @@ import { Mapping } from './elements/mapping';
 import { Output } from './elements/output';
 import { Parameter } from './elements/parameter';
 import { CustomResource } from './elements/resource';
+import { FnBase64, FnGetAtt, FnGetAZs, FnSplit, FnSub, Ref } from './intrinsic';
+// import { IMetadata } from './elements/metadata';
+import { Pseudo } from './pseudo';
+import { Service } from './service';
 import {
   Conditional,
-  FnBase64,
-  FnGetAtt,
-  FnGetAZs,
-  FnSplit,
-  FnSub,
+  IAddOptions,
+  ICondition,
+  ICreationPolicy,
+  IDeletionPolicy,
+  IDependsOn,
+  IDescription,
   IFnAnd,
   IFnBase64,
   IFnEquals,
@@ -29,62 +34,17 @@ import {
   IFnSub,
   IIntrinsic,
   IRef,
-  Ref
-} from './intrinsic';
-// import { IMetadata } from './elements/metadata';
-import { Pseudo } from './pseudo';
-import { Service } from './service';
-import {
-  ICondition,
-  ICreationPolicy,
-  IDeletionPolicy,
-  IDependsOn,
-  IDescription,
   IElement,
   IMapping,
   IOutput,
   IParameter,
   IResource,
   IResourceMetadata,
+  ITemplate,
   IUpdatePolicy
 } from './types';
 
 /** @module Template */
-
-/**
- * Template Interface
- * @member Template
- */
-export interface ITemplate {
-  readonly kind: 'Template';
-  readonly AWSTemplateFormatVersion: string;
-  readonly Description?: void | string;
-  readonly Parameters: { readonly [s: string]: IParameter };
-  // readonly Metadata: { readonly [s: string]: IMetadata };
-  readonly Mappings: { readonly [s: string]: IMapping };
-  readonly Conditions: { readonly [s: string]: ICondition };
-  readonly Resources: { readonly [s: string]: IResource };
-  readonly Outputs: { readonly [s: string]: IOutput };
-  readonly add: (
-    e: IElement | ICreationPolicy | IResourceMetadata,
-    options?: IAddOptions
-  ) => ITemplate;
-  readonly remove: Function;
-  readonly removeDescription: Function;
-  readonly build: () => object;
-  readonly merge: Function;
-  readonly import: Function;
-  readonly map: (iterable: Array<IElement>, mapFn: Function) => ITemplate;
-}
-
-/**
- * IAddOptions Interface
- * @member Template
- */
-export interface IAddOptions {
-  Output: boolean;
-  Parameters?: Array<string>;
-}
 
 /**
  * Returns a new Template object.

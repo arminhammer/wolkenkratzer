@@ -1,6 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
+ * Returns an Fn::And object
+ * @param {*} one
+ * @param {*} two
+ */
+function FnAnd(one, two) {
+    return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
+}
+exports.FnAnd = FnAnd;
+/**
  * Returns a Ref object that references another element in the template
  * @param {*} target
  */
@@ -40,15 +49,6 @@ function FnJoin(delimiter, values) {
     return { kind: 'FnJoin', Delimiter: delimiter, Values: newValues };
 }
 exports.FnJoin = FnJoin;
-/**
- * Returns an Fn::And object
- * @param {*} one
- * @param {*} two
- */
-function FnAnd(one, two) {
-    return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
-}
-exports.FnAnd = FnAnd;
 /**
  * Returns an Fn::Equals object
  * @param {*} one

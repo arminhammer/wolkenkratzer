@@ -1,14 +1,3 @@
-import {
-  IFnAnd,
-  IFnEquals,
-  IFnIf,
-  IFnJoin,
-  IFnNot,
-  IFnOr,
-  IFnSub,
-  IRef
-} from './intrinsic';
-
 /** Elements */
 
 /**
@@ -157,4 +146,162 @@ export interface IUpdatePolicy extends IAttribute {
       IgnoreUnmodifiedGroupSizeProperties?: boolean;
     };
   };
+}
+
+/** Intrinsic Functions */
+
+export type Conditional = string | IRef | IFnGetAtt;
+export type ConditionFunction = IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
+
+export interface IRef {
+  readonly kind: 'Ref';
+  readonly Ref: string;
+}
+
+export interface IFnGetAtt {
+  readonly kind: 'FnGetAtt';
+  readonly FnGetAtt: Array<string>;
+}
+
+export interface IFnJoin {
+  readonly kind: 'FnJoin';
+  readonly Delimiter: string;
+  readonly Values: Array<string | IFnGetAtt | IRef> | IFnGetAtt;
+}
+
+export interface IFnAnd {
+  readonly kind: 'FnAnd';
+  readonly FnAnd: Array<Conditional>;
+}
+
+export interface IFnEquals {
+  readonly kind: 'FnEquals';
+  readonly FnEquals: Array<Conditional>;
+}
+
+export interface IFnIf {
+  readonly kind: 'FnIf';
+  readonly FnIf: Array<Conditional>;
+}
+
+export interface IFnNot {
+  readonly kind: 'FnNot';
+  readonly FnNot: Array<Conditional>;
+}
+
+export interface IFnOr {
+  readonly kind: 'FnOr';
+  readonly FnOr: Array<Conditional>;
+}
+
+// export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
+export type IIntrinsic =
+  | IRef
+  | IFnGetAtt
+  | IFnJoin
+  | IFnAnd
+  | IFnEquals
+  | IFnIf
+  | IFnNot
+  | IFnOr
+  | ConditionFunction;
+
+export interface IFnSub {
+  readonly kind: 'FnSub';
+  readonly FnSub: string;
+}
+
+export interface IFnBase64 {
+  readonly kind: 'FnBase64';
+  readonly FnBase64: string;
+}
+
+export interface IFnFindInMap {
+  readonly kind: 'FnFindInMap';
+  readonly FnFindInMap: Array<string>;
+}
+
+export interface IFnGetAZs {
+  readonly kind: 'FnGetAZs';
+  readonly FnGetAZs: string | IRef;
+}
+
+export interface IFnSelect {
+  readonly kind: 'FnSelect';
+  readonly index: number;
+  readonly FnSelect: Array<
+    string | IFnFindInMap | IFnGetAtt | IFnGetAZs | IFnIf | IFnSplit | IRef
+  >;
+}
+
+export interface IFnImportValue {
+  readonly kind: 'FnImportValue';
+  readonly FnImportValue:
+    | string
+    | IFnBase64
+    | IFnFindInMap
+    | IFnIf
+    | IFnJoin
+    | IFnSelect
+    | IFnSplit
+    | IFnSub
+    | IRef;
+}
+
+export interface IFnSplit {
+  readonly kind: 'FnSplit';
+  readonly delimiter: string;
+  readonly value:
+    | string
+    | IFnBase64
+    | IFnFindInMap
+    | IFnGetAtt
+    | IFnGetAZs
+    | IFnIf
+    | IFnJoin
+    | IFnSelect
+    | IRef;
+}
+
+/**
+ * Internal
+ */
+
+export interface IService {
+  Function?: any;
+}
+
+/**
+ * Template Interface
+ * @member Template
+ */
+export interface ITemplate {
+  readonly kind: 'Template';
+  readonly AWSTemplateFormatVersion: string;
+  readonly Description?: void | string;
+  readonly Parameters: { readonly [s: string]: IParameter };
+  // readonly Metadata: { readonly [s: string]: IMetadata };
+  readonly Mappings: { readonly [s: string]: IMapping };
+  readonly Conditions: { readonly [s: string]: ICondition };
+  readonly Resources: { readonly [s: string]: IResource };
+  readonly Outputs: { readonly [s: string]: IOutput };
+  readonly add: (
+    e: IElement | ICreationPolicy | IResourceMetadata,
+    options?: IAddOptions
+  ) => ITemplate;
+  readonly remove: Function;
+  readonly removeDescription: Function;
+  readonly build: () => object;
+  readonly merge: Function;
+  readonly import: Function;
+  readonly map: (iterable: Array<IElement>, mapFn: Function) => ITemplate;
+}
+
+/**
+ * IAddOptions Interface
+ * @member Template
+ */
+export interface IAddOptions {
+  Output: boolean;
+  Parameters?: Array<string>;
 }

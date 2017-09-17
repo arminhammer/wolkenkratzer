@@ -1,5 +1,4 @@
-import { IFnAnd, IFnEquals, IFnIf, IFnNot, IFnOr } from '../intrinsic';
-import { ICondition } from '../types';
+import { ICondition, IFnAnd, IFnEquals, IFnIf, IFnNot, IFnOr } from '../types';
 /**
  * Create a Condition object
  * @param {*} name

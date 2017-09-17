@@ -4,8 +4,8 @@ import { relative, resolve } from 'path';
 import { Parameter } from '../elements/parameter';
 import { FnJoin, Ref } from '../intrinsic';
 import { Service } from '../service';
-import { ITemplate, Template } from '../template';
-import { IResource } from '../types';
+import { Template } from '../template';
+import { IResource, ITemplate } from '../types';
 
 const fs = require('fs-extra');
 const bluebird = require('bluebird');
