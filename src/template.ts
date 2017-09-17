@@ -1,19 +1,11 @@
 import stubs from 'cfn-doc-json-stubs';
 import { cloneDeep, omit } from 'lodash';
-import { Condition, ICondition } from './elements/condition';
-import { Description, IDescription } from './elements/description';
-import {
-  ICreationPolicy,
-  IDeletionPolicy,
-  IDependsOn,
-  IElement,
-  IResourceMetadata,
-  IUpdatePolicy
-} from './types';
-import { IMapping, Mapping } from './elements/mapping';
-import { IOutput, Output } from './elements/output';
-import { IParameter, Parameter } from './elements/parameter';
-import { CustomResource, IResource } from './elements/resource';
+import { Condition } from './elements/condition';
+import { Description } from './elements/description';
+import { Mapping } from './elements/mapping';
+import { Output } from './elements/output';
+import { Parameter } from './elements/parameter';
+import { CustomResource } from './elements/resource';
 import {
   Conditional,
   FnBase64,
@@ -42,6 +34,20 @@ import {
 // import { IMetadata } from './elements/metadata';
 import { Pseudo } from './pseudo';
 import { Service } from './service';
+import {
+  ICondition,
+  ICreationPolicy,
+  IDeletionPolicy,
+  IDependsOn,
+  IDescription,
+  IElement,
+  IMapping,
+  IOutput,
+  IParameter,
+  IResource,
+  IResourceMetadata,
+  IUpdatePolicy
+} from './types';
 
 /** @module Template */
 

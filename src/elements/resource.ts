@@ -2,21 +2,9 @@ import {
   ICreationPolicy,
   IDeletionPolicy,
   IDependsOn,
+  IResource,
   IUpdatePolicy
 } from '../types';
-
-export interface IResource {
-  readonly kind: 'Resource';
-  readonly Name: string;
-  readonly Type: string;
-  readonly Properties;
-  readonly Condition?: string;
-  readonly Metadata?: any;
-  readonly CreationPolicy?: ICreationPolicy;
-  readonly DeletionPolicy?: IDeletionPolicy;
-  readonly DependsOn?: IDependsOn;
-  readonly UpdatePolicy?: IUpdatePolicy;
-}
 
 /**
  * Create a Resource object

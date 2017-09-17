@@ -2,10 +2,10 @@ import { Lambda as LambdaJson } from 'cfn-doc-json-stubs';
 import { merge } from 'lodash';
 import { relative, resolve } from 'path';
 import { Parameter } from '../elements/parameter';
-import { IResource } from '../elements/resource';
 import { FnJoin, Ref } from '../intrinsic';
 import { Service } from '../service';
 import { ITemplate, Template } from '../template';
+import { IResource } from '../types';
 
 const fs = require('fs-extra');
 const bluebird = require('bluebird');

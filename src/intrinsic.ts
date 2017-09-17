@@ -1,6 +1,5 @@
-import { IParameter } from './elements/parameter';
-import { IResource } from './elements/resource';
 import { ITemplate } from './template';
+import { IParameter, IResource } from './types';
 
 export interface IRef {
   readonly kind: 'Ref';

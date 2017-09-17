@@ -1,10 +1,5 @@
-import { ICondition } from './elements/condition';
-import { ICreationPolicy, IDeletionPolicy, IDependsOn, IElement, IResourceMetadata, IUpdatePolicy } from './types';
-import { IMapping } from './elements/mapping';
-import { IOutput } from './elements/output';
-import { IParameter } from './elements/parameter';
-import { IResource } from './elements/resource';
 import { IFnAnd, IFnBase64, IFnEquals, IFnFindInMap, IFnGetAtt, IFnGetAZs, IFnIf, IFnImportValue, IFnJoin, IFnNot, IFnOr, IFnSelect, IFnSplit, IFnSub, IRef } from './intrinsic';
+import { ICondition, ICreationPolicy, IDeletionPolicy, IDependsOn, IElement, IMapping, IOutput, IParameter, IResource, IResourceMetadata, IUpdatePolicy } from './types';
 /** @module Template */
 /**
  * Template Interface

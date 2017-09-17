@@ -1,11 +1,94 @@
-import { ICondition } from './elements/condition';
-import { IDescription } from './elements/description';
-import { IMapping } from './elements/mapping';
-import { IOutput } from './elements/output';
-import { IParameter } from './elements/parameter';
-import { IResource } from './elements/resource';
+import {
+  IFnAnd,
+  IFnEquals,
+  IFnIf,
+  IFnJoin,
+  IFnNot,
+  IFnOr,
+  IFnSub,
+  IRef
+} from './intrinsic';
+
+/** Elements */
+
+/**
+ * 
+ * 
+ * @export
+ * @interface IElement
+ */
+/*export interface IElement {
+  readonly kind: string;
+}*/
+
+export interface ICondition /*extends IElement*/ {
+  readonly kind: 'Condition';
+  readonly Name: string;
+  readonly Condition: IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
+}
+
+export interface IDescription {
+  readonly kind: 'Description';
+  readonly Content: string;
+}
+
+export interface IMapping {
+  readonly kind: 'Mapping';
+  readonly Name: string;
+  readonly Content: { [s: string]: any };
+}
+
+export interface IOutputProperties {
+  readonly Description?: string;
+  readonly Value: IRef | string;
+  readonly Export?: {
+    Name: IFnSub | IFnJoin | string;
+  };
+  readonly Condition?: string;
+}
+
+export interface IOutput {
+  readonly kind: 'Output';
+  readonly Name: string;
+  readonly Properties: IOutputProperties;
+  readonly Condition?: string;
+}
+
+export interface IParameterProperties {
+  readonly Type: string;
+  readonly AllowedPattern?: string;
+  readonly AllowedValues?: string;
+  readonly ConstraintDescription?: string;
+  readonly Default?: string;
+  readonly Description?: string;
+  readonly MaxLength?: string;
+  readonly MaxValue?: string;
+  readonly MinLength?: string;
+  readonly MinValue?: string;
+  readonly NoEcho?: string;
+}
+
+export interface IParameter {
+  readonly kind: 'Parameter';
+  readonly Name: string;
+  readonly Properties: IParameterProperties;
+}
+
+export interface IResource {
+  readonly kind: 'Resource';
+  readonly Name: string;
+  readonly Type: string;
+  readonly Properties;
+  readonly Condition?: string;
+  readonly Metadata?: any;
+  readonly CreationPolicy?: ICreationPolicy;
+  readonly DeletionPolicy?: IDeletionPolicy;
+  readonly DependsOn?: IDependsOn;
+  readonly UpdatePolicy?: IUpdatePolicy;
+}
 
 export type IElement =
+  | ICondition
   | IParameter
   | IDescription
   | IOutput
@@ -13,6 +96,14 @@ export type IElement =
   | ICondition
   | IMapping;
 
+/** Attributes */
+
+/**
+ * 
+ * 
+ * @export
+ * @interface IAttribute
+ */
 export interface IAttribute {}
 
 export interface ICreationPolicy extends IAttribute {
