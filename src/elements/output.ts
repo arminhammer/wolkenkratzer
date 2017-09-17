@@ -4,9 +4,9 @@ import {
   IFnGetAtt,
   IFnJoin,
   IFnSub,
-  IRef,
   IOutput,
-  IOutputProperties
+  IOutputProperties,
+  IRef
 } from '../types';
 
 /**

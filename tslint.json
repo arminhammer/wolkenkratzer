@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "tslint:latest",
-    "tslint-config-prettier",
-    "tslint-microsoft-contrib"
-  ],
+  "extends": ["tslint:latest", "tslint-config-prettier"],
   "rules": {
     "no-var-requires": false,
     "no-console": false,
