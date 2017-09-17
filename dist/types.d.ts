@@ -67,15 +67,7 @@ export interface IResource {
 }
 export declare type IElement = ICondition | IParameter | IDescription | IOutput | IResource | ICondition | IMapping;
 /** Attributes */
-/**
- *
- *
- * @export
- * @interface IAttribute
- */
-export interface IAttribute {
-}
-export interface ICreationPolicy extends IAttribute {
+export interface ICreationPolicy {
     readonly kind: 'CreationPolicy';
     readonly Resource: string;
     readonly Content: {
@@ -88,22 +80,22 @@ export interface ICreationPolicy extends IAttribute {
         };
     };
 }
-export interface IDeletionPolicy extends IAttribute {
+export interface IDeletionPolicy {
     readonly kind: 'DeletionPolicy';
     readonly Resource: string;
     readonly Content: 'Delete' | 'Retain' | 'Snapshot';
 }
-export interface IDependsOn extends IAttribute {
+export interface IDependsOn {
     readonly kind: 'DependsOn';
     readonly Resource: string;
     readonly Content: string | string[];
 }
-export interface IResourceMetadata extends IAttribute {
+export interface IResourceMetadata {
     readonly kind: 'ResourceMetadata';
     readonly Resource: string;
     readonly Content: any;
 }
-export interface IUpdatePolicy extends IAttribute {
+export interface IUpdatePolicy {
     readonly kind: 'UpdatePolicy';
     readonly Resource: string;
     readonly Content: {
@@ -123,6 +115,7 @@ export interface IUpdatePolicy extends IAttribute {
         };
     };
 }
+export declare type IAttribute = ICreationPolicy | IDeletionPolicy | IDependsOn | IResourceMetadata | IUpdatePolicy;
 /** Intrinsic Functions */
 export declare type Conditional = string | IRef | IFnGetAtt;
 export declare type ConditionFunction = IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;

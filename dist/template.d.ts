@@ -1,4 +1,4 @@
-import { ICreationPolicy, IDeletionPolicy, IDependsOn, IFnAnd, IFnBase64, IFnEquals, IFnFindInMap, IFnGetAtt, IFnGetAZs, IFnIf, IFnImportValue, IFnJoin, IFnNot, IFnOr, IFnSelect, IFnSplit, IFnSub, IRef, IElement, IResourceMetadata, ITemplate, IUpdatePolicy } from './types';
+import { ICreationPolicy, IDeletionPolicy, IDependsOn, IElement, IFnAnd, IFnBase64, IFnEquals, IFnFindInMap, IFnGetAtt, IFnGetAZs, IFnIf, IFnImportValue, IFnJoin, IFnNot, IFnOr, IFnSelect, IFnSplit, IFnSub, IRef, IResourceMetadata, ITemplate, IUpdatePolicy } from './types';
 /** @module Template */
 /**
  * Returns a new Template object.

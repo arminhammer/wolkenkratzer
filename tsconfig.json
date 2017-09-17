@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2015",
+    "module": "umd",
+    "target": "es6",
     "declaration": true,
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
