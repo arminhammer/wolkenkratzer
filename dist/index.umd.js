@@ -17958,32 +17958,6 @@ function _buildAttribute(t) {
     const { Content } = t;
     return Content;
 }
-/*
-function _buildCreationPolicy(t: ICreationPolicy) {
-  const { Content } = t;
-  return Content;
-}
-
-function _buildDeletionPolicy(t: IDeletionPolicy) {
-  const { Content } = t;
-  return Content;
-}
-
-function _buildUpdatePolicy(t: IUpdatePolicy) {
-  const { Content } = t;
-  return Content;
-}
-
-function _buildDependsOn(t: IDependsOn) {
-  const { Content } = t;
-  return Content;
-}
-
-function _buildResourceMetadata(t: IResourceMetadata) {
-  const { Content } = t;
-  return Content;
-}
-*/
 function _buildFnJoin(t) {
     if (Array.isArray(t.Values)) {
         const jsonValues = t.Values.map(x => {
