@@ -1,10 +1,5 @@
-import { ICreationPolicy } from './attributes/creationpolicy';
-import { IDeletionPolicy } from './attributes/deletionpolicy';
-import { IDependsOn } from './attributes/dependson';
-import { IResourceMetadata } from './attributes/metadata';
-import { IUpdatePolicy } from './attributes/updatepolicy';
 import { ICondition } from './elements/condition';
-import { IElement } from './elements/element';
+import { ICreationPolicy, IDeletionPolicy, IDependsOn, IElement, IResourceMetadata, IUpdatePolicy } from './types';
 import { IMapping } from './elements/mapping';
 import { IOutput } from './elements/output';
 import { IParameter } from './elements/parameter';

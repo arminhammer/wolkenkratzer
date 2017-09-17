@@ -1,7 +1,9 @@
-import { ICreationPolicy } from '../attributes/creationpolicy';
-import { IDeletionPolicy } from '../attributes/deletionpolicy';
-import { IDependsOn } from '../attributes/dependson';
-import { IUpdatePolicy } from '../attributes/updatepolicy';
+import {
+  ICreationPolicy,
+  IDeletionPolicy,
+  IDependsOn,
+  IUpdatePolicy
+} from '../types';
 
 export interface IResource {
   readonly kind: 'Resource';

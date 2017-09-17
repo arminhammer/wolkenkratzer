@@ -1,13 +1,15 @@
 import stubs from 'cfn-doc-json-stubs';
 import { cloneDeep, omit } from 'lodash';
-import { ICreationPolicy } from './attributes/creationpolicy';
-import { IDeletionPolicy } from './attributes/deletionpolicy';
-import { IDependsOn } from './attributes/dependson';
-import { IResourceMetadata } from './attributes/metadata';
-import { IUpdatePolicy } from './attributes/updatepolicy';
 import { Condition, ICondition } from './elements/condition';
 import { Description, IDescription } from './elements/description';
-import { IElement } from './elements/element';
+import {
+  ICreationPolicy,
+  IDeletionPolicy,
+  IDependsOn,
+  IElement,
+  IResourceMetadata,
+  IUpdatePolicy
+} from './types';
 import { IMapping, Mapping } from './elements/mapping';
 import { IOutput, Output } from './elements/output';
 import { IParameter, Parameter } from './elements/parameter';
