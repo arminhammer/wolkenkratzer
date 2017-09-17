@@ -9,7 +9,6 @@
     "test": "test"
   },
   "dependencies": {
-    "@types/bluebird": "^3.5.8",
     "bluebird": "^3.5.0",
     "cfn-doc-json-stubs": "0.1.20",
     "fs-extra": "^4.0.0",
@@ -21,6 +20,7 @@
     "lodash.omit": "^4.5.0"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.8",
     "@types/core-js": "^0.9.43",
     "@types/jest": "^20.0.8",
     "@types/lodash": "^4.14.74",
@@ -64,22 +64,27 @@
     "webpack": "^3.5.5"
   },
   "scripts": {
-    "cp-sub": "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
+    "cp-sub":
+      "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
     "cp-ec2info": "cp -R src/ec2info.json dist/ec2info.json",
     "rollup": "node_modules/.bin/rollup --config rollup.config.browser.js",
     "build": "tsc && npm run cp-ec2info && npm run rollup",
     "test": "jest",
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
-    "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coveralls":
+      "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "documentation readme src/index.js --section=API",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
     "precommit": "npm run build && npm run lint && npm run test",
     "update-submodules": "git submodule update --remote --merge",
     "update-ec2info": "node src/transform/buildEC2Data.js",
-    "release:major": "npm version major && git push --follow-tags && npm publish",
-    "release:minor": "npm version minor && git push --follow-tags && npm publish",
-    "release:patch": "npm version patch && git push --follow-tags && npm publish",
+    "release:major":
+      "npm version major && git push --follow-tags && npm publish",
+    "release:minor":
+      "npm version minor && git push --follow-tags && npm publish",
+    "release:patch":
+      "npm version patch && git push --follow-tags && npm publish",
     "webpack": "webpack",
     "lint": "tslint --project ."
   },
@@ -87,14 +92,7 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -107,22 +105,15 @@
     "collectCoverageFrom": [
       "!**/node_modules/**",
       "!src/ec2info/**/*",
+      "!src/browser.ts",
+      "!src/types.ts",
       "src/**/*.ts"
     ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "transformIgnorePatterns": [
-      "/!node_modules\\/lodash-es/"
-    ],
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec\\.(js|ts)"
-    ]
+    "transformIgnorePatterns": ["/!node_modules\\/lodash-es/"],
+    "testMatch": ["<rootDir>/tests/**/*.spec\\.(js|ts)"]
   }
 }
