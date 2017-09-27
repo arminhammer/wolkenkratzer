@@ -1,7 +1,4 @@
-export interface IDescription {
-  readonly kind: 'Description',
-  readonly Content: string
-}
+import { IDescription } from '../types';
 
 /**
  * Set the Description of a template

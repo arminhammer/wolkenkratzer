@@ -1,6 +1,2 @@
-export interface IResourceMetadata {
-    readonly kind: 'ResourceMetadata';
-    readonly Resource: string;
-    readonly Content: any;
-}
+import { IResourceMetadata } from '../types';
 export declare function ResourceMetadata(resource: string, content: any): IResourceMetadata;

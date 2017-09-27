@@ -1,8 +1,4 @@
-export interface IDeletionPolicy {
-  readonly kind: 'DeletionPolicy';
-  readonly Resource: string;
-  readonly Content: 'Delete' | 'Retain' | 'Snapshot';
-}
+import { IDeletionPolicy } from '../types';
 
 export function DeletionPolicy(
   resource: string,

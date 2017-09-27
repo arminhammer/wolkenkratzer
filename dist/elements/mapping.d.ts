@@ -1,10 +1,4 @@
-export interface IMapping {
-    readonly kind: 'Mapping';
-    readonly Name: string;
-    readonly Content: {
-        [s: string]: any;
-    };
-}
+import { IMapping } from '../types';
 /**
  * Create a Mapping object
  * @param {*} name

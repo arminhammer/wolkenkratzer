@@ -17354,6 +17354,14 @@ var lodash_1 = lodash$1.cloneDeep;
 var lodash_2 = lodash$1.omit;
 
 /**
+ * Returns an Fn::And object
+ * @param {*} one
+ * @param {*} two
+ */
+function FnAnd(one, two) {
+    return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
+}
+/**
  * Returns a Ref object that references another element in the template
  * @param {*} target
  */
@@ -17389,14 +17397,6 @@ function FnJoin(delimiter, values) {
         });
     }
     return { kind: 'FnJoin', Delimiter: delimiter, Values: newValues };
-}
-/**
- * Returns an Fn::And object
- * @param {*} one
- * @param {*} two
- */
-function FnAnd(one, two) {
-    return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
 }
 /**
  * Returns an Fn::Equals object
@@ -17654,6 +17654,7 @@ function Service(json) {
 }
 
 // import { IMetadata } from './elements/metadata';
+/** @module Template */
 /**
  * Returns a new Template object.
  * @member Template
@@ -17743,36 +17744,21 @@ function Template() {
                 AWSTemplateFormatVersion: '2010-09-09',
                 Resources: {}
             };
-            if (Object.keys(this.Conditions).length > 0) {
-                result.Conditions = {};
-                Object.keys(this.Conditions).map(c => {
-                    result.Conditions[c] = _json(this.Conditions[c]);
-                });
-            }
-            if (Object.keys(this.Parameters).length > 0) {
-                result.Parameters = {};
-                Object.keys(this.Parameters).map(p => {
-                    result.Parameters[p] = _json(this.Parameters[p]);
-                });
-            }
-            if (Object.keys(this.Mappings).length > 0) {
-                result.Mappings = {};
-                Object.keys(this.Mappings).map(m => {
-                    result.Mappings[m] = _json(this.Mappings[m]);
-                });
-            }
-            if (Object.keys(this.Outputs).length > 0) {
-                result.Outputs = {};
-                Object.keys(this.Outputs).map(o => {
-                    result.Outputs[o] = _json(this.Outputs[o]);
-                });
-            }
-            if (Object.keys(this.Resources).length > 0) {
-                result.Resources = {};
-                Object.keys(this.Resources).map(r => {
-                    result.Resources[r] = _json(this.Resources[r]);
-                });
-            }
+            const skel = {
+                Conditions: this.Conditions,
+                Mappings: this.Mappings,
+                Outputs: this.Outputs,
+                Parameters: this.Parameters,
+                Resources: this.Resources
+            };
+            Object.keys(skel).map(element => {
+                if (Object.keys(skel[element]).length > 0) {
+                    result[element] = {};
+                    Object.keys(skel[element]).map(item => {
+                        result[element][item] = _json(skel[element][item]);
+                    });
+                }
+            });
             if (this.Description) {
                 result.Description = this.Description;
             }
@@ -17968,23 +17954,7 @@ function _buildCondition(t) {
     });
     return result;
 }
-function _buildCreationPolicy(t) {
-    const { Content } = t;
-    return Content;
-}
-function _buildDeletionPolicy(t) {
-    const { Content } = t;
-    return Content;
-}
-function _buildUpdatePolicy(t) {
-    const { Content } = t;
-    return Content;
-}
-function _buildDependsOn(t) {
-    const { Content } = t;
-    return Content;
-}
-function _buildResourceMetadata(t) {
+function _buildAttribute(t) {
     const { Content } = t;
     return Content;
 }
@@ -18137,15 +18107,15 @@ function _json(t) {
         case 'FnSub':
             return { 'Fn::Sub': t.FnSub };
         case 'CreationPolicy':
-            return _buildCreationPolicy(t);
+            return _buildAttribute(t);
         case 'DeletionPolicy':
-            return _buildDeletionPolicy(t);
+            return _buildAttribute(t);
         case 'DependsOn':
-            return _buildDependsOn(t);
+            return _buildAttribute(t);
         case 'ResourceMetadata':
-            return _buildResourceMetadata(t);
+            return _buildAttribute(t);
         case 'UpdatePolicy':
-            return _buildUpdatePolicy(t);
+            return _buildAttribute(t);
         case 'Condition':
             return _buildCondition(t);
         case 'Mapping':
