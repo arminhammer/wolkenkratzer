@@ -73,9 +73,9 @@ function _validateProperties(properties, rType: string, model) {
       if (properties[p] && !Array.isArray(properties[p])) {
         if (
           !properties[p].kind &&
-          (properties[p].kind !== 'FnGetAtt' &&
-            !properties[p]['Fn::GetAtt'] &&
-            (properties[p].kind !== 'FnSplit' && !properties[p]['Fn::Split']))
+          (properties[p].kind !== 'Ref' && !properties[p].Ref) &&
+          (properties[p].kind !== 'FnGetAtt' && !properties[p]['Fn::GetAtt']) &&
+          (properties[p].kind !== 'FnSplit' && !properties[p]['Fn::Split'])
         ) {
           throw new SyntaxError(`${p} must be an array in ${rType}`);
         }
