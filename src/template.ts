@@ -1,4 +1,6 @@
 import stubs from 'cfn-doc-json-stubs';
+import cftSchema from 'cloudformation-schema-js-yaml';
+import yaml from 'js-yaml';
 import { cloneDeep, omit } from 'lodash';
 import { CreationPolicy as CreationPolicyConstructor } from './attributes/creationpolicy';
 import { DeletionPolicy as DeletionPolicyConstructor } from './attributes/deletionpolicy';
@@ -280,7 +282,15 @@ export function Template(): ITemplate {
     },
     yaml: function(): string {
       const cleanedTemplate = this.build();
-      const templateString = JSON.stringify(cleanedTemplate, null, 2);
+      // const templateString = JSON.stringify(cleanedTemplate, null, 2);
+      const templateString = yaml.safeDump(cleanedTemplate, {
+        flowLevel: 5,
+        schema: cftSchema
+      });
+      /*.replace(
+          'AWSTemplateFormatVersion: 2010-09-09T00:00:00.000Z',
+          'AWSTemplateFormatVersion: 2010-09-09'
+        );*/
       return templateString;
     }
   };

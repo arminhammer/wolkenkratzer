@@ -13,12 +13,14 @@ var __rest = (this && this.__rest) || function (s, e) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "cfn-doc-json-stubs", "lodash", "./attributes/creationpolicy", "./attributes/deletionpolicy", "./attributes/dependson", "./attributes/metadata", "./attributes/updatepolicy", "./elements/condition", "./elements/description", "./elements/mapping", "./elements/output", "./elements/parameter", "./elements/resource", "./intrinsic", "./pseudo", "./service"], factory);
+        define(["require", "exports", "cfn-doc-json-stubs", "cloudformation-schema-js-yaml", "js-yaml", "lodash", "./attributes/creationpolicy", "./attributes/deletionpolicy", "./attributes/dependson", "./attributes/metadata", "./attributes/updatepolicy", "./elements/condition", "./elements/description", "./elements/mapping", "./elements/output", "./elements/parameter", "./elements/resource", "./intrinsic", "./pseudo", "./service"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
+    const cloudformation_schema_js_yaml_1 = require("cloudformation-schema-js-yaml");
+    const js_yaml_1 = require("js-yaml");
     const lodash_1 = require("lodash");
     const creationpolicy_1 = require("./attributes/creationpolicy");
     const deletionpolicy_1 = require("./attributes/deletionpolicy");
@@ -245,7 +247,15 @@ var __rest = (this && this.__rest) || function (s, e) {
             },
             yaml: function () {
                 const cleanedTemplate = this.build();
-                const templateString = JSON.stringify(cleanedTemplate, null, 2);
+                // const templateString = JSON.stringify(cleanedTemplate, null, 2);
+                const templateString = js_yaml_1.default.safeDump(cleanedTemplate, {
+                    flowLevel: 5,
+                    schema: cloudformation_schema_js_yaml_1.default
+                });
+                /*.replace(
+                    'AWSTemplateFormatVersion: 2010-09-09T00:00:00.000Z',
+                    'AWSTemplateFormatVersion: 2010-09-09'
+                  );*/
                 return templateString;
             }
         };

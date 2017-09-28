@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: 2010-09-09
+AWSTemplateFormatVersion: '2010-09-09'
 Description: >-
   AWS CloudFormation Sample Template for WordPress_Chef: WordPress is web
   software you can use to create a beautiful website or blog. This template
@@ -449,7 +449,7 @@ Conditions:
       - !Ref 'AWS::Region'
       - cn-north-1
   Is-EC2-Classic: !Not 
-    - !Condition Is-EC2-VPC
+    - { Condition: Is-EC2-VPC }
 Resources:
   ElasticLoadBalancer:
     Type: 'AWS::ElasticLoadBalancing::LoadBalancer'
