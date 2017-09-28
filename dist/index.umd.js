@@ -17353,6 +17353,46 @@ var lodash$1 = createCommonjsModule(function (module, exports) {
 var lodash_1 = lodash$1.cloneDeep;
 var lodash_2 = lodash$1.omit;
 
+function CreationPolicy(resource, content) {
+    if (!resource ||
+        !content ||
+        (!content.AutoScalingCreationPolicy && !content.ResourceSignal)) {
+        throw new SyntaxError(`New CreationPolicy must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'CreationPolicy', Resource: resource, Content: content };
+}
+
+function DeletionPolicy(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New DeletionPolicy must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    if (['Delete', 'Retain', 'Snapshot'].indexOf(content) === -1) {
+        throw new SyntaxError(`New DeletionPolicy content must be Delete, Retain, or Snapshot`);
+    }
+    return { kind: 'DeletionPolicy', Resource: resource, Content: content };
+}
+
+function DependsOn(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New DependsOn must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'DependsOn', Resource: resource, Content: content };
+}
+
+function ResourceMetadata(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New Metadata must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'ResourceMetadata', Resource: resource, Content: content };
+}
+
+function UpdatePolicy(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New UpdatePolicy must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'UpdatePolicy', Resource: resource, Content: content };
+}
+
 /**
  * Returns an Fn::And object
  * @param {*} one
@@ -17360,6 +17400,27 @@ var lodash_2 = lodash$1.omit;
  */
 function FnAnd(one, two) {
     return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
+}
+/**
+ * Returns an Fn::Or object
+ * @param {*} array
+ */
+function FnOr(items) {
+    return { kind: 'FnOr', FnOr: items.map(x => buildIntrinsic(x)) };
+}
+/**
+ * Returns an Fn::Not object
+ * @param {*} array
+ */
+function FnNot(items) {
+    return { kind: 'FnNot', FnNot: items.map(x => buildIntrinsic(x)) };
+}
+/**
+ * Returns an Fn::If object
+ * @param {*} array
+ */
+function FnIf(items) {
+    return { kind: 'FnIf', FnIf: items.map(x => buildIntrinsic(x)) };
 }
 /**
  * Returns a Ref object that references another element in the template
@@ -17450,6 +17511,18 @@ function buildIntrinsic(input) {
     }
     else if (input['Fn::GetAtt']) {
         return FnGetAtt(buildIntrinsic(input['Fn::GetAtt'][0]), buildIntrinsic(input['Fn::GetAtt'][1]));
+    }
+    else if (input['Fn::Or']) {
+        return FnOr(input['Fn::Or'].map(x => buildIntrinsic(x)));
+    }
+    else if (input['Fn::Not']) {
+        return FnNot(input['Fn::Not'].map(x => buildIntrinsic(x)));
+    }
+    else if (input['Fn::If']) {
+        return FnIf(input['Fn::If'].map(x => buildIntrinsic(x)));
+    }
+    else if (input['Fn::And']) {
+        return FnAnd(buildIntrinsic(input['Fn::And'][0]), buildIntrinsic(input['Fn::And'][1]));
     }
     else {
         return input;
@@ -17575,12 +17648,14 @@ function Resource(name, properties, options) {
         Type: this.json.Resources[this.name].Name,
         kind: 'Resource'
     };
-    if (options && options.Condition) {
-        result.Condition = options.Condition;
+    if (options) {
+        if (options.Condition) {
+            result.Condition = options.Condition;
+        }
     }
     return result;
 }
-function CustomResource(name, properties) {
+function CustomResource(name, properties, options) {
     if (!name) {
         throw new SyntaxError(`New Resource is invalid. A Name is required.`);
     }
@@ -17867,6 +17942,11 @@ function Template() {
             const newT = lodash_1(this);
             delete newT.Description;
             return newT;
+        },
+        yaml: function () {
+            const cleanedTemplate = this.build();
+            const templateString = JSON.stringify(cleanedTemplate, null, 2);
+            return templateString;
         }
     };
 }
@@ -17913,7 +17993,7 @@ function _cleanObject(object) {
 }
 function _buildResource(t) {
     const newT = lodash_1(t);
-    const { Type, Properties, CreationPolicy, DeletionPolicy, DependsOn, Metadata, Condition: condition, UpdatePolicy } = newT;
+    const { Type, Properties, CreationPolicy: CreationPolicy$$1, DeletionPolicy: DeletionPolicy$$1, DependsOn: DependsOn$$1, Metadata, Condition: condition, UpdatePolicy: UpdatePolicy$$1 } = newT;
     const newProps = {};
     const result = { Type };
     if (Properties) {
@@ -17930,20 +18010,20 @@ function _buildResource(t) {
         });
         result.Properties = newProps;
     }
-    if (CreationPolicy) {
-        result.CreationPolicy = _json(CreationPolicy);
+    if (CreationPolicy$$1) {
+        result.CreationPolicy = _json(CreationPolicy$$1);
     }
-    if (DeletionPolicy) {
-        result.DeletionPolicy = _json(DeletionPolicy);
+    if (DeletionPolicy$$1) {
+        result.DeletionPolicy = _json(DeletionPolicy$$1);
     }
-    if (DependsOn) {
-        result.DependsOn = _json(DependsOn);
+    if (DependsOn$$1) {
+        result.DependsOn = _json(DependsOn$$1);
     }
     if (Metadata) {
         result.Metadata = _json(Metadata);
     }
-    if (UpdatePolicy) {
-        result.UpdatePolicy = _json(UpdatePolicy);
+    if (UpdatePolicy$$1) {
+        result.UpdatePolicy = _json(UpdatePolicy$$1);
     }
     if (condition) {
         result.Condition = condition;
@@ -18046,6 +18126,32 @@ function _buildFnAnd(t) {
         }
     });
 }
+function _buildFnNot(t) {
+    return t.FnNot.map(x => {
+        if (typeof x === 'string') {
+            return x;
+        }
+        else {
+            if (x.kind) {
+                return _json(x);
+            }
+            return x;
+        }
+    });
+}
+function _buildFnIf(t) {
+    return t.FnIf.map(x => {
+        if (typeof x === 'string') {
+            return x;
+        }
+        else {
+            if (x.kind) {
+                return _json(x);
+            }
+            return x;
+        }
+    });
+}
 function _buildFnEquals(t) {
     return t.FnEquals.map(x => {
         if (typeof x === 'string') {
@@ -18111,6 +18217,10 @@ function _json(t) {
             return _buildFnJoin(t);
         case 'FnAnd':
             return { 'Fn::And': _buildFnAnd(t) };
+        case 'FnNot':
+            return { 'Fn::Not': _buildFnNot(t) };
+        case 'FnIf':
+            return { 'Fn::If': _buildFnIf(t) };
         case 'FnFindInMap':
             return { 'Fn::FindInMap': _buildFnFindInMap(t) };
         case 'FnEquals':
@@ -18333,12 +18443,30 @@ function _calcFromExistingTemplate(t, inputTemplate) {
             const split = inputTemplate.Resources[r].Type.split('::');
             const cat = split[1];
             const resType = split[2];
+            const options = {
+                Condition: inputTemplate.Resources[r].Condition
+            };
             if (split[0] === 'AWS') {
                 const service = Service(cfnDocJsonStubs[cat]);
-                t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
+                t = t.add(service[resType](r, inputTemplate.Resources[r].Properties, options));
             }
             else if (split[0] === 'Custom') {
-                t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties));
+                t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties, options));
+            }
+            if (inputTemplate.Resources[r].Metadata) {
+                t = _addResourceMetadata(t, ResourceMetadata(r, inputTemplate.Resources[r].Metadata));
+            }
+            if (inputTemplate.Resources[r].CreationPolicy) {
+                t = _addCreationPolicy(t, CreationPolicy(r, inputTemplate.Resources[r].CreationPolicy));
+            }
+            if (inputTemplate.Resources[r].DeletionPolicy) {
+                t = _addDeletionPolicy(t, DeletionPolicy(r, inputTemplate.Resources[r].DeletionPolicy));
+            }
+            if (inputTemplate.Resources[r].DependsOn) {
+                t = _addDependsOn(t, DependsOn(r, inputTemplate.Resources[r].DependsOn));
+            }
+            if (inputTemplate.Resources[r].UpdatePolicy) {
+                t = _addUpdatePolicy(t, UpdatePolicy(r, inputTemplate.Resources[r].UpdatePolicy));
             }
         });
     }
@@ -18360,22 +18488,6 @@ function _calcFromExistingTemplate(t, inputTemplate) {
         });
     }
     return t;
-}
-
-function CreationPolicy(resource, content) {
-    if (!resource ||
-        !content ||
-        (!content.AutoScalingCreationPolicy && !content.ResourceSignal)) {
-        throw new SyntaxError(`New CreationPolicy must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    return { kind: 'CreationPolicy', Resource: resource, Content: content };
-}
-
-function ResourceMetadata(resource, content) {
-    if (!resource || !content) {
-        throw new SyntaxError(`New Metadata must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    return { kind: 'ResourceMetadata', Resource: resource, Content: content };
 }
 
 'use strict';

@@ -25,13 +25,15 @@ export function Resource(name: string, properties, options): IResource {
     Type: this.json.Resources[this.name].Name,
     kind: 'Resource'
   };
-  if (options && options.Condition) {
-    result.Condition = options.Condition;
+  if (options) {
+    if (options.Condition) {
+      result.Condition = options.Condition;
+    }
   }
   return result;
 }
 
-export function CustomResource(name: string, properties): IResource {
+export function CustomResource(name: string, properties, options): IResource {
   if (!name) {
     throw new SyntaxError(`New Resource is invalid. A Name is required.`);
   }

@@ -6,4 +6,4 @@ import { IResource } from '../types';
  * @param {*} options
  */
 export declare function Resource(name: string, properties: any, options: any): IResource;
-export declare function CustomResource(name: string, properties: any): IResource;
+export declare function CustomResource(name: string, properties: any, options: any): IResource;

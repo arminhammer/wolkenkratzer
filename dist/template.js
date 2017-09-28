@@ -13,13 +13,18 @@ var __rest = (this && this.__rest) || function (s, e) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "cfn-doc-json-stubs", "lodash", "./elements/condition", "./elements/description", "./elements/mapping", "./elements/output", "./elements/parameter", "./elements/resource", "./intrinsic", "./pseudo", "./service"], factory);
+        define(["require", "exports", "cfn-doc-json-stubs", "lodash", "./attributes/creationpolicy", "./attributes/deletionpolicy", "./attributes/dependson", "./attributes/metadata", "./attributes/updatepolicy", "./elements/condition", "./elements/description", "./elements/mapping", "./elements/output", "./elements/parameter", "./elements/resource", "./intrinsic", "./pseudo", "./service"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
     const lodash_1 = require("lodash");
+    const creationpolicy_1 = require("./attributes/creationpolicy");
+    const deletionpolicy_1 = require("./attributes/deletionpolicy");
+    const dependson_1 = require("./attributes/dependson");
+    const metadata_1 = require("./attributes/metadata");
+    const updatepolicy_1 = require("./attributes/updatepolicy");
     const condition_1 = require("./elements/condition");
     const description_1 = require("./elements/description");
     const mapping_1 = require("./elements/mapping");
@@ -237,6 +242,11 @@ var __rest = (this && this.__rest) || function (s, e) {
                 const newT = lodash_1.cloneDeep(this);
                 delete newT.Description;
                 return newT;
+            },
+            yaml: function () {
+                const cleanedTemplate = this.build();
+                const templateString = JSON.stringify(cleanedTemplate, null, 2);
+                return templateString;
             }
         };
     }
@@ -421,6 +431,32 @@ var __rest = (this && this.__rest) || function (s, e) {
             }
         });
     }
+    function _buildFnNot(t) {
+        return t.FnNot.map(x => {
+            if (typeof x === 'string') {
+                return x;
+            }
+            else {
+                if (x.kind) {
+                    return _json(x);
+                }
+                return x;
+            }
+        });
+    }
+    function _buildFnIf(t) {
+        return t.FnIf.map(x => {
+            if (typeof x === 'string') {
+                return x;
+            }
+            else {
+                if (x.kind) {
+                    return _json(x);
+                }
+                return x;
+            }
+        });
+    }
     function _buildFnEquals(t) {
         return t.FnEquals.map(x => {
             if (typeof x === 'string') {
@@ -486,6 +522,10 @@ var __rest = (this && this.__rest) || function (s, e) {
                 return _buildFnJoin(t);
             case 'FnAnd':
                 return { 'Fn::And': _buildFnAnd(t) };
+            case 'FnNot':
+                return { 'Fn::Not': _buildFnNot(t) };
+            case 'FnIf':
+                return { 'Fn::If': _buildFnIf(t) };
             case 'FnFindInMap':
                 return { 'Fn::FindInMap': _buildFnFindInMap(t) };
             case 'FnEquals':
@@ -709,12 +749,30 @@ var __rest = (this && this.__rest) || function (s, e) {
                 const split = inputTemplate.Resources[r].Type.split('::');
                 const cat = split[1];
                 const resType = split[2];
+                const options = {
+                    Condition: inputTemplate.Resources[r].Condition
+                };
                 if (split[0] === 'AWS') {
                     const service = service_1.Service(cfn_doc_json_stubs_1.default[cat]);
-                    t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
+                    t = t.add(service[resType](r, inputTemplate.Resources[r].Properties, options));
                 }
                 else if (split[0] === 'Custom') {
-                    t = t.add(resource_1.CustomResource(r, inputTemplate.Resources[r].Properties));
+                    t = t.add(resource_1.CustomResource(r, inputTemplate.Resources[r].Properties, options));
+                }
+                if (inputTemplate.Resources[r].Metadata) {
+                    t = _addResourceMetadata(t, metadata_1.ResourceMetadata(r, inputTemplate.Resources[r].Metadata));
+                }
+                if (inputTemplate.Resources[r].CreationPolicy) {
+                    t = _addCreationPolicy(t, creationpolicy_1.CreationPolicy(r, inputTemplate.Resources[r].CreationPolicy));
+                }
+                if (inputTemplate.Resources[r].DeletionPolicy) {
+                    t = _addDeletionPolicy(t, deletionpolicy_1.DeletionPolicy(r, inputTemplate.Resources[r].DeletionPolicy));
+                }
+                if (inputTemplate.Resources[r].DependsOn) {
+                    t = _addDependsOn(t, dependson_1.DependsOn(r, inputTemplate.Resources[r].DependsOn));
+                }
+                if (inputTemplate.Resources[r].UpdatePolicy) {
+                    t = _addUpdatePolicy(t, updatepolicy_1.UpdatePolicy(r, inputTemplate.Resources[r].UpdatePolicy));
                 }
             });
         }

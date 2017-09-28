@@ -1,5 +1,10 @@
 import stubs from 'cfn-doc-json-stubs';
 import { cloneDeep, omit } from 'lodash';
+import { CreationPolicy as CreationPolicyConstructor } from './attributes/creationpolicy';
+import { DeletionPolicy as DeletionPolicyConstructor } from './attributes/deletionpolicy';
+import { DependsOn as DependsOnConstructor } from './attributes/dependson';
+import { ResourceMetadata as ResourceMetadataConstructor } from './attributes/metadata';
+import { UpdatePolicy as UpdatePolicyConstructor } from './attributes/updatepolicy';
 import { Condition } from './elements/condition';
 import { Description } from './elements/description';
 import { Mapping } from './elements/mapping';
@@ -272,6 +277,11 @@ export function Template(): ITemplate {
       const newT = cloneDeep(this);
       delete newT.Description;
       return newT;
+    },
+    yaml: function(): string {
+      const cleanedTemplate = this.build();
+      const templateString = JSON.stringify(cleanedTemplate, null, 2);
+      return templateString;
     }
   };
 }
@@ -835,11 +845,54 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
       const split = inputTemplate.Resources[r].Type.split('::');
       const cat = split[1];
       const resType = split[2];
+      const options = {
+        Condition: inputTemplate.Resources[r].Condition
+      };
       if (split[0] === 'AWS') {
         const service = Service(stubs[cat]);
-        t = t.add(service[resType](r, inputTemplate.Resources[r].Properties));
+        t = t.add(
+          service[resType](r, inputTemplate.Resources[r].Properties, options)
+        );
       } else if (split[0] === 'Custom') {
-        t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties));
+        t = t.add(
+          CustomResource(r, inputTemplate.Resources[r].Properties, options)
+        );
+      }
+      if (inputTemplate.Resources[r].Metadata) {
+        t = _addResourceMetadata(
+          t,
+          ResourceMetadataConstructor(r, inputTemplate.Resources[r].Metadata)
+        );
+      }
+      if (inputTemplate.Resources[r].CreationPolicy) {
+        t = _addCreationPolicy(
+          t,
+          CreationPolicyConstructor(
+            r,
+            inputTemplate.Resources[r].CreationPolicy
+          )
+        );
+      }
+      if (inputTemplate.Resources[r].DeletionPolicy) {
+        t = _addDeletionPolicy(
+          t,
+          DeletionPolicyConstructor(
+            r,
+            inputTemplate.Resources[r].DeletionPolicy
+          )
+        );
+      }
+      if (inputTemplate.Resources[r].DependsOn) {
+        t = _addDependsOn(
+          t,
+          DependsOnConstructor(r, inputTemplate.Resources[r].DependsOn)
+        );
+      }
+      if (inputTemplate.Resources[r].UpdatePolicy) {
+        t = _addUpdatePolicy(
+          t,
+          UpdatePolicyConstructor(r, inputTemplate.Resources[r].UpdatePolicy)
+        );
       }
     });
   }

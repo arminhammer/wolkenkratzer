@@ -1,10 +1,25 @@
-import { Conditional, IFnAnd, IFnBase64, IFnEquals, IFnFindInMap, IFnGetAtt, IFnGetAZs, IFnIf, IFnImportValue, IFnJoin, IFnSelect, IFnSplit, IFnSub, IParameter, IRef, IResource } from './types';
+import { Conditional, IFnAnd, IFnBase64, IFnEquals, IFnFindInMap, IFnGetAtt, IFnGetAZs, IFnIf, IFnImportValue, IFnJoin, IFnNot, IFnOr, IFnSelect, IFnSplit, IFnSub, IIntrinsic, IParameter, IRef, IResource } from './types';
 /**
  * Returns an Fn::And object
  * @param {*} one
  * @param {*} two
  */
 export declare function FnAnd(one: Conditional, two: Conditional): IFnAnd;
+/**
+ * Returns an Fn::Or object
+ * @param {*} array
+ */
+export declare function FnOr(items: Array<string | IIntrinsic>): IFnOr;
+/**
+ * Returns an Fn::Not object
+ * @param {*} array
+ */
+export declare function FnNot(items: Array<string | IIntrinsic>): IFnNot;
+/**
+ * Returns an Fn::If object
+ * @param {*} array
+ */
+export declare function FnIf(items: Array<string | IIntrinsic>): IFnIf;
 /**
  * Returns a Ref object that references another element in the template
  * @param {*} target

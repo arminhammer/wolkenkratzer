@@ -294,6 +294,7 @@ export interface ITemplate {
   readonly merge: Function;
   readonly import: Function;
   readonly map: (iterable: Array<IElement>, mapFn: Function) => ITemplate;
+  readonly yaml: () => string;
 }
 
 /**

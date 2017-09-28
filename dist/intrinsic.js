@@ -19,6 +19,30 @@
     }
     exports.FnAnd = FnAnd;
     /**
+     * Returns an Fn::Or object
+     * @param {*} array
+     */
+    function FnOr(items) {
+        return { kind: 'FnOr', FnOr: items.map(x => buildIntrinsic(x)) };
+    }
+    exports.FnOr = FnOr;
+    /**
+     * Returns an Fn::Not object
+     * @param {*} array
+     */
+    function FnNot(items) {
+        return { kind: 'FnNot', FnNot: items.map(x => buildIntrinsic(x)) };
+    }
+    exports.FnNot = FnNot;
+    /**
+     * Returns an Fn::If object
+     * @param {*} array
+     */
+    function FnIf(items) {
+        return { kind: 'FnIf', FnIf: items.map(x => buildIntrinsic(x)) };
+    }
+    exports.FnIf = FnIf;
+    /**
      * Returns a Ref object that references another element in the template
      * @param {*} target
      */
@@ -132,6 +156,18 @@
         }
         else if (input['Fn::GetAtt']) {
             return FnGetAtt(buildIntrinsic(input['Fn::GetAtt'][0]), buildIntrinsic(input['Fn::GetAtt'][1]));
+        }
+        else if (input['Fn::Or']) {
+            return FnOr(input['Fn::Or'].map(x => buildIntrinsic(x)));
+        }
+        else if (input['Fn::Not']) {
+            return FnNot(input['Fn::Not'].map(x => buildIntrinsic(x)));
+        }
+        else if (input['Fn::If']) {
+            return FnIf(input['Fn::If'].map(x => buildIntrinsic(x)));
+        }
+        else if (input['Fn::And']) {
+            return FnAnd(buildIntrinsic(input['Fn::And'][0]), buildIntrinsic(input['Fn::And'][1]));
         }
         else {
             return input;

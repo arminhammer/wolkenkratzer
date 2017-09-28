@@ -10,10 +10,14 @@ describe('Template Imports', () => {
     const tJson = require('../tests/stagingtemplates/yaml/orig.json');
     const t = Template().import(tJson);
     //console.log(JSON.stringify(t, null, 2));
-    let res = t.build();
-    fs.readFile('./stagingtemplates/yaml/target.yml').then(yaml => {
-      //expect(res).toEqual(yaml);
-      expect(res).toEqual(tJson);
-    });
+    const res = t.build();
+    //const resYaml = t.yaml();
+    //console.log(__dirname);
+    return fs
+      .readFile(path.resolve(__dirname, 'stagingtemplates/yaml/target.yml'))
+      .then(yaml => {
+        expect(res).toEqual(tJson);
+        //expect(resYaml).toEqual(yaml);
+      });
   });
 });
