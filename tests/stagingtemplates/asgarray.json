@@ -1,0 +1,22 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "FooAvailabilityZones": {
+      "Type": "List<AWS::EC2::AvailabilityZone::Name>",
+      "Description":
+        "List of AZ to deploy station in, example: 'eu-west-1a,eu-west-1b' "
+    }
+  },
+  "Resources": {
+    "ScalingGroupFoo": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "AvailabilityZones": {
+          "Ref": "FooAvailabilityZones"
+        },
+        "MaxSize": 1,
+        "MinSize": 1
+      }
+    }
+  }
+}

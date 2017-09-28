@@ -26,7 +26,7 @@ export { UpdatePolicy } from './attributes/updatepolicy';
 export { DependsOn } from './attributes/dependson';
 export { ResourceMetadata } from './attributes/metadata';
 import stubs from 'cfn-doc-json-stubs';
-import { IService, Service } from './service';
+import { Service } from './service';
 export { S3BucketTransform } from './transform/s3';
 export {
   getInstanceTypeList,
@@ -41,6 +41,7 @@ export {
   buildZipLambdaTemplate
 } from './macros/lambda.macro';
 export { Pseudo } from './pseudo';
+import { IService } from './types';
 
 stubs.resourceList.map(r => {
   exports[r] = Service(stubs[r]);

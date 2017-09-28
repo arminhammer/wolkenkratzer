@@ -1,5 +1,4 @@
-import { IResource } from '../elements/resource';
-import { ITemplate } from '../template';
+import { IResource, ITemplate } from '../types';
 export interface IZipLambdaResult {
     FunctionResource: IResource;
     Zip: any;

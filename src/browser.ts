@@ -14,11 +14,12 @@ export {
   FnSub,
   FnAnd
 } from './intrinsic';
-import { IService, Service } from './service';
+import { Service } from './service';
 export { CreationPolicy } from './attributes/creationpolicy';
 export { ResourceMetadata } from './attributes/metadata';
 export { S3BucketTransform } from './transform/s3';
 export { Pseudo } from './pseudo';
+import { IService } from './types';
 
 import stubs from 'cfn-doc-json-stubs';
 

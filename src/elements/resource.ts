@@ -1,20 +1,10 @@
-import { ICreationPolicy } from '../attributes/creationpolicy';
-import { IDeletionPolicy } from '../attributes/deletionpolicy';
-import { IDependsOn } from '../attributes/dependson';
-import { IUpdatePolicy } from '../attributes/updatepolicy';
-
-export interface IResource {
-  readonly kind: 'Resource';
-  readonly Name: string;
-  readonly Type: string;
-  readonly Properties;
-  readonly Condition?: string;
-  readonly Metadata?: any;
-  readonly CreationPolicy?: ICreationPolicy;
-  readonly DeletionPolicy?: IDeletionPolicy;
-  readonly DependsOn?: IDependsOn;
-  readonly UpdatePolicy?: IUpdatePolicy;
-}
+import {
+  ICreationPolicy,
+  IDeletionPolicy,
+  IDependsOn,
+  IResource,
+  IUpdatePolicy
+} from '../types';
 
 /**
  * Create a Resource object
@@ -73,10 +63,16 @@ function _validateProperties(properties, rType: string, model) {
       if (properties[p] && !Array.isArray(properties[p])) {
         if (
           !properties[p].kind &&
-          (properties[p].kind !== 'FnGetAtt' &&
-            !properties[p]['Fn::GetAtt'] &&
-            (properties[p].kind !== 'FnSplit' && !properties[p]['Fn::Split']))
+          (properties[p].kind !== 'Ref' && !properties[p].Ref) &&
+          (properties[p].kind !== 'FnGetAZs' &&
+            typeof properties[p]['Fn::GetAZ'] !== 'undefined') &&
+          (properties[p].kind !== 'FnGetAtt' && !properties[p]['Fn::GetAtt']) &&
+          (properties[p].kind !== 'FnSplit' && !properties[p]['Fn::Split'])
         ) {
+          /*console.log('p');
+          console.log(p);
+          console.log(typeof properties[p]['Fn::GetAZ'] === 'undefined');
+          console.log(!Object.keys(properties[p]).includes('Fn::GetAZs'));*/
           throw new SyntaxError(`${p} must be an array in ${rType}`);
         }
       }

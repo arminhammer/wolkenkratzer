@@ -1,24 +1,25 @@
 import stubs from 'cfn-doc-json-stubs';
 import { cloneDeep, omit } from 'lodash';
-import { ICreationPolicy } from './attributes/creationpolicy';
-import { IDeletionPolicy } from './attributes/deletionpolicy';
-import { IDependsOn } from './attributes/dependson';
-import { IResourceMetadata } from './attributes/metadata';
-import { IUpdatePolicy } from './attributes/updatepolicy';
-import { Condition, ICondition } from './elements/condition';
-import { Description, IDescription } from './elements/description';
-import { IElement } from './elements/element';
-import { IMapping, Mapping } from './elements/mapping';
-import { IOutput, Output } from './elements/output';
-import { IParameter, Parameter } from './elements/parameter';
-import { CustomResource, IResource } from './elements/resource';
+import { Condition } from './elements/condition';
+import { Description } from './elements/description';
+import { Mapping } from './elements/mapping';
+import { Output } from './elements/output';
+import { Parameter } from './elements/parameter';
+import { CustomResource } from './elements/resource';
+import { FnBase64, FnGetAtt, FnGetAZs, FnSplit, FnSub, Ref } from './intrinsic';
+// import { IMetadata } from './elements/metadata';
+import { Pseudo } from './pseudo';
+import { Service } from './service';
 import {
   Conditional,
-  FnBase64,
-  FnGetAtt,
-  FnGetAZs,
-  FnSplit,
-  FnSub,
+  IAddOptions,
+  IAttribute,
+  ICondition,
+  ICreationPolicy,
+  IDeletionPolicy,
+  IDependsOn,
+  IDescription,
+  IElement,
   IFnAnd,
   IFnBase64,
   IFnEquals,
@@ -34,49 +35,17 @@ import {
   IFnSplit,
   IFnSub,
   IIntrinsic,
+  IMapping,
+  IOutput,
+  IParameter,
   IRef,
-  Ref
-} from './intrinsic';
-// import { IMetadata } from './elements/metadata';
-import { Pseudo } from './pseudo';
-import { Service } from './service';
+  IResource,
+  IResourceMetadata,
+  ITemplate,
+  IUpdatePolicy
+} from './types';
 
 /** @module Template */
-
-/**
- * Template Interface
- * @member Template
- */
-export interface ITemplate {
-  readonly kind: 'Template';
-  readonly AWSTemplateFormatVersion: string;
-  readonly Description?: void | string;
-  readonly Parameters: { readonly [s: string]: IParameter };
-  // readonly Metadata: { readonly [s: string]: IMetadata };
-  readonly Mappings: { readonly [s: string]: IMapping };
-  readonly Conditions: { readonly [s: string]: ICondition };
-  readonly Resources: { readonly [s: string]: IResource };
-  readonly Outputs: { readonly [s: string]: IOutput };
-  readonly add: (
-    e: IElement | ICreationPolicy | IResourceMetadata,
-    options?: IAddOptions
-  ) => ITemplate;
-  readonly remove: Function;
-  readonly removeDescription: Function;
-  readonly build: () => object;
-  readonly merge: Function;
-  readonly import: Function;
-  readonly map: (iterable: Array<IElement>, mapFn: Function) => ITemplate;
-}
-
-/**
- * IAddOptions Interface
- * @member Template
- */
-export interface IAddOptions {
-  Output: boolean;
-  Parameters?: Array<string>;
-}
 
 /**
  * Returns a new Template object.
@@ -185,36 +154,21 @@ export function Template(): ITemplate {
         AWSTemplateFormatVersion: '2010-09-09',
         Resources: {}
       };
-      if (Object.keys(this.Conditions).length > 0) {
-        result.Conditions = {};
-        Object.keys(this.Conditions).map(c => {
-          result.Conditions[c] = _json(this.Conditions[c]);
-        });
-      }
-      if (Object.keys(this.Parameters).length > 0) {
-        result.Parameters = {};
-        Object.keys(this.Parameters).map(p => {
-          result.Parameters[p] = _json(this.Parameters[p]);
-        });
-      }
-      if (Object.keys(this.Mappings).length > 0) {
-        result.Mappings = {};
-        Object.keys(this.Mappings).map(m => {
-          result.Mappings[m] = _json(this.Mappings[m]);
-        });
-      }
-      if (Object.keys(this.Outputs).length > 0) {
-        result.Outputs = {};
-        Object.keys(this.Outputs).map(o => {
-          result.Outputs[o] = _json(this.Outputs[o]);
-        });
-      }
-      if (Object.keys(this.Resources).length > 0) {
-        result.Resources = {};
-        Object.keys(this.Resources).map(r => {
-          result.Resources[r] = _json(this.Resources[r]);
-        });
-      }
+      const skel = {
+        Conditions: this.Conditions,
+        Mappings: this.Mappings,
+        Outputs: this.Outputs,
+        Parameters: this.Parameters,
+        Resources: this.Resources
+      };
+      Object.keys(skel).map(element => {
+        if (Object.keys(skel[element]).length > 0) {
+          result[element] = {};
+          Object.keys(skel[element]).map(item => {
+            result[element][item] = _json(skel[element][item]);
+          });
+        }
+      });
       if (this.Description) {
         result.Description = this.Description;
       }
@@ -430,27 +384,7 @@ function _buildCondition(t: ICondition): string {
   return result;
 }
 
-function _buildCreationPolicy(t: ICreationPolicy) {
-  const { Content } = t;
-  return Content;
-}
-
-function _buildDeletionPolicy(t: IDeletionPolicy) {
-  const { Content } = t;
-  return Content;
-}
-
-function _buildUpdatePolicy(t: IUpdatePolicy) {
-  const { Content } = t;
-  return Content;
-}
-
-function _buildDependsOn(t: IDependsOn) {
-  const { Content } = t;
-  return Content;
-}
-
-function _buildResourceMetadata(t: IResourceMetadata) {
+function _buildAttribute(t: IAttribute) {
   const { Content } = t;
   return Content;
 }
@@ -496,6 +430,17 @@ function _buildFnSplit(t: IFnSplit) {
   }
 }
 
+function _buildFnOr(t: IFnOr) {
+  const jsonValues = t.FnOr.map(x => {
+    if (typeof x === 'string') {
+      return x;
+    } else {
+      return _json(x);
+    }
+  });
+  return jsonValues;
+}
+
 function _buildFnImportValue(t: IFnImportValue) {
   if (typeof t.FnImportValue === 'string') {
     return t.FnImportValue;
@@ -514,6 +459,32 @@ function _buildFnBase64(t: IFnBase64) {
 
 function _buildFnAnd(t: IFnAnd) {
   return t.FnAnd.map(x => {
+    if (typeof x === 'string') {
+      return x;
+    } else {
+      if (x.kind) {
+        return _json(x);
+      }
+      return x;
+    }
+  });
+}
+
+function _buildFnNot(t: IFnNot) {
+  return t.FnNot.map(x => {
+    if (typeof x === 'string') {
+      return x;
+    } else {
+      if (x.kind) {
+        return _json(x);
+      }
+      return x;
+    }
+  });
+}
+
+function _buildFnIf(t: IFnIf) {
+  return t.FnIf.map(x => {
     if (typeof x === 'string') {
       return x;
     } else {
@@ -616,12 +587,18 @@ export function _json(
       return _buildFnJoin(t);
     case 'FnAnd':
       return { 'Fn::And': _buildFnAnd(t) };
+    case 'FnNot':
+      return { 'Fn::Not': _buildFnNot(t) };
+    case 'FnIf':
+      return { 'Fn::If': _buildFnIf(t) };
     case 'FnFindInMap':
       return { 'Fn::FindInMap': _buildFnFindInMap(t) };
     case 'FnEquals':
       return { 'Fn::Equals': _buildFnEquals(t) };
     case 'FnImportValue':
       return { 'Fn::ImportValue': _buildFnImportValue(t) };
+    case 'FnOr':
+      return { 'Fn::Or': _buildFnOr(t) };
     case 'FnSelect':
       return { 'Fn::Select': _buildFnSelect(t) };
     case 'FnSplit':
@@ -629,15 +606,15 @@ export function _json(
     case 'FnSub':
       return { 'Fn::Sub': t.FnSub };
     case 'CreationPolicy':
-      return _buildCreationPolicy(t);
+      return _buildAttribute(t);
     case 'DeletionPolicy':
-      return _buildDeletionPolicy(t);
+      return _buildAttribute(t);
     case 'DependsOn':
-      return _buildDependsOn(t);
+      return _buildAttribute(t);
     case 'ResourceMetadata':
-      return _buildResourceMetadata(t);
+      return _buildAttribute(t);
     case 'UpdatePolicy':
-      return _buildUpdatePolicy(t);
+      return _buildAttribute(t);
     case 'Condition':
       return _buildCondition(t);
     case 'Mapping':

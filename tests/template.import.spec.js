@@ -9,14 +9,22 @@ const fs = BPromise.promisifyAll(require('fs-extra'));
 let templatesDir = './tests/templates';
 let files = fs.readdirSync(templatesDir);
 
-test.only('Can take an existing Template as a parameter', () => {
-  const tJson = require('../tests/templates/ami.json');
-  const t = Template().import(tJson);
-  let res = t.build();
-  expect(res).toEqual(tJson);
-});
-
 describe('Template Imports', () => {
+  test('Can take an existing Template as a parameter', () => {
+    const tJson = require('../tests/templates/ami.json');
+    const t = Template().import(tJson);
+    let res = t.build();
+    expect(res).toEqual(tJson);
+  });
+
+  test('Can correctly import a template that has an ASG and a array ref', () => {
+    const tJson = require('../tests/stagingtemplates/asgarray.json');
+    const t = Template().import(tJson);
+    let res = t.build();
+    expect(res).toEqual(tJson);
+  });
+
+  /*
   files.map(fileName => {
     test(`Test importing ${fileName}`, () => {
       const templateJSON = require(path.resolve(templatesDir, fileName));
@@ -25,5 +33,5 @@ describe('Template Imports', () => {
       let res = t.build();
       expect(res).toEqual(templateJSON);
     });
-  });
+  });*/
 });
