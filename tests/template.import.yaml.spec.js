@@ -25,7 +25,7 @@ describe('Template Imports', () => {
         );
         //console.log(targetString);
         //console.log('gen');
-        console.log(genYaml);
+        //console.log(genYaml);
         expect(yamlGenObject).toEqual(yamlTargetObject);
       });
   });

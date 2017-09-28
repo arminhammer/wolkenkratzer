@@ -283,14 +283,45 @@ export function Template(): ITemplate {
     yaml: function(): string {
       const cleanedTemplate = this.build();
       // const templateString = JSON.stringify(cleanedTemplate, null, 2);
-      const templateString = yaml.safeDump(cleanedTemplate, {
-        flowLevel: 5,
-        schema: cftSchema
-      });
-      /*.replace(
-          'AWSTemplateFormatVersion: 2010-09-09T00:00:00.000Z',
-          'AWSTemplateFormatVersion: 2010-09-09'
-        );*/
+      const templateString = yaml
+        .safeDump(cleanedTemplate, {
+          flowLevel: 5,
+          schema: cftSchema
+        })
+        // See note on http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
+        // .replace(/'Fn::Base64':/g, '!Base64')
+        .replace(/'Fn::Equals':/g, '!Equals')
+        .replace(/'Fn::And':/g, '!And')
+        .replace(/'Fn::GetAZs':/g, '!GetAZs')
+        .replace(/\{Ref: ([^}]+)\}/g, (match, p1) => {
+          return `!Ref ${p1}`;
+        })
+        .replace(/Ref: (\w+)/g, (match, p1) => {
+          return `!Ref ${p1}`;
+        })
+        .replace(/'Fn::ImportValue':/g, '!ImportValue')
+        .replace(/'Fn::Or':/g, '!Or')
+        .replace(/'Fn::Not':/g, '!Not')
+        .replace(/'Fn::If':/g, '!If')
+        .replace(
+          /\{'Fn::GetAtt': \[(\w+), ([\w|\.]+)\]\}/g,
+          (match, p1, p2) => {
+            return `!GetAtt ${p1}.${p2}`;
+          }
+        )
+        .replace(
+          /\{'Fn::FindInMap': \[([\w\d!]+), ([\w\d! ]+), ([\w\d!]+)\]\}/g,
+          (match, p1, p2, p3) => {
+            return `!FindInMap [ ${p1}, ${p2}, ${p3} ]`;
+          }
+        );
+      /*
+      TODO: add support for short versions of the rest
+        .replace(/'Fn::Join':/g, '!Join');
+        'Fn::FindInMap'
+        "Fn::Select"
+        "Fn::Split"
+        "Fn::Sub"*/
       return templateString;
     }
   };
