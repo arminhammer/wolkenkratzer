@@ -4150,7 +4150,7 @@ var parse          = deprecated('parse');
 var compose        = deprecated('compose');
 var addConstructor = deprecated('addConstructor');
 
-var jsYaml$1 = {
+var jsYaml$2 = {
 	Type: Type,
 	Schema: Schema,
 	FAILSAFE_SCHEMA: FAILSAFE_SCHEMA,
@@ -4180,7 +4180,9 @@ var jsYaml$1 = {
 
 
 
-var jsYaml = jsYaml$1;
+var jsYaml = jsYaml$2;
+
+var jsYaml_1 = jsYaml.safeDump;
 
 'use strict';
 
@@ -22471,8 +22473,7 @@ function Template() {
         yaml: function () {
             const cleanedTemplate = this.build();
             // const templateString = JSON.stringify(cleanedTemplate, null, 2);
-            const templateString = jsYaml
-                .safeDump(cleanedTemplate, {
+            const templateString = jsYaml_1(cleanedTemplate, {
                 flowLevel: 5,
                 schema: cloudformationSchemaJsYaml
             })

@@ -1,6 +1,6 @@
 import stubs from 'cfn-doc-json-stubs';
 import cftSchema from 'cloudformation-schema-js-yaml';
-import yaml from 'js-yaml';
+import { safeDump } from 'js-yaml';
 import { cloneDeep, omit } from 'lodash';
 import { CreationPolicy as CreationPolicyConstructor } from './attributes/creationpolicy';
 import { DeletionPolicy as DeletionPolicyConstructor } from './attributes/deletionpolicy';
@@ -283,11 +283,10 @@ export function Template(): ITemplate {
     yaml: function(): string {
       const cleanedTemplate = this.build();
       // const templateString = JSON.stringify(cleanedTemplate, null, 2);
-      const templateString = yaml
-        .safeDump(cleanedTemplate, {
-          flowLevel: 5,
-          schema: cftSchema
-        })
+      const templateString = safeDump(cleanedTemplate, {
+        flowLevel: 5,
+        schema: cftSchema
+      })
         // See note on http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
         // .replace(/'Fn::Base64':/g, '!Base64')
         .replace(/'Fn::Equals':/g, '!Equals')

@@ -248,8 +248,7 @@ var __rest = (this && this.__rest) || function (s, e) {
             yaml: function () {
                 const cleanedTemplate = this.build();
                 // const templateString = JSON.stringify(cleanedTemplate, null, 2);
-                const templateString = js_yaml_1.default
-                    .safeDump(cleanedTemplate, {
+                const templateString = js_yaml_1.safeDump(cleanedTemplate, {
                     flowLevel: 5,
                     schema: cloudformation_schema_js_yaml_1.default
                 })
