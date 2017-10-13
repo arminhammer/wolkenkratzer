@@ -11,7 +11,7 @@ describe('Examples', async () => files.map(async fileName =>
     test(
       fileName,
       async done => {
-        const result = await new Promise((resolve, reject) => {
+        const result: any = await new Promise((resolve, reject) => {
           execFile(
             'node',
             [fileName.replace('.json', '.js')],
