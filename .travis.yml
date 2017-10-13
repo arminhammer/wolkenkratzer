@@ -1,10 +1,21 @@
-language: node_js
+language: node_js'
+cache:
+  yarn: true
 node_js:
-  - "7.7"
+- '8'
 sudo: false
 install:
-  - npm install
+- yarn
 script:
-  - npm run build
-  - npm run coverage
-  - npm run coveralls
+- yarn build
+- yarn coverage
+- yarn coveralls
+deploy:
+  provider: npm
+  email:
+    secure: RtQv05H/dvYAQFnNkUU2d5dDxtH+b6CjsclIsYGWnuT6QUZmX/1eqcvUXsw3kxrcgU80eQ7tsulAnsBTesTPFjl6Uol/xjozwNeYK72UmLX28colbEKhiGondyCAAVOqo7bhpcgscZi3Q3DhjyXf+/DIwwrwfXb3cq3+xgK9nw8lE9f/WtrkJham4iXUFwAqUIW6PDJzfMFgFAF8R41JaUXkHKJqTMkCkjQlZNm4dBFwri2646n9NX77HaeqefvxKCf9HBM/yiLNHlzNGyRxB881ItyvMzVaOltK5A897SNOfk7o3kFyld34f51dw4mi3CF5uaiqSpS5F01lk0k+BDevGGrZFZwy4U0SJWlikw+nt0zyaP6r1YutyA0lSEnC8u5yzudV8dXAGSXd/+OZK4u/G9+0MwnB3C1SC4xWJLsC8ogwOK20pbSb9HrVLl00u6c1T82zuyvTX79KsIcra4HdyZrqtYLFY8pd+Eiw1p2F9owXgQ5JT/q1ZeAsWhQNvFQxWEhTFpvoy3fPEErKY5zomPhtOrz+0Zf7kKAXYsrmkHMXtaq6pcQIMTh1vry4wszrfMhkh4GeVjNJNJSqML/+q4mqSSFSrWFr50/0FFZPZLbP3PuYXpUUA8mZv9ej+O4lsrmg6huDR2uKUraz10uyTWG8rCj0yGpingiC9Ro=
+  tag: next
+  on:
+    branch: master
+  api_key:
+    secure: hVpuv33G/dDDh0ISlJskzyQvwl6upL9LPVEZiCW3AMAc3Riym9PwPxGzbwo2pfykcY2/SL0vhrwhWGZ/L93zJ5uCs7Nb5nr600IOxJreXWiKxmkhZslYls8CtwDsaNTQ8KFiO6yrTAM1RzSV3w9/6MbIf6Q30JecEbOK1QjCuXP/GLmH4WZdBhH9cIpXF7Joap7+qpChUDRDnR8JfFYUGTa1yvIMTInVAfNhDsKcucfRejxsrMgQSImbxYRAkPZKbIHRQbc8aJnP6Uzwz2VeYTuKRttE1Hdrz3N9216aibtKFTJsV1ZDDhGqivL8Ql9p1y05yGXMRLYqCDd9gEn1cCJFD3wm5r+1QGfy4irHbLxDxl6/wgoXdrFXjF5TazA9BOeYikWx5d0I3buzKvNu6K01bUe8kiCejkK0tCM0Hu7jzXWsJIOcgjM7qQ1h5sJwIG3fqwY8Wr5VJDwo7LskrG9/myh1na8LgyEvSpuOLv7LQjs1WwZJszX/4zrG+N7LKyUEMZbDHBQKnIdaxPss+6jsbe2vxxhGTOFKH71dGXC9GWXAqvk11Ke2gtpVtXub0VYQgxv4ZzbYuqjDckeslZ1Ha7TXklivY6rBw1hrF3pou8cJGzLk6CSpuXXRqwPlWLyqLHuAT1W0vMPdtQQZi1AYtOjG1sBRWzsBfSWoKJE=

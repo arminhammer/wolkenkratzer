@@ -11,9 +11,7 @@ let files = fs.readdirSync(templatesDir);
 describe('Examples', () => {
   files.map(fileName => {
     let file = '';
-    test(
-      fileName,
-      done => {
+    test(fileName, done => {
         let readFile = require(path.join(__dirname, 'templates', fileName));
         file = readFile;
 
@@ -41,8 +39,6 @@ describe('Examples', () => {
             expect(e).toBeNull();
             done();
           });
-      },
-      30000
-    );
+      }, 90000);
   });
 });
