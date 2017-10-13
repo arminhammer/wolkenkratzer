@@ -15,7 +15,7 @@
     "pretty": true,
     "sourceMap": true,
     "types": ["node", "core-js"],
-    "lib": ["es5", "es2015"],
+    "lib": ["es5", "es2015", "es2017"],
     "moduleResolution": "node"
   },
   "compileOnSave": true,
