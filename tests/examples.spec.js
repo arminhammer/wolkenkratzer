@@ -1,25 +1,21 @@
 'use strict';
 
 const path = require('path');
-const BPromise = require('bluebird');
+const bluebird = require('bluebird');
 const fs = require('fs-extra');
-const execFile = require('child_process').execFile;
+const { execFile } = require('child_process');
+const templatesDir = './tests/templates';
+const files = fs.readdirSync(templatesDir);
 
-let templatesDir = './tests/templates';
-let files = fs.readdirSync(templatesDir);
-
-describe('Examples', () => {
-  files.map(fileName => {
-    let file = '';
-    test(fileName, done => {
-        let readFile = require(path.join(__dirname, 'templates', fileName));
-        file = readFile;
-
-        return new Promise((resolve, reject) => {
+describe('Examples', async () => files.map(async fileName =>
+    test(
+      fileName,
+      async done => {
+        const result = await new Promise((resolve, reject) => {
           execFile(
             'node',
             [fileName.replace('.json', '.js')],
-            { cwd: path.join(__dirname, '..', 'examples') },
+            { cwd: path.resolve(__dirname, '..', 'examples') },
             (error, stdout, stderr) => {
               if (error) {
                 reject(error);
@@ -29,16 +25,12 @@ describe('Examples', () => {
               resolve(stdout);
             }
           );
-        })
-          .then(result => {
-            let jsonString = JSON.parse(result);
-            expect(jsonString).toEqual(file);
-            done();
-          })
-          .catch(e => {
-            expect(e).toBeNull();
-            done();
-          });
-      }, 180000);
-  });
-});
+        });
+        expect(JSON.parse(result)).toEqual(
+          require(path.join(__dirname, 'templates', fileName))
+        );
+        done();
+      },
+      600000
+    )
+  ));
