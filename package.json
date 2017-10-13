@@ -70,7 +70,7 @@
       "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
     "cp-ec2info": "cp -R src/ec2info.json dist/ec2info.json",
     "rollup": "node_modules/.bin/rollup --config rollup.config.browser.js",
-    "build": "tsc && npm run cp-ec2info && npm run rollup",
+    "build": "tsc && yarn cp-ec2info && yarn rollup",
     "test": "jest",
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
@@ -78,7 +78,7 @@
       "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "docs": "documentation readme src/index.js --section=API",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
-    "prepush": "npm run lint && npm run build && npm run test",
+    "prepush": "yarn lint && yarn build && yarn test",
     "update-submodules": "git submodule update --remote --merge",
     "update-ec2info": "node src/transform/buildEC2Data.js",
     "release:major":
