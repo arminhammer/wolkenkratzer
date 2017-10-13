@@ -39,6 +39,6 @@ describe('Examples', () => {
             expect(e).toBeNull();
             done();
           });
-      }, 90000);
+      }, 180000);
   });
 });
