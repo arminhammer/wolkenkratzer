@@ -6,11 +6,10 @@ import {
 } from '../../../src/macros/lambda.macro';
 const path = require('path');
 const fs = require('fs-extra');
+const TIMEOUT = 60000;
 
 describe('Lambda Macro', () => {
-  test(
-    'buildZipLambda Can build a Function resource with a zip Lambda function',
-    () => {
+  test('buildZipLambda Can build a Function resource with a zip Lambda function', () => {
       let zipFile = null;
       const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
@@ -52,13 +51,9 @@ describe('Lambda Macro', () => {
             });
           });
         });
-    },
-    10000
-  );
+    }, TIMEOUT);
 
-  test(
-    'buildZipLambda Can build a Function resource with a zip Lambda function and env vars',
-    () => {
+  test('buildZipLambda Can build a Function resource with a zip Lambda function and env vars', () => {
       let zipFile = null;
       const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
@@ -110,13 +105,9 @@ describe('Lambda Macro', () => {
             });
           });
         });
-    },
-    10000
-  );
+    }, TIMEOUT);
 
-  test(
-    'buildZipLambda Can build a Function resource with a zip Lambda function and bucket and key params',
-    () => {
+  test('buildZipLambda Can build a Function resource with a zip Lambda function and bucket and key params', () => {
       let zipFile = null;
       const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
@@ -157,13 +148,9 @@ describe('Lambda Macro', () => {
             });
           });
         });
-    },
-    10000
-  );
+    }, TIMEOUT);
 
-  test(
-    'buildZipLambdaTemplate Can build a Template with a zip Lambda function',
-    () => {
+  test('buildZipLambdaTemplate Can build a Template with a zip Lambda function', () => {
       let zipFile = null;
       const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
@@ -183,13 +170,9 @@ describe('Lambda Macro', () => {
             expect(Template.build()).toEqual(testTemplate);
           });
         });
-    },
-    10000
-  );
+    }, TIMEOUT);
 
-  test(
-    'buildLambda Can build a Function resource with a zip Lambda function',
-    () => {
+  test('buildLambda Can build a Function resource with a zip Lambda function', () => {
       let zipFile = null;
       const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
@@ -231,13 +214,9 @@ describe('Lambda Macro', () => {
             });
           });
         });
-    },
-    10000
-  );
+    }, TIMEOUT);
 
-  test(
-    'buildLambdaTemplate Can build a Template with a zip Lambda function',
-    () => {
+  test('buildLambdaTemplate Can build a Template with a zip Lambda function', () => {
       let zipFile = null;
       const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
@@ -259,7 +238,5 @@ describe('Lambda Macro', () => {
             expect(Template).toEqual(testTemplate);
           });
         });
-    },
-    10000
-  );
+    }, TIMEOUT);
 });
