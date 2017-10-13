@@ -1,1 +1,0 @@
-{"version":3,"file":"pseudo.js","sourceRoot":"","sources":["../src/pseudo.ts"],"names":[],"mappings":";;;;;;;;;;;IAAA;;;;;;;;OAQG;IACU,QAAA,MAAM,GAAG;QACpB,cAAc,EAAE,gBAAgB;QAChC,qBAAqB,EAAE,uBAAuB;QAC9C,YAAY,EAAE,cAAc;QAC5B,UAAU,EAAE,aAAa;QACzB,YAAY,EAAE,cAAc;QAC5B,cAAc,EAAE,gBAAgB;KACjC,CAAC"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"description.js","sourceRoot":"","sources":["../../src/elements/description.ts"],"names":[],"mappings":";;;;;;;;;;;IAEA;;;OAGG;IACH,qBAA4B,OAAe;QACzC,EAAE,CAAC,CAAC,CAAC,OAAO,CAAC,CAAC,CAAC;YACb,MAAM,IAAI,WAAW,CAAC,oCAAoC,CAAC,CAAC;QAC9D,CAAC;QACD,MAAM,CAAC,EAAE,IAAI,EAAE,aAAa,EAAE,OAAO,EAAE,OAAO,EAAE,CAAC;IACnD,CAAC;IALD,kCAKC"}

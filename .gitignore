@@ -11,3 +11,4 @@ yarn-error.log
 test.js
 .rpt2_cache/
 .vscode
+dist/
