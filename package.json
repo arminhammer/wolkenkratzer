@@ -84,7 +84,7 @@
     "release:patch":
       "npm version patch && git push --follow-tags && npm publish",
     "webpack": "webpack",
-    "lint": "tslint --project ."
+    "lint": "tslint '*(src|tests)/**/*.ts'"
   },
   "repository": {
     "type": "git",
