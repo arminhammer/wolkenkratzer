@@ -1,11 +1,11 @@
 import { cloneDeep } from 'lodash';
 import { FnJoin, FnSub, Ref } from '../intrinsic';
-import { IFnJoin, IOutput, IOutputProperties } from '../types';
+import { IOutput, IOutputProperties } from '../types';
 
 /**
  * Creatr an Output object
- * @param {*} name 
- * @param {*} properties 
+ * @param {*} name
+ * @param {*} properties
  */
 export function Output(name: string, properties: IOutputProperties): IOutput {
   if (!name || !properties || !properties.Value) {

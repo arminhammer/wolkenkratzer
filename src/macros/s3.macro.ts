@@ -1,7 +1,7 @@
 'use strict';
 
-import stubs from 'cfn-doc-json-stubs';
-import { Service } from '../service';
+// import stubs from 'cfn-doc-json-stubs';
+// import { Service } from '../service';
 
 /**
  * @memberof module:Macro
