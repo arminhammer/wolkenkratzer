@@ -3,8 +3,6 @@
 import stubs from 'cfn-doc-json-stubs';
 import { Service } from '../service';
 
-const s3Resource: any = Service(stubs.S3);
-
 /**
  * @memberof module:Macro
  * @param name

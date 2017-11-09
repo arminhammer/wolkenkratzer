@@ -41,7 +41,6 @@ export {
   buildZipLambdaTemplate
 } from './macros/lambda.macro';
 export { Pseudo } from './pseudo';
-import { IService } from './types';
 
 stubs.resourceList.map(r => {
   exports[r] = Service(stubs[r]);

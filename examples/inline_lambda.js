@@ -10,5 +10,5 @@ buildInlineLambdaTemplate({
   parameters: ['Role'],
   output: true
 })
-  .then(result => console.log(JSON.stringify(result.build(), 2, null)))
+  .then(result => console.log(JSON.stringify(result.build(), null, 2)))
   .catch(console.error);

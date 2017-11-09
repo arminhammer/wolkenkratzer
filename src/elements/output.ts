@@ -1,13 +1,6 @@
 import { cloneDeep } from 'lodash';
 import { FnJoin, FnSub, Ref } from '../intrinsic';
-import {
-  IFnGetAtt,
-  IFnJoin,
-  IFnSub,
-  IOutput,
-  IOutputProperties,
-  IRef
-} from '../types';
+import { IFnJoin, IOutput, IOutputProperties } from '../types';
 
 /**
  * Creatr an Output object

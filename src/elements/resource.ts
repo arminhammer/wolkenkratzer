@@ -1,10 +1,4 @@
-import {
-  ICreationPolicy,
-  IDeletionPolicy,
-  IDependsOn,
-  IResource,
-  IUpdatePolicy
-} from '../types';
+import { IResource } from '../types';
 
 /**
  * Create a Resource object
@@ -47,13 +41,13 @@ export function CustomResource(name: string, properties, options): IResource {
 
 function _validateProperties(properties, rType: string, model) {
   // Check if keys other than the defined ones are present
-  Object.keys(properties).map(p => {
+  Object.keys(properties).forEach(p => {
     if (!model.Resources[rType].Properties[p]) {
       throw new SyntaxError(`${p} is not a valid attribute of ${rType}`);
     }
   });
   // Check if all of the required keys are present
-  Object.keys(model.Resources[rType].Properties).map(p => {
+  Object.keys(model.Resources[rType].Properties).forEach(p => {
     if (model.Resources[rType].Properties[p].Required === 'Yes') {
       if (!properties[p]) {
         throw new SyntaxError(
