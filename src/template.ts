@@ -346,11 +346,6 @@ function _validateFnGetAtt(t: ITemplate, att: IFnGetAtt): void | SyntaxError {
   return;
 }
 
-function _strip(t: IParameter | IOutput | IResource | ICondition): any {
-  const { kind, Name, ...rest } = t;
-  return rest;
-}
-
 function _cleanObject(object: any) {
   if (Array.isArray(object)) {
     for (let v = 0; v < object.length; v++) {
@@ -664,7 +659,7 @@ export function _json(
     case 'Mapping':
       return _buildMapping(t);
     case 'Parameter':
-      return _strip(t).Properties;
+      return t.Properties;
     case 'Output':
       return _buildOutput(t);
     case 'Resource':
