@@ -93,7 +93,7 @@ let t = Template()
       AllowedValues: osTypes
     })
   );
-osTypes.map(os => {
+osTypes.forEach(os => {
   t = t.add(Condition(`${os}AMI`, FnEquals(Ref('AMI'), os)));
 });
 t = t

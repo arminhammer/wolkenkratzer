@@ -91,7 +91,8 @@ let t = Template()
       FunctionName: 'S3ReleaseCacheLambdaFunction',
       Handler: 'index.handler',
       MemorySize: 256,
-      Role: 'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
+      Role:
+        'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
       Runtime: 'nodejs4.3',
       Timeout: 300
     })
@@ -172,7 +173,8 @@ let t = Template()
       FunctionName: 'EC2ReleaseCacheLambdaFunction',
       Handler: 'index.handler',
       MemorySize: 256,
-      Role: 'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
+      Role:
+        'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
       Runtime: 'nodejs4.3',
       Timeout: 300
     })
@@ -285,7 +287,8 @@ let t = Template()
       FunctionName: 'ELBReleaseCacheLambdaFunction',
       Handler: 'index.handler',
       MemorySize: 256,
-      Role: 'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
+      Role:
+        'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
       Runtime: 'nodejs4.3',
       Timeout: 300
     })
@@ -363,7 +366,8 @@ let t = Template()
       FunctionName: 'SGReleaseCacheLambdaFunction',
       Handler: 'index.handler',
       MemorySize: 256,
-      Role: 'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
+      Role:
+        'arn:aws:iam::123456789012:role/CapOne-CrossAccount-CustomRole-Chassis-lambda',
       Runtime: 'nodejs4.3',
       Timeout: 300
     })
@@ -481,7 +485,7 @@ let t = Template()
       Timeout: 300
     })
   );
-prefixes.map(p => {
+prefixes.forEach(p => {
   t = t.add(
     Output(`${p}FunctionOutput`, {
       Description: `${p} Bucket Cache Function.`,

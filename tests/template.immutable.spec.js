@@ -9,8 +9,8 @@ const {
 
 describe('Template Immutability', () => {
   test('Test that adding a Description does not mutate the Template', () => {
-    let t = Template();
-    let x = t.add(Description('This is a description'));
+    const t = Template();
+    t.add(Description('This is a description'));
     expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
@@ -18,8 +18,8 @@ describe('Template Immutability', () => {
   });
 
   test('Test that adding a Mapping does not mutate the Template', () => {
-    let t = Template();
-    let x = t.add(
+    const t = Template();
+    t.add(
       Mapping('RegionMap', 'us-east-1', {
         S3hostedzoneID: 'Z3AQBSTGFYJSTF',
         websiteendpoint: 's3-website-us-east-1.amazonaws.com'
@@ -32,8 +32,8 @@ describe('Template Immutability', () => {
   });
 
   test('Test that adding a Output does not mutate the Template', () => {
-    let t = Template();
-    let x = t.add(Output('NewOutput', { Value: 'String' }));
+    const t = Template();
+    t.add(Output('NewOutput', { Value: 'String' }));
     expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
@@ -41,8 +41,8 @@ describe('Template Immutability', () => {
   });
 
   test('Test that adding a Parameter does not mutate the Template', () => {
-    let t = Template();
-    let x = t.add(Parameter('NewParam', { Type: 'String' }));
+    const t = Template();
+    t.add(Parameter('NewParam', { Type: 'String' }));
     expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'
@@ -50,8 +50,8 @@ describe('Template Immutability', () => {
   });
 
   test('Test that adding a Resource does not mutate the Template', () => {
-    let t = Template();
-    let x = t.add(S3.Bucket('Main', { BucketName: 'This is a bucket' }));
+    const t = Template();
+    t.add(S3.Bucket('Main', { BucketName: 'This is a bucket' }));
     expect(t.build()).toEqual({
       Resources: {},
       AWSTemplateFormatVersion: '2010-09-09'

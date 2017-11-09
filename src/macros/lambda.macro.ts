@@ -105,7 +105,7 @@ function _createInlineTemplate({
 
 /**
  * Create an inline Lambda function from a folder or source file
- * @param {} param0 
+ * @param {} param0
  */
 export function buildInlineLambdaTemplate({
   path: inputPath,
@@ -126,14 +126,14 @@ export function buildInlineLambdaTemplate({
 
 /**
  * Create an inline Lambda function
- * @param {*} param0 
+ * @param {*} param0
  */
 export function buildInlineLambda({
   path: inputPath,
   name,
   options,
   parameters
-}) {
+}: any) {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
   inputPath = resolve(inputPath);
@@ -165,7 +165,7 @@ export function buildInlineLambda({
 
 /**
  * Create a Lambda function from a folder or source file
- * @param {} param0 
+ * @param {} param0
  */
 export function _buildZipLambda({
   path: inputPath,
@@ -252,7 +252,7 @@ export function _buildZipLambda({
 
 /**
  * Create a Lambda function from a folder or source file
- * @param {} param0 
+ * @param {} param0
  */
 export function buildZipLambda({
   path: inputPath,
@@ -262,7 +262,7 @@ export function buildZipLambda({
   bucket,
   key,
   output
-}): Promise<IZipLambdaResult> {
+}: any): Promise<IZipLambdaResult> {
   return _buildZipLambda({
     bucket,
     key,
@@ -276,7 +276,7 @@ export function buildZipLambda({
 
 /**
  * Create a Lambda function from a folder or source file
- * @param {} param0 
+ * @param {} param0
  */
 export function buildLambda({
   path: inputPath,
@@ -284,7 +284,7 @@ export function buildLambda({
   options,
   parameters,
   output
-}) {
+}: any) {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
   inputPath = resolve(inputPath);
@@ -391,7 +391,7 @@ export function buildLambda({
 
 /**
  * Create a Lambda function from a folder or source file
- * @param {} param0 
+ * @param {} param0
  */
 export function buildZipLambdaTemplate({
   path: inputPath,
@@ -401,7 +401,7 @@ export function buildZipLambdaTemplate({
   bucket,
   key,
   output
-}): Promise<IZipLambdaTemplateResult> {
+}: any): Promise<IZipLambdaTemplateResult> {
   return _buildZipLambda({
     bucket,
     key,
@@ -435,7 +435,7 @@ export function buildZipLambdaTemplate({
 
 /**
  * Create a Lambda function from a folder or source file
- * @param {} param0 
+ * @param {} param0
  */
 export function buildLambdaTemplate({
   path: inputPath,
@@ -443,7 +443,7 @@ export function buildLambdaTemplate({
   options,
   parameters,
   output
-}) {
+}: any) {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
   inputPath = resolve(inputPath);

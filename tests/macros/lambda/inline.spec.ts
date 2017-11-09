@@ -9,30 +9,27 @@ describe('Lambda Macro', () => {
   describe('buildLambda', () => {
     test('Can build a Template with an inline Lambda function', () => {
       return buildLambda({
-        path: path.resolve(__dirname, './examples/inline/index.js'),
         name: 'MyGreatFunction',
         options: {
           MemorySize: 256
         },
+        output: true,
         parameters: ['Role'],
-        output: true
+        path: path.resolve(__dirname, './examples/inline/index.js')
       }).then(({ FunctionResource }) => {
-        //console.log(JSON.stringify(Template, null, 2));
         return expect(FunctionResource).toEqual({
           Name: 'MyGreatFunction',
           Properties: {
             Code: {
               ZipFile: {
-                kind: 'FnJoin',
+                Delimiter: '\n',
                 Values: [
-                  "const aws = require('aws-sdk');",
-                  '',
                   'exports.handler = (event, context, callback) => {',
                   "  callback(null, 'Hello from Default Function');",
                   '};',
                   ''
                 ],
-                Delimiter: '\n'
+                kind: 'FnJoin'
               }
             },
             FunctionName: 'MyFunction',
@@ -60,16 +57,14 @@ describe('Lambda Macro', () => {
           Properties: {
             Code: {
               ZipFile: {
-                kind: 'FnJoin',
+                Delimiter: '\n',
                 Values: [
-                  "const aws = require('aws-sdk');",
-                  '',
                   'exports.handler = (event, context, callback) => {',
                   "  callback(null, 'Hello from Default Function');",
                   '};',
                   ''
                 ],
-                Delimiter: '\n'
+                kind: 'FnJoin'
               }
             },
             FunctionName: 'MyFunction',
@@ -89,22 +84,19 @@ describe('Lambda Macro', () => {
       return buildLambda({
         path: path.resolve(__dirname, './examples/zipEmpty')
       }).then(({ FunctionResource }) => {
-        //console.log(JSON.stringify(Template, null, 2));
         return expect(FunctionResource).toEqual({
           Name: 'MyFunction',
           Properties: {
             Code: {
               ZipFile: {
-                kind: 'FnJoin',
+                Delimiter: '\n',
                 Values: [
-                  "const aws = require('aws-sdk');",
-                  '',
                   'exports.handler = (event, context, callback) => {',
                   "  callback(null, 'Hello from Default Function');",
                   '};',
                   ''
                 ],
-                Delimiter: '\n'
+                kind: 'FnJoin'
               }
             },
             FunctionName: 'MyFunction',
@@ -124,30 +116,26 @@ describe('Lambda Macro', () => {
   describe('buildInlineLambda', () => {
     test('Can build an inline Lambda function', () => {
       return buildInlineLambda({
-        path: path.resolve(__dirname, './examples/inline/index.js'),
         name: 'MyGreatFunction',
         options: {
           MemorySize: 256
         },
         parameters: ['Role'],
-        output: true
+        path: path.resolve(__dirname, './examples/inline/index.js')
       }).then(fn => {
-        //console.log(JSON.stringify(Template, null, 2));
         return expect(fn).toEqual({
           Name: 'MyGreatFunction',
           Properties: {
             Code: {
               ZipFile: {
-                kind: 'FnJoin',
+                Delimiter: '\n',
                 Values: [
-                  "const aws = require('aws-sdk');",
-                  '',
                   'exports.handler = (event, context, callback) => {',
                   "  callback(null, 'Hello from Default Function');",
                   '};',
                   ''
                 ],
-                Delimiter: '\n'
+                kind: 'FnJoin'
               }
             },
             FunctionName: 'MyFunction',
@@ -168,35 +156,32 @@ describe('Lambda Macro', () => {
 
     test('Can build an inline Lambda function with environmental variables', () => {
       return buildInlineLambda({
-        path: path.resolve(__dirname, './examples/inline/index.js'),
         name: 'MyGreatFunction',
         options: {
-          MemorySize: 256,
           Environment: {
             Variables: {
               DDB_TABLE: `main-table`
             }
-          }
+          },
+          MemorySize: 256
         },
+        output: true,
         parameters: ['Role'],
-        output: true
+        path: path.resolve(__dirname, './examples/inline/index.js')
       }).then(fn => {
-        //console.log(JSON.stringify(Template, null, 2));
         return expect(fn).toEqual({
           Name: 'MyGreatFunction',
           Properties: {
             Code: {
               ZipFile: {
-                kind: 'FnJoin',
+                Delimiter: '\n',
                 Values: [
-                  "const aws = require('aws-sdk');",
-                  '',
                   'exports.handler = (event, context, callback) => {',
                   "  callback(null, 'Hello from Default Function');",
                   '};',
                   ''
                 ],
-                Delimiter: '\n'
+                kind: 'FnJoin'
               }
             },
             Environment: {
@@ -222,7 +207,6 @@ describe('Lambda Macro', () => {
 
     test('Can build an inline Lambda function with tags', () => {
       return buildInlineLambda({
-        path: path.resolve(__dirname, './examples/inline/index.js'),
         name: 'MyGreatFunction',
         options: {
           MemorySize: 256,
@@ -233,33 +217,25 @@ describe('Lambda Macro', () => {
             }
           ]
         },
+        output: true,
         parameters: ['Role'],
-        output: true
+        path: path.resolve(__dirname, './examples/inline/index.js')
       }).then(fn => {
-        //console.log(JSON.stringify(Template, null, 2));
         return expect(fn).toEqual({
           Name: 'MyGreatFunction',
           Properties: {
             Code: {
               ZipFile: {
-                kind: 'FnJoin',
+                Delimiter: '\n',
                 Values: [
-                  "const aws = require('aws-sdk');",
-                  '',
                   'exports.handler = (event, context, callback) => {',
                   "  callback(null, 'Hello from Default Function');",
                   '};',
                   ''
                 ],
-                Delimiter: '\n'
+                kind: 'FnJoin'
               }
             },
-            Tags: [
-              {
-                Key: 'Owner',
-                Value: 'Me'
-              }
-            ],
             FunctionName: 'MyFunction',
             Handler: 'index.handler',
             MemorySize: 256,
@@ -268,6 +244,12 @@ describe('Lambda Macro', () => {
               kind: 'Ref'
             },
             Runtime: 'nodejs6.10',
+            Tags: [
+              {
+                Key: 'Owner',
+                Value: 'Me'
+              }
+            ],
             Timeout: 30
           },
           Type: 'AWS::Lambda::Function',
@@ -285,16 +267,14 @@ describe('Lambda Macro', () => {
           Properties: {
             Code: {
               ZipFile: {
-                kind: 'FnJoin',
+                Delimiter: '\n',
                 Values: [
-                  "const aws = require('aws-sdk');",
-                  '',
                   'exports.handler = (event, context, callback) => {',
                   "  callback(null, 'Hello from Default Function');",
                   '};',
                   ''
                 ],
-                Delimiter: '\n'
+                kind: 'FnJoin'
               }
             },
             FunctionName: 'MyFunction',
@@ -314,22 +294,19 @@ describe('Lambda Macro', () => {
       return buildInlineLambda({
         path: path.resolve(__dirname, './examples/zipEmpty')
       }).then(fn => {
-        //console.log(JSON.stringify(Template, null, 2));
         return expect(fn).toEqual({
           Name: 'MyFunction',
           Properties: {
             Code: {
               ZipFile: {
-                kind: 'FnJoin',
+                Delimiter: '\n',
                 Values: [
-                  "const aws = require('aws-sdk');",
-                  '',
                   'exports.handler = (event, context, callback) => {',
                   "  callback(null, 'Hello from Default Function');",
                   '};',
                   ''
                 ],
-                Delimiter: '\n'
+                kind: 'FnJoin'
               }
             },
             FunctionName: 'MyFunction',
@@ -349,15 +326,14 @@ describe('Lambda Macro', () => {
   describe('buildLambdaTemplate', () => {
     test('Can build a Template with an inline Lambda function', () => {
       return buildLambdaTemplate({
-        path: path.resolve(__dirname, './examples/inline/index.js'),
         name: 'MyGreatFunction',
         options: {
           MemorySize: 256
         },
+        output: true,
         parameters: ['Role'],
-        output: true
+        path: path.resolve(__dirname, './examples/inline/index.js')
       }).then(({ Template }) => {
-        //console.log(JSON.stringify(Template, null, 2));
         return expect(Template).toEqual(
           require('./templates/lambda/inline/template.json')
         );
@@ -368,7 +344,6 @@ describe('Lambda Macro', () => {
       return buildLambdaTemplate({
         path: path.resolve(__dirname, './examples/inline/index.js')
       }).then(({ Template }) => {
-        //console.log(JSON.stringify(Template, null, 2));
         return expect(Template).toEqual(
           require('./templates/lambda/inline/defaultValues.json')
         );
@@ -379,7 +354,6 @@ describe('Lambda Macro', () => {
       return buildLambdaTemplate({
         path: path.resolve(__dirname, './examples/zipEmpty')
       }).then(({ Template }) => {
-        //console.log(JSON.stringify(Template, null, 2));
         return expect(Template).toEqual(
           require('./templates/lambda/inline/defaultValues.json')
         );

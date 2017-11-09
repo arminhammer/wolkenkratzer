@@ -35,7 +35,6 @@ describe('Resource', () => {
       Output: true
     });
     expect(t.build()).toEqual({
-      Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
       Resources: {
         Main: {
@@ -60,7 +59,6 @@ describe('Resource', () => {
       Parameters: ['BucketName']
     });
     expect(t.build()).toEqual({
-      Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
       Parameters: {
         MainS3BucketParam: {
@@ -91,7 +89,6 @@ describe('Resource', () => {
         Output: true
       });
     expect(t.build()).toEqual({
-      Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
       Resources: {
         Main: {

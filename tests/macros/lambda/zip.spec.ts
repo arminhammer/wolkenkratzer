@@ -1,29 +1,30 @@
 import {
-  buildZipLambda,
-  buildZipLambdaTemplate,
   buildLambda,
-  buildLambdaTemplate
+  buildLambdaTemplate,
+  buildZipLambda,
+  buildZipLambdaTemplate
 } from '../../../src/macros/lambda.macro';
 const path = require('path');
 const fs = require('fs-extra');
 const TIMEOUT = 60000;
 
 describe('Lambda Macro', () => {
-  test('buildZipLambda Can build a Function resource with a zip Lambda function', () => {
+  test(
+    'buildZipLambda Can build a Function resource with a zip Lambda function',
+    () => {
       let zipFile = null;
-      const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
         .readFile(path.resolve(__dirname, './templates/lambda/zip/src.zip'))
         .then(contents => {
           zipFile = contents;
           return buildZipLambda({
-            path: path.resolve(__dirname, './examples/zip/'),
             name: 'MyGreatFunction',
             options: {
               MemorySize: 256
             },
+            output: true,
             parameters: ['Role'],
-            output: true
+            path: path.resolve(__dirname, './examples/zip/')
           }).then(({ FunctionResource, Zip }) => {
             expect(Zip.size).toEqual(zipFile.size);
             expect(FunctionResource).toEqual({
@@ -51,28 +52,31 @@ describe('Lambda Macro', () => {
             });
           });
         });
-    }, TIMEOUT);
+    },
+    TIMEOUT
+  );
 
-  test('buildZipLambda Can build a Function resource with a zip Lambda function and env vars', () => {
+  test(
+    'buildZipLambda Can build a Function resource with a zip Lambda function and env vars',
+    () => {
       let zipFile = null;
-      const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
         .readFile(path.resolve(__dirname, './templates/lambda/zip/src.zip'))
         .then(contents => {
           zipFile = contents;
           return buildZipLambda({
-            path: path.resolve(__dirname, './examples/zip/'),
             name: 'MyGreatFunction',
             options: {
-              MemorySize: 256,
               Environment: {
                 Variables: {
                   Key: 'Value'
                 }
-              }
+              },
+              MemorySize: 256
             },
+            output: true,
             parameters: ['Role'],
-            output: true
+            path: path.resolve(__dirname, './examples/zip/')
           }).then(({ FunctionResource, Zip }) => {
             expect(Zip.size).toEqual(zipFile.size);
             expect(FunctionResource).toEqual({
@@ -105,25 +109,28 @@ describe('Lambda Macro', () => {
             });
           });
         });
-    }, TIMEOUT);
+    },
+    TIMEOUT
+  );
 
-  test('buildZipLambda Can build a Function resource with a zip Lambda function and bucket and key params', () => {
+  test(
+    'buildZipLambda Can build a Function resource with a zip Lambda function and bucket and key params',
+    () => {
       let zipFile = null;
-      const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
         .readFile(path.resolve(__dirname, './templates/lambda/zip/src.zip'))
         .then(contents => {
           zipFile = contents;
           return buildZipLambda({
-            path: path.resolve(__dirname, './examples/zip/'),
+            bucket: 'sample-bucket',
+            key: 'sample-key',
             name: 'MyGreatFunction',
             options: {
               MemorySize: 256
             },
+            output: true,
             parameters: ['Role'],
-            bucket: 'sample-bucket',
-            key: 'sample-key',
-            output: true
+            path: path.resolve(__dirname, './examples/zip/')
           }).then(({ FunctionResource, Zip }) => {
             expect(Zip.size).toEqual(zipFile.size);
             expect(FunctionResource).toEqual({
@@ -148,9 +155,13 @@ describe('Lambda Macro', () => {
             });
           });
         });
-    }, TIMEOUT);
+    },
+    TIMEOUT
+  );
 
-  test('buildZipLambdaTemplate Can build a Template with a zip Lambda function', () => {
+  test(
+    'buildZipLambdaTemplate Can build a Template with a zip Lambda function',
+    () => {
       let zipFile = null;
       const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
@@ -158,35 +169,38 @@ describe('Lambda Macro', () => {
         .then(contents => {
           zipFile = contents;
           return buildZipLambdaTemplate({
-            path: path.resolve(__dirname, './examples/zip/'),
             name: 'MyGreatFunction',
             options: {
               MemorySize: 256
             },
+            output: true,
             parameters: ['Role'],
-            output: true
+            path: path.resolve(__dirname, './examples/zip/')
           }).then(({ Template, Zip }) => {
             expect(Zip.size).toEqual(zipFile.size);
             expect(Template.build()).toEqual(testTemplate);
           });
         });
-    }, TIMEOUT);
+    },
+    TIMEOUT
+  );
 
-  test('buildLambda Can build a Function resource with a zip Lambda function', () => {
+  test(
+    'buildLambda Can build a Function resource with a zip Lambda function',
+    () => {
       let zipFile = null;
-      const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
         .readFile(path.resolve(__dirname, './templates/lambda/zip/src.zip'))
         .then(contents => {
           zipFile = contents;
           return buildLambda({
-            path: path.resolve(__dirname, './examples/zip/'),
             name: 'MyGreatFunction',
             options: {
               MemorySize: 256
             },
+            output: true,
             parameters: ['Role'],
-            output: true
+            path: path.resolve(__dirname, './examples/zip/')
           }).then(({ FunctionResource, Zip }) => {
             expect(Zip.size).toEqual(zipFile.size);
             expect(FunctionResource).toEqual({
@@ -214,9 +228,13 @@ describe('Lambda Macro', () => {
             });
           });
         });
-    }, TIMEOUT);
+    },
+    TIMEOUT
+  );
 
-  test('buildLambdaTemplate Can build a Template with a zip Lambda function', () => {
+  test(
+    'buildLambdaTemplate Can build a Template with a zip Lambda function',
+    () => {
       let zipFile = null;
       const testTemplate = require('./templates/lambda/zip/template.json');
       return fs
@@ -224,19 +242,20 @@ describe('Lambda Macro', () => {
         .then(contents => {
           zipFile = contents;
           return buildLambdaTemplate({
-            path: path.resolve(__dirname, './examples/zip/'),
             name: 'MyGreatFunction',
             options: {
               MemorySize: 256
             },
+            output: true,
             parameters: ['Role'],
-            output: true
+            path: path.resolve(__dirname, './examples/zip/')
           }).then(({ Template, Zip }) => {
             console.log('Here');
-            //console.log(JSON.stringify(Template, null, 2));
             expect(Zip.size).toEqual(zipFile.size);
             expect(Template).toEqual(testTemplate);
           });
         });
-    }, TIMEOUT);
+    },
+    TIMEOUT
+  );
 });
