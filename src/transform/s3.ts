@@ -1,7 +1,6 @@
 'use strict';
 
 import stubs from 'cfn-doc-json-stubs';
-import * as path from 'path';
 import { Service } from '../service';
 const s3Service: any = Service(stubs.S3);
 
@@ -19,7 +18,7 @@ export function S3BucketTransform(
         .getBucketVersioning({ Bucket: bucketName })
         .promise()
         .then(versionData => {
-          if (Object.keys(versionData)) {
+          if (Object.keys(versionData).length > 0) {
             bucket.VersioningConfiguration = versionData;
           }
           // return s3Client.getBucketAcl({ Bucket: bucketName }).promise()
