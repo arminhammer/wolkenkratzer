@@ -215,7 +215,7 @@ export function Template(): ITemplate {
         'Parameters',
         'Resources',
         'Description'
-      ].map(block => {
+      ].forEach(block => {
         if (t[block]) {
           combined[block] = { ..._t[block], ...t[block] };
         }
@@ -555,9 +555,8 @@ function _buildFnEquals(t: IFnEquals) {
 }
 
 function _buildFnSelect(t: IFnSelect) {
-  let values = t.FnSelect;
   if (Array.isArray(t.FnSelect)) {
-    values = t.FnSelect.map(x => {
+    const values = t.FnSelect.map(x => {
       if (typeof x === 'string') {
         return x;
       } else {
@@ -567,10 +566,10 @@ function _buildFnSelect(t: IFnSelect) {
         return x;
       }
     });
+    return [t.index, values];
   } else {
-    values = _json(t.FnSelect);
+    return [t.index, _json(t.FnSelect)];
   }
-  return [t.index, values];
 }
 
 function _buildMapping(t: IMapping) {
@@ -676,9 +675,8 @@ export function _json(
 }
 
 function _addDescription(t: ITemplate, e: IDescription): ITemplate {
-  let result = { ...t };
   const desc = { Description: e.Content };
-  result = { ...t, ...desc };
+  const result = { ...t, ...desc };
   return result;
 }
 
@@ -759,10 +757,7 @@ function _addOutput(t: ITemplate, e: IOutput): ITemplate {
   if (typeof e0.Properties.Value !== 'string') {
     if (e0.Properties.Value.Ref) {
       _validateRef(t, e0.Properties.Value);
-    } else if (
-      typeof e0.Properties.Value !== 'string' &&
-      e0.Properties.Value['Fn::GetAtt']
-    ) {
+    } else if (e0.Properties.Value['Fn::GetAtt']) {
       e0.Properties.Value = FnGetAtt(
         e0.Properties.Value['Fn::GetAtt'][0],
         e0.Properties.Value['Fn::GetAtt'][1]
