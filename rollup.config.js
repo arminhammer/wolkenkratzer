@@ -1,43 +1,40 @@
 // rollup.config.js
-import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
-import builtins from 'rollup-plugin-node-builtins';
+//import resolve from 'rollup-plugin-node-resolve';
+//import builtins from 'rollup-plugin-node-builtins';
+import nodeResolve from 'rollup-plugin-node-resolve';
 import globals from 'rollup-plugin-node-globals';
-import flow from 'rollup-plugin-flow';
 import json from 'rollup-plugin-json';
 import commonjs from 'rollup-plugin-commonjs';
 import sizes from 'rollup-plugin-sizes';
+import typescript from 'rollup-plugin-typescript2';
 
 export default {
-  entry: 'src/index.js',
-  format: 'umd',
+  input: 'src/browser.ts',
+  output: {
+    format: 'umd',
+    file: 'dist/index.umd.js'
+  },
   plugins: [
-    json(),
-    babel(),
-    globals(),
+    nodeResolve(),
     commonjs({
-      include: ['node_modules/**'],
-      addExports: {
-        'node_modules/lodash-es': ['default']
+      //include: ['node_modules/lodash/**', 'node_modules/cfn-doc-json-stubs/**'],
+      namedExports: {
+        // left-hand side can be an absolute path, a path
+        // relative to the current directory, or the name
+        // of a module in node_modules
+        'node_modules/lodash/lodash.js': ['cloneDeep', 'omit', 'merge'],
+        'node_modules/js-yaml/index.js': ['safeDump']
+        //'node_modules/lodash/_freeGlobal.js': ['_freeGlobal.js']
+        //'node_modules/cfn-doc-json-stubs': ['cfn-doc-json-stubs']
       }
     }),
-    resolve({
-      module: true, // Default: true
-      jsnext: true, // Default: false
-      main: true, // Default: true
-      browser: true, // Default: false
-      extensions: ['.js', '.json'], // Default: ['.js']
-      preferBuiltins: true, // Default: true
-      modulesOnly: false // Default: false
-    }),
-    builtins(),
+    typescript({ verbosity: 3 }),
+    json(),
+    //builtins(),
+    globals(),
     sizes({ details: true })
   ],
-  moduleName: 'wolkenkratzer',
-  dest: 'dist/index.js',
-  external: ['fs-extra', 'klaw', 'bluebird', 'cfn-doc-json-stubs'],
-  globals: {
-    'cfn-doc-json-stubs': 'cfn-doc-json-stubs'
-  },
-  sourceMap: true
+  name: 'wolkenkratzer'
+  //,
+  //sourcemap: true
 };
