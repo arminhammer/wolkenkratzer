@@ -2,9 +2,9 @@ import { IResource } from '../types';
 
 /**
  * Create a Resource object
- * @param {*} name 
- * @param {*} properties 
- * @param {*} options 
+ * @param {*} name
+ * @param {*} properties
+ * @param {*} options
  */
 export function Resource(name: string, properties, options): IResource {
   if (!name) {
@@ -39,6 +39,12 @@ export function CustomResource(name: string, properties, options): IResource {
   };
 }
 
+/**
+ * @hidden
+ * @param properties
+ * @param rType
+ * @param model
+ */
 function _validateProperties(properties, rType: string, model) {
   // Check if keys other than the defined ones are present
   Object.keys(properties).forEach(p => {

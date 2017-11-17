@@ -12,7 +12,7 @@
 
 **●  Content**:  *`object`* 
 
-*Defined in [types.ts:27](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L27)*
+*Defined in [types.ts:27](https://github.com/arminhammer/wolkenkratzer/blob/d0b0d87/src/types.ts#L27)*
 
 
 #### Type declaration
@@ -33,7 +33,7 @@ ___
 
 **●  Name**:  *`string`* 
 
-*Defined in [types.ts:26](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L26)*
+*Defined in [types.ts:26](https://github.com/arminhammer/wolkenkratzer/blob/d0b0d87/src/types.ts#L26)*
 
 
 
@@ -47,7 +47,7 @@ ___
 
 **●  kind**:  *"Mapping"* 
 
-*Defined in [types.ts:25](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L25)*
+*Defined in [types.ts:25](https://github.com/arminhammer/wolkenkratzer/blob/d0b0d87/src/types.ts#L25)*
 
 
 

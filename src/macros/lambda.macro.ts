@@ -37,6 +37,10 @@ export interface IZipLambdaTemplateResult {
   Zip: any;
 }
 
+/**
+ * @hidden
+ * @param param0
+ */
 function _createInlineFunction({
   path: inputPath,
   name,
@@ -77,6 +81,10 @@ function _createInlineFunction({
   });
 }
 
+/**
+ * @hidden
+ * @param param0
+ */
 function _createInlineTemplate({
   path: inputPath,
   name,
@@ -165,6 +173,7 @@ export function buildInlineLambda({
 
 /**
  * Create a Lambda function from a folder or source file
+ * @hidden
  * @param {} param0
  */
 export function _buildZipLambda({

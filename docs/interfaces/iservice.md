@@ -15,7 +15,7 @@ Internal
 
 **●  Function**:  *`any`* 
 
-*Defined in [types.ts:270](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L270)*
+*Defined in [types.ts:270](https://github.com/arminhammer/wolkenkratzer/blob/d0b0d87/src/types.ts#L270)*
 
 
 
