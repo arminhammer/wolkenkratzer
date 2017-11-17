@@ -1,7 +1,6 @@
 'use strict';
 
 import bluebird from 'bluebird';
-import path from 'path';
 
 const instanceTypes = require('../ec2info.json');
 

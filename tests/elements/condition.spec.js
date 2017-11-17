@@ -13,7 +13,6 @@ describe('Condition', () => {
       Condition('isProd', FnEquals(Ref(Pseudo.AWS_REGION), 'us-east-1'))
     );
     expect(t.build()).toEqual({
-      Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
       Resources: {},
       Conditions: {
@@ -34,7 +33,6 @@ describe('Condition', () => {
       .add(Condition('isProd', FnEquals(Ref(Pseudo.AWS_REGION), 'us-east-1')))
       .add(S3.Bucket('Bucket', null, { Condition: 'isProd' }));
     expect(t.build()).toEqual({
-      Resources: {},
       AWSTemplateFormatVersion: '2010-09-09',
       Resources: {
         Bucket: {

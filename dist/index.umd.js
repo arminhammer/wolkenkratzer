@@ -4,36 +4,6 @@
 	(factory((global.wolkenkratzer = {})));
 }(this, (function (exports) { 'use strict';
 
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-
-
-
-
-function __rest(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-}
-
 const resourceList = ["AutoScaling","ElasticBeanstalk","CloudFront","CloudWatch","EC2","ElasticLoadBalancing","ElastiCache","IAM","RDS","Route53","S3","SDB","SNS","SQS","CloudFormation","ApiGateway","ApplicationAutoScaling","Athena","Batch","CertificateManager","CloudTrail","CodeBuild","CodeCommit","CodeDeploy","CodePipeline","Cognito","Config","DataPipeline","DAX","DirectoryService","DMS","DynamoDB","ECR","ECS","EFS","ElasticLoadBalancingV2","EMR","Elasticsearch","Events","GameLift","Glue","IoT","Kinesis","KinesisAnalytics","KinesisFirehose","KMS","Lambda","Logs","OpsWorks","Redshift","SSM","StepFunctions","WAF","WAFRegional","WorkSpaces"];
 
 const AutoScaling = {"Resources":{"AutoScalingGroup":{"Name":"AWS::AutoScaling::AutoScalingGroup","Properties":{"AvailabilityZones":{"Array":true,"Type":"Stringvalues","Required":"Conditional. If you don't specify the VPCZoneIdentifier                                 property, you must specify this property.","UpdateRequires":"No interruption"},"Cooldown":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"DesiredCapacity":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"HealthCheckGracePeriod":{"Array":false,"Type":"Number","Required":"No","UpdateRequires":"No interruption"},"HealthCheckType":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"InstanceId":{"Array":false,"Type":"String","Required":"Conditional. You must specify this property if you don't specify the                                 LaunchConfigurationName property.","UpdateRequires":"Replacement"},"LaunchConfigurationName":{"Array":false,"Type":"String","Required":"Conditional; you must specify this property if                                 you don't specify the InstanceId property.","UpdateRequires":"No interruption"},"LifecycleHookSpecificationList":{"Array":true,"Type":"aws-properties-autoscaling-autoscalinggroup-lifecyclehookspecification","Required":"No","UpdateRequires":"No interruption"},"LoadBalancerNames":{"Array":true,"Type":"Stringvalues","Required":"No","UpdateRequires":"No interruption"},"MaxSize":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"No interruption"},"MetricsCollection":{"Array":true,"Type":"aws-properties-as-metricscollection","Required":"No","UpdateRequires":"No interruption"},"MinSize":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"No interruption"},"NotificationConfigurations":{"Array":true,"Type":"aws-properties-as-notificationconfigurations","Required":"No","UpdateRequires":"No interruption"},"PlacementGroup":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"Tags":{"Array":true,"Type":"aws-properties-as-tags","Required":"No","UpdateRequires":"No interruption"},"TargetGroupARNs":{"Array":true,"Type":"Stringvalues","Required":"No","UpdateRequires":"No interruption"},"TerminationPolicies":{"Array":true,"Type":"Stringvalues","Required":"No","UpdateRequires":"No interruption"},"VPCZoneIdentifier":{"Array":true,"Type":"Stringvalues","Required":"Conditional. If you don't specify the                                 AvailabilityZones property, you must specify this                                 property.","UpdateRequires":"Some interruptions"}}},"LaunchConfiguration":{"Name":"AWS::AutoScaling::LaunchConfiguration","Properties":{"AssociatePublicIpAddress":{"Array":false,"Type":"Boolean","Required":"No","UpdateRequires":"Replacement"},"BlockDeviceMappings":{"Array":true,"Type":"aws-properties-as-launchconfig-blockdev-mapping","Required":"No","UpdateRequires":"Replacement"},"ClassicLinkVPCId":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"Replacement"},"ClassicLinkVPCSecurityGroups":{"Array":true,"Type":"Stringvalues","Required":"Conditional. If you specified the ClassicLinkVPCId                                 property, you must specify this property.","UpdateRequires":"Replacement"},"EbsOptimized":{"Array":false,"Type":"Boolean","Required":"No If this property is not specified, \"false\" is used.","UpdateRequires":"Replacement"},"IamInstanceProfile":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"Replacement"},"ImageId":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"Replacement"},"InstanceId":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"Replacement"},"InstanceMonitoring":{"Array":false,"Type":"Boolean","Required":"No","UpdateRequires":"Replacement"},"InstanceType":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"Replacement"},"KernelId":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"Replacement"},"KeyName":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"Replacement"},"PlacementTenancy":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"Replacement"},"RamDiskId":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"Replacement"},"SecurityGroups":{"Array":true,"Type":"String","Required":"No","UpdateRequires":"Replacement"},"SpotPrice":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"Replacement"},"UserData":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"Replacement"}}},"ScalingPolicy":{"Name":"AWS::AutoScaling::ScalingPolicy","Properties":{"AdjustmentType":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"AutoScalingGroupName":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"No interruption"},"Cooldown":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"EstimatedInstanceWarmup":{"Array":false,"Type":"Number","Required":"No","UpdateRequires":"No interruption"},"MetricAggregationType":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"MinAdjustmentMagnitude":{"Array":false,"Type":"Number","Required":"No","UpdateRequires":"No interruption"},"PolicyType":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"ScalingAdjustment":{"Array":false,"Type":"Number","Required":"Conditional. This property is required if the policy type                                 is SimpleScaling. This property is not supported with any other                                 policy type.","UpdateRequires":"No interruption"},"StepAdjustments":{"Array":true,"Type":"aws-properties-autoscaling-scalingpolicy-stepadjustments","Required":"Conditional. This property is required if the policy type                                 is StepScaling. This property is not supported with any other                                 policy type.","UpdateRequires":"No interruption"},"TargetTrackingConfiguration":{"Array":false,"Type":"aws-properties-autoscaling-scalingpolicy-targettrackingconfiguration","Required":"Conditional. This property is required if the policy type is                                  TargetTrackingScaling. This property is not supported with any other                                 policy type.","UpdateRequires":"No interruption"}}},"LifecycleHook":{"Name":"AWS::AutoScaling::LifecycleHook","Properties":{"AutoScalingGroupName":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"Replacement"},"DefaultResult":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"HeartbeatTimeout":{"Array":false,"Type":"Number","Required":"No","UpdateRequires":"No interruption"},"LifecycleTransition":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"No interruption"},"NotificationMetadata":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"NotificationTargetARN":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"RoleARN":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"}}},"ScheduledAction":{"Name":"AWS::AutoScaling::ScheduledAction","Properties":{"AutoScalingGroupName":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"Replacement"},"DesiredCapacity":{"Array":false,"Type":"Number","Required":"Conditional","UpdateRequires":"No interruption"},"EndTime":{"Array":false,"Type":"Date","Required":"No","UpdateRequires":"No interruption"},"MaxSize":{"Array":false,"Type":"Number","Required":"Conditional","UpdateRequires":"No interruption"},"MinSize":{"Array":false,"Type":"Number","Required":"Conditional","UpdateRequires":"No interruption"},"Recurrence":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"},"StartTime":{"Array":false,"Type":"Date","Required":"No","UpdateRequires":"No interruption"}}}},"Models":{"aws-properties-autoscaling-autoscalinggroup-lifecyclehookspecification":{"Name":"AutoScalingAutoScalingGroupLifecycleHookSpecification","Properties":{"DefaultResult":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"                                \n                                 No interruption"},"HeartbeatTimeout":{"Array":false,"Type":"Number","Required":"No","UpdateRequires":"                                \n                                 No interruption"},"LifecycleHookName":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"                                \n                                 No interruption"},"LifecycleTransition":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"                                \n                                 No interruption"},"NotificationMetadata":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"                                \n                                 No interruption"},"NotificationTargetARN":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"                                \n                                 No interruption"},"RoleARN":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"                                \n                                 No interruption"}}},"aws-properties-as-metricscollection":{"Name":"AutoScalingAutoScalingGroupMetricsCollection","Properties":{"Granularity":{"Array":false,"Type":"String","Required":"Yes"},"Metrics":{"Array":true,"Type":"Stringvalues","Required":"No"}}},"aws-properties-as-notificationconfigurations":{"Name":"AutoScalingAutoScalingGroupNotificationConfiguration","Properties":{"NotificationTypes":{"Array":true,"Type":"Stringvalues","Required":"Yes"},"TopicARN":{"Array":false,"Type":"String","Required":"Yes"}}},"aws-properties-as-tags":{"Name":"AutoScalingAutoScalingGroupTagProperty","Properties":{"Key":{"Array":false,"Type":"String","Required":"Yes"},"Value":{"Array":false,"Type":"String","Required":"Yes"},"PropagateAtLaunch":{"Array":false,"Type":"Boolean","Required":"Yes"}}},"aws-properties-as-launchconfig-blockdev-mapping":{"Name":"AWSCloudFormationAutoScalingBlockDeviceMappingPropertyType","Properties":{"DeviceName":{"Array":false,"Type":"String","Required":"Yes"},"Ebs":{"Array":false,"Type":"aws-properties-as-launchconfig-blockdev-template","Required":"Conditional You can specify either VirtualName or                                 Ebs, but not both."},"NoDevice":{"Array":false,"Type":"Boolean","Required":"No"},"VirtualName":{"Array":false,"Type":"String","Required":"Conditional You can specify either VirtualName or                                 Ebs, but not both."}}},"aws-properties-as-launchconfig-blockdev-template":{"Name":"AWSCloudFormationAutoScalingEBSBlockDevicePropertyType","Properties":{"DeleteOnTermination":{"Array":false,"Type":"Boolean","Required":"No"},"Encrypted":{"Array":false,"Type":"Boolean","Required":"No"},"Iops":{"Array":false,"Type":"Number","Required":"No"},"SnapshotId":{"Array":false,"Type":"String","Required":"Conditional If you specify both SnapshotId and                                 VolumeSize, VolumeSize must be equal or greater than                                 the size of the snapshot."},"VolumeSize":{"Array":false,"Type":"Number","Required":"Conditional If you specify both SnapshotId and                                 VolumeSize, VolumeSize must be equal or greater than                                 the size of the snapshot.","UpdateRequires":"Some interruptions"},"VolumeType":{"Array":false,"Type":"String","Required":"No"}}},"aws-properties-autoscaling-scalingpolicy-stepadjustments":{"Name":"AutoScalingScalingPolicyStepAdjustments","Properties":{"MetricIntervalLowerBound":{"Array":false,"Type":"Number","Required":"Conditional. You must specify at least one upper or lower bound."},"MetricIntervalUpperBound":{"Array":false,"Type":"Number","Required":"Conditional. You must specify at least one upper or lower bound."},"ScalingAdjustment":{"Array":false,"Type":"Number","Required":"Yes"}}},"aws-properties-autoscaling-scalingpolicy-targettrackingconfiguration":{"Name":"AutoScalingScalingPolicyTargetTrackingConfiguration","Properties":{"CustomizedMetricSpecification":{"Array":false,"Type":"aws-properties-autoscaling-scalingpolicy-customizedmetricspecification","Required":"No","UpdateRequires":"No interruption"},"DisableScaleIn":{"Array":false,"Type":"Boolean","Required":"No","UpdateRequires":"No interruption"},"PredefinedMetricSpecification":{"Array":false,"Type":"aws-properties-autoscaling-scalingpolicy-predefinedmetricspecification","Required":"No","UpdateRequires":"No interruption"},"TargetValue":{"Array":false,"Type":"Double","Required":"Yes","UpdateRequires":"No interruption"}}},"aws-properties-autoscaling-scalingpolicy-customizedmetricspecification":{"Name":"AutoScalingScalingPolicyCustomizedMetricSpecification","Properties":{"Dimensions":{"Array":true,"Type":"aws-properties-autoscaling-scalingpolicy-metricdimension","Required":"No","UpdateRequires":"No interruption"},"MetricName":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"No interruption"},"Namespace":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"No interruption"},"Statistic":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"No interruption"},"Unit":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"}}},"aws-properties-autoscaling-scalingpolicy-metricdimension":{"Name":"AutoScalingScalingPolicyMetricDimension","Properties":{"Name":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"No interruption"},"Value":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"No interruption"}}},"aws-properties-autoscaling-scalingpolicy-predefinedmetricspecification":{"Name":"AutoScalingScalingPolicyPredefinedMetricSpecification","Properties":{"PredefinedMetricType":{"Array":false,"Type":"String","Required":"Yes","UpdateRequires":"No interruption"},"ResourceLabel":{"Array":false,"Type":"String","Required":"No","UpdateRequires":"No interruption"}}}}};
@@ -21981,13 +21951,13 @@ function CustomResource(name, properties, options) {
 }
 function _validateProperties(properties, rType, model) {
     // Check if keys other than the defined ones are present
-    Object.keys(properties).map(p => {
+    Object.keys(properties).forEach(p => {
         if (!model.Resources[rType].Properties[p]) {
             throw new SyntaxError(`${p} is not a valid attribute of ${rType}`);
         }
     });
     // Check if all of the required keys are present
-    Object.keys(model.Resources[rType].Properties).map(p => {
+    Object.keys(model.Resources[rType].Properties).forEach(p => {
         if (model.Resources[rType].Properties[p].Required === 'Yes') {
             if (!properties[p]) {
                 throw new SyntaxError(`${p} is required but is not present in ${rType}`);
@@ -22041,7 +22011,7 @@ const Pseudo = {
  */
 function Service(json) {
     const service = { json };
-    Object.keys(json.Resources).map(r => {
+    Object.keys(json.Resources).forEach(r => {
         service[r] = Resource.bind({ json, name: r });
     });
     return service;
@@ -22145,10 +22115,10 @@ function Template() {
                 Parameters: this.Parameters,
                 Resources: this.Resources
             };
-            Object.keys(skel).map(element => {
+            Object.keys(skel).forEach(element => {
                 if (Object.keys(skel[element]).length > 0) {
                     result[element] = {};
-                    Object.keys(skel[element]).map(item => {
+                    Object.keys(skel[element]).forEach(item => {
                         result[element][item] = _json(skel[element][item]);
                     });
                 }
@@ -22192,7 +22162,7 @@ function Template() {
                 'Parameters',
                 'Resources',
                 'Description'
-            ].map(block => {
+            ].forEach(block => {
                 if (t[block]) {
                     combined[block] = Object.assign({}, _t[block], t[block]);
                 }
@@ -22310,14 +22280,6 @@ function _validateFnGetAtt(t, att) {
     }
     return;
 }
-/**
- * @hidden
- * @param t
- */
-function _strip(t) {
-    const { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
-    return rest;
-}
 function _cleanObject(object) {
     if (Array.isArray(object)) {
         for (let v = 0; v < object.length; v++) {
@@ -22344,7 +22306,7 @@ function _buildResource(t) {
     const newProps = {};
     const result = { Type };
     if (Properties) {
-        Object.keys(Properties).map(p => {
+        Object.keys(Properties).forEach(p => {
             // Ignore empty arrays
             if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
                 if (Properties[p].kind) {
@@ -22380,7 +22342,7 @@ function _buildResource(t) {
 function _buildCondition(t) {
     const { Condition: condition } = t;
     const result = _json(condition);
-    Object.keys(result).map(k => {
+    Object.keys(result).forEach(k => {
         if (result[k][0].kind) {
             result[k][0] = _json(result[k][0]);
         }
@@ -22513,9 +22475,8 @@ function _buildFnEquals(t) {
     });
 }
 function _buildFnSelect(t) {
-    let values = t.FnSelect;
     if (Array.isArray(t.FnSelect)) {
-        values = t.FnSelect.map(x => {
+        const values = t.FnSelect.map(x => {
             if (typeof x === 'string') {
                 return x;
             }
@@ -22526,11 +22487,11 @@ function _buildFnSelect(t) {
                 return x;
             }
         });
+        return [t.index, values];
     }
     else {
-        values = _json(t.FnSelect);
+        return [t.index, _json(t.FnSelect)];
     }
-    return [t.index, values];
 }
 function _buildMapping(t) {
     const result = t.Content;
@@ -22597,7 +22558,7 @@ function _json(t) {
         case 'Mapping':
             return _buildMapping(t);
         case 'Parameter':
-            return _strip(t).Properties;
+            return t.Properties;
         case 'Output':
             return _buildOutput(t);
         case 'Resource':
@@ -22607,9 +22568,8 @@ function _json(t) {
     }
 }
 function _addDescription(t, e) {
-    let result = Object.assign({}, t);
     const desc = { Description: e.Content };
-    result = Object.assign({}, t, desc);
+    const result = Object.assign({}, t, desc);
     return result;
 }
 function _addCreationPolicy(t, e) {
@@ -22674,8 +22634,7 @@ function _addOutput(t, e) {
         if (e0.Properties.Value.Ref) {
             _validateRef(t, e0.Properties.Value);
         }
-        else if (typeof e0.Properties.Value !== 'string' &&
-            e0.Properties.Value['Fn::GetAtt']) {
+        else if (e0.Properties.Value['Fn::GetAtt']) {
             e0.Properties.Value = FnGetAtt(e0.Properties.Value['Fn::GetAtt'][0], e0.Properties.Value['Fn::GetAtt'][1]);
             _validateFnGetAtt(t, e0.Properties.Value);
         }
@@ -22781,12 +22740,12 @@ function _calcFromExistingTemplate(t, inputTemplate) {
         t = t.add(Description(inputTemplate.Description));
     }
     if (inputTemplate.Parameters) {
-        Object.keys(inputTemplate.Parameters).map(p => {
+        Object.keys(inputTemplate.Parameters).forEach(p => {
             t = t.add(Parameter(p, inputTemplate.Parameters[p]));
         });
     }
     if (inputTemplate.Resources) {
-        Object.keys(inputTemplate.Resources).map(r => {
+        Object.keys(inputTemplate.Resources).forEach(r => {
             const split = inputTemplate.Resources[r].Type.split('::');
             const cat = split[1];
             const resType = split[2];
@@ -22818,19 +22777,19 @@ function _calcFromExistingTemplate(t, inputTemplate) {
         });
     }
     if (inputTemplate.Outputs) {
-        Object.keys(inputTemplate.Outputs).map(o => {
+        Object.keys(inputTemplate.Outputs).forEach(o => {
             t = t.add(Output(o, inputTemplate.Outputs[o]));
         });
     }
     if (inputTemplate.Mappings) {
-        Object.keys(inputTemplate.Mappings).map(m => {
-            Object.keys(inputTemplate.Mappings[m]).map(m0 => {
+        Object.keys(inputTemplate.Mappings).forEach(m => {
+            Object.keys(inputTemplate.Mappings[m]).forEach(m0 => {
                 t = t.add(Mapping(m, m0, inputTemplate.Mappings[m][m0]));
             });
         });
     }
     if (inputTemplate.Conditions) {
-        Object.keys(inputTemplate.Conditions).map(c => {
+        Object.keys(inputTemplate.Conditions).forEach(c => {
             t = t.add(Condition(c, inputTemplate.Conditions[c]));
         });
     }
@@ -22847,7 +22806,7 @@ function S3BucketTransform(bucketName, logicalName, awsObj) {
             .getBucketVersioning({ Bucket: bucketName })
             .promise()
             .then(versionData => {
-            if (Object.keys(versionData)) {
+            if (Object.keys(versionData).length > 0) {
                 bucket.VersioningConfiguration = versionData;
             }
             // return s3Client.getBucketAcl({ Bucket: bucketName }).promise()

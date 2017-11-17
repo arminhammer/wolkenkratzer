@@ -17,8 +17,7 @@ import {
   IIntrinsic,
   IParameter,
   IRef,
-  IResource,
-  ITemplate
+  IResource
 } from './types';
 
 /**

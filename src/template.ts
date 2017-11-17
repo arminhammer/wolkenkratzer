@@ -13,12 +13,11 @@ import { Mapping } from './elements/mapping';
 import { Output } from './elements/output';
 import { Parameter } from './elements/parameter';
 import { CustomResource } from './elements/resource';
-import { FnBase64, FnGetAtt, FnGetAZs, FnSplit, FnSub, Ref } from './intrinsic';
+import { FnGetAtt, FnSub, Ref } from './intrinsic';
 // import { IMetadata } from './elements/metadata';
 import { Pseudo } from './pseudo';
 import { Service } from './service';
 import {
-  Conditional,
   IAddOptions,
   IAttribute,
   ICondition,
@@ -41,7 +40,6 @@ import {
   IFnSelect,
   IFnSplit,
   IFnSub,
-  IIntrinsic,
   IMapping,
   IOutput,
   IParameter,
@@ -170,10 +168,10 @@ export function Template(): ITemplate {
         Parameters: this.Parameters,
         Resources: this.Resources
       };
-      Object.keys(skel).map(element => {
+      Object.keys(skel).forEach(element => {
         if (Object.keys(skel[element]).length > 0) {
           result[element] = {};
-          Object.keys(skel[element]).map(item => {
+          Object.keys(skel[element]).forEach(item => {
             result[element][item] = _json(skel[element][item]);
           });
         }
@@ -217,7 +215,7 @@ export function Template(): ITemplate {
         'Parameters',
         'Resources',
         'Description'
-      ].map(block => {
+      ].forEach(block => {
         if (t[block]) {
           combined[block] = { ..._t[block], ...t[block] };
         }
@@ -348,24 +346,6 @@ function _validateFnGetAtt(t: ITemplate, att: IFnGetAtt): void | SyntaxError {
   return;
 }
 
-/**
- * @hidden
- * @param t
- */
-function _strip(t: IParameter | IOutput | IResource | ICondition): any {
-  const { kind, Name, ...rest } = t;
-  return rest;
-}
-
-/**
- * @hidden
- * @param target
- */
-function _stripKind(target: any) {
-  const { kind, ...rest } = target;
-  return rest;
-}
-
 function _cleanObject(object: any) {
   if (Array.isArray(object)) {
     for (let v = 0; v < object.length; v++) {
@@ -400,7 +380,7 @@ function _buildResource(t: IResource) {
   const newProps = {};
   const result: any = { Type };
   if (Properties) {
-    Object.keys(Properties).map(p => {
+    Object.keys(Properties).forEach(p => {
       // Ignore empty arrays
       if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
         if (Properties[p].kind) {
@@ -436,7 +416,7 @@ function _buildResource(t: IResource) {
 function _buildCondition(t: ICondition): string {
   const { Condition: condition } = t;
   const result = _json(condition);
-  Object.keys(result).map(k => {
+  Object.keys(result).forEach(k => {
     if (result[k][0].kind) {
       result[k][0] = _json(result[k][0]);
     }
@@ -570,9 +550,8 @@ function _buildFnEquals(t: IFnEquals) {
 }
 
 function _buildFnSelect(t: IFnSelect) {
-  let values = t.FnSelect;
   if (Array.isArray(t.FnSelect)) {
-    values = t.FnSelect.map(x => {
+    const values = t.FnSelect.map(x => {
       if (typeof x === 'string') {
         return x;
       } else {
@@ -582,10 +561,10 @@ function _buildFnSelect(t: IFnSelect) {
         return x;
       }
     });
+    return [t.index, values];
   } else {
-    values = _json(t.FnSelect);
+    return [t.index, _json(t.FnSelect)];
   }
-  return [t.index, values];
 }
 
 function _buildMapping(t: IMapping) {
@@ -680,7 +659,7 @@ export function _json(
     case 'Mapping':
       return _buildMapping(t);
     case 'Parameter':
-      return _strip(t).Properties;
+      return t.Properties;
     case 'Output':
       return _buildOutput(t);
     case 'Resource':
@@ -691,9 +670,8 @@ export function _json(
 }
 
 function _addDescription(t: ITemplate, e: IDescription): ITemplate {
-  let result = { ...t };
   const desc = { Description: e.Content };
-  result = { ...t, ...desc };
+  const result = { ...t, ...desc };
   return result;
 }
 
@@ -774,10 +752,7 @@ function _addOutput(t: ITemplate, e: IOutput): ITemplate {
   if (typeof e0.Properties.Value !== 'string') {
     if (e0.Properties.Value.Ref) {
       _validateRef(t, e0.Properties.Value);
-    } else if (
-      typeof e0.Properties.Value !== 'string' &&
-      e0.Properties.Value['Fn::GetAtt']
-    ) {
+    } else if (e0.Properties.Value['Fn::GetAtt']) {
       e0.Properties.Value = FnGetAtt(
         e0.Properties.Value['Fn::GetAtt'][0],
         e0.Properties.Value['Fn::GetAtt'][1]
@@ -886,12 +861,12 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
     t = t.add(Description(inputTemplate.Description));
   }
   if (inputTemplate.Parameters) {
-    Object.keys(inputTemplate.Parameters).map(p => {
+    Object.keys(inputTemplate.Parameters).forEach(p => {
       t = t.add(Parameter(p, inputTemplate.Parameters[p]));
     });
   }
   if (inputTemplate.Resources) {
-    Object.keys(inputTemplate.Resources).map(r => {
+    Object.keys(inputTemplate.Resources).forEach(r => {
       const split = inputTemplate.Resources[r].Type.split('::');
       const cat = split[1];
       const resType = split[2];
@@ -947,19 +922,19 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
     });
   }
   if (inputTemplate.Outputs) {
-    Object.keys(inputTemplate.Outputs).map(o => {
+    Object.keys(inputTemplate.Outputs).forEach(o => {
       t = t.add(Output(o, inputTemplate.Outputs[o]));
     });
   }
   if (inputTemplate.Mappings) {
-    Object.keys(inputTemplate.Mappings).map(m => {
-      Object.keys(inputTemplate.Mappings[m]).map(m0 => {
+    Object.keys(inputTemplate.Mappings).forEach(m => {
+      Object.keys(inputTemplate.Mappings[m]).forEach(m0 => {
         t = t.add(Mapping(m, m0, inputTemplate.Mappings[m][m0]));
       });
     });
   }
   if (inputTemplate.Conditions) {
-    Object.keys(inputTemplate.Conditions).map(c => {
+    Object.keys(inputTemplate.Conditions).forEach(c => {
       t = t.add(Condition(c, inputTemplate.Conditions[c]));
     });
   }
