@@ -21949,6 +21949,12 @@ function CustomResource(name, properties, options) {
         kind: 'Resource'
     };
 }
+/**
+ * @hidden
+ * @param properties
+ * @param rType
+ * @param model
+ */
 function _validateProperties(properties, rType, model) {
     // Check if keys other than the defined ones are present
     Object.keys(properties).forEach(p => {
@@ -22270,6 +22276,11 @@ function Template() {
 function _isEmptyObject(obj) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
+/**
+ * @hidden
+ * @param t
+ * @param ref
+ */
 function _validateRef(t, ref) {
     if (ref.Ref) {
         if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
@@ -22278,12 +22289,21 @@ function _validateRef(t, ref) {
     }
     return;
 }
+/**
+ * @hidden
+ * @param t
+ * @param att
+ */
 function _validateFnGetAtt(t, att) {
     if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
         throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
     }
     return;
 }
+/**
+ * @hidden
+ * @param object
+ */
 function _cleanObject(object) {
     if (Array.isArray(object)) {
         for (let v = 0; v < object.length; v++) {
@@ -22304,6 +22324,10 @@ function _cleanObject(object) {
     }
     return object;
 }
+/**
+ * @hidden
+ * @param t
+ */
 function _buildResource(t) {
     const newT = lodash_1(t);
     const { Type, Properties, CreationPolicy: CreationPolicy$$1, DeletionPolicy: DeletionPolicy$$1, DependsOn: DependsOn$$1, Metadata, Condition: condition, UpdatePolicy: UpdatePolicy$$1 } = newT;
@@ -22343,6 +22367,10 @@ function _buildResource(t) {
     }
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ */
 function _buildCondition(t) {
     const { Condition: condition } = t;
     const result = _json(condition);
@@ -22353,10 +22381,18 @@ function _buildCondition(t) {
     });
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ */
 function _buildAttribute(t) {
     const { Content } = t;
     return Content;
 }
+/**
+ * @hidden
+ * @param t
+ */
 function _buildFnJoin(t) {
     if (Array.isArray(t.Values)) {
         const jsonValues = t.Values.map(x => {
@@ -22373,6 +22409,9 @@ function _buildFnJoin(t) {
         return { 'Fn::Join': [t.Delimiter, _json(t.Values)] };
     }
 }
+/**
+ * @hidden
+ */
 function _buildFnFindInMap(t) {
     return t.FnFindInMap.map(x => {
         if (typeof x === 'string') {
@@ -22383,6 +22422,9 @@ function _buildFnFindInMap(t) {
         }
     });
 }
+/**
+ * @hidden
+ */
 function _buildGetAZs(t) {
     if (typeof t.FnGetAZs === 'string') {
         return t.FnGetAZs;
@@ -22391,6 +22433,10 @@ function _buildGetAZs(t) {
         return _json(t.FnGetAZs);
     }
 }
+/**
+ * @hidden
+ * @param t
+ */
 function _buildFnSplit(t) {
     if (typeof t.value === 'string') {
         return [t.delimiter, t.value];
@@ -22399,6 +22445,9 @@ function _buildFnSplit(t) {
         return [t.delimiter, _json(t.value)];
     }
 }
+/**
+ * @hidden
+ */
 function _buildFnOr(t) {
     const jsonValues = t.FnOr.map(x => {
         if (typeof x === 'string') {
@@ -22410,6 +22459,10 @@ function _buildFnOr(t) {
     });
     return jsonValues;
 }
+/**
+ * @hidden
+ * @param t
+ */
 function _buildFnImportValue(t) {
     if (typeof t.FnImportValue === 'string') {
         return t.FnImportValue;
@@ -22418,6 +22471,10 @@ function _buildFnImportValue(t) {
         return _json(t.FnImportValue);
     }
 }
+/**
+ * @hidden
+ * @param t
+ */
 function _buildFnBase64(t) {
     if (typeof t.FnBase64 === 'string') {
         return t.FnBase64;
@@ -22426,6 +22483,9 @@ function _buildFnBase64(t) {
         return _json(t.FnBase64);
     }
 }
+/**
+ * @hidden
+ */
 function _buildFnAnd(t) {
     return t.FnAnd.map(x => {
         if (typeof x === 'string') {
@@ -22439,6 +22499,9 @@ function _buildFnAnd(t) {
         }
     });
 }
+/**
+ * @hidden
+ */
 function _buildFnNot(t) {
     return t.FnNot.map(x => {
         if (typeof x === 'string') {
@@ -22452,6 +22515,9 @@ function _buildFnNot(t) {
         }
     });
 }
+/**
+ * @hidden
+ */
 function _buildFnIf(t) {
     return t.FnIf.map(x => {
         if (typeof x === 'string') {
@@ -22465,6 +22531,9 @@ function _buildFnIf(t) {
         }
     });
 }
+/**
+ * @hidden
+ */
 function _buildFnEquals(t) {
     return t.FnEquals.map(x => {
         if (typeof x === 'string') {
@@ -22478,6 +22547,9 @@ function _buildFnEquals(t) {
         }
     });
 }
+/**
+ * @hidden
+ */
 function _buildFnSelect(t) {
     if (Array.isArray(t.FnSelect)) {
         const values = t.FnSelect.map(x => {
@@ -22497,10 +22569,16 @@ function _buildFnSelect(t) {
         return [t.index, _json(t.FnSelect)];
     }
 }
+/**
+ * @hidden
+ */
 function _buildMapping(t) {
     const result = t.Content;
     return result;
 }
+/**
+ * @hidden
+ */
 function _buildOutput(t) {
     let outputResult = lodash_1(t.Properties);
     if (typeof outputResult.Value !== 'string') {
@@ -22515,6 +22593,10 @@ function _buildOutput(t) {
     }
     return outputResult;
 }
+/**
+ * @hidden
+ * @param t
+ */
 function _json(t) {
     switch (t.kind) {
         case 'Ref':
@@ -22571,11 +22653,19 @@ function _json(t) {
             throw new SyntaxError(`Can't call _json on ${JSON.stringify(t)}`);
     }
 }
+/**
+ * @hidden
+ */
 function _addDescription(t, e) {
     const desc = { Description: e.Content };
     const result = Object.assign({}, t, desc);
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addCreationPolicy(t, e) {
     const result = lodash_1(t);
     if (!result.Resources[e.Resource]) {
@@ -22586,6 +22676,9 @@ function _addCreationPolicy(t, e) {
     result.Resources[e.Resource] = resource;
     return result;
 }
+/**
+ * @hidden
+ */
 function _addDeletionPolicy(t, e) {
     const result = lodash_1(t);
     if (!result.Resources[e.Resource]) {
@@ -22596,6 +22689,11 @@ function _addDeletionPolicy(t, e) {
     result.Resources[e.Resource] = resource;
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addUpdatePolicy(t, e) {
     const result = lodash_1(t);
     if (!result.Resources[e.Resource]) {
@@ -22606,6 +22704,11 @@ function _addUpdatePolicy(t, e) {
     result.Resources[e.Resource] = resource;
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addDependsOn(t, e) {
     const result = lodash_1(t);
     if (!result.Resources[e.Resource]) {
@@ -22616,6 +22719,11 @@ function _addDependsOn(t, e) {
     result.Resources[e.Resource] = resource;
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addResourceMetadata(t, e) {
     const result = lodash_1(t);
     if (!result.Resources[e.Resource]) {
@@ -22626,12 +22734,22 @@ function _addResourceMetadata(t, e) {
     result.Resources[e.Resource] = resource;
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addCondition(t, e) {
     // TODO: Validate intrinsics
     const result = lodash_1(t);
     result.Conditions[e.Name] = e;
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addOutput(t, e) {
     const e0 = lodash_1(e);
     if (typeof e0.Properties.Value !== 'string') {
@@ -22647,11 +22765,21 @@ function _addOutput(t, e) {
     result.Outputs[e0.Name] = e0;
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addParameter(t, e) {
     const result = lodash_1(t);
     result.Parameters[e.Name] = e;
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addMapping(t, e) {
     const result = Object.assign({}, t);
     if (result.Mappings[e.Name]) {
@@ -22666,6 +22794,11 @@ function _addMapping(t, e) {
     }
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addResource(t, e) {
     const result = Object.assign({}, t);
     const newResources = lodash_1(result.Resources);
@@ -22673,6 +22806,11 @@ function _addResource(t, e) {
     result.Resources = newResources;
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _removeMapping(t, e) {
     const result = Object.assign({}, t);
     let mapping;
@@ -22695,6 +22833,11 @@ function _removeMapping(t, e) {
     }
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _removeOutput(t, e) {
     const result = Object.assign({}, t);
     let out;
@@ -22717,6 +22860,11 @@ function _removeOutput(t, e) {
     }
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _removeParameter(t, e) {
     const result = Object.assign({}, t);
     let param;
@@ -22739,6 +22887,11 @@ function _removeParameter(t, e) {
     }
     return result;
 }
+/**
+ * @hidden
+ * @param t
+ * @param inputTemplate
+ */
 function _calcFromExistingTemplate(t, inputTemplate) {
     if (inputTemplate.Description) {
         t = t.add(Description(inputTemplate.Description));

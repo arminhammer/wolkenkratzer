@@ -17,7 +17,7 @@ IAddOptions Interface
 
 **●  Output**:  *`boolean`* 
 
-*Defined in [types.ts:305](https://github.com/arminhammer/wolkenkratzer/blob/d0b0d87/src/types.ts#L305)*
+*Defined in [types.ts:305](https://github.com/arminhammer/wolkenkratzer/blob/94afaab/src/types.ts#L305)*
 
 
 
@@ -31,7 +31,7 @@ ___
 
 **●  Parameters**:  *`Array`.<`string`>* 
 
-*Defined in [types.ts:306](https://github.com/arminhammer/wolkenkratzer/blob/d0b0d87/src/types.ts#L306)*
+*Defined in [types.ts:306](https://github.com/arminhammer/wolkenkratzer/blob/94afaab/src/types.ts#L306)*
 
 
 

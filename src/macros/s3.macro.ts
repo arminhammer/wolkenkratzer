@@ -5,6 +5,7 @@
 
 /**
  * @memberof module:Macro
+ * @category Macro
  * @param name
  * @param newName
  * @param region

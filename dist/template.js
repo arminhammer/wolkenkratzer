@@ -281,6 +281,11 @@
     function _isEmptyObject(obj) {
         return Object.keys(obj).length === 0 && obj.constructor === Object;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param ref
+     */
     function _validateRef(t, ref) {
         if (ref.Ref) {
             if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
@@ -289,12 +294,21 @@
         }
         return;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param att
+     */
     function _validateFnGetAtt(t, att) {
         if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
             throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
         }
         return;
     }
+    /**
+     * @hidden
+     * @param object
+     */
     function _cleanObject(object) {
         if (Array.isArray(object)) {
             for (let v = 0; v < object.length; v++) {
@@ -315,6 +329,10 @@
         }
         return object;
     }
+    /**
+     * @hidden
+     * @param t
+     */
     function _buildResource(t) {
         const newT = lodash_1.cloneDeep(t);
         const { Type, Properties, CreationPolicy, DeletionPolicy, DependsOn, Metadata, Condition: condition, UpdatePolicy } = newT;
@@ -354,6 +372,10 @@
         }
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     */
     function _buildCondition(t) {
         const { Condition: condition } = t;
         const result = _json(condition);
@@ -364,10 +386,18 @@
         });
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     */
     function _buildAttribute(t) {
         const { Content } = t;
         return Content;
     }
+    /**
+     * @hidden
+     * @param t
+     */
     function _buildFnJoin(t) {
         if (Array.isArray(t.Values)) {
             const jsonValues = t.Values.map(x => {
@@ -384,6 +414,9 @@
             return { 'Fn::Join': [t.Delimiter, _json(t.Values)] };
         }
     }
+    /**
+     * @hidden
+     */
     function _buildFnFindInMap(t) {
         return t.FnFindInMap.map(x => {
             if (typeof x === 'string') {
@@ -394,6 +427,9 @@
             }
         });
     }
+    /**
+     * @hidden
+     */
     function _buildGetAZs(t) {
         if (typeof t.FnGetAZs === 'string') {
             return t.FnGetAZs;
@@ -402,6 +438,10 @@
             return _json(t.FnGetAZs);
         }
     }
+    /**
+     * @hidden
+     * @param t
+     */
     function _buildFnSplit(t) {
         if (typeof t.value === 'string') {
             return [t.delimiter, t.value];
@@ -410,6 +450,9 @@
             return [t.delimiter, _json(t.value)];
         }
     }
+    /**
+     * @hidden
+     */
     function _buildFnOr(t) {
         const jsonValues = t.FnOr.map(x => {
             if (typeof x === 'string') {
@@ -421,6 +464,10 @@
         });
         return jsonValues;
     }
+    /**
+     * @hidden
+     * @param t
+     */
     function _buildFnImportValue(t) {
         if (typeof t.FnImportValue === 'string') {
             return t.FnImportValue;
@@ -429,6 +476,10 @@
             return _json(t.FnImportValue);
         }
     }
+    /**
+     * @hidden
+     * @param t
+     */
     function _buildFnBase64(t) {
         if (typeof t.FnBase64 === 'string') {
             return t.FnBase64;
@@ -437,6 +488,9 @@
             return _json(t.FnBase64);
         }
     }
+    /**
+     * @hidden
+     */
     function _buildFnAnd(t) {
         return t.FnAnd.map(x => {
             if (typeof x === 'string') {
@@ -450,6 +504,9 @@
             }
         });
     }
+    /**
+     * @hidden
+     */
     function _buildFnNot(t) {
         return t.FnNot.map(x => {
             if (typeof x === 'string') {
@@ -463,6 +520,9 @@
             }
         });
     }
+    /**
+     * @hidden
+     */
     function _buildFnIf(t) {
         return t.FnIf.map(x => {
             if (typeof x === 'string') {
@@ -476,6 +536,9 @@
             }
         });
     }
+    /**
+     * @hidden
+     */
     function _buildFnEquals(t) {
         return t.FnEquals.map(x => {
             if (typeof x === 'string') {
@@ -489,6 +552,9 @@
             }
         });
     }
+    /**
+     * @hidden
+     */
     function _buildFnSelect(t) {
         if (Array.isArray(t.FnSelect)) {
             const values = t.FnSelect.map(x => {
@@ -508,10 +574,16 @@
             return [t.index, _json(t.FnSelect)];
         }
     }
+    /**
+     * @hidden
+     */
     function _buildMapping(t) {
         const result = t.Content;
         return result;
     }
+    /**
+     * @hidden
+     */
     function _buildOutput(t) {
         let outputResult = lodash_1.cloneDeep(t.Properties);
         if (typeof outputResult.Value !== 'string') {
@@ -526,6 +598,10 @@
         }
         return outputResult;
     }
+    /**
+     * @hidden
+     * @param t
+     */
     function _json(t) {
         switch (t.kind) {
             case 'Ref':
@@ -583,11 +659,19 @@
         }
     }
     exports._json = _json;
+    /**
+     * @hidden
+     */
     function _addDescription(t, e) {
         const desc = { Description: e.Content };
         const result = Object.assign({}, t, desc);
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _addCreationPolicy(t, e) {
         const result = lodash_1.cloneDeep(t);
         if (!result.Resources[e.Resource]) {
@@ -598,6 +682,9 @@
         result.Resources[e.Resource] = resource;
         return result;
     }
+    /**
+     * @hidden
+     */
     function _addDeletionPolicy(t, e) {
         const result = lodash_1.cloneDeep(t);
         if (!result.Resources[e.Resource]) {
@@ -608,6 +695,11 @@
         result.Resources[e.Resource] = resource;
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _addUpdatePolicy(t, e) {
         const result = lodash_1.cloneDeep(t);
         if (!result.Resources[e.Resource]) {
@@ -618,6 +710,11 @@
         result.Resources[e.Resource] = resource;
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _addDependsOn(t, e) {
         const result = lodash_1.cloneDeep(t);
         if (!result.Resources[e.Resource]) {
@@ -628,6 +725,11 @@
         result.Resources[e.Resource] = resource;
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _addResourceMetadata(t, e) {
         const result = lodash_1.cloneDeep(t);
         if (!result.Resources[e.Resource]) {
@@ -638,12 +740,22 @@
         result.Resources[e.Resource] = resource;
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _addCondition(t, e) {
         // TODO: Validate intrinsics
         const result = lodash_1.cloneDeep(t);
         result.Conditions[e.Name] = e;
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _addOutput(t, e) {
         const e0 = lodash_1.cloneDeep(e);
         if (typeof e0.Properties.Value !== 'string') {
@@ -659,11 +771,21 @@
         result.Outputs[e0.Name] = e0;
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _addParameter(t, e) {
         const result = lodash_1.cloneDeep(t);
         result.Parameters[e.Name] = e;
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _addMapping(t, e) {
         const result = Object.assign({}, t);
         if (result.Mappings[e.Name]) {
@@ -678,6 +800,11 @@
         }
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _addResource(t, e) {
         const result = Object.assign({}, t);
         const newResources = lodash_1.cloneDeep(result.Resources);
@@ -685,6 +812,11 @@
         result.Resources = newResources;
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _removeMapping(t, e) {
         const result = Object.assign({}, t);
         let mapping;
@@ -707,6 +839,11 @@
         }
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _removeOutput(t, e) {
         const result = Object.assign({}, t);
         let out;
@@ -729,6 +866,11 @@
         }
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
     function _removeParameter(t, e) {
         const result = Object.assign({}, t);
         let param;
@@ -751,6 +893,11 @@
         }
         return result;
     }
+    /**
+     * @hidden
+     * @param t
+     * @param inputTemplate
+     */
     function _calcFromExistingTemplate(t, inputTemplate) {
         if (inputTemplate.Description) {
             t = t.add(description_1.Description(inputTemplate.Description));

@@ -12,7 +12,7 @@
 
 **●  FnBase64**:  *`string`* 
 
-*Defined in [types.ts:215](https://github.com/arminhammer/wolkenkratzer/blob/d0b0d87/src/types.ts#L215)*
+*Defined in [types.ts:215](https://github.com/arminhammer/wolkenkratzer/blob/94afaab/src/types.ts#L215)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnBase64"* 
 
-*Defined in [types.ts:214](https://github.com/arminhammer/wolkenkratzer/blob/d0b0d87/src/types.ts#L214)*
+*Defined in [types.ts:214](https://github.com/arminhammer/wolkenkratzer/blob/94afaab/src/types.ts#L214)*
 
 
 
