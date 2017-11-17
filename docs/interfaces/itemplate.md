@@ -17,7 +17,7 @@ Template Interface
 
 **●  AWSTemplateFormatVersion**:  *`string`* 
 
-*Defined in [types.ts:279](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L279)*
+*Defined in [types.ts:279](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L279)*
 
 
 
@@ -31,7 +31,7 @@ ___
 
 **●  Conditions**:  *`object`* 
 
-*Defined in [types.ts:284](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L284)*
+*Defined in [types.ts:284](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L284)*
 
 
 #### Type declaration
@@ -52,7 +52,7 @@ ___
 
 **●  Description**:  *`void`⎮`string`* 
 
-*Defined in [types.ts:280](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L280)*
+*Defined in [types.ts:280](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L280)*
 
 
 
@@ -66,7 +66,7 @@ ___
 
 **●  Mappings**:  *`object`* 
 
-*Defined in [types.ts:283](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L283)*
+*Defined in [types.ts:283](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L283)*
 
 
 #### Type declaration
@@ -87,7 +87,7 @@ ___
 
 **●  Outputs**:  *`object`* 
 
-*Defined in [types.ts:286](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L286)*
+*Defined in [types.ts:286](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L286)*
 
 
 #### Type declaration
@@ -108,7 +108,7 @@ ___
 
 **●  Parameters**:  *`object`* 
 
-*Defined in [types.ts:281](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L281)*
+*Defined in [types.ts:281](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L281)*
 
 
 #### Type declaration
@@ -129,7 +129,7 @@ ___
 
 **●  Resources**:  *`object`* 
 
-*Defined in [types.ts:285](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L285)*
+*Defined in [types.ts:285](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L285)*
 
 
 #### Type declaration
@@ -150,7 +150,7 @@ ___
 
 **●  add**:  *`function`* 
 
-*Defined in [types.ts:287](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L287)*
+*Defined in [types.ts:287](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L287)*
 
 
 #### Type declaration
@@ -184,7 +184,7 @@ ___
 
 **●  build**:  *`function`* 
 
-*Defined in [types.ts:293](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L293)*
+*Defined in [types.ts:293](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L293)*
 
 
 #### Type declaration
@@ -209,7 +209,7 @@ ___
 
 **●  import**:  *`Function`* 
 
-*Defined in [types.ts:295](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L295)*
+*Defined in [types.ts:295](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L295)*
 
 
 
@@ -223,7 +223,7 @@ ___
 
 **●  kind**:  *"Template"* 
 
-*Defined in [types.ts:278](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L278)*
+*Defined in [types.ts:278](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L278)*
 
 
 
@@ -237,7 +237,7 @@ ___
 
 **●  map**:  *`function`* 
 
-*Defined in [types.ts:296](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L296)*
+*Defined in [types.ts:296](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L296)*
 
 
 #### Type declaration
@@ -271,7 +271,7 @@ ___
 
 **●  merge**:  *`Function`* 
 
-*Defined in [types.ts:294](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L294)*
+*Defined in [types.ts:294](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L294)*
 
 
 
@@ -285,7 +285,7 @@ ___
 
 **●  remove**:  *`Function`* 
 
-*Defined in [types.ts:291](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L291)*
+*Defined in [types.ts:291](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L291)*
 
 
 
@@ -299,7 +299,7 @@ ___
 
 **●  removeDescription**:  *`Function`* 
 
-*Defined in [types.ts:292](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L292)*
+*Defined in [types.ts:292](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L292)*
 
 
 
@@ -313,7 +313,7 @@ ___
 
 **●  yaml**:  *`function`* 
 
-*Defined in [types.ts:297](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L297)*
+*Defined in [types.ts:297](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L297)*
 
 
 #### Type declaration

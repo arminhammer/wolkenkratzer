@@ -12,7 +12,7 @@
 
 **●  FnIf**:  *`Array`.<[Conditional](../#conditional)>* 
 
-*Defined in [types.ts:183](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L183)*
+*Defined in [types.ts:183](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L183)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnIf"* 
 
-*Defined in [types.ts:182](https://github.com/arminhammer/wolkenkratzer/blob/95e243d/src/types.ts#L182)*
+*Defined in [types.ts:182](https://github.com/arminhammer/wolkenkratzer/blob/7912818/src/types.ts#L182)*
 
 
 
