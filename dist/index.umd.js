@@ -22310,6 +22310,10 @@ function _validateFnGetAtt(t, att) {
     }
     return;
 }
+/**
+ * @hidden
+ * @param t
+ */
 function _strip(t) {
     const { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
     return rest;

@@ -131,7 +131,9 @@ export function Template(): ITemplate {
                   Condition: f.Condition,
                   Export: {
                     Name: FnSub(
-                      `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`
+                      `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${
+                        nameSplit[1]
+                      }-${f.Name}`
                     )
                   },
                   Value: Ref(f.Name)
@@ -346,11 +348,19 @@ function _validateFnGetAtt(t: ITemplate, att: IFnGetAtt): void | SyntaxError {
   return;
 }
 
+/**
+ * @hidden
+ * @param t
+ */
 function _strip(t: IParameter | IOutput | IResource | ICondition): any {
   const { kind, Name, ...rest } = t;
   return rest;
 }
 
+/**
+ * @hidden
+ * @param target
+ */
 function _stripKind(target: any) {
   const { kind, ...rest } = target;
   return rest;

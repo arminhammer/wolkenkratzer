@@ -300,10 +300,18 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
         return;
     }
+    /**
+     * @hidden
+     * @param t
+     */
     function _strip(t) {
         const { kind, Name } = t, rest = __rest(t, ["kind", "Name"]);
         return rest;
     }
+    /**
+     * @hidden
+     * @param target
+     */
     function _stripKind(target) {
         const { kind } = target, rest = __rest(target, ["kind"]);
         return rest;
