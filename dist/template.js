@@ -263,6 +263,15 @@
                 delete newT.Description;
                 return newT;
             },
+            /**
+             * Update the value of a resource in the Template.
+             */
+            set: function (location, newValue) {
+                const result = lodash_1.cloneDeep(this);
+                const [resource, attribute] = location.split('.');
+                result.Resources[resource].Properties[attribute] = newValue;
+                return result;
+            },
             yaml: function () {
                 const cleanedTemplate = this.build();
                 // const templateString = JSON.stringify(cleanedTemplate, null, 2);
