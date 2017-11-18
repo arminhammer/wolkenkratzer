@@ -12,7 +12,7 @@
 
 **●  FnFindInMap**:  *`Array`.<`string`>* 
 
-*Defined in [types.ts:220](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/types.ts#L220)*
+*Defined in [types.ts:220](https://github.com/arminhammer/wolkenkratzer/blob/d6206d8/src/types.ts#L220)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnFindInMap"* 
 
-*Defined in [types.ts:219](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/types.ts#L219)*
+*Defined in [types.ts:219](https://github.com/arminhammer/wolkenkratzer/blob/d6206d8/src/types.ts#L219)*
 
 
 

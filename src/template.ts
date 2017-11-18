@@ -317,6 +317,15 @@ export function Template(): ITemplate {
       delete newT.Description;
       return newT;
     },
+    /**
+     * Update the value of a resource in the Template.
+     */
+    set: function(location: string, newValue: string): ITemplate {
+      const result = cloneDeep(this);
+      const [resource, attribute] = location.split('.');
+      result.Resources[resource].Properties[attribute] = newValue;
+      return result;
+    },
     yaml: function(): string {
       const cleanedTemplate = this.build();
       // const templateString = JSON.stringify(cleanedTemplate, null, 2);
