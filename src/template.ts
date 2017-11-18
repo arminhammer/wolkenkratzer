@@ -49,7 +49,6 @@ import {
   ITemplate,
   IUpdatePolicy
 } from './types';
-import { attempt } from 'bluebird';
 
 /** @module Template */
 
