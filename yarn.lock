@@ -6327,6 +6327,10 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
+typedoc-plugin-external-module-name@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-external-module-name/-/typedoc-plugin-external-module-name-1.0.10.tgz#f97c1df450d9ec75bf06b72bf3f9a12382184135"
+
 typedoc-plugin-markdown@^1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/typedoc-plugin-markdown/-/typedoc-plugin-markdown-1.0.11.tgz#65d35c7b37174460aa741bf7f8376f557fface5f"

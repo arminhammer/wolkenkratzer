@@ -49,6 +49,7 @@ import {
   ITemplate,
   IUpdatePolicy
 } from './types';
+import { attempt } from 'bluebird';
 
 /** @module Template */
 
@@ -224,6 +225,26 @@ export function Template(): ITemplate {
         ..._t,
         ...combined
       };
+    },
+    /**
+     * Turn an attribute of a Resource into a Parameter.
+     */
+    parameterize: function(
+      location: string,
+      parameterName?: string
+    ): ITemplate {
+      let result = cloneDeep(this);
+      const [resource, attribute] = location.split('.');
+      const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
+      const propType =
+        stubs[rgroup].Resources[rtype].Properties[attribute].Type;
+      parameterName = parameterName ? parameterName : `${resource}${attribute}`;
+      result = _addParameter(
+        result,
+        Parameter(parameterName, { Type: propType })
+      );
+      result.Resources[resource].Properties[attribute] = Ref(parameterName);
+      return result;
     },
     /**
      * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.

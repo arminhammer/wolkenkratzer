@@ -12,7 +12,7 @@
 
 **●  delimiter**:  *`string`* 
 
-*Defined in [types.ts:252](https://github.com/arminhammer/wolkenkratzer/blob/94afaab/src/types.ts#L252)*
+*Defined in [types.ts:252](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/types.ts#L252)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnSplit"* 
 
-*Defined in [types.ts:251](https://github.com/arminhammer/wolkenkratzer/blob/94afaab/src/types.ts#L251)*
+*Defined in [types.ts:251](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/types.ts#L251)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  value**:  *`string`⎮[IFnBase64](ifnbase64.md)⎮[IFnFindInMap](ifnfindinmap.md)⎮[IFnGetAtt](ifngetatt.md)⎮[IFnGetAZs](ifngetazs.md)⎮[IFnIf](ifnif.md)⎮[IFnJoin](ifnjoin.md)⎮[IFnSelect](ifnselect.md)⎮[IRef](iref.md)* 
 
-*Defined in [types.ts:253](https://github.com/arminhammer/wolkenkratzer/blob/94afaab/src/types.ts#L253)*
+*Defined in [types.ts:253](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/types.ts#L253)*
 
 
 

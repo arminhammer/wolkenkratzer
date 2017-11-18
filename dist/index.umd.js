@@ -22176,6 +22176,19 @@ function Template() {
             return Object.assign({}, _t, combined);
         },
         /**
+         * Turn an attribute of a Resource into a Parameter.
+         */
+        parameterize: function (location, parameterName) {
+            let result = lodash_1(this);
+            const [resource, attribute] = location.split('.');
+            const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
+            const propType = cfnDocJsonStubs[rgroup].Resources[rtype].Properties[attribute].Type;
+            parameterName = parameterName ? parameterName : `${resource}${attribute}`;
+            result = _addParameter(result, Parameter(parameterName, { Type: propType }));
+            result.Resources[resource].Properties[attribute] = Ref(parameterName);
+            return result;
+        },
+        /**
          * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.
          * @example
          * let t = Template();
