@@ -295,6 +295,7 @@ export interface ITemplate {
   readonly import: Function;
   readonly map: (iterable: Array<IElement>, mapFn: Function) => ITemplate;
   readonly parameterize: Function;
+  readonly putOut: Function;
   readonly yaml: () => string;
 }
 

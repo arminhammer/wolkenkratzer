@@ -227,7 +227,7 @@ Please see the examples/ folder for real and tested examples on how to use the l
 
 **Τ ConditionFunction**:  *[IFnAnd](interfaces/ifnand.md)⎮[IFnEquals](interfaces/ifnequals.md)⎮[IFnIf](interfaces/ifnif.md)⎮[IFnNot](interfaces/ifnnot.md)⎮[IFnOr](interfaces/ifnor.md)* 
 
-*Defined in [types.ts:153](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/types.ts#L153)*
+*Defined in [types.ts:153](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/types.ts#L153)*
 
 
 
@@ -241,7 +241,7 @@ ___
 
 **Τ Conditional**:  *`string`⎮[IRef](interfaces/iref.md)⎮[IFnGetAtt](interfaces/ifngetatt.md)* 
 
-*Defined in [types.ts:152](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/types.ts#L152)*
+*Defined in [types.ts:152](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/types.ts#L152)*
 
 
 
@@ -258,7 +258,7 @@ ___
 
 **Τ IAttribute**:  *[ICreationPolicy](interfaces/icreationpolicy.md)⎮[IDeletionPolicy](interfaces/ideletionpolicy.md)⎮[IDependsOn](interfaces/idependson.md)⎮[IResourceMetadata](interfaces/iresourcemetadata.md)⎮[IUpdatePolicy](interfaces/iupdatepolicy.md)* 
 
-*Defined in [types.ts:143](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/types.ts#L143)*
+*Defined in [types.ts:143](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/types.ts#L143)*
 
 
 
@@ -272,7 +272,7 @@ ___
 
 **Τ IElement**:  *[ICondition](interfaces/icondition.md)⎮[IParameter](interfaces/iparameter.md)⎮[IDescription](interfaces/idescription.md)⎮[IOutput](interfaces/ioutput.md)⎮[IResource](interfaces/iresource.md)⎮[ICondition](interfaces/icondition.md)⎮[IMapping](interfaces/imapping.md)* 
 
-*Defined in [types.ts:79](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/types.ts#L79)*
+*Defined in [types.ts:79](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/types.ts#L79)*
 
 
 
@@ -286,7 +286,7 @@ ___
 
 **Τ IIntrinsic**:  *[IRef](interfaces/iref.md)⎮[IFnGetAtt](interfaces/ifngetatt.md)⎮[IFnJoin](interfaces/ifnjoin.md)⎮[IFnAnd](interfaces/ifnand.md)⎮[IFnEquals](interfaces/ifnequals.md)⎮[IFnIf](interfaces/ifnif.md)⎮[IFnNot](interfaces/ifnnot.md)⎮[IFnOr](interfaces/ifnor.md)⎮[ConditionFunction](#conditionfunction)* 
 
-*Defined in [types.ts:197](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/types.ts#L197)*
+*Defined in [types.ts:197](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/types.ts#L197)*
 
 
 
@@ -302,7 +302,7 @@ ___
 
 **●  Lambda**:  *[IService](interfaces/iservice.md)*  =  Service(LambdaJson)
 
-*Defined in [macros/lambda.macro.ts:15](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L15)*
+*Defined in [macros/lambda.macro.ts:15](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L15)*
 
 
 
@@ -316,7 +316,7 @@ ___
 
 **●  bluebird**:  *`any`*  =  require('bluebird')
 
-*Defined in [macros/lambda.macro.ts:11](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L11)*
+*Defined in [macros/lambda.macro.ts:11](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L11)*
 
 
 
@@ -330,7 +330,7 @@ ___
 
 **●  ec2info**:  *`any`*  =  require('../ec2info/www/instances.json')
 
-*Defined in [transform/buildEC2Data.ts:4](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/transform/buildEC2Data.ts#L4)*
+*Defined in [transform/buildEC2Data.ts:4](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/transform/buildEC2Data.ts#L4)*
 
 
 
@@ -344,7 +344,7 @@ ___
 
 **●  fs**:  *`any`*  =  require('fs-extra')
 
-*Defined in [macros/lambda.macro.ts:10](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L10)*
+*Defined in [macros/lambda.macro.ts:10](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L10)*
 
 
 
@@ -358,7 +358,7 @@ ___
 
 **●  instanceTypes**:  *`any`*  =  require('../ec2info.json')
 
-*Defined in [macros/ec2meta.macro.ts:5](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/ec2meta.macro.ts#L5)*
+*Defined in [macros/ec2meta.macro.ts:5](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/ec2meta.macro.ts#L5)*
 
 
 
@@ -372,7 +372,7 @@ ___
 
 **●  jszip**:  *`any`*  =  require('jszip')
 
-*Defined in [macros/lambda.macro.ts:12](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L12)*
+*Defined in [macros/lambda.macro.ts:12](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L12)*
 
 
 
@@ -386,7 +386,7 @@ ___
 
 **●  klaw**:  *`any`*  =  require('klaw')
 
-*Defined in [macros/lambda.macro.ts:13](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L13)*
+*Defined in [macros/lambda.macro.ts:13](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L13)*
 
 
 
@@ -406,7 +406,7 @@ ___
   };
 })
 
-*Defined in [transform/buildEC2Data.ts:6](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/transform/buildEC2Data.ts#L6)*
+*Defined in [transform/buildEC2Data.ts:6](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/transform/buildEC2Data.ts#L6)*
 
 
 
@@ -420,7 +420,7 @@ ___
 
 **●  s3Service**:  *`any`*  =  Service(stubs.S3)
 
-*Defined in [transform/s3.ts:5](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/transform/s3.ts#L5)*
+*Defined in [transform/s3.ts:5](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/transform/s3.ts#L5)*
 
 
 
@@ -438,7 +438,7 @@ ___
 
 
 
-*Defined in [macros/s3.macro.ts:16](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/s3.macro.ts#L16)*
+*Defined in [macros/s3.macro.ts:16](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/s3.macro.ts#L16)*
 
 
 *__memberof__*: module:Macro
@@ -480,7 +480,7 @@ ___
 
 
 
-*Defined in [elements/condition.ts:10](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/elements/condition.ts#L10)*
+*Defined in [elements/condition.ts:10](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/elements/condition.ts#L10)*
 
 
 
@@ -514,7 +514,7 @@ ___
 
 
 
-*Defined in [attributes/creationpolicy.ts:3](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/attributes/creationpolicy.ts#L3)*
+*Defined in [attributes/creationpolicy.ts:3](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/attributes/creationpolicy.ts#L3)*
 
 
 
@@ -545,7 +545,7 @@ ___
 
 
 
-*Defined in [elements/resource.ts:30](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/elements/resource.ts#L30)*
+*Defined in [elements/resource.ts:30](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/elements/resource.ts#L30)*
 
 
 
@@ -577,7 +577,7 @@ ___
 
 
 
-*Defined in [attributes/deletionpolicy.ts:3](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/attributes/deletionpolicy.ts#L3)*
+*Defined in [attributes/deletionpolicy.ts:3](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/attributes/deletionpolicy.ts#L3)*
 
 
 
@@ -608,7 +608,7 @@ ___
 
 
 
-*Defined in [attributes/dependson.ts:3](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/attributes/dependson.ts#L3)*
+*Defined in [attributes/dependson.ts:3](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/attributes/dependson.ts#L3)*
 
 
 
@@ -639,7 +639,7 @@ ___
 
 
 
-*Defined in [elements/description.ts:7](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/elements/description.ts#L7)*
+*Defined in [elements/description.ts:7](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/elements/description.ts#L7)*
 
 
 
@@ -672,7 +672,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:28](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L28)*
+*Defined in [intrinsic.ts:28](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L28)*
 
 
 
@@ -706,7 +706,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:118](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L118)*
+*Defined in [intrinsic.ts:118](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L118)*
 
 
 
@@ -739,7 +739,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:102](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L102)*
+*Defined in [intrinsic.ts:102](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L102)*
 
 
 
@@ -773,7 +773,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:128](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L128)*
+*Defined in [intrinsic.ts:128](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L128)*
 
 
 
@@ -808,7 +808,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:143](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L143)*
+*Defined in [intrinsic.ts:143](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L143)*
 
 
 
@@ -841,7 +841,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:73](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L73)*
+*Defined in [intrinsic.ts:73](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L73)*
 
 
 
@@ -875,7 +875,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:52](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L52)*
+*Defined in [intrinsic.ts:52](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L52)*
 
 
 
@@ -908,7 +908,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:204](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L204)*
+*Defined in [intrinsic.ts:204](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L204)*
 
 
 
@@ -941,7 +941,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:84](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L84)*
+*Defined in [intrinsic.ts:84](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L84)*
 
 
 
@@ -975,7 +975,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:44](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L44)*
+*Defined in [intrinsic.ts:44](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L44)*
 
 
 
@@ -1008,7 +1008,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:36](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L36)*
+*Defined in [intrinsic.ts:36](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L36)*
 
 
 
@@ -1041,7 +1041,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:155](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L155)*
+*Defined in [intrinsic.ts:155](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L155)*
 
 
 
@@ -1075,7 +1075,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:225](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L225)*
+*Defined in [intrinsic.ts:225](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L225)*
 
 
 
@@ -1109,7 +1109,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:110](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L110)*
+*Defined in [intrinsic.ts:110](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L110)*
 
 
 
@@ -1142,7 +1142,7 @@ ___
 
 
 
-*Defined in [elements/mapping.ts:9](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/elements/mapping.ts#L9)*
+*Defined in [elements/mapping.ts:9](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/elements/mapping.ts#L9)*
 
 
 
@@ -1177,7 +1177,7 @@ ___
 
 
 
-*Defined in [elements/output.ts:10](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/elements/output.ts#L10)*
+*Defined in [elements/output.ts:10](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/elements/output.ts#L10)*
 
 
 
@@ -1211,7 +1211,7 @@ ___
 
 
 
-*Defined in [elements/parameter.ts:8](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/elements/parameter.ts#L8)*
+*Defined in [elements/parameter.ts:8](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/elements/parameter.ts#L8)*
 
 
 
@@ -1245,7 +1245,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:60](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L60)*
+*Defined in [intrinsic.ts:60](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L60)*
 
 
 
@@ -1278,7 +1278,7 @@ ___
 
 
 
-*Defined in [elements/resource.ts:9](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/elements/resource.ts#L9)*
+*Defined in [elements/resource.ts:9](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/elements/resource.ts#L9)*
 
 
 
@@ -1313,7 +1313,7 @@ ___
 
 
 
-*Defined in [attributes/metadata.ts:3](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/attributes/metadata.ts#L3)*
+*Defined in [attributes/metadata.ts:3](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/attributes/metadata.ts#L3)*
 
 
 
@@ -1344,7 +1344,7 @@ ___
 
 
 
-*Defined in [transform/s3.ts:7](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/transform/s3.ts#L7)*
+*Defined in [transform/s3.ts:7](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/transform/s3.ts#L7)*
 
 
 
@@ -1376,7 +1376,7 @@ ___
 
 
 
-*Defined in [service.ts:8](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/service.ts#L8)*
+*Defined in [service.ts:8](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/service.ts#L8)*
 
 
 
@@ -1409,7 +1409,7 @@ ___
 
 
 
-*Defined in [template.ts:60](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/template.ts#L60)*
+*Defined in [template.ts:60](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/template.ts#L60)*
 
 
 
@@ -1438,7 +1438,7 @@ ___
 
 
 
-*Defined in [attributes/updatepolicy.ts:3](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/attributes/updatepolicy.ts#L3)*
+*Defined in [attributes/updatepolicy.ts:3](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/attributes/updatepolicy.ts#L3)*
 
 
 
@@ -1469,7 +1469,7 @@ ___
 
 
 
-*Defined in [macros/lambda.macro.ts:139](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L139)*
+*Defined in [macros/lambda.macro.ts:139](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L139)*
 
 
 
@@ -1502,7 +1502,7 @@ ___
 
 
 
-*Defined in [macros/lambda.macro.ts:118](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L118)*
+*Defined in [macros/lambda.macro.ts:118](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L118)*
 
 
 
@@ -1535,7 +1535,7 @@ ___
 
 
 
-*Defined in [intrinsic.ts:171](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/intrinsic.ts#L171)*
+*Defined in [intrinsic.ts:171](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/intrinsic.ts#L171)*
 
 
 
@@ -1565,7 +1565,7 @@ ___
 
 
 
-*Defined in [macros/lambda.macro.ts:290](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L290)*
+*Defined in [macros/lambda.macro.ts:290](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L290)*
 
 
 
@@ -1598,7 +1598,7 @@ ___
 
 
 
-*Defined in [macros/lambda.macro.ts:449](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L449)*
+*Defined in [macros/lambda.macro.ts:449](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L449)*
 
 
 
@@ -1631,7 +1631,7 @@ ___
 
 
 
-*Defined in [macros/lambda.macro.ts:266](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L266)*
+*Defined in [macros/lambda.macro.ts:266](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L266)*
 
 
 
@@ -1664,7 +1664,7 @@ ___
 
 
 
-*Defined in [macros/lambda.macro.ts:405](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L405)*
+*Defined in [macros/lambda.macro.ts:405](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L405)*
 
 
 
@@ -1697,7 +1697,7 @@ ___
 
 
 
-*Defined in [macros/ec2meta.macro.ts:75](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/ec2meta.macro.ts#L75)*
+*Defined in [macros/ec2meta.macro.ts:75](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/ec2meta.macro.ts#L75)*
 
 
 
@@ -1736,7 +1736,7 @@ ___
 
 
 
-*Defined in [macros/ec2meta.macro.ts:12](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/ec2meta.macro.ts#L12)*
+*Defined in [macros/ec2meta.macro.ts:12](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/ec2meta.macro.ts#L12)*
 
 
 
@@ -1765,7 +1765,7 @@ ___
 
 
 
-*Defined in [macros/ec2meta.macro.ts:34](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/ec2meta.macro.ts#L34)*
+*Defined in [macros/ec2meta.macro.ts:34](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/ec2meta.macro.ts#L34)*
 
 
 
@@ -1794,7 +1794,7 @@ ___
 
 
 
-*Defined in [macros/ec2meta.macro.ts:21](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/ec2meta.macro.ts#L21)*
+*Defined in [macros/ec2meta.macro.ts:21](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/ec2meta.macro.ts#L21)*
 
 
 
@@ -1823,7 +1823,7 @@ ___
 
 
 
-*Defined in [macros/ec2meta.macro.ts:47](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/ec2meta.macro.ts#L47)*
+*Defined in [macros/ec2meta.macro.ts:47](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/ec2meta.macro.ts#L47)*
 
 
 
@@ -1859,7 +1859,7 @@ Strings constants that map to CloudFormation pseudoparameter Pseudo.AWS_ACCOUNT_
 
 **●  AWS_ACCOUNT_ID**:  *`string`*  = "AWS::AccountId"
 
-*Defined in [pseudo.ts:11](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/pseudo.ts#L11)*
+*Defined in [pseudo.ts:11](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/pseudo.ts#L11)*
 
 
 
@@ -1872,7 +1872,7 @@ ___
 
 **●  AWS_NOTIFICATION_ARNS**:  *`string`*  = "AWS::NotificationARNs"
 
-*Defined in [pseudo.ts:12](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/pseudo.ts#L12)*
+*Defined in [pseudo.ts:12](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/pseudo.ts#L12)*
 
 
 
@@ -1885,7 +1885,7 @@ ___
 
 **●  AWS_NO_VALUE**:  *`string`*  = "AWS::NoValue"
 
-*Defined in [pseudo.ts:13](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/pseudo.ts#L13)*
+*Defined in [pseudo.ts:13](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/pseudo.ts#L13)*
 
 
 
@@ -1898,7 +1898,7 @@ ___
 
 **●  AWS_REGION**:  *`string`*  = "AWS::Region"
 
-*Defined in [pseudo.ts:14](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/pseudo.ts#L14)*
+*Defined in [pseudo.ts:14](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/pseudo.ts#L14)*
 
 
 
@@ -1911,7 +1911,7 @@ ___
 
 **●  AWS_STACK_ID**:  *`string`*  = "AWS::StackId"
 
-*Defined in [pseudo.ts:15](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/pseudo.ts#L15)*
+*Defined in [pseudo.ts:15](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/pseudo.ts#L15)*
 
 
 
@@ -1924,7 +1924,7 @@ ___
 
 **●  AWS_STACK_NAME**:  *`string`*  = "AWS::StackName"
 
-*Defined in [pseudo.ts:16](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/pseudo.ts#L16)*
+*Defined in [pseudo.ts:16](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/pseudo.ts#L16)*
 
 
 
@@ -1943,7 +1943,7 @@ ___
 
 **●  Environment**:  *`object`* 
 
-*Defined in [macros/lambda.macro.ts:18](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L18)*
+*Defined in [macros/lambda.macro.ts:18](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L18)*
 
 
 #### Type declaration
@@ -1959,7 +1959,7 @@ ___
 
 **●  FunctionName**:  *`string`*  = "MyFunction"
 
-*Defined in [macros/lambda.macro.ts:19](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L19)*
+*Defined in [macros/lambda.macro.ts:19](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L19)*
 
 
 
@@ -1972,7 +1972,7 @@ ___
 
 **●  Handler**:  *`string`*  = "index.handler"
 
-*Defined in [macros/lambda.macro.ts:20](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L20)*
+*Defined in [macros/lambda.macro.ts:20](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L20)*
 
 
 
@@ -1985,7 +1985,7 @@ ___
 
 **●  MemorySize**:  *`number`*  = 128
 
-*Defined in [macros/lambda.macro.ts:21](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L21)*
+*Defined in [macros/lambda.macro.ts:21](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L21)*
 
 
 
@@ -1998,7 +1998,7 @@ ___
 
 **●  Role**:  *`string`*  = "BlankRole"
 
-*Defined in [macros/lambda.macro.ts:22](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L22)*
+*Defined in [macros/lambda.macro.ts:22](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L22)*
 
 
 
@@ -2011,7 +2011,7 @@ ___
 
 **●  Runtime**:  *`string`*  = "nodejs6.10"
 
-*Defined in [macros/lambda.macro.ts:23](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L23)*
+*Defined in [macros/lambda.macro.ts:23](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L23)*
 
 
 
@@ -2024,7 +2024,7 @@ ___
 
 **●  Tags**:  *`never`[]*  =  []
 
-*Defined in [macros/lambda.macro.ts:24](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L24)*
+*Defined in [macros/lambda.macro.ts:24](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L24)*
 
 
 
@@ -2037,7 +2037,7 @@ ___
 
 **●  Timeout**:  *`number`*  = 30
 
-*Defined in [macros/lambda.macro.ts:25](https://github.com/arminhammer/wolkenkratzer/blob/1983ee3/src/macros/lambda.macro.ts#L25)*
+*Defined in [macros/lambda.macro.ts:25](https://github.com/arminhammer/wolkenkratzer/blob/a25dcce/src/macros/lambda.macro.ts#L25)*
 
 
 

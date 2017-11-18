@@ -22189,6 +22189,20 @@ function Template() {
             return result;
         },
         /**
+         * Turn an attribute of a Resource into an Output. Currently only supports turning it into a 'Ref'
+         */
+        putOut: function (location, outputName) {
+            let result = lodash_1(this);
+            const [resource, attribute] = location.split('.');
+            const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
+            outputName = outputName ? outputName : `${resource}${attribute}`;
+            result = _addOutput(result, Output(outputName, {
+                Description: `The ${attribute} of the ${resource} ${rgroup} ${rtype}`,
+                Value: Ref(resource)
+            }));
+            return result;
+        },
+        /**
          * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.
          * @example
          * let t = Template();
