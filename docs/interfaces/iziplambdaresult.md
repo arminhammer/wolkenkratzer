@@ -12,7 +12,7 @@
 
 **●  FunctionResource**:  *[IResource](iresource.md)* 
 
-*Defined in [macros/lambda.macro.ts:45](https://github.com/arminhammer/wolkenkratzer/blob/fe45d31/src/macros/lambda.macro.ts#L45)*
+*Defined in [macros/lambda.macro.ts:45](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/macros/lambda.macro.ts#L45)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  Zip**:  *`any`* 
 
-*Defined in [macros/lambda.macro.ts:46](https://github.com/arminhammer/wolkenkratzer/blob/fe45d31/src/macros/lambda.macro.ts#L46)*
+*Defined in [macros/lambda.macro.ts:46](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/macros/lambda.macro.ts#L46)*
 
 
 
