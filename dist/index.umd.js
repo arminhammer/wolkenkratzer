@@ -21794,6 +21794,7 @@ function Service(json) {
     return service;
 }
 
+/** @hidden **/
 const resourceList = ["ApiGateway", "ApplicationAutoScaling", "Athena", "AutoScaling", "Batch", "CertificateManager", "CloudFormation", "CloudFront", "CloudTrail", "CloudWatch", "CodeBuild", "CodeCommit", "CodeDeploy", "CodePipeline", "Cognito", "Config", "DAX", "DMS", "DataPipeline", "DirectoryService", "DynamoDB", "EC2", "ECR", "ECS", "EFS", "EMR", "ElastiCache", "ElasticBeanstalk", "ElasticLoadBalancing", "ElasticLoadBalancingV2", "Elasticsearch", "Events", "GameLift", "Glue", "IAM", "IoT", "KMS", "Kinesis", "KinesisAnalytics", "KinesisFirehose", "Lambda", "Logs", "OpsWorks", "RDS", "Redshift", "Route53", "S3", "SDB", "SNS", "SQS", "SSM", "StepFunctions", "WAF", "WAFRegional", "WorkSpaces"];
 const ApiGateway = {
     "Resources": {

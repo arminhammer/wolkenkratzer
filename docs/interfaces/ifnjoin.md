@@ -12,7 +12,7 @@
 
 **●  Delimiter**:  *`string`* 
 
-*Defined in [types.ts:157](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L157)*
+*Defined in [types.ts:157](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L157)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  Values**:  *`Array`.<`string`⎮[IFnGetAtt](ifngetatt.md)⎮[IRef](iref.md)>⎮[IFnGetAtt](ifngetatt.md)* 
 
-*Defined in [types.ts:158](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L158)*
+*Defined in [types.ts:158](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L158)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  kind**:  *"FnJoin"* 
 
-*Defined in [types.ts:156](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L156)*
+*Defined in [types.ts:156](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L156)*
 
 
 

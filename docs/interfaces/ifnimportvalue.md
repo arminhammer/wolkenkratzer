@@ -12,7 +12,7 @@
 
 **●  FnImportValue**:  *`string`⎮[IFnBase64](ifnbase64.md)⎮[IFnFindInMap](ifnfindinmap.md)⎮[IFnIf](ifnif.md)⎮[IFnJoin](ifnjoin.md)⎮[IFnSelect](ifnselect.md)⎮[IFnSplit](ifnsplit.md)⎮[IFnSub](ifnsub.md)⎮[IRef](iref.md)* 
 
-*Defined in [types.ts:228](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L228)*
+*Defined in [types.ts:228](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L228)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnImportValue"* 
 
-*Defined in [types.ts:227](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L227)*
+*Defined in [types.ts:227](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L227)*
 
 
 
