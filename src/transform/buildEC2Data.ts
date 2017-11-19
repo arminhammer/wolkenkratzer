@@ -1,6 +1,9 @@
 import fs from 'fs-extra';
 import path from 'path';
 
+/**
+ * @hidden
+ */
 const ec2info = require('../ec2info/www/instances.json');
 
 const results = ec2info.map(i => {

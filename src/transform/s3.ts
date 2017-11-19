@@ -2,6 +2,9 @@
 
 import stubs from 'cfn-doc-json-stubs';
 import { Service } from '../service';
+/**
+ * @hidden
+ */
 const s3Service: any = Service(stubs.S3);
 
 export function S3BucketTransform(

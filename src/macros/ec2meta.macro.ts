@@ -2,6 +2,9 @@
 
 import bluebird from 'bluebird';
 
+/**
+ * @hidden
+ */
 const instanceTypes = require('../ec2info.json');
 
 /**
