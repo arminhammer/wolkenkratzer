@@ -12,7 +12,7 @@
 
 **●  Content**:  *`string`⎮`string`[]* 
 
-*Defined in [types.ts:103](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L103)*
+*Defined in [types.ts:103](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L103)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  Resource**:  *`string`* 
 
-*Defined in [types.ts:102](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L102)*
+*Defined in [types.ts:102](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L102)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  kind**:  *"DependsOn"* 
 
-*Defined in [types.ts:101](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L101)*
+*Defined in [types.ts:101](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L101)*
 
 
 

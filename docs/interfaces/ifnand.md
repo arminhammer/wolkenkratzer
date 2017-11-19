@@ -12,7 +12,7 @@
 
 **●  FnAnd**:  *`Array`.<[Conditional](../#conditional)>* 
 
-*Defined in [types.ts:163](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L163)*
+*Defined in [types.ts:163](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L163)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnAnd"* 
 
-*Defined in [types.ts:162](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L162)*
+*Defined in [types.ts:162](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L162)*
 
 
 

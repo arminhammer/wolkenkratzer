@@ -12,7 +12,7 @@
 
 **●  Content**:  *`string`* 
 
-*Defined in [types.ts:11](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L11)*
+*Defined in [types.ts:11](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L11)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"Description"* 
 
-*Defined in [types.ts:10](https://github.com/arminhammer/wolkenkratzer/blob/ec8acae/src/types.ts#L10)*
+*Defined in [types.ts:10](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L10)*
 
 
 

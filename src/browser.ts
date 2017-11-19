@@ -22,6 +22,6 @@ export { Pseudo } from './pseudo';
 
 import * as stubs from './spec/spec';
 
-stubs.resourceList.map(r => {
+stubs.resourceList.forEach(r => {
   exports[r] = Service(stubs[r]);
 });

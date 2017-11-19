@@ -23,7 +23,7 @@ Object.keys(stubs.PropertyTypes)
     console.log(r);
     let [, group, resourceblock] = r.split('::');
     if (group && resourceblock) {
-      const [resource, property] = resourceblock.split('.');
+      const [, property] = resourceblock.split('.');
       output[group].Models[property] = stubs.PropertyTypes[r];
       output[group].Models[property].Name = r;
     } else {
