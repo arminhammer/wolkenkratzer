@@ -22989,6 +22989,9 @@ function _calcFromExistingTemplate(t, inputTemplate) {
     return t;
 }
 
+/**
+ * @hidden
+ */
 const s3Service = Service(cfnDocJsonStubs.S3);
 function S3BucketTransform(bucketName, logicalName, awsObj) {
     const s3Client = new awsObj.S3();

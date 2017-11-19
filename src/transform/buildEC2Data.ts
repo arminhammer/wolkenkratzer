@@ -6,6 +6,9 @@ import path from 'path';
  */
 const ec2info = require('../ec2info/www/instances.json');
 
+/**
+ * @hidden
+ */
 const results = ec2info.map(i => {
   return {
     arch: i.arch,

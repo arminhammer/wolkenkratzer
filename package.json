@@ -66,7 +66,8 @@
     "coverage": "jest --coverage",
     "coveralls":
       "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "docs": "typedoc --out docs src --mode file --theme markdown",
+    "docs":
+      "typedoc --out docs src --mode file --theme markdown --readme README.stub.md && cp docs/README.md .",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
     "prepush": "yarn lint && yarn build && yarn docs && yarn test",
     "update-submodules": "git submodule update --remote --merge",
