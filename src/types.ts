@@ -1,15 +1,5 @@
 /** Elements */
 
-/**
- *
- *
- * @export
- * @interface IElement
- */
-/*export interface IElement {
-  readonly kind: string;
-}*/
-
 export interface ICondition /*extends IElement*/ {
   readonly kind: 'Condition';
   readonly Name: string;
