@@ -12,7 +12,7 @@
 
 **●  Template**:  *[ITemplate](itemplate.md)* 
 
-*Defined in [macros/lambda.macro.ts:51](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/macros/lambda.macro.ts#L51)*
+*Defined in [macros/lambda.macro.ts:51](https://github.com/arminhammer/wolkenkratzer/blob/cd0c133/src/macros/lambda.macro.ts#L51)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  Zip**:  *`any`* 
 
-*Defined in [macros/lambda.macro.ts:52](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/macros/lambda.macro.ts#L52)*
+*Defined in [macros/lambda.macro.ts:52](https://github.com/arminhammer/wolkenkratzer/blob/cd0c133/src/macros/lambda.macro.ts#L52)*
 
 
 

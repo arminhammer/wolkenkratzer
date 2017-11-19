@@ -12,7 +12,7 @@
 
 **●  FnGetAZs**:  *`string`⎮[IRef](iref.md)* 
 
-*Defined in [types.ts:215](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L215)*
+*Defined in [types.ts:215](https://github.com/arminhammer/wolkenkratzer/blob/cd0c133/src/types.ts#L215)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnGetAZs"* 
 
-*Defined in [types.ts:214](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L214)*
+*Defined in [types.ts:214](https://github.com/arminhammer/wolkenkratzer/blob/cd0c133/src/types.ts#L214)*
 
 
 

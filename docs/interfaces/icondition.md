@@ -15,7 +15,7 @@ Elements
 
 **●  Condition**:  *[IFnAnd](ifnand.md)⎮[IFnEquals](ifnequals.md)⎮[IFnIf](ifnif.md)⎮[IFnNot](ifnnot.md)⎮[IFnOr](ifnor.md)* 
 
-*Defined in [types.ts:6](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L6)*
+*Defined in [types.ts:6](https://github.com/arminhammer/wolkenkratzer/blob/cd0c133/src/types.ts#L6)*
 
 
 
@@ -29,7 +29,7 @@ ___
 
 **●  Name**:  *`string`* 
 
-*Defined in [types.ts:5](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L5)*
+*Defined in [types.ts:5](https://github.com/arminhammer/wolkenkratzer/blob/cd0c133/src/types.ts#L5)*
 
 
 
@@ -43,7 +43,7 @@ ___
 
 **●  kind**:  *"Condition"* 
 
-*Defined in [types.ts:4](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L4)*
+*Defined in [types.ts:4](https://github.com/arminhammer/wolkenkratzer/blob/cd0c133/src/types.ts#L4)*
 
 
 
