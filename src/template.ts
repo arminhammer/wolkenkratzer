@@ -226,6 +226,43 @@ export function Template(): ITemplate {
       };
     },
     /**
+     * Turn an attribute of a Resource into a Parameter.
+     */
+    parameterize: function(
+      location: string,
+      parameterName?: string
+    ): ITemplate {
+      let result = cloneDeep(this);
+      const [resource, attribute] = location.split('.');
+      const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
+      const propType =
+        stubs[rgroup].Resources[rtype].Properties[attribute].Type;
+      parameterName = parameterName ? parameterName : `${resource}${attribute}`;
+      result = _addParameter(
+        result,
+        Parameter(parameterName, { Type: propType })
+      );
+      result.Resources[resource].Properties[attribute] = Ref(parameterName);
+      return result;
+    },
+    /**
+     * Turn an attribute of a Resource into an Output. Currently only supports turning it into a 'Ref'
+     */
+    putOut: function(location: string, outputName?: string): ITemplate {
+      let result = cloneDeep(this);
+      const [resource, attribute] = location.split('.');
+      const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
+      outputName = outputName ? outputName : `${resource}${attribute}`;
+      result = _addOutput(
+        result,
+        Output(outputName, {
+          Description: `The ${attribute} of the ${resource} ${rgroup} ${rtype}`,
+          Value: Ref(resource)
+        })
+      );
+      return result;
+    },
+    /**
      * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.
      * @example
      * let t = Template();
@@ -280,6 +317,15 @@ export function Template(): ITemplate {
       delete newT.Description;
       return newT;
     },
+    /**
+     * Update the value of a resource in the Template.
+     */
+    set: function(location: string, newValue: string): ITemplate {
+      const result = cloneDeep(this);
+      const [resource, attribute] = location.split('.');
+      result.Resources[resource].Properties[attribute] = newValue;
+      return result;
+    },
     yaml: function(): string {
       const cleanedTemplate = this.build();
       // const templateString = JSON.stringify(cleanedTemplate, null, 2);
@@ -326,10 +372,19 @@ export function Template(): ITemplate {
   };
 }
 
+/**
+ * @hidden
+ * @param obj
+ */
 function _isEmptyObject(obj) {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param ref
+ */
 function _validateRef(t: ITemplate, ref: IRef): void | SyntaxError {
   if (ref.Ref) {
     if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
@@ -339,6 +394,11 @@ function _validateRef(t: ITemplate, ref: IRef): void | SyntaxError {
   return;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param att
+ */
 function _validateFnGetAtt(t: ITemplate, att: IFnGetAtt): void | SyntaxError {
   if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
     throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
@@ -346,6 +406,10 @@ function _validateFnGetAtt(t: ITemplate, att: IFnGetAtt): void | SyntaxError {
   return;
 }
 
+/**
+ * @hidden
+ * @param object
+ */
 function _cleanObject(object: any) {
   if (Array.isArray(object)) {
     for (let v = 0; v < object.length; v++) {
@@ -365,6 +429,10 @@ function _cleanObject(object: any) {
   return object;
 }
 
+/**
+ * @hidden
+ * @param t
+ */
 function _buildResource(t: IResource) {
   const newT = cloneDeep(t);
   const {
@@ -413,6 +481,10 @@ function _buildResource(t: IResource) {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ */
 function _buildCondition(t: ICondition): string {
   const { Condition: condition } = t;
   const result = _json(condition);
@@ -424,11 +496,19 @@ function _buildCondition(t: ICondition): string {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ */
 function _buildAttribute(t: IAttribute) {
   const { Content } = t;
   return Content;
 }
 
+/**
+ * @hidden
+ * @param t
+ */
 function _buildFnJoin(t: IFnJoin) {
   if (Array.isArray(t.Values)) {
     const jsonValues = t.Values.map(x => {
@@ -444,6 +524,9 @@ function _buildFnJoin(t: IFnJoin) {
   }
 }
 
+/**
+ * @hidden
+ */
 function _buildFnFindInMap(t: IFnFindInMap) {
   return t.FnFindInMap.map(x => {
     if (typeof x === 'string') {
@@ -454,6 +537,9 @@ function _buildFnFindInMap(t: IFnFindInMap) {
   });
 }
 
+/**
+ * @hidden
+ */
 function _buildGetAZs(t: IFnGetAZs) {
   if (typeof t.FnGetAZs === 'string') {
     return t.FnGetAZs;
@@ -462,6 +548,10 @@ function _buildGetAZs(t: IFnGetAZs) {
   }
 }
 
+/**
+ * @hidden
+ * @param t
+ */
 function _buildFnSplit(t: IFnSplit) {
   if (typeof t.value === 'string') {
     return [t.delimiter, t.value];
@@ -470,6 +560,9 @@ function _buildFnSplit(t: IFnSplit) {
   }
 }
 
+/**
+ * @hidden
+ */
 function _buildFnOr(t: IFnOr) {
   const jsonValues = t.FnOr.map(x => {
     if (typeof x === 'string') {
@@ -481,6 +574,10 @@ function _buildFnOr(t: IFnOr) {
   return jsonValues;
 }
 
+/**
+ * @hidden
+ * @param t
+ */
 function _buildFnImportValue(t: IFnImportValue) {
   if (typeof t.FnImportValue === 'string') {
     return t.FnImportValue;
@@ -489,6 +586,10 @@ function _buildFnImportValue(t: IFnImportValue) {
   }
 }
 
+/**
+ * @hidden
+ * @param t
+ */
 function _buildFnBase64(t: IFnBase64) {
   if (typeof t.FnBase64 === 'string') {
     return t.FnBase64;
@@ -497,6 +598,9 @@ function _buildFnBase64(t: IFnBase64) {
   }
 }
 
+/**
+ * @hidden
+ */
 function _buildFnAnd(t: IFnAnd) {
   return t.FnAnd.map(x => {
     if (typeof x === 'string') {
@@ -510,6 +614,9 @@ function _buildFnAnd(t: IFnAnd) {
   });
 }
 
+/**
+ * @hidden
+ */
 function _buildFnNot(t: IFnNot) {
   return t.FnNot.map(x => {
     if (typeof x === 'string') {
@@ -523,6 +630,9 @@ function _buildFnNot(t: IFnNot) {
   });
 }
 
+/**
+ * @hidden
+ */
 function _buildFnIf(t: IFnIf) {
   return t.FnIf.map(x => {
     if (typeof x === 'string') {
@@ -536,6 +646,9 @@ function _buildFnIf(t: IFnIf) {
   });
 }
 
+/**
+ * @hidden
+ */
 function _buildFnEquals(t: IFnEquals) {
   return t.FnEquals.map(x => {
     if (typeof x === 'string') {
@@ -549,6 +662,9 @@ function _buildFnEquals(t: IFnEquals) {
   });
 }
 
+/**
+ * @hidden
+ */
 function _buildFnSelect(t: IFnSelect) {
   if (Array.isArray(t.FnSelect)) {
     const values = t.FnSelect.map(x => {
@@ -567,11 +683,17 @@ function _buildFnSelect(t: IFnSelect) {
   }
 }
 
+/**
+ * @hidden
+ */
 function _buildMapping(t: IMapping) {
   const result = t.Content;
   return result;
 }
 
+/**
+ * @hidden
+ */
 function _buildOutput(t: IOutput): string {
   let outputResult: any = cloneDeep(t.Properties);
   if (typeof outputResult.Value !== 'string') {
@@ -589,6 +711,10 @@ function _buildOutput(t: IOutput): string {
   return outputResult;
 }
 
+/**
+ * @hidden
+ * @param t
+ */
 export function _json(
   t:
     | IElement
@@ -669,12 +795,20 @@ export function _json(
   }
 }
 
+/**
+ * @hidden
+ */
 function _addDescription(t: ITemplate, e: IDescription): ITemplate {
   const desc = { Description: e.Content };
   const result = { ...t, ...desc };
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
   const result: any = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
@@ -688,6 +822,9 @@ function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ */
 function _addDeletionPolicy(t: ITemplate, e: IDeletionPolicy): ITemplate {
   const result: any = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
@@ -701,6 +838,11 @@ function _addDeletionPolicy(t: ITemplate, e: IDeletionPolicy): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addUpdatePolicy(t: ITemplate, e: IUpdatePolicy): ITemplate {
   const result: any = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
@@ -714,6 +856,11 @@ function _addUpdatePolicy(t: ITemplate, e: IUpdatePolicy): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addDependsOn(t: ITemplate, e: IDependsOn): ITemplate {
   const result: any = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
@@ -727,6 +874,11 @@ function _addDependsOn(t: ITemplate, e: IDependsOn): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addResourceMetadata(t: ITemplate, e: IResourceMetadata): ITemplate {
   const result: any = cloneDeep(t);
   if (!result.Resources[e.Resource]) {
@@ -740,6 +892,11 @@ function _addResourceMetadata(t: ITemplate, e: IResourceMetadata): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addCondition(t: ITemplate, e: ICondition): ITemplate {
   // TODO: Validate intrinsics
   const result: any = cloneDeep(t);
@@ -747,6 +904,11 @@ function _addCondition(t: ITemplate, e: ICondition): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addOutput(t: ITemplate, e: IOutput): ITemplate {
   const e0: any = cloneDeep(e);
   if (typeof e0.Properties.Value !== 'string') {
@@ -765,12 +927,22 @@ function _addOutput(t: ITemplate, e: IOutput): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addParameter(t: ITemplate, e: IParameter): ITemplate {
   const result: any = cloneDeep(t);
   result.Parameters[e.Name] = e;
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addMapping(t: ITemplate, e: IMapping): ITemplate {
   const result = { ...t };
   if (result.Mappings[e.Name]) {
@@ -788,6 +960,11 @@ function _addMapping(t: ITemplate, e: IMapping): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _addResource(t: ITemplate, e: IResource): ITemplate {
   const result = { ...t };
   const newResources: any = cloneDeep(result.Resources);
@@ -796,6 +973,11 @@ function _addResource(t: ITemplate, e: IResource): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _removeMapping(t: ITemplate, e: IMapping | string): ITemplate {
   const result = { ...t };
   let mapping: IMapping;
@@ -816,6 +998,11 @@ function _removeMapping(t: ITemplate, e: IMapping | string): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _removeOutput(t: ITemplate, e: IOutput | string): ITemplate {
   const result = { ...t };
   let out: IOutput;
@@ -836,6 +1023,11 @@ function _removeOutput(t: ITemplate, e: IOutput | string): ITemplate {
   return result;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
 function _removeParameter(t: ITemplate, e: IParameter | string): ITemplate {
   const result = { ...t };
   let param: IParameter;
@@ -855,7 +1047,11 @@ function _removeParameter(t: ITemplate, e: IParameter | string): ITemplate {
   }
   return result;
 }
-
+/**
+ * @hidden
+ * @param t
+ * @param inputTemplate
+ */
 function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
   if (inputTemplate.Description) {
     t = t.add(Description(inputTemplate.Description));

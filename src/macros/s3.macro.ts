@@ -5,6 +5,8 @@
 
 /**
  * @memberof module:Macro
+ * @category Macro
+ * @module S3Macro
  * @param name
  * @param newName
  * @param region
