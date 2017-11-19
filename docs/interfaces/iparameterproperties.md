@@ -12,7 +12,7 @@
 
 **●  AllowedPattern**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:38](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L38)*
+*Defined in [types.ts:38](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L38)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  AllowedValues**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:39](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L39)*
+*Defined in [types.ts:39](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L39)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  ConstraintDescription**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:40](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L40)*
+*Defined in [types.ts:40](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L40)*
 
 
 
@@ -54,7 +54,7 @@ ___
 
 **●  Default**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:41](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L41)*
+*Defined in [types.ts:41](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L41)*
 
 
 
@@ -68,7 +68,7 @@ ___
 
 **●  Description**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:42](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L42)*
+*Defined in [types.ts:42](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L42)*
 
 
 
@@ -82,7 +82,7 @@ ___
 
 **●  MaxLength**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:43](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L43)*
+*Defined in [types.ts:43](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L43)*
 
 
 
@@ -96,7 +96,7 @@ ___
 
 **●  MaxValue**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:44](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L44)*
+*Defined in [types.ts:44](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L44)*
 
 
 
@@ -110,7 +110,7 @@ ___
 
 **●  MinLength**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:45](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L45)*
+*Defined in [types.ts:45](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L45)*
 
 
 
@@ -124,7 +124,7 @@ ___
 
 **●  MinValue**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:46](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L46)*
+*Defined in [types.ts:46](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L46)*
 
 
 
@@ -138,7 +138,7 @@ ___
 
 **●  NoEcho**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:47](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L47)*
+*Defined in [types.ts:47](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L47)*
 
 
 
@@ -152,7 +152,7 @@ ___
 
 **●  Type**:  *`string`* 
 
-*Defined in [types.ts:37](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L37)*
+*Defined in [types.ts:37](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L37)*
 
 
 

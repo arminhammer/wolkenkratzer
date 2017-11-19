@@ -33,7 +33,7 @@ Object.keys(stubs.PropertyTypes)
 //console.log(groupList.sort());
 
 let resultString = '';
-resultString += `export const resourceList = ${JSON.stringify(
+resultString += `/** @hidden **/\nexport const resourceList = ${JSON.stringify(
   groupList.sort()
 )}\n\n`;
 

@@ -12,7 +12,7 @@
 
 **●  FnSelect**:  *`Array`.<`string`⎮[IFnFindInMap](ifnfindinmap.md)⎮[IFnGetAtt](ifngetatt.md)⎮[IFnGetAZs](ifngetazs.md)⎮[IFnIf](ifnif.md)⎮[IFnSplit](ifnsplit.md)⎮[IRef](iref.md)>* 
 
-*Defined in [types.ts:221](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L221)*
+*Defined in [types.ts:221](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L221)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  index**:  *`number`* 
 
-*Defined in [types.ts:220](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L220)*
+*Defined in [types.ts:220](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L220)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  kind**:  *"FnSelect"* 
 
-*Defined in [types.ts:219](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L219)*
+*Defined in [types.ts:219](https://github.com/arminhammer/wolkenkratzer/blob/c1dd44b/src/types.ts#L219)*
 
 
 
