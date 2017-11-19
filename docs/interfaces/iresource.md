@@ -12,7 +12,7 @@
 
 **●  Condition**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:61](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L61)*
+*Defined in [types.ts:61](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L61)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  CreationPolicy**:  *[ICreationPolicy](icreationpolicy.md)* 
 
-*Defined in [types.ts:63](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L63)*
+*Defined in [types.ts:63](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L63)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  DeletionPolicy**:  *[IDeletionPolicy](ideletionpolicy.md)* 
 
-*Defined in [types.ts:64](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L64)*
+*Defined in [types.ts:64](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L64)*
 
 
 
@@ -54,7 +54,7 @@ ___
 
 **●  DependsOn**:  *[IDependsOn](idependson.md)* 
 
-*Defined in [types.ts:65](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L65)*
+*Defined in [types.ts:65](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L65)*
 
 
 
@@ -68,7 +68,7 @@ ___
 
 **●  Metadata**:  *`any`* 
 
-*Defined in [types.ts:62](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L62)*
+*Defined in [types.ts:62](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L62)*
 
 
 
@@ -82,7 +82,7 @@ ___
 
 **●  Name**:  *`string`* 
 
-*Defined in [types.ts:58](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L58)*
+*Defined in [types.ts:58](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L58)*
 
 
 
@@ -96,7 +96,7 @@ ___
 
 **●  Properties**:  *`any`* 
 
-*Defined in [types.ts:60](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L60)*
+*Defined in [types.ts:60](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L60)*
 
 
 
@@ -110,7 +110,7 @@ ___
 
 **●  Type**:  *`string`* 
 
-*Defined in [types.ts:59](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L59)*
+*Defined in [types.ts:59](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L59)*
 
 
 
@@ -124,7 +124,7 @@ ___
 
 **●  UpdatePolicy**:  *[IUpdatePolicy](iupdatepolicy.md)* 
 
-*Defined in [types.ts:66](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L66)*
+*Defined in [types.ts:66](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L66)*
 
 
 
@@ -138,7 +138,7 @@ ___
 
 **●  kind**:  *"Resource"* 
 
-*Defined in [types.ts:57](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L57)*
+*Defined in [types.ts:57](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L57)*
 
 
 

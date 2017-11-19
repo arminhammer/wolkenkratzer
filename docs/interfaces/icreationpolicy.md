@@ -15,7 +15,7 @@ Attributes
 
 **●  Content**:  *`object`* 
 
-*Defined in [types.ts:83](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L83)*
+*Defined in [types.ts:83](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L83)*
 
 
 #### Type declaration
@@ -46,7 +46,7 @@ ___
 
 **●  Resource**:  *`string`* 
 
-*Defined in [types.ts:82](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L82)*
+*Defined in [types.ts:82](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L82)*
 
 
 
@@ -60,7 +60,7 @@ ___
 
 **●  kind**:  *"CreationPolicy"* 
 
-*Defined in [types.ts:81](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L81)*
+*Defined in [types.ts:81](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L81)*
 
 
 

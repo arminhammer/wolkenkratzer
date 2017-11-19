@@ -12,7 +12,7 @@
 
 **●  Ref**:  *`string`* 
 
-*Defined in [types.ts:147](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L147)*
+*Defined in [types.ts:147](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L147)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"Ref"* 
 
-*Defined in [types.ts:146](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L146)*
+*Defined in [types.ts:146](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L146)*
 
 
 

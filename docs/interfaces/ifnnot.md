@@ -12,7 +12,7 @@
 
 **●  FnNot**:  *`Array`.<[Conditional](../#conditional)>* 
 
-*Defined in [types.ts:178](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L178)*
+*Defined in [types.ts:178](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L178)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnNot"* 
 
-*Defined in [types.ts:177](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L177)*
+*Defined in [types.ts:177](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L177)*
 
 
 

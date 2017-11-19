@@ -12,7 +12,7 @@
 
 **●  Content**:  *"Delete"⎮"Retain"⎮"Snapshot"* 
 
-*Defined in [types.ts:97](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L97)*
+*Defined in [types.ts:97](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L97)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  Resource**:  *`string`* 
 
-*Defined in [types.ts:96](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L96)*
+*Defined in [types.ts:96](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L96)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  kind**:  *"DeletionPolicy"* 
 
-*Defined in [types.ts:95](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L95)*
+*Defined in [types.ts:95](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L95)*
 
 
 

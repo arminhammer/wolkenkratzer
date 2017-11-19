@@ -12,7 +12,7 @@
 
 **●  Condition**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:33](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L33)*
+*Defined in [types.ts:33](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L33)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  Name**:  *`string`* 
 
-*Defined in [types.ts:31](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L31)*
+*Defined in [types.ts:31](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L31)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  Properties**:  *[IOutputProperties](ioutputproperties.md)* 
 
-*Defined in [types.ts:32](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L32)*
+*Defined in [types.ts:32](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L32)*
 
 
 
@@ -54,7 +54,7 @@ ___
 
 **●  kind**:  *"Output"* 
 
-*Defined in [types.ts:30](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L30)*
+*Defined in [types.ts:30](https://github.com/arminhammer/wolkenkratzer/blob/d70dabd/src/types.ts#L30)*
 
 
 
