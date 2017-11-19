@@ -61,7 +61,7 @@ function _validateProperties(properties, rType: string, model) {
         );
       }
     }
-    if (model.Resources[rType].Properties[p].Array) {
+    if (model.Resources[rType].Properties[p].Type === 'List') {
       if (properties[p] && !Array.isArray(properties[p])) {
         if (
           !properties[p].kind &&
