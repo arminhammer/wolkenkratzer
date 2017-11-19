@@ -42,11 +42,17 @@ const defaultConfig = {
   // kms: '',
 };
 
+/**
+ * @hidden
+ */
 export interface IZipLambdaResult {
   FunctionResource: IResource;
   Zip: any;
 }
 
+/**
+ * @hidden
+ */
 export interface IZipLambdaTemplateResult {
   Template: ITemplate;
   Zip: any;

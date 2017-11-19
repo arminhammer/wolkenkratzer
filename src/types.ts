@@ -1,22 +1,34 @@
 /** Elements */
 
+/**
+ * @hidden
+ */
 export interface ICondition /*extends IElement*/ {
   readonly kind: 'Condition';
   readonly Name: string;
   readonly Condition: IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 }
 
+/**
+ * @hidden
+ */
 export interface IDescription {
   readonly kind: 'Description';
   readonly Content: string;
 }
 
+/**
+ * @hidden
+ */
 export interface IMapping {
   readonly kind: 'Mapping';
   readonly Name: string;
   readonly Content: { [s: string]: any };
 }
 
+/**
+ * @hidden
+ */
 export interface IOutputProperties {
   readonly Description?: string;
   readonly Value: IRef | string;
@@ -26,6 +38,9 @@ export interface IOutputProperties {
   readonly Condition?: string;
 }
 
+/**
+ * @hidden
+ */
 export interface IOutput {
   readonly kind: 'Output';
   readonly Name: string;
@@ -33,6 +48,9 @@ export interface IOutput {
   readonly Condition?: string;
 }
 
+/**
+ * @hidden
+ */
 export interface IParameterProperties {
   readonly Type: string;
   readonly AllowedPattern?: string;
@@ -47,12 +65,18 @@ export interface IParameterProperties {
   readonly NoEcho?: string;
 }
 
+/**
+ * @hidden
+ */
 export interface IParameter {
   readonly kind: 'Parameter';
   readonly Name: string;
   readonly Properties: IParameterProperties;
 }
 
+/**
+ * @hidden
+ */
 export interface IResource {
   readonly kind: 'Resource';
   readonly Name: string;
@@ -66,6 +90,9 @@ export interface IResource {
   readonly UpdatePolicy?: IUpdatePolicy;
 }
 
+/**
+ * @hidden
+ */
 export type IElement =
   | ICondition
   | IParameter
@@ -77,6 +104,9 @@ export type IElement =
 
 /** Attributes */
 
+/**
+ * @hidden
+ */
 export interface ICreationPolicy {
   readonly kind: 'CreationPolicy';
   readonly Resource: string;
@@ -91,24 +121,36 @@ export interface ICreationPolicy {
   };
 }
 
+/**
+ * @hidden
+ */
 export interface IDeletionPolicy {
   readonly kind: 'DeletionPolicy';
   readonly Resource: string;
   readonly Content: 'Delete' | 'Retain' | 'Snapshot';
 }
 
+/**
+ * @hidden
+ */
 export interface IDependsOn {
   readonly kind: 'DependsOn';
   readonly Resource: string;
   readonly Content: string | string[];
 }
 
+/**
+ * @hidden
+ */
 export interface IResourceMetadata {
   readonly kind: 'ResourceMetadata';
   readonly Resource: string;
   readonly Content;
 }
 
+/**
+ * @hidden
+ */
 export interface IUpdatePolicy {
   readonly kind: 'UpdatePolicy';
   readonly Resource: string;
@@ -130,6 +172,9 @@ export interface IUpdatePolicy {
   };
 }
 
+/**
+ * @hidden
+ */
 export type IAttribute =
   | ICreationPolicy
   | IDeletionPolicy
@@ -139,51 +184,84 @@ export type IAttribute =
 
 /** Intrinsic Functions */
 
+/**
+ * @hidden
+ */
 export type Conditional = string | IRef | IFnGetAtt;
+/**
+ * @hidden
+ */
 export type ConditionFunction = IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
 
+/**
+ * @hidden
+ */
 export interface IRef {
   readonly kind: 'Ref';
   readonly Ref: string;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnGetAtt {
   readonly kind: 'FnGetAtt';
   readonly FnGetAtt: Array<string>;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnJoin {
   readonly kind: 'FnJoin';
   readonly Delimiter: string;
   readonly Values: Array<string | IFnGetAtt | IRef> | IFnGetAtt;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnAnd {
   readonly kind: 'FnAnd';
   readonly FnAnd: Array<Conditional>;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnEquals {
   readonly kind: 'FnEquals';
   readonly FnEquals: Array<Conditional>;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnIf {
   readonly kind: 'FnIf';
   readonly FnIf: Array<Conditional>;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnNot {
   readonly kind: 'FnNot';
   readonly FnNot: Array<Conditional>;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnOr {
   readonly kind: 'FnOr';
   readonly FnOr: Array<Conditional>;
 }
 
 // export IIntrinsic = IRef | IFnGetAtt | IFnAnd | IFnEquals | IFnIf | IFnNot | IFnOr;
+/**
+ * @hidden
+ */
 export type IIntrinsic =
   | IRef
   | IFnGetAtt
@@ -195,26 +273,41 @@ export type IIntrinsic =
   | IFnOr
   | ConditionFunction;
 
+/**
+ * @hidden
+ */
 export interface IFnSub {
   readonly kind: 'FnSub';
   readonly FnSub: string;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnBase64 {
   readonly kind: 'FnBase64';
   readonly FnBase64: string;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnFindInMap {
   readonly kind: 'FnFindInMap';
   readonly FnFindInMap: Array<string>;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnGetAZs {
   readonly kind: 'FnGetAZs';
   readonly FnGetAZs: string | IRef;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnSelect {
   readonly kind: 'FnSelect';
   readonly index: number;
@@ -223,6 +316,9 @@ export interface IFnSelect {
   >;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnImportValue {
   readonly kind: 'FnImportValue';
   readonly FnImportValue:
@@ -237,6 +333,9 @@ export interface IFnImportValue {
     | IRef;
 }
 
+/**
+ * @hidden
+ */
 export interface IFnSplit {
   readonly kind: 'FnSplit';
   readonly delimiter: string;
@@ -256,13 +355,15 @@ export interface IFnSplit {
  * Internal
  */
 
+/**
+ * @hidden
+ */
 export interface IService {
   Function?: any;
 }
 
 /**
- * Template Interface
- * @member Template
+ * @hidden
  */
 export interface ITemplate {
   readonly kind: 'Template';
@@ -291,8 +392,7 @@ export interface ITemplate {
 }
 
 /**
- * IAddOptions Interface
- * @member Template
+ * @hidden
  */
 export interface IAddOptions {
   Output: boolean;

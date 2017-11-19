@@ -45245,7 +45245,7 @@ function S3BucketTransform(bucketName, logicalName, awsObj) {
     });
 }
 
-resourceList.map(r => {
+resourceList.forEach(r => {
     exports[r] = Service(stubs[r]);
 });
 
