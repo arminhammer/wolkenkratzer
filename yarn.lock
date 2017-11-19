@@ -1471,10 +1471,6 @@ center-align@^0.1.1:
     align-text "^0.1.3"
     lazy-cache "^1.0.3"
 
-cfn-doc-json-stubs@0.1.25:
-  version "0.1.25"
-  resolved "https://registry.yarnpkg.com/cfn-doc-json-stubs/-/cfn-doc-json-stubs-0.1.25.tgz#a8603bf28b7334ecb18bddc7dea423fa19c431d6"
-
 chalk@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"

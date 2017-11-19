@@ -1,4 +1,3 @@
-import { Lambda as LambdaJson } from 'cfn-doc-json-stubs';
 import { merge } from 'lodash';
 import { relative, resolve } from 'path';
 import { Parameter } from '../elements/parameter';
@@ -9,6 +8,8 @@ import { IResource, ITemplate } from '../types';
 
 import { map as bmap } from 'bluebird';
 import { readFile, stat } from 'fs-extra';
+
+import { Lambda as LambdaJson } from './../spec/spec';
 
 /**
  * @hidden

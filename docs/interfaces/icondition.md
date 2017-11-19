@@ -4,10 +4,8 @@
 
 # Interface: ICondition
 
-*__export__*: 
 
-*__interface__*: IElement
-
+Elements
 
 
 ## Properties
@@ -17,7 +15,7 @@
 
 **●  Condition**:  *[IFnAnd](ifnand.md)⎮[IFnEquals](ifnequals.md)⎮[IFnIf](ifnif.md)⎮[IFnNot](ifnnot.md)⎮[IFnOr](ifnor.md)* 
 
-*Defined in [types.ts:16](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L16)*
+*Defined in [types.ts:6](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L6)*
 
 
 
@@ -31,7 +29,7 @@ ___
 
 **●  Name**:  *`string`* 
 
-*Defined in [types.ts:15](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L15)*
+*Defined in [types.ts:5](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L5)*
 
 
 
@@ -45,7 +43,7 @@ ___
 
 **●  kind**:  *"Condition"* 
 
-*Defined in [types.ts:14](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L14)*
+*Defined in [types.ts:4](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L4)*
 
 
 

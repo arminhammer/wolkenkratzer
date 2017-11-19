@@ -54,7 +54,7 @@ function _validateProperties(properties, rType: string, model) {
   });
   // Check if all of the required keys are present
   Object.keys(model.Resources[rType].Properties).forEach(p => {
-    if (model.Resources[rType].Properties[p].Required === 'Yes') {
+    if (model.Resources[rType].Properties[p].Required) {
       if (!properties[p]) {
         throw new SyntaxError(
           `${p} is required but is not present in ${rType}`

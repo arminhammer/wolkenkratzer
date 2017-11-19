@@ -1,7 +1,8 @@
 'use strict';
 
-import stubs from 'cfn-doc-json-stubs';
 import { Service } from '../service';
+import * as stubs from './../spec/spec';
+
 /**
  * @hidden
  */

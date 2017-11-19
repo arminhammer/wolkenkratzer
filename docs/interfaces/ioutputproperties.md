@@ -12,7 +12,7 @@
 
 **●  Condition**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:36](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L36)*
+*Defined in [types.ts:26](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L26)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  Description**:  *`undefined`⎮`string`* 
 
-*Defined in [types.ts:31](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L31)*
+*Defined in [types.ts:21](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L21)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  Export**:  *`undefined`⎮`object`* 
 
-*Defined in [types.ts:33](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L33)*
+*Defined in [types.ts:23](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L23)*
 
 
 
@@ -54,7 +54,7 @@ ___
 
 **●  Value**:  *[IRef](iref.md)⎮`string`* 
 
-*Defined in [types.ts:32](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L32)*
+*Defined in [types.ts:22](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L22)*
 
 
 

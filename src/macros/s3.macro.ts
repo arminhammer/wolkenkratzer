@@ -1,6 +1,6 @@
 'use strict';
 
-// import stubs from 'cfn-doc-json-stubs';
+// import * as stubs from './spec/spec';
 // import { Service } from '../service';
 
 /**

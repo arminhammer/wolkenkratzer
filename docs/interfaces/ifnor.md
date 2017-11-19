@@ -12,7 +12,7 @@
 
 **●  FnOr**:  *`Array`.<[Conditional](../#conditional)>* 
 
-*Defined in [types.ts:193](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L193)*
+*Defined in [types.ts:183](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L183)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnOr"* 
 
-*Defined in [types.ts:192](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L192)*
+*Defined in [types.ts:182](https://github.com/arminhammer/wolkenkratzer/blob/25ba479/src/types.ts#L182)*
 
 
 

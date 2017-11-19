@@ -40,7 +40,7 @@ export {
   buildZipLambdaTemplate
 } from './macros/lambda.macro';
 export { Pseudo } from './pseudo';
-import * as stubs from '../spec/spec';
+import * as stubs from './spec/spec';
 
 stubs.resourceList.map(r => {
   exports[r] = Service(stubs[r]);
