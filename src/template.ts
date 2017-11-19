@@ -1,4 +1,3 @@
-import stubs from 'cfn-doc-json-stubs';
 import cftSchema from 'cloudformation-schema-js-yaml';
 import { safeDump } from 'js-yaml';
 import { cloneDeep, omit } from 'lodash';
@@ -49,6 +48,8 @@ import {
   ITemplate,
   IUpdatePolicy
 } from './types';
+
+import * as stubs from './spec/spec';
 
 /** @module Template */
 
@@ -235,9 +236,12 @@ export function Template(): ITemplate {
       let result = cloneDeep(this);
       const [resource, attribute] = location.split('.');
       const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
-      const propType =
-        stubs[rgroup].Resources[rtype].Properties[attribute].Type;
+      const propType = stubs[rgroup].Resources[rtype].Properties[attribute]
+        .ItemType
+        ? stubs[rgroup].Resources[rtype].Properties[attribute].ItemType
+        : stubs[rgroup].Resources[rtype].Properties[attribute].PrimitiveType;
       parameterName = parameterName ? parameterName : `${resource}${attribute}`;
+      console.log('proptype: ', propType);
       result = _addParameter(
         result,
         Parameter(parameterName, { Type: propType })

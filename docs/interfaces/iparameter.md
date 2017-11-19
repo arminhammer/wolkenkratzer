@@ -12,7 +12,7 @@
 
 **●  Name**:  *`string`* 
 
-*Defined in [types.ts:62](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L62)*
+*Defined in [types.ts:52](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L52)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  Properties**:  *[IParameterProperties](iparameterproperties.md)* 
 
-*Defined in [types.ts:63](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L63)*
+*Defined in [types.ts:53](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L53)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  kind**:  *"Parameter"* 
 
-*Defined in [types.ts:61](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L61)*
+*Defined in [types.ts:51](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L51)*
 
 
 

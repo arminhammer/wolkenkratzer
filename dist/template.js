@@ -4,12 +4,11 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "cfn-doc-json-stubs", "cloudformation-schema-js-yaml", "js-yaml", "lodash", "./attributes/creationpolicy", "./attributes/deletionpolicy", "./attributes/dependson", "./attributes/metadata", "./attributes/updatepolicy", "./elements/condition", "./elements/description", "./elements/mapping", "./elements/output", "./elements/parameter", "./elements/resource", "./intrinsic", "./pseudo", "./service"], factory);
+        define(["require", "exports", "cloudformation-schema-js-yaml", "js-yaml", "lodash", "./attributes/creationpolicy", "./attributes/deletionpolicy", "./attributes/dependson", "./attributes/metadata", "./attributes/updatepolicy", "./elements/condition", "./elements/description", "./elements/mapping", "./elements/output", "./elements/parameter", "./elements/resource", "./intrinsic", "./pseudo", "./service", "./spec/spec"], factory);
     }
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    const cfn_doc_json_stubs_1 = require("cfn-doc-json-stubs");
     const cloudformation_schema_js_yaml_1 = require("cloudformation-schema-js-yaml");
     const js_yaml_1 = require("js-yaml");
     const lodash_1 = require("lodash");
@@ -28,6 +27,7 @@
     // import { IMetadata } from './elements/metadata';
     const pseudo_1 = require("./pseudo");
     const service_1 = require("./service");
+    const stubs = require("./spec/spec");
     /** @module Template */
     /**
      * Returns a new Template object.
@@ -186,8 +186,12 @@
                 let result = lodash_1.cloneDeep(this);
                 const [resource, attribute] = location.split('.');
                 const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
-                const propType = cfn_doc_json_stubs_1.default[rgroup].Resources[rtype].Properties[attribute].Type;
+                const propType = stubs[rgroup].Resources[rtype].Properties[attribute]
+                    .ItemType
+                    ? stubs[rgroup].Resources[rtype].Properties[attribute].ItemType
+                    : stubs[rgroup].Resources[rtype].Properties[attribute].PrimitiveType;
                 parameterName = parameterName ? parameterName : `${resource}${attribute}`;
+                console.log('proptype: ', propType);
                 result = _addParameter(result, parameter_1.Parameter(parameterName, { Type: propType }));
                 result.Resources[resource].Properties[attribute] = intrinsic_1.Ref(parameterName);
                 return result;
@@ -952,7 +956,7 @@
                     Condition: inputTemplate.Resources[r].Condition
                 };
                 if (split[0] === 'AWS') {
-                    const service = service_1.Service(cfn_doc_json_stubs_1.default[cat]);
+                    const service = service_1.Service(stubs[cat]);
                     t = t.add(service[resType](r, inputTemplate.Resources[r].Properties, options));
                 }
                 else if (split[0] === 'Custom') {

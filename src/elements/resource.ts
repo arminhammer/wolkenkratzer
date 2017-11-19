@@ -54,14 +54,14 @@ function _validateProperties(properties, rType: string, model) {
   });
   // Check if all of the required keys are present
   Object.keys(model.Resources[rType].Properties).forEach(p => {
-    if (model.Resources[rType].Properties[p].Required === 'Yes') {
+    if (model.Resources[rType].Properties[p].Required) {
       if (!properties[p]) {
         throw new SyntaxError(
           `${p} is required but is not present in ${rType}`
         );
       }
     }
-    if (model.Resources[rType].Properties[p].Array) {
+    if (model.Resources[rType].Properties[p].Type === 'List') {
       if (properties[p] && !Array.isArray(properties[p])) {
         if (
           !properties[p].kind &&

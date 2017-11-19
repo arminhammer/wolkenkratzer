@@ -12,7 +12,7 @@
 
 **●  Content**:  *`object`* 
 
-*Defined in [types.ts:125](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L125)*
+*Defined in [types.ts:115](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L115)*
 
 
 #### Type declaration
@@ -50,7 +50,7 @@ ___
 
 **●  Resource**:  *`string`* 
 
-*Defined in [types.ts:124](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L124)*
+*Defined in [types.ts:114](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L114)*
 
 
 
@@ -64,7 +64,7 @@ ___
 
 **●  kind**:  *"UpdatePolicy"* 
 
-*Defined in [types.ts:123](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L123)*
+*Defined in [types.ts:113](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L113)*
 
 
 

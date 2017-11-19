@@ -12,7 +12,7 @@
 
 **●  FnGetAtt**:  *`Array`.<`string`>* 
 
-*Defined in [types.ts:162](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L162)*
+*Defined in [types.ts:152](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L152)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnGetAtt"* 
 
-*Defined in [types.ts:161](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L161)*
+*Defined in [types.ts:151](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L151)*
 
 
 

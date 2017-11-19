@@ -20,8 +20,8 @@ export { ResourceMetadata } from './attributes/metadata';
 export { S3BucketTransform } from './transform/s3';
 export { Pseudo } from './pseudo';
 
-import stubs from 'cfn-doc-json-stubs';
+import * as stubs from './spec/spec';
 
-stubs.resourceList.map(r => {
+stubs.resourceList.forEach(r => {
   exports[r] = Service(stubs[r]);
 });

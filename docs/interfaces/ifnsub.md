@@ -12,7 +12,7 @@
 
 **●  FnSub**:  *`string`* 
 
-*Defined in [types.ts:210](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L210)*
+*Defined in [types.ts:200](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L200)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  kind**:  *"FnSub"* 
 
-*Defined in [types.ts:209](https://github.com/arminhammer/wolkenkratzer/blob/ee10d27/src/types.ts#L209)*
+*Defined in [types.ts:199](https://github.com/arminhammer/wolkenkratzer/blob/aef6abd/src/types.ts#L199)*
 
 
 

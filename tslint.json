@@ -22,5 +22,8 @@
     "missing-jsdoc": false,
     "export-name": false,
     "function-name": false
+  },
+  "linterOptions": {
+    "exclude": ["src/spec/**/*"]
   }
 }
