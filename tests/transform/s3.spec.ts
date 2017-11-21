@@ -8,29 +8,29 @@ const AWS = {
           new Promise(res => {
             res({
               Policy: {
-                Version: '2012-10-17',
                 Statement: [
                   {
-                    Sid: 'AWSCloudTrailAclCheck20150319',
+                    Action: 's3:GetBucketAcl',
                     Effect: 'Allow',
                     Principal: { Service: 'cloudtrail.amazonaws.com' },
-                    Action: 's3:GetBucketAcl',
-                    Resource: 'arn:aws:s3:::transform-test'
+                    Resource: 'arn:aws:s3:::transform-test',
+                    Sid: 'AWSCloudTrailAclCheck20150319'
                   },
                   {
-                    Sid: 'AWSCloudTrailWrite20150319',
-                    Effect: 'Allow',
-                    Principal: { Service: 'cloudtrail.amazonaws.com' },
                     Action: 's3:PutObject',
-                    Resource:
-                      'arn:aws:s3:::transform-test/AWSLogs/1234567890/*',
                     Condition: {
                       StringEquals: {
                         's3:x-amz-acl': 'bucket-owner-full-control'
                       }
-                    }
+                    },
+                    Effect: 'Allow',
+                    Principal: { Service: 'cloudtrail.amazonaws.com' },
+                    Resource:
+                      'arn:aws:s3:::transform-test/AWSLogs/1234567890/*',
+                    Sid: 'AWSCloudTrailWrite20150319'
                   }
-                ]
+                ],
+                Version: '2012-10-17'
               }
             });
           })
