@@ -45158,10 +45158,110 @@ function _calcFromExistingTemplate(t, inputTemplate) {
     return t;
 }
 
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+
+
+
+
+
+
+
+
+
+
+
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
 /**
  * @hidden
  */
-const s3Service = Service(S3);
+const service = Service(S3);
+/**
+ * @hidden
+ * @param param0
+ */
+function Bucket({ resourceName, AWSClient, logicalName }) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const resourceClient = new AWSClient.S3();
+        const versioning = resourceClient
+            .getBucketVersioning({ Bucket: resourceName })
+            .promise();
+        const cors = resourceClient
+            .getBucketCors({ Bucket: resourceName })
+            .promise()
+            .then(data => {
+            data.CORSRules = data.CORSRules.map(c => {
+                c.MaxAge = c.MaxAgeSeconds;
+                delete c.MaxAgeSeconds;
+                return c;
+            });
+            console.log('data:', data);
+            return data;
+        })
+            .catch(e => {
+            console.log(e);
+            return null;
+        });
+        const [versionResults, corsResults] = yield Promise.all([versioning, cors]);
+        console.log('results');
+        console.log(versionResults);
+        console.log(corsResults);
+        const resource = { BucketName: resourceName };
+        if (versionResults.Status) {
+            resource.VersioningConfiguration = versionResults;
+        }
+        if (corsResults.CORSRules) {
+            resource.CorsConfiguration = { CORSRules: corsResults.CORSRules };
+        }
+        return resolve(service.Bucket(logicalName, resource));
+    }));
+}
+/**
+ * @hidden
+ * @param param0
+ */
+function BucketPolicy({ resourceName, AWSClient, logicalName }) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const resourceClient = new AWSClient.S3();
+        const { Policy } = yield resourceClient
+            .getBucketPolicy({ Bucket: resourceName })
+            .promise();
+        const resource = {
+            Bucket: resourceName,
+            PolicyDocument: Policy
+        };
+        return resolve(service.BucketPolicy(logicalName, resource));
+    }));
+}
+/**
+ * @hidden
+ * @param bucketName
+ * @param logicalName
+ * @param awsObj
+ */
 function S3BucketTransform(bucketName, logicalName, awsObj) {
     const s3Client = new awsObj.S3();
     return new Promise((resolve, reject) => {
@@ -45236,7 +45336,7 @@ function S3BucketTransform(bucketName, logicalName, awsObj) {
             return;
         })
             .then(() => {
-            resolve(s3Service.Bucket(logicalName, bucket));
+            resolve(service.Bucket(logicalName, bucket));
         })
             .catch(e => {
             // Silently catch the NoSuchWebsiteConfiguration
@@ -45244,6 +45344,18 @@ function S3BucketTransform(bucketName, logicalName, awsObj) {
         }));
     });
 }
+/**
+ * @hidden
+ */
+const S3$1 = {
+    Bucket,
+    BucketPolicy,
+    S3BucketTransform
+};
+
+const Transform = {
+    S3: S3$1
+};
 
 resourceList.forEach(r => {
     exports[r] = Service(stubs[r]);
@@ -45266,7 +45378,7 @@ exports.FnSub = FnSub;
 exports.FnAnd = FnAnd;
 exports.CreationPolicy = CreationPolicy;
 exports.ResourceMetadata = ResourceMetadata;
-exports.S3BucketTransform = S3BucketTransform;
+exports.Transform = Transform;
 exports.Pseudo = Pseudo;
 
 Object.defineProperty(exports, '__esModule', { value: true });

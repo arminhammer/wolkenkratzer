@@ -358,6 +358,15 @@ export interface IFnSplit {
 /**
  * @hidden
  */
+export interface ITransformParameters {
+  resourceName: string;
+  AWSClient: any;
+  logicalName?: string;
+}
+
+/**
+ * @hidden
+ */
 export interface IService {
   Function?: any;
 }

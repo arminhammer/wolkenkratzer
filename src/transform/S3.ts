@@ -1,14 +1,86 @@
-'use strict';
-
 import { Service } from '../service';
-import * as stubs from './../spec/spec';
+import { IResource, IService, ITransformParameters } from '../types';
+import { S3 as stub } from './../spec/spec';
 
 /**
  * @hidden
  */
-const s3Service: any = Service(stubs.S3);
+const service: any = Service(stub);
 
-export function S3BucketTransform(
+/**
+ * @hidden
+ * @param param0
+ */
+function Bucket({
+  resourceName,
+  AWSClient,
+  logicalName
+}: ITransformParameters): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    const resourceClient = new AWSClient.S3();
+    const versioning = resourceClient
+      .getBucketVersioning({ Bucket: resourceName })
+      .promise();
+    const cors = resourceClient
+      .getBucketCors({ Bucket: resourceName })
+      .promise()
+      .then(data => {
+        data.CORSRules = data.CORSRules.map(c => {
+          c.MaxAge = c.MaxAgeSeconds;
+          delete c.MaxAgeSeconds;
+          return c;
+        });
+        console.log('data:', data);
+        return data;
+      })
+      .catch(e => {
+        console.log(e);
+        return null;
+      });
+    const [versionResults, corsResults] = await Promise.all([versioning, cors]);
+    console.log('results');
+    console.log(versionResults);
+    console.log(corsResults);
+    const resource: any = { BucketName: resourceName };
+    if (versionResults.Status) {
+      resource.VersioningConfiguration = versionResults;
+    }
+    if (corsResults.CORSRules) {
+      resource.CorsConfiguration = { CORSRules: corsResults.CORSRules };
+    }
+    return resolve(service.Bucket(logicalName, resource));
+  });
+}
+
+/**
+ * @hidden
+ * @param param0
+ */
+function BucketPolicy({
+  resourceName,
+  AWSClient,
+  logicalName
+}: ITransformParameters): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    const resourceClient = new AWSClient.S3();
+    const { Policy } = await resourceClient
+      .getBucketPolicy({ Bucket: resourceName })
+      .promise();
+    const resource: object = {
+      Bucket: resourceName,
+      PolicyDocument: Policy
+    };
+    return resolve(service.BucketPolicy(logicalName, resource));
+  });
+}
+
+/**
+ * @hidden
+ * @param bucketName
+ * @param logicalName
+ * @param awsObj
+ */
+function S3BucketTransform(
   bucketName: string,
   logicalName: string,
   awsObj: any
@@ -29,8 +101,8 @@ export function S3BucketTransform(
           return s3Client.getBucketCors({ Bucket: bucketName }).promise();
         })
         /* .then(function (aclData) {
-      bucket.AccessControl = aclData
-    })*/
+        bucket.AccessControl = aclData
+      })*/
         .then(corsData => {
           bucket.CorsConfiguration = corsData;
           return s3Client
@@ -90,7 +162,7 @@ export function S3BucketTransform(
           return;
         })
         .then(() => {
-          resolve(s3Service.Bucket(logicalName, bucket));
+          resolve(service.Bucket(logicalName, bucket));
         })
         .catch(e => {
           // Silently catch the NoSuchWebsiteConfiguration
@@ -99,3 +171,12 @@ export function S3BucketTransform(
     );
   });
 }
+
+/**
+ * @hidden
+ */
+export const S3 = {
+  Bucket,
+  BucketPolicy,
+  S3BucketTransform
+};
