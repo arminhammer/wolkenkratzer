@@ -17,11 +17,11 @@ function Bucket({
   logicalName
 }: ITransformParameters): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const resourceClient = new AWSClient.S3();
-    const versioning = resourceClient
+    const client = new AWSClient.S3();
+    const versioningPromise = client
       .getBucketVersioning({ Bucket: resourceName })
       .promise();
-    const cors = resourceClient
+    const corsPromise = client
       .getBucketCors({ Bucket: resourceName })
       .promise()
       .then(data => {
@@ -35,9 +35,94 @@ function Bucket({
       })
       .catch(e => {
         console.log(e);
+        // Silently catch the NoSuchCORSConfiguration
         return null;
       });
-    const [versionResults, corsResults] = await Promise.all([versioning, cors]);
+    const lifecyclePromise = client
+      .getBucketLifecycleConfiguration({ Bucket: resourceName })
+      .promise()
+      .then(data => data)
+      .catch(e => {
+        console.log(e);
+        // Silently catch the NoSuchLifecycleConfiguration
+        return null;
+      });
+    const loggingPromise = client
+      .getBucketLogging({ Bucket: resourceName })
+      .promise();
+    const notificationPromise = client
+      .getBucketNotification({ Bucket: resourceName })
+      .promise();
+    const replicationPromise = client
+      .getBucketReplication({ Bucket: resourceName })
+      .promise()
+      .then(data => data)
+      .catch(e => {
+        console.log(e);
+        // Silently catch the ReplicationConfigurationNotFoundError
+        return null;
+      });
+    const taggingPromise = client
+      .getBucketTagging({
+        Bucket: resourceName
+      })
+      .promise()
+      .then(data => data)
+      .catch(e => {
+        console.log(e);
+        // Silently catch the NoSuchTagSet
+        return null;
+      });
+    const websitePromise = client
+      .getBucketWebsite({ Bucket: resourceName })
+      .promise()
+      .then(data => data)
+      .catch(e => {
+        console.log(e);
+        // Silently catch the NoSuchWebsiteConfiguration
+        return null;
+      });
+    const accessControlPromise = client
+      .getBucketAcl({ Bucket: resourceName })
+      .promise();
+    const acceleratePromise = client
+      .getBucketAccelerateConfiguration({ Bucket: resourceName })
+      .promise();
+    /*const analyticsPromise = client.getBucketAnalyticsConfiguration.promise();
+    const inventoryPromise = client.getBucketInventoryConfiguration.promise();
+    const metricsPromise = client.getBucketMetricsConfiguration.promise();*/
+
+    const [
+      versionResults,
+      corsResults,
+      lifecycleResults,
+      loggingResults,
+      notificationResults,
+      replicationResults,
+      taggingResults,
+      websiteResults,
+      accessControlResults,
+      accelerateResults
+      /*
+      analyticsResults
+      inventoryResults
+      metricsResults*/
+    ] = await Promise.all([
+      versioningPromise,
+      corsPromise,
+      lifecyclePromise,
+      loggingPromise,
+      notificationPromise,
+      replicationPromise,
+      taggingPromise,
+      websitePromise,
+      accessControlPromise,
+      acceleratePromise
+      /*
+      analyticsPromise
+      inventoryPromise
+      metricsPromise*/
+    ]);
     console.log('results');
     console.log(versionResults);
     console.log(corsResults);
@@ -48,6 +133,40 @@ function Bucket({
     if (corsResults.CORSRules) {
       resource.CorsConfiguration = { CORSRules: corsResults.CORSRules };
     }
+    if (lifecycleResults) {
+      resource.LifecycleConfiguration = lifecycleResults;
+    }
+    if (loggingResults) {
+      resource.LoggingConfiguration = {
+        DestinationBucketName: loggingResults.LoggingEnabled.TargetBucket,
+        LogFilePrefix: loggingResults.LoggingEnabled.TargetPrefix
+      };
+    }
+    if (Object.keys(notificationResults).length > 0) {
+      resource.NotificationConfiguration = notificationResults;
+    }
+    if (replicationResults) {
+      resource.ReplicationConfiguration = replicationResults;
+    }
+    if (taggingResults) {
+      resource.Tags = taggingResults.TagSet;
+    }
+    if (websiteResults) {
+      resource.WebsiteConfiguration = websiteResults;
+    }
+    if (accessControlResults) {
+      resource.AccessControl = accessControlResults;
+    }
+    if (accelerateResults) {
+      resource.AccelerateConfiguration = accelerateResults;
+    }
+    /*
+    if (analyticsResults) {
+    }
+    if (inventoryResults) {
+    }
+    if (metricsResults) {
+    }*/
     return resolve(service.Bucket(logicalName, resource));
   });
 }
@@ -177,6 +296,5 @@ function S3BucketTransform(
  */
 export const S3 = {
   Bucket,
-  BucketPolicy,
-  S3BucketTransform
+  BucketPolicy
 };
