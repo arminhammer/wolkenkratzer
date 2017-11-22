@@ -3,7 +3,7 @@
     "enable": true,
     "jsEnable": true
   },
-  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "extends": ["tslint:latest"],
   "rules": {
     "no-var-requires": false,
     "no-console": false,
@@ -22,7 +22,11 @@
     "missing-jsdoc": false,
     "export-name": false,
     "function-name": false,
-    "only-arrow-functions": false
+    "only-arrow-functions": false,
+    "quotemark": [true, "single", "avoid-escape"],
+    "trailing-comma": [false],
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "no-trailing-whitespace": false
   },
   "linterOptions": {
     "exclude": ["src/spec/**/*"]

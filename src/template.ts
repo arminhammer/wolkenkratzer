@@ -67,7 +67,8 @@ export function Template(): ITemplate {
     Parameters: {},
     Resources: {},
     /**
-     * Add a new Parameter, Description, Output, Resource, Condition, or Mapping to the template. Returns a new Template with the element added. Does not mutate the original Template object.
+     * Add a new Parameter, Description, Output, Resource, Condition, or Mapping
+     * to the template. Returns a new Template with the element added. Does not mutate the original Template object.
      * @example
      * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
      */
@@ -204,7 +205,8 @@ export function Template(): ITemplate {
       return result;
     },
     /**
-     * Merges another Template object into another. The original Template objects are not mutated. Returns a new Template object that is the product of the two original Template objects.
+     * Merges another Template object into another. The original Template objects are not mutated.
+     * Returns a new Template object that is the product of the two original Template objects.
      */
     merge: function(t: ITemplate): ITemplate {
       const _t = cloneDeep(this);
@@ -267,7 +269,8 @@ export function Template(): ITemplate {
       return result;
     },
     /**
-     * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template. Returns a new Template with the element removed. Does not mutate the original Template object.
+     * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template.
+     * Returns a new Template with the element removed. Does not mutate the original Template object.
      * @example
      * let t = Template();
      * let p = Parameter('NewParam', { Type: 'String' });
@@ -337,8 +340,9 @@ export function Template(): ITemplate {
         flowLevel: 5,
         schema: cftSchema
       })
-        // See note on http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
-        // .replace(/'Fn::Base64':/g, '!Base64')
+        /* See note on 
+        http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
+         .replace(/'Fn::Base64':/g, '!Base64')*/
         .replace(/'Fn::Equals':/g, '!Equals')
         .replace(/'Fn::And':/g, '!And')
         .replace(/'Fn::GetAZs':/g, '!GetAZs')
