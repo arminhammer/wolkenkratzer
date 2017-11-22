@@ -358,7 +358,7 @@ export interface IFnSplit {
 /**
  * @hidden
  */
-export type ITransformFunction = (
+export type TransformFunctionType = (
   name: string,
   AWSClient: any,
   logical?: string

@@ -1,5 +1,5 @@
 import { Service } from '../service';
-import { IResource, IService, ITransformFunction } from '../types';
+import { IResource, IService, TransformFunctionType } from '../types';
 import { S3 as stub } from './../spec/spec';
 
 /**
@@ -11,7 +11,7 @@ const service: any = Service(stub);
  * @hidden
  * @param param0
  */
-const Bucket: ITransformFunction = function(
+const Bucket: TransformFunctionType = function(
   name: string,
   AWSClient: any,
   logical: string
@@ -172,7 +172,7 @@ const Bucket: ITransformFunction = function(
  * @hidden
  * @param param0
  */
-const BucketPolicy: ITransformFunction = function(
+const BucketPolicy: TransformFunctionType = function(
   name: string,
   AWSClient: any,
   logical: string

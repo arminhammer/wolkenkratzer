@@ -41,11 +41,11 @@ const AWS = {
 
 describe('S3 Transform', () => {
   test('Can transform a bucket policy correctly', async () => {
-    const resource = await Transform.S3.BucketPolicy({
-      AWSClient: AWS,
-      logicalName: 'Main',
-      resourceName: 'transform-test'
-    });
+    const resource = await Transform.S3.BucketPolicy(
+      'transform-test',
+      AWS,
+      'Main'
+    );
     const t = Template().add(resource);
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
