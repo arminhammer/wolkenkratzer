@@ -1,4 +1,4 @@
-const { Transform } = require('./dist');
+const { Transform } = require('../../dist');
 const AWS = require('aws-sdk');
 
 Transform.S3.BucketPolicy('arminhammer-cloudtrail', AWS, 'logicalName')
