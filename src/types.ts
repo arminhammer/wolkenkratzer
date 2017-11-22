@@ -358,6 +358,15 @@ export interface IFnSplit {
 /**
  * @hidden
  */
+export type TransformFunctionType = (
+  name: string,
+  AWSClient: any,
+  logical?: string
+) => Promise<IResource>;
+
+/**
+ * @hidden
+ */
 export interface IService {
   Function?: any;
 }

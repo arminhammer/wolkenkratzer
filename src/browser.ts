@@ -17,7 +17,7 @@ export {
 import { Service } from './service';
 export { CreationPolicy } from './attributes/creationpolicy';
 export { ResourceMetadata } from './attributes/metadata';
-export { S3BucketTransform } from './transform/s3';
+export { Transform } from './transform';
 export { Pseudo } from './pseudo';
 
 import * as stubs from './spec/spec';

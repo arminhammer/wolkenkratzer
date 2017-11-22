@@ -26,7 +26,7 @@ export { UpdatePolicy } from './attributes/updatepolicy';
 export { DependsOn } from './attributes/dependson';
 export { ResourceMetadata } from './attributes/metadata';
 import { Service } from './service';
-export { S3BucketTransform } from './transform/s3';
+export { Transform } from './transform';
 export {
   getInstanceTypeList,
   getInstanceTypeNameList

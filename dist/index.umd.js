@@ -45158,92 +45158,216 @@ function _calcFromExistingTemplate(t, inputTemplate) {
     return t;
 }
 
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+
+
+
+
+
+
+
+
+
+
+
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
 /**
  * @hidden
  */
-const s3Service = Service(S3);
-function S3BucketTransform(bucketName, logicalName, awsObj) {
-    const s3Client = new awsObj.S3();
-    return new Promise((resolve, reject) => {
-        // let bucket = new s3Resource.Bucket(newName);
-        const bucket = {};
-        return (s3Client
-            .getBucketVersioning({ Bucket: bucketName })
+const service = Service(S3);
+/**
+ * @hidden
+ * @param param0
+ */
+const Bucket = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.S3();
+        const versioningPromise = client
+            .getBucketVersioning({ Bucket: name })
+            .promise();
+        const corsPromise = client
+            .getBucketCors({ Bucket: name })
             .promise()
-            .then(versionData => {
-            if (Object.keys(versionData).length > 0) {
-                bucket.VersioningConfiguration = versionData;
-            }
-            // return s3Client.getBucketAcl({ Bucket: bucketName }).promise()
-            return s3Client.getBucketCors({ Bucket: bucketName }).promise();
-        })
-            .then(corsData => {
-            bucket.CorsConfiguration = corsData;
-            return s3Client
-                .getBucketLifecycleConfiguration({ Bucket: bucketName })
-                .promise();
+            .then(data => {
+            data.CORSRules = data.CORSRules.map(c => {
+                c.MaxAge = c.MaxAgeSeconds;
+                delete c.MaxAgeSeconds;
+                return c;
+            });
+            return data;
         })
             .catch(e => {
             // Silently catch the NoSuchCORSConfiguration
-            return s3Client
-                .getBucketLifecycleConfiguration({ Bucket: bucketName })
-                .promise();
-        })
-            .then(lifeData => {
-            bucket.LifecycleConfiguration = lifeData;
-            return s3Client.getBucketLogging({ Bucket: bucketName }).promise();
-        })
+            return null;
+        });
+        const lifecyclePromise = client
+            .getBucketLifecycleConfiguration({ Bucket: name })
+            .promise()
+            .then(data => data)
             .catch(e => {
             // Silently catch the NoSuchLifecycleConfiguration
-            return s3Client.getBucketLogging({ Bucket: bucketName }).promise();
+            return null;
+        });
+        const loggingPromise = client.getBucketLogging({ Bucket: name }).promise();
+        const notificationPromise = client
+            .getBucketNotification({ Bucket: name })
+            .promise();
+        const replicationPromise = client
+            .getBucketReplication({ Bucket: name })
+            .promise()
+            .then(data => data)
+            .catch(e => {
+            // Silently catch the ReplicationConfigurationNotFoundError
+            return null;
+        });
+        const taggingPromise = client
+            .getBucketTagging({
+            Bucket: name
         })
-            .then(loggingData => {
-            bucket.LoggingConfiguration = {
-                DestinationBucketName: loggingData.LoggingEnabled.TargetBucket,
-                LogFilePrefix: loggingData.LoggingEnabled.TargetPrefix
-            };
-            return s3Client
-                .getBucketNotification({ Bucket: bucketName })
-                .promise();
-        })
-            .then(notificationData => {
-            if (Object.keys(notificationData).length > 0) {
-                bucket.NotificationConfiguration = notificationData;
-            }
-            return s3Client
-                .getBucketReplication({ Bucket: bucketName })
-                .promise();
-        })
-            .then(replData => {
-            bucket.ReplicationConfiguration = replData;
-            return s3Client.getBucketTagging({ Bucket: bucketName }).promise();
-        })
-            .then(tagsData => {
-            tagsData.TagSet.forEach((tag) => {
-                bucket.Tags.add(tag);
-            });
-            return s3Client.getBucketWebsite({ Bucket: bucketName }).promise();
-        })
+            .promise()
+            .then(data => data)
             .catch(e => {
             // Silently catch the NoSuchTagSet
-            return s3Client.getBucketWebsite({ Bucket: bucketName }).promise();
-        })
-            .then(websiteData => {
-            bucket.WebsiteConfiguration = new websiteData();
-        })
+            return null;
+        });
+        const websitePromise = client
+            .getBucketWebsite({ Bucket: name })
+            .promise()
+            .then(data => data)
             .catch(e => {
             // Silently catch the NoSuchWebsiteConfiguration
-            return;
-        })
-            .then(() => {
-            resolve(s3Service.Bucket(logicalName, bucket));
-        })
-            .catch(e => {
-            // Silently catch the NoSuchWebsiteConfiguration
-            reject(e);
-        }));
-    });
-}
+            return null;
+        });
+        const accessControlPromise = client
+            .getBucketAcl({ Bucket: name })
+            .promise();
+        const acceleratePromise = client
+            .getBucketAccelerateConfiguration({ Bucket: name })
+            .promise();
+        const analyticsPromise = client
+            .listBucketAnalyticsConfigurations({ Bucket: name })
+            .promise();
+        const inventoryPromise = client
+            .listBucketInventoryConfigurations({ Bucket: name })
+            .promise();
+        const metricsPromise = client
+            .listBucketMetricsConfigurations({ Bucket: name })
+            .promise();
+        const [versionResults, corsResults, lifecycleResults, loggingResults, notificationResults, replicationResults, taggingResults, websiteResults, accessControlResults, accelerateResults, analyticsResults, inventoryResults, metricsResults] = yield Promise.all([
+            versioningPromise,
+            corsPromise,
+            lifecyclePromise,
+            loggingPromise,
+            notificationPromise,
+            replicationPromise,
+            taggingPromise,
+            websitePromise,
+            accessControlPromise,
+            acceleratePromise,
+            analyticsPromise,
+            inventoryPromise,
+            metricsPromise
+        ]);
+        const resource = { BucketName: name };
+        if (versionResults.Status) {
+            resource.VersioningConfiguration = versionResults;
+        }
+        if (corsResults.CORSRules) {
+            resource.CorsConfiguration = { CORSRules: corsResults.CORSRules };
+        }
+        if (lifecycleResults) {
+            resource.LifecycleConfiguration = lifecycleResults;
+        }
+        if (loggingResults) {
+            resource.LoggingConfiguration = {
+                DestinationBucketName: loggingResults.LoggingEnabled.TargetBucket,
+                LogFilePrefix: loggingResults.LoggingEnabled.TargetPrefix
+            };
+        }
+        if (Object.keys(notificationResults).length > 0) {
+            resource.NotificationConfiguration = notificationResults;
+        }
+        if (replicationResults) {
+            resource.ReplicationConfiguration = replicationResults;
+        }
+        if (taggingResults) {
+            resource.Tags = taggingResults.TagSet;
+        }
+        if (websiteResults) {
+            resource.WebsiteConfiguration = websiteResults;
+        }
+        if (accessControlResults) {
+            resource.AccessControl = accessControlResults;
+        }
+        if (accelerateResults) {
+            resource.AccelerateConfiguration = accelerateResults;
+        }
+        if (analyticsResults) {
+            resource.AnalyticsConfigurations =
+                analyticsResults.AnalyticsConfigurationList;
+        }
+        if (inventoryResults) {
+            resource.InventoryConfigurations =
+                inventoryResults.InventoryConfigurationList;
+        }
+        if (metricsResults) {
+            resource.MetricsConfigurations = metricsResults.MetricsConfigurationList;
+        }
+        return resolve(service.Bucket(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ * @param param0
+ */
+const BucketPolicy = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const resourceClient = new AWSClient.S3();
+        const { Policy } = yield resourceClient
+            .getBucketPolicy({ Bucket: name })
+            .promise();
+        const resource = {
+            Bucket: name,
+            PolicyDocument: Policy
+        };
+        return resolve(service.BucketPolicy(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const S3$1 = {
+    Bucket,
+    BucketPolicy
+};
+
+const Transform = {
+    S3: S3$1
+};
 
 resourceList.forEach(r => {
     exports[r] = Service(stubs[r]);
@@ -45266,7 +45390,7 @@ exports.FnSub = FnSub;
 exports.FnAnd = FnAnd;
 exports.CreationPolicy = CreationPolicy;
 exports.ResourceMetadata = ResourceMetadata;
-exports.S3BucketTransform = S3BucketTransform;
+exports.Transform = Transform;
 exports.Pseudo = Pseudo;
 
 Object.defineProperty(exports, '__esModule', { value: true });
