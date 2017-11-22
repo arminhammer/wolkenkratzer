@@ -17,11 +17,6 @@
       "check-format",
       "allow-leading-underscore"
     ],
-    "no-submodule-imports": false,
-    "no-relative-imports": false,
-    "missing-jsdoc": false,
-    "export-name": false,
-    "function-name": false,
     "only-arrow-functions": false,
     "quotemark": [true, "single", "avoid-escape"],
     "trailing-comma": [false],
