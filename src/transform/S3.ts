@@ -1,5 +1,5 @@
 import { Service } from '../service';
-import { IResource, IService, ITransformParameters } from '../types';
+import { IResource, IService, ITransformFunction } from '../types';
 import { S3 as stub } from './../spec/spec';
 
 /**
@@ -11,18 +11,18 @@ const service: any = Service(stub);
  * @hidden
  * @param param0
  */
-function Bucket({
-  resourceName,
-  AWSClient,
-  logicalName
-}: ITransformParameters): Promise<IResource> {
+const Bucket: ITransformFunction = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.S3();
     const versioningPromise = client
-      .getBucketVersioning({ Bucket: resourceName })
+      .getBucketVersioning({ Bucket: name })
       .promise();
     const corsPromise = client
-      .getBucketCors({ Bucket: resourceName })
+      .getBucketCors({ Bucket: name })
       .promise()
       .then(data => {
         data.CORSRules = data.CORSRules.map(c => {
@@ -30,67 +30,65 @@ function Bucket({
           delete c.MaxAgeSeconds;
           return c;
         });
-        console.log('data:', data);
         return data;
       })
       .catch(e => {
-        console.log(e);
         // Silently catch the NoSuchCORSConfiguration
         return null;
       });
     const lifecyclePromise = client
-      .getBucketLifecycleConfiguration({ Bucket: resourceName })
+      .getBucketLifecycleConfiguration({ Bucket: name })
       .promise()
       .then(data => data)
       .catch(e => {
-        console.log(e);
         // Silently catch the NoSuchLifecycleConfiguration
         return null;
       });
-    const loggingPromise = client
-      .getBucketLogging({ Bucket: resourceName })
-      .promise();
+    const loggingPromise = client.getBucketLogging({ Bucket: name }).promise();
     const notificationPromise = client
-      .getBucketNotification({ Bucket: resourceName })
+      .getBucketNotification({ Bucket: name })
       .promise();
     const replicationPromise = client
-      .getBucketReplication({ Bucket: resourceName })
+      .getBucketReplication({ Bucket: name })
       .promise()
       .then(data => data)
       .catch(e => {
-        console.log(e);
         // Silently catch the ReplicationConfigurationNotFoundError
         return null;
       });
     const taggingPromise = client
       .getBucketTagging({
-        Bucket: resourceName
+        Bucket: name
       })
       .promise()
       .then(data => data)
       .catch(e => {
-        console.log(e);
         // Silently catch the NoSuchTagSet
         return null;
       });
     const websitePromise = client
-      .getBucketWebsite({ Bucket: resourceName })
+      .getBucketWebsite({ Bucket: name })
       .promise()
       .then(data => data)
       .catch(e => {
-        console.log(e);
         // Silently catch the NoSuchWebsiteConfiguration
         return null;
       });
     const accessControlPromise = client
-      .getBucketAcl({ Bucket: resourceName })
+      .getBucketAcl({ Bucket: name })
       .promise();
     const acceleratePromise = client
-      .getBucketAccelerateConfiguration({ Bucket: resourceName })
+      .getBucketAccelerateConfiguration({ Bucket: name })
       .promise();
-    /*const analyticsPromise = client.getBucketAnalyticsConfiguration.promise();
-    const inventoryPromise = client.getBucketInventoryConfiguration.promise();
-    const metricsPromise = client.getBucketMetricsConfiguration.promise();*/
+    const analyticsPromise = client
+      .listBucketAnalyticsConfigurations({ Bucket: name })
+      .promise();
+    const inventoryPromise = client
+      .listBucketInventoryConfigurations({ Bucket: name })
+      .promise();
+    const metricsPromise = client
+      .listBucketMetricsConfigurations({ Bucket: name })
+      .promise();
 
     const [
       versionResults,
@@ -102,12 +100,11 @@ function Bucket({
       taggingResults,
       websiteResults,
       accessControlResults,
-      accelerateResults
-      /*
-      analyticsResults
-      inventoryResults
-      metricsResults*/
-    ] = await Promise.all([
+      accelerateResults,
+      analyticsResults,
+      inventoryResults,
+      metricsResults
+    ]: any = await Promise.all([
       versioningPromise,
       corsPromise,
       lifecyclePromise,
@@ -117,16 +114,12 @@ function Bucket({
       taggingPromise,
       websitePromise,
       accessControlPromise,
-      acceleratePromise
-      /*
-      analyticsPromise
-      inventoryPromise
-      metricsPromise*/
+      acceleratePromise,
+      analyticsPromise,
+      inventoryPromise,
+      metricsPromise
     ]);
-    console.log('results');
-    console.log(versionResults);
-    console.log(corsResults);
-    const resource: any = { BucketName: resourceName };
+    const resource: any = { BucketName: name };
     if (versionResults.Status) {
       resource.VersioningConfiguration = versionResults;
     }
@@ -160,136 +153,42 @@ function Bucket({
     if (accelerateResults) {
       resource.AccelerateConfiguration = accelerateResults;
     }
-    /*
     if (analyticsResults) {
+      resource.AnalyticsConfigurations =
+        analyticsResults.AnalyticsConfigurationList;
     }
     if (inventoryResults) {
+      resource.InventoryConfigurations =
+        inventoryResults.InventoryConfigurationList;
     }
     if (metricsResults) {
-    }*/
-    return resolve(service.Bucket(logicalName, resource));
+      resource.MetricsConfigurations = metricsResults.MetricsConfigurationList;
+    }
+    return resolve(service.Bucket(logical, resource));
   });
-}
+};
 
 /**
  * @hidden
  * @param param0
  */
-function BucketPolicy({
-  resourceName,
-  AWSClient,
-  logicalName
-}: ITransformParameters): Promise<IResource> {
+const BucketPolicy: ITransformFunction = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const resourceClient = new AWSClient.S3();
     const { Policy } = await resourceClient
-      .getBucketPolicy({ Bucket: resourceName })
+      .getBucketPolicy({ Bucket: name })
       .promise();
     const resource: object = {
-      Bucket: resourceName,
+      Bucket: name,
       PolicyDocument: Policy
     };
-    return resolve(service.BucketPolicy(logicalName, resource));
+    return resolve(service.BucketPolicy(logical, resource));
   });
-}
-
-/**
- * @hidden
- * @param bucketName
- * @param logicalName
- * @param awsObj
- */
-function S3BucketTransform(
-  bucketName: string,
-  logicalName: string,
-  awsObj: any
-) {
-  const s3Client = new awsObj.S3();
-  return new Promise((resolve, reject) => {
-    // let bucket = new s3Resource.Bucket(newName);
-    const bucket: any = {};
-    return (
-      s3Client
-        .getBucketVersioning({ Bucket: bucketName })
-        .promise()
-        .then(versionData => {
-          if (Object.keys(versionData).length > 0) {
-            bucket.VersioningConfiguration = versionData;
-          }
-          // return s3Client.getBucketAcl({ Bucket: bucketName }).promise()
-          return s3Client.getBucketCors({ Bucket: bucketName }).promise();
-        })
-        /* .then(function (aclData) {
-        bucket.AccessControl = aclData
-      })*/
-        .then(corsData => {
-          bucket.CorsConfiguration = corsData;
-          return s3Client
-            .getBucketLifecycleConfiguration({ Bucket: bucketName })
-            .promise();
-        })
-        .catch(e => {
-          // Silently catch the NoSuchCORSConfiguration
-          return s3Client
-            .getBucketLifecycleConfiguration({ Bucket: bucketName })
-            .promise();
-        })
-        .then(lifeData => {
-          bucket.LifecycleConfiguration = lifeData;
-          return s3Client.getBucketLogging({ Bucket: bucketName }).promise();
-        })
-        .catch(e => {
-          // Silently catch the NoSuchLifecycleConfiguration
-          return s3Client.getBucketLogging({ Bucket: bucketName }).promise();
-        })
-        .then(loggingData => {
-          bucket.LoggingConfiguration = {
-            DestinationBucketName: loggingData.LoggingEnabled.TargetBucket,
-            LogFilePrefix: loggingData.LoggingEnabled.TargetPrefix
-          };
-          return s3Client
-            .getBucketNotification({ Bucket: bucketName })
-            .promise();
-        })
-        .then(notificationData => {
-          if (Object.keys(notificationData).length > 0) {
-            bucket.NotificationConfiguration = notificationData;
-          }
-          return s3Client
-            .getBucketReplication({ Bucket: bucketName })
-            .promise();
-        })
-        .then(replData => {
-          bucket.ReplicationConfiguration = replData;
-          return s3Client.getBucketTagging({ Bucket: bucketName }).promise();
-        })
-        .then(tagsData => {
-          tagsData.TagSet.forEach((tag: any) => {
-            bucket.Tags.add(tag);
-          });
-          return s3Client.getBucketWebsite({ Bucket: bucketName }).promise();
-        })
-        .catch(e => {
-          // Silently catch the NoSuchTagSet
-          return s3Client.getBucketWebsite({ Bucket: bucketName }).promise();
-        })
-        .then(websiteData => {
-          bucket.WebsiteConfiguration = new websiteData();
-        })
-        .catch(e => {
-          // Silently catch the NoSuchWebsiteConfiguration
-          return;
-        })
-        .then(() => {
-          resolve(service.Bucket(logicalName, bucket));
-        })
-        .catch(e => {
-          // Silently catch the NoSuchWebsiteConfiguration
-          reject(e);
-        })
-    );
-  });
-}
+};
 
 /**
  * @hidden

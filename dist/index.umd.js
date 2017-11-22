@@ -45203,14 +45203,14 @@ const service = Service(S3);
  * @hidden
  * @param param0
  */
-function Bucket({ resourceName, AWSClient, logicalName }) {
+const Bucket = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.S3();
         const versioningPromise = client
-            .getBucketVersioning({ Bucket: resourceName })
+            .getBucketVersioning({ Bucket: name })
             .promise();
         const corsPromise = client
-            .getBucketCors({ Bucket: resourceName })
+            .getBucketCors({ Bucket: name })
             .promise()
             .then(data => {
             data.CORSRules = data.CORSRules.map(c => {
@@ -45218,73 +45218,66 @@ function Bucket({ resourceName, AWSClient, logicalName }) {
                 delete c.MaxAgeSeconds;
                 return c;
             });
-            console.log('data:', data);
             return data;
         })
             .catch(e => {
-            console.log(e);
             // Silently catch the NoSuchCORSConfiguration
             return null;
         });
         const lifecyclePromise = client
-            .getBucketLifecycleConfiguration({ Bucket: resourceName })
+            .getBucketLifecycleConfiguration({ Bucket: name })
             .promise()
             .then(data => data)
             .catch(e => {
-            console.log(e);
             // Silently catch the NoSuchLifecycleConfiguration
             return null;
         });
-        const loggingPromise = client
-            .getBucketLogging({ Bucket: resourceName })
-            .promise();
+        const loggingPromise = client.getBucketLogging({ Bucket: name }).promise();
         const notificationPromise = client
-            .getBucketNotification({ Bucket: resourceName })
+            .getBucketNotification({ Bucket: name })
             .promise();
         const replicationPromise = client
-            .getBucketReplication({ Bucket: resourceName })
+            .getBucketReplication({ Bucket: name })
             .promise()
             .then(data => data)
             .catch(e => {
-            console.log(e);
             // Silently catch the ReplicationConfigurationNotFoundError
             return null;
         });
         const taggingPromise = client
             .getBucketTagging({
-            Bucket: resourceName
+            Bucket: name
         })
             .promise()
             .then(data => data)
             .catch(e => {
-            console.log(e);
             // Silently catch the NoSuchTagSet
             return null;
         });
         const websitePromise = client
-            .getBucketWebsite({ Bucket: resourceName })
+            .getBucketWebsite({ Bucket: name })
             .promise()
             .then(data => data)
             .catch(e => {
-            console.log(e);
             // Silently catch the NoSuchWebsiteConfiguration
             return null;
         });
         const accessControlPromise = client
-            .getBucketAcl({ Bucket: resourceName })
+            .getBucketAcl({ Bucket: name })
             .promise();
         const acceleratePromise = client
-            .getBucketAccelerateConfiguration({ Bucket: resourceName })
+            .getBucketAccelerateConfiguration({ Bucket: name })
             .promise();
-        /*const analyticsPromise = client.getBucketAnalyticsConfiguration.promise();
-        const inventoryPromise = client.getBucketInventoryConfiguration.promise();
-        const metricsPromise = client.getBucketMetricsConfiguration.promise();*/
-        const [versionResults, corsResults, lifecycleResults, loggingResults, notificationResults, replicationResults, taggingResults, websiteResults, accessControlResults, accelerateResults
-        /*
-        analyticsResults
-        inventoryResults
-        metricsResults*/
-        ] = yield Promise.all([
+        const analyticsPromise = client
+            .listBucketAnalyticsConfigurations({ Bucket: name })
+            .promise();
+        const inventoryPromise = client
+            .listBucketInventoryConfigurations({ Bucket: name })
+            .promise();
+        const metricsPromise = client
+            .listBucketMetricsConfigurations({ Bucket: name })
+            .promise();
+        const [versionResults, corsResults, lifecycleResults, loggingResults, notificationResults, replicationResults, taggingResults, websiteResults, accessControlResults, accelerateResults, analyticsResults, inventoryResults, metricsResults] = yield Promise.all([
             versioningPromise,
             corsPromise,
             lifecyclePromise,
@@ -45294,16 +45287,12 @@ function Bucket({ resourceName, AWSClient, logicalName }) {
             taggingPromise,
             websitePromise,
             accessControlPromise,
-            acceleratePromise
-            /*
-            analyticsPromise
-            inventoryPromise
-            metricsPromise*/
+            acceleratePromise,
+            analyticsPromise,
+            inventoryPromise,
+            metricsPromise
         ]);
-        console.log('results');
-        console.log(versionResults);
-        console.log(corsResults);
-        const resource = { BucketName: resourceName };
+        const resource = { BucketName: name };
         if (versionResults.Status) {
             resource.VersioningConfiguration = versionResults;
         }
@@ -45337,33 +45326,37 @@ function Bucket({ resourceName, AWSClient, logicalName }) {
         if (accelerateResults) {
             resource.AccelerateConfiguration = accelerateResults;
         }
-        /*
         if (analyticsResults) {
+            resource.AnalyticsConfigurations =
+                analyticsResults.AnalyticsConfigurationList;
         }
         if (inventoryResults) {
+            resource.InventoryConfigurations =
+                inventoryResults.InventoryConfigurationList;
         }
         if (metricsResults) {
-        }*/
-        return resolve(service.Bucket(logicalName, resource));
+            resource.MetricsConfigurations = metricsResults.MetricsConfigurationList;
+        }
+        return resolve(service.Bucket(logical, resource));
     }));
-}
+};
 /**
  * @hidden
  * @param param0
  */
-function BucketPolicy({ resourceName, AWSClient, logicalName }) {
+const BucketPolicy = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const resourceClient = new AWSClient.S3();
         const { Policy } = yield resourceClient
-            .getBucketPolicy({ Bucket: resourceName })
+            .getBucketPolicy({ Bucket: name })
             .promise();
         const resource = {
-            Bucket: resourceName,
+            Bucket: name,
             PolicyDocument: Policy
         };
-        return resolve(service.BucketPolicy(logicalName, resource));
+        return resolve(service.BucketPolicy(logical, resource));
     }));
-}
+};
 /**
  * @hidden
  */

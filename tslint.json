@@ -21,7 +21,8 @@
     "no-relative-imports": false,
     "missing-jsdoc": false,
     "export-name": false,
-    "function-name": false
+    "function-name": false,
+    "only-arrow-functions": false
   },
   "linterOptions": {
     "exclude": ["src/spec/**/*"]
