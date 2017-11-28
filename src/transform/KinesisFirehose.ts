@@ -1,0 +1,3 @@
+/*
+AWS::KinesisFirehose::DeliveryStream
+*/

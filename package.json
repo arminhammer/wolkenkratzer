@@ -49,23 +49,29 @@
     "webpack": "^3.5.5"
   },
   "scripts": {
-    "cp-sub": "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
+    "cp-sub":
+      "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
     "cp-ec2info": "cp -R src/ec2info.json dist/ec2info.json",
     "rollup": "node_modules/.bin/rollup --config rollup.config.js",
     "build": "tsc && npm run cp-ec2info && npm run rollup",
     "test": "jest",
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
-    "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "docs": "typedoc --out docs src --mode file --theme markdown --readme README.stub.md && mv docs/README.md . && rm -rf docs",
+    "coveralls":
+      "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "docs":
+      "typedoc --out docs src --mode file --theme markdown --readme README.stub.md && mv docs/README.md . && rm -rf docs",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
     "prepush": "yarn lint && yarn build && yarn docs && yarn test",
     "update-submodules": "git submodule update --remote --merge",
     "update-specs": "sh ./update_specs.sh",
     "update-ec2info": "node src/transform/buildEC2Data.js",
-    "release:major": "npm version major && git push --follow-tags && npm publish",
-    "release:minor": "npm version minor && git push --follow-tags && npm publish",
-    "release:patch": "npm version patch && git push --follow-tags && npm publish",
+    "release:major":
+      "npm version major && git push --follow-tags && npm publish",
+    "release:minor":
+      "npm version minor && git push --follow-tags && npm publish",
+    "release:patch":
+      "npm version patch && git push --follow-tags && npm publish",
     "webpack": "webpack",
     "lint": "tslint '*(src|tests)/**/*.ts'"
   },
@@ -73,14 +79,7 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": [
-    "CloudFormation",
-    "AWS",
-    "Template",
-    "Cloud",
-    "aws-sdk",
-    "ecs"
-  ],
+  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -97,20 +96,12 @@
       "!src/types.ts",
       "src/**/*.ts"
     ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "transformIgnorePatterns": [
-      "/!node_modules\\/lodash-es/"
-    ],
-    "testMatch": [
-      "<rootDir>/tests/**/*.spec\\.(js|ts)"
-    ]
+    "transformIgnorePatterns": ["/!node_modules\\/lodash-es/"],
+    "testPathIgnorePatterns": ["<rootDir>/tests/transform/EC2.spec.ts"],
+    "testMatch": ["<rootDir>/tests/**/*.spec\\.(js|ts)"]
   }
 }

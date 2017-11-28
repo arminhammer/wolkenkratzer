@@ -1,0 +1,9 @@
+/*
+AWS::Cognito::IdentityPool
+AWS::Cognito::IdentityPoolRoleAttachment
+AWS::Cognito::UserPool
+AWS::Cognito::UserPoolClient
+AWS::Cognito::UserPoolGroup
+AWS::Cognito::UserPoolUser
+AWS::Cognito::UserPoolUserToGroupAttachment
+*/
