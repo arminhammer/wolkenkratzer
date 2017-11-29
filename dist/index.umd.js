@@ -45455,7 +45455,472 @@ function __awaiter(thisArg, _arguments, P, generator) {
 /**
  * @hidden
  */
-const service = Service(S3);
+const service = Service(EC2);
+/**
+ * @hidden
+ */
+const CustomerGateway = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        const result = yield client
+            .describeCustomerGateways({
+            CustomerGatewayIds: [name]
+        })
+            .promise();
+        resource.BgpAsn = parseInt(result.CustomerGateways[0].BgpAsn, 10);
+        resource.IpAddress = result.CustomerGateways[0].IpAddress;
+        resource.Tags = result.CustomerGateways[0].Tags
+            ? result.CustomerGateways[0].Tags
+            : [];
+        resource.Type = result.CustomerGateways[0].Type;
+        return resolve(service.CustomerGateway(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const DHCPOptions = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.DHCPOptions(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const EgressOnlyInternetGateway = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        const { EgressOnlyInternetGateways } = yield client
+            .describeEgressOnlyInternetGateways({
+            EgressOnlyInternetGatewayIds: [name]
+        })
+            .promise();
+        resource.VpcId = EgressOnlyInternetGateways[0].Attachments[0].VpcId;
+        return resolve(service.EgressOnlyInternetGateway(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const EIP = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.EIP(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const EIPAssociation = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.EIPAssociation(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const FlowLog = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        const result = yield client
+            .describeFlowLogs({ FlowLogIds: [name] })
+            .promise();
+        resource.DeliverLogsPermissionArn =
+            result.FlowLogs[0].DeliverLogsPermissionArn;
+        resource.LogGroupName = result.FlowLogs[0].LogGroupName;
+        resource.ResourceId = result.FlowLogs[0].ResourceId;
+        resource.ResourceType = result.FlowLogs[0].ResourceType;
+        resource.TrafficType = result.FlowLogs[0].TrafficType;
+        return resolve(service.FlowLog(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const Host = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.Host(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const Instance = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.Instance(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const InternetGateway = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        const result = yield client
+            .describeInternetGateways({
+            InternetGatewayIds: [name]
+        })
+            .promise();
+        resource.Tags = result.InternetGateways[0].Tags;
+        return resolve(service.InternetGateway(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const NatGateway = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.NatGateway(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const NetworkAcl = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.NetworkAcl(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const NetworkAclEntry = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.NetworkAclEntry(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const NetworkInterface = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.NetworkInterface(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const NetworkInterfaceAttachment = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.NetworkInterfaceAttachment(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const NetworkInterfacePermission = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.NetworkInterfacePermission(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const PlacementGroup = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.PlacementGroup(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const Route = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.Route(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const RouteTable = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        const result = yield client
+            .describeRouteTables({ RouteTableIds: [name] })
+            .promise();
+        resource.VpcId = result.RouteTables[0].VpcId;
+        resource.Tags = result.RouteTables[0].Tags;
+        return resolve(service.RouteTable(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const SecurityGroup = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.SecurityGroup(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const SecurityGroupEgress = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.SecurityGroupEgress(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const SecurityGroupIngress = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.SecurityGroupIngress(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const SpotFleet = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.SpotFleet(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const Subnet = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.Subnet(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const SubnetCidrBlock = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.SubnetCidrBlock(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const SubnetNetworkAclAssociation = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.SubnetNetworkAclAssociation(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const SubnetRouteTableAssociation = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.SubnetRouteTableAssociation(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const Volume = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.Volume(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VolumeAttachment = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VolumeAttachment(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VPC = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VPC(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VPCCidrBlock = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VPCCidrBlock(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VPCDHCPOptionsAssociation = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VPCDHCPOptionsAssociation(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VPCEndpoint = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VPCEndpoint(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VPCGatewayAttachment = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VPCGatewayAttachment(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VPCPeeringConnection = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VPCPeeringConnection(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VPNConnection = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VPNConnection(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VPNConnectionRoute = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VPNConnectionRoute(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VPNGateway = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VPNGateway(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const VPNGatewayRoutePropagation = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const client = new AWSClient.EC2();
+        const resource = {};
+        return resolve(service.VPNGatewayRoutePropagation(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const EC2$1 = {
+    CustomerGateway,
+    DHCPOptions,
+    EIP,
+    EIPAssociation,
+    EgressOnlyInternetGateway,
+    FlowLog,
+    Host,
+    Instance,
+    InternetGateway,
+    NatGateway,
+    NetworkAcl,
+    NetworkAclEntry,
+    NetworkInterface,
+    NetworkInterfaceAttachment,
+    NetworkInterfacePermission,
+    PlacementGroup,
+    Route,
+    RouteTable,
+    SecurityGroup,
+    SecurityGroupEgress,
+    SecurityGroupIngress,
+    SpotFleet,
+    Subnet,
+    SubnetCidrBlock,
+    SubnetNetworkAclAssociation,
+    SubnetRouteTableAssociation,
+    VPC,
+    VPCCidrBlock,
+    VPCDHCPOptionsAssociation,
+    VPCEndpoint,
+    VPCGatewayAttachment,
+    VPCPeeringConnection,
+    VPNConnection,
+    VPNConnectionRoute,
+    VPNGateway,
+    VPNGatewayRoutePropagation,
+    Volume,
+    VolumeAttachment
+};
+
+/**
+ * @hidden
+ */
+const service$1 = Service(S3);
 /**
  * @hidden
  * @param param0
@@ -45594,7 +46059,7 @@ const Bucket = function (name, AWSClient, logical) {
         if (metricsResults) {
             resource.MetricsConfigurations = metricsResults.MetricsConfigurationList;
         }
-        return resolve(service.Bucket(logical, resource));
+        return resolve(service$1.Bucket(logical, resource));
     }));
 };
 /**
@@ -45611,7 +46076,7 @@ const BucketPolicy = function (name, AWSClient, logical) {
             Bucket: name,
             PolicyDocument: Policy
         };
-        return resolve(service.BucketPolicy(logical, resource));
+        return resolve(service$1.BucketPolicy(logical, resource));
     }));
 };
 /**
@@ -45645,7 +46110,9 @@ const Transform = {
     DataPipeline
     DirectoryService
     DynamoDB
-    EC2
+    */
+    EC2: EC2$1,
+    /*
     ECR
     ECS
     EFS

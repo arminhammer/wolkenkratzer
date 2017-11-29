@@ -17,7 +17,18 @@ const CustomerGateway: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { BgpAsn?; IpAddress?; Tags?; Type? } = {};
+    const result = await client
+      .describeCustomerGateways({
+        CustomerGatewayIds: [name]
+      })
+      .promise();
+    resource.BgpAsn = parseInt(result.CustomerGateways[0].BgpAsn, 10);
+    resource.IpAddress = result.CustomerGateways[0].IpAddress;
+    resource.Tags = result.CustomerGateways[0].Tags
+      ? result.CustomerGateways[0].Tags
+      : [];
+    resource.Type = result.CustomerGateways[0].Type;
     return resolve(service.CustomerGateway(logical, resource));
   });
 };
@@ -47,7 +58,13 @@ const EgressOnlyInternetGateway: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { VpcId? } = {};
+    const { EgressOnlyInternetGateways } = await client
+      .describeEgressOnlyInternetGateways({
+        EgressOnlyInternetGatewayIds: [name]
+      })
+      .promise();
+    resource.VpcId = EgressOnlyInternetGateways[0].Attachments[0].VpcId;
     return resolve(service.EgressOnlyInternetGateway(logical, resource));
   });
 };
@@ -92,7 +109,22 @@ const FlowLog: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: {
+      DeliverLogsPermissionArn?;
+      LogGroupName?;
+      ResourceId?;
+      ResourceType?;
+      TrafficType?;
+    } = {};
+    const result = await client
+      .describeFlowLogs({ FlowLogIds: [name] })
+      .promise();
+    resource.DeliverLogsPermissionArn =
+      result.FlowLogs[0].DeliverLogsPermissionArn;
+    resource.LogGroupName = result.FlowLogs[0].LogGroupName;
+    resource.ResourceId = result.FlowLogs[0].ResourceId;
+    resource.ResourceType = result.FlowLogs[0].ResourceType;
+    resource.TrafficType = result.FlowLogs[0].TrafficType;
     return resolve(service.FlowLog(logical, resource));
   });
 };
@@ -137,7 +169,13 @@ const InternetGateway: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { Tags? } = {};
+    const result = await client
+      .describeInternetGateways({
+        InternetGatewayIds: [name]
+      })
+      .promise();
+    resource.Tags = result.InternetGateways[0].Tags;
     return resolve(service.InternetGateway(logical, resource));
   });
 };
@@ -272,7 +310,12 @@ const RouteTable: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { VpcId?; Tags? } = {};
+    const result = await client
+      .describeRouteTables({ RouteTableIds: [name] })
+      .promise();
+    resource.VpcId = result.RouteTables[0].VpcId;
+    resource.Tags = result.RouteTables[0].Tags;
     return resolve(service.RouteTable(logical, resource));
   });
 };

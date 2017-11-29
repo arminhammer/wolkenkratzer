@@ -101,7 +101,7 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "transformIgnorePatterns": ["/!node_modules\\/lodash-es/"],
-    "testPathIgnorePatterns": ["<rootDir>/tests/transform/EC2.spec.ts"],
+    "testPathIgnorePatterns": [],
     "testMatch": ["<rootDir>/tests/**/*.spec\\.(js|ts)"]
   }
 }
