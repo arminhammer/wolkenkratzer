@@ -300,9 +300,9 @@ const Instance: TransformFunctionType = function(
           Description: i.Description,
           DeviceIndex: i.Attachment.DeviceIndex,
           GroupSet: i.Groups.map(x => x.GroupId),
-          NetworkInterfaceId: i.NetworkInterfaceId,
           Ipv6AddressCount: i.Ipv6Addresses.length,
           Ipv6Addresses: i.Ipv6Addresses.map(x => x.Ipv6Address),
+          NetworkInterfaceId: i.NetworkInterfaceId,
           PrivateIpAddress: i.PrivateIpAddress,
           PrivateIpAddresses: i.PrivateIpAddresses.map(x => {
             return { Primary: x.Primary, PrivateIpAddress: x.PrivateIpAddress };

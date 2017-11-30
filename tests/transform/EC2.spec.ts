@@ -95,20 +95,40 @@ const AWS = {
                 {
                   Instances: [
                     {
+                      AmiLaunchIndex: 0,
+                      Architecture: 'x86_64',
+                      BlockDeviceMappings: [
+                        {
+                          DeviceName: '/dev/sdh',
+                          Ebs: {
+                            AttachTime: new Date(),
+                            DeleteOnTermination: true,
+                            Status: 'attached',
+                            VolumeId: 'volume-id'
+                          }
+                        }
+                      ],
+                      ElasticGpuAssociations: [
+                        {
+                          ElasticGpuAssociationId: 'elastic-id',
+                          ElasticGpuAssociationState: 'enabled',
+                          ElasticGpuAssociationTime: '0123456789',
+                          ElasticGpuId: 'elastic-gpu-id'
+                        }
+                      ],
                       ImageId: 'ami-12345678',
                       InstanceType: 't2-micro',
-                      AmiLaunchIndex: 0,
                       KernelId: 'kernel-id',
                       KeyName: 'key-name',
                       LaunchTime: '1234567890',
                       Monitoring: { State: 'enabled' },
                       Placement: {
-                        AvailabilityZone: 'us-east-1a',
                         Affinity: 'affinity',
+                        AvailabilityZone: 'us-east-1a',
                         GroupName: 'placement-name',
                         HostId: 'host-id',
-                        Tenancy: 'default',
-                        SpreadDomain: 'spread-domain'
+                        SpreadDomain: 'spread-domain',
+                        Tenancy: 'default'
                       },
                       Platform: 'Windows',
                       PrivateDnsName: 'dns.10.0.0.1',
@@ -127,18 +147,7 @@ const AWS = {
                         Name: 'running'
                       },
                       StateTransitionReason: 'reason',
-                      Architecture: 'x86_64',
-                      BlockDeviceMappings: [
-                        {
-                          DeviceName: '/dev/sdh',
-                          Ebs: {
-                            AttachTime: new Date(),
-                            DeleteOnTermination: true,
-                            Status: 'attached',
-                            VolumeId: 'volume-id'
-                          }
-                        }
-                      ],
+
                       ClientToken: 'client-token',
                       EbsOptimized: true,
                       EnaSupport: false,
@@ -148,14 +157,7 @@ const AWS = {
                         Id: 'iam-id'
                       },
                       InstanceLifecycle: 'scheduled',
-                      ElasticGpuAssociations: [
-                        {
-                          ElasticGpuId: 'elastic-gpu-id',
-                          ElasticGpuAssociationId: 'elastic-id',
-                          ElasticGpuAssociationState: 'enabled',
-                          ElasticGpuAssociationTime: '0123456789'
-                        }
-                      ],
+
                       NetworkInterfaces: [
                         {
                           Association: {
@@ -173,12 +175,12 @@ const AWS = {
                           Description: 'description',
                           Groups: [
                             {
-                              GroupName: 'subnet-name',
-                              GroupId: 'group-id'
+                              GroupId: 'group-id',
+                              GroupName: 'subnet-name'
                             },
                             {
-                              GroupName: 'subnet-name2',
-                              GroupId: 'group-id2'
+                              GroupId: 'group-id2',
+                              GroupName: 'subnet-name2'
                             }
                           ],
                           Ipv6Addresses: [
@@ -561,9 +563,9 @@ describe('EC2 Transform', () => {
                 Description: 'description',
                 DeviceIndex: 0,
                 GroupSet: ['group-id', 'group-id2'],
-                NetworkInterfaceId: 'network-interface-id',
                 Ipv6AddressCount: 2,
                 Ipv6Addresses: ['ip-address', 'ip-address2'],
+                NetworkInterfaceId: 'network-interface-id',
                 PrivateIpAddress: '10.0.0.1',
                 PrivateIpAddresses: [
                   { Primary: true, PrivateIpAddress: '10.0.0.1' }
