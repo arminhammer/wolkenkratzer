@@ -40,10 +40,9 @@ export {
   buildZipLambdaTemplate
 } from './macros/lambda.macro';
 export { Pseudo } from './pseudo';
-import * as stubs from './spec/spec';
-const resourceList = stubs.resourceList;
-export { resourceList };
+import * as spec from './spec/spec';
+export { spec };
 
-stubs.resourceList.forEach(r => {
-  exports[r] = Service(stubs[r]);
+spec.resourceList.forEach(r => {
+  exports[r] = Service(spec[r]);
 });
