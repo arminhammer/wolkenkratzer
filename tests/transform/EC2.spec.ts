@@ -22,6 +22,260 @@ const AWS = {
           })
       };
     }
+    public describeAddresses(params) {
+      return {
+        promise: () =>
+          new Promise(res => {
+            res({
+              Addresses: [
+                {
+                  AllocationId: 'eipalloc-12345678',
+                  AssociationId: 'eipassoc-12345678',
+                  Domain: 'vpc',
+                  InstanceId: 'i-1234567890abcdef0',
+                  NetworkInterfaceId: 'eni-12345678',
+                  NetworkInterfaceOwnerId: '123456789012',
+                  PrivateIpAddress: '10.0.1.241',
+                  PublicIp: '203.0.113.0'
+                }
+              ]
+            });
+          })
+      };
+    }
+    public describeNatGateways(params) {
+      return {
+        promise: () =>
+          new Promise(res => {
+            res({
+              NatGateways: [
+                {
+                  CreateTime: new Date(),
+                  NatGatewayAddresses: [
+                    {
+                      AllocationId: 'eipalloc-89c620ec',
+                      NetworkInterfaceId: 'eni-9dec76cd',
+                      PrivateIp: '10.0.0.149',
+                      PublicIp: '198.11.222.333'
+                    }
+                  ],
+                  NatGatewayId: 'nat-05dba92075d71c408',
+                  State: 'available',
+                  SubnetId: 'subnet-847e4dc2',
+                  Tags: [{ Key: 'Test', Value: 'Value' }],
+                  VpcId: 'vpc-1a2b3c4d'
+                }
+              ]
+            });
+          })
+      };
+    }
+    public describeHosts(params) {
+      return {
+        promise: () =>
+          new Promise(res => {
+            res({
+              Hosts: [
+                {
+                  AutoPlacement: 'on',
+                  AvailabilityZone: 'us-east-1a',
+                  InstanceType: 't2-micro'
+                }
+              ]
+            });
+          })
+      };
+    }
+    public describeInstances(params) {
+      return {
+        promise: () =>
+          new Promise(res => {
+            res({
+              Reservations: [
+                {
+                  Instances: [
+                    {
+                      ImageId: 'ami-12345678',
+                      InstanceType: 't2-micro',
+                      AmiLaunchIndex: 0,
+                      KernelId: 'kernel-id',
+                      KeyName: 'key-name',
+                      LaunchTime: '1234567890',
+                      Monitoring: { State: 'enabled' },
+                      Placement: {
+                        AvailabilityZone: 'us-east-1a',
+                        Affinity: 'affinity',
+                        GroupName: 'placement-name',
+                        HostId: 'host-id',
+                        Tenancy: 'default',
+                        SpreadDomain: 'spread-domain'
+                      },
+                      Platform: 'Windows',
+                      PrivateDnsName: 'dns.10.0.0.1',
+                      PrivateIpAddress: '10.0.0.1',
+                      ProductCodes: [
+                        {
+                          ProductCodeId: 'product-id',
+                          ProductCodeType: 'devpay'
+                        }
+                      ],
+                      PublicDnsName: 'i.example.com',
+                      PublicIpAddress: '52.0.0.1',
+                      RamdiskId: 'ramdisk-id',
+                      State: {
+                        Code: 16,
+                        Name: 'running'
+                      },
+                      StateTransitionReason: 'reason',
+                      Architecture: 'x86_64',
+                      BlockDeviceMappings: [
+                        {
+                          DeviceName: '/dev/sdh',
+                          Ebs: {
+                            AttachTime: new Date(),
+                            DeleteOnTermination: true,
+                            Status: 'attached',
+                            VolumeId: 'volume-id'
+                          }
+                        }
+                      ],
+                      ClientToken: 'client-token',
+                      EbsOptimized: true,
+                      EnaSupport: false,
+                      Hypervisor: 'xen',
+                      IamInstanceProfile: {
+                        Arn: 'arn-arn',
+                        Id: 'iam-id'
+                      },
+                      InstanceLifecycle: 'scheduled',
+                      ElasticGpuAssociations: [
+                        {
+                          ElasticGpuId: 'elastic-gpu-id',
+                          ElasticGpuAssociationId: 'elastic-id',
+                          ElasticGpuAssociationState: 'enabled',
+                          ElasticGpuAssociationTime: '0123456789'
+                        }
+                      ],
+                      NetworkInterfaces: [
+                        {
+                          Association: {
+                            IpOwnerId: 'owner-id',
+                            PublicDnsName: 'i.example.com',
+                            PublicIp: '52.0.0.1'
+                          },
+                          Attachment: {
+                            AttachTime: new Date(),
+                            AttachmentId: 'attachment-id',
+                            DeleteOnTermination: true,
+                            DeviceIndex: 0,
+                            Status: 'attached'
+                          },
+                          Description: 'description',
+                          Groups: [
+                            {
+                              GroupName: 'subnet-name',
+                              GroupId: 'group-id'
+                            },
+                            {
+                              GroupName: 'subnet-name2',
+                              GroupId: 'group-id2'
+                            }
+                          ],
+                          Ipv6Addresses: [
+                            {
+                              Ipv6Address: 'ip-address'
+                            },
+                            {
+                              Ipv6Address: 'ip-address2'
+                            }
+                          ],
+                          MacAddress: 'mac-address',
+                          NetworkInterfaceId: 'network-interface-id',
+                          OwnerId: 'owner-id',
+                          PrivateDnsName: 'private.dns',
+                          PrivateIpAddress: '10.0.0.1',
+                          PrivateIpAddresses: [
+                            {
+                              Association: {
+                                IpOwnerId: 'ip-owner-id',
+                                PublicDnsName: 'public-dns-name',
+                                PublicIp: '52.0.0.1'
+                              },
+                              Primary: true,
+                              PrivateDnsName: 'private-dns-name',
+                              PrivateIpAddress: '10.0.0.1'
+                            }
+                          ],
+                          SubnetId: 'subnet-id',
+                          VpcId: 'vpc-12345678'
+                        }
+                      ],
+                      SourceDestCheck: false,
+                      Status: 'available',
+                      SubnetId: 'subnet-id',
+                      Tags: [{ Key: 'Test', Value: 'Value' }],
+                      VirtualizationType: 'hvm',
+                      VpcId: 'vpc-12345678'
+                    }
+                  ]
+                }
+              ]
+            });
+          })
+      };
+    }
+    public describeDhcpOptions(params) {
+      return {
+        promise: () =>
+          new Promise(res => {
+            res({
+              DhcpOptions: [
+                {
+                  DhcpConfigurations: [
+                    {
+                      Key: 'domain-name-servers',
+                      Values: [
+                        {
+                          Value: '10.2.5.1'
+                        },
+                        {
+                          Value: '10.2.5.2'
+                        }
+                      ]
+                    },
+                    {
+                      Key: 'ntp-servers',
+                      Values: [
+                        {
+                          Value: '10.2.5.3'
+                        },
+                        {
+                          Value: '10.2.5.4'
+                        }
+                      ]
+                    },
+                    {
+                      Key: 'netbios-name-servers',
+                      Values: [
+                        {
+                          Value: '10.2.5.5'
+                        },
+                        {
+                          Value: '10.2.5.6'
+                        }
+                      ]
+                    },
+                    { Key: 'netbios-node-type', Values: [{ Value: 1 }] },
+                    { Key: 'domain-name', Values: [{ Value: 'example.com' }] }
+                  ],
+                  DhcpOptionsId: 'dopt-d9070ebb',
+                  Tags: [{ Key: 'Test', Value: 'Value' }]
+                }
+              ]
+            });
+          })
+      };
+    }
     public describeRouteTables(params) {
       return {
         promise: () =>
@@ -138,7 +392,7 @@ describe('EC2 Transform', () => {
     });
   });
 
-  test.skip('Can transform an EC2 DHCPOptions correctly', async () => {
+  test('Can transform an EC2 DHCPOptions correctly', async () => {
     const resource = await Transform.EC2.DHCPOptions(
       'transform-test',
       AWS,
@@ -151,10 +405,10 @@ describe('EC2 Transform', () => {
         Main: {
           Properties: {
             DomainName: 'example.com',
-            DomainNameServers: ['10.0.0.1', '10.0.0.2'],
-            NetbiosNameServers: ['10.0.0.1', '10.0.0.2'],
+            DomainNameServers: ['10.2.5.1', '10.2.5.2'],
+            NetbiosNameServers: ['10.2.5.3', '10.2.5.4'],
             NetbiosNodeType: 1,
-            NtpServers: ['10.0.0.1'],
+            NtpServers: ['10.2.5.5', '10.2.5.6'],
             Tags: [{ Key: 'Test', Value: 'Value' }]
           },
           Type: 'AWS::EC2::DHCPOptions'
@@ -183,7 +437,7 @@ describe('EC2 Transform', () => {
     });
   });
 
-  test.skip('Can transform an EC2 EIP correctly', async () => {
+  test('Can transform an EC2 EIP correctly', async () => {
     const resource = await Transform.EC2.EIP('transform-test', AWS, 'Main');
     const t = Template().add(resource);
     expect(t.build()).toEqual({
@@ -191,8 +445,8 @@ describe('EC2 Transform', () => {
       Resources: {
         Main: {
           Properties: {
-            Domain: 'vpc-1234578',
-            InstanceId: 'i-12345678'
+            Domain: 'vpc',
+            InstanceId: 'i-1234567890abcdef0'
           },
           Type: 'AWS::EC2::EIP'
         }
@@ -244,7 +498,7 @@ describe('EC2 Transform', () => {
     });
   });
 
-  test.skip('Can transform an EC2 Host correctly', async () => {
+  test('Can transform an EC2 Host correctly', async () => {
     const resource = await Transform.EC2.Host('transform-test', AWS, 'Main');
     const t = Template().add(resource);
     expect(t.build()).toEqual({
@@ -252,9 +506,9 @@ describe('EC2 Transform', () => {
       Resources: {
         Main: {
           Properties: {
-            AutoPlacement: String,
-            AvailabilityZone: String,
-            InstanceType: String
+            AutoPlacement: 'on',
+            AvailabilityZone: 'us-east-1a',
+            InstanceType: 't2-micro'
           },
           Type: 'AWS::EC2::Host'
         }
@@ -262,7 +516,7 @@ describe('EC2 Transform', () => {
     });
   });
 
-  test.skip('Can transform an EC2 Instance correctly', async () => {
+  test('Can transform an EC2 Instance correctly', async () => {
     const resource = await Transform.EC2.Instance(
       'transform-test',
       AWS,
@@ -274,35 +528,62 @@ describe('EC2 Transform', () => {
       Resources: {
         Main: {
           Properties: {
-            AdditionalInfo: String,
-            Affinity: String,
-            AvailabilityZone: String,
-            // "BlockDeviceMappings" : [ EC2 Block Device Mapping, ... ],
-            DisableApiTermination: Boolean,
-            EbsOptimized: Boolean,
-            HostId: String,
-            IamInstanceProfile: String,
-            ImageId: String,
-            InstanceInitiatedShutdownBehavior: String,
-            InstanceType: String,
-            Ipv6AddressCount: 1,
-            // "Ipv6Addresses" : [ IPv6 Address Type, ... ],
-            KernelId: String,
-            KeyName: String,
-            Monitoring: Boolean,
-            // "NetworkInterfaces" : [ EC2 Network Interface, ... ],
-            PlacementGroupName: String,
-            PrivateIpAddress: String,
-            RamdiskId: String,
-            // "SecurityGroupIds" : [ String, ... ],
-            // "SecurityGroups" : [ String, ... ],
-            SourceDestCheck: Boolean,
+            // AdditionalInfo: String,
+            Affinity: 'affinity',
+            AvailabilityZone: 'us-east-1a',
+            /*BlockDeviceMappings: [{
+              "DeviceName" : "/dev/sdh",
+              "Ebs" : {
+                "DeleteOnTermination" : true,
+                "Encrypted" : Boolean,
+                "Iops" : Number,
+                "SnapshotId" : String,
+                "VolumeSize" : String,
+                "VolumeType" : String
+             }
+           }],*/
+            // DisableApiTermination: true,
+            EbsOptimized: true,
+            HostId: 'host-id',
+            IamInstanceProfile: 'arn-arn',
+            ImageId: 'ami-12345678',
+            // InstanceInitiatedShutdownBehavior: String,
+            InstanceType: 't2-micro',
+            Ipv6AddressCount: 2,
+            Ipv6Addresses: ['ip-address', 'ip-address2'],
+            KernelId: 'kernel-id',
+            KeyName: 'key-name',
+            Monitoring: true,
+            NetworkInterfaces: [
+              {
+                AssociatePublicIpAddress: '52.0.0.1',
+                DeleteOnTermination: true,
+                Description: 'description',
+                DeviceIndex: 0,
+                GroupSet: ['group-id', 'group-id2'],
+                NetworkInterfaceId: 'network-interface-id',
+                Ipv6AddressCount: 2,
+                Ipv6Addresses: ['ip-address', 'ip-address2'],
+                PrivateIpAddress: '10.0.0.1',
+                PrivateIpAddresses: [
+                  { Primary: true, PrivateIpAddress: '10.0.0.1' }
+                ],
+                // SecondaryPrivateIpAddressCount: 0,
+                SubnetId: 'subnet-id'
+              }
+            ],
+            PlacementGroupName: 'placement-name',
+            PrivateIpAddress: '10.0.0.1',
+            RamdiskId: 'ramdisk-id',
+            SecurityGroupIds: ['group-id', 'group-id2'],
+            // SecurityGroups: [],
+            SourceDestCheck: false,
             // "SsmAssociations" : [ SSMAssociation, ... ],
-            SubnetId: String,
-            // "Tags" : [ Resource Tag, ... ],
-            Tenancy: String,
-            UserData: String
-            // "Volumes" : [ EC2 MountPoint, ... ]
+            SubnetId: 'subnet-id',
+            Tags: [{ Key: 'Test', Value: 'Value' }],
+            Tenancy: 'default'
+            // UserData: String
+            // Volumes: []
           },
           Type: 'AWS::EC2::Instance'
         }
@@ -330,7 +611,7 @@ describe('EC2 Transform', () => {
     });
   });
 
-  test.skip('Can transform an EC2 NatGateway correctly', async () => {
+  test('Can transform an EC2 NatGateway correctly', async () => {
     const resource = await Transform.EC2.NatGateway(
       'transform-test',
       AWS,
@@ -342,8 +623,8 @@ describe('EC2 Transform', () => {
       Resources: {
         Main: {
           Properties: {
-            AllocationId: String,
-            SubnetId: String,
+            AllocationId: 'eipalloc-89c620ec',
+            SubnetId: 'subnet-847e4dc2',
             Tags: [{ Key: 'Test', Value: 'Value' }]
           },
           Type: 'AWS::EC2::NatGateway'

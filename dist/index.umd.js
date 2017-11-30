@@ -45484,6 +45484,33 @@ const DHCPOptions = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
+        const result = yield client
+            .describeDhcpOptions({
+            DhcpOptionsIds: [name]
+        })
+            .promise();
+        result.DhcpOptions[0].DhcpConfigurations.forEach(d => {
+            switch (d.Key) {
+                case 'domain-name-servers':
+                    resource.DomainNameServers = d.Values.map(x => x.Value);
+                    break;
+                case 'domain-name':
+                    resource.DomainName = d.Values[0].Value;
+                    break;
+                case 'ntp-servers':
+                    resource.NetbiosNameServers = d.Values.map(x => x.Value);
+                    break;
+                case 'netbios-name-servers':
+                    resource.NtpServers = d.Values.map(x => x.Value);
+                    break;
+                case 'netbios-node-type':
+                    resource.NetbiosNodeType = d.Values[0].Value;
+                    break;
+            }
+        });
+        resource.Tags = result.DhcpOptions[0].Tags
+            ? result.DhcpOptions[0].Tags
+            : [];
         return resolve(service.DHCPOptions(logical, resource));
     }));
 };
@@ -45510,6 +45537,19 @@ const EIP = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
+        const result = yield client
+            .describeAddresses({
+            Filters: [
+                {
+                    Name: 'domain',
+                    Values: ['vpc']
+                }
+            ],
+            PublicIps: [name]
+        })
+            .promise();
+        resource.Domain = result.Addresses[0].Domain;
+        resource.InstanceId = result.Addresses[0].InstanceId;
         return resolve(service.EIP(logical, resource));
     }));
 };
@@ -45549,6 +45589,10 @@ const Host = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
+        const result = yield client.describeHosts({ HostIds: [name] }).promise();
+        resource.AvailabilityZone = result.Hosts[0].AvailabilityZone;
+        resource.AutoPlacement = result.Hosts[0].AutoPlacement;
+        resource.InstanceType = result.Hosts[0].InstanceType;
         return resolve(service.Host(logical, resource));
     }));
 };
@@ -45559,6 +45603,78 @@ const Instance = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
+        const describeInstancesPromise = client
+            .describeInstances({ InstanceIds: [name] })
+            .promise();
+        const [instancesResults] = yield Promise.all([
+            describeInstancesPromise
+        ]);
+        resource.Affinity =
+            instancesResults.Reservations[0].Instances[0].Placement.Affinity;
+        resource.AvailabilityZone =
+            instancesResults.Reservations[0].Instances[0].Placement.AvailabilityZone;
+        resource.EbsOptimized =
+            instancesResults.Reservations[0].Instances[0].EbsOptimized;
+        resource.HostId =
+            instancesResults.Reservations[0].Instances[0].Placement.HostId;
+        resource.KernelId = instancesResults.Reservations[0].Instances[0].KernelId;
+        resource.KeyName = instancesResults.Reservations[0].Instances[0].KeyName;
+        resource.IamInstanceProfile =
+            instancesResults.Reservations[0].Instances[0].IamInstanceProfile.Arn;
+        resource.ImageId = instancesResults.Reservations[0].Instances[0].ImageId;
+        resource.InstanceType =
+            instancesResults.Reservations[0].Instances[0].InstanceType;
+        resource.SubnetId = instancesResults.Reservations[0].Instances[0].SubnetId;
+        resource.Tags = instancesResults.Reservations[0].Instances[0].Tags
+            ? instancesResults.Reservations[0].Instances[0].Tags
+            : [];
+        resource.Tenancy =
+            instancesResults.Reservations[0].Instances[0].Placement.Tenancy;
+        resource.Monitoring =
+            instancesResults.Reservations[0].Instances[0].Monitoring.State ===
+                'enabled';
+        /*resource.NetworkInterfaces =
+          instancesResults.Reservations[0].Instances[0].NetworkInterfaces;*/
+        resource.PlacementGroupName =
+            instancesResults.Reservations[0].Instances[0].Placement.GroupName;
+        resource.PrivateIpAddress =
+            instancesResults.Reservations[0].Instances[0].PrivateIpAddress;
+        resource.RamdiskId =
+            instancesResults.Reservations[0].Instances[0].RamdiskId;
+        /*resource.SecurityGroupIds =
+          instancesResults.Reservations[0].Instances[0].SecurityGroupIds;
+        resource.SecurityGroups =
+          instancesResults.Reservations[0].Instances[0].SecurityGroups;
+        */
+        resource.SourceDestCheck =
+            instancesResults.Reservations[0].Instances[0].SourceDestCheck;
+        resource.Ipv6AddressCount = instancesResults.Reservations[0].Instances[0].NetworkInterfaces.reduce((acc, current) => acc + current.Ipv6Addresses.length, 0);
+        resource.Ipv6Addresses = instancesResults.Reservations[0].Instances[0].NetworkInterfaces.reduce((acc, current) => {
+            current.Ipv6Addresses.forEach(i => acc.push(i.Ipv6Address));
+            return acc;
+        }, []);
+        resource.SecurityGroupIds = instancesResults.Reservations[0].Instances[0].NetworkInterfaces.reduce((acc, current) => {
+            current.Groups.forEach(i => acc.push(i.GroupId));
+            return acc;
+        }, []);
+        resource.NetworkInterfaces = instancesResults.Reservations[0].Instances[0].NetworkInterfaces.map(i => {
+            return {
+                AssociatePublicIpAddress: i.Association.PublicIp,
+                DeleteOnTermination: i.Attachment.DeleteOnTermination,
+                Description: i.Description,
+                DeviceIndex: i.Attachment.DeviceIndex,
+                GroupSet: i.Groups.map(x => x.GroupId),
+                NetworkInterfaceId: i.NetworkInterfaceId,
+                Ipv6AddressCount: i.Ipv6Addresses.length,
+                Ipv6Addresses: i.Ipv6Addresses.map(x => x.Ipv6Address),
+                PrivateIpAddress: i.PrivateIpAddress,
+                PrivateIpAddresses: i.PrivateIpAddresses.map(x => {
+                    return { Primary: x.Primary, PrivateIpAddress: x.PrivateIpAddress };
+                }),
+                // SecondaryPrivateIpAddressCount: 0,
+                SubnetId: i.SubnetId
+            };
+        });
         return resolve(service.Instance(logical, resource));
     }));
 };
@@ -45585,6 +45701,17 @@ const NatGateway = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
+        const result = yield client
+            .describeNatGateways({
+            NatGatewayIds: [name]
+        })
+            .promise();
+        resource.AllocationId =
+            result.NatGateways[0].NatGatewayAddresses[0].AllocationId;
+        resource.SubnetId = result.NatGateways[0].SubnetId;
+        resource.Tags = result.NatGateways[0].Tags
+            ? result.NatGateways[0].Tags
+            : [];
         return resolve(service.NatGateway(logical, resource));
     }));
 };
