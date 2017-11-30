@@ -1,0 +1,1 @@
+/*AWS::CertificateManager::Certificate*/

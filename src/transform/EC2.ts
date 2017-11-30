@@ -17,7 +17,18 @@ const CustomerGateway: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { BgpAsn?; IpAddress?; Tags?; Type? } = {};
+    const result = await client
+      .describeCustomerGateways({
+        CustomerGatewayIds: [name]
+      })
+      .promise();
+    resource.BgpAsn = parseInt(result.CustomerGateways[0].BgpAsn, 10);
+    resource.IpAddress = result.CustomerGateways[0].IpAddress;
+    resource.Tags = result.CustomerGateways[0].Tags
+      ? result.CustomerGateways[0].Tags
+      : [];
+    resource.Type = result.CustomerGateways[0].Type;
     return resolve(service.CustomerGateway(logical, resource));
   });
 };
@@ -32,7 +43,41 @@ const DHCPOptions: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: {
+      DomainName?;
+      DomainNameServers?;
+      NetbiosNameServers?;
+      NetbiosNodeType?;
+      NtpServers?;
+      Tags?;
+    } = {};
+    const result = await client
+      .describeDhcpOptions({
+        DhcpOptionsIds: [name]
+      })
+      .promise();
+    result.DhcpOptions[0].DhcpConfigurations.forEach(d => {
+      switch (d.Key) {
+        case 'domain-name-servers':
+          resource.DomainNameServers = d.Values.map(x => x.Value);
+          break;
+        case 'domain-name':
+          resource.DomainName = d.Values[0].Value;
+          break;
+        case 'ntp-servers':
+          resource.NetbiosNameServers = d.Values.map(x => x.Value);
+          break;
+        case 'netbios-name-servers':
+          resource.NtpServers = d.Values.map(x => x.Value);
+          break;
+        case 'netbios-node-type':
+          resource.NetbiosNodeType = d.Values[0].Value;
+          break;
+      }
+    });
+    resource.Tags = result.DhcpOptions[0].Tags
+      ? result.DhcpOptions[0].Tags
+      : [];
     return resolve(service.DHCPOptions(logical, resource));
   });
 };
@@ -47,7 +92,13 @@ const EgressOnlyInternetGateway: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { VpcId? } = {};
+    const { EgressOnlyInternetGateways } = await client
+      .describeEgressOnlyInternetGateways({
+        EgressOnlyInternetGatewayIds: [name]
+      })
+      .promise();
+    resource.VpcId = EgressOnlyInternetGateways[0].Attachments[0].VpcId;
     return resolve(service.EgressOnlyInternetGateway(logical, resource));
   });
 };
@@ -62,7 +113,20 @@ const EIP: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { Domain?; InstanceId? } = {};
+    const result = await client
+      .describeAddresses({
+        Filters: [
+          {
+            Name: 'domain',
+            Values: ['vpc']
+          }
+        ],
+        PublicIps: [name]
+      })
+      .promise();
+    resource.Domain = result.Addresses[0].Domain;
+    resource.InstanceId = result.Addresses[0].InstanceId;
     return resolve(service.EIP(logical, resource));
   });
 };
@@ -92,7 +156,22 @@ const FlowLog: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: {
+      DeliverLogsPermissionArn?;
+      LogGroupName?;
+      ResourceId?;
+      ResourceType?;
+      TrafficType?;
+    } = {};
+    const result = await client
+      .describeFlowLogs({ FlowLogIds: [name] })
+      .promise();
+    resource.DeliverLogsPermissionArn =
+      result.FlowLogs[0].DeliverLogsPermissionArn;
+    resource.LogGroupName = result.FlowLogs[0].LogGroupName;
+    resource.ResourceId = result.FlowLogs[0].ResourceId;
+    resource.ResourceType = result.FlowLogs[0].ResourceType;
+    resource.TrafficType = result.FlowLogs[0].TrafficType;
     return resolve(service.FlowLog(logical, resource));
   });
 };
@@ -107,7 +186,11 @@ const Host: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { AvailabilityZone?; AutoPlacement?; InstanceType? } = {};
+    const result = await client.describeHosts({ HostIds: [name] }).promise();
+    resource.AvailabilityZone = result.Hosts[0].AvailabilityZone;
+    resource.AutoPlacement = result.Hosts[0].AutoPlacement;
+    resource.InstanceType = result.Hosts[0].InstanceType;
     return resolve(service.Host(logical, resource));
   });
 };
@@ -122,7 +205,113 @@ const Instance: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: {
+      AvailabilityZone?;
+      Affinity?;
+      EbsOptimized?;
+      HostId?;
+      KernelId?;
+      KeyName?;
+      IamInstanceProfile?;
+      ImageId?;
+      InstanceType?;
+      Ipv6AddressCount?;
+      Ipv6Addresses?;
+      SubnetId?;
+      Tags?;
+      Tenancy?;
+      Monitoring?;
+      NetworkInterfaces?;
+      PlacementGroupName?;
+      PrivateIpAddress?;
+      RamdiskId?;
+      SecurityGroupIds?;
+      SecurityGroups?;
+      SourceDestCheck?;
+    } = {};
+    const describeInstancesPromise = client
+      .describeInstances({ InstanceIds: [name] })
+      .promise();
+    const [instancesResults]: any = await Promise.all([
+      describeInstancesPromise
+    ]);
+    resource.Affinity =
+      instancesResults.Reservations[0].Instances[0].Placement.Affinity;
+    resource.AvailabilityZone =
+      instancesResults.Reservations[0].Instances[0].Placement.AvailabilityZone;
+    resource.EbsOptimized =
+      instancesResults.Reservations[0].Instances[0].EbsOptimized;
+    resource.HostId =
+      instancesResults.Reservations[0].Instances[0].Placement.HostId;
+    resource.KernelId = instancesResults.Reservations[0].Instances[0].KernelId;
+    resource.KeyName = instancesResults.Reservations[0].Instances[0].KeyName;
+    resource.IamInstanceProfile =
+      instancesResults.Reservations[0].Instances[0].IamInstanceProfile.Arn;
+    resource.ImageId = instancesResults.Reservations[0].Instances[0].ImageId;
+    resource.InstanceType =
+      instancesResults.Reservations[0].Instances[0].InstanceType;
+    resource.SubnetId = instancesResults.Reservations[0].Instances[0].SubnetId;
+    resource.Tags = instancesResults.Reservations[0].Instances[0].Tags
+      ? instancesResults.Reservations[0].Instances[0].Tags
+      : [];
+    resource.Tenancy =
+      instancesResults.Reservations[0].Instances[0].Placement.Tenancy;
+    resource.Monitoring =
+      instancesResults.Reservations[0].Instances[0].Monitoring.State ===
+      'enabled';
+    /*resource.NetworkInterfaces =
+      instancesResults.Reservations[0].Instances[0].NetworkInterfaces;*/
+    resource.PlacementGroupName =
+      instancesResults.Reservations[0].Instances[0].Placement.GroupName;
+    resource.PrivateIpAddress =
+      instancesResults.Reservations[0].Instances[0].PrivateIpAddress;
+    resource.RamdiskId =
+      instancesResults.Reservations[0].Instances[0].RamdiskId;
+    /*resource.SecurityGroupIds =
+      instancesResults.Reservations[0].Instances[0].SecurityGroupIds;
+    resource.SecurityGroups =
+      instancesResults.Reservations[0].Instances[0].SecurityGroups;
+    */
+    resource.SourceDestCheck =
+      instancesResults.Reservations[0].Instances[0].SourceDestCheck;
+    resource.Ipv6AddressCount = instancesResults.Reservations[0].Instances[0].NetworkInterfaces.reduce(
+      (acc, current) => acc + current.Ipv6Addresses.length,
+      0
+    );
+    resource.Ipv6Addresses = instancesResults.Reservations[0].Instances[0].NetworkInterfaces.reduce(
+      (acc, current) => {
+        current.Ipv6Addresses.forEach(i => acc.push(i.Ipv6Address));
+        return acc;
+      },
+      []
+    );
+    resource.SecurityGroupIds = instancesResults.Reservations[0].Instances[0].NetworkInterfaces.reduce(
+      (acc, current) => {
+        current.Groups.forEach(i => acc.push(i.GroupId));
+        return acc;
+      },
+      []
+    );
+    resource.NetworkInterfaces = instancesResults.Reservations[0].Instances[0].NetworkInterfaces.map(
+      i => {
+        return {
+          AssociatePublicIpAddress: i.Association.PublicIp,
+          DeleteOnTermination: i.Attachment.DeleteOnTermination,
+          Description: i.Description,
+          DeviceIndex: i.Attachment.DeviceIndex,
+          GroupSet: i.Groups.map(x => x.GroupId),
+          Ipv6AddressCount: i.Ipv6Addresses.length,
+          Ipv6Addresses: i.Ipv6Addresses.map(x => x.Ipv6Address),
+          NetworkInterfaceId: i.NetworkInterfaceId,
+          PrivateIpAddress: i.PrivateIpAddress,
+          PrivateIpAddresses: i.PrivateIpAddresses.map(x => {
+            return { Primary: x.Primary, PrivateIpAddress: x.PrivateIpAddress };
+          }),
+          // SecondaryPrivateIpAddressCount: 0,
+          SubnetId: i.SubnetId
+        };
+      }
+    );
     return resolve(service.Instance(logical, resource));
   });
 };
@@ -137,7 +326,13 @@ const InternetGateway: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { Tags? } = {};
+    const result = await client
+      .describeInternetGateways({
+        InternetGatewayIds: [name]
+      })
+      .promise();
+    resource.Tags = result.InternetGateways[0].Tags;
     return resolve(service.InternetGateway(logical, resource));
   });
 };
@@ -152,7 +347,18 @@ const NatGateway: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { AllocationId?; SubnetId?; Tags? } = {};
+    const result = await client
+      .describeNatGateways({
+        NatGatewayIds: [name]
+      })
+      .promise();
+    resource.AllocationId =
+      result.NatGateways[0].NatGatewayAddresses[0].AllocationId;
+    resource.SubnetId = result.NatGateways[0].SubnetId;
+    resource.Tags = result.NatGateways[0].Tags
+      ? result.NatGateways[0].Tags
+      : [];
     return resolve(service.NatGateway(logical, resource));
   });
 };
@@ -272,7 +478,12 @@ const RouteTable: TransformFunctionType = function(
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
     const client = new AWSClient.EC2();
-    const resource: object = {};
+    const resource: { VpcId?; Tags? } = {};
+    const result = await client
+      .describeRouteTables({ RouteTableIds: [name] })
+      .promise();
+    resource.VpcId = result.RouteTables[0].VpcId;
+    resource.Tags = result.RouteTables[0].Tags;
     return resolve(service.RouteTable(logical, resource));
   });
 };

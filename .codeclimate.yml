@@ -1,7 +1,6 @@
-engines:
+plugins:
   tslint:
     enabled: true
-    channel: beta
     config: tslint.json
   duplication:
     enabled: true
@@ -9,12 +8,11 @@ engines:
       languages:
       - javascript:
       - typescript:
-ratings:
-  paths:
-  - src/**/*
-exclude_paths:
+version: 2
+exclude_patterns:
 - tests/**/*
 - examples/**/*
 - dist/**/*
 - node_modules/**/*
 - coverage/**/*
+- src/spec/spec.ts

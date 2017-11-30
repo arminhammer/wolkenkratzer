@@ -1,0 +1,10 @@
+/*
+AWS::IAM::AccessKey
+AWS::IAM::Group
+AWS::IAM::InstanceProfile
+AWS::IAM::ManagedPolicy
+AWS::IAM::Policy
+AWS::IAM::Role
+AWS::IAM::User
+AWS::IAM::UserToGroupAddition
+*/

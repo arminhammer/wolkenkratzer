@@ -1,0 +1,9 @@
+/*
+AWS::CloudFormation::Authentication
+AWS::CloudFormation::CustomResource
+AWS::CloudFormation::Init
+AWS::CloudFormation::Interface
+AWS::CloudFormation::Stack
+AWS::CloudFormation::WaitCondition
+AWS::CloudFormation::WaitConditionHandle
+*/

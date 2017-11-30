@@ -41,6 +41,8 @@ export {
 } from './macros/lambda.macro';
 export { Pseudo } from './pseudo';
 import * as stubs from './spec/spec';
+const resourceList = stubs.resourceList;
+export { resourceList };
 
 stubs.resourceList.forEach(r => {
   exports[r] = Service(stubs[r]);

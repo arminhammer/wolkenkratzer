@@ -1,0 +1,11 @@
+/*
+AWS::Glue::Classifier
+AWS::Glue::Connection
+AWS::Glue::Crawler
+AWS::Glue::Database
+AWS::Glue::DevEndpoint
+AWS::Glue::Job
+AWS::Glue::Partition
+AWS::Glue::Table
+AWS::Glue::Trigger
+*/

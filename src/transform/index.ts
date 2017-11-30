@@ -25,7 +25,9 @@ export const Transform = {
   DataPipeline
   DirectoryService
   DynamoDB
-  EC2
+  */
+  EC2,
+  /*
   ECR
   ECS
   EFS

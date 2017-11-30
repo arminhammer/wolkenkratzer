@@ -1,0 +1,3 @@
+/*
+AWS::WorkSpaces::Workspace
+*/

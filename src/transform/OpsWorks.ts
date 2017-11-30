@@ -1,0 +1,9 @@
+/*
+AWS::OpsWorks::App
+AWS::OpsWorks::ElasticLoadBalancerAttachment
+AWS::OpsWorks::Instance
+AWS::OpsWorks::Layer
+AWS::OpsWorks::Stack
+AWS::OpsWorks::UserProfile
+AWS::OpsWorks::Volume
+*/
