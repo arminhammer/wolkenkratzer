@@ -34,7 +34,7 @@ const Bucket: TransformFunctionType = function(
       })
       .catch(e => {
         // Silently catch the NoSuchCORSConfiguration
-        return null;
+        return { CORSRules: null };
       });
     const lifecyclePromise = client
       .getBucketLifecycleConfiguration({ Bucket: name })

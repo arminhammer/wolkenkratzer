@@ -46439,7 +46439,7 @@ const Bucket = function (name, AWSClient, logical) {
         })
             .catch(e => {
             // Silently catch the NoSuchCORSConfiguration
-            return null;
+            return { CORSRules: null };
         });
         const lifecyclePromise = client
             .getBucketLifecycleConfiguration({ Bucket: name })
