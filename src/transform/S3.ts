@@ -129,7 +129,7 @@ const Bucket: TransformFunctionType = function(
     if (lifecycleResults) {
       resource.LifecycleConfiguration = lifecycleResults;
     }
-    if (loggingResults) {
+    if (loggingResults && loggingResults.LoggingEnabled) {
       resource.LoggingConfiguration = {
         DestinationBucketName: loggingResults.LoggingEnabled.TargetBucket,
         LogFilePrefix: loggingResults.LoggingEnabled.TargetPrefix
