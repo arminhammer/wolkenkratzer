@@ -224,22 +224,28 @@
                 const result = lodash_1.cloneDeep(this);
                 let element;
                 if (typeof e === 'string') {
-                    const parameter = result.Parameters[e];
-                    if (parameter) {
-                        element = parameter;
+                    const resource = result.Resources[e];
+                    if (resource) {
+                        element = resource;
                     }
                     else {
-                        const output = result.Outputs[e];
-                        if (output) {
-                            element = output;
+                        const parameter = result.Parameters[e];
+                        if (parameter) {
+                            element = parameter;
                         }
                         else {
-                            const mapping = result.Mappings[e];
-                            if (mapping) {
-                                element = mapping;
+                            const output = result.Outputs[e];
+                            if (output) {
+                                element = output;
                             }
                             else {
-                                throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+                                const mapping = result.Mappings[e];
+                                if (mapping) {
+                                    element = mapping;
+                                }
+                                else {
+                                    throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+                                }
                             }
                         }
                     }
@@ -254,8 +260,8 @@
                         return _removeParameter(this, element);
                     case 'Output':
                         return _removeOutput(this, element);
-                    /*case 'Resource':
-                                return _removeResource(this, e);*/
+                    case 'Resource':
+                        return _removeResource(this, element);
                     case 'Mapping':
                         return _removeMapping(this, element);
                     default:
@@ -906,6 +912,21 @@
         }
         else {
             throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
+        }
+        return result;
+    }
+    /**
+     * @hidden
+     * @param t
+     * @param e
+     */
+    function _removeResource(t, e) {
+        const result = lodash_1.cloneDeep(t);
+        if (result.Resources[e.Name]) {
+            result.Resources = lodash_1.omit(result.Resources, e.Name);
+        }
+        else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
         }
         return result;
     }

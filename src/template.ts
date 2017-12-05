@@ -280,19 +280,24 @@ export function Template(): ITemplate {
       const result = cloneDeep(this);
       let element: IElement;
       if (typeof e === 'string') {
-        const parameter: IParameter | void = result.Parameters[e];
-        if (parameter) {
-          element = parameter;
+        const resource: IResource | void = result.Resources[e];
+        if (resource) {
+          element = resource;
         } else {
-          const output: IOutput | void = result.Outputs[e];
-          if (output) {
-            element = output;
+          const parameter: IParameter | void = result.Parameters[e];
+          if (parameter) {
+            element = parameter;
           } else {
-            const mapping: IMapping | void = result.Mappings[e];
-            if (mapping) {
-              element = mapping;
+            const output: IOutput | void = result.Outputs[e];
+            if (output) {
+              element = output;
             } else {
-              throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+              const mapping: IMapping | void = result.Mappings[e];
+              if (mapping) {
+                element = mapping;
+              } else {
+                throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+              }
             }
           }
         }
@@ -306,8 +311,8 @@ export function Template(): ITemplate {
           return _removeParameter(this, element);
         case 'Output':
           return _removeOutput(this, element);
-        /*case 'Resource':
-                    return _removeResource(this, e);*/
+        case 'Resource':
+          return _removeResource(this, element);
         case 'Mapping':
           return _removeMapping(this, element);
         default:
@@ -1027,6 +1032,21 @@ function _removeOutput(t: ITemplate, e: IOutput | string): ITemplate {
     result.Outputs = omit(result.Outputs, out.Name);
   } else {
     throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
+  }
+  return result;
+}
+
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _removeResource(t: ITemplate, e: IResource): ITemplate {
+  const result: any = cloneDeep(t);
+  if (result.Resources[e.Name]) {
+    result.Resources = omit(result.Resources, e.Name);
+  } else {
+    throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
   }
   return result;
 }
