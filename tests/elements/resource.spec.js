@@ -115,4 +115,26 @@ describe('Resource', () => {
       }
     });
   });
+
+  test('Can remove a Resource from a Template once it has been added', () => {
+    const resource = S3.Bucket('Main', { BucketName: 'This is a bucket' });
+    let t = Template()
+      .add(resource)
+      .remove(resource);
+    expect(t.build()).toEqual({
+      Resources: {},
+      AWSTemplateFormatVersion: '2010-09-09'
+    });
+  });
+
+  test('Can remove a Resource from a Template once it has been added, by string Name', () => {
+    const resource = S3.Bucket('Main', { BucketName: 'This is a bucket' });
+    let t = Template()
+      .add(resource)
+      .remove('Main');
+    expect(t.build()).toEqual({
+      Resources: {},
+      AWSTemplateFormatVersion: '2010-09-09'
+    });
+  });
 });
