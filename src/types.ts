@@ -1,3 +1,5 @@
+import AWS = require('aws-sdk');
+
 /** Elements */
 
 /**
@@ -363,6 +365,13 @@ export type TransformFunctionType = (
   AWSClient: any,
   logical?: string
 ) => Promise<IResource>;
+
+/**
+ * @hidden
+ */
+export type TransformListFunctionType = (
+  AWSClient: any
+) => Promise<IResource[]>;
 
 /**
  * @hidden

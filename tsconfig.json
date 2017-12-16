@@ -8,17 +8,31 @@
     "outDir": "./dist",
     "noImplicitReturns": true,
     "noImplicitAny": false,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "noFallthroughCasesInSwitch": true,
     "alwaysStrict": true,
     "forceConsistentCasingInFileNames": true,
     "pretty": true,
     "sourceMap": true,
-    "types": ["node", "core-js"],
-    "lib": ["es5", "es2015", "es2017"],
+    "types": [
+      "node",
+      "core-js"
+    ],
+    "lib": [
+      "es5",
+      "es2015",
+      "es2017"
+    ],
     "moduleResolution": "node"
   },
   "compileOnSave": true,
-  "exclude": ["node_modules", "typings", "dist", "tests"],
-  "filesGlob": ["./src/**/*.ts"]
+  "exclude": [
+    "node_modules",
+    "typings",
+    "dist",
+    "tests"
+  ],
+  "filesGlob": [
+    "./src/**/*.ts"
+  ]
 }

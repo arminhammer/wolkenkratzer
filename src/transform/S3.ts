@@ -1,5 +1,6 @@
+import { compact } from 'lodash';
 import { Service } from '../service';
-import { IResource, IService, TransformFunctionType } from '../types';
+import { IResource, IService, TransformFunctionType, TransformListFunctionType } from '../types';
 import { S3 as stub } from './../spec/spec';
 
 /**
@@ -9,34 +10,33 @@ const service: any = Service(stub);
 
 /**
  * @hidden
- * @param param0
  */
 const Bucket: TransformFunctionType = function(
   name: string,
-  AWSClient: any,
+  AWSClient: AWS.S3,
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.S3();
-    const versioningPromise = client
+    const versioningPromise = AWSClient
       .getBucketVersioning({ Bucket: name })
       .promise();
-    const corsPromise = client
+    const corsPromise = AWSClient
       .getBucketCors({ Bucket: name })
       .promise()
       .then(data => {
-        data.CORSRules = data.CORSRules.map(c => {
-          c.MaxAge = c.MaxAgeSeconds;
-          delete c.MaxAgeSeconds;
-          return c;
+        const corsresult: { CORSRules } = { CORSRules: [] };
+        corsresult.CORSRules = data.CORSRules.map(c => {
+          const x: { MaxAge } = { MaxAge: 0 };
+          x.MaxAge = c.MaxAgeSeconds;
+          return x;
         });
-        return data;
+        return corsresult;
       })
       .catch(e => {
         // Silently catch the NoSuchCORSConfiguration
         return { CORSRules: null };
       });
-    const lifecyclePromise = client
+    const lifecyclePromise = AWSClient
       .getBucketLifecycleConfiguration({ Bucket: name })
       .promise()
       .then(data => data)
@@ -44,11 +44,11 @@ const Bucket: TransformFunctionType = function(
         // Silently catch the NoSuchLifecycleConfiguration
         return null;
       });
-    const loggingPromise = client.getBucketLogging({ Bucket: name }).promise();
-    const notificationPromise = client
+    const loggingPromise = AWSClient.getBucketLogging({ Bucket: name }).promise();
+    const notificationPromise = AWSClient
       .getBucketNotification({ Bucket: name })
       .promise();
-    const replicationPromise = client
+    const replicationPromise = AWSClient
       .getBucketReplication({ Bucket: name })
       .promise()
       .then(data => data)
@@ -56,7 +56,7 @@ const Bucket: TransformFunctionType = function(
         // Silently catch the ReplicationConfigurationNotFoundError
         return null;
       });
-    const taggingPromise = client
+    const taggingPromise = AWSClient
       .getBucketTagging({
         Bucket: name
       })
@@ -66,7 +66,7 @@ const Bucket: TransformFunctionType = function(
         // Silently catch the NoSuchTagSet
         return null;
       });
-    const websitePromise = client
+    const websitePromise = AWSClient
       .getBucketWebsite({ Bucket: name })
       .promise()
       .then(data => data)
@@ -74,19 +74,19 @@ const Bucket: TransformFunctionType = function(
         // Silently catch the NoSuchWebsiteConfiguration
         return null;
       });
-    const accessControlPromise = client
+    const accessControlPromise = AWSClient
       .getBucketAcl({ Bucket: name })
       .promise();
-    const acceleratePromise = client
+    const acceleratePromise = AWSClient
       .getBucketAccelerateConfiguration({ Bucket: name })
       .promise();
-    const analyticsPromise = client
+    const analyticsPromise = AWSClient
       .listBucketAnalyticsConfigurations({ Bucket: name })
       .promise();
-    const inventoryPromise = client
+    const inventoryPromise = AWSClient
       .listBucketInventoryConfigurations({ Bucket: name })
       .promise();
-    const metricsPromise = client
+    const metricsPromise = AWSClient
       .listBucketMetricsConfigurations({ Bucket: name })
       .promise();
 
@@ -170,23 +170,61 @@ const Bucket: TransformFunctionType = function(
 
 /**
  * @hidden
- * @param param0
+ */
+const BucketList: TransformListFunctionType = function(
+  AWSClient: AWS.S3,
+): Promise<IResource[]> {
+  return new Promise(async (resolve, reject) => {
+    const { Buckets } = await AWSClient.listBuckets().promise();
+    const list: IResource[] = await Promise.all(
+      Buckets.map(b =>
+        Bucket(b.Name, AWSClient, `${b.Name}S3Bucket`)
+      )
+    );
+    resolve(list);
+  });
+};
+
+/**
+ * @hidden
  */
 const BucketPolicy: TransformFunctionType = function(
   name: string,
-  AWSClient: any,
+  AWSClient: AWS.S3,
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const resourceClient = new AWSClient.S3();
-    const { Policy } = await resourceClient
+    try {
+      const { Policy } = await AWSClient
       .getBucketPolicy({ Bucket: name })
       .promise();
-    const resource: object = {
-      Bucket: name,
-      PolicyDocument: Policy
-    };
-    return resolve(service.BucketPolicy(logical, resource));
+      const resource: object = {
+        Bucket: name,
+        PolicyDocument: Policy
+      };
+      resolve(service.BucketPolicy(logical, resource));
+    } catch (e) {
+      // Silently catch Error: The bucket policy does not exist
+      resolve(undefined);
+    }
+  });
+};
+
+/**
+ * @hidden
+ */
+const BucketPolicyList: TransformListFunctionType = function(
+  AWSClient: AWS.S3,
+): Promise<IResource[]> {
+  return new Promise(async (resolve, reject) => {
+    const { Buckets } = await AWSClient.listBuckets().promise();
+    let list: IResource[] = await Promise.all(
+      Buckets.map(b =>
+        BucketPolicy(b.Name, AWSClient, `${b.Name}S3BucketPolicy`)
+      )
+    );
+    list = compact(list);
+    resolve(list);
   });
 };
 
@@ -195,5 +233,7 @@ const BucketPolicy: TransformFunctionType = function(
  */
 export const S3 = {
   Bucket,
-  BucketPolicy
+  BucketList,
+  BucketPolicy,
+  BucketPolicyList
 };
