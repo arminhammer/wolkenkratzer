@@ -21404,8 +21404,9 @@ var lodash = createCommonjsModule(function (module, exports) {
 });
 
 var lodash_1 = lodash.cloneDeep;
-var lodash_2 = lodash.omit;
-var lodash_3 = lodash.merge;
+var lodash_2 = lodash.compact;
+var lodash_3 = lodash.omit;
+var lodash_4 = lodash.merge;
 
 function CreationPolicy(resource, content) {
     if (!resource ||
@@ -45662,7 +45663,7 @@ function _removeMapping(t, e) {
         mapping = e;
     }
     if (result.Mappings[mapping.Name]) {
-        result.Mappings = lodash_2(result.Mappings, mapping.Name);
+        result.Mappings = lodash_3(result.Mappings, mapping.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(mapping)}`);
@@ -45689,7 +45690,7 @@ function _removeOutput(t, e) {
         out = e;
     }
     if (result.Outputs[out.Name]) {
-        result.Outputs = lodash_2(result.Outputs, out.Name);
+        result.Outputs = lodash_3(result.Outputs, out.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
@@ -45704,7 +45705,7 @@ function _removeOutput(t, e) {
 function _removeResource(t, e) {
     const result = lodash_1(t);
     if (result.Resources[e.Name]) {
-        result.Resources = lodash_2(result.Resources, e.Name);
+        result.Resources = lodash_3(result.Resources, e.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
@@ -45731,7 +45732,7 @@ function _removeParameter(t, e) {
         param = e;
     }
     if (result.Parameters[param.Name]) {
-        result.Parameters = lodash_2(result.Parameters, param.Name);
+        result.Parameters = lodash_3(result.Parameters, param.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
@@ -46439,30 +46440,29 @@ const EC2$1 = {
 const service$1 = Service(S3);
 /**
  * @hidden
- * @param param0
  */
 const Bucket = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.S3();
-        const versioningPromise = client
+        const versioningPromise = AWSClient
             .getBucketVersioning({ Bucket: name })
             .promise();
-        const corsPromise = client
+        const corsPromise = AWSClient
             .getBucketCors({ Bucket: name })
             .promise()
             .then(data => {
-            data.CORSRules = data.CORSRules.map(c => {
-                c.MaxAge = c.MaxAgeSeconds;
-                delete c.MaxAgeSeconds;
-                return c;
+            const corsresult = { CORSRules: [] };
+            corsresult.CORSRules = data.CORSRules.map(c => {
+                const x = { MaxAge: 0 };
+                x.MaxAge = c.MaxAgeSeconds;
+                return x;
             });
-            return data;
+            return corsresult;
         })
             .catch(e => {
             // Silently catch the NoSuchCORSConfiguration
             return { CORSRules: null };
         });
-        const lifecyclePromise = client
+        const lifecyclePromise = AWSClient
             .getBucketLifecycleConfiguration({ Bucket: name })
             .promise()
             .then(data => data)
@@ -46470,11 +46470,11 @@ const Bucket = function (name, AWSClient, logical) {
             // Silently catch the NoSuchLifecycleConfiguration
             return null;
         });
-        const loggingPromise = client.getBucketLogging({ Bucket: name }).promise();
-        const notificationPromise = client
+        const loggingPromise = AWSClient.getBucketLogging({ Bucket: name }).promise();
+        const notificationPromise = AWSClient
             .getBucketNotification({ Bucket: name })
             .promise();
-        const replicationPromise = client
+        const replicationPromise = AWSClient
             .getBucketReplication({ Bucket: name })
             .promise()
             .then(data => data)
@@ -46482,7 +46482,7 @@ const Bucket = function (name, AWSClient, logical) {
             // Silently catch the ReplicationConfigurationNotFoundError
             return null;
         });
-        const taggingPromise = client
+        const taggingPromise = AWSClient
             .getBucketTagging({
             Bucket: name
         })
@@ -46492,7 +46492,7 @@ const Bucket = function (name, AWSClient, logical) {
             // Silently catch the NoSuchTagSet
             return null;
         });
-        const websitePromise = client
+        const websitePromise = AWSClient
             .getBucketWebsite({ Bucket: name })
             .promise()
             .then(data => data)
@@ -46500,19 +46500,19 @@ const Bucket = function (name, AWSClient, logical) {
             // Silently catch the NoSuchWebsiteConfiguration
             return null;
         });
-        const accessControlPromise = client
+        const accessControlPromise = AWSClient
             .getBucketAcl({ Bucket: name })
             .promise();
-        const acceleratePromise = client
+        const acceleratePromise = AWSClient
             .getBucketAccelerateConfiguration({ Bucket: name })
             .promise();
-        const analyticsPromise = client
+        const analyticsPromise = AWSClient
             .listBucketAnalyticsConfigurations({ Bucket: name })
             .promise();
-        const inventoryPromise = client
+        const inventoryPromise = AWSClient
             .listBucketInventoryConfigurations({ Bucket: name })
             .promise();
-        const metricsPromise = client
+        const metricsPromise = AWSClient
             .listBucketMetricsConfigurations({ Bucket: name })
             .promise();
         const [versionResults, corsResults, lifecycleResults, loggingResults, notificationResults, replicationResults, taggingResults, websiteResults, accessControlResults, accelerateResults, analyticsResults, inventoryResults, metricsResults] = yield Promise.all([
@@ -46580,19 +46580,44 @@ const Bucket = function (name, AWSClient, logical) {
 };
 /**
  * @hidden
- * @param param0
+ */
+const BucketList = function (AWSClient) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const { Buckets } = yield AWSClient.listBuckets().promise();
+        const list = yield Promise.all(Buckets.map(b => Bucket(b.Name, AWSClient, `${b.Name}S3Bucket`)));
+        resolve(list);
+    }));
+};
+/**
+ * @hidden
  */
 const BucketPolicy = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const resourceClient = new AWSClient.S3();
-        const { Policy } = yield resourceClient
-            .getBucketPolicy({ Bucket: name })
-            .promise();
-        const resource = {
-            Bucket: name,
-            PolicyDocument: Policy
-        };
-        return resolve(service$1.BucketPolicy(logical, resource));
+        try {
+            const { Policy } = yield AWSClient
+                .getBucketPolicy({ Bucket: name })
+                .promise();
+            const resource = {
+                Bucket: name,
+                PolicyDocument: Policy
+            };
+            resolve(service$1.BucketPolicy(logical, resource));
+        }
+        catch (e) {
+            // Silently catch Error: The bucket policy does not exist
+            resolve(undefined);
+        }
+    }));
+};
+/**
+ * @hidden
+ */
+const BucketPolicyList = function (AWSClient) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const { Buckets } = yield AWSClient.listBuckets().promise();
+        let list = yield Promise.all(Buckets.map(b => BucketPolicy(b.Name, AWSClient, `${b.Name}S3BucketPolicy`)));
+        list = lodash_2(list);
+        resolve(list);
     }));
 };
 /**
@@ -46600,7 +46625,9 @@ const BucketPolicy = function (name, AWSClient, logical) {
  */
 const S3$1 = {
     Bucket,
-    BucketPolicy
+    BucketList,
+    BucketPolicy,
+    BucketPolicyList
 };
 
 const Transform = {

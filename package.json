@@ -9,6 +9,7 @@
     "test": "test"
   },
   "dependencies": {
+    "aws-sdk": "^2.171.0",
     "bluebird": "^3.5.0",
     "cloudformation-schema-js-yaml": "^1.0.1",
     "fs-extra": "^4.0.0",
@@ -23,8 +24,6 @@
     "@types/jest": "^21.1.7",
     "@types/lodash": "^4.14.74",
     "@types/node": "^8.0.25",
-    "aws-sdk": "^2.155.0",
-    "browserify": "^14.4.0",
     "core-js": "^2.4.1",
     "coveralls": "^3.0.0",
     "documentation": "^5.2.2",
