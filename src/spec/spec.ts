@@ -1,5 +1,5 @@
 /** @hidden **/
-export const resourceList = ["ApiGateway","ApplicationAutoScaling","Athena","AutoScaling","Batch","CertificateManager","Cloud9","CloudFormation","CloudFront","CloudTrail","CloudWatch","CodeBuild","CodeCommit","CodeDeploy","CodePipeline","Cognito","Config","DAX","DMS","DataPipeline","DirectoryService","DynamoDB","EC2","ECR","ECS","EFS","EMR","ElastiCache","ElasticBeanstalk","ElasticLoadBalancing","ElasticLoadBalancingV2","Elasticsearch","Events","GameLift","Glue","GuardDuty","IAM","IoT","KMS","Kinesis","KinesisAnalytics","KinesisFirehose","Lambda","Logs","OpsWorks","RDS","Redshift","Route53","S3","SDB","SNS","SQS","SSM","StepFunctions","WAF","WAFRegional","WorkSpaces"]
+export const resourceList = ["ApiGateway","ApplicationAutoScaling","Athena","AutoScaling","Batch","CertificateManager","Cloud9","CloudFormation","CloudFront","CloudTrail","CloudWatch","CodeBuild","CodeCommit","CodeDeploy","CodePipeline","Cognito","Config","DAX","DMS","DataPipeline","DirectoryService","DynamoDB","EC2","ECR","ECS","EFS","EMR","ElastiCache","ElasticBeanstalk","ElasticLoadBalancing","ElasticLoadBalancingV2","Elasticsearch","Events","GameLift","Glue","GuardDuty","IAM","Inspector","IoT","KMS","Kinesis","KinesisAnalytics","KinesisFirehose","Lambda","Logs","OpsWorks","RDS","Redshift","Route53","S3","SDB","SNS","SQS","SSM","ServiceDiscovery","StepFunctions","WAF","WAFRegional","WorkSpaces"]
 
 export const ApiGateway = {
   "Resources": {
@@ -3302,18 +3302,6 @@ export const CloudFront = {
           "PrimitiveType": "String",
           "UpdateType": "Mutable"
         },
-        "S3Origin": {
-          "Type": "LegacyS3Origin",
-          "Required": false,
-          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-s3origin",
-          "UpdateType": "Mutable"
-        },
-        "CustomOrigin": {
-          "Type": "LegacyCustomOrigin",
-          "Required": false,
-          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-customorigin",
-          "UpdateType": "Mutable"
-        },
         "DefaultCacheBehavior": {
           "Type": "DefaultCacheBehavior",
           "Required": false,
@@ -3350,13 +3338,6 @@ export const CloudFront = {
           "Required": false,
           "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-webaclid",
           "PrimitiveType": "String",
-          "UpdateType": "Mutable"
-        },
-        "CNAMEs": {
-          "PrimitiveItemType": "String",
-          "Type": "List",
-          "Required": false,
-          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-cnames",
           "UpdateType": "Mutable"
         },
         "HttpVersion": {
@@ -3449,61 +3430,6 @@ export const CloudFront = {
         }
       },
       "Name": "AWS::CloudFront::Distribution.LambdaFunctionAssociation"
-    },
-    "LegacyCustomOrigin": {
-      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html",
-      "Properties": {
-        "HTTPSPort": {
-          "Required": false,
-          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html#cfn-cloudfront-distribution-legacycustomorigin-httpsport",
-          "PrimitiveType": "Integer",
-          "UpdateType": "Mutable"
-        },
-        "OriginSSLProtocols": {
-          "PrimitiveItemType": "String",
-          "Type": "List",
-          "Required": false,
-          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html#cfn-cloudfront-distribution-legacycustomorigin-originsslprotocols",
-          "UpdateType": "Mutable"
-        },
-        "DNSName": {
-          "Required": true,
-          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html#cfn-cloudfront-distribution-legacycustomorigin-dnsname",
-          "PrimitiveType": "String",
-          "UpdateType": "Mutable"
-        },
-        "HTTPPort": {
-          "Required": false,
-          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html#cfn-cloudfront-distribution-legacycustomorigin-httpport",
-          "PrimitiveType": "Integer",
-          "UpdateType": "Mutable"
-        },
-        "OriginProtocolPolicy": {
-          "Required": true,
-          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html#cfn-cloudfront-distribution-legacycustomorigin-originprotocolpolicy",
-          "PrimitiveType": "String",
-          "UpdateType": "Mutable"
-        }
-      },
-      "Name": "AWS::CloudFront::Distribution.LegacyCustomOrigin"
-    },
-    "LegacyS3Origin": {
-      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacys3origin.html",
-      "Properties": {
-        "OriginAccessIdentity": {
-          "Required": false,
-          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacys3origin.html#cfn-cloudfront-distribution-legacys3origin-originaccessidentity",
-          "PrimitiveType": "String",
-          "UpdateType": "Mutable"
-        },
-        "DNSName": {
-          "Required": true,
-          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacys3origin.html#cfn-cloudfront-distribution-legacys3origin-dnsname",
-          "PrimitiveType": "String",
-          "UpdateType": "Mutable"
-        }
-      },
-      "Name": "AWS::CloudFront::Distribution.LegacyS3Origin"
     },
     "Logging": {
       "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-streamingdistribution-logging.html",
@@ -15473,6 +15399,95 @@ export const IAM = {
     }
   }
 }
+export const Inspector = {
+  "Resources": {
+    "AssessmentTarget": {
+      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttarget.html",
+      "Attributes": {
+        "Arn": {
+          "PrimitiveType": "String"
+        }
+      },
+      "Properties": {
+        "AssessmentTargetName": {
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttarget.html#cfn-inspector-assessmenttarget-assessmenttargetname",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        },
+        "ResourceGroupArn": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttarget.html#cfn-inspector-assessmenttarget-resourcegrouparn",
+          "PrimitiveType": "String",
+          "UpdateType": "Mutable"
+        }
+      },
+      "Name": "AWS::Inspector::AssessmentTarget"
+    },
+    "AssessmentTemplate": {
+      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html",
+      "Attributes": {
+        "Arn": {
+          "PrimitiveType": "String"
+        }
+      },
+      "Properties": {
+        "AssessmentTargetArn": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html#cfn-inspector-assessmenttemplate-assessmenttargetarn",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        },
+        "DurationInSeconds": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html#cfn-inspector-assessmenttemplate-durationinseconds",
+          "PrimitiveType": "Integer",
+          "UpdateType": "Immutable"
+        },
+        "AssessmentTemplateName": {
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html#cfn-inspector-assessmenttemplate-assessmenttemplatename",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        },
+        "RulesPackageArns": {
+          "PrimitiveItemType": "String",
+          "Type": "List",
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html#cfn-inspector-assessmenttemplate-rulespackagearns",
+          "UpdateType": "Immutable"
+        },
+        "UserAttributesForFindings": {
+          "Type": "List",
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html#cfn-inspector-assessmenttemplate-userattributesforfindings",
+          "ItemType": "Tag",
+          "UpdateType": "Immutable"
+        }
+      },
+      "Name": "AWS::Inspector::AssessmentTemplate"
+    },
+    "ResourceGroup": {
+      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-resourcegroup.html",
+      "Attributes": {
+        "Arn": {
+          "PrimitiveType": "String"
+        }
+      },
+      "Properties": {
+        "ResourceGroupTags": {
+          "Type": "List",
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-resourcegroup.html#cfn-inspector-resourcegroup-resourcegrouptags",
+          "ItemType": "Tag",
+          "UpdateType": "Immutable"
+        }
+      },
+      "Name": "AWS::Inspector::ResourceGroup"
+    }
+  },
+  "Models": {}
+}
 export const IoT = {
   "Resources": {
     "Certificate": {
@@ -22116,6 +22131,196 @@ export const SSM = {
         }
       },
       "Name": "AWS::SSM::PatchBaseline.RuleGroup"
+    }
+  }
+}
+export const ServiceDiscovery = {
+  "Resources": {
+    "Instance": {
+      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-instance.html",
+      "Properties": {
+        "InstanceAttributes": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-instance.html#cfn-servicediscovery-instance-instanceattributes",
+          "PrimitiveType": "Json",
+          "UpdateType": "Mutable"
+        },
+        "InstanceId": {
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-instance.html#cfn-servicediscovery-instance-instanceid",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        },
+        "ServiceId": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-instance.html#cfn-servicediscovery-instance-serviceid",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        }
+      },
+      "Name": "AWS::ServiceDiscovery::Instance"
+    },
+    "PrivateDnsNamespace": {
+      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-privatednsnamespace.html",
+      "Attributes": {
+        "Id": {
+          "PrimitiveType": "String"
+        },
+        "Arn": {
+          "PrimitiveType": "String"
+        }
+      },
+      "Properties": {
+        "Description": {
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-privatednsnamespace.html#cfn-servicediscovery-privatednsnamespace-description",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        },
+        "Vpc": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-privatednsnamespace.html#cfn-servicediscovery-privatednsnamespace-vpc",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        },
+        "Name": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-privatednsnamespace.html#cfn-servicediscovery-privatednsnamespace-name",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        }
+      },
+      "Name": "AWS::ServiceDiscovery::PrivateDnsNamespace"
+    },
+    "PublicDnsNamespace": {
+      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-publicdnsnamespace.html",
+      "Attributes": {
+        "Id": {
+          "PrimitiveType": "String"
+        },
+        "Arn": {
+          "PrimitiveType": "String"
+        }
+      },
+      "Properties": {
+        "Description": {
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-publicdnsnamespace.html#cfn-servicediscovery-publicdnsnamespace-description",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        },
+        "Name": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-publicdnsnamespace.html#cfn-servicediscovery-publicdnsnamespace-name",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        }
+      },
+      "Name": "AWS::ServiceDiscovery::PublicDnsNamespace"
+    },
+    "Service": {
+      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-service.html",
+      "Attributes": {
+        "Id": {
+          "PrimitiveType": "String"
+        },
+        "Arn": {
+          "PrimitiveType": "String"
+        },
+        "Name": {
+          "PrimitiveType": "String"
+        }
+      },
+      "Properties": {
+        "Description": {
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-service.html#cfn-servicediscovery-service-description",
+          "PrimitiveType": "String",
+          "UpdateType": "Mutable"
+        },
+        "DnsConfig": {
+          "Type": "DnsConfig",
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-service.html#cfn-servicediscovery-service-dnsconfig",
+          "UpdateType": "Mutable"
+        },
+        "HealthCheckConfig": {
+          "Type": "HealthCheckConfig",
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-service.html#cfn-servicediscovery-service-healthcheckconfig",
+          "UpdateType": "Mutable"
+        },
+        "Name": {
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-service.html#cfn-servicediscovery-service-name",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        }
+      },
+      "Name": "AWS::ServiceDiscovery::Service"
+    }
+  },
+  "Models": {
+    "DnsConfig": {
+      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsconfig.html",
+      "Properties": {
+        "DnsRecords": {
+          "Type": "List",
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsconfig.html#cfn-servicediscovery-service-dnsconfig-dnsrecords",
+          "ItemType": "DnsRecord",
+          "UpdateType": "Mutable"
+        },
+        "NamespaceId": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsconfig.html#cfn-servicediscovery-service-dnsconfig-namespaceid",
+          "PrimitiveType": "String",
+          "UpdateType": "Immutable"
+        }
+      },
+      "Name": "AWS::ServiceDiscovery::Service.DnsConfig"
+    },
+    "DnsRecord": {
+      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsrecord.html",
+      "Properties": {
+        "Type": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsrecord.html#cfn-servicediscovery-service-dnsrecord-type",
+          "PrimitiveType": "String",
+          "UpdateType": "Mutable"
+        },
+        "TTL": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsrecord.html#cfn-servicediscovery-service-dnsrecord-ttl",
+          "PrimitiveType": "String",
+          "UpdateType": "Mutable"
+        }
+      },
+      "Name": "AWS::ServiceDiscovery::Service.DnsRecord"
+    },
+    "HealthCheckConfig": {
+      "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-healthcheckconfig.html",
+      "Properties": {
+        "Type": {
+          "Required": true,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-healthcheckconfig.html#cfn-servicediscovery-service-healthcheckconfig-type",
+          "PrimitiveType": "String",
+          "UpdateType": "Mutable"
+        },
+        "ResourcePath": {
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-healthcheckconfig.html#cfn-servicediscovery-service-healthcheckconfig-resourcepath",
+          "PrimitiveType": "String",
+          "UpdateType": "Mutable"
+        },
+        "FailureThreshold": {
+          "Required": false,
+          "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-healthcheckconfig.html#cfn-servicediscovery-service-healthcheckconfig-failurethreshold",
+          "PrimitiveType": "Double",
+          "UpdateType": "Mutable"
+        }
+      },
+      "Name": "AWS::ServiceDiscovery::Service.HealthCheckConfig"
     }
   }
 }

@@ -402,7 +402,7 @@ export interface ITemplate {
   readonly build: () => object;
   readonly merge: Function;
   readonly import: Function;
-  readonly map: (iterable: Array<IElement>, mapFn: Function) => ITemplate;
+  readonly has: Function;
   readonly parameterize: Function;
   readonly putOut: Function;
   readonly set: Function;

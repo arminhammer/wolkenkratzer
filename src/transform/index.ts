@@ -1,4 +1,5 @@
 import { IResource, TransformFunctionType } from '../types';
+import { CloudTrail } from './CloudTrail';
 import { EC2 } from './EC2';
 import { S3 } from './S3';
 
@@ -12,7 +13,9 @@ export const Transform = {
   CertificateManager
   CloudFormation
   CloudFront
-  CloudTrail
+  */
+  CloudTrail,
+  /*
   CloudWatch
   CodeBuild
   CodeCommit

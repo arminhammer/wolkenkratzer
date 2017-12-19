@@ -106,7 +106,7 @@ describe('S3 Transform', () => {
     const resources = await Transform.S3.BucketPolicyList(
       client
     );
-    const t = Template().map(resources, r => r);
+    const t = Template().add(resources);
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
       Resources: {

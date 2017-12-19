@@ -43,11 +43,11 @@ let t = Template()
       ConstraintDescription: 'must be a valid DNS zone name.'
     })
   )
-  .map(regions, r =>
-    Mapping('Region2S3WebsiteSuffix', r, {
+  .add(regions.map(r =>
+    (Mapping('Region2S3WebsiteSuffix', r, {
       Suffix: `.s3-website-${r}.amazonaws.com`
-    })
-  )
+    }))
+  ))
   .add(
     S3.Bucket('S3BucketForWebsiteContent', {
       AccessControl: 'PublicRead',

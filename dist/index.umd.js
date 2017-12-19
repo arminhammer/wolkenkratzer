@@ -21796,7 +21796,7 @@ function Service(json) {
 }
 
 /** @hidden **/
-const resourceList = ["ApiGateway", "ApplicationAutoScaling", "Athena", "AutoScaling", "Batch", "CertificateManager", "Cloud9", "CloudFormation", "CloudFront", "CloudTrail", "CloudWatch", "CodeBuild", "CodeCommit", "CodeDeploy", "CodePipeline", "Cognito", "Config", "DAX", "DMS", "DataPipeline", "DirectoryService", "DynamoDB", "EC2", "ECR", "ECS", "EFS", "EMR", "ElastiCache", "ElasticBeanstalk", "ElasticLoadBalancing", "ElasticLoadBalancingV2", "Elasticsearch", "Events", "GameLift", "Glue", "GuardDuty", "IAM", "IoT", "KMS", "Kinesis", "KinesisAnalytics", "KinesisFirehose", "Lambda", "Logs", "OpsWorks", "RDS", "Redshift", "Route53", "S3", "SDB", "SNS", "SQS", "SSM", "StepFunctions", "WAF", "WAFRegional", "WorkSpaces"];
+const resourceList = ["ApiGateway", "ApplicationAutoScaling", "Athena", "AutoScaling", "Batch", "CertificateManager", "Cloud9", "CloudFormation", "CloudFront", "CloudTrail", "CloudWatch", "CodeBuild", "CodeCommit", "CodeDeploy", "CodePipeline", "Cognito", "Config", "DAX", "DMS", "DataPipeline", "DirectoryService", "DynamoDB", "EC2", "ECR", "ECS", "EFS", "EMR", "ElastiCache", "ElasticBeanstalk", "ElasticLoadBalancing", "ElasticLoadBalancingV2", "Elasticsearch", "Events", "GameLift", "Glue", "GuardDuty", "IAM", "Inspector", "IoT", "KMS", "Kinesis", "KinesisAnalytics", "KinesisFirehose", "Lambda", "Logs", "OpsWorks", "RDS", "Redshift", "Route53", "S3", "SDB", "SNS", "SQS", "SSM", "ServiceDiscovery", "StepFunctions", "WAF", "WAFRegional", "WorkSpaces"];
 const ApiGateway = {
     "Resources": {
         "Account": {
@@ -25098,18 +25098,6 @@ const CloudFront = {
                     "PrimitiveType": "String",
                     "UpdateType": "Mutable"
                 },
-                "S3Origin": {
-                    "Type": "LegacyS3Origin",
-                    "Required": false,
-                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-s3origin",
-                    "UpdateType": "Mutable"
-                },
-                "CustomOrigin": {
-                    "Type": "LegacyCustomOrigin",
-                    "Required": false,
-                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-customorigin",
-                    "UpdateType": "Mutable"
-                },
                 "DefaultCacheBehavior": {
                     "Type": "DefaultCacheBehavior",
                     "Required": false,
@@ -25146,13 +25134,6 @@ const CloudFront = {
                     "Required": false,
                     "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-webaclid",
                     "PrimitiveType": "String",
-                    "UpdateType": "Mutable"
-                },
-                "CNAMEs": {
-                    "PrimitiveItemType": "String",
-                    "Type": "List",
-                    "Required": false,
-                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-cnames",
                     "UpdateType": "Mutable"
                 },
                 "HttpVersion": {
@@ -25245,61 +25226,6 @@ const CloudFront = {
                 }
             },
             "Name": "AWS::CloudFront::Distribution.LambdaFunctionAssociation"
-        },
-        "LegacyCustomOrigin": {
-            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html",
-            "Properties": {
-                "HTTPSPort": {
-                    "Required": false,
-                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html#cfn-cloudfront-distribution-legacycustomorigin-httpsport",
-                    "PrimitiveType": "Integer",
-                    "UpdateType": "Mutable"
-                },
-                "OriginSSLProtocols": {
-                    "PrimitiveItemType": "String",
-                    "Type": "List",
-                    "Required": false,
-                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html#cfn-cloudfront-distribution-legacycustomorigin-originsslprotocols",
-                    "UpdateType": "Mutable"
-                },
-                "DNSName": {
-                    "Required": true,
-                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html#cfn-cloudfront-distribution-legacycustomorigin-dnsname",
-                    "PrimitiveType": "String",
-                    "UpdateType": "Mutable"
-                },
-                "HTTPPort": {
-                    "Required": false,
-                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html#cfn-cloudfront-distribution-legacycustomorigin-httpport",
-                    "PrimitiveType": "Integer",
-                    "UpdateType": "Mutable"
-                },
-                "OriginProtocolPolicy": {
-                    "Required": true,
-                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacycustomorigin.html#cfn-cloudfront-distribution-legacycustomorigin-originprotocolpolicy",
-                    "PrimitiveType": "String",
-                    "UpdateType": "Mutable"
-                }
-            },
-            "Name": "AWS::CloudFront::Distribution.LegacyCustomOrigin"
-        },
-        "LegacyS3Origin": {
-            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacys3origin.html",
-            "Properties": {
-                "OriginAccessIdentity": {
-                    "Required": false,
-                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacys3origin.html#cfn-cloudfront-distribution-legacys3origin-originaccessidentity",
-                    "PrimitiveType": "String",
-                    "UpdateType": "Mutable"
-                },
-                "DNSName": {
-                    "Required": true,
-                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-legacys3origin.html#cfn-cloudfront-distribution-legacys3origin-dnsname",
-                    "PrimitiveType": "String",
-                    "UpdateType": "Mutable"
-                }
-            },
-            "Name": "AWS::CloudFront::Distribution.LegacyS3Origin"
         },
         "Logging": {
             "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-streamingdistribution-logging.html",
@@ -37269,6 +37195,95 @@ const IAM = {
         }
     }
 };
+const Inspector = {
+    "Resources": {
+        "AssessmentTarget": {
+            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttarget.html",
+            "Attributes": {
+                "Arn": {
+                    "PrimitiveType": "String"
+                }
+            },
+            "Properties": {
+                "AssessmentTargetName": {
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttarget.html#cfn-inspector-assessmenttarget-assessmenttargetname",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                },
+                "ResourceGroupArn": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttarget.html#cfn-inspector-assessmenttarget-resourcegrouparn",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Mutable"
+                }
+            },
+            "Name": "AWS::Inspector::AssessmentTarget"
+        },
+        "AssessmentTemplate": {
+            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html",
+            "Attributes": {
+                "Arn": {
+                    "PrimitiveType": "String"
+                }
+            },
+            "Properties": {
+                "AssessmentTargetArn": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html#cfn-inspector-assessmenttemplate-assessmenttargetarn",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                },
+                "DurationInSeconds": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html#cfn-inspector-assessmenttemplate-durationinseconds",
+                    "PrimitiveType": "Integer",
+                    "UpdateType": "Immutable"
+                },
+                "AssessmentTemplateName": {
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html#cfn-inspector-assessmenttemplate-assessmenttemplatename",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                },
+                "RulesPackageArns": {
+                    "PrimitiveItemType": "String",
+                    "Type": "List",
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html#cfn-inspector-assessmenttemplate-rulespackagearns",
+                    "UpdateType": "Immutable"
+                },
+                "UserAttributesForFindings": {
+                    "Type": "List",
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-assessmenttemplate.html#cfn-inspector-assessmenttemplate-userattributesforfindings",
+                    "ItemType": "Tag",
+                    "UpdateType": "Immutable"
+                }
+            },
+            "Name": "AWS::Inspector::AssessmentTemplate"
+        },
+        "ResourceGroup": {
+            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-resourcegroup.html",
+            "Attributes": {
+                "Arn": {
+                    "PrimitiveType": "String"
+                }
+            },
+            "Properties": {
+                "ResourceGroupTags": {
+                    "Type": "List",
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-inspector-resourcegroup.html#cfn-inspector-resourcegroup-resourcegrouptags",
+                    "ItemType": "Tag",
+                    "UpdateType": "Immutable"
+                }
+            },
+            "Name": "AWS::Inspector::ResourceGroup"
+        }
+    },
+    "Models": {}
+};
 const IoT = {
     "Resources": {
         "Certificate": {
@@ -43915,6 +43930,196 @@ const SSM = {
         }
     }
 };
+const ServiceDiscovery = {
+    "Resources": {
+        "Instance": {
+            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-instance.html",
+            "Properties": {
+                "InstanceAttributes": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-instance.html#cfn-servicediscovery-instance-instanceattributes",
+                    "PrimitiveType": "Json",
+                    "UpdateType": "Mutable"
+                },
+                "InstanceId": {
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-instance.html#cfn-servicediscovery-instance-instanceid",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                },
+                "ServiceId": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-instance.html#cfn-servicediscovery-instance-serviceid",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                }
+            },
+            "Name": "AWS::ServiceDiscovery::Instance"
+        },
+        "PrivateDnsNamespace": {
+            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-privatednsnamespace.html",
+            "Attributes": {
+                "Id": {
+                    "PrimitiveType": "String"
+                },
+                "Arn": {
+                    "PrimitiveType": "String"
+                }
+            },
+            "Properties": {
+                "Description": {
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-privatednsnamespace.html#cfn-servicediscovery-privatednsnamespace-description",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                },
+                "Vpc": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-privatednsnamespace.html#cfn-servicediscovery-privatednsnamespace-vpc",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                },
+                "Name": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-privatednsnamespace.html#cfn-servicediscovery-privatednsnamespace-name",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                }
+            },
+            "Name": "AWS::ServiceDiscovery::PrivateDnsNamespace"
+        },
+        "PublicDnsNamespace": {
+            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-publicdnsnamespace.html",
+            "Attributes": {
+                "Id": {
+                    "PrimitiveType": "String"
+                },
+                "Arn": {
+                    "PrimitiveType": "String"
+                }
+            },
+            "Properties": {
+                "Description": {
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-publicdnsnamespace.html#cfn-servicediscovery-publicdnsnamespace-description",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                },
+                "Name": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-publicdnsnamespace.html#cfn-servicediscovery-publicdnsnamespace-name",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                }
+            },
+            "Name": "AWS::ServiceDiscovery::PublicDnsNamespace"
+        },
+        "Service": {
+            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-service.html",
+            "Attributes": {
+                "Id": {
+                    "PrimitiveType": "String"
+                },
+                "Arn": {
+                    "PrimitiveType": "String"
+                },
+                "Name": {
+                    "PrimitiveType": "String"
+                }
+            },
+            "Properties": {
+                "Description": {
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-service.html#cfn-servicediscovery-service-description",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Mutable"
+                },
+                "DnsConfig": {
+                    "Type": "DnsConfig",
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-service.html#cfn-servicediscovery-service-dnsconfig",
+                    "UpdateType": "Mutable"
+                },
+                "HealthCheckConfig": {
+                    "Type": "HealthCheckConfig",
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-service.html#cfn-servicediscovery-service-healthcheckconfig",
+                    "UpdateType": "Mutable"
+                },
+                "Name": {
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicediscovery-service.html#cfn-servicediscovery-service-name",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                }
+            },
+            "Name": "AWS::ServiceDiscovery::Service"
+        }
+    },
+    "Models": {
+        "DnsConfig": {
+            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsconfig.html",
+            "Properties": {
+                "DnsRecords": {
+                    "Type": "List",
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsconfig.html#cfn-servicediscovery-service-dnsconfig-dnsrecords",
+                    "ItemType": "DnsRecord",
+                    "UpdateType": "Mutable"
+                },
+                "NamespaceId": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsconfig.html#cfn-servicediscovery-service-dnsconfig-namespaceid",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Immutable"
+                }
+            },
+            "Name": "AWS::ServiceDiscovery::Service.DnsConfig"
+        },
+        "DnsRecord": {
+            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsrecord.html",
+            "Properties": {
+                "Type": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsrecord.html#cfn-servicediscovery-service-dnsrecord-type",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Mutable"
+                },
+                "TTL": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-dnsrecord.html#cfn-servicediscovery-service-dnsrecord-ttl",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Mutable"
+                }
+            },
+            "Name": "AWS::ServiceDiscovery::Service.DnsRecord"
+        },
+        "HealthCheckConfig": {
+            "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-healthcheckconfig.html",
+            "Properties": {
+                "Type": {
+                    "Required": true,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-healthcheckconfig.html#cfn-servicediscovery-service-healthcheckconfig-type",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Mutable"
+                },
+                "ResourcePath": {
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-healthcheckconfig.html#cfn-servicediscovery-service-healthcheckconfig-resourcepath",
+                    "PrimitiveType": "String",
+                    "UpdateType": "Mutable"
+                },
+                "FailureThreshold": {
+                    "Required": false,
+                    "Documentation": "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-servicediscovery-service-healthcheckconfig.html#cfn-servicediscovery-service-healthcheckconfig-failurethreshold",
+                    "PrimitiveType": "Double",
+                    "UpdateType": "Mutable"
+                }
+            },
+            "Name": "AWS::ServiceDiscovery::Service.HealthCheckConfig"
+        }
+    }
+};
 const StepFunctions = {
     "Resources": {
         "Activity": {
@@ -44789,6 +44994,7 @@ var stubs = Object.freeze({
 	Glue: Glue,
 	GuardDuty: GuardDuty,
 	IAM: IAM,
+	Inspector: Inspector,
 	IoT: IoT,
 	KMS: KMS,
 	Kinesis: Kinesis,
@@ -44805,6 +45011,7 @@ var stubs = Object.freeze({
 	SNS: SNS,
 	SQS: SQS,
 	SSM: SSM,
+	ServiceDiscovery: ServiceDiscovery,
 	StepFunctions: StepFunctions,
 	WAF: WAF,
 	WAFRegional: WAFRegional,
@@ -44833,64 +45040,14 @@ function Template() {
          * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
          */
         add: function (e, options) {
-            const _t = lodash_1(this);
-            switch (e.kind) {
-                case 'CreationPolicy':
-                    return _addCreationPolicy(_t, e);
-                case 'DeletionPolicy':
-                    return _addDeletionPolicy(_t, e);
-                case 'DependsOn':
-                    return _addDependsOn(_t, e);
-                case 'ResourceMetadata':
-                    return _addResourceMetadata(_t, e);
-                case 'UpdatePolicy':
-                    return _addUpdatePolicy(_t, e);
-                case 'Condition':
-                    return _addCondition(_t, e);
-                case 'Mapping':
-                    return _addMapping(_t, e);
-                case 'Parameter':
-                    return _addParameter(_t, e);
-                case 'Output':
-                    return _addOutput(_t, e);
-                case 'Resource':
-                    let newT = _t;
-                    const f = lodash_1(e);
-                    if (options) {
-                        const nameSplit = f.Type.split('::').splice(1);
-                        const shortName = nameSplit.join('');
-                        if (options.Parameters) {
-                            options.Parameters.map(p => {
-                                const paramName = `${f.Name}${shortName}Param`;
-                                if (!f.Properties) {
-                                    f.Properties = {};
-                                }
-                                f.Properties[p] = Ref(paramName);
-                                newT = _addParameter(newT, Parameter(paramName, {
-                                    Type: 'String'
-                                }));
-                            });
-                        }
-                        newT = _addResource(newT, f);
-                        if (options.Output) {
-                            newT = _addOutput(newT, Output(`${f.Name}${shortName}Output`, {
-                                Condition: f.Condition,
-                                Export: {
-                                    Name: FnSub(`\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`)
-                                },
-                                Value: Ref(f.Name)
-                            }));
-                        }
-                    }
-                    else {
-                        newT = _addResource(_t, f);
-                    }
-                    return newT;
-                case 'Description':
-                    return _addDescription(_t, e);
-                default:
-                    throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
+            if (Array.isArray(e)) {
+                let _t = lodash_1(this);
+                e.forEach(elem => {
+                    _t = _add(_t, elem, options);
+                });
+                return _t;
             }
+            return _add(this, e, options);
         },
         /**
          * Returns a finished CloudFormation template object. This can then be converted into JSON or YAML.
@@ -44924,6 +45081,23 @@ function Template() {
             return result;
         },
         /**
+         * Checks to see if an element is in the current template.
+         * Returns true if it is in the template, false if it is not found.
+         */
+        has: function (query) {
+            const [resource, attribute] = query.split('.');
+            if (attribute && this.Resources[resource].Properties[attribute]) {
+                return true;
+            }
+            if (this.Resources[query]) {
+                return true;
+            }
+            if (this.Parameters[query]) {
+                return true;
+            }
+            return false;
+        },
+        /**
          * Import an existing CloudFormation JSON template and convert it into a Wolkenkratzer Template object.
          * @example
          * const templateJson = require('template.json');
@@ -44934,16 +45108,6 @@ function Template() {
             return _calcFromExistingTemplate(_t, inputTemplate);
         },
         kind: 'Template',
-        /**
-         * Add elements to the Template in a functional way.
-         */
-        map: function (iterable, mapFn) {
-            let result = lodash_1(this);
-            iterable.map(i => {
-                result = result.add(mapFn(i));
-            });
-            return result;
-        },
         /**
          * Merges another Template object into another. The original Template objects are not mutated.
          * Returns a new Template object that is the product of the two original Template objects.
@@ -45105,6 +45269,69 @@ function Template() {
             return templateString;
         }
     };
+}
+/**
+ * @hidden
+ */
+function _add(template, e, options) {
+    const _t = lodash_1(template);
+    switch (e.kind) {
+        case 'CreationPolicy':
+            return _addCreationPolicy(_t, e);
+        case 'DeletionPolicy':
+            return _addDeletionPolicy(_t, e);
+        case 'DependsOn':
+            return _addDependsOn(_t, e);
+        case 'ResourceMetadata':
+            return _addResourceMetadata(_t, e);
+        case 'UpdatePolicy':
+            return _addUpdatePolicy(_t, e);
+        case 'Condition':
+            return _addCondition(_t, e);
+        case 'Mapping':
+            return _addMapping(_t, e);
+        case 'Parameter':
+            return _addParameter(_t, e);
+        case 'Output':
+            return _addOutput(_t, e);
+        case 'Resource':
+            let newT = _t;
+            const f = lodash_1(e);
+            if (options) {
+                const nameSplit = f.Type.split('::').splice(1);
+                const shortName = nameSplit.join('');
+                if (options.Parameters) {
+                    options.Parameters.map(p => {
+                        const paramName = `${f.Name}${shortName}Param`;
+                        if (!f.Properties) {
+                            f.Properties = {};
+                        }
+                        f.Properties[p] = Ref(paramName);
+                        newT = _addParameter(newT, Parameter(paramName, {
+                            Type: 'String'
+                        }));
+                    });
+                }
+                newT = _addResource(newT, f);
+                if (options.Output) {
+                    newT = _addOutput(newT, Output(`${f.Name}${shortName}Output`, {
+                        Condition: f.Condition,
+                        Export: {
+                            Name: FnSub(`\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`)
+                        },
+                        Value: Ref(f.Name)
+                    }));
+                }
+            }
+            else {
+                newT = _addResource(_t, f);
+            }
+            return newT;
+        case 'Description':
+            return _addDescription(_t, e);
+        default:
+            throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
+    }
 }
 /**
  * @hidden
@@ -45845,7 +46072,65 @@ function __awaiter(thisArg, _arguments, P, generator) {
 /**
  * @hidden
  */
-const service = Service(EC2);
+const service = Service(CloudTrail);
+/**
+ * @hidden
+ */
+const Trail = function (name, AWSClient, logical) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const { trailList } = yield AWSClient.describeTrails({ trailNameList: [name] })
+            .promise();
+        const resource = {
+            CloudWatchLogsLogGroupArn: trailList[0].CloudWatchLogsLogGroupArn,
+            CloudWatchLogsRoleArn: trailList[0].CloudWatchLogsRoleArn,
+            EnableLogFileValidation: trailList[0].LogFileValidationEnabled,
+            IncludeGlobalServiceEvents: trailList[0].IncludeGlobalServiceEvents,
+            IsLogging: true,
+            IsMultiRegionTrail: trailList[0].IsMultiRegionTrail,
+            KMSKeyId: trailList[0].KmsKeyId,
+            S3BucketName: trailList[0].S3BucketName,
+            S3KeyPrefix: trailList[0].S3KeyPrefix,
+            SnsTopicName: trailList[0].SnsTopicName,
+            TrailName: name
+        };
+        resolve(service.Trail(logical, resource));
+    }));
+};
+/**
+ * @hidden
+ */
+const TrailList = function (AWSClient) {
+    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+        const { trailList } = yield AWSClient.describeTrails()
+            .promise();
+        const resources = trailList.map(t => service.Trail(t.Name, {
+            CloudWatchLogsLogGroupArn: t.CloudWatchLogsLogGroupArn,
+            CloudWatchLogsRoleArn: t.CloudWatchLogsRoleArn,
+            EnableLogFileValidation: t.LogFileValidationEnabled,
+            IncludeGlobalServiceEvents: t.IncludeGlobalServiceEvents,
+            IsLogging: true,
+            IsMultiRegionTrail: t.IsMultiRegionTrail,
+            KMSKeyId: t.KmsKeyId,
+            S3BucketName: t.S3BucketName,
+            S3KeyPrefix: t.S3KeyPrefix,
+            SnsTopicName: t.SnsTopicName,
+            TrailName: t.Name
+        }));
+        resolve(resources);
+    }));
+};
+/**
+ * @hidden
+ */
+const CloudTrail$1 = {
+    Trail,
+    TrailList
+};
+
+/**
+ * @hidden
+ */
+const service$1 = Service(EC2);
 /**
  * @hidden
  */
@@ -45864,7 +46149,7 @@ const CustomerGateway = function (name, AWSClient, logical) {
             ? result.CustomerGateways[0].Tags
             : [];
         resource.Type = result.CustomerGateways[0].Type;
-        return resolve(service.CustomerGateway(logical, resource));
+        return resolve(service$1.CustomerGateway(logical, resource));
     }));
 };
 /**
@@ -45901,7 +46186,7 @@ const DHCPOptions = function (name, AWSClient, logical) {
         resource.Tags = result.DhcpOptions[0].Tags
             ? result.DhcpOptions[0].Tags
             : [];
-        return resolve(service.DHCPOptions(logical, resource));
+        return resolve(service$1.DHCPOptions(logical, resource));
     }));
 };
 /**
@@ -45917,7 +46202,7 @@ const EgressOnlyInternetGateway = function (name, AWSClient, logical) {
         })
             .promise();
         resource.VpcId = EgressOnlyInternetGateways[0].Attachments[0].VpcId;
-        return resolve(service.EgressOnlyInternetGateway(logical, resource));
+        return resolve(service$1.EgressOnlyInternetGateway(logical, resource));
     }));
 };
 /**
@@ -45940,7 +46225,7 @@ const EIP = function (name, AWSClient, logical) {
             .promise();
         resource.Domain = result.Addresses[0].Domain;
         resource.InstanceId = result.Addresses[0].InstanceId;
-        return resolve(service.EIP(logical, resource));
+        return resolve(service$1.EIP(logical, resource));
     }));
 };
 /**
@@ -45950,7 +46235,7 @@ const EIPAssociation = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.EIPAssociation(logical, resource));
+        return resolve(service$1.EIPAssociation(logical, resource));
     }));
 };
 /**
@@ -45969,7 +46254,7 @@ const FlowLog = function (name, AWSClient, logical) {
         resource.ResourceId = result.FlowLogs[0].ResourceId;
         resource.ResourceType = result.FlowLogs[0].ResourceType;
         resource.TrafficType = result.FlowLogs[0].TrafficType;
-        return resolve(service.FlowLog(logical, resource));
+        return resolve(service$1.FlowLog(logical, resource));
     }));
 };
 /**
@@ -45983,7 +46268,7 @@ const Host = function (name, AWSClient, logical) {
         resource.AvailabilityZone = result.Hosts[0].AvailabilityZone;
         resource.AutoPlacement = result.Hosts[0].AutoPlacement;
         resource.InstanceType = result.Hosts[0].InstanceType;
-        return resolve(service.Host(logical, resource));
+        return resolve(service$1.Host(logical, resource));
     }));
 };
 /**
@@ -46065,7 +46350,7 @@ const Instance = function (name, AWSClient, logical) {
                 SubnetId: i.SubnetId
             };
         });
-        return resolve(service.Instance(logical, resource));
+        return resolve(service$1.Instance(logical, resource));
     }));
 };
 /**
@@ -46081,7 +46366,7 @@ const InternetGateway = function (name, AWSClient, logical) {
         })
             .promise();
         resource.Tags = result.InternetGateways[0].Tags;
-        return resolve(service.InternetGateway(logical, resource));
+        return resolve(service$1.InternetGateway(logical, resource));
     }));
 };
 /**
@@ -46102,7 +46387,7 @@ const NatGateway = function (name, AWSClient, logical) {
         resource.Tags = result.NatGateways[0].Tags
             ? result.NatGateways[0].Tags
             : [];
-        return resolve(service.NatGateway(logical, resource));
+        return resolve(service$1.NatGateway(logical, resource));
     }));
 };
 /**
@@ -46112,7 +46397,7 @@ const NetworkAcl = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.NetworkAcl(logical, resource));
+        return resolve(service$1.NetworkAcl(logical, resource));
     }));
 };
 /**
@@ -46122,7 +46407,7 @@ const NetworkAclEntry = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.NetworkAclEntry(logical, resource));
+        return resolve(service$1.NetworkAclEntry(logical, resource));
     }));
 };
 /**
@@ -46132,7 +46417,7 @@ const NetworkInterface = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.NetworkInterface(logical, resource));
+        return resolve(service$1.NetworkInterface(logical, resource));
     }));
 };
 /**
@@ -46142,7 +46427,7 @@ const NetworkInterfaceAttachment = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.NetworkInterfaceAttachment(logical, resource));
+        return resolve(service$1.NetworkInterfaceAttachment(logical, resource));
     }));
 };
 /**
@@ -46152,7 +46437,7 @@ const NetworkInterfacePermission = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.NetworkInterfacePermission(logical, resource));
+        return resolve(service$1.NetworkInterfacePermission(logical, resource));
     }));
 };
 /**
@@ -46162,7 +46447,7 @@ const PlacementGroup = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.PlacementGroup(logical, resource));
+        return resolve(service$1.PlacementGroup(logical, resource));
     }));
 };
 /**
@@ -46172,7 +46457,7 @@ const Route = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.Route(logical, resource));
+        return resolve(service$1.Route(logical, resource));
     }));
 };
 /**
@@ -46187,7 +46472,7 @@ const RouteTable = function (name, AWSClient, logical) {
             .promise();
         resource.VpcId = result.RouteTables[0].VpcId;
         resource.Tags = result.RouteTables[0].Tags;
-        return resolve(service.RouteTable(logical, resource));
+        return resolve(service$1.RouteTable(logical, resource));
     }));
 };
 /**
@@ -46197,7 +46482,7 @@ const SecurityGroup = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.SecurityGroup(logical, resource));
+        return resolve(service$1.SecurityGroup(logical, resource));
     }));
 };
 /**
@@ -46207,7 +46492,7 @@ const SecurityGroupEgress = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.SecurityGroupEgress(logical, resource));
+        return resolve(service$1.SecurityGroupEgress(logical, resource));
     }));
 };
 /**
@@ -46217,7 +46502,7 @@ const SecurityGroupIngress = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.SecurityGroupIngress(logical, resource));
+        return resolve(service$1.SecurityGroupIngress(logical, resource));
     }));
 };
 /**
@@ -46227,7 +46512,7 @@ const SpotFleet = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.SpotFleet(logical, resource));
+        return resolve(service$1.SpotFleet(logical, resource));
     }));
 };
 /**
@@ -46237,7 +46522,7 @@ const Subnet = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.Subnet(logical, resource));
+        return resolve(service$1.Subnet(logical, resource));
     }));
 };
 /**
@@ -46247,7 +46532,7 @@ const SubnetCidrBlock = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.SubnetCidrBlock(logical, resource));
+        return resolve(service$1.SubnetCidrBlock(logical, resource));
     }));
 };
 /**
@@ -46257,7 +46542,7 @@ const SubnetNetworkAclAssociation = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.SubnetNetworkAclAssociation(logical, resource));
+        return resolve(service$1.SubnetNetworkAclAssociation(logical, resource));
     }));
 };
 /**
@@ -46267,7 +46552,7 @@ const SubnetRouteTableAssociation = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.SubnetRouteTableAssociation(logical, resource));
+        return resolve(service$1.SubnetRouteTableAssociation(logical, resource));
     }));
 };
 /**
@@ -46277,7 +46562,7 @@ const Volume = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.Volume(logical, resource));
+        return resolve(service$1.Volume(logical, resource));
     }));
 };
 /**
@@ -46287,7 +46572,7 @@ const VolumeAttachment = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VolumeAttachment(logical, resource));
+        return resolve(service$1.VolumeAttachment(logical, resource));
     }));
 };
 /**
@@ -46297,7 +46582,7 @@ const VPC = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VPC(logical, resource));
+        return resolve(service$1.VPC(logical, resource));
     }));
 };
 /**
@@ -46307,7 +46592,7 @@ const VPCCidrBlock = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VPCCidrBlock(logical, resource));
+        return resolve(service$1.VPCCidrBlock(logical, resource));
     }));
 };
 /**
@@ -46317,7 +46602,7 @@ const VPCDHCPOptionsAssociation = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VPCDHCPOptionsAssociation(logical, resource));
+        return resolve(service$1.VPCDHCPOptionsAssociation(logical, resource));
     }));
 };
 /**
@@ -46327,7 +46612,7 @@ const VPCEndpoint = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VPCEndpoint(logical, resource));
+        return resolve(service$1.VPCEndpoint(logical, resource));
     }));
 };
 /**
@@ -46337,7 +46622,7 @@ const VPCGatewayAttachment = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VPCGatewayAttachment(logical, resource));
+        return resolve(service$1.VPCGatewayAttachment(logical, resource));
     }));
 };
 /**
@@ -46347,7 +46632,7 @@ const VPCPeeringConnection = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VPCPeeringConnection(logical, resource));
+        return resolve(service$1.VPCPeeringConnection(logical, resource));
     }));
 };
 /**
@@ -46357,7 +46642,7 @@ const VPNConnection = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VPNConnection(logical, resource));
+        return resolve(service$1.VPNConnection(logical, resource));
     }));
 };
 /**
@@ -46367,7 +46652,7 @@ const VPNConnectionRoute = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VPNConnectionRoute(logical, resource));
+        return resolve(service$1.VPNConnectionRoute(logical, resource));
     }));
 };
 /**
@@ -46377,7 +46662,7 @@ const VPNGateway = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VPNGateway(logical, resource));
+        return resolve(service$1.VPNGateway(logical, resource));
     }));
 };
 /**
@@ -46387,7 +46672,7 @@ const VPNGatewayRoutePropagation = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const client = new AWSClient.EC2();
         const resource = {};
-        return resolve(service.VPNGatewayRoutePropagation(logical, resource));
+        return resolve(service$1.VPNGatewayRoutePropagation(logical, resource));
     }));
 };
 /**
@@ -46437,7 +46722,7 @@ const EC2$1 = {
 /**
  * @hidden
  */
-const service$1 = Service(S3);
+const service$2 = Service(S3);
 /**
  * @hidden
  */
@@ -46575,7 +46860,7 @@ const Bucket = function (name, AWSClient, logical) {
         if (metricsResults) {
             resource.MetricsConfigurations = metricsResults.MetricsConfigurationList;
         }
-        return resolve(service$1.Bucket(logical, resource));
+        return resolve(service$2.Bucket(logical, resource));
     }));
 };
 /**
@@ -46601,7 +46886,7 @@ const BucketPolicy = function (name, AWSClient, logical) {
                 Bucket: name,
                 PolicyDocument: Policy
             };
-            resolve(service$1.BucketPolicy(logical, resource));
+            resolve(service$2.BucketPolicy(logical, resource));
         }
         catch (e) {
             // Silently catch Error: The bucket policy does not exist
@@ -46640,7 +46925,9 @@ const Transform = {
     CertificateManager
     CloudFormation
     CloudFront
-    CloudTrail
+    */
+    CloudTrail: CloudTrail$1,
+    /*
     CloudWatch
     CodeBuild
     CodeCommit
