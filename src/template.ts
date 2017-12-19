@@ -184,6 +184,19 @@ export function Template(): ITemplate {
       return result;
     },
     /**
+     * Checks to see if an element is in the current template. 
+     * Returns true if it is in the template, false if it is not found.
+     */
+    has: function(query: string): boolean {
+      const [resource, attribute] = query.split('.');
+      if (attribute && this.Resources[resource].Properties[attribute]) {
+        return true;
+      }
+      if (this.Resources[query]) { return true; }
+      if (this.Parameters[query]) { return true; }
+      return false;
+    },
+    /**
      * Import an existing CloudFormation JSON template and convert it into a Wolkenkratzer Template object.
      * @example
      * const templateJson = require('template.json');
