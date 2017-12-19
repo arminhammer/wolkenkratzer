@@ -85,7 +85,7 @@ describe('CloudTrail Trail Transform', () => {
     const resource = await Transform.CloudTrail.TrailList(
       client,
     );
-    const t = Template().map(resource, r => r);
+    const t = Template().add(resource);
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
       Resources: {

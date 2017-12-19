@@ -75,6 +75,7 @@ export function Template(): ITemplate {
     add: function(
       e:
         | IElement
+        | IElement[]
         | ICreationPolicy
         | IDeletionPolicy
         | IResourceMetadata
@@ -82,75 +83,14 @@ export function Template(): ITemplate {
         | IUpdatePolicy,
       options?: IAddOptions
     ): ITemplate {
-      const _t = cloneDeep(this);
-      switch (e.kind) {
-        case 'CreationPolicy':
-          return _addCreationPolicy(_t, e);
-        case 'DeletionPolicy':
-          return _addDeletionPolicy(_t, e);
-        case 'DependsOn':
-          return _addDependsOn(_t, e);
-        case 'ResourceMetadata':
-          return _addResourceMetadata(_t, e);
-        case 'UpdatePolicy':
-          return _addUpdatePolicy(_t, e);
-        case 'Condition':
-          return _addCondition(_t, e);
-        case 'Mapping':
-          return _addMapping(_t, e);
-        case 'Parameter':
-          return _addParameter(_t, e);
-        case 'Output':
-          return _addOutput(_t, e);
-        case 'Resource':
-          let newT = _t;
-          const f: any = cloneDeep(e);
-          if (options) {
-            const nameSplit = f.Type.split('::').splice(1);
-            const shortName = nameSplit.join('');
-            if (options.Parameters) {
-              options.Parameters.map(p => {
-                const paramName = `${f.Name}${shortName}Param`;
-                if (!f.Properties) {
-                  f.Properties = {};
-                }
-                f.Properties[p] = Ref(paramName);
-                newT = _addParameter(
-                  newT,
-                  Parameter(paramName, {
-                    Type: 'String'
-                  })
-                );
-              });
-            }
-            newT = _addResource(newT, f);
-            if (options.Output) {
-              newT = _addOutput(
-                newT,
-                Output(`${f.Name}${shortName}Output`, {
-                  Condition: f.Condition,
-                  Export: {
-                    Name: FnSub(
-                      `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${
-                        nameSplit[1]
-                      }-${f.Name}`
-                    )
-                  },
-                  Value: Ref(f.Name)
-                })
-              );
-            }
-          } else {
-            newT = _addResource(_t, f);
-          }
-          return newT;
-        case 'Description':
-          return _addDescription(_t, e);
-        default:
-          throw new SyntaxError(
-            `${JSON.stringify(e)} is not a valid type, could not be added.`
-          );
+      if (Array.isArray(e)) {
+        let _t = cloneDeep(this);
+        e.forEach(elem => {
+          _t = _add(_t, elem, options);
+        });
+        return _t;
       }
+      return _add(this, e, options);
     },
     /**
      * Returns a finished CloudFormation template object. This can then be converted into JSON or YAML.
@@ -207,16 +147,6 @@ export function Template(): ITemplate {
       return _calcFromExistingTemplate(_t, inputTemplate);
     },
     kind: 'Template',
-    /**
-     * Add elements to the Template in a functional way.
-     */
-    map: function(iterable: Array<IElement>, mapFn: Function): ITemplate {
-      let result = cloneDeep(this);
-      iterable.map(i => {
-        result = result.add(mapFn(i));
-      });
-      return result;
-    },
     /**
      * Merges another Template object into another. The original Template objects are not mutated.
      * Returns a new Template object that is the product of the two original Template objects.
@@ -396,6 +326,91 @@ export function Template(): ITemplate {
       return templateString;
     }
   };
+}
+
+/**
+ * @hidden
+ */
+function _add(
+  template: ITemplate,
+  e:
+    | IElement
+    | ICreationPolicy
+    | IDeletionPolicy
+    | IResourceMetadata
+    | IDependsOn
+    | IUpdatePolicy,
+  options?: IAddOptions
+): ITemplate {
+  const _t = cloneDeep(template);
+  switch (e.kind) {
+    case 'CreationPolicy':
+      return _addCreationPolicy(_t, e);
+    case 'DeletionPolicy':
+      return _addDeletionPolicy(_t, e);
+    case 'DependsOn':
+      return _addDependsOn(_t, e);
+    case 'ResourceMetadata':
+      return _addResourceMetadata(_t, e);
+    case 'UpdatePolicy':
+      return _addUpdatePolicy(_t, e);
+    case 'Condition':
+      return _addCondition(_t, e);
+    case 'Mapping':
+      return _addMapping(_t, e);
+    case 'Parameter':
+      return _addParameter(_t, e);
+    case 'Output':
+      return _addOutput(_t, e);
+    case 'Resource':
+      let newT = _t;
+      const f: any = cloneDeep(e);
+      if (options) {
+        const nameSplit = f.Type.split('::').splice(1);
+        const shortName = nameSplit.join('');
+        if (options.Parameters) {
+          options.Parameters.map(p => {
+            const paramName = `${f.Name}${shortName}Param`;
+            if (!f.Properties) {
+              f.Properties = {};
+            }
+            f.Properties[p] = Ref(paramName);
+            newT = _addParameter(
+              newT,
+              Parameter(paramName, {
+                Type: 'String'
+              })
+            );
+          });
+        }
+        newT = _addResource(newT, f);
+        if (options.Output) {
+          newT = _addOutput(
+            newT,
+            Output(`${f.Name}${shortName}Output`, {
+              Condition: f.Condition,
+              Export: {
+                Name: FnSub(
+                  `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${
+                    nameSplit[1]
+                  }-${f.Name}`
+                )
+              },
+              Value: Ref(f.Name)
+            })
+          );
+        }
+      } else {
+        newT = _addResource(_t, f);
+      }
+      return newT;
+    case 'Description':
+      return _addDescription(_t, e);
+    default:
+      throw new SyntaxError(
+        `${JSON.stringify(e)} is not a valid type, could not be added.`
+      );
+  }
 }
 
 /**

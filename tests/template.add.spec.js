@@ -1,7 +1,7 @@
 const { Template, Mapping, Parameter } = require('../src/index');
 
 describe('Template', () => {
-  test('Can use Template.map()', () => {
+  test('Can use Template.add() with an array of Mappings', () => {
     const regions = [
       'us-east-1',
       'us-west-1',
@@ -15,11 +15,11 @@ describe('Template', () => {
       'eu-central-1'
     ];
     const t = Template()
-      .map(regions, r =>
-        Mapping('Region2S3WebsiteSuffix', r, {
+      .add(regions.map(r =>
+        (Mapping('Region2S3WebsiteSuffix', r, {
           Suffix: `.s3-website-${r}.amazonaws.com`
         })
-      )
+      )))
       .add(
         Parameter('HostedZone', {
           Type: 'String',
