@@ -6,7 +6,10 @@
 
 # Welcome to Wolkenkratzer!
 
-Wolkenkratzer is a Javascript library that allows you to programmatically generate AWS CloudFormation templates. 
+Wolkenkratzer is a Javascript library that allows you to programmatically generate AWS CloudFormation templates. It can import and modify existing templates, create
+templates based off of existing resources in AWS, and output templates in JSON and Yaml.
+
+The library targets 100% feature parity with CloudFormation. This is accomplished by using the CloudFormation Resource Specification.
 
 ## Warning
 
@@ -34,7 +37,7 @@ Results in:
   "Resources": {
     "Bucket": {
       "Type": "AWS::S3::Bucket",
-        "Properties": {}
+      "Properties": {}
     }
   },
   "Outputs": {
@@ -75,19 +78,19 @@ Result:
   },
   "Parameters": {
     "BucketS3BucketParam": {
-        "Type": "String"
+      "Type": "String"
     }
   },
   "Outputs": {
     "BucketS3BucketOutput": {
-        "Value": {
-            "Ref": "Bucket"
-        },
-        "Export": {
-            "Name": {
-                "Fn::Sub": "${AWS::StackName}-S3-Bucket-Bucket"
-            }
+      "Value": {
+        "Ref": "Bucket"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-S3-Bucket-Bucket"
         }
+      }
     }
   }
 }

@@ -1,9 +1,20 @@
-const { Template, CloudFormation, CreationPolicy } = require('../../src/index');
+const {
+  Template,
+  CloudFormation,
+  CreationPolicy,
+  Ref
+} = require('../../src/index');
 
 describe('CreationPolicy', () => {
   test('Can add a CreationPolicy', () => {
     const t = Template()
-      .add(CloudFormation.WaitCondition('WaitCondition'))
+      .add(CloudFormation.WaitConditionHandle('Handle'))
+      .add(
+        CloudFormation.WaitCondition('WaitCondition', {
+          Handle: Ref('Handle'),
+          Timeout: '300'
+        })
+      )
       .add(
         CreationPolicy('WaitCondition', {
           ResourceSignal: {
@@ -15,6 +26,9 @@ describe('CreationPolicy', () => {
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
       Resources: {
+        Handle: {
+          Type: 'AWS::CloudFormation::WaitConditionHandle',
+        },
         WaitCondition: {
           CreationPolicy: {
             ResourceSignal: {
@@ -22,7 +36,13 @@ describe('CreationPolicy', () => {
               Timeout: 'PT15M'
             }
           },
-          Type: 'AWS::CloudFormation::WaitCondition'
+          Properties: {
+                     Handle:  {
+                       Ref: 'Handle',
+                     },
+                     Timeout: '300',
+                   },
+          Type: 'AWS::CloudFormation::WaitCondition';
         }
       }
     });

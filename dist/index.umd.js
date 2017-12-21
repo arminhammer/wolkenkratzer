@@ -21405,8 +21405,9 @@ var lodash = createCommonjsModule(function (module, exports) {
 
 var lodash_1 = lodash.cloneDeep;
 var lodash_2 = lodash.compact;
-var lodash_3 = lodash.omit;
-var lodash_4 = lodash.merge;
+var lodash_3 = lodash.isEmpty;
+var lodash_4 = lodash.omit;
+var lodash_5 = lodash.merge;
 
 function CreationPolicy(resource, content) {
     if (!resource ||
@@ -21693,6 +21694,9 @@ function Parameter(name, properties) {
 function Resource(name, properties, options) {
     if (!name) {
         throw new SyntaxError(`New Resource is invalid. A Name is required.`);
+    }
+    if (!properties) {
+        properties = {};
     }
     if (properties) {
         _validateProperties(properties, this.name, this.json);
@@ -45362,7 +45366,14 @@ function _validateFnGetAtt(t, att) {
     if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
         throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
     }
-    return;
+    const [begin, service, resource] = t.Resources[att.FnGetAtt[0]].Type.split('::');
+    if (begin === 'AWS' && stubs[service]) {
+        const validAttributes = Object.keys(stubs[service].Resources[resource].Attributes);
+        if (!validAttributes.includes(att.FnGetAtt[1])) {
+            throw new SyntaxError(`${att.FnGetAtt[1]} is not a valid attribute of 
+      ${att.FnGetAtt[0]}`);
+        }
+    }
 }
 /**
  * @hidden
@@ -45397,7 +45408,7 @@ function _buildResource(t) {
     const { Type, Properties, CreationPolicy: CreationPolicy$$1, DeletionPolicy: DeletionPolicy$$1, DependsOn: DependsOn$$1, Metadata, Condition: condition, UpdatePolicy: UpdatePolicy$$1 } = newT;
     const newProps = {};
     const result = { Type };
-    if (Properties) {
+    if (Properties && !lodash_3(Properties)) {
         Object.keys(Properties).forEach(p => {
             // Ignore empty arrays
             if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
@@ -45864,6 +45875,7 @@ function _addMapping(t, e) {
  * @param e
  */
 function _addResource(t, e) {
+    _validateResourceIntrinsics(t, e);
     const result = Object.assign({}, t);
     const newResources = lodash_1(result.Resources);
     newResources[e.Name] = e;
@@ -45890,7 +45902,7 @@ function _removeMapping(t, e) {
         mapping = e;
     }
     if (result.Mappings[mapping.Name]) {
-        result.Mappings = lodash_3(result.Mappings, mapping.Name);
+        result.Mappings = lodash_4(result.Mappings, mapping.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(mapping)}`);
@@ -45917,7 +45929,7 @@ function _removeOutput(t, e) {
         out = e;
     }
     if (result.Outputs[out.Name]) {
-        result.Outputs = lodash_3(result.Outputs, out.Name);
+        result.Outputs = lodash_4(result.Outputs, out.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
@@ -45932,7 +45944,7 @@ function _removeOutput(t, e) {
 function _removeResource(t, e) {
     const result = lodash_1(t);
     if (result.Resources[e.Name]) {
-        result.Resources = lodash_3(result.Resources, e.Name);
+        result.Resources = lodash_4(result.Resources, e.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
@@ -45959,7 +45971,7 @@ function _removeParameter(t, e) {
         param = e;
     }
     if (result.Parameters[param.Name]) {
-        result.Parameters = lodash_3(result.Parameters, param.Name);
+        result.Parameters = lodash_4(result.Parameters, param.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
@@ -46030,6 +46042,30 @@ function _calcFromExistingTemplate(t, inputTemplate) {
         });
     }
     return t;
+}
+/**
+ * @hidden
+ */
+function _validateResourceIntrinsics(t, e) {
+    if (e) {
+        Object.keys(e).forEach(x => {
+            if (e[x] &&
+                typeof e[x] !== 'string' &&
+                (Array.isArray(e[x]) || Object.keys(e[x]).length > 0)) {
+                if (e[x].kind) {
+                    if (e[x].kind === 'FnGetAtt') {
+                        _validateFnGetAtt(t, e[x]);
+                    }
+                    else if (e[x].kind === 'Ref') {
+                        _validateRef(t, e[x]);
+                    }
+                }
+                else {
+                    _validateResourceIntrinsics(t, e[x]);
+                }
+            }
+        });
+    }
 }
 
 /*! *****************************************************************************

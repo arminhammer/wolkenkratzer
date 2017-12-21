@@ -1,6 +1,6 @@
 import cftSchema from 'cloudformation-schema-js-yaml';
 import { safeDump } from 'js-yaml';
-import { cloneDeep, omit } from 'lodash';
+import { cloneDeep, isEmpty, omit } from 'lodash';
 import { CreationPolicy as CreationPolicyConstructor } from './attributes/creationpolicy';
 import { DeletionPolicy as DeletionPolicyConstructor } from './attributes/deletionpolicy';
 import { DependsOn as DependsOnConstructor } from './attributes/dependson';
@@ -124,7 +124,7 @@ export function Template(): ITemplate {
       return result;
     },
     /**
-     * Checks to see if an element is in the current template. 
+     * Checks to see if an element is in the current template.
      * Returns true if it is in the template, false if it is not found.
      */
     has: function(query: string): boolean {
@@ -132,8 +132,12 @@ export function Template(): ITemplate {
       if (attribute && this.Resources[resource].Properties[attribute]) {
         return true;
       }
-      if (this.Resources[query]) { return true; }
-      if (this.Parameters[query]) { return true; }
+      if (this.Resources[query]) {
+        return true;
+      }
+      if (this.Parameters[query]) {
+        return true;
+      }
       return false;
     },
     /**
@@ -444,7 +448,18 @@ function _validateFnGetAtt(t: ITemplate, att: IFnGetAtt): void | SyntaxError {
   if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
     throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
   }
-  return;
+  const [begin, service, resource] = t.Resources[att.FnGetAtt[0]].Type.split(
+    '::'
+  );
+  if (begin === 'AWS' && stubs[service]) {
+    const validAttributes = Object.keys(
+      stubs[service].Resources[resource].Attributes
+    );
+    if (!validAttributes.includes(att.FnGetAtt[1])) {
+      throw new SyntaxError(`${att.FnGetAtt[1]} is not a valid attribute of 
+      ${att.FnGetAtt[0]}`);
+    }
+  }
 }
 
 /**
@@ -488,7 +503,7 @@ function _buildResource(t: IResource) {
   } = newT;
   const newProps = {};
   const result: any = { Type };
-  if (Properties) {
+  if (Properties && !isEmpty(Properties)) {
     Object.keys(Properties).forEach(p => {
       // Ignore empty arrays
       if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
@@ -1007,6 +1022,7 @@ function _addMapping(t: ITemplate, e: IMapping): ITemplate {
  * @param e
  */
 function _addResource(t: ITemplate, e: IResource): ITemplate {
+  _validateResourceIntrinsics(t, e);
   const result = { ...t };
   const newResources: any = cloneDeep(result.Resources);
   newResources[e.Name] = e;
@@ -1191,4 +1207,32 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
     });
   }
   return t;
+}
+
+/**
+ * @hidden
+ */
+function _validateResourceIntrinsics(
+  t: ITemplate,
+  e: IResource | any
+): void | SyntaxError {
+  if (e) {
+    Object.keys(e).forEach(x => {
+      if (
+        e[x] &&
+        typeof e[x] !== 'string' &&
+        (Array.isArray(e[x]) || Object.keys(e[x]).length > 0)
+      ) {
+        if (e[x].kind) {
+          if (e[x].kind === 'FnGetAtt') {
+            _validateFnGetAtt(t, e[x]);
+          } else if (e[x].kind === 'Ref') {
+            _validateRef(t, e[x]);
+          }
+        } else {
+          _validateResourceIntrinsics(t, e[x]);
+        }
+      }
+    });
+  }
 }

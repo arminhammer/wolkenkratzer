@@ -372,7 +372,14 @@
         if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
             throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
         }
-        return;
+        const [begin, service, resource] = t.Resources[att.FnGetAtt[0]].Type.split('::');
+        if (begin === 'AWS' && stubs[service]) {
+            const validAttributes = Object.keys(stubs[service].Resources[resource].Attributes);
+            if (!validAttributes.includes(att.FnGetAtt[1])) {
+                throw new SyntaxError(`${att.FnGetAtt[1]} is not a valid attribute of 
+      ${att.FnGetAtt[0]}`);
+            }
+        }
     }
     /**
      * @hidden
@@ -407,7 +414,7 @@
         const { Type, Properties, CreationPolicy, DeletionPolicy, DependsOn, Metadata, Condition: condition, UpdatePolicy } = newT;
         const newProps = {};
         const result = { Type };
-        if (Properties) {
+        if (Properties && !lodash_1.isEmpty(Properties)) {
             Object.keys(Properties).forEach(p => {
                 // Ignore empty arrays
                 if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
@@ -875,6 +882,7 @@
      * @param e
      */
     function _addResource(t, e) {
+        _validateResourceIntrinsics(t, e);
         const result = Object.assign({}, t);
         const newResources = lodash_1.cloneDeep(result.Resources);
         newResources[e.Name] = e;
@@ -1041,6 +1049,30 @@
             });
         }
         return t;
+    }
+    /**
+     * @hidden
+     */
+    function _validateResourceIntrinsics(t, e) {
+        if (e) {
+            Object.keys(e).forEach(x => {
+                if (e[x] &&
+                    typeof e[x] !== 'string' &&
+                    (Array.isArray(e[x]) || Object.keys(e[x]).length > 0)) {
+                    if (e[x].kind) {
+                        if (e[x].kind === 'FnGetAtt') {
+                            _validateFnGetAtt(t, e[x]);
+                        }
+                        else if (e[x].kind === 'Ref') {
+                            _validateRef(t, e[x]);
+                        }
+                    }
+                    else {
+                        _validateResourceIntrinsics(t, e[x]);
+                    }
+                }
+            });
+        }
     }
 });
 //# sourceMappingURL=template.js.map
