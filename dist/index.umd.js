@@ -45729,94 +45729,14 @@ function _calcFromExistingTemplate(t, inputTemplate) {
  * @param t
  * @param e
  */
-function _removeMapping(t, e) {
+function _remove(t, e) {
     const result = Object.assign({}, t);
-    let mapping;
-    if (typeof e === 'string') {
-        if (result.Mappings[e]) {
-            mapping = result.Mappings[e];
-        }
-        else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-        }
-    }
-    else {
-        mapping = e;
-    }
-    if (result.Mappings[mapping.Name]) {
-        result.Mappings = lodash_4(result.Mappings, mapping.Name);
-    }
-    else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(mapping)}`);
-    }
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _removeOutput(t, e) {
-    const result = Object.assign({}, t);
-    let out;
-    if (typeof e === 'string') {
-        if (result.Outputs[e]) {
-            out = result.Outputs[e];
-        }
-        else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-        }
-    }
-    else {
-        out = e;
-    }
-    if (result.Outputs[out.Name]) {
-        result.Outputs = lodash_4(result.Outputs, out.Name);
-    }
-    else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
-    }
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _removeResource(t, e) {
-    const result = lodash_1(t);
-    if (result.Resources[e.Name]) {
-        result.Resources = lodash_4(result.Resources, e.Name);
+    const block = `${e.kind}s`;
+    if (result[block][e.Name]) {
+        result[block] = lodash_4(result[block], e.Name);
     }
     else {
         throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-    }
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _removeParameter(t, e) {
-    const result = Object.assign({}, t);
-    let param;
-    if (typeof e === 'string') {
-        if (result.Parameters[e]) {
-            param = result.Parameters[e];
-        }
-        else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-        }
-    }
-    else {
-        param = e;
-    }
-    if (result.Parameters[param.Name]) {
-        result.Parameters = lodash_4(result.Parameters, param.Name);
-    }
-    else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
     }
     return result;
 }
@@ -46003,20 +45923,7 @@ function Template() {
             else {
                 element = e;
             }
-            switch (element.kind) {
-                /*case 'Condition':
-                            return _removeCondition(this, e);*/
-                case 'Parameter':
-                    return _removeParameter(this, element);
-                case 'Output':
-                    return _removeOutput(this, element);
-                case 'Resource':
-                    return _removeResource(this, element);
-                case 'Mapping':
-                    return _removeMapping(this, element);
-                default:
-                    throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
-            }
+            return _remove(this, element);
         },
         /**
          * Removes the Description from the Template.
