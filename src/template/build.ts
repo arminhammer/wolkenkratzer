@@ -201,56 +201,9 @@ function _buildFnBase64(t: IFnBase64) {
 /**
  * @hidden
  */
-function _buildFnAnd(t: IFnAnd) {
-  return t.FnAnd.map(x => {
-    if (typeof x === 'string') {
-      return x;
-    } else {
-      if (x.kind) {
-        return _json(x);
-      }
-      return x;
-    }
-  });
-}
-
-/**
- * @hidden
- */
-function _buildFnNot(t: IFnNot) {
-  return t.FnNot.map(x => {
-    if (typeof x === 'string') {
-      return x;
-    } else {
-      if (x.kind) {
-        return _json(x);
-      }
-      return x;
-    }
-  });
-}
-
-/**
- * @hidden
- */
-function _buildFnIf(t: IFnIf) {
-  return t.FnIf.map(x => {
-    if (typeof x === 'string') {
-      return x;
-    } else {
-      if (x.kind) {
-        return _json(x);
-      }
-      return x;
-    }
-  });
-}
-
-/**
- * @hidden
- */
-function _buildFnEquals(t: IFnEquals) {
-  return t.FnEquals.map(x => {
+function _buildFnBlock(t: IFnAnd | IFnIf | IFnEquals | IFnNot) {
+  const block: string = t.kind;
+  return t[block].map(x => {
     if (typeof x === 'string') {
       return x;
     } else {
@@ -374,15 +327,15 @@ function _json(
     case 'FnJoin':
       return _buildFnJoin(t);
     case 'FnAnd':
-      return { 'Fn::And': _buildFnAnd(t) };
+      return { 'Fn::And': _buildFnBlock(t) };
     case 'FnNot':
-      return { 'Fn::Not': _buildFnNot(t) };
+      return { 'Fn::Not': _buildFnBlock(t) };
     case 'FnIf':
-      return { 'Fn::If': _buildFnIf(t) };
+      return { 'Fn::If': _buildFnBlock(t) };
     case 'FnFindInMap':
       return { 'Fn::FindInMap': _buildFnFindInMap(t) };
     case 'FnEquals':
-      return { 'Fn::Equals': _buildFnEquals(t) };
+      return { 'Fn::Equals': _buildFnBlock(t) };
     case 'FnImportValue':
       return { 'Fn::ImportValue': _buildFnImportValue(t) };
     case 'FnOr':
