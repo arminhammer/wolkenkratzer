@@ -1,67 +1,27 @@
+import { CreationPolicy as CreationPolicyConstructor } from '../attributes/creationpolicy';
+import { DeletionPolicy as DeletionPolicyConstructor } from '../attributes/deletionpolicy';
+import { DependsOn as DependsOnConstructor } from '../attributes/dependson';
+import { ResourceMetadata as ResourceMetadataConstructor } from '../attributes/metadata';
+import { UpdatePolicy as UpdatePolicyConstructor } from '../attributes/updatepolicy';
+import { Condition } from '../elements/condition';
+import { Description } from '../elements/description';
+import { Mapping } from '../elements/mapping';
+import { Output } from '../elements/output';
+import { Parameter } from '../elements/parameter';
+import { CustomResource } from '../elements/resource';
+import { Service } from '../service';
+import * as stubs from '../spec/spec';
+import { ITemplate } from '../types';
 import {
-  _add,
-  _addCondition,
   _addCreationPolicy,
   _addDeletionPolicy,
   _addDependsOn,
   _addDescription,
   _addMapping,
   _addOutput,
-  _addParameter,
-  _addResource,
   _addResourceMetadata,
   _addUpdatePolicy,
 } from './add';
-
-import { CreationPolicy as CreationPolicyConstructor } from '../attributes/creationpolicy';
-import { DeletionPolicy as DeletionPolicyConstructor } from '../attributes/deletionpolicy';
-import { DependsOn as DependsOnConstructor } from '../attributes/dependson';
-import { ResourceMetadata as ResourceMetadataConstructor } from '../attributes/metadata';
-import { UpdatePolicy as UpdatePolicyConstructor } from '../attributes/updatepolicy';
-
-import { Condition } from '../elements/condition';
-import { Description } from '../elements/description';
-import { Mapping } from '../elements/mapping';
-import { Output } from '../elements/output';
-import { Parameter } from '../elements/parameter';
-import { Service } from '../service';
-
-import { CustomResource } from '../elements/resource';
-
-import * as stubs from '../spec/spec';
-
-import {
-  IAddOptions,
-  IAttribute,
-  ICondition,
-  ICreationPolicy,
-  IDeletionPolicy,
-  IDependsOn,
-  IDescription,
-  IElement,
-  IFnAnd,
-  IFnBase64,
-  IFnEquals,
-  IFnFindInMap,
-  IFnGetAtt,
-  IFnGetAZs,
-  IFnIf,
-  IFnImportValue,
-  IFnJoin,
-  IFnNot,
-  IFnOr,
-  IFnSelect,
-  IFnSplit,
-  IFnSub,
-  IMapping,
-  IOutput,
-  IParameter,
-  IRef,
-  IResource,
-  IResourceMetadata,
-  ITemplate,
-  IUpdatePolicy,
-} from '../types';
 
 /**
  * @hidden

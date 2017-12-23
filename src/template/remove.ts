@@ -1,21 +1,13 @@
-import { cloneDeep, isEmpty, omit } from 'lodash';
+import { cloneDeep, omit } from 'lodash';
 import {
-  IAddOptions,
-  ICondition,
-  ICreationPolicy,
-  IDeletionPolicy,
   IDependsOn,
   IDescription,
   IElement,
-  IFnGetAtt,
   IMapping,
   IOutput,
   IParameter,
-  IRef,
   IResource,
-  IResourceMetadata,
   ITemplate,
-  IUpdatePolicy,
 } from '../types';
 
 /**

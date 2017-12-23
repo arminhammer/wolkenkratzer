@@ -1,4 +1,4 @@
-import { cloneDeep, isEmpty, omit } from 'lodash';
+import { cloneDeep } from 'lodash';
 import { Output } from '../elements/output';
 import { Parameter } from '../elements/parameter';
 import { FnGetAtt, FnSub, Ref } from '../intrinsic';
@@ -11,11 +11,9 @@ import {
   IDependsOn,
   IDescription,
   IElement,
-  IFnGetAtt,
   IMapping,
   IOutput,
   IParameter,
-  IRef,
   IResource,
   IResourceMetadata,
   ITemplate,

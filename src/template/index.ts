@@ -1,44 +1,17 @@
 import cftSchema from 'cloudformation-schema-js-yaml';
 import { safeDump } from 'js-yaml';
-import { cloneDeep, isEmpty, omit } from 'lodash';
-import { CreationPolicy as CreationPolicyConstructor } from '../attributes/creationpolicy';
-import { DeletionPolicy as DeletionPolicyConstructor } from '../attributes/deletionpolicy';
-import { DependsOn as DependsOnConstructor } from '../attributes/dependson';
-import { ResourceMetadata as ResourceMetadataConstructor } from '../attributes/metadata';
-import { UpdatePolicy as UpdatePolicyConstructor } from '../attributes/updatepolicy';
-import { Condition } from '../elements/condition';
-import { Description } from '../elements/description';
-import { Mapping } from '../elements/mapping';
+import { cloneDeep } from 'lodash';
 import { Output } from '../elements/output';
 import { Parameter } from '../elements/parameter';
-import { CustomResource } from '../elements/resource';
-import { FnGetAtt, FnSub, Ref } from '../intrinsic';
+import { Ref } from '../intrinsic';
+import * as stubs from '../spec/spec';
 // import { IMetadata } from './elements/metadata';
-import { Pseudo } from '../pseudo';
-import { Service } from '../service';
 import {
   IAddOptions,
-  IAttribute,
-  ICondition,
   ICreationPolicy,
   IDeletionPolicy,
   IDependsOn,
-  IDescription,
   IElement,
-  IFnAnd,
-  IFnBase64,
-  IFnEquals,
-  IFnFindInMap,
-  IFnGetAtt,
-  IFnGetAZs,
-  IFnIf,
-  IFnImportValue,
-  IFnJoin,
-  IFnNot,
-  IFnOr,
-  IFnSelect,
-  IFnSplit,
-  IFnSub,
   IMapping,
   IOutput,
   IParameter,
@@ -48,23 +21,7 @@ import {
   ITemplate,
   IUpdatePolicy,
 } from '../types';
-
-import * as stubs from '../spec/spec';
-
-import {
-  _add,
-  _addCondition,
-  _addCreationPolicy,
-  _addDeletionPolicy,
-  _addDependsOn,
-  _addDescription,
-  _addMapping,
-  _addOutput,
-  _addParameter,
-  _addResource,
-  _addResourceMetadata,
-  _addUpdatePolicy,
-} from './add';
+import { _add, _addOutput, _addParameter } from './add';
 import { _json } from './build';
 import { _calcFromExistingTemplate } from './import';
 import {
@@ -73,12 +30,6 @@ import {
   _removeParameter,
   _removeResource,
 } from './remove';
-import { _isEmptyObject } from './util';
-import {
-  _validateFnGetAtt,
-  _validateRef,
-  _validateResourceIntrinsics,
-} from './validate';
 
 /** @module Template */
 

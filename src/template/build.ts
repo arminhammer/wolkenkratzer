@@ -1,12 +1,10 @@
 import { cloneDeep, isEmpty, omit } from 'lodash';
 import {
-  IAddOptions,
   IAttribute,
   ICondition,
   ICreationPolicy,
   IDeletionPolicy,
   IDependsOn,
-  IDescription,
   IElement,
   IFnAnd,
   IFnBase64,
@@ -24,11 +22,9 @@ import {
   IFnSub,
   IMapping,
   IOutput,
-  IParameter,
   IRef,
   IResource,
   IResourceMetadata,
-  ITemplate,
   IUpdatePolicy,
 } from '../types';
 import { _isEmptyObject } from './util';
