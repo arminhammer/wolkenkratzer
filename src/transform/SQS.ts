@@ -18,8 +18,8 @@ const QueueList: TransformListFunctionType = function(
     const queues = await Promise.all(
       QueueUrls.map(q =>
         AWSClient.getQueueAttributes({
-          QueueUrl: q,
           AttributeNames: ['All'],
+          QueueUrl: q,
         }).promise()
       )
     );
@@ -56,8 +56,8 @@ const QueuePolicyList: TransformListFunctionType = function(
     const queues = await Promise.all(
       QueueUrls.map(q =>
         AWSClient.getQueueAttributes({
-          QueueUrl: q,
           AttributeNames: ['All'],
+          QueueUrl: q,
         }).promise()
       )
     );
