@@ -100,6 +100,13 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
   return t;
 }
 
+/**
+ * @hidden
+ * @param t
+ * @param inputTemplate
+ * @param blockType
+ * @param method
+ */
 function _addIterate(
   t: ITemplate,
   inputTemplate: any,
