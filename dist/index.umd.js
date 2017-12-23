@@ -46114,8 +46114,9 @@ const service = Service(CloudTrail);
  */
 const Trail = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const { trailList } = yield AWSClient.describeTrails({ trailNameList: [name] })
-            .promise();
+        const { trailList } = yield AWSClient.describeTrails({
+            trailNameList: [name],
+        }).promise();
         const resource = {
             CloudWatchLogsLogGroupArn: trailList[0].CloudWatchLogsLogGroupArn,
             CloudWatchLogsRoleArn: trailList[0].CloudWatchLogsRoleArn,
@@ -46127,7 +46128,7 @@ const Trail = function (name, AWSClient, logical) {
             S3BucketName: trailList[0].S3BucketName,
             S3KeyPrefix: trailList[0].S3KeyPrefix,
             SnsTopicName: trailList[0].SnsTopicName,
-            TrailName: name
+            TrailName: name,
         };
         resolve(service.Trail(logical, resource));
     }));
@@ -46137,8 +46138,7 @@ const Trail = function (name, AWSClient, logical) {
  */
 const TrailList = function (AWSClient) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const { trailList } = yield AWSClient.describeTrails()
-            .promise();
+        const { trailList } = yield AWSClient.describeTrails().promise();
         const resources = trailList.map(t => service.Trail(t.Name, {
             CloudWatchLogsLogGroupArn: t.CloudWatchLogsLogGroupArn,
             CloudWatchLogsRoleArn: t.CloudWatchLogsRoleArn,
@@ -46150,7 +46150,7 @@ const TrailList = function (AWSClient) {
             S3BucketName: t.S3BucketName,
             S3KeyPrefix: t.S3KeyPrefix,
             SnsTopicName: t.SnsTopicName,
-            TrailName: t.Name
+            TrailName: t.Name,
         }));
         resolve(resources);
     }));
@@ -46160,7 +46160,7 @@ const TrailList = function (AWSClient) {
  */
 const CloudTrail$1 = {
     Trail,
-    TrailList
+    TrailList,
 };
 
 /**
@@ -46269,7 +46269,7 @@ const EIP = function (name, AWSClient, logical) {
  */
 const EIPAssociation = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.EIPAssociation(logical, resource));
     }));
@@ -46431,7 +46431,7 @@ const NatGateway = function (name, AWSClient, logical) {
  */
 const NetworkAcl = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.NetworkAcl(logical, resource));
     }));
@@ -46441,7 +46441,7 @@ const NetworkAcl = function (name, AWSClient, logical) {
  */
 const NetworkAclEntry = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.NetworkAclEntry(logical, resource));
     }));
@@ -46451,7 +46451,7 @@ const NetworkAclEntry = function (name, AWSClient, logical) {
  */
 const NetworkInterface = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.NetworkInterface(logical, resource));
     }));
@@ -46461,7 +46461,7 @@ const NetworkInterface = function (name, AWSClient, logical) {
  */
 const NetworkInterfaceAttachment = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.NetworkInterfaceAttachment(logical, resource));
     }));
@@ -46471,7 +46471,7 @@ const NetworkInterfaceAttachment = function (name, AWSClient, logical) {
  */
 const NetworkInterfacePermission = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.NetworkInterfacePermission(logical, resource));
     }));
@@ -46481,7 +46481,7 @@ const NetworkInterfacePermission = function (name, AWSClient, logical) {
  */
 const PlacementGroup = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.PlacementGroup(logical, resource));
     }));
@@ -46491,7 +46491,7 @@ const PlacementGroup = function (name, AWSClient, logical) {
  */
 const Route = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.Route(logical, resource));
     }));
@@ -46516,7 +46516,7 @@ const RouteTable = function (name, AWSClient, logical) {
  */
 const SecurityGroup = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.SecurityGroup(logical, resource));
     }));
@@ -46526,7 +46526,7 @@ const SecurityGroup = function (name, AWSClient, logical) {
  */
 const SecurityGroupEgress = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.SecurityGroupEgress(logical, resource));
     }));
@@ -46536,7 +46536,7 @@ const SecurityGroupEgress = function (name, AWSClient, logical) {
  */
 const SecurityGroupIngress = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.SecurityGroupIngress(logical, resource));
     }));
@@ -46546,7 +46546,7 @@ const SecurityGroupIngress = function (name, AWSClient, logical) {
  */
 const SpotFleet = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.SpotFleet(logical, resource));
     }));
@@ -46556,7 +46556,7 @@ const SpotFleet = function (name, AWSClient, logical) {
  */
 const Subnet = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.Subnet(logical, resource));
     }));
@@ -46566,7 +46566,7 @@ const Subnet = function (name, AWSClient, logical) {
  */
 const SubnetCidrBlock = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.SubnetCidrBlock(logical, resource));
     }));
@@ -46576,7 +46576,7 @@ const SubnetCidrBlock = function (name, AWSClient, logical) {
  */
 const SubnetNetworkAclAssociation = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.SubnetNetworkAclAssociation(logical, resource));
     }));
@@ -46586,7 +46586,7 @@ const SubnetNetworkAclAssociation = function (name, AWSClient, logical) {
  */
 const SubnetRouteTableAssociation = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.SubnetRouteTableAssociation(logical, resource));
     }));
@@ -46596,7 +46596,7 @@ const SubnetRouteTableAssociation = function (name, AWSClient, logical) {
  */
 const Volume = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.Volume(logical, resource));
     }));
@@ -46606,7 +46606,7 @@ const Volume = function (name, AWSClient, logical) {
  */
 const VolumeAttachment = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VolumeAttachment(logical, resource));
     }));
@@ -46616,7 +46616,7 @@ const VolumeAttachment = function (name, AWSClient, logical) {
  */
 const VPC = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VPC(logical, resource));
     }));
@@ -46626,7 +46626,7 @@ const VPC = function (name, AWSClient, logical) {
  */
 const VPCCidrBlock = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VPCCidrBlock(logical, resource));
     }));
@@ -46636,7 +46636,7 @@ const VPCCidrBlock = function (name, AWSClient, logical) {
  */
 const VPCDHCPOptionsAssociation = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VPCDHCPOptionsAssociation(logical, resource));
     }));
@@ -46646,7 +46646,7 @@ const VPCDHCPOptionsAssociation = function (name, AWSClient, logical) {
  */
 const VPCEndpoint = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VPCEndpoint(logical, resource));
     }));
@@ -46656,7 +46656,7 @@ const VPCEndpoint = function (name, AWSClient, logical) {
  */
 const VPCGatewayAttachment = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VPCGatewayAttachment(logical, resource));
     }));
@@ -46666,7 +46666,7 @@ const VPCGatewayAttachment = function (name, AWSClient, logical) {
  */
 const VPCPeeringConnection = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VPCPeeringConnection(logical, resource));
     }));
@@ -46676,7 +46676,7 @@ const VPCPeeringConnection = function (name, AWSClient, logical) {
  */
 const VPNConnection = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VPNConnection(logical, resource));
     }));
@@ -46686,7 +46686,7 @@ const VPNConnection = function (name, AWSClient, logical) {
  */
 const VPNConnectionRoute = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VPNConnectionRoute(logical, resource));
     }));
@@ -46696,7 +46696,7 @@ const VPNConnectionRoute = function (name, AWSClient, logical) {
  */
 const VPNGateway = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VPNGateway(logical, resource));
     }));
@@ -46706,7 +46706,7 @@ const VPNGateway = function (name, AWSClient, logical) {
  */
 const VPNGatewayRoutePropagation = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
+        // const client = new AWSClient.EC2();
         const resource = {};
         return resolve(service$1.VPNGatewayRoutePropagation(logical, resource));
     }));
@@ -46764,11 +46764,10 @@ const service$2 = Service(S3);
  */
 const Bucket = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const versioningPromise = AWSClient
-            .getBucketVersioning({ Bucket: name })
-            .promise();
-        const corsPromise = AWSClient
-            .getBucketCors({ Bucket: name })
+        const versioningPromise = AWSClient.getBucketVersioning({
+            Bucket: name,
+        }).promise();
+        const corsPromise = AWSClient.getBucketCors({ Bucket: name })
             .promise()
             .then(data => {
             const corsresult = { CORSRules: [] };
@@ -46783,29 +46782,30 @@ const Bucket = function (name, AWSClient, logical) {
             // Silently catch the NoSuchCORSConfiguration
             return { CORSRules: null };
         });
-        const lifecyclePromise = AWSClient
-            .getBucketLifecycleConfiguration({ Bucket: name })
+        const lifecyclePromise = AWSClient.getBucketLifecycleConfiguration({
+            Bucket: name,
+        })
             .promise()
             .then(data => data)
             .catch(e => {
             // Silently catch the NoSuchLifecycleConfiguration
             return null;
         });
-        const loggingPromise = AWSClient.getBucketLogging({ Bucket: name }).promise();
-        const notificationPromise = AWSClient
-            .getBucketNotification({ Bucket: name })
-            .promise();
-        const replicationPromise = AWSClient
-            .getBucketReplication({ Bucket: name })
+        const loggingPromise = AWSClient.getBucketLogging({
+            Bucket: name,
+        }).promise();
+        const notificationPromise = AWSClient.getBucketNotification({
+            Bucket: name,
+        }).promise();
+        const replicationPromise = AWSClient.getBucketReplication({ Bucket: name })
             .promise()
             .then(data => data)
             .catch(e => {
             // Silently catch the ReplicationConfigurationNotFoundError
             return null;
         });
-        const taggingPromise = AWSClient
-            .getBucketTagging({
-            Bucket: name
+        const taggingPromise = AWSClient.getBucketTagging({
+            Bucket: name,
         })
             .promise()
             .then(data => data)
@@ -46813,30 +46813,29 @@ const Bucket = function (name, AWSClient, logical) {
             // Silently catch the NoSuchTagSet
             return null;
         });
-        const websitePromise = AWSClient
-            .getBucketWebsite({ Bucket: name })
+        const websitePromise = AWSClient.getBucketWebsite({ Bucket: name })
             .promise()
             .then(data => data)
             .catch(e => {
             // Silently catch the NoSuchWebsiteConfiguration
             return null;
         });
-        const accessControlPromise = AWSClient
-            .getBucketAcl({ Bucket: name })
-            .promise();
-        const acceleratePromise = AWSClient
-            .getBucketAccelerateConfiguration({ Bucket: name })
-            .promise();
-        const analyticsPromise = AWSClient
-            .listBucketAnalyticsConfigurations({ Bucket: name })
-            .promise();
-        const inventoryPromise = AWSClient
-            .listBucketInventoryConfigurations({ Bucket: name })
-            .promise();
-        const metricsPromise = AWSClient
-            .listBucketMetricsConfigurations({ Bucket: name })
-            .promise();
-        const [versionResults, corsResults, lifecycleResults, loggingResults, notificationResults, replicationResults, taggingResults, websiteResults, accessControlResults, accelerateResults, analyticsResults, inventoryResults, metricsResults] = yield Promise.all([
+        const accessControlPromise = AWSClient.getBucketAcl({
+            Bucket: name,
+        }).promise();
+        const acceleratePromise = AWSClient.getBucketAccelerateConfiguration({
+            Bucket: name,
+        }).promise();
+        const analyticsPromise = AWSClient.listBucketAnalyticsConfigurations({
+            Bucket: name,
+        }).promise();
+        const inventoryPromise = AWSClient.listBucketInventoryConfigurations({
+            Bucket: name,
+        }).promise();
+        const metricsPromise = AWSClient.listBucketMetricsConfigurations({
+            Bucket: name,
+        }).promise();
+        const [versionResults, corsResults, lifecycleResults, loggingResults, notificationResults, replicationResults, taggingResults, websiteResults, accessControlResults, accelerateResults, analyticsResults, inventoryResults, metricsResults,] = yield Promise.all([
             versioningPromise,
             corsPromise,
             lifecyclePromise,
@@ -46849,7 +46848,7 @@ const Bucket = function (name, AWSClient, logical) {
             acceleratePromise,
             analyticsPromise,
             inventoryPromise,
-            metricsPromise
+            metricsPromise,
         ]);
         const resource = { BucketName: name };
         if (versionResults.Status) {
@@ -46864,7 +46863,7 @@ const Bucket = function (name, AWSClient, logical) {
         if (loggingResults && loggingResults.LoggingEnabled) {
             resource.LoggingConfiguration = {
                 DestinationBucketName: loggingResults.LoggingEnabled.TargetBucket,
-                LogFilePrefix: loggingResults.LoggingEnabled.TargetPrefix
+                LogFilePrefix: loggingResults.LoggingEnabled.TargetPrefix,
             };
         }
         if (Object.keys(notificationResults).length > 0) {
@@ -46915,12 +46914,12 @@ const BucketList = function (AWSClient) {
 const BucketPolicy = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         try {
-            const { Policy } = yield AWSClient
-                .getBucketPolicy({ Bucket: name })
-                .promise();
+            const { Policy } = yield AWSClient.getBucketPolicy({
+                Bucket: name,
+            }).promise();
             const resource = {
                 Bucket: name,
-                PolicyDocument: Policy
+                PolicyDocument: Policy,
             };
             resolve(service$2.BucketPolicy(logical, resource));
         }
@@ -46948,7 +46947,7 @@ const S3$1 = {
     Bucket,
     BucketList,
     BucketPolicy,
-    BucketPolicyList
+    BucketPolicyList,
 };
 
 const Transform = {
@@ -47013,7 +47012,7 @@ const Transform = {
     WAFRegional
     WorkSpaces
     */
-    S3: S3$1
+    S3: S3$1,
 };
 
 resourceList.forEach(r => {
