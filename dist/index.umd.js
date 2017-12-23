@@ -21409,46 +21409,6 @@ var lodash_3 = lodash.isEmpty;
 var lodash_4 = lodash.omit;
 var lodash_5 = lodash.merge;
 
-function CreationPolicy(resource, content) {
-    if (!resource ||
-        !content ||
-        (!content.AutoScalingCreationPolicy && !content.ResourceSignal)) {
-        throw new SyntaxError(`New CreationPolicy must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    return { kind: 'CreationPolicy', Resource: resource, Content: content };
-}
-
-function DeletionPolicy(resource, content) {
-    if (!resource || !content) {
-        throw new SyntaxError(`New DeletionPolicy must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    if (['Delete', 'Retain', 'Snapshot'].indexOf(content) === -1) {
-        throw new SyntaxError(`New DeletionPolicy content must be Delete, Retain, or Snapshot`);
-    }
-    return { kind: 'DeletionPolicy', Resource: resource, Content: content };
-}
-
-function DependsOn(resource, content) {
-    if (!resource || !content) {
-        throw new SyntaxError(`New DependsOn must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    return { kind: 'DependsOn', Resource: resource, Content: content };
-}
-
-function ResourceMetadata(resource, content) {
-    if (!resource || !content) {
-        throw new SyntaxError(`New Metadata must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    return { kind: 'ResourceMetadata', Resource: resource, Content: content };
-}
-
-function UpdatePolicy(resource, content) {
-    if (!resource || !content) {
-        throw new SyntaxError(`New UpdatePolicy must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    return { kind: 'UpdatePolicy', Resource: resource, Content: content };
-}
-
 /**
  * Returns an Fn::And object
  * @param {*} one
@@ -21597,47 +21557,6 @@ function buildIntrinsic(input) {
  */
 
 /**
- * Create a Condition object
- * @param {*} name
- * @param {*} conditionFn
- */
-function Condition(name, conditionFn) {
-    let newCondFn = lodash_1(conditionFn);
-    if (typeof newCondFn === 'object' && !newCondFn.kind) {
-        newCondFn = buildIntrinsic(newCondFn);
-    }
-    return { kind: 'Condition', Name: name, Condition: newCondFn };
-}
-
-/**
- * Set the Description of a template
- * @param {*} content
- */
-function Description(content) {
-    if (!content) {
-        throw new SyntaxError(`New Description must have content.`);
-    }
-    return { kind: 'Description', Content: content };
-}
-
-/**
- * Create a Mapping object
- * @param {*} name
- * @param {*} subName
- * @param {*} body
- */
-function Mapping(name, subName, body) {
-    if (!name || !subName || !body) {
-        throw new SyntaxError(`New Mapping with ${JSON.stringify({
-            body,
-            name,
-            subName
-        })} parameters is invalid. name, subName, and body are required.`);
-    }
-    return { kind: 'Mapping', Name: name, Content: { [subName]: body } };
-}
-
-/**
  * Creatr an Output object
  * @param {*} name
  * @param {*} properties
@@ -21683,120 +21602,6 @@ function Parameter(name, properties) {
         })} parameters is invalid. Name and Type are required.`);
     }
     return { kind: 'Parameter', Name: name, Properties: properties };
-}
-
-/**
- * Create a Resource object
- * @param {*} name
- * @param {*} properties
- * @param {*} options
- */
-function Resource(name, properties, options) {
-    if (!name) {
-        throw new SyntaxError(`New Resource is invalid. A Name is required.`);
-    }
-    if (!properties) {
-        properties = {};
-    }
-    if (properties) {
-        _validateProperties(properties, this.name, this.json);
-    }
-    const result = {
-        Name: name,
-        Properties: properties,
-        Type: this.json.Resources[this.name].Name,
-        kind: 'Resource'
-    };
-    if (options) {
-        if (options.Condition) {
-            result.Condition = options.Condition;
-        }
-    }
-    return result;
-}
-function CustomResource(name, properties, options) {
-    if (!name) {
-        throw new SyntaxError(`New Resource is invalid. A Name is required.`);
-    }
-    return {
-        Name: name,
-        Properties: properties,
-        Type: `Custom::${name}`,
-        kind: 'Resource'
-    };
-}
-/**
- * @hidden
- * @param properties
- * @param rType
- * @param model
- */
-function _validateProperties(properties, rType, model) {
-    // Check if keys other than the defined ones are present
-    Object.keys(properties).forEach(p => {
-        if (!model.Resources[rType].Properties[p]) {
-            throw new SyntaxError(`${p} is not a valid attribute of ${rType}`);
-        }
-    });
-    // Check if all of the required keys are present
-    Object.keys(model.Resources[rType].Properties).forEach(p => {
-        if (model.Resources[rType].Properties[p].Required) {
-            if (!properties[p]) {
-                throw new SyntaxError(`${p} is required but is not present in ${rType}`);
-            }
-        }
-        if (model.Resources[rType].Properties[p].Type === 'List') {
-            if (properties[p] && !Array.isArray(properties[p])) {
-                if (!properties[p].kind &&
-                    (properties[p].kind !== 'Ref' && !properties[p].Ref) &&
-                    (properties[p].kind !== 'FnGetAZs' &&
-                        typeof properties[p]['Fn::GetAZ'] !== 'undefined') &&
-                    (properties[p].kind !== 'FnGetAtt' && !properties[p]['Fn::GetAtt']) &&
-                    (properties[p].kind !== 'FnSplit' && !properties[p]['Fn::Split'])) {
-                    /*console.log('p');
-                    console.log(p);
-                    console.log(typeof properties[p]['Fn::GetAZ'] === 'undefined');
-                    console.log(!Object.keys(properties[p]).includes('Fn::GetAZs'));*/
-                    throw new SyntaxError(`${p} must be an array in ${rType}`);
-                }
-            }
-        }
-        else {
-            if (properties[p] && Array.isArray(properties[p])) {
-                throw new SyntaxError(`${p} cannot be an array in ${rType}`);
-            }
-        }
-    });
-}
-
-/**
- * Strings constants that map to CloudFormation pseudoparameter
- * Pseudo.AWS_ACCOUNT_ID
- * Pseudo.AWS_NOTIFICATION_ARNS
- * Pseudo.AWS_NO_VALUE
- * Pseudo.AWS_REGION
- * Pseudo.AWS_STACK_ID
- * Pseudo.AWS_STACK_NAME
- */
-const Pseudo = {
-    AWS_ACCOUNT_ID: 'AWS::AccountId',
-    AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
-    AWS_NO_VALUE: 'AWS::NoValue',
-    AWS_REGION: 'AWS::Region',
-    AWS_STACK_ID: 'AWS::StackId',
-    AWS_STACK_NAME: 'AWS::StackName'
-};
-
-/**
- * Return a Service object to create Resources and Attributes
- * @param {*} json
- */
-function Service(json) {
-    const service = { json };
-    Object.keys(json.Resources).forEach(r => {
-        service[r] = Resource.bind({ json, name: r });
-    });
-    return service;
 }
 
 /** @hidden **/
@@ -45022,7 +44827,1000 @@ var stubs = Object.freeze({
 	WorkSpaces: WorkSpaces
 });
 
-// import { IMetadata } from './elements/metadata';
+/**
+ * Strings constants that map to CloudFormation pseudoparameter
+ * Pseudo.AWS_ACCOUNT_ID
+ * Pseudo.AWS_NOTIFICATION_ARNS
+ * Pseudo.AWS_NO_VALUE
+ * Pseudo.AWS_REGION
+ * Pseudo.AWS_STACK_ID
+ * Pseudo.AWS_STACK_NAME
+ */
+const Pseudo = {
+    AWS_ACCOUNT_ID: 'AWS::AccountId',
+    AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
+    AWS_NO_VALUE: 'AWS::NoValue',
+    AWS_REGION: 'AWS::Region',
+    AWS_STACK_ID: 'AWS::StackId',
+    AWS_STACK_NAME: 'AWS::StackName'
+};
+
+/**
+ * @hidden
+ * @param t
+ * @param att
+ */
+function _validateFnGetAtt(t, att) {
+    if (!t.Resources[att.FnGetAtt[0]]) {
+        throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
+    }
+    const [begin, service, resource] = t.Resources[att.FnGetAtt[0]].Type.split('::');
+    if (begin === 'AWS' && stubs[service]) {
+        const validAttributes = Object.keys(stubs[service].Resources[resource].Attributes);
+        if (!validAttributes.includes(att.FnGetAtt[1])) {
+            throw new SyntaxError(`${att.FnGetAtt[1]} is not a valid attribute of 
+        ${att.FnGetAtt[0]}`);
+        }
+    }
+}
+/**
+ * @hidden
+ * @param t
+ * @param ref
+ */
+function _validateRef(t, ref) {
+    if (ref.Ref) {
+        if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
+            throw new SyntaxError(`Could not find ${JSON.stringify(ref)}`);
+        }
+    }
+    return;
+}
+/**
+ * @hidden
+ */
+function _validateResourceIntrinsics(t, e) {
+    if (e) {
+        Object.keys(e).forEach(x => {
+            if (e[x] &&
+                typeof e[x] !== 'string' &&
+                (Array.isArray(e[x]) || Object.keys(e[x]).length > 0)) {
+                if (e[x].kind) {
+                    if (e[x].kind === 'FnGetAtt') {
+                        _validateFnGetAtt(t, e[x]);
+                    }
+                    else if (e[x].kind === 'Ref') {
+                        _validateRef(t, e[x]);
+                    }
+                }
+                else {
+                    _validateResourceIntrinsics(t, e[x]);
+                }
+            }
+        });
+    }
+}
+
+/**
+ * @hidden
+ */
+function _add(template, e, options) {
+    const _t = lodash_1(template);
+    switch (e.kind) {
+        case 'CreationPolicy':
+            return _addCreationPolicy(_t, e);
+        case 'DeletionPolicy':
+            return _addDeletionPolicy(_t, e);
+        case 'DependsOn':
+            return _addDependsOn(_t, e);
+        case 'ResourceMetadata':
+            return _addResourceMetadata(_t, e);
+        case 'UpdatePolicy':
+            return _addUpdatePolicy(_t, e);
+        case 'Condition':
+            return _addCondition(_t, e);
+        case 'Mapping':
+            return _addMapping(_t, e);
+        case 'Parameter':
+            return _addParameter(_t, e);
+        case 'Output':
+            return _addOutput(_t, e);
+        case 'Resource':
+            let newT = _t;
+            const f = lodash_1(e);
+            if (options) {
+                const nameSplit = f.Type.split('::').splice(1);
+                const shortName = nameSplit.join('');
+                if (options.Parameters) {
+                    options.Parameters.map(p => {
+                        const paramName = `${f.Name}${shortName}Param`;
+                        if (!f.Properties) {
+                            f.Properties = {};
+                        }
+                        f.Properties[p] = Ref(paramName);
+                        newT = _addParameter(newT, Parameter(paramName, {
+                            Type: 'String',
+                        }));
+                    });
+                }
+                newT = _addResource(newT, f);
+                if (options.Output) {
+                    newT = _addOutput(newT, Output(`${f.Name}${shortName}Output`, {
+                        Condition: f.Condition,
+                        Export: {
+                            Name: FnSub(`\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`),
+                        },
+                        Value: Ref(f.Name),
+                    }));
+                }
+            }
+            else {
+                newT = _addResource(_t, f);
+            }
+            return newT;
+        case 'Description':
+            return _addDescription(_t, e);
+        default:
+            throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
+    }
+}
+/**
+ * @hidden
+ */
+function _addDescription(t, e) {
+    const desc = { Description: e.Content };
+    const result = Object.assign({}, t, desc);
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _addCreationPolicy(t, e) {
+    const result = lodash_1(t);
+    if (!result.Resources[e.Resource]) {
+        throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.');
+    }
+    const resource = Object.assign({}, result.Resources[e.Resource]);
+    resource.CreationPolicy = e;
+    result.Resources[e.Resource] = resource;
+    return result;
+}
+/**
+ * @hidden
+ */
+function _addDeletionPolicy(t, e) {
+    const result = lodash_1(t);
+    if (!result.Resources[e.Resource]) {
+        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
+    }
+    const resource = Object.assign({}, result.Resources[e.Resource]);
+    resource.DeletionPolicy = e;
+    result.Resources[e.Resource] = resource;
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _addUpdatePolicy(t, e) {
+    const result = lodash_1(t);
+    if (!result.Resources[e.Resource]) {
+        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
+    }
+    const resource = Object.assign({}, result.Resources[e.Resource]);
+    resource.UpdatePolicy = e;
+    result.Resources[e.Resource] = resource;
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _addDependsOn(t, e) {
+    const result = lodash_1(t);
+    if (!result.Resources[e.Resource]) {
+        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
+    }
+    const resource = Object.assign({}, result.Resources[e.Resource]);
+    resource.DependsOn = e;
+    result.Resources[e.Resource] = resource;
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _addResourceMetadata(t, e) {
+    const result = lodash_1(t);
+    if (!result.Resources[e.Resource]) {
+        throw new SyntaxError('Cannot add Metadata to a Resource that does not exist in the template.');
+    }
+    const resource = Object.assign({}, result.Resources[e.Resource]);
+    resource.Metadata = e;
+    result.Resources[e.Resource] = resource;
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _addCondition(t, e) {
+    // TODO: Validate intrinsics
+    const result = lodash_1(t);
+    result.Conditions[e.Name] = e;
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _addOutput(t, e) {
+    const e0 = lodash_1(e);
+    if (typeof e0.Properties.Value !== 'string') {
+        if (e0.Properties.Value.Ref) {
+            _validateRef(t, e0.Properties.Value);
+        }
+        else if (e0.Properties.Value['Fn::GetAtt']) {
+            e0.Properties.Value = FnGetAtt(e0.Properties.Value['Fn::GetAtt'][0], e0.Properties.Value['Fn::GetAtt'][1]);
+            _validateFnGetAtt(t, e0.Properties.Value);
+        }
+    }
+    const result = lodash_1(t);
+    result.Outputs[e0.Name] = e0;
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _addParameter(t, e) {
+    const result = lodash_1(t);
+    result.Parameters[e.Name] = e;
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _addMapping(t, e) {
+    const result = Object.assign({}, t);
+    if (result.Mappings[e.Name]) {
+        const newMappings = lodash_1(result.Mappings);
+        newMappings[e.Name] = Object.assign({}, e, { Content: Object.assign({}, result.Mappings[e.Name].Content, e.Content) });
+        result.Mappings = newMappings;
+    }
+    else {
+        const newMappings = lodash_1(result.Mappings);
+        newMappings[e.Name] = e;
+        result.Mappings = newMappings;
+    }
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _addResource(t, e) {
+    _validateResourceIntrinsics(t, e);
+    const result = Object.assign({}, t);
+    const newResources = lodash_1(result.Resources);
+    newResources[e.Name] = e;
+    result.Resources = newResources;
+    return result;
+}
+
+/**
+ * @hidden
+ * @param obj
+ */
+function _isEmptyObject(obj) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
+/**
+ * @hidden
+ * @param t
+ */
+function _buildResource(t) {
+    const newT = lodash_1(t);
+    const { Type, Properties, CreationPolicy, DeletionPolicy, DependsOn, Metadata, Condition: condition, UpdatePolicy, } = newT;
+    const newProps = {};
+    const result = { Type };
+    if (Properties && !lodash_3(Properties)) {
+        Object.keys(Properties).forEach(p => {
+            // Ignore empty arrays
+            if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
+                if (Properties[p].kind) {
+                    newProps[p] = _json(Properties[p]);
+                }
+                else if (!_isEmptyObject(Properties[p])) {
+                    newProps[p] = _cleanObject(Properties[p]);
+                }
+            }
+        });
+        result.Properties = newProps;
+    }
+    if (CreationPolicy) {
+        result.CreationPolicy = _json(CreationPolicy);
+    }
+    if (DeletionPolicy) {
+        result.DeletionPolicy = _json(DeletionPolicy);
+    }
+    if (DependsOn) {
+        result.DependsOn = _json(DependsOn);
+    }
+    if (Metadata) {
+        result.Metadata = _json(Metadata);
+    }
+    if (UpdatePolicy) {
+        result.UpdatePolicy = _json(UpdatePolicy);
+    }
+    if (condition) {
+        result.Condition = condition;
+    }
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _buildCondition(t) {
+    const { Condition: condition } = t;
+    const result = _json(condition);
+    Object.keys(result).forEach(k => {
+        if (result[k][0].kind) {
+            result[k][0] = _json(result[k][0]);
+        }
+    });
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _buildAttribute(t) {
+    const { Content } = t;
+    return Content;
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _buildFnJoin(t) {
+    if (Array.isArray(t.Values)) {
+        const jsonValues = t.Values.map(x => {
+            if (typeof x === 'string') {
+                return x;
+            }
+            else {
+                return _json(x);
+            }
+        });
+        return { 'Fn::Join': [t.Delimiter, jsonValues] };
+    }
+    else {
+        return { 'Fn::Join': [t.Delimiter, _json(t.Values)] };
+    }
+}
+/**
+ * @hidden
+ */
+function _buildFnFindInMap(t) {
+    return t.FnFindInMap.map(x => {
+        if (typeof x === 'string') {
+            return x;
+        }
+        else {
+            return _json(x);
+        }
+    });
+}
+/**
+ * @hidden
+ */
+function _buildGetAZs(t) {
+    if (typeof t.FnGetAZs === 'string') {
+        return t.FnGetAZs;
+    }
+    else {
+        return _json(t.FnGetAZs);
+    }
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _buildFnSplit(t) {
+    if (typeof t.value === 'string') {
+        return [t.delimiter, t.value];
+    }
+    else {
+        return [t.delimiter, _json(t.value)];
+    }
+}
+/**
+ * @hidden
+ */
+function _buildFnOr(t) {
+    const jsonValues = t.FnOr.map(x => {
+        if (typeof x === 'string') {
+            return x;
+        }
+        else {
+            return _json(x);
+        }
+    });
+    return jsonValues;
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _buildFnImportValue(t) {
+    if (typeof t.FnImportValue === 'string') {
+        return t.FnImportValue;
+    }
+    else {
+        return _json(t.FnImportValue);
+    }
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _buildFnBase64(t) {
+    if (typeof t.FnBase64 === 'string') {
+        return t.FnBase64;
+    }
+    else {
+        return _json(t.FnBase64);
+    }
+}
+/**
+ * @hidden
+ */
+function _buildFnAnd(t) {
+    return t.FnAnd.map(x => {
+        if (typeof x === 'string') {
+            return x;
+        }
+        else {
+            if (x.kind) {
+                return _json(x);
+            }
+            return x;
+        }
+    });
+}
+/**
+ * @hidden
+ */
+function _buildFnNot(t) {
+    return t.FnNot.map(x => {
+        if (typeof x === 'string') {
+            return x;
+        }
+        else {
+            if (x.kind) {
+                return _json(x);
+            }
+            return x;
+        }
+    });
+}
+/**
+ * @hidden
+ */
+function _buildFnIf(t) {
+    return t.FnIf.map(x => {
+        if (typeof x === 'string') {
+            return x;
+        }
+        else {
+            if (x.kind) {
+                return _json(x);
+            }
+            return x;
+        }
+    });
+}
+/**
+ * @hidden
+ */
+function _buildFnEquals(t) {
+    return t.FnEquals.map(x => {
+        if (typeof x === 'string') {
+            return x;
+        }
+        else {
+            if (x.kind) {
+                return _json(x);
+            }
+            return x;
+        }
+    });
+}
+/**
+ * @hidden
+ */
+function _buildFnSelect(t) {
+    if (Array.isArray(t.FnSelect)) {
+        const values = t.FnSelect.map(x => {
+            if (typeof x === 'string') {
+                return x;
+            }
+            else {
+                if (x.kind) {
+                    return _json(x);
+                }
+                return x;
+            }
+        });
+        return [t.index, values];
+    }
+    else {
+        return [t.index, _json(t.FnSelect)];
+    }
+}
+/**
+ * @hidden
+ */
+function _buildMapping(t) {
+    const result = t.Content;
+    return result;
+}
+/**
+ * @hidden
+ */
+function _buildOutput(t) {
+    let outputResult = lodash_1(t.Properties);
+    if (typeof outputResult.Value !== 'string') {
+        const stripped = _json(outputResult.Value);
+        outputResult = Object.assign({}, outputResult, { Value: stripped });
+    }
+    if (outputResult.Export &&
+        outputResult.Export.Name &&
+        typeof outputResult.Export.Name !== 'string') {
+        const stripped = _json(outputResult.Export.Name);
+        outputResult = Object.assign({}, outputResult, { Export: { Name: stripped } });
+    }
+    return outputResult;
+}
+/**
+ * @hidden
+ * @param object
+ */
+function _cleanObject(object) {
+    if (Array.isArray(object)) {
+        for (let v = 0; v < object.length; v++) {
+            object[v] = _cleanObject(object[v]);
+        }
+    }
+    else {
+        if (object.kind) {
+            object = _json(object);
+        }
+        else {
+            for (const o in object) {
+                if (object[o] !== null && typeof object[o] === 'object') {
+                    object[o] = _cleanObject(object[o]);
+                }
+            }
+        }
+    }
+    return object;
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _json(t) {
+    switch (t.kind) {
+        case 'Ref':
+            return { Ref: t.Ref };
+        case 'FnBase64':
+            return { 'Fn::Base64': _buildFnBase64(t) };
+        case 'FnGetAtt':
+            return { 'Fn::GetAtt': t.FnGetAtt };
+        case 'FnGetAZs':
+            return { 'Fn::GetAZs': _buildGetAZs(t) };
+        case 'FnJoin':
+            return _buildFnJoin(t);
+        case 'FnAnd':
+            return { 'Fn::And': _buildFnAnd(t) };
+        case 'FnNot':
+            return { 'Fn::Not': _buildFnNot(t) };
+        case 'FnIf':
+            return { 'Fn::If': _buildFnIf(t) };
+        case 'FnFindInMap':
+            return { 'Fn::FindInMap': _buildFnFindInMap(t) };
+        case 'FnEquals':
+            return { 'Fn::Equals': _buildFnEquals(t) };
+        case 'FnImportValue':
+            return { 'Fn::ImportValue': _buildFnImportValue(t) };
+        case 'FnOr':
+            return { 'Fn::Or': _buildFnOr(t) };
+        case 'FnSelect':
+            return { 'Fn::Select': _buildFnSelect(t) };
+        case 'FnSplit':
+            return { 'Fn::Split': _buildFnSplit(t) };
+        case 'FnSub':
+            return { 'Fn::Sub': t.FnSub };
+        case 'CreationPolicy':
+            return _buildAttribute(t);
+        case 'DeletionPolicy':
+            return _buildAttribute(t);
+        case 'DependsOn':
+            return _buildAttribute(t);
+        case 'ResourceMetadata':
+            return _buildAttribute(t);
+        case 'UpdatePolicy':
+            return _buildAttribute(t);
+        case 'Condition':
+            return _buildCondition(t);
+        case 'Mapping':
+            return _buildMapping(t);
+        case 'Parameter':
+            return t.Properties;
+        case 'Output':
+            return _buildOutput(t);
+        case 'Resource':
+            return _buildResource(t);
+        default:
+            throw new SyntaxError(`Can't call _json on ${JSON.stringify(t)}`);
+    }
+}
+
+function CreationPolicy(resource, content) {
+    if (!resource ||
+        !content ||
+        (!content.AutoScalingCreationPolicy && !content.ResourceSignal)) {
+        throw new SyntaxError(`New CreationPolicy must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'CreationPolicy', Resource: resource, Content: content };
+}
+
+function DeletionPolicy(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New DeletionPolicy must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    if (['Delete', 'Retain', 'Snapshot'].indexOf(content) === -1) {
+        throw new SyntaxError(`New DeletionPolicy content must be Delete, Retain, or Snapshot`);
+    }
+    return { kind: 'DeletionPolicy', Resource: resource, Content: content };
+}
+
+function DependsOn(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New DependsOn must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'DependsOn', Resource: resource, Content: content };
+}
+
+function ResourceMetadata(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New Metadata must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'ResourceMetadata', Resource: resource, Content: content };
+}
+
+function UpdatePolicy(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New UpdatePolicy must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'UpdatePolicy', Resource: resource, Content: content };
+}
+
+/**
+ * Create a Condition object
+ * @param {*} name
+ * @param {*} conditionFn
+ */
+function Condition(name, conditionFn) {
+    let newCondFn = lodash_1(conditionFn);
+    if (typeof newCondFn === 'object' && !newCondFn.kind) {
+        newCondFn = buildIntrinsic(newCondFn);
+    }
+    return { kind: 'Condition', Name: name, Condition: newCondFn };
+}
+
+/**
+ * Set the Description of a template
+ * @param {*} content
+ */
+function Description(content) {
+    if (!content) {
+        throw new SyntaxError(`New Description must have content.`);
+    }
+    return { kind: 'Description', Content: content };
+}
+
+/**
+ * Create a Mapping object
+ * @param {*} name
+ * @param {*} subName
+ * @param {*} body
+ */
+function Mapping(name, subName, body) {
+    if (!name || !subName || !body) {
+        throw new SyntaxError(`New Mapping with ${JSON.stringify({
+            body,
+            name,
+            subName
+        })} parameters is invalid. name, subName, and body are required.`);
+    }
+    return { kind: 'Mapping', Name: name, Content: { [subName]: body } };
+}
+
+/**
+ * Create a Resource object
+ * @param {*} name
+ * @param {*} properties
+ * @param {*} options
+ */
+function Resource(name, properties, options) {
+    if (!name) {
+        throw new SyntaxError(`New Resource is invalid. A Name is required.`);
+    }
+    if (!properties) {
+        properties = {};
+    }
+    if (properties) {
+        _validateProperties(properties, this.name, this.json);
+    }
+    const result = {
+        Name: name,
+        Properties: properties,
+        Type: this.json.Resources[this.name].Name,
+        kind: 'Resource'
+    };
+    if (options) {
+        if (options.Condition) {
+            result.Condition = options.Condition;
+        }
+    }
+    return result;
+}
+function CustomResource(name, properties, options) {
+    if (!name) {
+        throw new SyntaxError(`New Resource is invalid. A Name is required.`);
+    }
+    return {
+        Name: name,
+        Properties: properties,
+        Type: `Custom::${name}`,
+        kind: 'Resource'
+    };
+}
+/**
+ * @hidden
+ * @param properties
+ * @param rType
+ * @param model
+ */
+function _validateProperties(properties, rType, model) {
+    // Check if keys other than the defined ones are present
+    Object.keys(properties).forEach(p => {
+        if (!model.Resources[rType].Properties[p]) {
+            throw new SyntaxError(`${p} is not a valid attribute of ${rType}`);
+        }
+    });
+    // Check if all of the required keys are present
+    Object.keys(model.Resources[rType].Properties).forEach(p => {
+        if (model.Resources[rType].Properties[p].Required) {
+            if (!properties[p]) {
+                throw new SyntaxError(`${p} is required but is not present in ${rType}`);
+            }
+        }
+        if (model.Resources[rType].Properties[p].Type === 'List') {
+            if (properties[p] && !Array.isArray(properties[p])) {
+                if (!properties[p].kind &&
+                    (properties[p].kind !== 'Ref' && !properties[p].Ref) &&
+                    (properties[p].kind !== 'FnGetAZs' &&
+                        typeof properties[p]['Fn::GetAZ'] !== 'undefined') &&
+                    (properties[p].kind !== 'FnGetAtt' && !properties[p]['Fn::GetAtt']) &&
+                    (properties[p].kind !== 'FnSplit' && !properties[p]['Fn::Split'])) {
+                    /*console.log('p');
+                    console.log(p);
+                    console.log(typeof properties[p]['Fn::GetAZ'] === 'undefined');
+                    console.log(!Object.keys(properties[p]).includes('Fn::GetAZs'));*/
+                    throw new SyntaxError(`${p} must be an array in ${rType}`);
+                }
+            }
+        }
+        else {
+            if (properties[p] && Array.isArray(properties[p])) {
+                throw new SyntaxError(`${p} cannot be an array in ${rType}`);
+            }
+        }
+    });
+}
+
+/**
+ * Return a Service object to create Resources and Attributes
+ * @param {*} json
+ */
+function Service(json) {
+    const service = { json };
+    Object.keys(json.Resources).forEach(r => {
+        service[r] = Resource.bind({ json, name: r });
+    });
+    return service;
+}
+
+/**
+ * @hidden
+ * @param t
+ * @param inputTemplate
+ */
+function _calcFromExistingTemplate(t, inputTemplate) {
+    if (inputTemplate.Description) {
+        t = t.add(Description(inputTemplate.Description));
+    }
+    if (inputTemplate.Parameters) {
+        Object.keys(inputTemplate.Parameters).forEach(p => {
+            t = t.add(Parameter(p, inputTemplate.Parameters[p]));
+        });
+    }
+    if (inputTemplate.Resources) {
+        Object.keys(inputTemplate.Resources).forEach(r => {
+            const split = inputTemplate.Resources[r].Type.split('::');
+            const cat = split[1];
+            const resType = split[2];
+            const options = {
+                Condition: inputTemplate.Resources[r].Condition,
+            };
+            if (split[0] === 'AWS') {
+                const service = Service(stubs[cat]);
+                t = t.add(service[resType](r, inputTemplate.Resources[r].Properties, options));
+            }
+            else if (split[0] === 'Custom') {
+                t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties, options));
+            }
+            if (inputTemplate.Resources[r].Metadata) {
+                t = _addResourceMetadata(t, ResourceMetadata(r, inputTemplate.Resources[r].Metadata));
+            }
+            if (inputTemplate.Resources[r].CreationPolicy) {
+                t = _addCreationPolicy(t, CreationPolicy(r, inputTemplate.Resources[r].CreationPolicy));
+            }
+            if (inputTemplate.Resources[r].DeletionPolicy) {
+                t = _addDeletionPolicy(t, DeletionPolicy(r, inputTemplate.Resources[r].DeletionPolicy));
+            }
+            if (inputTemplate.Resources[r].DependsOn) {
+                t = _addDependsOn(t, DependsOn(r, inputTemplate.Resources[r].DependsOn));
+            }
+            if (inputTemplate.Resources[r].UpdatePolicy) {
+                t = _addUpdatePolicy(t, UpdatePolicy(r, inputTemplate.Resources[r].UpdatePolicy));
+            }
+        });
+    }
+    if (inputTemplate.Outputs) {
+        Object.keys(inputTemplate.Outputs).forEach(o => {
+            t = t.add(Output(o, inputTemplate.Outputs[o]));
+        });
+    }
+    if (inputTemplate.Mappings) {
+        Object.keys(inputTemplate.Mappings).forEach(m => {
+            Object.keys(inputTemplate.Mappings[m]).forEach(m0 => {
+                t = t.add(Mapping(m, m0, inputTemplate.Mappings[m][m0]));
+            });
+        });
+    }
+    if (inputTemplate.Conditions) {
+        Object.keys(inputTemplate.Conditions).forEach(c => {
+            t = t.add(Condition(c, inputTemplate.Conditions[c]));
+        });
+    }
+    return t;
+}
+
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _removeMapping(t, e) {
+    const result = Object.assign({}, t);
+    let mapping;
+    if (typeof e === 'string') {
+        if (result.Mappings[e]) {
+            mapping = result.Mappings[e];
+        }
+        else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+        }
+    }
+    else {
+        mapping = e;
+    }
+    if (result.Mappings[mapping.Name]) {
+        result.Mappings = lodash_4(result.Mappings, mapping.Name);
+    }
+    else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(mapping)}`);
+    }
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _removeOutput(t, e) {
+    const result = Object.assign({}, t);
+    let out;
+    if (typeof e === 'string') {
+        if (result.Outputs[e]) {
+            out = result.Outputs[e];
+        }
+        else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+        }
+    }
+    else {
+        out = e;
+    }
+    if (result.Outputs[out.Name]) {
+        result.Outputs = lodash_4(result.Outputs, out.Name);
+    }
+    else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
+    }
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _removeResource(t, e) {
+    const result = lodash_1(t);
+    if (result.Resources[e.Name]) {
+        result.Resources = lodash_4(result.Resources, e.Name);
+    }
+    else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+    }
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _removeParameter(t, e) {
+    const result = Object.assign({}, t);
+    let param;
+    if (typeof e === 'string') {
+        if (result.Parameters[e]) {
+            param = result.Parameters[e];
+        }
+        else {
+            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+        }
+    }
+    else {
+        param = e;
+    }
+    if (result.Parameters[param.Name]) {
+        result.Parameters = lodash_4(result.Parameters, param.Name);
+    }
+    else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
+    }
+    return result;
+}
+
 /** @module Template */
 /**
  * Returns a new Template object.
@@ -45273,799 +46071,6 @@ function Template() {
             return templateString;
         },
     };
-}
-/**
- * @hidden
- */
-function _add(template, e, options) {
-    const _t = lodash_1(template);
-    switch (e.kind) {
-        case 'CreationPolicy':
-            return _addCreationPolicy(_t, e);
-        case 'DeletionPolicy':
-            return _addDeletionPolicy(_t, e);
-        case 'DependsOn':
-            return _addDependsOn(_t, e);
-        case 'ResourceMetadata':
-            return _addResourceMetadata(_t, e);
-        case 'UpdatePolicy':
-            return _addUpdatePolicy(_t, e);
-        case 'Condition':
-            return _addCondition(_t, e);
-        case 'Mapping':
-            return _addMapping(_t, e);
-        case 'Parameter':
-            return _addParameter(_t, e);
-        case 'Output':
-            return _addOutput(_t, e);
-        case 'Resource':
-            let newT = _t;
-            const f = lodash_1(e);
-            if (options) {
-                const nameSplit = f.Type.split('::').splice(1);
-                const shortName = nameSplit.join('');
-                if (options.Parameters) {
-                    options.Parameters.map(p => {
-                        const paramName = `${f.Name}${shortName}Param`;
-                        if (!f.Properties) {
-                            f.Properties = {};
-                        }
-                        f.Properties[p] = Ref(paramName);
-                        newT = _addParameter(newT, Parameter(paramName, {
-                            Type: 'String',
-                        }));
-                    });
-                }
-                newT = _addResource(newT, f);
-                if (options.Output) {
-                    newT = _addOutput(newT, Output(`${f.Name}${shortName}Output`, {
-                        Condition: f.Condition,
-                        Export: {
-                            Name: FnSub(`\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`),
-                        },
-                        Value: Ref(f.Name),
-                    }));
-                }
-            }
-            else {
-                newT = _addResource(_t, f);
-            }
-            return newT;
-        case 'Description':
-            return _addDescription(_t, e);
-        default:
-            throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
-    }
-}
-/**
- * @hidden
- * @param obj
- */
-function _isEmptyObject(obj) {
-    return Object.keys(obj).length === 0 && obj.constructor === Object;
-}
-/**
- * @hidden
- * @param t
- * @param ref
- */
-function _validateRef(t, ref) {
-    if (ref.Ref) {
-        if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
-            throw new SyntaxError(`Could not find ${JSON.stringify(ref)}`);
-        }
-    }
-    return;
-}
-/**
- * @hidden
- * @param t
- * @param att
- */
-function _validateFnGetAtt(t, att) {
-    if (!t.Resources[att.FnGetAtt[0]]) {
-        throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
-    }
-    const [begin, service, resource] = t.Resources[att.FnGetAtt[0]].Type.split('::');
-    if (begin === 'AWS' && stubs[service]) {
-        const validAttributes = Object.keys(stubs[service].Resources[resource].Attributes);
-        if (!validAttributes.includes(att.FnGetAtt[1])) {
-            throw new SyntaxError(`${att.FnGetAtt[1]} is not a valid attribute of 
-      ${att.FnGetAtt[0]}`);
-        }
-    }
-}
-/**
- * @hidden
- * @param object
- */
-function _cleanObject(object) {
-    if (Array.isArray(object)) {
-        for (let v = 0; v < object.length; v++) {
-            object[v] = _cleanObject(object[v]);
-        }
-    }
-    else {
-        if (object.kind) {
-            object = _json(object);
-        }
-        else {
-            for (const o in object) {
-                if (object[o] !== null && typeof object[o] === 'object') {
-                    object[o] = _cleanObject(object[o]);
-                }
-            }
-        }
-    }
-    return object;
-}
-/**
- * @hidden
- * @param t
- */
-function _buildResource(t) {
-    const newT = lodash_1(t);
-    const { Type, Properties, CreationPolicy: CreationPolicy$$1, DeletionPolicy: DeletionPolicy$$1, DependsOn: DependsOn$$1, Metadata, Condition: condition, UpdatePolicy: UpdatePolicy$$1, } = newT;
-    const newProps = {};
-    const result = { Type };
-    if (Properties && !lodash_3(Properties)) {
-        Object.keys(Properties).forEach(p => {
-            // Ignore empty arrays
-            if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
-                if (Properties[p].kind) {
-                    newProps[p] = _json(Properties[p]);
-                }
-                else if (!_isEmptyObject(Properties[p])) {
-                    newProps[p] = _cleanObject(Properties[p]);
-                }
-            }
-        });
-        result.Properties = newProps;
-    }
-    if (CreationPolicy$$1) {
-        result.CreationPolicy = _json(CreationPolicy$$1);
-    }
-    if (DeletionPolicy$$1) {
-        result.DeletionPolicy = _json(DeletionPolicy$$1);
-    }
-    if (DependsOn$$1) {
-        result.DependsOn = _json(DependsOn$$1);
-    }
-    if (Metadata) {
-        result.Metadata = _json(Metadata);
-    }
-    if (UpdatePolicy$$1) {
-        result.UpdatePolicy = _json(UpdatePolicy$$1);
-    }
-    if (condition) {
-        result.Condition = condition;
-    }
-    return result;
-}
-/**
- * @hidden
- * @param t
- */
-function _buildCondition(t) {
-    const { Condition: condition } = t;
-    const result = _json(condition);
-    Object.keys(result).forEach(k => {
-        if (result[k][0].kind) {
-            result[k][0] = _json(result[k][0]);
-        }
-    });
-    return result;
-}
-/**
- * @hidden
- * @param t
- */
-function _buildAttribute(t) {
-    const { Content } = t;
-    return Content;
-}
-/**
- * @hidden
- * @param t
- */
-function _buildFnJoin(t) {
-    if (Array.isArray(t.Values)) {
-        const jsonValues = t.Values.map(x => {
-            if (typeof x === 'string') {
-                return x;
-            }
-            else {
-                return _json(x);
-            }
-        });
-        return { 'Fn::Join': [t.Delimiter, jsonValues] };
-    }
-    else {
-        return { 'Fn::Join': [t.Delimiter, _json(t.Values)] };
-    }
-}
-/**
- * @hidden
- */
-function _buildFnFindInMap(t) {
-    return t.FnFindInMap.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            return _json(x);
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildGetAZs(t) {
-    if (typeof t.FnGetAZs === 'string') {
-        return t.FnGetAZs;
-    }
-    else {
-        return _json(t.FnGetAZs);
-    }
-}
-/**
- * @hidden
- * @param t
- */
-function _buildFnSplit(t) {
-    if (typeof t.value === 'string') {
-        return [t.delimiter, t.value];
-    }
-    else {
-        return [t.delimiter, _json(t.value)];
-    }
-}
-/**
- * @hidden
- */
-function _buildFnOr(t) {
-    const jsonValues = t.FnOr.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            return _json(x);
-        }
-    });
-    return jsonValues;
-}
-/**
- * @hidden
- * @param t
- */
-function _buildFnImportValue(t) {
-    if (typeof t.FnImportValue === 'string') {
-        return t.FnImportValue;
-    }
-    else {
-        return _json(t.FnImportValue);
-    }
-}
-/**
- * @hidden
- * @param t
- */
-function _buildFnBase64(t) {
-    if (typeof t.FnBase64 === 'string') {
-        return t.FnBase64;
-    }
-    else {
-        return _json(t.FnBase64);
-    }
-}
-/**
- * @hidden
- */
-function _buildFnAnd(t) {
-    return t.FnAnd.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnNot(t) {
-    return t.FnNot.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnIf(t) {
-    return t.FnIf.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnEquals(t) {
-    return t.FnEquals.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnSelect(t) {
-    if (Array.isArray(t.FnSelect)) {
-        const values = t.FnSelect.map(x => {
-            if (typeof x === 'string') {
-                return x;
-            }
-            else {
-                if (x.kind) {
-                    return _json(x);
-                }
-                return x;
-            }
-        });
-        return [t.index, values];
-    }
-    else {
-        return [t.index, _json(t.FnSelect)];
-    }
-}
-/**
- * @hidden
- */
-function _buildMapping(t) {
-    const result = t.Content;
-    return result;
-}
-/**
- * @hidden
- */
-function _buildOutput(t) {
-    let outputResult = lodash_1(t.Properties);
-    if (typeof outputResult.Value !== 'string') {
-        const stripped = _json(outputResult.Value);
-        outputResult = Object.assign({}, outputResult, { Value: stripped });
-    }
-    if (outputResult.Export &&
-        outputResult.Export.Name &&
-        typeof outputResult.Export.Name !== 'string') {
-        const stripped = _json(outputResult.Export.Name);
-        outputResult = Object.assign({}, outputResult, { Export: { Name: stripped } });
-    }
-    return outputResult;
-}
-/**
- * @hidden
- * @param t
- */
-function _json(t) {
-    switch (t.kind) {
-        case 'Ref':
-            return { Ref: t.Ref };
-        case 'FnBase64':
-            return { 'Fn::Base64': _buildFnBase64(t) };
-        case 'FnGetAtt':
-            return { 'Fn::GetAtt': t.FnGetAtt };
-        case 'FnGetAZs':
-            return { 'Fn::GetAZs': _buildGetAZs(t) };
-        case 'FnJoin':
-            return _buildFnJoin(t);
-        case 'FnAnd':
-            return { 'Fn::And': _buildFnAnd(t) };
-        case 'FnNot':
-            return { 'Fn::Not': _buildFnNot(t) };
-        case 'FnIf':
-            return { 'Fn::If': _buildFnIf(t) };
-        case 'FnFindInMap':
-            return { 'Fn::FindInMap': _buildFnFindInMap(t) };
-        case 'FnEquals':
-            return { 'Fn::Equals': _buildFnEquals(t) };
-        case 'FnImportValue':
-            return { 'Fn::ImportValue': _buildFnImportValue(t) };
-        case 'FnOr':
-            return { 'Fn::Or': _buildFnOr(t) };
-        case 'FnSelect':
-            return { 'Fn::Select': _buildFnSelect(t) };
-        case 'FnSplit':
-            return { 'Fn::Split': _buildFnSplit(t) };
-        case 'FnSub':
-            return { 'Fn::Sub': t.FnSub };
-        case 'CreationPolicy':
-            return _buildAttribute(t);
-        case 'DeletionPolicy':
-            return _buildAttribute(t);
-        case 'DependsOn':
-            return _buildAttribute(t);
-        case 'ResourceMetadata':
-            return _buildAttribute(t);
-        case 'UpdatePolicy':
-            return _buildAttribute(t);
-        case 'Condition':
-            return _buildCondition(t);
-        case 'Mapping':
-            return _buildMapping(t);
-        case 'Parameter':
-            return t.Properties;
-        case 'Output':
-            return _buildOutput(t);
-        case 'Resource':
-            return _buildResource(t);
-        default:
-            throw new SyntaxError(`Can't call _json on ${JSON.stringify(t)}`);
-    }
-}
-/**
- * @hidden
- */
-function _addDescription(t, e) {
-    const desc = { Description: e.Content };
-    const result = Object.assign({}, t, desc);
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addCreationPolicy(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.CreationPolicy = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- */
-function _addDeletionPolicy(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.DeletionPolicy = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addUpdatePolicy(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.UpdatePolicy = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addDependsOn(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.DependsOn = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addResourceMetadata(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add Metadata to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.Metadata = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addCondition(t, e) {
-    // TODO: Validate intrinsics
-    const result = lodash_1(t);
-    result.Conditions[e.Name] = e;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addOutput(t, e) {
-    const e0 = lodash_1(e);
-    if (typeof e0.Properties.Value !== 'string') {
-        if (e0.Properties.Value.Ref) {
-            _validateRef(t, e0.Properties.Value);
-        }
-        else if (e0.Properties.Value['Fn::GetAtt']) {
-            e0.Properties.Value = FnGetAtt(e0.Properties.Value['Fn::GetAtt'][0], e0.Properties.Value['Fn::GetAtt'][1]);
-            _validateFnGetAtt(t, e0.Properties.Value);
-        }
-    }
-    const result = lodash_1(t);
-    result.Outputs[e0.Name] = e0;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addParameter(t, e) {
-    const result = lodash_1(t);
-    result.Parameters[e.Name] = e;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addMapping(t, e) {
-    const result = Object.assign({}, t);
-    if (result.Mappings[e.Name]) {
-        const newMappings = lodash_1(result.Mappings);
-        newMappings[e.Name] = Object.assign({}, e, { Content: Object.assign({}, result.Mappings[e.Name].Content, e.Content) });
-        result.Mappings = newMappings;
-    }
-    else {
-        const newMappings = lodash_1(result.Mappings);
-        newMappings[e.Name] = e;
-        result.Mappings = newMappings;
-    }
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addResource(t, e) {
-    _validateResourceIntrinsics(t, e);
-    const result = Object.assign({}, t);
-    const newResources = lodash_1(result.Resources);
-    newResources[e.Name] = e;
-    result.Resources = newResources;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _removeMapping(t, e) {
-    const result = Object.assign({}, t);
-    let mapping;
-    if (typeof e === 'string') {
-        if (result.Mappings[e]) {
-            mapping = result.Mappings[e];
-        }
-        else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-        }
-    }
-    else {
-        mapping = e;
-    }
-    if (result.Mappings[mapping.Name]) {
-        result.Mappings = lodash_4(result.Mappings, mapping.Name);
-    }
-    else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(mapping)}`);
-    }
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _removeOutput(t, e) {
-    const result = Object.assign({}, t);
-    let out;
-    if (typeof e === 'string') {
-        if (result.Outputs[e]) {
-            out = result.Outputs[e];
-        }
-        else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-        }
-    }
-    else {
-        out = e;
-    }
-    if (result.Outputs[out.Name]) {
-        result.Outputs = lodash_4(result.Outputs, out.Name);
-    }
-    else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
-    }
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _removeResource(t, e) {
-    const result = lodash_1(t);
-    if (result.Resources[e.Name]) {
-        result.Resources = lodash_4(result.Resources, e.Name);
-    }
-    else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-    }
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _removeParameter(t, e) {
-    const result = Object.assign({}, t);
-    let param;
-    if (typeof e === 'string') {
-        if (result.Parameters[e]) {
-            param = result.Parameters[e];
-        }
-        else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-        }
-    }
-    else {
-        param = e;
-    }
-    if (result.Parameters[param.Name]) {
-        result.Parameters = lodash_4(result.Parameters, param.Name);
-    }
-    else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
-    }
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param inputTemplate
- */
-function _calcFromExistingTemplate(t, inputTemplate) {
-    if (inputTemplate.Description) {
-        t = t.add(Description(inputTemplate.Description));
-    }
-    if (inputTemplate.Parameters) {
-        Object.keys(inputTemplate.Parameters).forEach(p => {
-            t = t.add(Parameter(p, inputTemplate.Parameters[p]));
-        });
-    }
-    if (inputTemplate.Resources) {
-        Object.keys(inputTemplate.Resources).forEach(r => {
-            const split = inputTemplate.Resources[r].Type.split('::');
-            const cat = split[1];
-            const resType = split[2];
-            const options = {
-                Condition: inputTemplate.Resources[r].Condition,
-            };
-            if (split[0] === 'AWS') {
-                const service = Service(stubs[cat]);
-                t = t.add(service[resType](r, inputTemplate.Resources[r].Properties, options));
-            }
-            else if (split[0] === 'Custom') {
-                t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties, options));
-            }
-            if (inputTemplate.Resources[r].Metadata) {
-                t = _addResourceMetadata(t, ResourceMetadata(r, inputTemplate.Resources[r].Metadata));
-            }
-            if (inputTemplate.Resources[r].CreationPolicy) {
-                t = _addCreationPolicy(t, CreationPolicy(r, inputTemplate.Resources[r].CreationPolicy));
-            }
-            if (inputTemplate.Resources[r].DeletionPolicy) {
-                t = _addDeletionPolicy(t, DeletionPolicy(r, inputTemplate.Resources[r].DeletionPolicy));
-            }
-            if (inputTemplate.Resources[r].DependsOn) {
-                t = _addDependsOn(t, DependsOn(r, inputTemplate.Resources[r].DependsOn));
-            }
-            if (inputTemplate.Resources[r].UpdatePolicy) {
-                t = _addUpdatePolicy(t, UpdatePolicy(r, inputTemplate.Resources[r].UpdatePolicy));
-            }
-        });
-    }
-    if (inputTemplate.Outputs) {
-        Object.keys(inputTemplate.Outputs).forEach(o => {
-            t = t.add(Output(o, inputTemplate.Outputs[o]));
-        });
-    }
-    if (inputTemplate.Mappings) {
-        Object.keys(inputTemplate.Mappings).forEach(m => {
-            Object.keys(inputTemplate.Mappings[m]).forEach(m0 => {
-                t = t.add(Mapping(m, m0, inputTemplate.Mappings[m][m0]));
-            });
-        });
-    }
-    if (inputTemplate.Conditions) {
-        Object.keys(inputTemplate.Conditions).forEach(c => {
-            t = t.add(Condition(c, inputTemplate.Conditions[c]));
-        });
-    }
-    return t;
-}
-/**
- * @hidden
- */
-function _validateResourceIntrinsics(t, e) {
-    if (e) {
-        Object.keys(e).forEach(x => {
-            if (e[x] &&
-                typeof e[x] !== 'string' &&
-                (Array.isArray(e[x]) || Object.keys(e[x]).length > 0)) {
-                if (e[x].kind) {
-                    if (e[x].kind === 'FnGetAtt') {
-                        _validateFnGetAtt(t, e[x]);
-                    }
-                    else if (e[x].kind === 'Ref') {
-                        _validateRef(t, e[x]);
-                    }
-                }
-                else {
-                    _validateResourceIntrinsics(t, e[x]);
-                }
-            }
-        });
-    }
 }
 
 /*! *****************************************************************************
