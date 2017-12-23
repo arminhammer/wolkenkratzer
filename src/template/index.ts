@@ -23,12 +23,7 @@ import {
 import { _add, _addOutput, _addParameter } from './add';
 import { _json } from './build';
 import { _calcFromExistingTemplate } from './import';
-import {
-  _removeMapping,
-  _removeOutput,
-  _removeParameter,
-  _removeResource,
-} from './remove';
+import { _remove } from './remove';
 
 /** @module Template */
 
@@ -202,7 +197,9 @@ export function Template(): ITemplate {
      * let p = Parameter('NewParam', { Type: 'String' });
      * t.add(p).remove(p);
      */
-    remove: function(e: IElement | string): ITemplate {
+    remove: function(
+      e: IMapping | IResource | IParameter | IOutput | string
+    ): ITemplate {
       const result = cloneDeep(this);
       let element: IElement;
       if (typeof e === 'string') {
@@ -230,22 +227,7 @@ export function Template(): ITemplate {
       } else {
         element = e;
       }
-      switch (element.kind) {
-        /*case 'Condition':
-                    return _removeCondition(this, e);*/
-        case 'Parameter':
-          return _removeParameter(this, element);
-        case 'Output':
-          return _removeOutput(this, element);
-        case 'Resource':
-          return _removeResource(this, element);
-        case 'Mapping':
-          return _removeMapping(this, element);
-        default:
-          throw new SyntaxError(
-            `${JSON.stringify(e)} is not a valid type, could not be added.`
-          );
-      }
+      return _remove(this, element);
     },
     /**
      * Removes the Description from the Template.

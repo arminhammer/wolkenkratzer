@@ -17,7 +17,7 @@ before_script:
 script:
 - yarn build
 - yarn coverage
-- yarn coveralls
+- travis_wait 20 yarn coveralls
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 deploy:

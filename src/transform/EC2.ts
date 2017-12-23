@@ -134,6 +134,7 @@ const EIP: TransformFunctionType = function(
 /**
  * @hidden
  */
+/*
 const EIPAssociation: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -144,7 +145,7 @@ const EIPAssociation: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.EIPAssociation(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
@@ -366,6 +367,7 @@ const NatGateway: TransformFunctionType = function(
 /**
  * @hidden
  */
+/*
 const NetworkAcl: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -376,11 +378,12 @@ const NetworkAcl: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.NetworkAcl(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const NetworkAclEntry: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -391,11 +394,12 @@ const NetworkAclEntry: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.NetworkAclEntry(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const NetworkInterface: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -406,11 +410,12 @@ const NetworkInterface: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.NetworkInterface(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const NetworkInterfaceAttachment: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -421,11 +426,12 @@ const NetworkInterfaceAttachment: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.NetworkInterfaceAttachment(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const NetworkInterfacePermission: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -436,11 +442,12 @@ const NetworkInterfacePermission: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.NetworkInterfacePermission(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const PlacementGroup: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -451,11 +458,12 @@ const PlacementGroup: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.PlacementGroup(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const Route: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -466,7 +474,7 @@ const Route: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.Route(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
@@ -491,6 +499,7 @@ const RouteTable: TransformFunctionType = function(
 /**
  * @hidden
  */
+/*
 const SecurityGroup: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -501,11 +510,12 @@ const SecurityGroup: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.SecurityGroup(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const SecurityGroupEgress: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -516,11 +526,12 @@ const SecurityGroupEgress: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.SecurityGroupEgress(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const SecurityGroupIngress: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -531,11 +542,12 @@ const SecurityGroupIngress: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.SecurityGroupIngress(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const SpotFleet: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -546,11 +558,12 @@ const SpotFleet: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.SpotFleet(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const Subnet: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -561,11 +574,12 @@ const Subnet: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.Subnet(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const SubnetCidrBlock: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -576,11 +590,12 @@ const SubnetCidrBlock: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.SubnetCidrBlock(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const SubnetNetworkAclAssociation: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -591,11 +606,12 @@ const SubnetNetworkAclAssociation: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.SubnetNetworkAclAssociation(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const SubnetRouteTableAssociation: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -606,11 +622,12 @@ const SubnetRouteTableAssociation: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.SubnetRouteTableAssociation(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const Volume: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -621,11 +638,12 @@ const Volume: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.Volume(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VolumeAttachment: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -636,11 +654,12 @@ const VolumeAttachment: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VolumeAttachment(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VPC: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -651,11 +670,12 @@ const VPC: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VPC(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VPCCidrBlock: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -666,11 +686,12 @@ const VPCCidrBlock: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VPCCidrBlock(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VPCDHCPOptionsAssociation: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -681,11 +702,12 @@ const VPCDHCPOptionsAssociation: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VPCDHCPOptionsAssociation(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VPCEndpoint: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -696,11 +718,12 @@ const VPCEndpoint: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VPCEndpoint(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VPCGatewayAttachment: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -711,11 +734,12 @@ const VPCGatewayAttachment: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VPCGatewayAttachment(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VPCPeeringConnection: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -726,11 +750,12 @@ const VPCPeeringConnection: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VPCPeeringConnection(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VPNConnection: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -741,11 +766,12 @@ const VPNConnection: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VPNConnection(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VPNConnectionRoute: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -756,11 +782,12 @@ const VPNConnectionRoute: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VPNConnectionRoute(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VPNGateway: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -771,11 +798,12 @@ const VPNGateway: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VPNGateway(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
  */
+/*
 const VPNGatewayRoutePropagation: TransformFunctionType = function(
   name: string,
   AWSClient: any,
@@ -786,7 +814,7 @@ const VPNGatewayRoutePropagation: TransformFunctionType = function(
     const resource: object = {};
     return resolve(service.VPNGatewayRoutePropagation(logical, resource));
   });
-};
+};*/
 
 /**
  * @hidden
@@ -795,22 +823,22 @@ export const EC2 = {
   CustomerGateway,
   DHCPOptions,
   EIP,
-  EIPAssociation,
+  // EIPAssociation,
   EgressOnlyInternetGateway,
   FlowLog,
   Host,
   Instance,
   InternetGateway,
   NatGateway,
-  NetworkAcl,
+  /* NetworkAcl,
   NetworkAclEntry,
   NetworkInterface,
   NetworkInterfaceAttachment,
   NetworkInterfacePermission,
   PlacementGroup,
-  Route,
+  Route, */
   RouteTable,
-  SecurityGroup,
+  /*SecurityGroup,
   SecurityGroupEgress,
   SecurityGroupIngress,
   SpotFleet,
@@ -829,5 +857,5 @@ export const EC2 = {
   VPNGateway,
   VPNGatewayRoutePropagation,
   Volume,
-  VolumeAttachment,
+  VolumeAttachment,*/
 };

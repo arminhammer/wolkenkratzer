@@ -12,13 +12,7 @@ import { CustomResource } from '../elements/resource';
 import { Service } from '../service';
 import * as stubs from '../spec/spec';
 import { ITemplate } from '../types';
-import {
-  _addCreationPolicy,
-  _addDeletionPolicy,
-  _addDependsOn,
-  _addResourceMetadata,
-  _addUpdatePolicy,
-} from './add';
+import { _addResourcePolicy } from './add';
 
 /**
  * @hidden
@@ -53,13 +47,13 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
         );
       }
       if (inputTemplate.Resources[r].Metadata) {
-        t = _addResourceMetadata(
+        t = _addResourcePolicy(
           t,
           ResourceMetadataConstructor(r, inputTemplate.Resources[r].Metadata)
         );
       }
       if (inputTemplate.Resources[r].CreationPolicy) {
-        t = _addCreationPolicy(
+        t = _addResourcePolicy(
           t,
           CreationPolicyConstructor(
             r,
@@ -68,7 +62,7 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
         );
       }
       if (inputTemplate.Resources[r].DeletionPolicy) {
-        t = _addDeletionPolicy(
+        t = _addResourcePolicy(
           t,
           DeletionPolicyConstructor(
             r,
@@ -77,13 +71,13 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
         );
       }
       if (inputTemplate.Resources[r].DependsOn) {
-        t = _addDependsOn(
+        t = _addResourcePolicy(
           t,
           DependsOnConstructor(r, inputTemplate.Resources[r].DependsOn)
         );
       }
       if (inputTemplate.Resources[r].UpdatePolicy) {
-        t = _addUpdatePolicy(
+        t = _addResourcePolicy(
           t,
           UpdatePolicyConstructor(r, inputTemplate.Resources[r].UpdatePolicy)
         );
