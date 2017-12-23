@@ -45232,56 +45232,9 @@ function _buildFnBase64(t) {
 /**
  * @hidden
  */
-function _buildFnAnd(t) {
-    return t.FnAnd.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnNot(t) {
-    return t.FnNot.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnIf(t) {
-    return t.FnIf.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnEquals(t) {
-    return t.FnEquals.map(x => {
+function _buildFnBlock(t) {
+    const block = t.kind;
+    return t[block].map(x => {
         if (typeof x === 'string') {
             return x;
         }
@@ -45380,15 +45333,15 @@ function _json(t) {
         case 'FnJoin':
             return _buildFnJoin(t);
         case 'FnAnd':
-            return { 'Fn::And': _buildFnAnd(t) };
+            return { 'Fn::And': _buildFnBlock(t) };
         case 'FnNot':
-            return { 'Fn::Not': _buildFnNot(t) };
+            return { 'Fn::Not': _buildFnBlock(t) };
         case 'FnIf':
-            return { 'Fn::If': _buildFnIf(t) };
+            return { 'Fn::If': _buildFnBlock(t) };
         case 'FnFindInMap':
             return { 'Fn::FindInMap': _buildFnFindInMap(t) };
         case 'FnEquals':
-            return { 'Fn::Equals': _buildFnEquals(t) };
+            return { 'Fn::Equals': _buildFnBlock(t) };
         case 'FnImportValue':
             return { 'Fn::ImportValue': _buildFnImportValue(t) };
         case 'FnOr':
@@ -45648,9 +45601,7 @@ function _calcFromExistingTemplate(t, inputTemplate) {
         });
     }
     if (inputTemplate.Outputs) {
-        Object.keys(inputTemplate.Outputs).forEach(o => {
-            t = t.add(Output(o, inputTemplate.Outputs[o]));
-        });
+        t = _addIterate(t, inputTemplate, 'Outputs', Output);
     }
     if (inputTemplate.Mappings) {
         Object.keys(inputTemplate.Mappings).forEach(m => {
@@ -45660,10 +45611,14 @@ function _calcFromExistingTemplate(t, inputTemplate) {
         });
     }
     if (inputTemplate.Conditions) {
-        Object.keys(inputTemplate.Conditions).forEach(c => {
-            t = t.add(Condition(c, inputTemplate.Conditions[c]));
-        });
+        t = _addIterate(t, inputTemplate, 'Conditions', Condition);
     }
+    return t;
+}
+function _addIterate(t, inputTemplate, blockType, method) {
+    Object.keys(inputTemplate[blockType]).forEach(o => {
+        t = t.add(method(o, inputTemplate[blockType][o]));
+    });
     return t;
 }
 
