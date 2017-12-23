@@ -42,15 +42,15 @@ function _add(
   const _t = cloneDeep(template);
   switch (e.kind) {
     case 'CreationPolicy':
-      return _addCreationPolicy(_t, e);
+      return _addResourcePolicy(_t, e);
     case 'DeletionPolicy':
-      return _addDeletionPolicy(_t, e);
+      return _addResourcePolicy(_t, e);
     case 'DependsOn':
-      return _addDependsOn(_t, e);
+      return _addResourcePolicy(_t, e);
     case 'ResourceMetadata':
-      return _addResourceMetadata(_t, e);
+      return _addResourcePolicy(_t, e);
     case 'UpdatePolicy':
-      return _addUpdatePolicy(_t, e);
+      return _addResourcePolicy(_t, e);
     case 'Condition':
       return _addCondition(_t, e);
     case 'Mapping':
@@ -124,85 +124,24 @@ function _addDescription(t: ITemplate, e: IDescription): ITemplate {
  * @param t
  * @param e
  */
-function _addCreationPolicy(t: ITemplate, e: ICreationPolicy): ITemplate {
+function _addResourcePolicy(
+  t: ITemplate,
+  e:
+    | ICreationPolicy
+    | IDeletionPolicy
+    | IDependsOn
+    | IUpdatePolicy
+    | IResourceMetadata
+): ITemplate {
   const result: any = cloneDeep(t);
+  const block: string = e.kind === 'ResourceMetadata' ? 'Metadata' : e.kind;
   if (!result.Resources[e.Resource]) {
     throw new SyntaxError(
-      'Cannot add CreationPolicy to a Resource that does not exist in the template.'
+      `Cannot add ${block} to a Resource that does not exist in the template.`
     );
   }
   const resource = { ...result.Resources[e.Resource] };
-  resource.CreationPolicy = e;
-  result.Resources[e.Resource] = resource;
-  return result;
-}
-
-/**
- * @hidden
- */
-function _addDeletionPolicy(t: ITemplate, e: IDeletionPolicy): ITemplate {
-  const result: any = cloneDeep(t);
-  if (!result.Resources[e.Resource]) {
-    throw new SyntaxError(
-      'Cannot add DeletionPolicy to a Resource that does not exist in the template.'
-    );
-  }
-  const resource = { ...result.Resources[e.Resource] };
-  resource.DeletionPolicy = e;
-  result.Resources[e.Resource] = resource;
-  return result;
-}
-
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addUpdatePolicy(t: ITemplate, e: IUpdatePolicy): ITemplate {
-  const result: any = cloneDeep(t);
-  if (!result.Resources[e.Resource]) {
-    throw new SyntaxError(
-      'Cannot add DeletionPolicy to a Resource that does not exist in the template.'
-    );
-  }
-  const resource = { ...result.Resources[e.Resource] };
-  resource.UpdatePolicy = e;
-  result.Resources[e.Resource] = resource;
-  return result;
-}
-
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addDependsOn(t: ITemplate, e: IDependsOn): ITemplate {
-  const result: any = cloneDeep(t);
-  if (!result.Resources[e.Resource]) {
-    throw new SyntaxError(
-      'Cannot add DeletionPolicy to a Resource that does not exist in the template.'
-    );
-  }
-  const resource = { ...result.Resources[e.Resource] };
-  resource.DependsOn = e;
-  result.Resources[e.Resource] = resource;
-  return result;
-}
-
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addResourceMetadata(t: ITemplate, e: IResourceMetadata): ITemplate {
-  const result: any = cloneDeep(t);
-  if (!result.Resources[e.Resource]) {
-    throw new SyntaxError(
-      'Cannot add Metadata to a Resource that does not exist in the template.'
-    );
-  }
-  const resource = { ...result.Resources[e.Resource] };
-  resource.Metadata = e;
+  resource[block] = e;
   result.Resources[e.Resource] = resource;
   return result;
 }
@@ -290,16 +229,12 @@ function _addResource(t: ITemplate, e: IResource): ITemplate {
 }
 
 export {
+  _addResourcePolicy,
   _add,
   _addCondition,
-  _addCreationPolicy,
-  _addDeletionPolicy,
-  _addDependsOn,
   _addDescription,
   _addMapping,
   _addOutput,
   _addParameter,
   _addResource,
-  _addResourceMetadata,
-  _addUpdatePolicy,
 };

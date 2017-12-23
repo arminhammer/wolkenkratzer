@@ -44908,15 +44908,15 @@ function _add(template, e, options) {
     const _t = lodash_1(template);
     switch (e.kind) {
         case 'CreationPolicy':
-            return _addCreationPolicy(_t, e);
+            return _addResourcePolicy(_t, e);
         case 'DeletionPolicy':
-            return _addDeletionPolicy(_t, e);
+            return _addResourcePolicy(_t, e);
         case 'DependsOn':
-            return _addDependsOn(_t, e);
+            return _addResourcePolicy(_t, e);
         case 'ResourceMetadata':
-            return _addResourceMetadata(_t, e);
+            return _addResourcePolicy(_t, e);
         case 'UpdatePolicy':
-            return _addUpdatePolicy(_t, e);
+            return _addResourcePolicy(_t, e);
         case 'Condition':
             return _addCondition(_t, e);
         case 'Mapping':
@@ -44977,71 +44977,14 @@ function _addDescription(t, e) {
  * @param t
  * @param e
  */
-function _addCreationPolicy(t, e) {
+function _addResourcePolicy(t, e) {
     const result = lodash_1(t);
+    const block = e.kind === 'ResourceMetadata' ? 'Metadata' : e.kind;
     if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.');
+        throw new SyntaxError(`Cannot add ${block} to a Resource that does not exist in the template.`);
     }
     const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.CreationPolicy = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- */
-function _addDeletionPolicy(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.DeletionPolicy = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addUpdatePolicy(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.UpdatePolicy = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addDependsOn(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.DependsOn = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addResourceMetadata(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add Metadata to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.Metadata = e;
+    resource[block] = e;
     result.Resources[e.Resource] = resource;
     return result;
 }
@@ -45688,19 +45631,19 @@ function _calcFromExistingTemplate(t, inputTemplate) {
                 t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties, options));
             }
             if (inputTemplate.Resources[r].Metadata) {
-                t = _addResourceMetadata(t, ResourceMetadata(r, inputTemplate.Resources[r].Metadata));
+                t = _addResourcePolicy(t, ResourceMetadata(r, inputTemplate.Resources[r].Metadata));
             }
             if (inputTemplate.Resources[r].CreationPolicy) {
-                t = _addCreationPolicy(t, CreationPolicy(r, inputTemplate.Resources[r].CreationPolicy));
+                t = _addResourcePolicy(t, CreationPolicy(r, inputTemplate.Resources[r].CreationPolicy));
             }
             if (inputTemplate.Resources[r].DeletionPolicy) {
-                t = _addDeletionPolicy(t, DeletionPolicy(r, inputTemplate.Resources[r].DeletionPolicy));
+                t = _addResourcePolicy(t, DeletionPolicy(r, inputTemplate.Resources[r].DeletionPolicy));
             }
             if (inputTemplate.Resources[r].DependsOn) {
-                t = _addDependsOn(t, DependsOn(r, inputTemplate.Resources[r].DependsOn));
+                t = _addResourcePolicy(t, DependsOn(r, inputTemplate.Resources[r].DependsOn));
             }
             if (inputTemplate.Resources[r].UpdatePolicy) {
-                t = _addUpdatePolicy(t, UpdatePolicy(r, inputTemplate.Resources[r].UpdatePolicy));
+                t = _addResourcePolicy(t, UpdatePolicy(r, inputTemplate.Resources[r].UpdatePolicy));
             }
         });
     }
@@ -46179,13 +46122,18 @@ const EIP = function (name, AWSClient, logical) {
 /**
  * @hidden
  */
-const EIPAssociation = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.EIPAssociation(logical, resource));
-    }));
-};
+/*
+const EIPAssociation: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.EIPAssociation(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
@@ -46341,73 +46289,108 @@ const NatGateway = function (name, AWSClient, logical) {
 /**
  * @hidden
  */
-const NetworkAcl = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.NetworkAcl(logical, resource));
-    }));
-};
+/*
+const NetworkAcl: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.NetworkAcl(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const NetworkAclEntry = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.NetworkAclEntry(logical, resource));
-    }));
-};
+/*
+const NetworkAclEntry: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.NetworkAclEntry(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const NetworkInterface = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.NetworkInterface(logical, resource));
-    }));
-};
+/*
+const NetworkInterface: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.NetworkInterface(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const NetworkInterfaceAttachment = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.NetworkInterfaceAttachment(logical, resource));
-    }));
-};
+/*
+const NetworkInterfaceAttachment: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.NetworkInterfaceAttachment(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const NetworkInterfacePermission = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.NetworkInterfacePermission(logical, resource));
-    }));
-};
+/*
+const NetworkInterfacePermission: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.NetworkInterfacePermission(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const PlacementGroup = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.PlacementGroup(logical, resource));
-    }));
-};
+/*
+const PlacementGroup: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.PlacementGroup(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const Route = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.Route(logical, resource));
-    }));
-};
+/*
+const Route: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.Route(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
@@ -46426,203 +46409,303 @@ const RouteTable = function (name, AWSClient, logical) {
 /**
  * @hidden
  */
-const SecurityGroup = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SecurityGroup(logical, resource));
-    }));
-};
+/*
+const SecurityGroup: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SecurityGroup(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SecurityGroupEgress = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SecurityGroupEgress(logical, resource));
-    }));
-};
+/*
+const SecurityGroupEgress: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SecurityGroupEgress(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SecurityGroupIngress = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SecurityGroupIngress(logical, resource));
-    }));
-};
+/*
+const SecurityGroupIngress: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SecurityGroupIngress(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SpotFleet = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SpotFleet(logical, resource));
-    }));
-};
+/*
+const SpotFleet: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SpotFleet(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const Subnet = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.Subnet(logical, resource));
-    }));
-};
+/*
+const Subnet: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.Subnet(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SubnetCidrBlock = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SubnetCidrBlock(logical, resource));
-    }));
-};
+/*
+const SubnetCidrBlock: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SubnetCidrBlock(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SubnetNetworkAclAssociation = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SubnetNetworkAclAssociation(logical, resource));
-    }));
-};
+/*
+const SubnetNetworkAclAssociation: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SubnetNetworkAclAssociation(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SubnetRouteTableAssociation = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SubnetRouteTableAssociation(logical, resource));
-    }));
-};
+/*
+const SubnetRouteTableAssociation: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SubnetRouteTableAssociation(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const Volume = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.Volume(logical, resource));
-    }));
-};
+/*
+const Volume: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.Volume(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VolumeAttachment = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VolumeAttachment(logical, resource));
-    }));
-};
+/*
+const VolumeAttachment: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VolumeAttachment(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPC = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPC(logical, resource));
-    }));
-};
+/*
+const VPC: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPC(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPCCidrBlock = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPCCidrBlock(logical, resource));
-    }));
-};
+/*
+const VPCCidrBlock: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPCCidrBlock(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPCDHCPOptionsAssociation = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPCDHCPOptionsAssociation(logical, resource));
-    }));
-};
+/*
+const VPCDHCPOptionsAssociation: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPCDHCPOptionsAssociation(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPCEndpoint = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPCEndpoint(logical, resource));
-    }));
-};
+/*
+const VPCEndpoint: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPCEndpoint(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPCGatewayAttachment = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPCGatewayAttachment(logical, resource));
-    }));
-};
+/*
+const VPCGatewayAttachment: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPCGatewayAttachment(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPCPeeringConnection = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPCPeeringConnection(logical, resource));
-    }));
-};
+/*
+const VPCPeeringConnection: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPCPeeringConnection(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPNConnection = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPNConnection(logical, resource));
-    }));
-};
+/*
+const VPNConnection: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPNConnection(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPNConnectionRoute = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPNConnectionRoute(logical, resource));
-    }));
-};
+/*
+const VPNConnectionRoute: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPNConnectionRoute(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPNGateway = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPNGateway(logical, resource));
-    }));
-};
+/*
+const VPNGateway: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPNGateway(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPNGatewayRoutePropagation = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        // const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPNGatewayRoutePropagation(logical, resource));
-    }));
-};
+/*
+const VPNGatewayRoutePropagation: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPNGatewayRoutePropagation(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
@@ -46630,41 +46713,21 @@ const EC2$1 = {
     CustomerGateway,
     DHCPOptions,
     EIP,
-    EIPAssociation,
+    // EIPAssociation,
     EgressOnlyInternetGateway,
     FlowLog,
     Host,
     Instance,
     InternetGateway,
     NatGateway,
-    NetworkAcl,
+    /* NetworkAcl,
     NetworkAclEntry,
     NetworkInterface,
     NetworkInterfaceAttachment,
     NetworkInterfacePermission,
     PlacementGroup,
-    Route,
+    Route, */
     RouteTable,
-    SecurityGroup,
-    SecurityGroupEgress,
-    SecurityGroupIngress,
-    SpotFleet,
-    Subnet,
-    SubnetCidrBlock,
-    SubnetNetworkAclAssociation,
-    SubnetRouteTableAssociation,
-    VPC,
-    VPCCidrBlock,
-    VPCDHCPOptionsAssociation,
-    VPCEndpoint,
-    VPCGatewayAttachment,
-    VPCPeeringConnection,
-    VPNConnection,
-    VPNConnectionRoute,
-    VPNGateway,
-    VPNGatewayRoutePropagation,
-    Volume,
-    VolumeAttachment,
 };
 
 /**
