@@ -85,9 +85,7 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
     });
   }
   if (inputTemplate.Outputs) {
-    Object.keys(inputTemplate.Outputs).forEach(o => {
-      t = t.add(Output(o, inputTemplate.Outputs[o]));
-    });
+    t = _addIterate(t, inputTemplate, 'Outputs', Output);
   }
   if (inputTemplate.Mappings) {
     Object.keys(inputTemplate.Mappings).forEach(m => {
@@ -97,10 +95,20 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
     });
   }
   if (inputTemplate.Conditions) {
-    Object.keys(inputTemplate.Conditions).forEach(c => {
-      t = t.add(Condition(c, inputTemplate.Conditions[c]));
-    });
+    t = _addIterate(t, inputTemplate, 'Conditions', Condition);
   }
+  return t;
+}
+
+function _addIterate(
+  t: ITemplate,
+  inputTemplate: any,
+  blockType: 'Conditions' | 'Outputs',
+  method: Function
+) {
+  Object.keys(inputTemplate[blockType]).forEach(o => {
+    t = t.add(method(o, inputTemplate[blockType][o]));
+  });
   return t;
 }
 
