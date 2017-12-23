@@ -48,8 +48,6 @@
     "webpack": "^3.5.5"
   },
   "scripts": {
-    "cp-sub":
-      "cp -R src/stubs/json dist/stubs/json && cp -R src/ec2info/www/instances.json dist/ec2info/www/instances.json",
     "cp-ec2info": "cp -R src/ec2info.json dist/ec2info.json",
     "rollup": "node_modules/.bin/rollup --config rollup.config.js",
     "build": "tsc && npm run cp-ec2info && npm run rollup",
