@@ -21418,25 +21418,33 @@ function FnAnd(one, two) {
     return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
 }
 /**
+ * @hidden
+ * @param items
+ * @param fnType
+ */
+function _fnConditional(items, fnType) {
+    return { kind: fnType, [fnType]: items.map(x => buildIntrinsic(x)) };
+}
+/**
  * Returns an Fn::Or object
  * @param {*} array
  */
 function FnOr(items) {
-    return { kind: 'FnOr', FnOr: items.map(x => buildIntrinsic(x)) };
+    return _fnConditional(items, 'FnOr');
 }
 /**
  * Returns an Fn::Not object
  * @param {*} array
  */
 function FnNot(items) {
-    return { kind: 'FnNot', FnNot: items.map(x => buildIntrinsic(x)) };
+    return _fnConditional(items, 'FnNot');
 }
 /**
  * Returns an Fn::If object
  * @param {*} array
  */
 function FnIf(items) {
-    return { kind: 'FnIf', FnIf: items.map(x => buildIntrinsic(x)) };
+    return _fnConditional(items, 'FnIf');
 }
 /**
  * Returns a Ref object that references another element in the template
@@ -21504,7 +21512,7 @@ function FnSub(input) {
 function FnFindInMap(mapName, topLevelKey, secondLevelKey) {
     return {
         FnFindInMap: [mapName, topLevelKey, secondLevelKey],
-        kind: 'FnFindInMap'
+        kind: 'FnFindInMap',
     };
 }
 /**
@@ -45170,17 +45178,6 @@ function _buildFnFindInMap(t) {
 }
 /**
  * @hidden
- */
-function _buildGetAZs(t) {
-    if (typeof t.FnGetAZs === 'string') {
-        return t.FnGetAZs;
-    }
-    else {
-        return _json(t.FnGetAZs);
-    }
-}
-/**
- * @hidden
  * @param t
  */
 function _buildFnSplit(t) {
@@ -45209,24 +45206,14 @@ function _buildFnOr(t) {
  * @hidden
  * @param t
  */
-function _buildFnImportValue(t) {
-    if (typeof t.FnImportValue === 'string') {
-        return t.FnImportValue;
+function _buildFnBasicBlock(t) {
+    const block = t.kind;
+    const newBlock = t[block];
+    if (typeof t[block] === 'string') {
+        return t[block];
     }
     else {
-        return _json(t.FnImportValue);
-    }
-}
-/**
- * @hidden
- * @param t
- */
-function _buildFnBase64(t) {
-    if (typeof t.FnBase64 === 'string') {
-        return t.FnBase64;
-    }
-    else {
-        return _json(t.FnBase64);
+        return _json(newBlock);
     }
 }
 /**
@@ -45325,11 +45312,11 @@ function _json(t) {
         case 'Ref':
             return { Ref: t.Ref };
         case 'FnBase64':
-            return { 'Fn::Base64': _buildFnBase64(t) };
+            return { 'Fn::Base64': _buildFnBasicBlock(t) };
         case 'FnGetAtt':
             return { 'Fn::GetAtt': t.FnGetAtt };
         case 'FnGetAZs':
-            return { 'Fn::GetAZs': _buildGetAZs(t) };
+            return { 'Fn::GetAZs': _buildFnBasicBlock(t) };
         case 'FnJoin':
             return _buildFnJoin(t);
         case 'FnAnd':
@@ -45343,7 +45330,7 @@ function _json(t) {
         case 'FnEquals':
             return { 'Fn::Equals': _buildFnBlock(t) };
         case 'FnImportValue':
-            return { 'Fn::ImportValue': _buildFnImportValue(t) };
+            return { 'Fn::ImportValue': _buildFnBasicBlock(t) };
         case 'FnOr':
             return { 'Fn::Or': _buildFnOr(t) };
         case 'FnSelect':
