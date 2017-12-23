@@ -67,14 +67,14 @@
             build: function () {
                 const result = {
                     AWSTemplateFormatVersion: '2010-09-09',
-                    Resources: {}
+                    Resources: {},
                 };
                 const skel = {
                     Conditions: this.Conditions,
                     Mappings: this.Mappings,
                     Outputs: this.Outputs,
                     Parameters: this.Parameters,
-                    Resources: this.Resources
+                    Resources: this.Resources,
                 };
                 Object.keys(skel).forEach(element => {
                     if (Object.keys(skel[element]).length > 0) {
@@ -130,7 +130,7 @@
                     'Outputs',
                     'Parameters',
                     'Resources',
-                    'Description'
+                    'Description',
                 ].forEach(block => {
                     if (t[block]) {
                         combined[block] = Object.assign({}, _t[block], t[block]);
@@ -165,7 +165,7 @@
                 outputName = outputName ? outputName : `${resource}${attribute}`;
                 result = _addOutput(result, output_1.Output(outputName, {
                     Description: `The ${attribute} of the ${resource} ${rgroup} ${rtype}`,
-                    Value: intrinsic_1.Ref(resource)
+                    Value: intrinsic_1.Ref(resource),
                 }));
                 return result;
             },
@@ -247,7 +247,7 @@
                 // const templateString = JSON.stringify(cleanedTemplate, null, 2);
                 const templateString = js_yaml_1.safeDump(cleanedTemplate, {
                     flowLevel: 5,
-                    schema: cloudformation_schema_js_yaml_1.default
+                    schema: cloudformation_schema_js_yaml_1.default,
                 })
                     .replace(/'Fn::Equals':/g, '!Equals')
                     .replace(/'Fn::And':/g, '!And')
@@ -276,7 +276,7 @@
                   "Fn::Split"
                   "Fn::Sub"*/
                 return templateString;
-            }
+            },
         };
     }
     exports.Template = Template;
@@ -318,7 +318,7 @@
                             }
                             f.Properties[p] = intrinsic_1.Ref(paramName);
                             newT = _addParameter(newT, parameter_1.Parameter(paramName, {
-                                Type: 'String'
+                                Type: 'String',
                             }));
                         });
                     }
@@ -327,9 +327,9 @@
                         newT = _addOutput(newT, output_1.Output(`${f.Name}${shortName}Output`, {
                             Condition: f.Condition,
                             Export: {
-                                Name: intrinsic_1.FnSub(`\$\{${pseudo_1.Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`)
+                                Name: intrinsic_1.FnSub(`\$\{${pseudo_1.Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`),
                             },
-                            Value: intrinsic_1.Ref(f.Name)
+                            Value: intrinsic_1.Ref(f.Name),
                         }));
                     }
                 }
@@ -369,10 +369,17 @@
      * @param att
      */
     function _validateFnGetAtt(t, att) {
-        if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
+        if (!t.Resources[att.FnGetAtt[0]]) {
             throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
         }
-        return;
+        const [begin, service, resource] = t.Resources[att.FnGetAtt[0]].Type.split('::');
+        if (begin === 'AWS' && stubs[service]) {
+            const validAttributes = Object.keys(stubs[service].Resources[resource].Attributes);
+            if (!validAttributes.includes(att.FnGetAtt[1])) {
+                throw new SyntaxError(`${att.FnGetAtt[1]} is not a valid attribute of 
+      ${att.FnGetAtt[0]}`);
+            }
+        }
     }
     /**
      * @hidden
@@ -404,10 +411,10 @@
      */
     function _buildResource(t) {
         const newT = lodash_1.cloneDeep(t);
-        const { Type, Properties, CreationPolicy, DeletionPolicy, DependsOn, Metadata, Condition: condition, UpdatePolicy } = newT;
+        const { Type, Properties, CreationPolicy, DeletionPolicy, DependsOn, Metadata, Condition: condition, UpdatePolicy, } = newT;
         const newProps = {};
         const result = { Type };
-        if (Properties) {
+        if (Properties && !lodash_1.isEmpty(Properties)) {
             Object.keys(Properties).forEach(p => {
                 // Ignore empty arrays
                 if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
@@ -875,6 +882,7 @@
      * @param e
      */
     function _addResource(t, e) {
+        _validateResourceIntrinsics(t, e);
         const result = Object.assign({}, t);
         const newResources = lodash_1.cloneDeep(result.Resources);
         newResources[e.Name] = e;
@@ -997,7 +1005,7 @@
                 const cat = split[1];
                 const resType = split[2];
                 const options = {
-                    Condition: inputTemplate.Resources[r].Condition
+                    Condition: inputTemplate.Resources[r].Condition,
                 };
                 if (split[0] === 'AWS') {
                     const service = service_1.Service(stubs[cat]);
@@ -1041,6 +1049,30 @@
             });
         }
         return t;
+    }
+    /**
+     * @hidden
+     */
+    function _validateResourceIntrinsics(t, e) {
+        if (e) {
+            Object.keys(e).forEach(x => {
+                if (e[x] &&
+                    typeof e[x] !== 'string' &&
+                    (Array.isArray(e[x]) || Object.keys(e[x]).length > 0)) {
+                    if (e[x].kind) {
+                        if (e[x].kind === 'FnGetAtt') {
+                            _validateFnGetAtt(t, e[x]);
+                        }
+                        else if (e[x].kind === 'Ref') {
+                            _validateRef(t, e[x]);
+                        }
+                    }
+                    else {
+                        _validateResourceIntrinsics(t, e[x]);
+                    }
+                }
+            });
+        }
     }
 });
 //# sourceMappingURL=template.js.map

@@ -1,5 +1,5 @@
 import { Service } from '../service';
-import { IResource, IService, TransformFunctionType } from '../types';
+import { IResource, TransformFunctionType } from '../types';
 import { EC2 as stub } from './../spec/spec';
 
 /**
@@ -20,7 +20,7 @@ const CustomerGateway: TransformFunctionType = function(
     const resource: { BgpAsn?; IpAddress?; Tags?; Type? } = {};
     const result = await client
       .describeCustomerGateways({
-        CustomerGatewayIds: [name]
+        CustomerGatewayIds: [name],
       })
       .promise();
     resource.BgpAsn = parseInt(result.CustomerGateways[0].BgpAsn, 10);
@@ -53,7 +53,7 @@ const DHCPOptions: TransformFunctionType = function(
     } = {};
     const result = await client
       .describeDhcpOptions({
-        DhcpOptionsIds: [name]
+        DhcpOptionsIds: [name],
       })
       .promise();
     result.DhcpOptions[0].DhcpConfigurations.forEach(d => {
@@ -95,7 +95,7 @@ const EgressOnlyInternetGateway: TransformFunctionType = function(
     const resource: { VpcId? } = {};
     const { EgressOnlyInternetGateways } = await client
       .describeEgressOnlyInternetGateways({
-        EgressOnlyInternetGatewayIds: [name]
+        EgressOnlyInternetGatewayIds: [name],
       })
       .promise();
     resource.VpcId = EgressOnlyInternetGateways[0].Attachments[0].VpcId;
@@ -119,10 +119,10 @@ const EIP: TransformFunctionType = function(
         Filters: [
           {
             Name: 'domain',
-            Values: ['vpc']
-          }
+            Values: ['vpc'],
+          },
         ],
-        PublicIps: [name]
+        PublicIps: [name],
       })
       .promise();
     resource.Domain = result.Addresses[0].Domain;
@@ -140,7 +140,7 @@ const EIPAssociation: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.EIPAssociation(logical, resource));
   });
@@ -233,7 +233,7 @@ const Instance: TransformFunctionType = function(
       .describeInstances({ InstanceIds: [name] })
       .promise();
     const [instancesResults]: any = await Promise.all([
-      describeInstancesPromise
+      describeInstancesPromise,
     ]);
     resource.Affinity =
       instancesResults.Reservations[0].Instances[0].Placement.Affinity;
@@ -308,7 +308,7 @@ const Instance: TransformFunctionType = function(
             return { Primary: x.Primary, PrivateIpAddress: x.PrivateIpAddress };
           }),
           // SecondaryPrivateIpAddressCount: 0,
-          SubnetId: i.SubnetId
+          SubnetId: i.SubnetId,
         };
       }
     );
@@ -329,7 +329,7 @@ const InternetGateway: TransformFunctionType = function(
     const resource: { Tags? } = {};
     const result = await client
       .describeInternetGateways({
-        InternetGatewayIds: [name]
+        InternetGatewayIds: [name],
       })
       .promise();
     resource.Tags = result.InternetGateways[0].Tags;
@@ -350,7 +350,7 @@ const NatGateway: TransformFunctionType = function(
     const resource: { AllocationId?; SubnetId?; Tags? } = {};
     const result = await client
       .describeNatGateways({
-        NatGatewayIds: [name]
+        NatGatewayIds: [name],
       })
       .promise();
     resource.AllocationId =
@@ -372,7 +372,7 @@ const NetworkAcl: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.NetworkAcl(logical, resource));
   });
@@ -387,7 +387,7 @@ const NetworkAclEntry: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.NetworkAclEntry(logical, resource));
   });
@@ -402,7 +402,7 @@ const NetworkInterface: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.NetworkInterface(logical, resource));
   });
@@ -417,7 +417,7 @@ const NetworkInterfaceAttachment: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.NetworkInterfaceAttachment(logical, resource));
   });
@@ -432,7 +432,7 @@ const NetworkInterfacePermission: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.NetworkInterfacePermission(logical, resource));
   });
@@ -447,7 +447,7 @@ const PlacementGroup: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.PlacementGroup(logical, resource));
   });
@@ -462,7 +462,7 @@ const Route: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.Route(logical, resource));
   });
@@ -497,7 +497,7 @@ const SecurityGroup: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.SecurityGroup(logical, resource));
   });
@@ -512,7 +512,7 @@ const SecurityGroupEgress: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.SecurityGroupEgress(logical, resource));
   });
@@ -527,7 +527,7 @@ const SecurityGroupIngress: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.SecurityGroupIngress(logical, resource));
   });
@@ -542,7 +542,7 @@ const SpotFleet: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.SpotFleet(logical, resource));
   });
@@ -557,7 +557,7 @@ const Subnet: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.Subnet(logical, resource));
   });
@@ -572,7 +572,7 @@ const SubnetCidrBlock: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.SubnetCidrBlock(logical, resource));
   });
@@ -587,7 +587,7 @@ const SubnetNetworkAclAssociation: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.SubnetNetworkAclAssociation(logical, resource));
   });
@@ -602,7 +602,7 @@ const SubnetRouteTableAssociation: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.SubnetRouteTableAssociation(logical, resource));
   });
@@ -617,7 +617,7 @@ const Volume: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.Volume(logical, resource));
   });
@@ -632,7 +632,7 @@ const VolumeAttachment: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VolumeAttachment(logical, resource));
   });
@@ -647,7 +647,7 @@ const VPC: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VPC(logical, resource));
   });
@@ -662,7 +662,7 @@ const VPCCidrBlock: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VPCCidrBlock(logical, resource));
   });
@@ -677,7 +677,7 @@ const VPCDHCPOptionsAssociation: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VPCDHCPOptionsAssociation(logical, resource));
   });
@@ -692,7 +692,7 @@ const VPCEndpoint: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VPCEndpoint(logical, resource));
   });
@@ -707,7 +707,7 @@ const VPCGatewayAttachment: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VPCGatewayAttachment(logical, resource));
   });
@@ -722,7 +722,7 @@ const VPCPeeringConnection: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VPCPeeringConnection(logical, resource));
   });
@@ -737,7 +737,7 @@ const VPNConnection: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VPNConnection(logical, resource));
   });
@@ -752,7 +752,7 @@ const VPNConnectionRoute: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VPNConnectionRoute(logical, resource));
   });
@@ -767,7 +767,7 @@ const VPNGateway: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VPNGateway(logical, resource));
   });
@@ -782,7 +782,7 @@ const VPNGatewayRoutePropagation: TransformFunctionType = function(
   logical: string
 ): Promise<IResource> {
   return new Promise(async (resolve, reject) => {
-    const client = new AWSClient.EC2();
+    // const client = new AWSClient.EC2();
     const resource: object = {};
     return resolve(service.VPNGatewayRoutePropagation(logical, resource));
   });
@@ -829,5 +829,5 @@ export const EC2 = {
   VPNGateway,
   VPNGatewayRoutePropagation,
   Volume,
-  VolumeAttachment
+  VolumeAttachment,
 };

@@ -362,7 +362,7 @@ export interface IFnSplit {
  */
 export type TransformFunctionType = (
   name: string,
-  AWSClient: any,
+  AWSClient: AWS.Service,
   logical?: string
 ) => Promise<IResource>;
 
@@ -370,7 +370,7 @@ export type TransformFunctionType = (
  * @hidden
  */
 export type TransformListFunctionType = (
-  AWSClient: any
+  AWSClient: AWS.Service
 ) => Promise<IResource[]>;
 
 /**
