@@ -17,7 +17,7 @@ import {
   IIntrinsic,
   IParameter,
   IRef,
-  IResource
+  IResource,
 } from './types';
 
 /**
@@ -30,11 +30,23 @@ export function FnAnd(one: Conditional, two: Conditional): IFnAnd {
 }
 
 /**
+ * @hidden
+ * @param items
+ * @param fnType
+ */
+function _fnConditional(
+  items: Array<string | IIntrinsic>,
+  fnType: 'FnOr' | 'FnNot' | 'FnIf'
+): any {
+  return { kind: fnType, [fnType]: items.map(x => buildIntrinsic(x)) };
+}
+
+/**
  * Returns an Fn::Or object
  * @param {*} array
  */
 export function FnOr(items: Array<string | IIntrinsic>): IFnOr {
-  return { kind: 'FnOr', FnOr: items.map(x => buildIntrinsic(x)) };
+  return _fnConditional(items, 'FnOr');
 }
 
 /**
@@ -42,7 +54,7 @@ export function FnOr(items: Array<string | IIntrinsic>): IFnOr {
  * @param {*} array
  */
 export function FnNot(items: Array<string | IIntrinsic>): IFnNot {
-  return { kind: 'FnNot', FnNot: items.map(x => buildIntrinsic(x)) };
+  return _fnConditional(items, 'FnNot');
 }
 
 /**
@@ -50,7 +62,7 @@ export function FnNot(items: Array<string | IIntrinsic>): IFnNot {
  * @param {*} array
  */
 export function FnIf(items: Array<string | IIntrinsic>): IFnIf {
-  return { kind: 'FnIf', FnIf: items.map(x => buildIntrinsic(x)) };
+  return _fnConditional(items, 'FnIf');
 }
 
 /**
@@ -132,7 +144,7 @@ export function FnFindInMap(
 ): IFnFindInMap {
   return {
     FnFindInMap: [mapName, topLevelKey, secondLevelKey],
-    kind: 'FnFindInMap'
+    kind: 'FnFindInMap',
   };
 }
 
@@ -164,7 +176,7 @@ export function FnSelect(
   return {
     FnSelect: list,
     index: index,
-    kind: 'FnSelect'
+    kind: 'FnSelect',
   };
 }
 
@@ -226,6 +238,6 @@ export function FnSplit(delimiter: string, value: string): IFnSplit {
   return {
     delimiter: delimiter,
     kind: 'FnSplit',
-    value: value
+    value: value,
   };
 }

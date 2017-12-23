@@ -1,4 +1,4 @@
-import { cloneDeep, omit } from 'lodash';
+import { omit } from 'lodash';
 import { IMapping, IOutput, IParameter, IResource, ITemplate } from '../types';
 
 /**
