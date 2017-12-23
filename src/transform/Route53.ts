@@ -1,6 +1,6 @@
 import { flatten } from 'lodash';
 import { Service } from '../service';
-import { IResource, IService, TransformListFunctionType } from '../types';
+import { IResource, TransformListFunctionType } from '../types';
 import { Route53 as stub } from './../spec/spec';
 
 /**
@@ -37,7 +37,7 @@ const RecordSetList: TransformListFunctionType = function(
         SetIdentifier: r.SetIdentifier,
         TTL: r.TTL,
         Type: r.Type,
-        Weight: r.Weight
+        Weight: r.Weight,
       })
     );
     resolve(resources);
@@ -48,7 +48,7 @@ const RecordSetList: TransformListFunctionType = function(
  * @hidden
  */
 export const Route53 = {
-  RecordSetList
+  RecordSetList,
 };
 
 /*

@@ -46,7 +46,7 @@ import {
   IResource,
   IResourceMetadata,
   ITemplate,
-  IUpdatePolicy
+  IUpdatePolicy,
 } from './types';
 
 import * as stubs from './spec/spec';
@@ -101,14 +101,14 @@ export function Template(): ITemplate {
     build: function(): object {
       const result: any = {
         AWSTemplateFormatVersion: '2010-09-09',
-        Resources: {}
+        Resources: {},
       };
       const skel = {
         Conditions: this.Conditions,
         Mappings: this.Mappings,
         Outputs: this.Outputs,
         Parameters: this.Parameters,
-        Resources: this.Resources
+        Resources: this.Resources,
       };
       Object.keys(skel).forEach(element => {
         if (Object.keys(skel[element]).length > 0) {
@@ -164,7 +164,7 @@ export function Template(): ITemplate {
         'Outputs',
         'Parameters',
         'Resources',
-        'Description'
+        'Description',
       ].forEach(block => {
         if (t[block]) {
           combined[block] = { ..._t[block], ...t[block] };
@@ -172,7 +172,7 @@ export function Template(): ITemplate {
       });
       return {
         ..._t,
-        ...combined
+        ...combined,
       };
     },
     /**
@@ -210,7 +210,7 @@ export function Template(): ITemplate {
         result,
         Output(outputName, {
           Description: `The ${attribute} of the ${resource} ${rgroup} ${rtype}`,
-          Value: Ref(resource)
+          Value: Ref(resource),
         })
       );
       return result;
@@ -290,7 +290,7 @@ export function Template(): ITemplate {
       // const templateString = JSON.stringify(cleanedTemplate, null, 2);
       const templateString = safeDump(cleanedTemplate, {
         flowLevel: 5,
-        schema: cftSchema
+        schema: cftSchema,
       })
         /* See note on 
         http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
@@ -328,7 +328,7 @@ export function Template(): ITemplate {
         "Fn::Split"
         "Fn::Sub"*/
       return templateString;
-    }
+    },
   };
 }
 
@@ -382,7 +382,7 @@ function _add(
             newT = _addParameter(
               newT,
               Parameter(paramName, {
-                Type: 'String'
+                Type: 'String',
               })
             );
           });
@@ -398,9 +398,9 @@ function _add(
                   `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${
                     nameSplit[1]
                   }-${f.Name}`
-                )
+                ),
               },
-              Value: Ref(f.Name)
+              Value: Ref(f.Name),
             })
           );
         }
@@ -445,7 +445,7 @@ function _validateRef(t: ITemplate, ref: IRef): void | SyntaxError {
  * @param att
  */
 function _validateFnGetAtt(t: ITemplate, att: IFnGetAtt): void | SyntaxError {
-  if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
+  if (!t.Resources[att.FnGetAtt[0]]) {
     throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
   }
   const [begin, service, resource] = t.Resources[att.FnGetAtt[0]].Type.split(
@@ -499,7 +499,7 @@ function _buildResource(t: IResource) {
     DependsOn,
     Metadata,
     Condition: condition,
-    UpdatePolicy
+    UpdatePolicy,
   } = newT;
   const newProps = {};
   const result: any = { Type };
@@ -1005,7 +1005,7 @@ function _addMapping(t: ITemplate, e: IMapping): ITemplate {
     const newMappings: any = cloneDeep(result.Mappings);
     newMappings[e.Name] = {
       ...e,
-      Content: { ...result.Mappings[e.Name].Content, ...e.Content }
+      Content: { ...result.Mappings[e.Name].Content, ...e.Content },
     };
     result.Mappings = newMappings;
   } else {
@@ -1139,7 +1139,7 @@ function _calcFromExistingTemplate(t: ITemplate, inputTemplate: any) {
       const cat = split[1];
       const resType = split[2];
       const options = {
-        Condition: inputTemplate.Resources[r].Condition
+        Condition: inputTemplate.Resources[r].Condition,
       };
       if (split[0] === 'AWS') {
         const service = Service(stubs[cat]);

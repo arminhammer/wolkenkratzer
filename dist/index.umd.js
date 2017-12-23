@@ -45062,14 +45062,14 @@ function Template() {
         build: function () {
             const result = {
                 AWSTemplateFormatVersion: '2010-09-09',
-                Resources: {}
+                Resources: {},
             };
             const skel = {
                 Conditions: this.Conditions,
                 Mappings: this.Mappings,
                 Outputs: this.Outputs,
                 Parameters: this.Parameters,
-                Resources: this.Resources
+                Resources: this.Resources,
             };
             Object.keys(skel).forEach(element => {
                 if (Object.keys(skel[element]).length > 0) {
@@ -45125,7 +45125,7 @@ function Template() {
                 'Outputs',
                 'Parameters',
                 'Resources',
-                'Description'
+                'Description',
             ].forEach(block => {
                 if (t[block]) {
                     combined[block] = Object.assign({}, _t[block], t[block]);
@@ -45160,7 +45160,7 @@ function Template() {
             outputName = outputName ? outputName : `${resource}${attribute}`;
             result = _addOutput(result, Output(outputName, {
                 Description: `The ${attribute} of the ${resource} ${rgroup} ${rtype}`,
-                Value: Ref(resource)
+                Value: Ref(resource),
             }));
             return result;
         },
@@ -45242,7 +45242,7 @@ function Template() {
             // const templateString = JSON.stringify(cleanedTemplate, null, 2);
             const templateString = jsYaml_1(cleanedTemplate, {
                 flowLevel: 5,
-                schema: cloudformationSchemaJsYaml
+                schema: cloudformationSchemaJsYaml,
             })
                 .replace(/'Fn::Equals':/g, '!Equals')
                 .replace(/'Fn::And':/g, '!And')
@@ -45271,7 +45271,7 @@ function Template() {
               "Fn::Split"
               "Fn::Sub"*/
             return templateString;
-        }
+        },
     };
 }
 /**
@@ -45312,7 +45312,7 @@ function _add(template, e, options) {
                         }
                         f.Properties[p] = Ref(paramName);
                         newT = _addParameter(newT, Parameter(paramName, {
-                            Type: 'String'
+                            Type: 'String',
                         }));
                     });
                 }
@@ -45321,9 +45321,9 @@ function _add(template, e, options) {
                     newT = _addOutput(newT, Output(`${f.Name}${shortName}Output`, {
                         Condition: f.Condition,
                         Export: {
-                            Name: FnSub(`\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`)
+                            Name: FnSub(`\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`),
                         },
-                        Value: Ref(f.Name)
+                        Value: Ref(f.Name),
                     }));
                 }
             }
@@ -45363,7 +45363,7 @@ function _validateRef(t, ref) {
  * @param att
  */
 function _validateFnGetAtt(t, att) {
-    if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
+    if (!t.Resources[att.FnGetAtt[0]]) {
         throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
     }
     const [begin, service, resource] = t.Resources[att.FnGetAtt[0]].Type.split('::');
@@ -45405,7 +45405,7 @@ function _cleanObject(object) {
  */
 function _buildResource(t) {
     const newT = lodash_1(t);
-    const { Type, Properties, CreationPolicy: CreationPolicy$$1, DeletionPolicy: DeletionPolicy$$1, DependsOn: DependsOn$$1, Metadata, Condition: condition, UpdatePolicy: UpdatePolicy$$1 } = newT;
+    const { Type, Properties, CreationPolicy: CreationPolicy$$1, DeletionPolicy: DeletionPolicy$$1, DependsOn: DependsOn$$1, Metadata, Condition: condition, UpdatePolicy: UpdatePolicy$$1, } = newT;
     const newProps = {};
     const result = { Type };
     if (Properties && !lodash_3(Properties)) {
@@ -45998,7 +45998,7 @@ function _calcFromExistingTemplate(t, inputTemplate) {
             const cat = split[1];
             const resType = split[2];
             const options = {
-                Condition: inputTemplate.Resources[r].Condition
+                Condition: inputTemplate.Resources[r].Condition,
             };
             if (split[0] === 'AWS') {
                 const service = Service(stubs[cat]);
@@ -46176,7 +46176,7 @@ const CustomerGateway = function (name, AWSClient, logical) {
         const resource = {};
         const result = yield client
             .describeCustomerGateways({
-            CustomerGatewayIds: [name]
+            CustomerGatewayIds: [name],
         })
             .promise();
         resource.BgpAsn = parseInt(result.CustomerGateways[0].BgpAsn, 10);
@@ -46197,7 +46197,7 @@ const DHCPOptions = function (name, AWSClient, logical) {
         const resource = {};
         const result = yield client
             .describeDhcpOptions({
-            DhcpOptionsIds: [name]
+            DhcpOptionsIds: [name],
         })
             .promise();
         result.DhcpOptions[0].DhcpConfigurations.forEach(d => {
@@ -46234,7 +46234,7 @@ const EgressOnlyInternetGateway = function (name, AWSClient, logical) {
         const resource = {};
         const { EgressOnlyInternetGateways } = yield client
             .describeEgressOnlyInternetGateways({
-            EgressOnlyInternetGatewayIds: [name]
+            EgressOnlyInternetGatewayIds: [name],
         })
             .promise();
         resource.VpcId = EgressOnlyInternetGateways[0].Attachments[0].VpcId;
@@ -46253,10 +46253,10 @@ const EIP = function (name, AWSClient, logical) {
             Filters: [
                 {
                     Name: 'domain',
-                    Values: ['vpc']
-                }
+                    Values: ['vpc'],
+                },
             ],
-            PublicIps: [name]
+            PublicIps: [name],
         })
             .promise();
         resource.Domain = result.Addresses[0].Domain;
@@ -46318,7 +46318,7 @@ const Instance = function (name, AWSClient, logical) {
             .describeInstances({ InstanceIds: [name] })
             .promise();
         const [instancesResults] = yield Promise.all([
-            describeInstancesPromise
+            describeInstancesPromise,
         ]);
         resource.Affinity =
             instancesResults.Reservations[0].Instances[0].Placement.Affinity;
@@ -46383,7 +46383,7 @@ const Instance = function (name, AWSClient, logical) {
                     return { Primary: x.Primary, PrivateIpAddress: x.PrivateIpAddress };
                 }),
                 // SecondaryPrivateIpAddressCount: 0,
-                SubnetId: i.SubnetId
+                SubnetId: i.SubnetId,
             };
         });
         return resolve(service$1.Instance(logical, resource));
@@ -46398,7 +46398,7 @@ const InternetGateway = function (name, AWSClient, logical) {
         const resource = {};
         const result = yield client
             .describeInternetGateways({
-            InternetGatewayIds: [name]
+            InternetGatewayIds: [name],
         })
             .promise();
         resource.Tags = result.InternetGateways[0].Tags;
@@ -46414,7 +46414,7 @@ const NatGateway = function (name, AWSClient, logical) {
         const resource = {};
         const result = yield client
             .describeNatGateways({
-            NatGatewayIds: [name]
+            NatGatewayIds: [name],
         })
             .promise();
         resource.AllocationId =
@@ -46752,7 +46752,7 @@ const EC2$1 = {
     VPNGateway,
     VPNGatewayRoutePropagation,
     Volume,
-    VolumeAttachment
+    VolumeAttachment,
 };
 
 /**

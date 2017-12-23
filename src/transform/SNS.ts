@@ -92,6 +92,7 @@ const SubscriptionList: TransformListFunctionType = function(
  * @hidden
  */
 export const SNS = {
+  SubscriptionList,
   TopicList,
   TopicPolicyList,
 };

@@ -2,7 +2,7 @@ const {
   Template,
   CloudFormation,
   CreationPolicy,
-  Ref
+  Ref,
 } = require('../../src/index');
 
 describe('CreationPolicy', () => {
@@ -12,15 +12,15 @@ describe('CreationPolicy', () => {
       .add(
         CloudFormation.WaitCondition('WaitCondition', {
           Handle: Ref('Handle'),
-          Timeout: '300'
+          Timeout: '300',
         })
       )
       .add(
         CreationPolicy('WaitCondition', {
           ResourceSignal: {
             Count: '5',
-            Timeout: 'PT15M'
-          }
+            Timeout: 'PT15M',
+          },
         })
       );
     expect(t.build()).toEqual({
@@ -33,18 +33,18 @@ describe('CreationPolicy', () => {
           CreationPolicy: {
             ResourceSignal: {
               Count: '5',
-              Timeout: 'PT15M'
-            }
+              Timeout: 'PT15M',
+            },
           },
           Properties: {
-                     Handle:  {
-                       Ref: 'Handle',
-                     },
-                     Timeout: '300',
-                   },
-          Type: 'AWS::CloudFormation::WaitCondition';
-        }
-      }
+            Handle: {
+              Ref: 'Handle',
+            },
+            Timeout: '300',
+          },
+          Type: 'AWS::CloudFormation::WaitCondition',
+        },
+      },
     });
   });
 });
