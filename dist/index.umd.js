@@ -45602,6 +45602,13 @@ function _calcFromExistingTemplate(t, inputTemplate) {
     }
     return t;
 }
+/**
+ * @hidden
+ * @param t
+ * @param inputTemplate
+ * @param blockType
+ * @param method
+ */
 function _addIterate(t, inputTemplate, blockType, method) {
     Object.keys(inputTemplate[blockType]).forEach(o => {
         t = t.add(method(o, inputTemplate[blockType][o]));
