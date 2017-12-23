@@ -11,12 +11,6 @@ templates based off of existing resources in AWS, and output templates in JSON a
 
 The library targets 100% feature parity with CloudFormation. This is accomplished by using the CloudFormation Resource Specification.
 
-## Warning
-
-The API for wolkenkratzer is not stable! There were many changes between the 0.6.0 and 0.7.0 releases. The API will continue to unstable until the 1.0 release. If you want to use wolkenkratzer make sure you lock the version you are using in your package.json so that your code doesn't break. The API documentation is currently lacking, but will be improved in the future.
-
-The library targets 100% feature parity with CloudFormation. This is accomplished by scraping the public documentation and using that to build the data model. The scraper and json data model are in the cfn-doc-json-stubs project. Markdown documentation for the data model is available at doc.md.
-
 Wolkenkratzer's API is designed around immutable Template objects, and action functions that take an existing Template object and return a new one, without mutating the existing one. This allows for techniques such as method chaining:
 
 ```javascript
@@ -57,7 +51,7 @@ const { Template, S3 } = require('wolkenkratzer');
 
 let t = Template().add(S3.Bucket('Bucket'), {
   Output: true,
-  Parameters: ['BucketName']
+  Parameters: ['BucketName'],
 });
 
 console.log(JSON.stringify(t.build(), null, 2));
