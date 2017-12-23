@@ -1,4 +1,4 @@
-import { cloneDeep, isEmpty, omit } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 import {
   IAttribute,
   ICondition,

@@ -1,14 +1,5 @@
 import { cloneDeep, omit } from 'lodash';
-import {
-  IDependsOn,
-  IDescription,
-  IElement,
-  IMapping,
-  IOutput,
-  IParameter,
-  IResource,
-  ITemplate,
-} from '../types';
+import { IMapping, IOutput, IParameter, IResource, ITemplate } from '../types';
 
 /**
  * @hidden

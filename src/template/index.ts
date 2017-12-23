@@ -15,7 +15,6 @@ import {
   IMapping,
   IOutput,
   IParameter,
-  IRef,
   IResource,
   IResourceMetadata,
   ITemplate,

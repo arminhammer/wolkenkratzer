@@ -16,9 +16,6 @@ import {
   _addCreationPolicy,
   _addDeletionPolicy,
   _addDependsOn,
-  _addDescription,
-  _addMapping,
-  _addOutput,
   _addResourceMetadata,
   _addUpdatePolicy,
 } from './add';
