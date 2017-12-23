@@ -10,6 +10,9 @@ export function Resource(name: string, properties, options): IResource {
   if (!name) {
     throw new SyntaxError(`New Resource is invalid. A Name is required.`);
   }
+  if (!properties) {
+    properties = {};
+  }
   if (properties) {
     _validateProperties(properties, this.name, this.json);
   }

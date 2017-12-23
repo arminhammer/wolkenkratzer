@@ -21405,48 +21405,9 @@ var lodash = createCommonjsModule(function (module, exports) {
 
 var lodash_1 = lodash.cloneDeep;
 var lodash_2 = lodash.compact;
-var lodash_3 = lodash.omit;
-var lodash_4 = lodash.merge;
-
-function CreationPolicy(resource, content) {
-    if (!resource ||
-        !content ||
-        (!content.AutoScalingCreationPolicy && !content.ResourceSignal)) {
-        throw new SyntaxError(`New CreationPolicy must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    return { kind: 'CreationPolicy', Resource: resource, Content: content };
-}
-
-function DeletionPolicy(resource, content) {
-    if (!resource || !content) {
-        throw new SyntaxError(`New DeletionPolicy must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    if (['Delete', 'Retain', 'Snapshot'].indexOf(content) === -1) {
-        throw new SyntaxError(`New DeletionPolicy content must be Delete, Retain, or Snapshot`);
-    }
-    return { kind: 'DeletionPolicy', Resource: resource, Content: content };
-}
-
-function DependsOn(resource, content) {
-    if (!resource || !content) {
-        throw new SyntaxError(`New DependsOn must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    return { kind: 'DependsOn', Resource: resource, Content: content };
-}
-
-function ResourceMetadata(resource, content) {
-    if (!resource || !content) {
-        throw new SyntaxError(`New Metadata must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    return { kind: 'ResourceMetadata', Resource: resource, Content: content };
-}
-
-function UpdatePolicy(resource, content) {
-    if (!resource || !content) {
-        throw new SyntaxError(`New UpdatePolicy must have content, ${JSON.stringify(content)} is invalid.`);
-    }
-    return { kind: 'UpdatePolicy', Resource: resource, Content: content };
-}
+var lodash_3 = lodash.isEmpty;
+var lodash_4 = lodash.omit;
+var lodash_5 = lodash.merge;
 
 /**
  * Returns an Fn::And object
@@ -21457,25 +21418,33 @@ function FnAnd(one, two) {
     return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
 }
 /**
+ * @hidden
+ * @param items
+ * @param fnType
+ */
+function _fnConditional(items, fnType) {
+    return { kind: fnType, [fnType]: items.map(x => buildIntrinsic(x)) };
+}
+/**
  * Returns an Fn::Or object
  * @param {*} array
  */
 function FnOr(items) {
-    return { kind: 'FnOr', FnOr: items.map(x => buildIntrinsic(x)) };
+    return _fnConditional(items, 'FnOr');
 }
 /**
  * Returns an Fn::Not object
  * @param {*} array
  */
 function FnNot(items) {
-    return { kind: 'FnNot', FnNot: items.map(x => buildIntrinsic(x)) };
+    return _fnConditional(items, 'FnNot');
 }
 /**
  * Returns an Fn::If object
  * @param {*} array
  */
 function FnIf(items) {
-    return { kind: 'FnIf', FnIf: items.map(x => buildIntrinsic(x)) };
+    return _fnConditional(items, 'FnIf');
 }
 /**
  * Returns a Ref object that references another element in the template
@@ -21543,7 +21512,7 @@ function FnSub(input) {
 function FnFindInMap(mapName, topLevelKey, secondLevelKey) {
     return {
         FnFindInMap: [mapName, topLevelKey, secondLevelKey],
-        kind: 'FnFindInMap'
+        kind: 'FnFindInMap',
     };
 }
 /**
@@ -21596,47 +21565,6 @@ function buildIntrinsic(input) {
  */
 
 /**
- * Create a Condition object
- * @param {*} name
- * @param {*} conditionFn
- */
-function Condition(name, conditionFn) {
-    let newCondFn = lodash_1(conditionFn);
-    if (typeof newCondFn === 'object' && !newCondFn.kind) {
-        newCondFn = buildIntrinsic(newCondFn);
-    }
-    return { kind: 'Condition', Name: name, Condition: newCondFn };
-}
-
-/**
- * Set the Description of a template
- * @param {*} content
- */
-function Description(content) {
-    if (!content) {
-        throw new SyntaxError(`New Description must have content.`);
-    }
-    return { kind: 'Description', Content: content };
-}
-
-/**
- * Create a Mapping object
- * @param {*} name
- * @param {*} subName
- * @param {*} body
- */
-function Mapping(name, subName, body) {
-    if (!name || !subName || !body) {
-        throw new SyntaxError(`New Mapping with ${JSON.stringify({
-            body,
-            name,
-            subName
-        })} parameters is invalid. name, subName, and body are required.`);
-    }
-    return { kind: 'Mapping', Name: name, Content: { [subName]: body } };
-}
-
-/**
  * Creatr an Output object
  * @param {*} name
  * @param {*} properties
@@ -21682,117 +21610,6 @@ function Parameter(name, properties) {
         })} parameters is invalid. Name and Type are required.`);
     }
     return { kind: 'Parameter', Name: name, Properties: properties };
-}
-
-/**
- * Create a Resource object
- * @param {*} name
- * @param {*} properties
- * @param {*} options
- */
-function Resource(name, properties, options) {
-    if (!name) {
-        throw new SyntaxError(`New Resource is invalid. A Name is required.`);
-    }
-    if (properties) {
-        _validateProperties(properties, this.name, this.json);
-    }
-    const result = {
-        Name: name,
-        Properties: properties,
-        Type: this.json.Resources[this.name].Name,
-        kind: 'Resource'
-    };
-    if (options) {
-        if (options.Condition) {
-            result.Condition = options.Condition;
-        }
-    }
-    return result;
-}
-function CustomResource(name, properties, options) {
-    if (!name) {
-        throw new SyntaxError(`New Resource is invalid. A Name is required.`);
-    }
-    return {
-        Name: name,
-        Properties: properties,
-        Type: `Custom::${name}`,
-        kind: 'Resource'
-    };
-}
-/**
- * @hidden
- * @param properties
- * @param rType
- * @param model
- */
-function _validateProperties(properties, rType, model) {
-    // Check if keys other than the defined ones are present
-    Object.keys(properties).forEach(p => {
-        if (!model.Resources[rType].Properties[p]) {
-            throw new SyntaxError(`${p} is not a valid attribute of ${rType}`);
-        }
-    });
-    // Check if all of the required keys are present
-    Object.keys(model.Resources[rType].Properties).forEach(p => {
-        if (model.Resources[rType].Properties[p].Required) {
-            if (!properties[p]) {
-                throw new SyntaxError(`${p} is required but is not present in ${rType}`);
-            }
-        }
-        if (model.Resources[rType].Properties[p].Type === 'List') {
-            if (properties[p] && !Array.isArray(properties[p])) {
-                if (!properties[p].kind &&
-                    (properties[p].kind !== 'Ref' && !properties[p].Ref) &&
-                    (properties[p].kind !== 'FnGetAZs' &&
-                        typeof properties[p]['Fn::GetAZ'] !== 'undefined') &&
-                    (properties[p].kind !== 'FnGetAtt' && !properties[p]['Fn::GetAtt']) &&
-                    (properties[p].kind !== 'FnSplit' && !properties[p]['Fn::Split'])) {
-                    /*console.log('p');
-                    console.log(p);
-                    console.log(typeof properties[p]['Fn::GetAZ'] === 'undefined');
-                    console.log(!Object.keys(properties[p]).includes('Fn::GetAZs'));*/
-                    throw new SyntaxError(`${p} must be an array in ${rType}`);
-                }
-            }
-        }
-        else {
-            if (properties[p] && Array.isArray(properties[p])) {
-                throw new SyntaxError(`${p} cannot be an array in ${rType}`);
-            }
-        }
-    });
-}
-
-/**
- * Strings constants that map to CloudFormation pseudoparameter
- * Pseudo.AWS_ACCOUNT_ID
- * Pseudo.AWS_NOTIFICATION_ARNS
- * Pseudo.AWS_NO_VALUE
- * Pseudo.AWS_REGION
- * Pseudo.AWS_STACK_ID
- * Pseudo.AWS_STACK_NAME
- */
-const Pseudo = {
-    AWS_ACCOUNT_ID: 'AWS::AccountId',
-    AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
-    AWS_NO_VALUE: 'AWS::NoValue',
-    AWS_REGION: 'AWS::Region',
-    AWS_STACK_ID: 'AWS::StackId',
-    AWS_STACK_NAME: 'AWS::StackName'
-};
-
-/**
- * Return a Service object to create Resources and Attributes
- * @param {*} json
- */
-function Service(json) {
-    const service = { json };
-    Object.keys(json.Resources).forEach(r => {
-        service[r] = Resource.bind({ json, name: r });
-    });
-    return service;
 }
 
 /** @hidden **/
@@ -45018,258 +44835,80 @@ var stubs = Object.freeze({
 	WorkSpaces: WorkSpaces
 });
 
-// import { IMetadata } from './elements/metadata';
-/** @module Template */
 /**
- * Returns a new Template object.
- * @member Template
- * @returns ITemplate
+ * Strings constants that map to CloudFormation pseudoparameter
+ * Pseudo.AWS_ACCOUNT_ID
+ * Pseudo.AWS_NOTIFICATION_ARNS
+ * Pseudo.AWS_NO_VALUE
+ * Pseudo.AWS_REGION
+ * Pseudo.AWS_STACK_ID
+ * Pseudo.AWS_STACK_NAME
  */
-function Template() {
-    return {
-        AWSTemplateFormatVersion: '2010-09-09',
-        Conditions: {},
-        Mappings: {},
-        Outputs: {},
-        Parameters: {},
-        Resources: {},
-        /**
-         * Add a new Parameter, Description, Output, Resource, Condition, or Mapping
-         * to the template. Returns a new Template with the element added. Does not mutate the original Template object.
-         * @example
-         * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
-         */
-        add: function (e, options) {
-            if (Array.isArray(e)) {
-                let _t = lodash_1(this);
-                e.forEach(elem => {
-                    _t = _add(_t, elem, options);
-                });
-                return _t;
-            }
-            return _add(this, e, options);
-        },
-        /**
-         * Returns a finished CloudFormation template object. This can then be converted into JSON or YAML.
-         * @example
-         * const t = Template();
-         * JSON.stringify(t.build(), null, 2)
-         */
-        build: function () {
-            const result = {
-                AWSTemplateFormatVersion: '2010-09-09',
-                Resources: {}
-            };
-            const skel = {
-                Conditions: this.Conditions,
-                Mappings: this.Mappings,
-                Outputs: this.Outputs,
-                Parameters: this.Parameters,
-                Resources: this.Resources
-            };
-            Object.keys(skel).forEach(element => {
-                if (Object.keys(skel[element]).length > 0) {
-                    result[element] = {};
-                    Object.keys(skel[element]).forEach(item => {
-                        result[element][item] = _json(skel[element][item]);
-                    });
-                }
-            });
-            if (this.Description) {
-                result.Description = this.Description;
-            }
-            return result;
-        },
-        /**
-         * Checks to see if an element is in the current template.
-         * Returns true if it is in the template, false if it is not found.
-         */
-        has: function (query) {
-            const [resource, attribute] = query.split('.');
-            if (attribute && this.Resources[resource].Properties[attribute]) {
-                return true;
-            }
-            if (this.Resources[query]) {
-                return true;
-            }
-            if (this.Parameters[query]) {
-                return true;
-            }
-            return false;
-        },
-        /**
-         * Import an existing CloudFormation JSON template and convert it into a Wolkenkratzer Template object.
-         * @example
-         * const templateJson = require('template.json');
-         * const t = Template().import(templateJson);
-         */
-        import: function (inputTemplate) {
-            const _t = lodash_1(this);
-            return _calcFromExistingTemplate(_t, inputTemplate);
-        },
-        kind: 'Template',
-        /**
-         * Merges another Template object into another. The original Template objects are not mutated.
-         * Returns a new Template object that is the product of the two original Template objects.
-         */
-        merge: function (t) {
-            const _t = lodash_1(this);
-            const combined = {};
-            [
-                'Conditions',
-                'Mapping',
-                'Outputs',
-                'Parameters',
-                'Resources',
-                'Description'
-            ].forEach(block => {
-                if (t[block]) {
-                    combined[block] = Object.assign({}, _t[block], t[block]);
-                }
-            });
-            return Object.assign({}, _t, combined);
-        },
-        /**
-         * Turn an attribute of a Resource into a Parameter.
-         */
-        parameterize: function (location, parameterName) {
-            let result = lodash_1(this);
-            const [resource, attribute] = location.split('.');
-            const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
-            const propType = stubs[rgroup].Resources[rtype].Properties[attribute]
-                .ItemType
-                ? stubs[rgroup].Resources[rtype].Properties[attribute].ItemType
-                : stubs[rgroup].Resources[rtype].Properties[attribute].PrimitiveType;
-            parameterName = parameterName ? parameterName : `${resource}${attribute}`;
-            console.log('proptype: ', propType);
-            result = _addParameter(result, Parameter(parameterName, { Type: propType }));
-            result.Resources[resource].Properties[attribute] = Ref(parameterName);
-            return result;
-        },
-        /**
-         * Turn an attribute of a Resource into an Output. Currently only supports turning it into a 'Ref'
-         */
-        putOut: function (location, outputName) {
-            let result = lodash_1(this);
-            const [resource, attribute] = location.split('.');
-            const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
-            outputName = outputName ? outputName : `${resource}${attribute}`;
-            result = _addOutput(result, Output(outputName, {
-                Description: `The ${attribute} of the ${resource} ${rgroup} ${rtype}`,
-                Value: Ref(resource)
-            }));
-            return result;
-        },
-        /**
-         * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template.
-         * Returns a new Template with the element removed. Does not mutate the original Template object.
-         * @example
-         * let t = Template();
-         * let p = Parameter('NewParam', { Type: 'String' });
-         * t.add(p).remove(p);
-         */
-        remove: function (e) {
-            const result = lodash_1(this);
-            let element;
-            if (typeof e === 'string') {
-                const resource = result.Resources[e];
-                if (resource) {
-                    element = resource;
+const Pseudo = {
+    AWS_ACCOUNT_ID: 'AWS::AccountId',
+    AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
+    AWS_NO_VALUE: 'AWS::NoValue',
+    AWS_REGION: 'AWS::Region',
+    AWS_STACK_ID: 'AWS::StackId',
+    AWS_STACK_NAME: 'AWS::StackName'
+};
+
+/**
+ * @hidden
+ * @param t
+ * @param att
+ */
+function _validateFnGetAtt(t, att) {
+    if (!t.Resources[att.FnGetAtt[0]]) {
+        throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
+    }
+    const [begin, service, resource] = t.Resources[att.FnGetAtt[0]].Type.split('::');
+    if (begin === 'AWS' && stubs[service]) {
+        const validAttributes = Object.keys(stubs[service].Resources[resource].Attributes);
+        if (!validAttributes.includes(att.FnGetAtt[1])) {
+            throw new SyntaxError(`${att.FnGetAtt[1]} is not a valid attribute of 
+        ${att.FnGetAtt[0]}`);
+        }
+    }
+}
+/**
+ * @hidden
+ * @param t
+ * @param ref
+ */
+function _validateRef(t, ref) {
+    if (ref.Ref) {
+        if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
+            throw new SyntaxError(`Could not find ${JSON.stringify(ref)}`);
+        }
+    }
+    return;
+}
+/**
+ * @hidden
+ */
+function _validateResourceIntrinsics(t, e) {
+    if (e) {
+        Object.keys(e).forEach(x => {
+            if (e[x] &&
+                typeof e[x] !== 'string' &&
+                (Array.isArray(e[x]) || Object.keys(e[x]).length > 0)) {
+                if (e[x].kind) {
+                    if (e[x].kind === 'FnGetAtt') {
+                        _validateFnGetAtt(t, e[x]);
+                    }
+                    else if (e[x].kind === 'Ref') {
+                        _validateRef(t, e[x]);
+                    }
                 }
                 else {
-                    const parameter = result.Parameters[e];
-                    if (parameter) {
-                        element = parameter;
-                    }
-                    else {
-                        const output = result.Outputs[e];
-                        if (output) {
-                            element = output;
-                        }
-                        else {
-                            const mapping = result.Mappings[e];
-                            if (mapping) {
-                                element = mapping;
-                            }
-                            else {
-                                throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
-                            }
-                        }
-                    }
+                    _validateResourceIntrinsics(t, e[x]);
                 }
             }
-            else {
-                element = e;
-            }
-            switch (element.kind) {
-                /*case 'Condition':
-                            return _removeCondition(this, e);*/
-                case 'Parameter':
-                    return _removeParameter(this, element);
-                case 'Output':
-                    return _removeOutput(this, element);
-                case 'Resource':
-                    return _removeResource(this, element);
-                case 'Mapping':
-                    return _removeMapping(this, element);
-                default:
-                    throw new SyntaxError(`${JSON.stringify(e)} is not a valid type, could not be added.`);
-            }
-        },
-        /**
-         * Removes the Description from the Template.
-         */
-        removeDescription: function () {
-            const newT = lodash_1(this);
-            delete newT.Description;
-            return newT;
-        },
-        /**
-         * Update the value of a resource in the Template.
-         */
-        set: function (location, newValue) {
-            const result = lodash_1(this);
-            const [resource, attribute] = location.split('.');
-            result.Resources[resource].Properties[attribute] = newValue;
-            return result;
-        },
-        yaml: function () {
-            const cleanedTemplate = this.build();
-            // const templateString = JSON.stringify(cleanedTemplate, null, 2);
-            const templateString = jsYaml_1(cleanedTemplate, {
-                flowLevel: 5,
-                schema: cloudformationSchemaJsYaml
-            })
-                .replace(/'Fn::Equals':/g, '!Equals')
-                .replace(/'Fn::And':/g, '!And')
-                .replace(/'Fn::GetAZs':/g, '!GetAZs')
-                .replace(/\{Ref: ([^}]+)\}/g, (match, p1) => {
-                return `!Ref ${p1}`;
-            })
-                .replace(/Ref: (\w+)/g, (match, p1) => {
-                return `!Ref ${p1}`;
-            })
-                .replace(/'Fn::ImportValue':/g, '!ImportValue')
-                .replace(/'Fn::Or':/g, '!Or')
-                .replace(/'Fn::Not':/g, '!Not')
-                .replace(/'Fn::If':/g, '!If')
-                .replace(/\{'Fn::GetAtt': \[(\w+), ([\w|\.]+)\]\}/g, (match, p1, p2) => {
-                return `!GetAtt ${p1}.${p2}`;
-            })
-                .replace(/\{'Fn::FindInMap': \[([\w\d!]+), ([\w\d! ]+), ([\w\d!]+)\]\}/g, (match, p1, p2, p3) => {
-                return `!FindInMap [ ${p1}, ${p2}, ${p3} ]`;
-            });
-            /*
-            TODO: add support for short versions of the rest
-              .replace(/'Fn::Join':/g, '!Join');
-              'Fn::FindInMap'
-              "Fn::Select"
-              "Fn::Split"
-              "Fn::Sub"*/
-            return templateString;
-        }
-    };
+        });
+    }
 }
+
 /**
  * @hidden
  */
@@ -45277,15 +44916,15 @@ function _add(template, e, options) {
     const _t = lodash_1(template);
     switch (e.kind) {
         case 'CreationPolicy':
-            return _addCreationPolicy(_t, e);
+            return _addResourcePolicy(_t, e);
         case 'DeletionPolicy':
-            return _addDeletionPolicy(_t, e);
+            return _addResourcePolicy(_t, e);
         case 'DependsOn':
-            return _addDependsOn(_t, e);
+            return _addResourcePolicy(_t, e);
         case 'ResourceMetadata':
-            return _addResourceMetadata(_t, e);
+            return _addResourcePolicy(_t, e);
         case 'UpdatePolicy':
-            return _addUpdatePolicy(_t, e);
+            return _addResourcePolicy(_t, e);
         case 'Condition':
             return _addCondition(_t, e);
         case 'Mapping':
@@ -45308,7 +44947,7 @@ function _add(template, e, options) {
                         }
                         f.Properties[p] = Ref(paramName);
                         newT = _addParameter(newT, Parameter(paramName, {
-                            Type: 'String'
+                            Type: 'String',
                         }));
                     });
                 }
@@ -45317,9 +44956,9 @@ function _add(template, e, options) {
                     newT = _addOutput(newT, Output(`${f.Name}${shortName}Output`, {
                         Condition: f.Condition,
                         Export: {
-                            Name: FnSub(`\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`)
+                            Name: FnSub(`\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`),
                         },
-                        Value: Ref(f.Name)
+                        Value: Ref(f.Name),
                     }));
                 }
             }
@@ -45335,390 +44974,6 @@ function _add(template, e, options) {
 }
 /**
  * @hidden
- * @param obj
- */
-function _isEmptyObject(obj) {
-    return Object.keys(obj).length === 0 && obj.constructor === Object;
-}
-/**
- * @hidden
- * @param t
- * @param ref
- */
-function _validateRef(t, ref) {
-    if (ref.Ref) {
-        if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
-            throw new SyntaxError(`Could not find ${JSON.stringify(ref)}`);
-        }
-    }
-    return;
-}
-/**
- * @hidden
- * @param t
- * @param att
- */
-function _validateFnGetAtt(t, att) {
-    if (att.FnGetAtt && !t.Resources[att.FnGetAtt[0]]) {
-        throw new SyntaxError(`Could not find ${JSON.stringify(att)}`);
-    }
-    return;
-}
-/**
- * @hidden
- * @param object
- */
-function _cleanObject(object) {
-    if (Array.isArray(object)) {
-        for (let v = 0; v < object.length; v++) {
-            object[v] = _cleanObject(object[v]);
-        }
-    }
-    else {
-        if (object.kind) {
-            object = _json(object);
-        }
-        else {
-            for (const o in object) {
-                if (object[o] !== null && typeof object[o] === 'object') {
-                    object[o] = _cleanObject(object[o]);
-                }
-            }
-        }
-    }
-    return object;
-}
-/**
- * @hidden
- * @param t
- */
-function _buildResource(t) {
-    const newT = lodash_1(t);
-    const { Type, Properties, CreationPolicy: CreationPolicy$$1, DeletionPolicy: DeletionPolicy$$1, DependsOn: DependsOn$$1, Metadata, Condition: condition, UpdatePolicy: UpdatePolicy$$1 } = newT;
-    const newProps = {};
-    const result = { Type };
-    if (Properties) {
-        Object.keys(Properties).forEach(p => {
-            // Ignore empty arrays
-            if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
-                if (Properties[p].kind) {
-                    newProps[p] = _json(Properties[p]);
-                }
-                else if (!_isEmptyObject(Properties[p])) {
-                    newProps[p] = _cleanObject(Properties[p]);
-                }
-            }
-        });
-        result.Properties = newProps;
-    }
-    if (CreationPolicy$$1) {
-        result.CreationPolicy = _json(CreationPolicy$$1);
-    }
-    if (DeletionPolicy$$1) {
-        result.DeletionPolicy = _json(DeletionPolicy$$1);
-    }
-    if (DependsOn$$1) {
-        result.DependsOn = _json(DependsOn$$1);
-    }
-    if (Metadata) {
-        result.Metadata = _json(Metadata);
-    }
-    if (UpdatePolicy$$1) {
-        result.UpdatePolicy = _json(UpdatePolicy$$1);
-    }
-    if (condition) {
-        result.Condition = condition;
-    }
-    return result;
-}
-/**
- * @hidden
- * @param t
- */
-function _buildCondition(t) {
-    const { Condition: condition } = t;
-    const result = _json(condition);
-    Object.keys(result).forEach(k => {
-        if (result[k][0].kind) {
-            result[k][0] = _json(result[k][0]);
-        }
-    });
-    return result;
-}
-/**
- * @hidden
- * @param t
- */
-function _buildAttribute(t) {
-    const { Content } = t;
-    return Content;
-}
-/**
- * @hidden
- * @param t
- */
-function _buildFnJoin(t) {
-    if (Array.isArray(t.Values)) {
-        const jsonValues = t.Values.map(x => {
-            if (typeof x === 'string') {
-                return x;
-            }
-            else {
-                return _json(x);
-            }
-        });
-        return { 'Fn::Join': [t.Delimiter, jsonValues] };
-    }
-    else {
-        return { 'Fn::Join': [t.Delimiter, _json(t.Values)] };
-    }
-}
-/**
- * @hidden
- */
-function _buildFnFindInMap(t) {
-    return t.FnFindInMap.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            return _json(x);
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildGetAZs(t) {
-    if (typeof t.FnGetAZs === 'string') {
-        return t.FnGetAZs;
-    }
-    else {
-        return _json(t.FnGetAZs);
-    }
-}
-/**
- * @hidden
- * @param t
- */
-function _buildFnSplit(t) {
-    if (typeof t.value === 'string') {
-        return [t.delimiter, t.value];
-    }
-    else {
-        return [t.delimiter, _json(t.value)];
-    }
-}
-/**
- * @hidden
- */
-function _buildFnOr(t) {
-    const jsonValues = t.FnOr.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            return _json(x);
-        }
-    });
-    return jsonValues;
-}
-/**
- * @hidden
- * @param t
- */
-function _buildFnImportValue(t) {
-    if (typeof t.FnImportValue === 'string') {
-        return t.FnImportValue;
-    }
-    else {
-        return _json(t.FnImportValue);
-    }
-}
-/**
- * @hidden
- * @param t
- */
-function _buildFnBase64(t) {
-    if (typeof t.FnBase64 === 'string') {
-        return t.FnBase64;
-    }
-    else {
-        return _json(t.FnBase64);
-    }
-}
-/**
- * @hidden
- */
-function _buildFnAnd(t) {
-    return t.FnAnd.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnNot(t) {
-    return t.FnNot.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnIf(t) {
-    return t.FnIf.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnEquals(t) {
-    return t.FnEquals.map(x => {
-        if (typeof x === 'string') {
-            return x;
-        }
-        else {
-            if (x.kind) {
-                return _json(x);
-            }
-            return x;
-        }
-    });
-}
-/**
- * @hidden
- */
-function _buildFnSelect(t) {
-    if (Array.isArray(t.FnSelect)) {
-        const values = t.FnSelect.map(x => {
-            if (typeof x === 'string') {
-                return x;
-            }
-            else {
-                if (x.kind) {
-                    return _json(x);
-                }
-                return x;
-            }
-        });
-        return [t.index, values];
-    }
-    else {
-        return [t.index, _json(t.FnSelect)];
-    }
-}
-/**
- * @hidden
- */
-function _buildMapping(t) {
-    const result = t.Content;
-    return result;
-}
-/**
- * @hidden
- */
-function _buildOutput(t) {
-    let outputResult = lodash_1(t.Properties);
-    if (typeof outputResult.Value !== 'string') {
-        const stripped = _json(outputResult.Value);
-        outputResult = Object.assign({}, outputResult, { Value: stripped });
-    }
-    if (outputResult.Export &&
-        outputResult.Export.Name &&
-        typeof outputResult.Export.Name !== 'string') {
-        const stripped = _json(outputResult.Export.Name);
-        outputResult = Object.assign({}, outputResult, { Export: { Name: stripped } });
-    }
-    return outputResult;
-}
-/**
- * @hidden
- * @param t
- */
-function _json(t) {
-    switch (t.kind) {
-        case 'Ref':
-            return { Ref: t.Ref };
-        case 'FnBase64':
-            return { 'Fn::Base64': _buildFnBase64(t) };
-        case 'FnGetAtt':
-            return { 'Fn::GetAtt': t.FnGetAtt };
-        case 'FnGetAZs':
-            return { 'Fn::GetAZs': _buildGetAZs(t) };
-        case 'FnJoin':
-            return _buildFnJoin(t);
-        case 'FnAnd':
-            return { 'Fn::And': _buildFnAnd(t) };
-        case 'FnNot':
-            return { 'Fn::Not': _buildFnNot(t) };
-        case 'FnIf':
-            return { 'Fn::If': _buildFnIf(t) };
-        case 'FnFindInMap':
-            return { 'Fn::FindInMap': _buildFnFindInMap(t) };
-        case 'FnEquals':
-            return { 'Fn::Equals': _buildFnEquals(t) };
-        case 'FnImportValue':
-            return { 'Fn::ImportValue': _buildFnImportValue(t) };
-        case 'FnOr':
-            return { 'Fn::Or': _buildFnOr(t) };
-        case 'FnSelect':
-            return { 'Fn::Select': _buildFnSelect(t) };
-        case 'FnSplit':
-            return { 'Fn::Split': _buildFnSplit(t) };
-        case 'FnSub':
-            return { 'Fn::Sub': t.FnSub };
-        case 'CreationPolicy':
-            return _buildAttribute(t);
-        case 'DeletionPolicy':
-            return _buildAttribute(t);
-        case 'DependsOn':
-            return _buildAttribute(t);
-        case 'ResourceMetadata':
-            return _buildAttribute(t);
-        case 'UpdatePolicy':
-            return _buildAttribute(t);
-        case 'Condition':
-            return _buildCondition(t);
-        case 'Mapping':
-            return _buildMapping(t);
-        case 'Parameter':
-            return t.Properties;
-        case 'Output':
-            return _buildOutput(t);
-        case 'Resource':
-            return _buildResource(t);
-        default:
-            throw new SyntaxError(`Can't call _json on ${JSON.stringify(t)}`);
-    }
-}
-/**
- * @hidden
  */
 function _addDescription(t, e) {
     const desc = { Description: e.Content };
@@ -45730,71 +44985,14 @@ function _addDescription(t, e) {
  * @param t
  * @param e
  */
-function _addCreationPolicy(t, e) {
+function _addResourcePolicy(t, e) {
     const result = lodash_1(t);
+    const block = e.kind === 'ResourceMetadata' ? 'Metadata' : e.kind;
     if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add CreationPolicy to a Resource that does not exist in the template.');
+        throw new SyntaxError(`Cannot add ${block} to a Resource that does not exist in the template.`);
     }
     const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.CreationPolicy = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- */
-function _addDeletionPolicy(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.DeletionPolicy = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addUpdatePolicy(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.UpdatePolicy = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addDependsOn(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add DeletionPolicy to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.DependsOn = e;
-    result.Resources[e.Resource] = resource;
-    return result;
-}
-/**
- * @hidden
- * @param t
- * @param e
- */
-function _addResourceMetadata(t, e) {
-    const result = lodash_1(t);
-    if (!result.Resources[e.Resource]) {
-        throw new SyntaxError('Cannot add Metadata to a Resource that does not exist in the template.');
-    }
-    const resource = Object.assign({}, result.Resources[e.Resource]);
-    resource.Metadata = e;
+    resource[block] = e;
     result.Resources[e.Resource] = resource;
     return result;
 }
@@ -45864,108 +45062,485 @@ function _addMapping(t, e) {
  * @param e
  */
 function _addResource(t, e) {
+    _validateResourceIntrinsics(t, e);
     const result = Object.assign({}, t);
     const newResources = lodash_1(result.Resources);
     newResources[e.Name] = e;
     result.Resources = newResources;
     return result;
 }
+
+/**
+ * @hidden
+ * @param obj
+ */
+function _isEmptyObject(obj) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
 /**
  * @hidden
  * @param t
- * @param e
  */
-function _removeMapping(t, e) {
-    const result = Object.assign({}, t);
-    let mapping;
-    if (typeof e === 'string') {
-        if (result.Mappings[e]) {
-            mapping = result.Mappings[e];
+function _buildResource(t) {
+    const newT = lodash_1(t);
+    const { Type, Properties, CreationPolicy, DeletionPolicy, DependsOn, Metadata, Condition: condition, UpdatePolicy, } = newT;
+    const newProps = {};
+    const result = { Type };
+    if (Properties && !lodash_3(Properties)) {
+        Object.keys(Properties).forEach(p => {
+            // Ignore empty arrays
+            if (!(Array.isArray(Properties[p]) && Properties[p].length === 0)) {
+                if (Properties[p].kind) {
+                    newProps[p] = _json(Properties[p]);
+                }
+                else if (!_isEmptyObject(Properties[p])) {
+                    newProps[p] = _cleanObject(Properties[p]);
+                }
+            }
+        });
+        result.Properties = newProps;
+    }
+    if (CreationPolicy) {
+        result.CreationPolicy = _json(CreationPolicy);
+    }
+    if (DeletionPolicy) {
+        result.DeletionPolicy = _json(DeletionPolicy);
+    }
+    if (DependsOn) {
+        result.DependsOn = _json(DependsOn);
+    }
+    if (Metadata) {
+        result.Metadata = _json(Metadata);
+    }
+    if (UpdatePolicy) {
+        result.UpdatePolicy = _json(UpdatePolicy);
+    }
+    if (condition) {
+        result.Condition = condition;
+    }
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _buildCondition(t) {
+    const { Condition: condition } = t;
+    const result = _json(condition);
+    Object.keys(result).forEach(k => {
+        if (result[k][0].kind) {
+            result[k][0] = _json(result[k][0]);
+        }
+    });
+    return result;
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _buildAttribute(t) {
+    const { Content } = t;
+    return Content;
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _buildFnJoin(t) {
+    if (Array.isArray(t.Values)) {
+        const jsonValues = t.Values.map(x => {
+            if (typeof x === 'string') {
+                return x;
+            }
+            else {
+                return _json(x);
+            }
+        });
+        return { 'Fn::Join': [t.Delimiter, jsonValues] };
+    }
+    else {
+        return { 'Fn::Join': [t.Delimiter, _json(t.Values)] };
+    }
+}
+/**
+ * @hidden
+ */
+function _buildFnFindInMap(t) {
+    return t.FnFindInMap.map(x => {
+        if (typeof x === 'string') {
+            return x;
         }
         else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+            return _json(x);
         }
-    }
-    else {
-        mapping = e;
-    }
-    if (result.Mappings[mapping.Name]) {
-        result.Mappings = lodash_3(result.Mappings, mapping.Name);
-    }
-    else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(mapping)}`);
-    }
-    return result;
+    });
 }
 /**
  * @hidden
  * @param t
- * @param e
  */
-function _removeOutput(t, e) {
-    const result = Object.assign({}, t);
-    let out;
-    if (typeof e === 'string') {
-        if (result.Outputs[e]) {
-            out = result.Outputs[e];
+function _buildFnSplit(t) {
+    if (typeof t.value === 'string') {
+        return [t.delimiter, t.value];
+    }
+    else {
+        return [t.delimiter, _json(t.value)];
+    }
+}
+/**
+ * @hidden
+ */
+function _buildFnOr(t) {
+    const jsonValues = t.FnOr.map(x => {
+        if (typeof x === 'string') {
+            return x;
         }
         else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+            return _json(x);
         }
-    }
-    else {
-        out = e;
-    }
-    if (result.Outputs[out.Name]) {
-        result.Outputs = lodash_3(result.Outputs, out.Name);
-    }
-    else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(out)}`);
-    }
-    return result;
+    });
+    return jsonValues;
 }
 /**
  * @hidden
  * @param t
- * @param e
  */
-function _removeResource(t, e) {
-    const result = lodash_1(t);
-    if (result.Resources[e.Name]) {
-        result.Resources = lodash_3(result.Resources, e.Name);
+function _buildFnBasicBlock(t) {
+    const block = t.kind;
+    const newBlock = t[block];
+    if (typeof t[block] === 'string') {
+        return t[block];
     }
     else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+        return _json(newBlock);
     }
-    return result;
 }
 /**
  * @hidden
- * @param t
- * @param e
  */
-function _removeParameter(t, e) {
-    const result = Object.assign({}, t);
-    let param;
-    if (typeof e === 'string') {
-        if (result.Parameters[e]) {
-            param = result.Parameters[e];
+function _buildFnBlock(t) {
+    const block = t.kind;
+    return t[block].map(x => {
+        if (typeof x === 'string') {
+            return x;
         }
         else {
-            throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+            if (x.kind) {
+                return _json(x);
+            }
+            return x;
+        }
+    });
+}
+/**
+ * @hidden
+ */
+function _buildFnSelect(t) {
+    if (Array.isArray(t.FnSelect)) {
+        const values = t.FnSelect.map(x => {
+            if (typeof x === 'string') {
+                return x;
+            }
+            else {
+                if (x.kind) {
+                    return _json(x);
+                }
+                return x;
+            }
+        });
+        return [t.index, values];
+    }
+    else {
+        return [t.index, _json(t.FnSelect)];
+    }
+}
+/**
+ * @hidden
+ */
+function _buildMapping(t) {
+    const result = t.Content;
+    return result;
+}
+/**
+ * @hidden
+ */
+function _buildOutput(t) {
+    let outputResult = lodash_1(t.Properties);
+    if (typeof outputResult.Value !== 'string') {
+        const stripped = _json(outputResult.Value);
+        outputResult = Object.assign({}, outputResult, { Value: stripped });
+    }
+    if (outputResult.Export &&
+        outputResult.Export.Name &&
+        typeof outputResult.Export.Name !== 'string') {
+        const stripped = _json(outputResult.Export.Name);
+        outputResult = Object.assign({}, outputResult, { Export: { Name: stripped } });
+    }
+    return outputResult;
+}
+/**
+ * @hidden
+ * @param object
+ */
+function _cleanObject(object) {
+    if (Array.isArray(object)) {
+        for (let v = 0; v < object.length; v++) {
+            object[v] = _cleanObject(object[v]);
         }
     }
     else {
-        param = e;
+        if (object.kind) {
+            object = _json(object);
+        }
+        else {
+            for (const o in object) {
+                if (object[o] !== null && typeof object[o] === 'object') {
+                    object[o] = _cleanObject(object[o]);
+                }
+            }
+        }
     }
-    if (result.Parameters[param.Name]) {
-        result.Parameters = lodash_3(result.Parameters, param.Name);
+    return object;
+}
+/**
+ * @hidden
+ * @param t
+ */
+function _json(t) {
+    switch (t.kind) {
+        case 'Ref':
+            return { Ref: t.Ref };
+        case 'FnBase64':
+            return { 'Fn::Base64': _buildFnBasicBlock(t) };
+        case 'FnGetAtt':
+            return { 'Fn::GetAtt': t.FnGetAtt };
+        case 'FnGetAZs':
+            return { 'Fn::GetAZs': _buildFnBasicBlock(t) };
+        case 'FnJoin':
+            return _buildFnJoin(t);
+        case 'FnAnd':
+            return { 'Fn::And': _buildFnBlock(t) };
+        case 'FnNot':
+            return { 'Fn::Not': _buildFnBlock(t) };
+        case 'FnIf':
+            return { 'Fn::If': _buildFnBlock(t) };
+        case 'FnFindInMap':
+            return { 'Fn::FindInMap': _buildFnFindInMap(t) };
+        case 'FnEquals':
+            return { 'Fn::Equals': _buildFnBlock(t) };
+        case 'FnImportValue':
+            return { 'Fn::ImportValue': _buildFnBasicBlock(t) };
+        case 'FnOr':
+            return { 'Fn::Or': _buildFnOr(t) };
+        case 'FnSelect':
+            return { 'Fn::Select': _buildFnSelect(t) };
+        case 'FnSplit':
+            return { 'Fn::Split': _buildFnSplit(t) };
+        case 'FnSub':
+            return { 'Fn::Sub': t.FnSub };
+        case 'CreationPolicy':
+            return _buildAttribute(t);
+        case 'DeletionPolicy':
+            return _buildAttribute(t);
+        case 'DependsOn':
+            return _buildAttribute(t);
+        case 'ResourceMetadata':
+            return _buildAttribute(t);
+        case 'UpdatePolicy':
+            return _buildAttribute(t);
+        case 'Condition':
+            return _buildCondition(t);
+        case 'Mapping':
+            return _buildMapping(t);
+        case 'Parameter':
+            return t.Properties;
+        case 'Output':
+            return _buildOutput(t);
+        case 'Resource':
+            return _buildResource(t);
+        default:
+            throw new SyntaxError(`Can't call _json on ${JSON.stringify(t)}`);
     }
-    else {
-        throw new SyntaxError(`Could not find ${JSON.stringify(param)}`);
+}
+
+function CreationPolicy(resource, content) {
+    if (!resource ||
+        !content ||
+        (!content.AutoScalingCreationPolicy && !content.ResourceSignal)) {
+        throw new SyntaxError(`New CreationPolicy must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'CreationPolicy', Resource: resource, Content: content };
+}
+
+function DeletionPolicy(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New DeletionPolicy must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    if (['Delete', 'Retain', 'Snapshot'].indexOf(content) === -1) {
+        throw new SyntaxError(`New DeletionPolicy content must be Delete, Retain, or Snapshot`);
+    }
+    return { kind: 'DeletionPolicy', Resource: resource, Content: content };
+}
+
+function DependsOn(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New DependsOn must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'DependsOn', Resource: resource, Content: content };
+}
+
+function ResourceMetadata(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New Metadata must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'ResourceMetadata', Resource: resource, Content: content };
+}
+
+function UpdatePolicy(resource, content) {
+    if (!resource || !content) {
+        throw new SyntaxError(`New UpdatePolicy must have content, ${JSON.stringify(content)} is invalid.`);
+    }
+    return { kind: 'UpdatePolicy', Resource: resource, Content: content };
+}
+
+/**
+ * Create a Condition object
+ * @param {*} name
+ * @param {*} conditionFn
+ */
+function Condition(name, conditionFn) {
+    let newCondFn = lodash_1(conditionFn);
+    if (typeof newCondFn === 'object' && !newCondFn.kind) {
+        newCondFn = buildIntrinsic(newCondFn);
+    }
+    return { kind: 'Condition', Name: name, Condition: newCondFn };
+}
+
+/**
+ * Set the Description of a template
+ * @param {*} content
+ */
+function Description(content) {
+    if (!content) {
+        throw new SyntaxError(`New Description must have content.`);
+    }
+    return { kind: 'Description', Content: content };
+}
+
+/**
+ * Create a Mapping object
+ * @param {*} name
+ * @param {*} subName
+ * @param {*} body
+ */
+function Mapping(name, subName, body) {
+    if (!name || !subName || !body) {
+        throw new SyntaxError(`New Mapping with ${JSON.stringify({
+            body,
+            name,
+            subName
+        })} parameters is invalid. name, subName, and body are required.`);
+    }
+    return { kind: 'Mapping', Name: name, Content: { [subName]: body } };
+}
+
+/**
+ * Create a Resource object
+ * @param {*} name
+ * @param {*} properties
+ * @param {*} options
+ */
+function Resource(name, properties, options) {
+    if (!name) {
+        throw new SyntaxError(`New Resource is invalid. A Name is required.`);
+    }
+    if (!properties) {
+        properties = {};
+    }
+    if (properties) {
+        _validateProperties(properties, this.name, this.json);
+    }
+    const result = {
+        Name: name,
+        Properties: properties,
+        Type: this.json.Resources[this.name].Name,
+        kind: 'Resource'
+    };
+    if (options) {
+        if (options.Condition) {
+            result.Condition = options.Condition;
+        }
     }
     return result;
 }
+function CustomResource(name, properties, options) {
+    if (!name) {
+        throw new SyntaxError(`New Resource is invalid. A Name is required.`);
+    }
+    return {
+        Name: name,
+        Properties: properties,
+        Type: `Custom::${name}`,
+        kind: 'Resource'
+    };
+}
+/**
+ * @hidden
+ * @param properties
+ * @param rType
+ * @param model
+ */
+function _validateProperties(properties, rType, model) {
+    // Check if keys other than the defined ones are present
+    Object.keys(properties).forEach(p => {
+        if (!model.Resources[rType].Properties[p]) {
+            throw new SyntaxError(`${p} is not a valid attribute of ${rType}`);
+        }
+    });
+    // Check if all of the required keys are present
+    Object.keys(model.Resources[rType].Properties).forEach(p => {
+        if (model.Resources[rType].Properties[p].Required) {
+            if (!properties[p]) {
+                throw new SyntaxError(`${p} is required but is not present in ${rType}`);
+            }
+        }
+        if (model.Resources[rType].Properties[p].Type === 'List') {
+            if (properties[p] && !Array.isArray(properties[p])) {
+                if (!properties[p].kind &&
+                    (properties[p].kind !== 'Ref' && !properties[p].Ref) &&
+                    (properties[p].kind !== 'FnGetAZs' &&
+                        typeof properties[p]['Fn::GetAZ'] !== 'undefined') &&
+                    (properties[p].kind !== 'FnGetAtt' && !properties[p]['Fn::GetAtt']) &&
+                    (properties[p].kind !== 'FnSplit' && !properties[p]['Fn::Split'])) {
+                    /*console.log('p');
+                    console.log(p);
+                    console.log(typeof properties[p]['Fn::GetAZ'] === 'undefined');
+                    console.log(!Object.keys(properties[p]).includes('Fn::GetAZs'));*/
+                    throw new SyntaxError(`${p} must be an array in ${rType}`);
+                }
+            }
+        }
+        else {
+            if (properties[p] && Array.isArray(properties[p])) {
+                throw new SyntaxError(`${p} cannot be an array in ${rType}`);
+            }
+        }
+    });
+}
+
+/**
+ * Return a Service object to create Resources and Attributes
+ * @param {*} json
+ */
+function Service(json) {
+    const service = { json };
+    Object.keys(json.Resources).forEach(r => {
+        service[r] = Resource.bind({ json, name: r });
+    });
+    return service;
+}
+
 /**
  * @hidden
  * @param t
@@ -45986,7 +45561,7 @@ function _calcFromExistingTemplate(t, inputTemplate) {
             const cat = split[1];
             const resType = split[2];
             const options = {
-                Condition: inputTemplate.Resources[r].Condition
+                Condition: inputTemplate.Resources[r].Condition,
             };
             if (split[0] === 'AWS') {
                 const service = Service(stubs[cat]);
@@ -45996,26 +45571,24 @@ function _calcFromExistingTemplate(t, inputTemplate) {
                 t = t.add(CustomResource(r, inputTemplate.Resources[r].Properties, options));
             }
             if (inputTemplate.Resources[r].Metadata) {
-                t = _addResourceMetadata(t, ResourceMetadata(r, inputTemplate.Resources[r].Metadata));
+                t = _addResourcePolicy(t, ResourceMetadata(r, inputTemplate.Resources[r].Metadata));
             }
             if (inputTemplate.Resources[r].CreationPolicy) {
-                t = _addCreationPolicy(t, CreationPolicy(r, inputTemplate.Resources[r].CreationPolicy));
+                t = _addResourcePolicy(t, CreationPolicy(r, inputTemplate.Resources[r].CreationPolicy));
             }
             if (inputTemplate.Resources[r].DeletionPolicy) {
-                t = _addDeletionPolicy(t, DeletionPolicy(r, inputTemplate.Resources[r].DeletionPolicy));
+                t = _addResourcePolicy(t, DeletionPolicy(r, inputTemplate.Resources[r].DeletionPolicy));
             }
             if (inputTemplate.Resources[r].DependsOn) {
-                t = _addDependsOn(t, DependsOn(r, inputTemplate.Resources[r].DependsOn));
+                t = _addResourcePolicy(t, DependsOn(r, inputTemplate.Resources[r].DependsOn));
             }
             if (inputTemplate.Resources[r].UpdatePolicy) {
-                t = _addUpdatePolicy(t, UpdatePolicy(r, inputTemplate.Resources[r].UpdatePolicy));
+                t = _addResourcePolicy(t, UpdatePolicy(r, inputTemplate.Resources[r].UpdatePolicy));
             }
         });
     }
     if (inputTemplate.Outputs) {
-        Object.keys(inputTemplate.Outputs).forEach(o => {
-            t = t.add(Output(o, inputTemplate.Outputs[o]));
-        });
+        t = _addIterate(t, inputTemplate, 'Outputs', Output);
     }
     if (inputTemplate.Mappings) {
         Object.keys(inputTemplate.Mappings).forEach(m => {
@@ -46025,11 +45598,278 @@ function _calcFromExistingTemplate(t, inputTemplate) {
         });
     }
     if (inputTemplate.Conditions) {
-        Object.keys(inputTemplate.Conditions).forEach(c => {
-            t = t.add(Condition(c, inputTemplate.Conditions[c]));
-        });
+        t = _addIterate(t, inputTemplate, 'Conditions', Condition);
     }
     return t;
+}
+/**
+ * @hidden
+ * @param t
+ * @param inputTemplate
+ * @param blockType
+ * @param method
+ */
+function _addIterate(t, inputTemplate, blockType, method) {
+    Object.keys(inputTemplate[blockType]).forEach(o => {
+        t = t.add(method(o, inputTemplate[blockType][o]));
+    });
+    return t;
+}
+
+/**
+ * @hidden
+ * @param t
+ * @param e
+ */
+function _remove(t, e) {
+    const result = Object.assign({}, t);
+    const block = `${e.kind}s`;
+    if (result[block][e.Name]) {
+        result[block] = lodash_4(result[block], e.Name);
+    }
+    else {
+        throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+    }
+    return result;
+}
+
+/** @module Template */
+/**
+ * Returns a new Template object.
+ * @member Template
+ * @returns ITemplate
+ */
+function Template() {
+    return {
+        AWSTemplateFormatVersion: '2010-09-09',
+        Conditions: {},
+        Mappings: {},
+        Outputs: {},
+        Parameters: {},
+        Resources: {},
+        /**
+         * Add a new Parameter, Description, Output, Resource, Condition, or Mapping
+         * to the template. Returns a new Template with the element added. Does not mutate the original Template object.
+         * @example
+         * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
+         */
+        add: function (e, options) {
+            if (Array.isArray(e)) {
+                let _t = lodash_1(this);
+                e.forEach(elem => {
+                    _t = _add(_t, elem, options);
+                });
+                return _t;
+            }
+            return _add(this, e, options);
+        },
+        /**
+         * Returns a finished CloudFormation template object. This can then be converted into JSON or YAML.
+         * @example
+         * const t = Template();
+         * JSON.stringify(t.build(), null, 2)
+         */
+        build: function () {
+            const result = {
+                AWSTemplateFormatVersion: '2010-09-09',
+                Resources: {},
+            };
+            const skel = {
+                Conditions: this.Conditions,
+                Mappings: this.Mappings,
+                Outputs: this.Outputs,
+                Parameters: this.Parameters,
+                Resources: this.Resources,
+            };
+            Object.keys(skel).forEach(element => {
+                if (Object.keys(skel[element]).length > 0) {
+                    result[element] = {};
+                    Object.keys(skel[element]).forEach(item => {
+                        result[element][item] = _json(skel[element][item]);
+                    });
+                }
+            });
+            if (this.Description) {
+                result.Description = this.Description;
+            }
+            return result;
+        },
+        /**
+         * Checks to see if an element is in the current template.
+         * Returns true if it is in the template, false if it is not found.
+         */
+        has: function (query) {
+            const [resource, attribute] = query.split('.');
+            if (attribute && this.Resources[resource].Properties[attribute]) {
+                return true;
+            }
+            if (this.Resources[query]) {
+                return true;
+            }
+            if (this.Parameters[query]) {
+                return true;
+            }
+            return false;
+        },
+        /**
+         * Import an existing CloudFormation JSON template and convert it into a Wolkenkratzer Template object.
+         * @example
+         * const templateJson = require('template.json');
+         * const t = Template().import(templateJson);
+         */
+        import: function (inputTemplate) {
+            const _t = lodash_1(this);
+            return _calcFromExistingTemplate(_t, inputTemplate);
+        },
+        kind: 'Template',
+        /**
+         * Merges another Template object into another. The original Template objects are not mutated.
+         * Returns a new Template object that is the product of the two original Template objects.
+         */
+        merge: function (t) {
+            const _t = lodash_1(this);
+            const combined = {};
+            [
+                'Conditions',
+                'Mapping',
+                'Outputs',
+                'Parameters',
+                'Resources',
+                'Description',
+            ].forEach(block => {
+                if (t[block]) {
+                    combined[block] = Object.assign({}, _t[block], t[block]);
+                }
+            });
+            return Object.assign({}, _t, combined);
+        },
+        /**
+         * Turn an attribute of a Resource into a Parameter.
+         */
+        parameterize: function (location, parameterName) {
+            let result = lodash_1(this);
+            const [resource, attribute] = location.split('.');
+            const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
+            const propType = stubs[rgroup].Resources[rtype].Properties[attribute]
+                .ItemType
+                ? stubs[rgroup].Resources[rtype].Properties[attribute].ItemType
+                : stubs[rgroup].Resources[rtype].Properties[attribute].PrimitiveType;
+            parameterName = parameterName ? parameterName : `${resource}${attribute}`;
+            console.log('proptype: ', propType);
+            result = _addParameter(result, Parameter(parameterName, { Type: propType }));
+            result.Resources[resource].Properties[attribute] = Ref(parameterName);
+            return result;
+        },
+        /**
+         * Turn an attribute of a Resource into an Output. Currently only supports turning it into a 'Ref'
+         */
+        putOut: function (location, outputName) {
+            let result = lodash_1(this);
+            const [resource, attribute] = location.split('.');
+            const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
+            outputName = outputName ? outputName : `${resource}${attribute}`;
+            result = _addOutput(result, Output(outputName, {
+                Description: `The ${attribute} of the ${resource} ${rgroup} ${rtype}`,
+                Value: Ref(resource),
+            }));
+            return result;
+        },
+        /**
+         * Remove a Parameter, Description, Output, Resource, Condition, or Mapping from the template.
+         * Returns a new Template with the element removed. Does not mutate the original Template object.
+         * @example
+         * let t = Template();
+         * let p = Parameter('NewParam', { Type: 'String' });
+         * t.add(p).remove(p);
+         */
+        remove: function (e) {
+            const result = lodash_1(this);
+            let element;
+            if (typeof e === 'string') {
+                const resource = result.Resources[e];
+                if (resource) {
+                    element = resource;
+                }
+                else {
+                    const parameter = result.Parameters[e];
+                    if (parameter) {
+                        element = parameter;
+                    }
+                    else {
+                        const output = result.Outputs[e];
+                        if (output) {
+                            element = output;
+                        }
+                        else {
+                            const mapping = result.Mappings[e];
+                            if (mapping) {
+                                element = mapping;
+                            }
+                            else {
+                                throw new SyntaxError(`Could not find ${JSON.stringify(e)}`);
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                element = e;
+            }
+            return _remove(this, element);
+        },
+        /**
+         * Removes the Description from the Template.
+         */
+        removeDescription: function () {
+            const newT = lodash_1(this);
+            delete newT.Description;
+            return newT;
+        },
+        /**
+         * Update the value of a resource in the Template.
+         */
+        set: function (location, newValue) {
+            const result = lodash_1(this);
+            const [resource, attribute] = location.split('.');
+            result.Resources[resource].Properties[attribute] = newValue;
+            return result;
+        },
+        yaml: function () {
+            const cleanedTemplate = this.build();
+            // const templateString = JSON.stringify(cleanedTemplate, null, 2);
+            const templateString = jsYaml_1(cleanedTemplate, {
+                flowLevel: 5,
+                schema: cloudformationSchemaJsYaml,
+            })
+                .replace(/'Fn::Equals':/g, '!Equals')
+                .replace(/'Fn::And':/g, '!And')
+                .replace(/'Fn::GetAZs':/g, '!GetAZs')
+                .replace(/\{Ref: ([^}]+)\}/g, (match, p1) => {
+                return `!Ref ${p1}`;
+            })
+                .replace(/Ref: (\w+)/g, (match, p1) => {
+                return `!Ref ${p1}`;
+            })
+                .replace(/'Fn::ImportValue':/g, '!ImportValue')
+                .replace(/'Fn::Or':/g, '!Or')
+                .replace(/'Fn::Not':/g, '!Not')
+                .replace(/'Fn::If':/g, '!If')
+                .replace(/\{'Fn::GetAtt': \[(\w+), ([\w|\.]+)\]\}/g, (match, p1, p2) => {
+                return `!GetAtt ${p1}.${p2}`;
+            })
+                .replace(/\{'Fn::FindInMap': \[([\w\d!]+), ([\w\d! ]+), ([\w\d!]+)\]\}/g, (match, p1, p2, p3) => {
+                return `!FindInMap [ ${p1}, ${p2}, ${p3} ]`;
+            });
+            /*
+            TODO: add support for short versions of the rest
+              .replace(/'Fn::Join':/g, '!Join');
+              'Fn::FindInMap'
+              "Fn::Select"
+              "Fn::Split"
+              "Fn::Sub"*/
+            return templateString;
+        },
+    };
 }
 
 /*! *****************************************************************************
@@ -46078,8 +45918,9 @@ const service = Service(CloudTrail);
  */
 const Trail = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const { trailList } = yield AWSClient.describeTrails({ trailNameList: [name] })
-            .promise();
+        const { trailList } = yield AWSClient.describeTrails({
+            trailNameList: [name],
+        }).promise();
         const resource = {
             CloudWatchLogsLogGroupArn: trailList[0].CloudWatchLogsLogGroupArn,
             CloudWatchLogsRoleArn: trailList[0].CloudWatchLogsRoleArn,
@@ -46091,7 +45932,7 @@ const Trail = function (name, AWSClient, logical) {
             S3BucketName: trailList[0].S3BucketName,
             S3KeyPrefix: trailList[0].S3KeyPrefix,
             SnsTopicName: trailList[0].SnsTopicName,
-            TrailName: name
+            TrailName: name,
         };
         resolve(service.Trail(logical, resource));
     }));
@@ -46101,8 +45942,7 @@ const Trail = function (name, AWSClient, logical) {
  */
 const TrailList = function (AWSClient) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const { trailList } = yield AWSClient.describeTrails()
-            .promise();
+        const { trailList } = yield AWSClient.describeTrails().promise();
         const resources = trailList.map(t => service.Trail(t.Name, {
             CloudWatchLogsLogGroupArn: t.CloudWatchLogsLogGroupArn,
             CloudWatchLogsRoleArn: t.CloudWatchLogsRoleArn,
@@ -46114,7 +45954,7 @@ const TrailList = function (AWSClient) {
             S3BucketName: t.S3BucketName,
             S3KeyPrefix: t.S3KeyPrefix,
             SnsTopicName: t.SnsTopicName,
-            TrailName: t.Name
+            TrailName: t.Name,
         }));
         resolve(resources);
     }));
@@ -46124,7 +45964,7 @@ const TrailList = function (AWSClient) {
  */
 const CloudTrail$1 = {
     Trail,
-    TrailList
+    TrailList,
 };
 
 /**
@@ -46140,7 +45980,7 @@ const CustomerGateway = function (name, AWSClient, logical) {
         const resource = {};
         const result = yield client
             .describeCustomerGateways({
-            CustomerGatewayIds: [name]
+            CustomerGatewayIds: [name],
         })
             .promise();
         resource.BgpAsn = parseInt(result.CustomerGateways[0].BgpAsn, 10);
@@ -46161,7 +46001,7 @@ const DHCPOptions = function (name, AWSClient, logical) {
         const resource = {};
         const result = yield client
             .describeDhcpOptions({
-            DhcpOptionsIds: [name]
+            DhcpOptionsIds: [name],
         })
             .promise();
         result.DhcpOptions[0].DhcpConfigurations.forEach(d => {
@@ -46198,7 +46038,7 @@ const EgressOnlyInternetGateway = function (name, AWSClient, logical) {
         const resource = {};
         const { EgressOnlyInternetGateways } = yield client
             .describeEgressOnlyInternetGateways({
-            EgressOnlyInternetGatewayIds: [name]
+            EgressOnlyInternetGatewayIds: [name],
         })
             .promise();
         resource.VpcId = EgressOnlyInternetGateways[0].Attachments[0].VpcId;
@@ -46217,10 +46057,10 @@ const EIP = function (name, AWSClient, logical) {
             Filters: [
                 {
                     Name: 'domain',
-                    Values: ['vpc']
-                }
+                    Values: ['vpc'],
+                },
             ],
-            PublicIps: [name]
+            PublicIps: [name],
         })
             .promise();
         resource.Domain = result.Addresses[0].Domain;
@@ -46231,13 +46071,18 @@ const EIP = function (name, AWSClient, logical) {
 /**
  * @hidden
  */
-const EIPAssociation = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.EIPAssociation(logical, resource));
-    }));
-};
+/*
+const EIPAssociation: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.EIPAssociation(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
@@ -46282,7 +46127,7 @@ const Instance = function (name, AWSClient, logical) {
             .describeInstances({ InstanceIds: [name] })
             .promise();
         const [instancesResults] = yield Promise.all([
-            describeInstancesPromise
+            describeInstancesPromise,
         ]);
         resource.Affinity =
             instancesResults.Reservations[0].Instances[0].Placement.Affinity;
@@ -46347,7 +46192,7 @@ const Instance = function (name, AWSClient, logical) {
                     return { Primary: x.Primary, PrivateIpAddress: x.PrivateIpAddress };
                 }),
                 // SecondaryPrivateIpAddressCount: 0,
-                SubnetId: i.SubnetId
+                SubnetId: i.SubnetId,
             };
         });
         return resolve(service$1.Instance(logical, resource));
@@ -46362,7 +46207,7 @@ const InternetGateway = function (name, AWSClient, logical) {
         const resource = {};
         const result = yield client
             .describeInternetGateways({
-            InternetGatewayIds: [name]
+            InternetGatewayIds: [name],
         })
             .promise();
         resource.Tags = result.InternetGateways[0].Tags;
@@ -46378,7 +46223,7 @@ const NatGateway = function (name, AWSClient, logical) {
         const resource = {};
         const result = yield client
             .describeNatGateways({
-            NatGatewayIds: [name]
+            NatGatewayIds: [name],
         })
             .promise();
         resource.AllocationId =
@@ -46393,73 +46238,108 @@ const NatGateway = function (name, AWSClient, logical) {
 /**
  * @hidden
  */
-const NetworkAcl = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.NetworkAcl(logical, resource));
-    }));
-};
+/*
+const NetworkAcl: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.NetworkAcl(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const NetworkAclEntry = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.NetworkAclEntry(logical, resource));
-    }));
-};
+/*
+const NetworkAclEntry: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.NetworkAclEntry(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const NetworkInterface = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.NetworkInterface(logical, resource));
-    }));
-};
+/*
+const NetworkInterface: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.NetworkInterface(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const NetworkInterfaceAttachment = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.NetworkInterfaceAttachment(logical, resource));
-    }));
-};
+/*
+const NetworkInterfaceAttachment: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.NetworkInterfaceAttachment(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const NetworkInterfacePermission = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.NetworkInterfacePermission(logical, resource));
-    }));
-};
+/*
+const NetworkInterfacePermission: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.NetworkInterfacePermission(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const PlacementGroup = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.PlacementGroup(logical, resource));
-    }));
-};
+/*
+const PlacementGroup: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.PlacementGroup(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const Route = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.Route(logical, resource));
-    }));
-};
+/*
+const Route: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.Route(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
@@ -46478,203 +46358,303 @@ const RouteTable = function (name, AWSClient, logical) {
 /**
  * @hidden
  */
-const SecurityGroup = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SecurityGroup(logical, resource));
-    }));
-};
+/*
+const SecurityGroup: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SecurityGroup(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SecurityGroupEgress = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SecurityGroupEgress(logical, resource));
-    }));
-};
+/*
+const SecurityGroupEgress: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SecurityGroupEgress(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SecurityGroupIngress = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SecurityGroupIngress(logical, resource));
-    }));
-};
+/*
+const SecurityGroupIngress: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SecurityGroupIngress(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SpotFleet = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SpotFleet(logical, resource));
-    }));
-};
+/*
+const SpotFleet: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SpotFleet(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const Subnet = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.Subnet(logical, resource));
-    }));
-};
+/*
+const Subnet: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.Subnet(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SubnetCidrBlock = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SubnetCidrBlock(logical, resource));
-    }));
-};
+/*
+const SubnetCidrBlock: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SubnetCidrBlock(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SubnetNetworkAclAssociation = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SubnetNetworkAclAssociation(logical, resource));
-    }));
-};
+/*
+const SubnetNetworkAclAssociation: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SubnetNetworkAclAssociation(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const SubnetRouteTableAssociation = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.SubnetRouteTableAssociation(logical, resource));
-    }));
-};
+/*
+const SubnetRouteTableAssociation: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.SubnetRouteTableAssociation(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const Volume = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.Volume(logical, resource));
-    }));
-};
+/*
+const Volume: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.Volume(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VolumeAttachment = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VolumeAttachment(logical, resource));
-    }));
-};
+/*
+const VolumeAttachment: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VolumeAttachment(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPC = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPC(logical, resource));
-    }));
-};
+/*
+const VPC: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPC(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPCCidrBlock = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPCCidrBlock(logical, resource));
-    }));
-};
+/*
+const VPCCidrBlock: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPCCidrBlock(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPCDHCPOptionsAssociation = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPCDHCPOptionsAssociation(logical, resource));
-    }));
-};
+/*
+const VPCDHCPOptionsAssociation: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPCDHCPOptionsAssociation(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPCEndpoint = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPCEndpoint(logical, resource));
-    }));
-};
+/*
+const VPCEndpoint: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPCEndpoint(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPCGatewayAttachment = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPCGatewayAttachment(logical, resource));
-    }));
-};
+/*
+const VPCGatewayAttachment: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPCGatewayAttachment(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPCPeeringConnection = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPCPeeringConnection(logical, resource));
-    }));
-};
+/*
+const VPCPeeringConnection: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPCPeeringConnection(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPNConnection = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPNConnection(logical, resource));
-    }));
-};
+/*
+const VPNConnection: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPNConnection(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPNConnectionRoute = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPNConnectionRoute(logical, resource));
-    }));
-};
+/*
+const VPNConnectionRoute: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPNConnectionRoute(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPNGateway = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPNGateway(logical, resource));
-    }));
-};
+/*
+const VPNGateway: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPNGateway(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
-const VPNGatewayRoutePropagation = function (name, AWSClient, logical) {
-    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const client = new AWSClient.EC2();
-        const resource = {};
-        return resolve(service$1.VPNGatewayRoutePropagation(logical, resource));
-    }));
-};
+/*
+const VPNGatewayRoutePropagation: TransformFunctionType = function(
+  name: string,
+  AWSClient: any,
+  logical: string
+): Promise<IResource> {
+  return new Promise(async (resolve, reject) => {
+    // const client = new AWSClient.EC2();
+    const resource: object = {};
+    return resolve(service.VPNGatewayRoutePropagation(logical, resource));
+  });
+};*/
 /**
  * @hidden
  */
@@ -46682,41 +46662,21 @@ const EC2$1 = {
     CustomerGateway,
     DHCPOptions,
     EIP,
-    EIPAssociation,
+    // EIPAssociation,
     EgressOnlyInternetGateway,
     FlowLog,
     Host,
     Instance,
     InternetGateway,
     NatGateway,
-    NetworkAcl,
+    /* NetworkAcl,
     NetworkAclEntry,
     NetworkInterface,
     NetworkInterfaceAttachment,
     NetworkInterfacePermission,
     PlacementGroup,
-    Route,
+    Route, */
     RouteTable,
-    SecurityGroup,
-    SecurityGroupEgress,
-    SecurityGroupIngress,
-    SpotFleet,
-    Subnet,
-    SubnetCidrBlock,
-    SubnetNetworkAclAssociation,
-    SubnetRouteTableAssociation,
-    VPC,
-    VPCCidrBlock,
-    VPCDHCPOptionsAssociation,
-    VPCEndpoint,
-    VPCGatewayAttachment,
-    VPCPeeringConnection,
-    VPNConnection,
-    VPNConnectionRoute,
-    VPNGateway,
-    VPNGatewayRoutePropagation,
-    Volume,
-    VolumeAttachment
 };
 
 /**
@@ -46728,11 +46688,10 @@ const service$2 = Service(S3);
  */
 const Bucket = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const versioningPromise = AWSClient
-            .getBucketVersioning({ Bucket: name })
-            .promise();
-        const corsPromise = AWSClient
-            .getBucketCors({ Bucket: name })
+        const versioningPromise = AWSClient.getBucketVersioning({
+            Bucket: name,
+        }).promise();
+        const corsPromise = AWSClient.getBucketCors({ Bucket: name })
             .promise()
             .then(data => {
             const corsresult = { CORSRules: [] };
@@ -46747,29 +46706,30 @@ const Bucket = function (name, AWSClient, logical) {
             // Silently catch the NoSuchCORSConfiguration
             return { CORSRules: null };
         });
-        const lifecyclePromise = AWSClient
-            .getBucketLifecycleConfiguration({ Bucket: name })
+        const lifecyclePromise = AWSClient.getBucketLifecycleConfiguration({
+            Bucket: name,
+        })
             .promise()
             .then(data => data)
             .catch(e => {
             // Silently catch the NoSuchLifecycleConfiguration
             return null;
         });
-        const loggingPromise = AWSClient.getBucketLogging({ Bucket: name }).promise();
-        const notificationPromise = AWSClient
-            .getBucketNotification({ Bucket: name })
-            .promise();
-        const replicationPromise = AWSClient
-            .getBucketReplication({ Bucket: name })
+        const loggingPromise = AWSClient.getBucketLogging({
+            Bucket: name,
+        }).promise();
+        const notificationPromise = AWSClient.getBucketNotification({
+            Bucket: name,
+        }).promise();
+        const replicationPromise = AWSClient.getBucketReplication({ Bucket: name })
             .promise()
             .then(data => data)
             .catch(e => {
             // Silently catch the ReplicationConfigurationNotFoundError
             return null;
         });
-        const taggingPromise = AWSClient
-            .getBucketTagging({
-            Bucket: name
+        const taggingPromise = AWSClient.getBucketTagging({
+            Bucket: name,
         })
             .promise()
             .then(data => data)
@@ -46777,30 +46737,29 @@ const Bucket = function (name, AWSClient, logical) {
             // Silently catch the NoSuchTagSet
             return null;
         });
-        const websitePromise = AWSClient
-            .getBucketWebsite({ Bucket: name })
+        const websitePromise = AWSClient.getBucketWebsite({ Bucket: name })
             .promise()
             .then(data => data)
             .catch(e => {
             // Silently catch the NoSuchWebsiteConfiguration
             return null;
         });
-        const accessControlPromise = AWSClient
-            .getBucketAcl({ Bucket: name })
-            .promise();
-        const acceleratePromise = AWSClient
-            .getBucketAccelerateConfiguration({ Bucket: name })
-            .promise();
-        const analyticsPromise = AWSClient
-            .listBucketAnalyticsConfigurations({ Bucket: name })
-            .promise();
-        const inventoryPromise = AWSClient
-            .listBucketInventoryConfigurations({ Bucket: name })
-            .promise();
-        const metricsPromise = AWSClient
-            .listBucketMetricsConfigurations({ Bucket: name })
-            .promise();
-        const [versionResults, corsResults, lifecycleResults, loggingResults, notificationResults, replicationResults, taggingResults, websiteResults, accessControlResults, accelerateResults, analyticsResults, inventoryResults, metricsResults] = yield Promise.all([
+        const accessControlPromise = AWSClient.getBucketAcl({
+            Bucket: name,
+        }).promise();
+        const acceleratePromise = AWSClient.getBucketAccelerateConfiguration({
+            Bucket: name,
+        }).promise();
+        const analyticsPromise = AWSClient.listBucketAnalyticsConfigurations({
+            Bucket: name,
+        }).promise();
+        const inventoryPromise = AWSClient.listBucketInventoryConfigurations({
+            Bucket: name,
+        }).promise();
+        const metricsPromise = AWSClient.listBucketMetricsConfigurations({
+            Bucket: name,
+        }).promise();
+        const [versionResults, corsResults, lifecycleResults, loggingResults, notificationResults, replicationResults, taggingResults, websiteResults, accessControlResults, accelerateResults, analyticsResults, inventoryResults, metricsResults,] = yield Promise.all([
             versioningPromise,
             corsPromise,
             lifecyclePromise,
@@ -46813,7 +46772,7 @@ const Bucket = function (name, AWSClient, logical) {
             acceleratePromise,
             analyticsPromise,
             inventoryPromise,
-            metricsPromise
+            metricsPromise,
         ]);
         const resource = { BucketName: name };
         if (versionResults.Status) {
@@ -46828,7 +46787,7 @@ const Bucket = function (name, AWSClient, logical) {
         if (loggingResults && loggingResults.LoggingEnabled) {
             resource.LoggingConfiguration = {
                 DestinationBucketName: loggingResults.LoggingEnabled.TargetBucket,
-                LogFilePrefix: loggingResults.LoggingEnabled.TargetPrefix
+                LogFilePrefix: loggingResults.LoggingEnabled.TargetPrefix,
             };
         }
         if (Object.keys(notificationResults).length > 0) {
@@ -46879,12 +46838,12 @@ const BucketList = function (AWSClient) {
 const BucketPolicy = function (name, AWSClient, logical) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         try {
-            const { Policy } = yield AWSClient
-                .getBucketPolicy({ Bucket: name })
-                .promise();
+            const { Policy } = yield AWSClient.getBucketPolicy({
+                Bucket: name,
+            }).promise();
             const resource = {
                 Bucket: name,
-                PolicyDocument: Policy
+                PolicyDocument: Policy,
             };
             resolve(service$2.BucketPolicy(logical, resource));
         }
@@ -46912,7 +46871,7 @@ const S3$1 = {
     Bucket,
     BucketList,
     BucketPolicy,
-    BucketPolicyList
+    BucketPolicyList,
 };
 
 const Transform = {
@@ -46977,7 +46936,7 @@ const Transform = {
     WAFRegional
     WorkSpaces
     */
-    S3: S3$1
+    S3: S3$1,
 };
 
 resourceList.forEach(r => {

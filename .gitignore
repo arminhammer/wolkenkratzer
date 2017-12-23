@@ -12,3 +12,5 @@ test.js
 .rpt2_cache/
 .vscode
 dist/
+cc-test-reporter
+travis_wait_*.log

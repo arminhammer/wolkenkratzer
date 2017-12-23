@@ -13,6 +13,7 @@ const {
   FnSelect,
   FnSplit,
   FnSub,
+  Lambda,
   Parameter,
   Pseudo,
   S3,
@@ -37,9 +38,40 @@ describe('Intrinsic', () => {
     });
   });
 
+  test('FnGetAtt fails if the Resource does not exist in the template', () => {
+    let t = Template().add(Parameter('BucketName', { Type: 'String' }));
+    expect(() => {
+      t = t.add(
+        S3.Bucket('S3Bucket', {
+          BucketName: Ref('BucketName'),
+          NotificationConfiguration: {
+            LambdaConfigurations: [
+              {
+                Event: 's3:ObjectCreated:*',
+                Function: FnGetAtt('LambdaFunction', 'Arn')
+              }
+            ]
+          }
+        })
+      );
+    }).toThrow(SyntaxError);
+  });
+
   test('FnGetAtt turns to valid JSON', () => {
     let t = Template()
       .add(Parameter('BucketName', { Type: 'String' }))
+      .add(Parameter('Role', { Type: 'String' }))
+      .add(
+        Lambda.Function('LambdaFunction', {
+          Code: {
+            S3Bucket: 'lambda-functions',
+            S3Key: 'amilookup.zip'
+          },
+          Handler: 'index.handler',
+          Role: Ref('Role'),
+          Runtime: 'nodejs4.3'
+        })
+      )
       .add(
         S3.Bucket('S3Bucket', {
           BucketName: Ref('BucketName'),
@@ -55,7 +87,12 @@ describe('Intrinsic', () => {
       );
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
-      Parameters: { BucketName: { Type: 'String' } },
+      Parameters: {
+        BucketName: { Type: 'String' },
+        Role: {
+          Type: 'String'
+        }
+      },
       Resources: {
         S3Bucket: {
           Properties: {
@@ -70,9 +107,55 @@ describe('Intrinsic', () => {
             }
           },
           Type: 'AWS::S3::Bucket'
+        },
+        LambdaFunction: {
+          Properties: {
+            Code: {
+              S3Bucket: 'lambda-functions',
+              S3Key: 'amilookup.zip'
+            },
+            Handler: 'index.handler',
+            Role: {
+              Ref: 'Role'
+            },
+            Runtime: 'nodejs4.3'
+          },
+          Type: 'AWS::Lambda::Function'
         }
       }
     });
+  });
+
+  test('FnGetAtt to an invalid attribute throws an error', () => {
+    let t = Template()
+      .add(Parameter('BucketName', { Type: 'String' }))
+      .add(Parameter('Role', { Type: 'String' }))
+      .add(
+        Lambda.Function('LambdaFunction', {
+          Code: {
+            S3Bucket: 'lambda-functions',
+            S3Key: 'amilookup.zip'
+          },
+          Handler: 'index.handler',
+          Role: Ref('Role'),
+          Runtime: 'nodejs4.3'
+        })
+      );
+    expect(() => {
+      t.add(
+        S3.Bucket('S3Bucket', {
+          BucketName: Ref('BucketName'),
+          NotificationConfiguration: {
+            LambdaConfigurations: [
+              {
+                Event: 's3:ObjectCreated:*',
+                Function: FnGetAtt('LambdaFunction', 'NotAnArn')
+              }
+            ]
+          }
+        })
+      );
+    }).toThrowError(SyntaxError);
   });
 
   test('Can create an FnEquals', () => {
@@ -201,6 +284,18 @@ describe('Intrinsic', () => {
   test('FnSub turns to valid JSON', () => {
     let t = Template()
       .add(Parameter('BucketName', { Type: 'String' }))
+      .add(Parameter('Role', { Type: 'String' }))
+      .add(
+        Lambda.Function('LambdaFunction', {
+          Code: {
+            S3Bucket: 'lambda-functions',
+            S3Key: 'amilookup.zip'
+          },
+          Handler: 'index.handler',
+          Role: Ref('Role'),
+          Runtime: 'nodejs4.3'
+        })
+      )
       .add(
         S3.Bucket('S3Bucket', {
           BucketName: FnFindInMap('One', 'Two', 'Three'),
@@ -225,8 +320,27 @@ describe('Intrinsic', () => {
       );
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
-      Parameters: { BucketName: { Type: 'String' } },
+      Parameters: {
+        BucketName: { Type: 'String' },
+        Role: {
+          Type: 'String'
+        }
+      },
       Resources: {
+        LambdaFunction: {
+          Properties: {
+            Code: {
+              S3Bucket: 'lambda-functions',
+              S3Key: 'amilookup.zip'
+            },
+            Handler: 'index.handler',
+            Role: {
+              Ref: 'Role'
+            },
+            Runtime: 'nodejs4.3'
+          },
+          Type: 'AWS::Lambda::Function'
+        },
         S3Bucket: {
           Properties: {
             BucketName: {
@@ -271,6 +385,18 @@ describe('Intrinsic', () => {
   test('FnFindInMap turns to valid JSON', () => {
     let t = Template()
       .add(Parameter('BucketName', { Type: 'String' }))
+      .add(Parameter('Role', { Type: 'String' }))
+      .add(
+        Lambda.Function('LambdaFunction', {
+          Code: {
+            S3Bucket: 'lambda-functions',
+            S3Key: 'amilookup.zip'
+          },
+          Handler: 'index.handler',
+          Role: Ref('Role'),
+          Runtime: 'nodejs4.3'
+        })
+      )
       .add(
         S3.Bucket('S3Bucket', {
           BucketName: FnFindInMap('One', 'Two', 'Three'),
@@ -286,8 +412,27 @@ describe('Intrinsic', () => {
       );
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
-      Parameters: { BucketName: { Type: 'String' } },
+      Parameters: {
+        BucketName: { Type: 'String' },
+        Role: {
+          Type: 'String'
+        }
+      },
       Resources: {
+        LambdaFunction: {
+          Properties: {
+            Code: {
+              S3Bucket: 'lambda-functions',
+              S3Key: 'amilookup.zip'
+            },
+            Handler: 'index.handler',
+            Role: {
+              Ref: 'Role'
+            },
+            Runtime: 'nodejs4.3'
+          },
+          Type: 'AWS::Lambda::Function'
+        },
         S3Bucket: {
           Properties: {
             BucketName: {
@@ -311,6 +456,18 @@ describe('Intrinsic', () => {
   test('FnFindInMap turns to valid JSON with embedded Ref', () => {
     let t = Template()
       .add(Parameter('BucketName', { Type: 'String' }))
+      .add(Parameter('Role', { Type: 'String' }))
+      .add(
+        Lambda.Function('LambdaFunction', {
+          Code: {
+            S3Bucket: 'lambda-functions',
+            S3Key: 'amilookup.zip'
+          },
+          Handler: 'index.handler',
+          Role: Ref('Role'),
+          Runtime: 'nodejs4.3'
+        })
+      )
       .add(
         S3.Bucket('S3Bucket', {
           BucketName: FnFindInMap('One', Ref(Pseudo.AWS_REGION), 'Three'),
@@ -326,8 +483,27 @@ describe('Intrinsic', () => {
       );
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
-      Parameters: { BucketName: { Type: 'String' } },
+      Parameters: {
+        BucketName: { Type: 'String' },
+        Role: {
+          Type: 'String'
+        }
+      },
       Resources: {
+        LambdaFunction: {
+          Properties: {
+            Code: {
+              S3Bucket: 'lambda-functions',
+              S3Key: 'amilookup.zip'
+            },
+            Handler: 'index.handler',
+            Role: {
+              Ref: 'Role'
+            },
+            Runtime: 'nodejs4.3'
+          },
+          Type: 'AWS::Lambda::Function'
+        },
         S3Bucket: {
           Properties: {
             BucketName: {

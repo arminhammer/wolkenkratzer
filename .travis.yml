@@ -1,3 +1,6 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=8998d7a6188fbac1cf8fadb5c654a4cf1f23e96c5b9ba489d195861a310d1282
 language: node_js'
 cache:
   yarn: true
@@ -7,10 +10,16 @@ node_js:
 sudo: false
 install:
 - yarn
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
 - yarn build
-- yarn coverage
-- yarn coveralls
+- yarn coverage --runInBand
+- yarn coveralls 
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 deploy:
   provider: npm
   email:

@@ -17,45 +17,57 @@ import {
   IIntrinsic,
   IParameter,
   IRef,
-  IResource
+  IResource,
 } from './types';
 
 /**
  * Returns an Fn::And object
- * @param {*} one 
- * @param {*} two 
+ * @param {*} one
+ * @param {*} two
  */
 export function FnAnd(one: Conditional, two: Conditional): IFnAnd {
   return { kind: 'FnAnd', FnAnd: [buildIntrinsic(one), buildIntrinsic(two)] };
 }
 
 /**
+ * @hidden
+ * @param items
+ * @param fnType
+ */
+function _fnConditional(
+  items: Array<string | IIntrinsic>,
+  fnType: 'FnOr' | 'FnNot' | 'FnIf'
+): any {
+  return { kind: fnType, [fnType]: items.map(x => buildIntrinsic(x)) };
+}
+
+/**
  * Returns an Fn::Or object
- * @param {*} array 
+ * @param {*} array
  */
 export function FnOr(items: Array<string | IIntrinsic>): IFnOr {
-  return { kind: 'FnOr', FnOr: items.map(x => buildIntrinsic(x)) };
+  return _fnConditional(items, 'FnOr');
 }
 
 /**
  * Returns an Fn::Not object
- * @param {*} array 
+ * @param {*} array
  */
 export function FnNot(items: Array<string | IIntrinsic>): IFnNot {
-  return { kind: 'FnNot', FnNot: items.map(x => buildIntrinsic(x)) };
+  return _fnConditional(items, 'FnNot');
 }
 
 /**
  * Returns an Fn::If object
- * @param {*} array 
+ * @param {*} array
  */
 export function FnIf(items: Array<string | IIntrinsic>): IFnIf {
-  return { kind: 'FnIf', FnIf: items.map(x => buildIntrinsic(x)) };
+  return _fnConditional(items, 'FnIf');
 }
 
 /**
  * Returns a Ref object that references another element in the template
- * @param {*} target 
+ * @param {*} target
  */
 export function Ref(target: IResource | IParameter | string): IRef {
   if (typeof target === 'string') {
@@ -67,8 +79,8 @@ export function Ref(target: IResource | IParameter | string): IRef {
 
 /**
  * Returns an Fn::GetAtt object that references another element in the template
- * @param {*} target 
- * @param {*} attr 
+ * @param {*} target
+ * @param {*} attr
  */
 export function FnGetAtt(target: IResource | string, attr: string): IFnGetAtt {
   if (typeof target === 'string') {
@@ -96,8 +108,8 @@ export function FnJoin(
 
 /**
  * Returns an Fn::Equals object
- * @param {*} one 
- * @param {*} two 
+ * @param {*} one
+ * @param {*} two
  */
 export function FnEquals(one: Conditional, two: Conditional): IFnEquals {
   return { kind: 'FnEquals', FnEquals: [one, two] };
@@ -105,7 +117,7 @@ export function FnEquals(one: Conditional, two: Conditional): IFnEquals {
 
 /**
  * Returns an Fn::Sub object
- * @param {*} input 
+ * @param {*} input
  */
 export function FnSub(input: string): IFnSub {
   return { kind: 'FnSub', FnSub: input };
@@ -113,7 +125,7 @@ export function FnSub(input: string): IFnSub {
 
 /**
  * Returns an Fn::Base64 object
- * @param {*} input 
+ * @param {*} input
  */
 export function FnBase64(input: string): IFnBase64 {
   return { kind: 'FnBase64', FnBase64: input };
@@ -121,9 +133,9 @@ export function FnBase64(input: string): IFnBase64 {
 
 /**
  * Returns an Fn::FindInMap object
- * @param {*} mapName 
- * @param {*} topLevelKey 
- * @param {*} secondLevelKey 
+ * @param {*} mapName
+ * @param {*} topLevelKey
+ * @param {*} secondLevelKey
  */
 export function FnFindInMap(
   mapName: string,
@@ -132,13 +144,13 @@ export function FnFindInMap(
 ): IFnFindInMap {
   return {
     FnFindInMap: [mapName, topLevelKey, secondLevelKey],
-    kind: 'FnFindInMap'
+    kind: 'FnFindInMap',
   };
 }
 
 /**
  * Returns an Fn::GetAZs object
- * @param {*} region 
+ * @param {*} region
  */
 export function FnGetAZs(region: string | IRef): IFnGetAZs {
   if (!region) {
@@ -149,8 +161,8 @@ export function FnGetAZs(region: string | IRef): IFnGetAZs {
 
 /**
  * Returns an Fn::Select object
- * @param {*} index 
- * @param {*} list 
+ * @param {*} index
+ * @param {*} list
  */
 export function FnSelect(
   index: string | number,
@@ -164,7 +176,7 @@ export function FnSelect(
   return {
     FnSelect: list,
     index: index,
-    kind: 'FnSelect'
+    kind: 'FnSelect',
   };
 }
 
@@ -199,7 +211,7 @@ export function buildIntrinsic(input) {
 
 /**
  * Returns an Fn::ImportValue object
- * @param {*} region 
+ * @param {*} region
  */
 export function FnImportValue(
   value:
@@ -218,14 +230,14 @@ export function FnImportValue(
 
 /**
  * Returns an Fn::Split object
- * @param {*} mapName 
- * @param {*} topLevelKey 
- * @param {*} secondLevelKey 
+ * @param {*} mapName
+ * @param {*} topLevelKey
+ * @param {*} secondLevelKey
  */
 export function FnSplit(delimiter: string, value: string): IFnSplit {
   return {
     delimiter: delimiter,
     kind: 'FnSplit',
-    value: value
+    value: value,
   };
 }

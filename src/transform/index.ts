@@ -1,3 +1,4 @@
+import { Service } from 'aws-sdk';
 import { IResource, TransformFunctionType } from '../types';
 import { CloudTrail } from './CloudTrail';
 import { EC2 } from './EC2';
@@ -65,5 +66,5 @@ export const Transform = {
   WAFRegional
   WorkSpaces
   */
-  S3
+  S3,
 };
