@@ -29,5 +29,7 @@ deploy:
   api_key:
     secure: gHpcTK5bO/FJSiymWRkrD714/hFP/hCcT0abHgADRb6bhFskHqCgfWgPkLR1sITWykAE1b1JxL3J/YtUcxhW7RaeQOH887Bwv8YJxDnefytFxZVkwcIl6cMLTL0lPcCBweW/2GYNNNRjRta1DKA73KaPgLzpTfhot/vFoGuXAWcTiIUgqsbpf23mquyA+3PmXqED2Iq6mwC6bg8ZXbfKWzVd3AOpLte0CN7vqRMoYQWCt65UUns2YQaX97ScH87ufjqBXMJnx2NEh/uuOtddXXXAJUrP50lI5/we6PjpV9XjJcQ6cWawncf7PwB7ATd1OkIzHO64WeEvL0uP6SX/m7RuoxM0qN08EiZ8B8tzgXn13GYr60azZomTMXTkikSX0142AHGBR2PGHOoF5wkN59BHZCUwJf5HQDojpzviJO9nXfbX5B24jJK2A9YXfyM766o+l33i1+JyvWM7T9oai7e/C6xt066TIp+rbut26upVNBUzIQwPDaga15L1DZ6CIjVx0eoe1X1rcEa4yGhPogipD0FMbSW40HW3RsFnboQcd7owPtX7cvhnjNq2CLWmJsGuakR7HGMh2HTFiy+UCg14Sxi+KCeHuqz29oGEdBoLCwGpvZphMuuxrbcLkAUTtgLXk2FqGoyJcpowLYeIwJvcT+pGBSHMwrltnc2XozA=
   on:
-    branch: master
+    branches:
+      only:      
+        - master
     repo: arminhammer/wolkenkratzer
