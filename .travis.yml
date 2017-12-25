@@ -1,33 +1,33 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=8998d7a6188fbac1cf8fadb5c654a4cf1f23e96c5b9ba489d195861a310d1282
+  - CC_TEST_REPORTER_ID=8998d7a6188fbac1cf8fadb5c654a4cf1f23e96c5b9ba489d195861a310d1282
 language: node_js'
 cache:
   yarn: true
 node_js:
-  - 'node'
-  - '8'
+- node
+- '8'
 sudo: false
 install:
 - yarn
 before_script:
-  - npm install -g npm@'>=4'
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 script:
+- yarn lint
 - yarn build
 - yarn coverage --runInBand
-- yarn coveralls 
+- yarn coveralls
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 deploy:
   skip_cleanup: true
   provider: npm
-  email:
-    secure: RtQv05H/dvYAQFnNkUU2d5dDxtH+b6CjsclIsYGWnuT6QUZmX/1eqcvUXsw3kxrcgU80eQ7tsulAnsBTesTPFjl6Uol/xjozwNeYK72UmLX28colbEKhiGondyCAAVOqo7bhpcgscZi3Q3DhjyXf+/DIwwrwfXb3cq3+xgK9nw8lE9f/WtrkJham4iXUFwAqUIW6PDJzfMFgFAF8R41JaUXkHKJqTMkCkjQlZNm4dBFwri2646n9NX77HaeqefvxKCf9HBM/yiLNHlzNGyRxB881ItyvMzVaOltK5A897SNOfk7o3kFyld34f51dw4mi3CF5uaiqSpS5F01lk0k+BDevGGrZFZwy4U0SJWlikw+nt0zyaP6r1YutyA0lSEnC8u5yzudV8dXAGSXd/+OZK4u/G9+0MwnB3C1SC4xWJLsC8ogwOK20pbSb9HrVLl00u6c1T82zuyvTX79KsIcra4HdyZrqtYLFY8pd+Eiw1p2F9owXgQ5JT/q1ZeAsWhQNvFQxWEhTFpvoy3fPEErKY5zomPhtOrz+0Zf7kKAXYsrmkHMXtaq6pcQIMTh1vry4wszrfMhkh4GeVjNJNJSqML/+q4mqSSFSrWFr50/0FFZPZLbP3PuYXpUUA8mZv9ej+O4lsrmg6huDR2uKUraz10uyTWG8rCj0yGpingiC9Ro=
-  tag: next
+  email: arminhammer@gmail.com
+  api_key:
+    secure: gHpcTK5bO/FJSiymWRkrD714/hFP/hCcT0abHgADRb6bhFskHqCgfWgPkLR1sITWykAE1b1JxL3J/YtUcxhW7RaeQOH887Bwv8YJxDnefytFxZVkwcIl6cMLTL0lPcCBweW/2GYNNNRjRta1DKA73KaPgLzpTfhot/vFoGuXAWcTiIUgqsbpf23mquyA+3PmXqED2Iq6mwC6bg8ZXbfKWzVd3AOpLte0CN7vqRMoYQWCt65UUns2YQaX97ScH87ufjqBXMJnx2NEh/uuOtddXXXAJUrP50lI5/we6PjpV9XjJcQ6cWawncf7PwB7ATd1OkIzHO64WeEvL0uP6SX/m7RuoxM0qN08EiZ8B8tzgXn13GYr60azZomTMXTkikSX0142AHGBR2PGHOoF5wkN59BHZCUwJf5HQDojpzviJO9nXfbX5B24jJK2A9YXfyM766o+l33i1+JyvWM7T9oai7e/C6xt066TIp+rbut26upVNBUzIQwPDaga15L1DZ6CIjVx0eoe1X1rcEa4yGhPogipD0FMbSW40HW3RsFnboQcd7owPtX7cvhnjNq2CLWmJsGuakR7HGMh2HTFiy+UCg14Sxi+KCeHuqz29oGEdBoLCwGpvZphMuuxrbcLkAUTtgLXk2FqGoyJcpowLYeIwJvcT+pGBSHMwrltnc2XozA=
   on:
     branch: master
-  api_key:
-    secure: hVpuv33G/dDDh0ISlJskzyQvwl6upL9LPVEZiCW3AMAc3Riym9PwPxGzbwo2pfykcY2/SL0vhrwhWGZ/L93zJ5uCs7Nb5nr600IOxJreXWiKxmkhZslYls8CtwDsaNTQ8KFiO6yrTAM1RzSV3w9/6MbIf6Q30JecEbOK1QjCuXP/GLmH4WZdBhH9cIpXF7Joap7+qpChUDRDnR8JfFYUGTa1yvIMTInVAfNhDsKcucfRejxsrMgQSImbxYRAkPZKbIHRQbc8aJnP6Uzwz2VeYTuKRttE1Hdrz3N9216aibtKFTJsV1ZDDhGqivL8Ql9p1y05yGXMRLYqCDd9gEn1cCJFD3wm5r+1QGfy4irHbLxDxl6/wgoXdrFXjF5TazA9BOeYikWx5d0I3buzKvNu6K01bUe8kiCejkK0tCM0Hu7jzXWsJIOcgjM7qQ1h5sJwIG3fqwY8Wr5VJDwo7LskrG9/myh1na8LgyEvSpuOLv7LQjs1WwZJszX/4zrG+N7LKyUEMZbDHBQKnIdaxPss+6jsbe2vxxhGTOFKH71dGXC9GWXAqvk11Ke2gtpVtXub0VYQgxv4ZzbYuqjDckeslZ1Ha7TXklivY6rBw1hrF3pou8cJGzLk6CSpuXXRqwPlWLyqLHuAT1W0vMPdtQQZi1AYtOjG1sBRWzsBfSWoKJE=
+    repo: arminhammer/wolkenkratzer

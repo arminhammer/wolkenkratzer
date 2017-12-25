@@ -50,6 +50,6 @@ jsdoc.conf.json
 lib
 rollup.config.js
 shrinkwrap.yaml
-tests
+tests/
 yarn-error.log
 yarn.lock
