@@ -4,6 +4,7 @@ import { cloneDeep } from 'lodash';
 import { Output } from '../elements/output';
 import { Parameter } from '../elements/parameter';
 import { FnSub, Ref } from '../intrinsic';
+import { Pseudo } from '../pseudo';
 import * as stubs from '../spec/spec';
 // import { IMetadata } from './elements/metadata';
 import {
@@ -23,7 +24,6 @@ import {
 import { _add, _addOutput, _addParameter } from './add';
 import { _json } from './build';
 import { _calcFromExistingTemplate } from './import';
-import { Pseudo } from '../pseudo';
 import { _remove } from './remove';
 
 /** @module Template */
@@ -164,7 +164,6 @@ export function Template(): ITemplate {
         ? stubs[rgroup].Resources[rtype].Properties[attribute].ItemType
         : stubs[rgroup].Resources[rtype].Properties[attribute].PrimitiveType;
       parameterName = parameterName ? parameterName : `${resource}${attribute}`;
-      console.log('proptype: ', propType);
       result = _addParameter(
         result,
         Parameter(parameterName, { Type: propType })
@@ -188,7 +187,9 @@ export function Template(): ITemplate {
           outputName += attribute;
         }
       }
-      let exportString = `\$\{${Pseudo.AWS_STACK_NAME}\}-${rgroup}-${rtype}-${resource}`;
+      let exportString = `\$\{${
+        Pseudo.AWS_STACK_NAME
+      }\}-${rgroup}-${rtype}-${resource}`;
       let descriptionString = `The ${resource} ${rgroup} ${rtype}`;
       if (attribute) {
         exportString += `-${attribute}`;
@@ -200,9 +201,7 @@ export function Template(): ITemplate {
           Condition: result.Resources[resource].Condition,
           Description: descriptionString,
           Export: {
-            Name: FnSub(
-              exportString
-            ),
+            Name: FnSub(exportString),
           },
           Value: Ref(resource),
         })

@@ -21612,6 +21612,24 @@ function Parameter(name, properties) {
     return { kind: 'Parameter', Name: name, Properties: properties };
 }
 
+/**
+ * Strings constants that map to CloudFormation pseudoparameter
+ * Pseudo.AWS_ACCOUNT_ID
+ * Pseudo.AWS_NOTIFICATION_ARNS
+ * Pseudo.AWS_NO_VALUE
+ * Pseudo.AWS_REGION
+ * Pseudo.AWS_STACK_ID
+ * Pseudo.AWS_STACK_NAME
+ */
+const Pseudo = {
+    AWS_ACCOUNT_ID: 'AWS::AccountId',
+    AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
+    AWS_NO_VALUE: 'AWS::NoValue',
+    AWS_REGION: 'AWS::Region',
+    AWS_STACK_ID: 'AWS::StackId',
+    AWS_STACK_NAME: 'AWS::StackName'
+};
+
 /** @hidden **/
 const resourceList = ["ApiGateway", "ApplicationAutoScaling", "Athena", "AutoScaling", "Batch", "CertificateManager", "Cloud9", "CloudFormation", "CloudFront", "CloudTrail", "CloudWatch", "CodeBuild", "CodeCommit", "CodeDeploy", "CodePipeline", "Cognito", "Config", "DAX", "DMS", "DataPipeline", "DirectoryService", "DynamoDB", "EC2", "ECR", "ECS", "EFS", "EMR", "ElastiCache", "ElasticBeanstalk", "ElasticLoadBalancing", "ElasticLoadBalancingV2", "Elasticsearch", "Events", "GameLift", "Glue", "GuardDuty", "IAM", "Inspector", "IoT", "KMS", "Kinesis", "KinesisAnalytics", "KinesisFirehose", "Lambda", "Logs", "OpsWorks", "RDS", "Redshift", "Route53", "S3", "SDB", "SNS", "SQS", "SSM", "ServiceDiscovery", "StepFunctions", "WAF", "WAFRegional", "WorkSpaces"];
 const ApiGateway = {
@@ -45574,24 +45592,6 @@ function _addIterate(t, inputTemplate, blockType, method) {
 }
 
 /**
- * Strings constants that map to CloudFormation pseudoparameter
- * Pseudo.AWS_ACCOUNT_ID
- * Pseudo.AWS_NOTIFICATION_ARNS
- * Pseudo.AWS_NO_VALUE
- * Pseudo.AWS_REGION
- * Pseudo.AWS_STACK_ID
- * Pseudo.AWS_STACK_NAME
- */
-const Pseudo = {
-    AWS_ACCOUNT_ID: 'AWS::AccountId',
-    AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
-    AWS_NO_VALUE: 'AWS::NoValue',
-    AWS_REGION: 'AWS::Region',
-    AWS_STACK_ID: 'AWS::StackId',
-    AWS_STACK_NAME: 'AWS::StackName'
-};
-
-/**
  * @hidden
  * @param t
  * @param e
@@ -45730,7 +45730,6 @@ function Template() {
                 ? stubs[rgroup].Resources[rtype].Properties[attribute].ItemType
                 : stubs[rgroup].Resources[rtype].Properties[attribute].PrimitiveType;
             parameterName = parameterName ? parameterName : `${resource}${attribute}`;
-            console.log('proptype: ', propType);
             result = _addParameter(result, Parameter(parameterName, { Type: propType }));
             result.Resources[resource].Properties[attribute] = Ref(parameterName);
             return result;
