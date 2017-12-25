@@ -1,6 +1,6 @@
 {
   "name": "wolkenkratzer",
-  "version": "0.11.2",
+  "version": "0.12.0",
   "description": "Library for generating CloudFormation templates",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -55,21 +55,16 @@
     "test": "jest",
     "linecount": "cloc --vcs=git .",
     "coverage": "jest --coverage",
-    "coveralls":
-      "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "docs":
-      "typedoc --out docs src --mode file --theme markdown --readme README.stub.md && mv docs/README.md . && rm -rf docs",
+    "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "docs": "typedoc --out docs src --mode file --theme markdown --readme README.stub.md && mv docs/README.md . && rm -rf docs",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i",
     "prepush": "yarn lint && yarn build && yarn docs && yarn test",
     "update-submodules": "git submodule update --remote --merge",
     "update-specs": "sh ./update_specs.sh",
     "update-ec2info": "node src/transform/buildEC2Data.js",
-    "release:major":
-      "npm version major && git push --follow-tags && npm publish",
-    "release:minor":
-      "npm version minor && git push --follow-tags && npm publish",
-    "release:patch":
-      "npm version patch && git push --follow-tags && npm publish",
+    "release:major": "npm version major && git push --follow-tags && npm publish",
+    "release:minor": "npm version minor && git push --follow-tags && npm publish",
+    "release:patch": "npm version patch && git push --follow-tags && npm publish",
     "release": "standard-version",
     "webpack": "webpack",
     "lint": "tslint '*(src|tests)/**/*.ts'"
@@ -78,7 +73,14 @@
     "type": "git",
     "url": "git+https://github.com/arminhammer/wolkenkratzer.git"
   },
-  "keywords": ["CloudFormation", "AWS", "Template", "Cloud", "aws-sdk", "ecs"],
+  "keywords": [
+    "CloudFormation",
+    "AWS",
+    "Template",
+    "Cloud",
+    "aws-sdk",
+    "ecs"
+  ],
   "author": "Armin Graf",
   "license": "Apache-2.0",
   "bugs": {
@@ -95,13 +97,22 @@
       "!src/types.ts",
       "src/**/*.ts"
     ],
-    "moduleFileExtensions": ["ts", "tsx", "js", "json"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "transformIgnorePatterns": ["/!node_modules\\/lodash-es/"],
+    "transformIgnorePatterns": [
+      "/!node_modules\\/lodash-es/"
+    ],
     "testPathIgnorePatterns": [],
-    "testMatch": ["<rootDir>/tests/**/*.spec\\.(js|ts)"]
+    "testMatch": [
+      "<rootDir>/tests/**/*.spec\\.(js|ts)"
+    ]
   },
   "publishConfig": {
     "access": "public"
