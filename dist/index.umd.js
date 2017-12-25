@@ -21612,6 +21612,24 @@ function Parameter(name, properties) {
     return { kind: 'Parameter', Name: name, Properties: properties };
 }
 
+/**
+ * Strings constants that map to CloudFormation pseudoparameter
+ * Pseudo.AWS_ACCOUNT_ID
+ * Pseudo.AWS_NOTIFICATION_ARNS
+ * Pseudo.AWS_NO_VALUE
+ * Pseudo.AWS_REGION
+ * Pseudo.AWS_STACK_ID
+ * Pseudo.AWS_STACK_NAME
+ */
+const Pseudo = {
+    AWS_ACCOUNT_ID: 'AWS::AccountId',
+    AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
+    AWS_NO_VALUE: 'AWS::NoValue',
+    AWS_REGION: 'AWS::Region',
+    AWS_STACK_ID: 'AWS::StackId',
+    AWS_STACK_NAME: 'AWS::StackName'
+};
+
 /** @hidden **/
 const resourceList = ["ApiGateway", "ApplicationAutoScaling", "Athena", "AutoScaling", "Batch", "CertificateManager", "Cloud9", "CloudFormation", "CloudFront", "CloudTrail", "CloudWatch", "CodeBuild", "CodeCommit", "CodeDeploy", "CodePipeline", "Cognito", "Config", "DAX", "DMS", "DataPipeline", "DirectoryService", "DynamoDB", "EC2", "ECR", "ECS", "EFS", "EMR", "ElastiCache", "ElasticBeanstalk", "ElasticLoadBalancing", "ElasticLoadBalancingV2", "Elasticsearch", "Events", "GameLift", "Glue", "GuardDuty", "IAM", "Inspector", "IoT", "KMS", "Kinesis", "KinesisAnalytics", "KinesisFirehose", "Lambda", "Logs", "OpsWorks", "RDS", "Redshift", "Route53", "S3", "SDB", "SNS", "SQS", "SSM", "ServiceDiscovery", "StepFunctions", "WAF", "WAFRegional", "WorkSpaces"];
 const ApiGateway = {
@@ -44836,24 +44854,6 @@ var stubs = Object.freeze({
 });
 
 /**
- * Strings constants that map to CloudFormation pseudoparameter
- * Pseudo.AWS_ACCOUNT_ID
- * Pseudo.AWS_NOTIFICATION_ARNS
- * Pseudo.AWS_NO_VALUE
- * Pseudo.AWS_REGION
- * Pseudo.AWS_STACK_ID
- * Pseudo.AWS_STACK_NAME
- */
-const Pseudo = {
-    AWS_ACCOUNT_ID: 'AWS::AccountId',
-    AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
-    AWS_NO_VALUE: 'AWS::NoValue',
-    AWS_REGION: 'AWS::Region',
-    AWS_STACK_ID: 'AWS::StackId',
-    AWS_STACK_NAME: 'AWS::StackName'
-};
-
-/**
  * @hidden
  * @param t
  * @param att
@@ -44912,7 +44912,7 @@ function _validateResourceIntrinsics(t, e) {
 /**
  * @hidden
  */
-function _add(template, e, options) {
+function _add(template, e) {
     const _t = lodash_1(template);
     switch (e.kind) {
         case 'CreationPolicy':
@@ -44936,35 +44936,7 @@ function _add(template, e, options) {
         case 'Resource':
             let newT = _t;
             const f = lodash_1(e);
-            if (options) {
-                const nameSplit = f.Type.split('::').splice(1);
-                const shortName = nameSplit.join('');
-                if (options.Parameters) {
-                    options.Parameters.map(p => {
-                        const paramName = `${f.Name}${shortName}Param`;
-                        if (!f.Properties) {
-                            f.Properties = {};
-                        }
-                        f.Properties[p] = Ref(paramName);
-                        newT = _addParameter(newT, Parameter(paramName, {
-                            Type: 'String',
-                        }));
-                    });
-                }
-                newT = _addResource(newT, f);
-                if (options.Output) {
-                    newT = _addOutput(newT, Output(`${f.Name}${shortName}Output`, {
-                        Condition: f.Condition,
-                        Export: {
-                            Name: FnSub(`\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${nameSplit[1]}-${f.Name}`),
-                        },
-                        Value: Ref(f.Name),
-                    }));
-                }
-            }
-            else {
-                newT = _addResource(_t, f);
-            }
+            newT = _addResource(_t, f);
             return newT;
         case 'Description':
             return _addDescription(_t, e);
@@ -45276,6 +45248,9 @@ function _buildOutput(t) {
         typeof outputResult.Export.Name !== 'string') {
         const stripped = _json(outputResult.Export.Name);
         outputResult = Object.assign({}, outputResult, { Export: { Name: stripped } });
+    }
+    if (!outputResult.Condition) {
+        delete outputResult.Condition;
     }
     return outputResult;
 }
@@ -45653,15 +45628,15 @@ function Template() {
          * @example
          * const t = Template().add(S3.Bucket('Bucket'), { Output: true });
          */
-        add: function (e, options) {
+        add: function (e) {
             if (Array.isArray(e)) {
                 let _t = lodash_1(this);
                 e.forEach(elem => {
-                    _t = _add(_t, elem, options);
+                    _t = _add(_t, elem);
                 });
                 return _t;
             }
-            return _add(this, e, options);
+            return _add(this, e);
         },
         /**
          * Returns a finished CloudFormation template object. This can then be converted into JSON or YAML.
@@ -45755,7 +45730,6 @@ function Template() {
                 ? stubs[rgroup].Resources[rtype].Properties[attribute].ItemType
                 : stubs[rgroup].Resources[rtype].Properties[attribute].PrimitiveType;
             parameterName = parameterName ? parameterName : `${resource}${attribute}`;
-            console.log('proptype: ', propType);
             result = _addParameter(result, Parameter(parameterName, { Type: propType }));
             result.Resources[resource].Properties[attribute] = Ref(parameterName);
             return result;
@@ -45767,9 +45741,27 @@ function Template() {
             let result = lodash_1(this);
             const [resource, attribute] = location.split('.');
             const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
-            outputName = outputName ? outputName : `${resource}${attribute}`;
+            if (result.Resources[resource].Condition) {
+                console.log('Condition found');
+            }
+            if (!outputName) {
+                outputName = resource;
+                if (attribute) {
+                    outputName += attribute;
+                }
+            }
+            let exportString = `\$\{${Pseudo.AWS_STACK_NAME}\}-${rgroup}-${rtype}-${resource}`;
+            let descriptionString = `The ${resource} ${rgroup} ${rtype}`;
+            if (attribute) {
+                exportString += `-${attribute}`;
+                descriptionString = `The ${attribute} of the ${resource} ${rgroup} ${rtype}`;
+            }
             result = _addOutput(result, Output(outputName, {
-                Description: `The ${attribute} of the ${resource} ${rgroup} ${rtype}`,
+                Condition: result.Resources[resource].Condition,
+                Description: descriptionString,
+                Export: {
+                    Name: FnSub(exportString),
+                },
                 Value: Ref(resource),
             }));
             return result;
@@ -45831,7 +45823,18 @@ function Template() {
         set: function (location, newValue) {
             const result = lodash_1(this);
             const [resource, attribute] = location.split('.');
-            result.Resources[resource].Properties[attribute] = newValue;
+            if ([
+                'Condition',
+                'UpdatePolicy',
+                'DependsOn',
+                'CreationPolicy',
+                'DeletionPolicy',
+            ].includes(attribute)) {
+                result.Resources[resource][attribute] = newValue;
+            }
+            else {
+                result.Resources[resource].Properties[attribute] = newValue;
+            }
             return result;
         },
         yaml: function () {

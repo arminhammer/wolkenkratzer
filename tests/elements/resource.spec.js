@@ -5,7 +5,7 @@ const {
   Ref,
   Template,
   S3,
-  SNS
+  SNS,
 } = require('../../src/index');
 
 describe('Resource', () => {
@@ -31,88 +31,91 @@ describe('Resource', () => {
   });*/
 
   test('Add resource pack with Output', () => {
-    let t = Template().add(S3.Bucket('Main', { BucketName: 'name' }), {
-      Output: true
-    });
+    let t = Template().add(S3.Bucket('Main', { BucketName: 'name' })).putOut('Main')
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
       Resources: {
         Main: {
           Type: 'AWS::S3::Bucket',
           Properties: {
-            BucketName: 'name'
-          }
-        }
+            BucketName: 'name',
+          },
+        },
       },
       Outputs: {
-        MainS3BucketOutput: {
+        Main: {
+          Description: 'The Main S3 Bucket',
           Value: { Ref: 'Main' },
-          Export: { Name: { 'Fn::Sub': '${AWS::StackName}-S3-Bucket-Main' } }
-        }
-      }
+          Export: { Name: { 'Fn::Sub': '${AWS::StackName}-S3-Bucket-Main' } },
+        },
+      },
     });
   });
 
   test('Add resource pack with Output and Parameter', () => {
-    let t = Template().add(S3.Bucket('Main', { BucketName: 'name' }), {
-      Output: true,
-      Parameters: ['BucketName']
-    });
+    let t = Template()
+      .add(S3.Bucket('Main', { BucketName: 'name' }))
+      .parameterize('Main.BucketName')
+      .putOut('Main');
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
       Parameters: {
-        MainS3BucketParam: {
-          Type: 'String'
-        }
+        MainBucketName: {
+          Type: 'String',
+        },
       },
       Resources: {
         Main: {
           Type: 'AWS::S3::Bucket',
           Properties: {
-            BucketName: { Ref: 'MainS3BucketParam' }
-          }
-        }
+            BucketName: { Ref: 'MainBucketName' },
+          },
+        },
       },
       Outputs: {
-        MainS3BucketOutput: {
+        Main: {
+          Description: 'The Main S3 Bucket',
           Value: { Ref: 'Main' },
-          Export: { Name: { 'Fn::Sub': '${AWS::StackName}-S3-Bucket-Main' } }
-        }
-      }
+          Export: { Name: { 'Fn::Sub': '${AWS::StackName}-S3-Bucket-Main' } },
+        },
+      },
     });
   });
 
   test('Can create a conditional Resource and Output that automatically includes the Condition', () => {
     let t = Template()
       .add(Condition('isProd', FnEquals(Ref(Pseudo.AWS_REGION), 'us-east-1')))
-      .add(S3.Bucket('Main', null, { Condition: 'isProd' }), {
-        Output: true
-      });
+      .add(S3.Bucket('Main'))
+      .set('Main.Condition', 'isProd')
+      .putOut('Main.BucketName');
     expect(t.build()).toEqual({
       AWSTemplateFormatVersion: '2010-09-09',
       Resources: {
         Main: {
           Condition: 'isProd',
-          Type: 'AWS::S3::Bucket'
-        }
+          Type: 'AWS::S3::Bucket',
+        },
       },
       Conditions: {
         isProd: {
           'Fn::Equals': [
             {
-              Ref: 'AWS::Region'
+              Ref: 'AWS::Region',
             },
-            'us-east-1'
-          ]
-        }
+            'us-east-1',
+          ],
+        },
       },
       Outputs: {
-        MainS3BucketOutput: {
+        MainBucketName: {
+          Description: 'The BucketName of the Main S3 Bucket',
           Value: { Ref: 'Main' },
           Condition: 'isProd',
-          Export: { Name: { 'Fn::Sub': '${AWS::StackName}-S3-Bucket-Main' } }
-        }
-      }
+          Export: {
+            Name: { 'Fn::Sub': '${AWS::StackName}-S3-Bucket-Main-BucketName' },
+          },
+        },
+      },
     });
   });
 
@@ -123,7 +126,7 @@ describe('Resource', () => {
       .remove(resource);
     expect(t.build()).toEqual({
       Resources: {},
-      AWSTemplateFormatVersion: '2010-09-09'
+      AWSTemplateFormatVersion: '2010-09-09',
     });
   });
 
@@ -134,7 +137,7 @@ describe('Resource', () => {
       .remove('Main');
     expect(t.build()).toEqual({
       Resources: {},
-      AWSTemplateFormatVersion: '2010-09-09'
+      AWSTemplateFormatVersion: '2010-09-09',
     });
   });
 });

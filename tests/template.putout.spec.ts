@@ -9,17 +9,22 @@ describe('Template putOut()', () => {
       Outputs: {
         MainBucketName: {
           Description: 'The BucketName of the Main S3 Bucket',
+          Export: {
+            Name: {
+              'Fn::Sub': `\$\{AWS::StackName\}-S3-Bucket-Main-BucketName`,
+            },
+          },
           Value: {
-            Ref: 'Main'
-          }
-        }
+            Ref: 'Main',
+          },
+        },
       },
       Resources: {
         Main: {
           Properties: { BucketName: 'bucket-name' },
-          Type: 'AWS::S3::Bucket'
-        }
-      }
+          Type: 'AWS::S3::Bucket',
+        },
+      },
     });
   });
 
@@ -31,17 +36,20 @@ describe('Template putOut()', () => {
       Outputs: {
         CustomOutputName: {
           Description: 'The BucketName of the Main S3 Bucket',
+          Export: {
+            Name: { 'Fn::Sub': `\$\{AWS::StackName\}-S3-Bucket-Main-BucketName` },
+          },
           Value: {
-            Ref: 'Main'
-          }
-        }
+            Ref: 'Main',
+          },
+        },
       },
       Resources: {
         Main: {
           Properties: { BucketName: 'bucket-name' },
-          Type: 'AWS::S3::Bucket'
-        }
-      }
+          Type: 'AWS::S3::Bucket',
+        },
+      },
     });
   });
 });

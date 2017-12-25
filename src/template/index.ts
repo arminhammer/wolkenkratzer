@@ -3,7 +3,8 @@ import { safeDump } from 'js-yaml';
 import { cloneDeep } from 'lodash';
 import { Output } from '../elements/output';
 import { Parameter } from '../elements/parameter';
-import { Ref } from '../intrinsic';
+import { FnSub, Ref } from '../intrinsic';
+import { Pseudo } from '../pseudo';
 import * as stubs from '../spec/spec';
 // import { IMetadata } from './elements/metadata';
 import {
@@ -54,17 +55,16 @@ export function Template(): ITemplate {
         | IDeletionPolicy
         | IResourceMetadata
         | IDependsOn
-        | IUpdatePolicy,
-      options?: IAddOptions
+        | IUpdatePolicy
     ): ITemplate {
       if (Array.isArray(e)) {
         let _t = cloneDeep(this);
         e.forEach(elem => {
-          _t = _add(_t, elem, options);
+          _t = _add(_t, elem);
         });
         return _t;
       }
-      return _add(this, e, options);
+      return _add(this, e);
     },
     /**
      * Returns a finished CloudFormation template object. This can then be converted into JSON or YAML.
@@ -164,7 +164,6 @@ export function Template(): ITemplate {
         ? stubs[rgroup].Resources[rtype].Properties[attribute].ItemType
         : stubs[rgroup].Resources[rtype].Properties[attribute].PrimitiveType;
       parameterName = parameterName ? parameterName : `${resource}${attribute}`;
-      console.log('proptype: ', propType);
       result = _addParameter(
         result,
         Parameter(parameterName, { Type: propType })
@@ -179,11 +178,31 @@ export function Template(): ITemplate {
       let result = cloneDeep(this);
       const [resource, attribute] = location.split('.');
       const [, rgroup, rtype] = result.Resources[resource].Type.split('::');
-      outputName = outputName ? outputName : `${resource}${attribute}`;
+      if (result.Resources[resource].Condition) {
+        console.log('Condition found');
+      }
+      if (!outputName) {
+        outputName = resource;
+        if (attribute) {
+          outputName += attribute;
+        }
+      }
+      let exportString = `\$\{${
+        Pseudo.AWS_STACK_NAME
+      }\}-${rgroup}-${rtype}-${resource}`;
+      let descriptionString = `The ${resource} ${rgroup} ${rtype}`;
+      if (attribute) {
+        exportString += `-${attribute}`;
+        descriptionString = `The ${attribute} of the ${resource} ${rgroup} ${rtype}`;
+      }
       result = _addOutput(
         result,
         Output(outputName, {
-          Description: `The ${attribute} of the ${resource} ${rgroup} ${rtype}`,
+          Condition: result.Resources[resource].Condition,
+          Description: descriptionString,
+          Export: {
+            Name: FnSub(exportString),
+          },
           Value: Ref(resource),
         })
       );
@@ -243,7 +262,19 @@ export function Template(): ITemplate {
     set: function(location: string, newValue: string): ITemplate {
       const result = cloneDeep(this);
       const [resource, attribute] = location.split('.');
-      result.Resources[resource].Properties[attribute] = newValue;
+      if (
+        [
+          'Condition',
+          'UpdatePolicy',
+          'DependsOn',
+          'CreationPolicy',
+          'DeletionPolicy',
+        ].includes(attribute)
+      ) {
+        result.Resources[resource][attribute] = newValue;
+      } else {
+        result.Resources[resource].Properties[attribute] = newValue;
+      }
       return result;
     },
     yaml: function(): string {
