@@ -240,6 +240,9 @@ function _buildOutput(t: IOutput): string {
     const stripped = _json(outputResult.Export.Name);
     outputResult = { ...outputResult, Export: { Name: stripped } };
   }
+  if (!outputResult.Condition) {
+    delete outputResult.Condition;
+  }
   return outputResult;
 }
 

@@ -37,7 +37,7 @@ const defaultConfig = {
   Role: 'BlankRole',
   Runtime: 'nodejs6.10',
   Tags: [],
-  Timeout: 30
+  Timeout: 30,
   // env: {},
   // kms: '',
 };
@@ -66,14 +66,14 @@ function _createInlineFunction({
   path: inputPath,
   name,
   options,
-  parameters
+  parameters,
 }): Promise<IResource> {
   return new Promise((res, rej) => {
     readFile(inputPath)
       .then(functionCode => {
         const props: any = {
           Code: {
-            ZipFile: FnJoin('\n', functionCode.toString().split('\n'))
+            ZipFile: FnJoin('\n', functionCode.toString().split('\n')),
           },
           FunctionName: options.FunctionName,
           Handler: options.Handler,
@@ -83,7 +83,7 @@ function _createInlineFunction({
               ? Ref(`${name}Role`)
               : options.Role,
           Runtime: options.Runtime,
-          Timeout: options.Timeout
+          Timeout: options.Timeout,
           // Tags: options.Tags ? options.Tags.length > 0 : null
         };
         if (Object.keys(options.Environment).length > 0) {
@@ -109,7 +109,7 @@ function _createInlineTemplate({
   path: inputPath,
   name,
   options,
-  parameters
+  parameters,
 }): Promise<ITemplate> {
   return new Promise((res, rej) => {
     _createInlineFunction({ path: inputPath, name, options, parameters })
@@ -120,9 +120,9 @@ function _createInlineTemplate({
             t = t.add(Parameter(`${name}${p}`, { Type: 'String' }));
           });
         }
-        t = t.add(fnBlock, {
-          Output: true
-        });
+        t = t
+          .add(fnBlock)
+          .putOut(fnBlock.Name, `${fnBlock.Name}LambdaFunctionOutput`);
         res(t);
       })
       .catch(e => {
@@ -139,7 +139,7 @@ export function buildInlineLambdaTemplate({
   path: inputPath,
   name,
   options,
-  parameters
+  parameters,
 }): Promise<ITemplate> {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
@@ -148,7 +148,7 @@ export function buildInlineLambdaTemplate({
     name,
     options,
     parameters,
-    path: inputPath
+    path: inputPath,
   });
 }
 
@@ -160,7 +160,7 @@ export function buildInlineLambda({
   path: inputPath,
   name,
   options,
-  parameters
+  parameters,
 }: any) {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
@@ -171,7 +171,7 @@ export function buildInlineLambda({
         name,
         options,
         parameters,
-        path: inputPath
+        path: inputPath,
       });
     } else {
       const indexPath = resolve(inputPath, 'index.js');
@@ -180,7 +180,7 @@ export function buildInlineLambda({
           name,
           options,
           parameters,
-          path: indexPath
+          path: indexPath,
         });
       });
     }
@@ -199,7 +199,7 @@ export function _buildZipLambda({
   parameters,
   bucket,
   key,
-  output
+  output,
 }): Promise<IZipLambdaResult> {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
@@ -241,7 +241,7 @@ export function _buildZipLambda({
             const props: any = {
               Code: {
                 S3Bucket: s3BucketVal,
-                S3Key: s3KeyVal
+                S3Key: s3KeyVal,
               },
               FunctionName: options.FunctionName,
               Handler: options.Handler,
@@ -251,7 +251,7 @@ export function _buildZipLambda({
                   ? Ref(`${name}Role`)
                   : options.Role,
               Runtime: options.Runtime,
-              Timeout: options.Timeout
+              Timeout: options.Timeout,
               // Tags: options.Tags ? options.Tags.length > 0 : null
             };
             if (Object.keys(options.Environment).length > 0) {
@@ -263,7 +263,7 @@ export function _buildZipLambda({
             const fn = Lambda.Function(name, props);
             res({
               FunctionResource: fn,
-              Zip: blob
+              Zip: blob,
             });
           });
         });
@@ -282,7 +282,7 @@ export function buildZipLambda({
   parameters,
   bucket,
   key,
-  output
+  output,
 }: any): Promise<IZipLambdaResult> {
   return _buildZipLambda({
     bucket,
@@ -291,7 +291,7 @@ export function buildZipLambda({
     options,
     output,
     parameters,
-    path: inputPath
+    path: inputPath,
   });
 }
 
@@ -304,7 +304,7 @@ export function buildLambda({
   name,
   options,
   parameters,
-  output
+  output,
 }: any) {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
@@ -317,7 +317,7 @@ export function buildLambda({
             name: name,
             options: options,
             parameters: parameters,
-            path: inputPath
+            path: inputPath,
           })
             .then(fn => {
               res({ FunctionResource: fn });
@@ -343,7 +343,7 @@ export function buildLambda({
                   name: name,
                   options: options,
                   parameters: parameters,
-                  path: files[0]
+                  path: files[0],
                 })
                   .then(fn => {
                     res({ FunctionResource: fn });
@@ -373,7 +373,7 @@ export function buildLambda({
                     const fn = Lambda.Function(name, {
                       Code: {
                         S3Bucket: Ref(`${name}S3BucketParam`),
-                        S3Key: Ref(`${name}S3KeyParam`)
+                        S3Key: Ref(`${name}S3KeyParam`),
                       },
                       FunctionName: options.FunctionName,
                       Handler: options.Handler,
@@ -383,13 +383,13 @@ export function buildLambda({
                           ? Ref(`${name}Role`)
                           : options.Role,
                       Runtime: options.Runtime,
-                      Timeout: options.Timeout
+                      Timeout: options.Timeout,
                       // Tags: options.Tags ? options.Tags.length > 0 : null
                     });
 
                     res({
                       FunctionResource: fn,
-                      Zip: blob
+                      Zip: blob,
                     });
                   });
                 });
@@ -414,7 +414,7 @@ export function buildZipLambdaTemplate({
   parameters,
   bucket,
   key,
-  output
+  output,
 }: any): Promise<IZipLambdaTemplateResult> {
   return _buildZipLambda({
     bucket,
@@ -423,7 +423,7 @@ export function buildZipLambdaTemplate({
     options,
     output,
     parameters,
-    path: inputPath
+    path: inputPath,
   })
     .then(({ FunctionResource, Zip }): Promise<IZipLambdaTemplateResult> => {
       return new Promise((res, rej) => {
@@ -435,10 +435,15 @@ export function buildZipLambdaTemplate({
             t = t.add(Parameter(`${name}${p}`, { Type: 'String' }));
           });
         }
-        t = t.add(FunctionResource, { Output: true });
+        t = t
+          .add(FunctionResource)
+          .putOut(
+            FunctionResource.Name,
+            `${FunctionResource.Name}LambdaFunctionOutput`
+          );
         res({
           Template: t,
-          Zip
+          Zip,
         });
       });
     })
@@ -456,7 +461,7 @@ export function buildLambdaTemplate({
   name,
   options,
   parameters,
-  output
+  output,
 }: any) {
   name = name ? name : defaultConfig.FunctionName;
   options = options ? merge({}, defaultConfig, options) : defaultConfig;
@@ -469,7 +474,7 @@ export function buildLambdaTemplate({
             name: name,
             options: options,
             parameters: parameters,
-            path: inputPath
+            path: inputPath,
           })
             .then(t => {
               res({ Template: t.build() });
@@ -495,7 +500,7 @@ export function buildLambdaTemplate({
                   name: name,
                   options: options,
                   parameters: parameters,
-                  path: files[0]
+                  path: files[0],
                 })
                   .then(t => {
                     res({ Template: t.build() });
@@ -522,29 +527,29 @@ export function buildLambdaTemplate({
                         t = t.add(Parameter(`${name}${p}`, { Type: 'String' }));
                       });
                     }
-                    t = t.add(
-                      Lambda.Function(name, {
-                        Code: {
-                          S3Bucket: Ref(`${name}S3BucketParam`),
-                          S3Key: Ref(`${name}S3KeyParam`)
-                        },
-                        FunctionName: options.FunctionName,
-                        Handler: options.Handler,
-                        MemorySize: options.MemorySize,
-                        Role:
-                          parameters && parameters.includes('Role')
-                            ? Ref(`${name}Role`)
-                            : options.Role,
-                        Runtime: options.Runtime,
-                        Timeout: options.Timeout
-                        // Tags: options.Tags ? options.Tags.length > 0 : null
-                      }),
-                      { Output: true }
-                    );
-
+                    t = t
+                      .add(
+                        Lambda.Function(name, {
+                          Code: {
+                            S3Bucket: Ref(`${name}S3BucketParam`),
+                            S3Key: Ref(`${name}S3KeyParam`),
+                          },
+                          FunctionName: options.FunctionName,
+                          Handler: options.Handler,
+                          MemorySize: options.MemorySize,
+                          Role:
+                            parameters && parameters.includes('Role')
+                              ? Ref(`${name}Role`)
+                              : options.Role,
+                          Runtime: options.Runtime,
+                          Timeout: options.Timeout,
+                          // Tags: options.Tags ? options.Tags.length > 0 : null
+                        })
+                      )
+                      .putOut(name, `${name}LambdaFunctionOutput`);
                     res({
                       Template: t.build(),
-                      Zip: blob
+                      Zip: blob,
                     });
                   });
                 });

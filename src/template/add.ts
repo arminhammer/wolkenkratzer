@@ -36,8 +36,7 @@ function _add(
     | IDeletionPolicy
     | IResourceMetadata
     | IDependsOn
-    | IUpdatePolicy,
-  options?: IAddOptions
+    | IUpdatePolicy
 ): ITemplate {
   const _t = cloneDeep(template);
   switch (e.kind) {
@@ -62,44 +61,7 @@ function _add(
     case 'Resource':
       let newT = _t;
       const f: any = cloneDeep(e);
-      if (options) {
-        const nameSplit = f.Type.split('::').splice(1);
-        const shortName = nameSplit.join('');
-        if (options.Parameters) {
-          options.Parameters.map(p => {
-            const paramName = `${f.Name}${shortName}Param`;
-            if (!f.Properties) {
-              f.Properties = {};
-            }
-            f.Properties[p] = Ref(paramName);
-            newT = _addParameter(
-              newT,
-              Parameter(paramName, {
-                Type: 'String',
-              })
-            );
-          });
-        }
-        newT = _addResource(newT, f);
-        if (options.Output) {
-          newT = _addOutput(
-            newT,
-            Output(`${f.Name}${shortName}Output`, {
-              Condition: f.Condition,
-              Export: {
-                Name: FnSub(
-                  `\$\{${Pseudo.AWS_STACK_NAME}\}-${nameSplit[0]}-${
-                    nameSplit[1]
-                  }-${f.Name}`
-                ),
-              },
-              Value: Ref(f.Name),
-            })
-          );
-        }
-      } else {
-        newT = _addResource(_t, f);
-      }
+      newT = _addResource(_t, f);
       return newT;
     case 'Description':
       return _addDescription(_t, e);

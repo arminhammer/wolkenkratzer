@@ -9,14 +9,16 @@
 Wolkenkratzer is a Javascript library that allows you to programmatically generate AWS CloudFormation templates. It can import and modify existing templates, create
 templates based off of existing resources in AWS, and output templates in JSON and Yaml.
 
-The library targets 100% feature parity with CloudFormation. This is accomplished by using the CloudFormation Resource Specification.
+## CloudFormation Resource support
 
-Wolkenkratzer's API is designed around immutable Template objects, and action functions that take an existing Template object and return a new one, without mutating the existing one. This allows for techniques such as method chaining:
+The library uses the CloudFormation Resource Specification to achieve 100% feature parity with CloudFormation. The specification is parsed by Wolkenkratzer at runtime, so adding support for new Cloudformation resources only requires updating the spec file.
+
+In Wolkenkratzer, Templates are always immutable objects. When you call one of the methods in the Template API, it will return a new and immutable Template object. This allows you to chain multiple API calls together in a row. The following code shows how this works in practice:
 
 ```javascript
 const { Template, Output, S3, Ref } = require('wolkenkratzer');
 
-let t = Template()
+const t = Template()
   .add(S3.Bucket('Bucket'))
   .add(Output('BucketName', { Value: Ref('Bucket') }));
 
@@ -43,6 +45,8 @@ Results in:
   }
 }
 ```
+
+Calling `javascript Template()` returns an empty Template object. The line `javascript .add(S3.Bucket('Bucket'))` returns a new Template object with an S3 Bucket, and the `javascript .add(Output('BucketName', { Value: Ref('Bucket') }));`adds an output block.
 
 When adding resources to the template, you can optionally have an Output block and (string) Parameters created automatically in one call:
 
