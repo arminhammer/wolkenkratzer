@@ -11,6 +11,7 @@ sudo: false
 install:
 - yarn
 before_script:
+  - npm install -g npm@'>=4'
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
@@ -21,6 +22,7 @@ script:
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 deploy:
+  skip_cleanup: true
   provider: npm
   email:
     secure: RtQv05H/dvYAQFnNkUU2d5dDxtH+b6CjsclIsYGWnuT6QUZmX/1eqcvUXsw3kxrcgU80eQ7tsulAnsBTesTPFjl6Uol/xjozwNeYK72UmLX28colbEKhiGondyCAAVOqo7bhpcgscZi3Q3DhjyXf+/DIwwrwfXb3cq3+xgK9nw8lE9f/WtrkJham4iXUFwAqUIW6PDJzfMFgFAF8R41JaUXkHKJqTMkCkjQlZNm4dBFwri2646n9NX77HaeqefvxKCf9HBM/yiLNHlzNGyRxB881ItyvMzVaOltK5A897SNOfk7o3kFyld34f51dw4mi3CF5uaiqSpS5F01lk0k+BDevGGrZFZwy4U0SJWlikw+nt0zyaP6r1YutyA0lSEnC8u5yzudV8dXAGSXd/+OZK4u/G9+0MwnB3C1SC4xWJLsC8ogwOK20pbSb9HrVLl00u6c1T82zuyvTX79KsIcra4HdyZrqtYLFY8pd+Eiw1p2F9owXgQ5JT/q1ZeAsWhQNvFQxWEhTFpvoy3fPEErKY5zomPhtOrz+0Zf7kKAXYsrmkHMXtaq6pcQIMTh1vry4wszrfMhkh4GeVjNJNJSqML/+q4mqSSFSrWFr50/0FFZPZLbP3PuYXpUUA8mZv9ej+O4lsrmg6huDR2uKUraz10uyTWG8rCj0yGpingiC9Ro=
