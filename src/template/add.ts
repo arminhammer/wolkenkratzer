@@ -4,7 +4,6 @@ import { Parameter } from '../elements/parameter';
 import { FnGetAtt, FnSub, Ref } from '../intrinsic';
 import { Pseudo } from '../pseudo';
 import {
-  IAddOptions,
   ICondition,
   ICreationPolicy,
   IDeletionPolicy,

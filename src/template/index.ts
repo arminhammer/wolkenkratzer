@@ -8,7 +8,6 @@ import { Pseudo } from '../pseudo';
 import * as stubs from '../spec/spec';
 // import { IMetadata } from './elements/metadata';
 import {
-  IAddOptions,
   ICreationPolicy,
   IDeletionPolicy,
   IDependsOn,
