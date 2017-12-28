@@ -399,6 +399,7 @@ export interface ITemplate {
   readonly remove: Function;
   readonly removeDescription: Function;
   readonly build: () => object;
+  readonly json: () => string;
   readonly merge: Function;
   readonly import: Function;
   readonly has: Function;

@@ -125,6 +125,13 @@ export function Template(): ITemplate {
     },
     kind: 'Template',
     /**
+     * Returns the Template as JSON string
+     */
+    json: function(): string {
+      const tObject = this.build();
+      return JSON.stringify(tObject, null, 2);
+    },
+    /**
      * Merges another Template object into another. The original Template objects are not mutated.
      * Returns a new Template object that is the product of the two original Template objects.
      */

@@ -11,6 +11,8 @@ templates based off of existing resources in AWS, and output templates in JSON a
 
 ## Who this is for
 
+TODO
+
 # Features
 
 ## CloudFormation Resource support
@@ -23,7 +25,11 @@ Wolkenkratzer Template methods perform validation to ensure that valid templates
 
 ### Resource validation
 
+TODO
+
 ### Template validation
+
+TODO
 
 ## Template manipulation
 
@@ -79,6 +85,8 @@ readFile('./s3.json', (err, data) => {
 At this time only JSON templates are supported with the import() function.
 
 ## Generate CloudFormation templates based off of existing AWS resources
+
+TODO
 
 # Template API
 
@@ -190,36 +198,90 @@ SyntaxError: ImageId is required but is not present in Instance
 
 ### Add a Parameter
 
+TODO
+
 ### Add an Output
+
+TODO
+
+### Add a Mapping
+
+TODO
+
+### Add a Condition
+
+TODO
+
+### Add a CreationPolicy
+
+TODO
+
+### Add a UpdatePolicy
+
+TODO
+
+### Add a DeletionPolicy
+
+TODO
+
+### Add a DependsOn
+
+TODO
+
+### Add a Metadata to a Resource
+
+TODO
 
 ## remove
 
+TODO
+
 ## removeDescription
+
+TODO
 
 ## build
 
+TODO
+
 ## merge
+
+TODO
 
 ## import
 
+TODO
+
 ## has
+
+TODO
 
 ## parameterize
 
+TODO
+
 ## putOut
+
+TODO
 
 ## set
 
+TODO
+
+## json
+
+TODO
+
 ## yaml
 
+TODO
+
 # Transform API
+
+TODO
 
 # Examples
 
 Please see the examples/ folder for real and tested examples on how to use the library.
 
 # API Documentation
-
-```
-
-```
