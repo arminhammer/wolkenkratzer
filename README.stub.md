@@ -13,6 +13,13 @@ templates based off of existing resources in AWS, and output templates in JSON a
 
 TODO
 
+```javascript
+```
+
+```json
+
+```
+
 # Features
 
 ## CloudFormation Resource support
@@ -27,9 +34,23 @@ Wolkenkratzer Template methods perform validation to ensure that valid templates
 
 TODO
 
+```javascript
+```
+
+```json
+
+```
+
 ### Template validation
 
 TODO
+
+```javascript
+```
+
+```json
+
+```
 
 ## Template manipulation
 
@@ -87,6 +108,81 @@ At this time only JSON templates are supported with the import() function.
 ## Generate CloudFormation templates based off of existing AWS resources
 
 TODO
+
+```javascript
+```
+
+```json
+
+```
+
+# Template elements
+
+## Resource
+
+TODO
+
+```javascript
+```
+
+```json
+
+```
+
+## Parameter
+
+TODO
+
+```javascript
+```
+
+```json
+
+```
+
+## Output
+
+TODO
+
+```javascript
+```
+
+```json
+
+```
+
+## Condition
+
+TODO
+
+```javascript
+```
+
+```json
+
+```
+
+## Mapping
+
+TODO
+
+```javascript
+```
+
+```json
+
+```
+
+## Description
+
+TODO
+
+```javascript
+```
+
+```json
+
+```
 
 # Template API
 
@@ -200,85 +296,512 @@ SyntaxError: ImageId is required but is not present in Instance
 
 TODO
 
+```javascript
+```
+
+```json
+
+```
+
 ### Add an Output
 
 TODO
+
+```javascript
+```
+
+```json
+
+```
 
 ### Add a Mapping
 
 TODO
 
+```javascript
+```
+
+```json
+
+```
+
 ### Add a Condition
 
 TODO
+
+```javascript
+```
+
+```json
+
+```
+
+### Add a Description
+
+```javascript
+const { Description, EC2, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    EC2.Instance('Instance', {
+      ImageId: 'ami-12345678',
+      InstanceType: 't2-micro',
+    })
+  )
+  .add(Description('This is a sample template'));
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-micro"
+      }
+    }
+  },
+  "Description": "This is a sample template"
+}
+```
 
 ### Add a CreationPolicy
 
 TODO
 
+```javascript
+```
+
+```json
+
+```
+
 ### Add a UpdatePolicy
 
 TODO
+
+```javascript
+```
+
+```json
+
+```
 
 ### Add a DeletionPolicy
 
 TODO
 
+```javascript
+```
+
+```json
+
+```
+
 ### Add a DependsOn
 
 TODO
+
+```javascript
+```
+
+```json
+
+```
 
 ### Add a Metadata to a Resource
 
 TODO
 
+```javascript
+```
+
+```json
+
+```
+
 ## remove
 
-TODO
+The `remove()` method will remove any element in the template and returns a new Template object. The method takes a single parameter, which is the logical name of the element in the template as a string:
+
+```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    EC2.Instance('Instance', {
+      ImageId: 'ami-12345678',
+      InstanceType: 't2-micro',
+    })
+  )
+  .remove('Instance');
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {}
+}
+```
+
+The method alternatively accepts an element object (Resource, Parameter, Output, etc) as the argument:
+
+```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const instance = EC2.Instance('Instance', {
+  ImageId: 'ami-12345678',
+  InstanceType: 't2-micro',
+});
+
+const t = Template()
+  .add(instance)
+  .remove('Instance');
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {}
+}
+```
 
 ## removeDescription
 
-TODO
+You can call the `removeDescription()` method to remove a template description that was previously added. The method takes no arguments:
+
+```javascript
+const { Description, EC2, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    EC2.Instance('Instance', {
+      ImageId: 'ami-12345678',
+      InstanceType: 't2-micro',
+    })
+  )
+  .add(Description('This is a sample template'))
+  .removeDescription();
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-micro"
+      }
+    }
+  }
+}
+```
 
 ## build
 
-TODO
+A Wolkenkratzer Template object contains some metadata to make certain internal things possible, but are not valid CloudFormation. Use the `build()` method to return a Javascript object that is a valid CloudFormation template when stringified:
+
+```javascript
+const { Description, EC2, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    EC2.Instance('Instance', {
+      ImageId: 'ami-12345678',
+      InstanceType: 't2-micro',
+    })
+  )
+  .add(Description('This is a sample template'))
+  .removeDescription();
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-micro"
+      }
+    }
+  }
+}
+```
 
 ## merge
 
-TODO
+The `merge()` method takes a Template object as a parameter and adds the contents to the existing template object:
+
+```javascript
+const { EC2, S3, Template } = require('wolkenkratzer');
+
+const t0 = Template().add(
+  EC2.Instance('Instance', {
+    ImageId: 'ami-12345678',
+    InstanceType: 't2-micro',
+  })
+);
+
+const t1 = Template()
+  .add(S3.Bucket('Bucket'))
+  .merge(t0);
+
+console.log(JSON.stringify(t1.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Bucket": {
+      "Type": "AWS::S3::Bucket"
+    },
+    "Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-micro"
+      }
+    }
+  }
+}
+```
 
 ## import
 
-TODO
+The `import()` method takes an existing template in as a parameter and adds its contents to the Template object:
+
+```javascript
+const { Template } = require('wolkenkratzer');
+const { readFile } = require('fs');
+
+readFile('./s3.json', (err, data) => {
+  const templ = JSON.parse(data.toString());
+  const t = Template().import(templ);
+  console.log(JSON.stringify(t.build(), null, 2));
+});
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Bucket": {
+      "Type": "AWS::S3::Bucket"
+    }
+  },
+  "Outputs": {
+    "Bucket": {
+      "Description": "The Bucket S3 Bucket",
+      "Value": {
+        "Ref": "Bucket"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-S3-Bucket-Bucket"
+        }
+      }
+    }
+  }
+}
+```
+
+Any cloudformation template should be importable, but if you run into any issues please open up an issue and report the problem.
 
 ## has
 
-TODO
+The `has()` method checks whether something exists in a Template. The method returns a boolean value, true if the Template contains the item, false if it does not. This is one of the few Template API methods that does not return a Template object.
+
+```javascript
+```
+
+```json
+
+```
 
 ## parameterize
 
-TODO
+The `parameterize()` method is a convenience method that converts a Resource attribute into a Parameter, and sets the attribute to a Ref of the parameter:
+
+```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    EC2.Instance('MyInstance', {
+      ImageId: 'ami-12345678',
+      InstanceType: 't2-micro',
+    })
+  )
+  .parameterize('MyInstance.InstanceType');
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "MyInstance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": {
+          "Ref": "MyInstanceInstanceType"
+        }
+      }
+    }
+  },
+  "Parameters": {
+    "MyInstanceInstanceType": {
+      "Type": "String"
+    }
+  }
+}
+```
 
 ## putOut
 
-TODO
+Similar to `parameterize()`, the `putOut()` method takes a Resource attribute as a parameter and turns it into an Output:
+
+```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    EC2.Instance('MyInstance', {
+      ImageId: 'ami-12345678',
+      InstanceType: 't2-micro',
+    })
+  )
+  .putOut('MyInstance.InstanceType');
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "MyInstance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-micro"
+      }
+    }
+  },
+  "Outputs": {
+    "MyInstanceInstanceType": {
+      "Description": "The InstanceType of the MyInstance EC2 Instance",
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-EC2-Instance-MyInstance-InstanceType"
+        }
+      },
+      "Value": {
+        "Ref": "MyInstance"
+      }
+    }
+  }
+}
+```
 
 ## set
 
 TODO
 
+```javascript
+```
+
+```json
+
+```
+
 ## json
 
-TODO
+The `json()` method returns the template as a CloudFormation-compatible JSON-formatted string:
+
+```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const t = Template().add(
+  EC2.Instance('Instance', {
+    ImageId: 'ami-12345678',
+    InstanceType: 't2-micro',
+  })
+);
+console.log(t.json());
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-micro"
+      }
+    }
+  }
+}
+```
 
 ## yaml
 
-TODO
+The `yaml()` method returns the template as a CloudFormation-compatible YAML-formatted string:
+
+```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const t = Template().add(
+  EC2.Instance('Instance', {
+    ImageId: 'ami-12345678',
+    InstanceType: 't2-micro',
+  })
+);
+
+console.log(t.yaml());
+```
+
+```yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: ami-12345678
+      InstanceType: t2-micro
+```
 
 # Transform API
 
 TODO
+
+```javascript
+```
+
+```json
+
+```
 
 # Examples
 
