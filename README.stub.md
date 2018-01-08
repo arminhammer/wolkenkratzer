@@ -120,80 +120,6 @@ TODO
 
 ## Resource
 
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
-## Parameter
-
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
-## Output
-
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
-## Condition
-
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
-## Mapping
-
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
-## Description
-
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
-# Template API
-
-## add
-
-The `add()` method adds a new element to the template, and returns a new Template object. You can use the add method to add Resources, Parameters, Outputs, Conditions, the template Description, and Mappings.
-
-You can also use `add()` to add a CreationPolicy, UpdatePolicy, DeletionPolicy, Metadata block to a Resource element.
-
-### Add a Resource
-
 Wolkenkratzer exports all of the AWS services as objects which you can import. Each resource for that service has a corresponding method. The method has two arguments: 1) the logical name of the resource, and 2) the properties of the resource. In the following example, an EC2 instance is created with a logical name Instance, and ImageId and InstanceType property values:
 
 ```javascript
@@ -202,7 +128,7 @@ const { EC2, Template } = require('wolkenkratzer');
 const t = Template().add(
   EC2.Instance('Instance', {
     ImageId: 'ami-12345678',
-    InstanceType: 't2-micro',
+    InstanceType: 't2-micro'
   })
 );
 
@@ -224,150 +150,7 @@ console.log(JSON.stringify(t.build(), null, 2));
 }
 ```
 
-The `add()` method also supports arrays of Resources:
-
-```javascript
-const { EC2, Template } = require('wolkenkratzer');
-
-const instances = [
-  { ImageId: 'ami-12345678', suffix: 'Web' },
-  { ImageId: 'ami-23456789', suffix: 'Cache' },
-  { ImageId: 'ami-34567890', suffix: 'App' },
-];
-
-const t = Template().add(
-  instances.map(i =>
-    EC2.Instance(`Instance${i.suffix}`, {
-      ImageId: i.ImageId,
-      InstanceType: 't2-micro',
-    })
-  )
-);
-
-console.log(JSON.stringify(t.build(), null, 2));
-```
-
-```json
-{
-  "AWSTemplateFormatVersion": "2010-09-09",
-  "Resources": {
-    "InstanceWeb": {
-      "Type": "AWS::EC2::Instance",
-      "Properties": {
-        "ImageId": "ami-12345678",
-        "InstanceType": "t2-micro"
-      }
-    },
-    "InstanceCache": {
-      "Type": "AWS::EC2::Instance",
-      "Properties": {
-        "ImageId": "ami-23456789",
-        "InstanceType": "t2-micro"
-      }
-    },
-    "InstanceApp": {
-      "Type": "AWS::EC2::Instance",
-      "Properties": {
-        "ImageId": "ami-34567890",
-        "InstanceType": "t2-micro"
-      }
-    }
-  }
-}
-```
-
-#### Resource validation
-
-When you create a resource, Wolkenkratzer will validate whether the resource is valid. If it is invalid, an Error will be thrown. For example, if you try to create an EC2 instance without an ImageId (which is required), the method will fail:
-
-```javascript
-const { EC2, Template } = require('wolkenkratzer');
-
-const t = Template().add(EC2.Instance('Instance'));
-
-console.log(JSON.stringify(t.build(), null, 2));
-```
-
-```bash
-SyntaxError: ImageId is required but is not present in Instance
-```
-
-### Add a Parameter
-
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
-### Add an Output
-
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
-### Add a Mapping
-
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
-### Add a Condition
-
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
-### Add a Description
-
-```javascript
-const { Description, EC2, Template } = require('wolkenkratzer');
-
-const t = Template()
-  .add(
-    EC2.Instance('Instance', {
-      ImageId: 'ami-12345678',
-      InstanceType: 't2-micro',
-    })
-  )
-  .add(Description('This is a sample template'));
-
-console.log(JSON.stringify(t.build(), null, 2));
-```
-
-```json
-{
-  "AWSTemplateFormatVersion": "2010-09-09",
-  "Resources": {
-    "Instance": {
-      "Type": "AWS::EC2::Instance",
-      "Properties": {
-        "ImageId": "ami-12345678",
-        "InstanceType": "t2-micro"
-      }
-    }
-  },
-  "Description": "This is a sample template"
-}
-```
+### Resource Attributes
 
 ### Add a CreationPolicy
 
@@ -424,6 +207,263 @@ TODO
 
 ```
 
+## Parameter
+
+Template Parameters are supported. The first parameter of the Parameter function is the logical name of the Parameter, and the second is an object that defines the attributes of the Parameter (i.e Type, Default):
+
+```javascript
+const { EC2, Parameter, Ref, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    Parameter('IType', {
+      Type: 'String'
+    })
+  )
+  .add(
+    EC2.Instance('Instance', {
+      ImageId: 'ami-12345678',
+      InstanceType: Ref('IType')
+    })
+  );
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": {
+          "Ref": "IType"
+        }
+      }
+    }
+  },
+  "Parameters": {
+    "IType": {
+      "Type": "String"
+    }
+  }
+}
+```
+
+## Output
+
+TODO
+
+```javascript
+const { EC2, Output, Ref, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    EC2.Instance('Instance', {
+      ImageId: 'ami-12345678',
+      InstanceType: 't2-micro'
+    })
+  )
+  .add(
+    Output('InstanceOutput', {
+      Name: 'InstanceOutput',
+      Value: Ref('Instance')
+    })
+  );
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-micro"
+      }
+    }
+  },
+  "Outputs": {
+    "InstanceOutput": {
+      "Name": "InstanceOutput",
+      "Value": {
+        "Ref": "Instance"
+      }
+    }
+  }
+}
+```
+
+## Condition
+
+TODO
+
+```javascript
+```
+
+```json
+
+```
+
+## Mapping
+
+TODO
+
+```javascript
+```
+
+```json
+
+```
+
+## Description
+
+TODO
+
+```javascript
+const { EC2, Description, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    EC2.Instance('Instance', {
+      ImageId: 'ami-12345678',
+      InstanceType: 't2-micro'
+    })
+  )
+  .add(Description('This is a sample description'));
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-micro"
+      }
+    }
+  },
+  "Description": "This is a sample description"
+}
+```
+
+# Template API
+
+## add
+
+The `add()` method adds a new element to the template, and returns a new Template object. You can use the add method to add Resources, Parameters, Outputs, Conditions, the template Description, and Mappings.
+
+You can also use `add()` to add a CreationPolicy, UpdatePolicy, DeletionPolicy, Metadata block to a Resource element.
+
+### Add a Resource
+
+Wolkenkratzer exports all of the AWS services as objects which you can import. Each resource for that service has a corresponding method. The method has two arguments: 1) the logical name of the resource, and 2) the properties of the resource. In the following example, an EC2 instance is created with a logical name Instance, and ImageId and InstanceType property values:
+
+```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const t = Template().add(
+  EC2.Instance('Instance', {
+    ImageId: 'ami-12345678',
+    InstanceType: 't2-micro'
+  })
+);
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-micro"
+      }
+    }
+  }
+}
+```
+
+The `add()` method also supports arrays of Resources:
+
+```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const instances = [
+  { ImageId: 'ami-12345678', suffix: 'Web' },
+  { ImageId: 'ami-23456789', suffix: 'Cache' },
+  { ImageId: 'ami-34567890', suffix: 'App' }
+];
+
+const t = Template().add(
+  instances.map(i =>
+    EC2.Instance(`Instance${i.suffix}`, {
+      ImageId: i.ImageId,
+      InstanceType: 't2-micro'
+    })
+  )
+);
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```json
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "InstanceWeb": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-micro"
+      }
+    },
+    "InstanceCache": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-23456789",
+        "InstanceType": "t2-micro"
+      }
+    },
+    "InstanceApp": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-34567890",
+        "InstanceType": "t2-micro"
+      }
+    }
+  }
+}
+```
+
+#### Resource validation
+
+When you create a resource, Wolkenkratzer will validate whether the resource is valid. If it is invalid, an Error will be thrown. For example, if you try to create an EC2 instance without an ImageId (which is required), the method will fail:
+
+```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const t = Template().add(EC2.Instance('Instance'));
+
+console.log(JSON.stringify(t.build(), null, 2));
+```
+
+```bash
+SyntaxError: ImageId is required but is not present in Instance
+```
+
 ## remove
 
 The `remove()` method will remove any element in the template and returns a new Template object. The method takes a single parameter, which is the logical name of the element in the template as a string:
@@ -435,7 +475,7 @@ const t = Template()
   .add(
     EC2.Instance('Instance', {
       ImageId: 'ami-12345678',
-      InstanceType: 't2-micro',
+      InstanceType: 't2-micro'
     })
   )
   .remove('Instance');
@@ -457,7 +497,7 @@ const { EC2, Template } = require('wolkenkratzer');
 
 const instance = EC2.Instance('Instance', {
   ImageId: 'ami-12345678',
-  InstanceType: 't2-micro',
+  InstanceType: 't2-micro'
 });
 
 const t = Template()
@@ -485,7 +525,7 @@ const t = Template()
   .add(
     EC2.Instance('Instance', {
       ImageId: 'ami-12345678',
-      InstanceType: 't2-micro',
+      InstanceType: 't2-micro'
     })
   )
   .add(Description('This is a sample template'))
@@ -520,7 +560,7 @@ const t = Template()
   .add(
     EC2.Instance('Instance', {
       ImageId: 'ami-12345678',
-      InstanceType: 't2-micro',
+      InstanceType: 't2-micro'
     })
   )
   .add(Description('This is a sample template'))
@@ -554,7 +594,7 @@ const { EC2, S3, Template } = require('wolkenkratzer');
 const t0 = Template().add(
   EC2.Instance('Instance', {
     ImageId: 'ami-12345678',
-    InstanceType: 't2-micro',
+    InstanceType: 't2-micro'
   })
 );
 
@@ -629,10 +669,20 @@ Any cloudformation template should be importable, but if you run into any issues
 The `has()` method checks whether something exists in a Template. The method returns a boolean value, true if the Template contains the item, false if it does not. This is one of the few Template API methods that does not return a Template object.
 
 ```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const t = Template().add(
+  EC2.Instance('Instance', {
+    ImageId: 'ami-12345678',
+    InstanceType: 't2-micro'
+  })
+);
+
+console.log(t.has('Instance'));
 ```
 
 ```json
-
+true
 ```
 
 ## parameterize
@@ -646,7 +696,7 @@ const t = Template()
   .add(
     EC2.Instance('MyInstance', {
       ImageId: 'ami-12345678',
-      InstanceType: 't2-micro',
+      InstanceType: 't2-micro'
     })
   )
   .parameterize('MyInstance.InstanceType');
@@ -687,7 +737,7 @@ const t = Template()
   .add(
     EC2.Instance('MyInstance', {
       ImageId: 'ami-12345678',
-      InstanceType: 't2-micro',
+      InstanceType: 't2-micro'
     })
   )
   .putOut('MyInstance.InstanceType');
@@ -744,7 +794,7 @@ const { EC2, Template } = require('wolkenkratzer');
 const t = Template().add(
   EC2.Instance('Instance', {
     ImageId: 'ami-12345678',
-    InstanceType: 't2-micro',
+    InstanceType: 't2-micro'
   })
 );
 console.log(t.json());
@@ -775,7 +825,7 @@ const { EC2, Template } = require('wolkenkratzer');
 const t = Template().add(
   EC2.Instance('Instance', {
     ImageId: 'ami-12345678',
-    InstanceType: 't2-micro',
+    InstanceType: 't2-micro'
   })
 );
 
