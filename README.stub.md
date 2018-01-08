@@ -13,13 +13,6 @@ templates based off of existing resources in AWS, and output templates in JSON a
 
 TODO
 
-```javascript
-```
-
-```json
-
-```
-
 # Features
 
 ## CloudFormation Resource support
@@ -32,24 +25,45 @@ Wolkenkratzer Template methods perform validation to ensure that valid templates
 
 ### Resource validation
 
-TODO
+When you create a resource, Wolkenkratzer will validate whether the resource is valid. If it is invalid, an Error will be thrown. For example, if you try to create an EC2 instance without an ImageId (which is required), the method will fail:
 
 ```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const t = Template().add(EC2.Instance('Instance'));
+
+console.log(JSON.stringify(t.build(), null, 2));
 ```
 
-```json
-
+```bash
+SyntaxError: ImageId is required but is not present in Instance
 ```
 
 ### Template validation
 
-TODO
+Template validations that ensure that the template is logically correct and valid are also done. For example, creating a Ref to a Parameter that does not exist in the template throws an error:
 
 ```javascript
+const { EC2, Parameter, Ref, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    Parameter('IType', {
+      Type: 'String'
+    })
+  )
+  .add(
+    EC2.Instance('Instance', {
+      ImageId: 'ami-12345678',
+      InstanceType: Ref('YType')
+    })
+  );
+
+console.log(JSON.stringify(t.build(), null, 2));
 ```
 
-```json
-
+```bash
+SyntaxError: Could not find {"kind":"Ref","Ref":"YType"}
 ```
 
 ## Template manipulation
@@ -107,13 +121,137 @@ At this time only JSON templates are supported with the import() function.
 
 ## Generate CloudFormation templates based off of existing AWS resources
 
-TODO
+The `Transform` API makes AWS SDK calls to your account to read the state of a given resource, and returns a Wolkenkratzer resource that can be added to a Template. The first parameter is the name of the resource in your account. The second parameter is the SDK service object that will make the API calls (provided by the user so that it can be configured as needed to set proxy, region, etc). The third parameter is the logical name of the resulting resource, but this is optional.
+
+Please note that this API is not yet complete, and not all resources are supported at this time.
 
 ```javascript
+const { Template, Transform } = require('wolkenkratzer');
+const AWS = require('aws-sdk');
+AWS.config.region = 'us-east-1';
+const S3 = new AWS.S3();
+const EC2 = new AWS.EC2();
+
+async function buildTemplate() {
+  const policy = await Transform.S3.BucketPolicy(
+    'arminhammer-bucket',
+    S3,
+    'Policy'
+  );
+  const bucket = await Transform.S3.Bucket(
+    'arminhammer-test-bucket',
+    S3,
+    'Bucket'
+  );
+  const egress = await Transform.EC2.EgressOnlyInternetGateway(
+    'eigw-11114ea8cb7e777c5',
+    AWS,
+    'EgressInternetGateway'
+  );
+  const t = Template()
+    .add(policy)
+    .add(bucket)
+    .add(egress);
+  console.log(JSON.stringify(t.build(), null, 2));
+}
+
+buildTemplate();
 ```
 
 ```json
-
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Policy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": "arminhammer-cloudtrail",
+        "PolicyDocument":
+          "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"AWSCloudTrailAclCheck20150319\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"cloudtrail.amazonaws.com\"},\"Action\":\"s3:GetBucketAcl\",\"Resource\":\"arn:aws:s3:::arminhammer-bucket\"},{\"Sid\":\"AWSCloudTrailWrite20150319\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"cloudtrail.amazonaws.com\"},\"Action\":\"s3:PutObject\",\"Resource\":\"arn:aws:s3:::arminhammer-bucket/AWSLogs/01234567890/*\",\"Condition\":{\"StringEquals\":{\"s3:x-amz-acl\":\"bucket-owner-full-control\"}}}]}"
+      }
+    },
+    "Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "arminhammer-test-bucket",
+        "VersioningConfiguration": {
+          "Status": "Enabled"
+        },
+        "CorsConfiguration": {
+          "CORSRules": [
+            {
+              "MaxAge": 3000
+            },
+            {
+              "MaxAge": 3000
+            }
+          ]
+        },
+        "LoggingConfiguration": {
+          "DestinationBucketName": "logging.bucket.com",
+          "LogFilePrefix": "wk/"
+        },
+        "Tags": [
+          {
+            "Key": "Key1",
+            "Value": "Key1"
+          },
+          {
+            "Key": "Key0",
+            "Value": "Value0"
+          }
+        ],
+        "WebsiteConfiguration": {
+          "RedirectAllRequestsTo": {
+            "HostName": "cache.bucket.com",
+            "Protocol": "https"
+          },
+          "RoutingRules": []
+        },
+        "AccessControl": {
+          "Owner": {
+            "DisplayName": "arminhammer",
+            "ID":
+              "892781d54cee55f628a83c3c111162b42d6183f987d97ccbbc6cbe43095aa0ce"
+          },
+          "Grants": [
+            {
+              "Grantee": {
+                "DisplayName": "arminhammer",
+                "ID":
+                  "892781d54cee55f628a83c3c111162b42d6183f987d97ccbbc6cbe43095aa0ce",
+                "Type": "CanonicalUser"
+              },
+              "Permission": "FULL_CONTROL"
+            },
+            {
+              "Grantee": {
+                "Type": "Group",
+                "URI":
+                  "http://acs.amazonaws.com/groups/global/AuthenticatedUsers"
+              },
+              "Permission": "READ"
+            },
+            {
+              "Grantee": {
+                "Type": "Group",
+                "URI":
+                  "http://acs.amazonaws.com/groups/global/AuthenticatedUsers"
+              },
+              "Permission": "READ_ACP"
+            }
+          ]
+        }
+      }
+    },
+    "EgressInternetGateway": {
+      "Type": "AWS::EC2::EgressOnlyInternetGateway",
+      "Properties": {
+        "VpcId": "vpc-de45c711"
+      }
+    }
+  }
+}
 ```
 
 # Template elements
@@ -448,22 +586,6 @@ console.log(JSON.stringify(t.build(), null, 2));
 }
 ```
 
-#### Resource validation
-
-When you create a resource, Wolkenkratzer will validate whether the resource is valid. If it is invalid, an Error will be thrown. For example, if you try to create an EC2 instance without an ImageId (which is required), the method will fail:
-
-```javascript
-const { EC2, Template } = require('wolkenkratzer');
-
-const t = Template().add(EC2.Instance('Instance'));
-
-console.log(JSON.stringify(t.build(), null, 2));
-```
-
-```bash
-SyntaxError: ImageId is required but is not present in Instance
-```
-
 ## remove
 
 The `remove()` method will remove any element in the template and returns a new Template object. The method takes a single parameter, which is the logical name of the element in the template as a string:
@@ -775,13 +897,36 @@ console.log(JSON.stringify(t.build(), null, 2));
 
 ## set
 
-TODO
+The `set()` method allows you to set a new value to an attribute in an element in the Template (Resource, Parameter, etc). The first parameter is a string with the name of the element and the attribute name, separated by a period. The second parameter is the new value of the attribute. The method returns a new Template object.
 
 ```javascript
+const { EC2, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    EC2.Instance('Instance', {
+      ImageId: 'ami-12345678',
+      InstanceType: 't2-micro'
+    })
+  )
+  .set('Instance.InstanceType', 't2-nano');
+
+console.log(JSON.stringify(t.build(), null, 2));
 ```
 
 ```json
-
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-12345678",
+        "InstanceType": "t2-nano"
+      }
+    }
+  }
+}
 ```
 
 ## json
