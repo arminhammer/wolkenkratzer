@@ -11,9 +11,9 @@ templates based off of existing resources in AWS, and output templates in JSON a
 
 ## Who this is for
 
-TODO
+AWS CloudFormation is a great tool for defining your cloud infrastructure in a declarative manner. This is sufficient for one-off projects, but using a generator library like Wolkenkratzer can be very useful if you need dynamically generated templates and have lots of custom logic.
 
-# Features
+Relying on Wolkenkratzer's internal validation can also help catch bugs early in development, which can cut down the number of times you need to launch a stack in CloudFormation during testing.
 
 ## CloudFormation Resource support
 
@@ -292,57 +292,330 @@ console.log(JSON.stringify(t.build(), null, 2));
 
 ### Add a CreationPolicy
 
-TODO
+CreationPolicies are supported with `add()`. The first parameter is the name of the resource in the template that the CreationPolicy is for, and the second is the body of the policy.
 
 ```javascript
+const {
+  AutoScaling,
+  CreationPolicy,
+  FnBase64,
+  FnGetAZs,
+  FnJoin,
+  Pseudo,
+  Ref,
+  Template
+} = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    AutoScaling.LaunchConfiguration('LaunchConfig', {
+      ImageId: 'ami-16d18a7e',
+      InstanceType: 't2.micro',
+      UserData: FnBase64(
+        FnJoin('', [
+          '#!/bin/bash -xe\n',
+          'yum install -y aws-cfn-bootstrap\n',
+          '/opt/aws/bin/cfn-signal -e 0 --stack ',
+          Ref(Pseudo.AWS_STACK_NAME),
+          ' --resource AutoScalingGroup ',
+          ' --region ',
+          Ref(Pseudo.AWS_REGION),
+          '\n'
+        ])
+      )
+    })
+  )
+  .add(
+    AutoScaling.AutoScalingGroup('AutoScalingGroup', {
+      AvailabilityZones: FnGetAZs(),
+      DesiredCapacity: '3',
+      LaunchConfigurationName: Ref('LaunchConfig'),
+      MaxSize: '4',
+      MinSize: '1'
+    })
+  )
+  .add(
+    CreationPolicy('AutoScalingGroup', {
+      ResourceSignal: {
+        Count: '3',
+        Timeout: 'PT15M'
+      }
+    })
+  );
+
+console.log(JSON.stringify(t.build(), null, 2));
 ```
 
 ```json
-
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "LaunchConfig": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "ImageId": "ami-16d18a7e",
+        "InstanceType": "t2.micro",
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash -xe\n",
+                "yum install -y aws-cfn-bootstrap\n",
+                "/opt/aws/bin/cfn-signal -e 0 --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                " --resource AutoScalingGroup ",
+                " --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\n"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "AutoScalingGroup": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "AvailabilityZones": {
+          "Fn::GetAZs": {
+            "Ref": "AWS::Region"
+          }
+        },
+        "DesiredCapacity": "3",
+        "LaunchConfigurationName": {
+          "Ref": "LaunchConfig"
+        },
+        "MaxSize": "4",
+        "MinSize": "1"
+      },
+      "CreationPolicy": {
+        "ResourceSignal": {
+          "Count": "3",
+          "Timeout": "PT15M"
+        }
+      }
+    }
+  }
+}
 ```
 
 ### Add a UpdatePolicy
 
-TODO
+Similar to CreationPolicies, UpdatePolicy blocks are also supported with `add()`. The first parameter is the name of the resource in the template that the UpdatePolicy is for, and the second is the body of the policy.
 
 ```javascript
+const {
+  AutoScaling,
+  FnBase64,
+  FnGetAZs,
+  FnJoin,
+  Pseudo,
+  Ref,
+  Template,
+  UpdatePolicy
+} = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    AutoScaling.LaunchConfiguration('LaunchConfig', {
+      ImageId: 'ami-16d18a7e',
+      InstanceType: 't2.micro',
+      UserData: FnBase64(
+        FnJoin('', [
+          '#!/bin/bash -xe\n',
+          'yum install -y aws-cfn-bootstrap\n',
+          '/opt/aws/bin/cfn-signal -e 0 --stack ',
+          Ref(Pseudo.AWS_STACK_NAME),
+          ' --resource AutoScalingGroup ',
+          ' --region ',
+          Ref(Pseudo.AWS_REGION),
+          '\n'
+        ])
+      )
+    })
+  )
+  .add(
+    AutoScaling.AutoScalingGroup('AutoScalingGroup', {
+      AvailabilityZones: FnGetAZs(),
+      DesiredCapacity: '3',
+      LaunchConfigurationName: Ref('LaunchConfig'),
+      MaxSize: '4',
+      MinSize: '1'
+    })
+  )
+  .add(
+    UpdatePolicy('AutoScalingGroup', {
+      AutoScalingScheduledAction: {
+        IgnoreUnmodifiedGroupSizeProperties: 'true'
+      },
+      AutoScalingRollingUpdate: {
+        MinInstancesInService: '1',
+        MaxBatchSize: '2',
+        PauseTime: 'PT1M',
+        WaitOnResourceSignals: 'true'
+      }
+    })
+  );
+
+console.log(JSON.stringify(t.build(), null, 2));
 ```
 
 ```json
-
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "LaunchConfig": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "ImageId": "ami-16d18a7e",
+        "InstanceType": "t2.micro",
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash -xe\n",
+                "yum install -y aws-cfn-bootstrap\n",
+                "/opt/aws/bin/cfn-signal -e 0 --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                " --resource AutoScalingGroup ",
+                " --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\n"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "AutoScalingGroup": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "AvailabilityZones": {
+          "Fn::GetAZs": {
+            "Ref": "AWS::Region"
+          }
+        },
+        "DesiredCapacity": "3",
+        "LaunchConfigurationName": {
+          "Ref": "LaunchConfig"
+        },
+        "MaxSize": "4",
+        "MinSize": "1"
+      },
+      "UpdatePolicy": {
+        "AutoScalingScheduledAction": {
+          "IgnoreUnmodifiedGroupSizeProperties": "true"
+        },
+        "AutoScalingRollingUpdate": {
+          "MinInstancesInService": "1",
+          "MaxBatchSize": "2",
+          "PauseTime": "PT1M",
+          "WaitOnResourceSignals": "true"
+        }
+      }
+    }
+  }
+}
 ```
 
 ### Add a DeletionPolicy
 
-TODO
+DeletionPolicy blocks are supported with `add()`:
 
 ```javascript
+const { DeletionPolicy, S3, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(S3.Bucket('myS3Bucket'))
+  .add(DeletionPolicy('myS3Bucket', 'Retain'));
+
+console.log(JSON.stringify(t.build(), null, 2));
 ```
 
 ```json
-
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "myS3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain"
+    }
+  }
+}
 ```
 
 ### Add a DependsOn
 
-TODO
+DependsOn blocks can be added to any resource with `add()`:
 
 ```javascript
+const { DependsOn, S3, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(S3.Bucket('firstBucket'))
+  .add(S3.Bucket('secondBucket'))
+  .add(DependsOn('secondBucket', 'firstBucket'));
+
+console.log(JSON.stringify(t.build(), null, 2));
 ```
 
 ```json
-
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "firstBucket": {
+      "Type": "AWS::S3::Bucket"
+    },
+    "secondBucket": {
+      "Type": "AWS::S3::Bucket",
+      "DependsOn": "firstBucket"
+    }
+  }
+}
 ```
 
 ### Add a Metadata to a Resource
 
-TODO
+Metadata blocks can be added to any Resource with the `add()` method. Please not that the in Wolkenkratzer, the type for a Metadata of a Resource is `ResourceMetadata`, to avoid conflicting with the Template `Metadata` block.
 
 ```javascript
+const { ResourceMetadata, S3, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(S3.Bucket('firstBucket'))
+  .add(
+    ResourceMetadata('firstBucket', {
+      Object1: 'Location1',
+      Object2: 'Location2'
+    })
+  );
+
+console.log(JSON.stringify(t.build(), null, 2));
 ```
 
 ```json
-
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "firstBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Metadata": {
+        "Object1": "Location1",
+        "Object2": "Location2"
+      }
+    }
+  }
+}
 ```
 
 ## Parameter
@@ -392,7 +665,7 @@ console.log(JSON.stringify(t.build(), null, 2));
 
 ## Output
 
-TODO
+Template Output blocks are supported and can be added to the Template object with the `add` method. The first parameter is the logical name of the Output block, and the second parameter is an object consisting of the attributes of the Output. Description, Value, Export & Export.Name, and Condition are supported as attribute keys.
 
 ```javascript
 const { EC2, Output, Ref, Template } = require('wolkenkratzer');
@@ -439,29 +712,93 @@ console.log(JSON.stringify(t.build(), null, 2));
 
 ## Condition
 
-TODO
+Template Condition blocks can be added to a Template with the `add()` method. They can then be referenced in Resources:
 
 ```javascript
+const {
+  Condition,
+  FnEquals,
+  Pseudo,
+  Ref,
+  S3,
+  Template
+} = require('wolkenkratzer');
+
+const t = Template()
+  .add(Condition('isProd', FnEquals(Ref(Pseudo.AWS_REGION), 'us-east-1')))
+  .add(S3.Bucket('Bucket', null, { Condition: 'isProd' }));
+
+console.log(JSON.stringify(t.build(), null, 2));
 ```
 
 ```json
-
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Condition": "isProd"
+    }
+  },
+  "Conditions": {
+    "isProd": {
+      "Fn::Equals": [
+        {
+          "Ref": "AWS::Region"
+        },
+        "us-east-1"
+      ]
+    }
+  }
+}
 ```
 
 ## Mapping
 
-TODO
+Template Mapping blocks can be added to a Template with `add()`. The `Mapping()` function takes three arguments. The first one is the top-level mapping group, the second one is the next level, and the third one is the third level with the contents of the map. When putting together a complex Mapping block, you can call `Mapping()` multiple times with the same first and second level keys. The function will continue to add the new blocks to the existing Mapping block.
 
 ```javascript
+const { Mapping, Template } = require('wolkenkratzer');
+
+const t = Template()
+  .add(
+    Mapping('RegionMap', 'us-east-1', {
+      S3hostedzoneID: 'Z3AQBSTGFYJSTF',
+      websiteendpoint: 's3-website-us-east-1.amazonaws.com'
+    })
+  )
+  .add(
+    Mapping('RegionMap', 'us-west-1', {
+      S3hostedzoneID: 'Z2F56UZL2M1ACD',
+      websiteendpoint: 's3-website-us-west-1.amazonaws.com'
+    })
+  );
+
+console.log(JSON.stringify(t.build(), null, 2));
 ```
 
 ```json
-
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {},
+  "Mappings": {
+    "RegionMap": {
+      "us-east-1": {
+        "S3hostedzoneID": "Z3AQBSTGFYJSTF",
+        "websiteendpoint": "s3-website-us-east-1.amazonaws.com"
+      },
+      "us-west-1": {
+        "S3hostedzoneID": "Z2F56UZL2M1ACD",
+        "websiteendpoint": "s3-website-us-west-1.amazonaws.com"
+      }
+    }
+  }
+}
 ```
 
 ## Description
 
-TODO
+Template Descriptions are supported. Add one with `add()`, and remove it with `removeDescription()`.
 
 ```javascript
 const { EC2, Description, Template } = require('wolkenkratzer');
@@ -987,19 +1324,8 @@ Resources:
       InstanceType: t2-micro
 ```
 
-# Transform API
-
-TODO
-
-```javascript
-```
-
-```json
-
-```
-
 # Examples
 
-Please see the examples/ folder for real and tested examples on how to use the library.
+Please see the examples/ folder for real examples on how to use the library. All of the examples are unit tested and verified to run, although not all of them have been tested against AWS CloudFormation recently. If you run into a problem with an example, please open up an issue.
 
 # API Documentation
