@@ -1,3 +1,4 @@
+import { Pseudo } from '../pseudo';
 import * as stubs from '../spec/spec';
 import { IFnGetAtt, IRef, IResource, ITemplate } from '../types';
 
@@ -32,7 +33,9 @@ function _validateFnGetAtt(t: ITemplate, att: IFnGetAtt): void | SyntaxError {
 function _validateRef(t: ITemplate, ref: IRef): void | SyntaxError {
   if (ref.Ref) {
     if (!(t.Parameters[ref.Ref] || t.Resources[ref.Ref])) {
-      throw new SyntaxError(`Could not find ${JSON.stringify(ref)}`);
+      if (!Object.values(Pseudo).includes(ref.Ref)) {
+        throw new SyntaxError(`Could not find ${JSON.stringify(ref)}`);
+      }
     }
   }
   return;
