@@ -11,7 +11,9 @@ export const Pseudo = {
   AWS_ACCOUNT_ID: 'AWS::AccountId',
   AWS_NOTIFICATION_ARNS: 'AWS::NotificationARNs',
   AWS_NO_VALUE: 'AWS::NoValue',
+  AWS_PARTITION: 'AWS::Partition',
   AWS_REGION: 'AWS::Region',
   AWS_STACK_ID: 'AWS::StackId',
-  AWS_STACK_NAME: 'AWS::StackName'
+  AWS_STACK_NAME: 'AWS::StackName',
+  AWS_URL_SUFFIX: 'AWS::URLSuffix'
 };

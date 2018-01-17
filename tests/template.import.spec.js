@@ -17,6 +17,13 @@ describe('Template Imports', () => {
     expect(res).toEqual(tJson);
   });
 
+  test('Can take an existing s3.json Template as a parameter', () => {
+    const tJson = require('../tests/templates/s3.json');
+    const t = Template().import(tJson);
+    let res = t.build();
+    expect(res).toEqual(tJson);
+  });
+
   test('Can correctly import a template that has an ASG and a array ref', () => {
     const tJson = require('../tests/stagingtemplates/asgarray.json');
     const t = Template().import(tJson);

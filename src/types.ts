@@ -394,12 +394,12 @@ export interface ITemplate {
   readonly Resources: { readonly [s: string]: IResource };
   readonly Outputs: { readonly [s: string]: IOutput };
   readonly add: (
-    e: IElement | ICreationPolicy | IResourceMetadata,
-    options?: IAddOptions
+    e: IElement | ICreationPolicy | IResourceMetadata
   ) => ITemplate;
   readonly remove: Function;
   readonly removeDescription: Function;
   readonly build: () => object;
+  readonly json: () => string;
   readonly merge: Function;
   readonly import: Function;
   readonly has: Function;
@@ -407,12 +407,4 @@ export interface ITemplate {
   readonly putOut: Function;
   readonly set: Function;
   readonly yaml: () => string;
-}
-
-/**
- * @hidden
- */
-export interface IAddOptions {
-  Output: boolean;
-  Parameters?: Array<string>;
 }

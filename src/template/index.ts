@@ -8,7 +8,6 @@ import { Pseudo } from '../pseudo';
 import * as stubs from '../spec/spec';
 // import { IMetadata } from './elements/metadata';
 import {
-  IAddOptions,
   ICreationPolicy,
   IDeletionPolicy,
   IDependsOn,
@@ -19,7 +18,7 @@ import {
   IResource,
   IResourceMetadata,
   ITemplate,
-  IUpdatePolicy,
+  IUpdatePolicy
 } from '../types';
 import { _add, _addOutput, _addParameter } from './add';
 import { _json } from './build';
@@ -75,14 +74,14 @@ export function Template(): ITemplate {
     build: function(): object {
       const result: any = {
         AWSTemplateFormatVersion: '2010-09-09',
-        Resources: {},
+        Resources: {}
       };
       const skel = {
         Conditions: this.Conditions,
         Mappings: this.Mappings,
         Outputs: this.Outputs,
         Parameters: this.Parameters,
-        Resources: this.Resources,
+        Resources: this.Resources
       };
       Object.keys(skel).forEach(element => {
         if (Object.keys(skel[element]).length > 0) {
@@ -124,6 +123,13 @@ export function Template(): ITemplate {
       const _t = cloneDeep(this);
       return _calcFromExistingTemplate(_t, inputTemplate);
     },
+    /**
+     * Returns the Template as JSON string
+     */
+    json: function(): string {
+      const tObject = this.build();
+      return JSON.stringify(tObject, null, 2);
+    },
     kind: 'Template',
     /**
      * Merges another Template object into another. The original Template objects are not mutated.
@@ -138,7 +144,7 @@ export function Template(): ITemplate {
         'Outputs',
         'Parameters',
         'Resources',
-        'Description',
+        'Description'
       ].forEach(block => {
         if (t[block]) {
           combined[block] = { ..._t[block], ...t[block] };
@@ -146,7 +152,7 @@ export function Template(): ITemplate {
       });
       return {
         ..._t,
-        ...combined,
+        ...combined
       };
     },
     /**
@@ -201,9 +207,9 @@ export function Template(): ITemplate {
           Condition: result.Resources[resource].Condition,
           Description: descriptionString,
           Export: {
-            Name: FnSub(exportString),
+            Name: FnSub(exportString)
           },
-          Value: Ref(resource),
+          Value: Ref(resource)
         })
       );
       return result;
@@ -268,7 +274,7 @@ export function Template(): ITemplate {
           'UpdatePolicy',
           'DependsOn',
           'CreationPolicy',
-          'DeletionPolicy',
+          'DeletionPolicy'
         ].includes(attribute)
       ) {
         result.Resources[resource][attribute] = newValue;
@@ -282,7 +288,7 @@ export function Template(): ITemplate {
       // const templateString = JSON.stringify(cleanedTemplate, null, 2);
       const templateString = safeDump(cleanedTemplate, {
         flowLevel: 5,
-        schema: cftSchema,
+        schema: cftSchema
       })
         /* See note on 
         http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
@@ -320,6 +326,6 @@ export function Template(): ITemplate {
         "Fn::Split"
         "Fn::Sub"*/
       return templateString;
-    },
+    }
   };
 }
